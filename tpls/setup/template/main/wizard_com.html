@@ -1,0 +1,202 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<title>各種手続き</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="../func00/default00.css" rel="stylesheet" type="text/css">
+<link href="../default.css" rel="stylesheet" type="text/css">
+<TMPL_VAR NAME=GANALY>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function openClose(id,pt,i) {
+		prop = document.getElementById(id).style.display;
+
+//		alert(id+" "+pt+" "+i);
+
+		if(i==0) prop = "none";
+
+		if(prop=="none"){
+				if(pt=="div") document.getElementById(id).style.display="block";
+//						alert("div "+document.getElementById(id).style.display);
+				if(pt=="tr") {
+						if(document.all)	document.getElementById(id).style.display="block";
+						else
+						document.getElementById(id).style.display="table-row";
+//						alert("tr "+document.getElementById(id).style.display);
+				}
+		} else {
+				document.getElementById(id).style.display="none";
+		}
+//		alert(document.getElementById(id).style.display);
+}
+
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
+
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+body {font-size:80%; margin:10px;}
+-->
+</style>
+</head>
+<body bgcolor="#FAFAFA" style="font-size:80% ">
+<a name="top"></a>
+<table width="600"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+
+    <td><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td bgcolor="#EBF0FC" style="padding:10px 10px 30px 10px  "><table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+              <tr>
+                <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0F4071">
+                    <tr>
+                      <td><img src="../imgs/spc.gif"></td>
+                    </tr>
+                </table></td>
+
+                <td align="left" class="midashi">契約者情報の変更、支払方法の変更、決済代行申込等を行います</td>
+              </tr>
+            </table>
+              <img src="../imgs/spc.gif" width="5" height="5">
+              <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td align="left" class="main-table"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+
+                      <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                          <tr>
+                            <td align="center" class="item-name02">ご住所・ご連絡先の変更</td>
+                          </tr>
+                          <tr>
+                            <td class="item02"> 住所や担当者、請求書でお支払いの場合は請求書の送付先住所を変更します。<br>
+                                                ※情報変更画面が表示されるまで、しばらくお待ちください。<br>
+                                <br>
+                                <div align="center">
+				<input type="button" onClick="MM_openBrWindow('../func00/pop-cust-addr.cgi','info','scrollbars=yes,resizable=yes,width=650,height=700')" value="ご住所・ご連絡先の変更">
+<!-- ポップアップしない版
+                                <input type="button" onClick="location.href='../func00/pop-cust-addr.cgi';" value="ご住所・ご連絡先の変更">
+-->
+                              </div></td>
+                          </tr>
+                        </table>
+                          <a name="change_pw"></a><br>
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+
+                            <tr>
+                              <td align="center" class="item-name02">パスワードの変更</td>
+                            </tr>
+                            <tr>
+                              <td class="item02"> Ｅストアーショップサーブのパスワードを変更します。<br>
+                                  <br>
+                                  <div align="center">
+				    <input type="button" onClick="location.href='wizard_ch.cgi';" value="パスワードの変更">
+                                </div>
+                              </td>
+                            </tr>
+                          </table>
+                          <a name="change_pay"></a><br>
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                            <tr>
+                              <td align="center" class="item-name02">お支払い方法の変更</td>
+
+                            </tr>
+                            <tr>
+                              <td class="item02"> Ｅストアーショップサーブ利用料金のお支払い方法を変更します。<br>
+                                  <br>
+                                  <div align="center">
+				    <input name="set" type="button" id="set" onClick="MM_openBrWindow('../func00/pop-cust-payment.cgi','info','scrollbars=yes,resizable=yes,width=650,height=700')" value="お支払い方法の変更">
+<!-- ポップアップしない版
+                                    <input type="button" onClick="location.href='../func00/pop-cust-payment.cgi';" value="お支払い方法の変更">
+-->
+                                </div></td>
+                            </tr>
+                          </table>
+                          <br>
+                          <hr size="1" width="95%" style="border-style:dashed; border-color:#0B1860 " align="center">
+                          <a name="dom_get"></a><br>
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+
+                            <tr>
+                              <td align="center" class="item-name02">ドメイン取得</td>
+                            </tr>
+                            <tr>
+                              <td class="item02"> お店のＵＲＬを、あなたの独自ドメインにすることができます。<br>
+                                  <br>
+                                  <div align="center">
+				  <input type="button" onClick="MM_openBrWindow('../func00/pop-domain.cgi','info','scrollbars=yes,resizable=yes,width=650,height=700')" value="ドメイン取得">
+<!-- ポップアップしない版
+				  <input type="button" onClick="location.href='../func00/pop-domain.cgi';" value="ドメイン取得">
+-->
+                                </div></td>
+                            </tr>
+                          </table>
+<!-- 決済代行はいらない
+                          <a name="entry_card"></a><br>
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                            <tr>
+                              <td align="center" class="item-name02">決済代行サービス申込</td>
+
+                            </tr>
+                            <tr>
+                              <td class="item02"> Ｅストアーが店舗に代わり、代金を回収します。個人事業主様もご利用いただけます。<br>
+                              ※決済代行サービスは<font color="#FF0000">有料サービス</font>です。詳しくは<a href="<TMPL_VAR NAME=Manual>guide/entry.html" target="_blank">こちら</a>をご覧ください。<br>
+                              <br>
+                              <div align="center">
+                                <input type="button" onClick="window.open('../fun00/pmapply.cgi','info','scrollbars=yes,resizable=yes,width=650,height=700')" value="決済代行サービス申込">
+-->
+<!-- ポップアップしない版
+                                <input type="button" onClick="location.href='../func00/pmapply.cgi';" value="決済代行サービス申込">
+-->
+<!--
+                              </div></td>
+                            </tr>
+                          </table>
+-->
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+
+                </tr>
+                <tr>
+                  <td>
+                    <table border="0" sellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <td>&nbsp;
+                         
+                        </td>
+                      </tr>
+                      <tr>
+
+                        <td bgcolor="#FFFFFF">
+						 <input type="button" onClick="location.href='wizard.cgi';" value="ウィザードに戻る">
+                        </td>
+                      </tr>
+                    </table>
+                  <td>
+                <tr>
+            </table>
+          </td>
+
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

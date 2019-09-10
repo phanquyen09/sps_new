@@ -1,0 +1,187 @@
+<form name="form1" method="post" action="itemform_list.cgi">
+<input type="hidden" name="CMD" value="EDT">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#856791">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td class="midashi" align="left">商品一覧ページの設定を行います</td>
+<td class="midashi" align="right"><a href="https://help.shopserve.jp/help/itemform_list.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  お店ページで商品のカテゴリ名をクリックして表示する「商品一覧ページ」の設定をします。<br>
+                                  設定後、[設定を保存する]ボタンをクリックし、管理画面左上の[お店ページの更新へ]ボタンをクリックします。<br>
+                                </div>
+                <TMPL_LOOP NAME=ERR_MSG>
+                <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+                </TMPL_LOOP>
+				<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                    <tr align=                                  "center">
+                                      <td colspan="2" class="item-name02">商品一覧ページ設定</td>
+                                    </tr>
+                                    <tr>
+
+                                      <td class="item-name">並べ替えプルダウン</td>
+                                      <td class="item"><table>
+                                          <tr>
+                                            <td>
+<input name="Sort" type="radio" value="1" id="sort02" <TMPL_IF NAME=SORT1>checked</TMPL_IF>>
+                                            </td>
+
+                                            <td align="left"><label for="sort02">表示する</label>
+                                            </td><td>&nbsp;</td>
+                                          </tr>
+                                          <tr>
+                                            <td>
+<input name="Sort" type="radio" value="0" id="sort01" <TMPL_IF NAME=SORT0>checked</TMPL_IF>>
+                                            </td>
+                                            <td><label for="sort01">表示しない</label>
+                                            </td><td>&nbsp;</td>
+                                          </tr>
+                                      </table></td>
+                                    </tr>
+
+                                    <tr>
+                                      <td class="item-name">在庫あり商品の絞り込み</td>
+                                      <td class="item">
+                                        <table>
+                                          <tr>
+                                          <td>
+                                            <input name="StockSort" type="radio" value="1" id="StockSort02" <TMPL_IF NAME=STOCK_SORT_1>checked</TMPL_IF>>
+                                          </td>
+                                          <td align="left">
+                                            <label for="StockSort02">表示する</label>
+                                          </td>
+                                          <td>&nbsp;</td>
+                                          </tr>
+                                          <tr>
+                                            <td>
+                                              <input name="StockSort" type="radio" value="0" id="StockSort01" <TMPL_IF NAME=STOCK_SORT_0>checked</TMPL_IF>>
+                                            </td>
+                                            <td><label for="StockSort01">表示しない</label>
+                                            </td><td>&nbsp;</td>
+                                          </tr>
+                                        </table>
+                                        <table>
+                                          <tbody>
+                                          <tr>
+                                            <td></td>
+                                            <td>
+                                               <span style="font-size:12px;">※在庫あり商品で絞り込む場合、ページの表示速度に影響する場合があります。</span>
+                                            </td>
+                                          </tr>
+                                          </tbody>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">初期表示</td>
+                                      <td class="item"><table>
+                                          <tr>
+                                            <td colspan=3>表示形式</td>
+                                          </tr>
+                                          <tr>
+                                            <td>
+<input name="ListView" type="radio" value="1" id="coment02" <TMPL_IF NAME=LISTVIEW1>checked</TMPL_IF>>
+                                            </td>
+
+                                            <td align="left"><label for="coment02">説明付き（商品画像＋内部キャッチコピーを縦に最大10件表示）</label>
+                                            </td><td>&nbsp;</td>
+                                          </tr>
+                                          <tr>
+                                            <td>
+<input name="ListView" type="radio" value="0" id="coment01" <TMPL_IF NAME=LISTVIEW0>checked</TMPL_IF>>
+                                            </td>
+                                            <td><label for="coment01">写真のみ（商品画像を横4×縦10に最大40件表示）</label>
+                                            </td><td>&nbsp;</td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan=3>&nbsp;</td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan=3>在庫有無による表示ルール</td>
+                                          </tr>
+                                          <tr>
+                                            <td>
+                                              <input name="StockRule" type="radio" value="0" id="rule0" <TMPL_IF NAME=STOCK_RULE_0>checked</TMPL_IF>>
+                                            </td>
+                                            <td>
+                                              <label for="rule0">在庫なし含む全商品を表示</label>
+                                            </td>
+                                            <td></td>
+                                          </tr>
+                                          <tr>
+                                            <td>
+                                              <input name="StockRule" type="radio" value="1" id="rule1" <TMPL_IF NAME=STOCK_RULE_1>checked</TMPL_IF>>
+                                            </td>
+                                            <td>
+                                              <label for="rule1">在庫あり商品のみ表示</label>
+                                            </td>
+                                            <td></td>
+                                          </tr>
+                                          <tr>
+                                            <td>
+                                              <input name="StockRule" type="radio" value="2" id="rule2" <TMPL_IF NAME=STOCK_RULE_2>checked</TMPL_IF>>
+                                            </td>
+                                            <td>
+                                              <label for="rule2">在庫あり商品を優先的に上位に表示</label>
+                                            </td>
+                                            <td></td>
+                                          </tr>
+                                      </table>
+                                      <table>
+                                        <tbody>
+                                        <tr>
+                                          <td></td>
+                                          <td>
+                                             <span style="font-size:12px;">※在庫あり商品のみを表示、または上位に表示する場合、ページの表示速度に影響する場合があります。</span>
+                                          </td>
+                                        </tr>
+                                        </tbody>
+                                      </table>
+                                    </td>
+                                    </tr>
+
+                                    <tr>
+                                      <td class="item-name">個別送料無料</td>
+                                      <td class="item"><table>
+                                          <tr>
+                                            <td>
+                                              <input name="DisplayFreeShippingLabel" type="radio" value="Y" id="displayfreeshippinglabel_Y" <TMPL_IF NAME=FREE_SHIPPING_LABEL_Y>checked</TMPL_IF>>
+                                            </td>
+                                            <td align="left"><label for="displayfreeshippinglabel_Y">表示する</label>
+                                            </td><td>&nbsp;</td>
+                                          </tr>
+                                          <tr>
+                                            <td>
+                                              <input name="DisplayFreeShippingLabel" type="radio" value="N" id="displayfreeshippinglabel_N" <TMPL_IF NAME=FREE_SHIPPING_LABEL_N>checked</TMPL_IF>>
+                                            </td>
+                                            <td><label for="displayfreeshippinglabel_N">表示しない</label>
+                                            </td><td>&nbsp;</td>
+                                          </tr>
+                                      </table></td>
+                                    </tr>
+
+                                  </table>
+                                    <br></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align: center;"><input name="set" type="submit" id="set" value="設定を保存する"></td>
+                                </tr>
+                              </table></td>
+
+                            </tr>
+                        </table>
+
+<input type="hidden" name="mode" value="regist">
+</form>

@@ -1,0 +1,98 @@
+<link href="css/banksel.css" rel="stylesheet" type="text/css">
+<script language=JavaScript>
+<!--
+function back() {
+  document.form1.CMD.value = 'branch';
+  document.form1.submit();
+}
+
+function end() {
+    if(!!window.opener){
+        var bank         = window.opener.document.getElementById('Bank');
+        var bankCode     = window.opener.document.getElementById('BankCode');
+        var branch       = window.opener.document.getElementById('Branch');
+        var branchCode   = window.opener.document.getElementById('BranchCode');
+        if(bank){
+            bank.className         = "textExample form_text02";
+        }
+        if(bankCode){
+            bankCode.className     = "textExample form_text03";
+        }
+        if(branch){
+            branch.className       = "textExample form_text02";
+        }
+        if(branchCode){
+            branchCode.className   = "textExample form_text03";
+        }
+
+        if( bank && bankCode && branch && branchCode){
+            window.opener.document.PMAPPLY03.Bank.value       ='<TMPL_VAR name=BANK_NAME>';
+            window.opener.document.PMAPPLY03.BankCode.value   ='<TMPL_VAR name=BANK_CODE>';
+            window.opener.document.PMAPPLY03.Branch.value     ='<TMPL_VAR name=SITEN_NAME>';
+            window.opener.document.PMAPPLY03.BranchCode.value ='<TMPL_VAR name=SITEN_NO>';
+        }
+    }
+    window.close();
+
+}
+//-->
+</script>
+<form name="form1" action="banksel.cgi" method="POST">
+<br>
+<br>
+<div align="center">
+<table cellSpacing=0 cellPadding=0 width=530 border=0>
+  <tr>
+    <td>
+    <table cellSpacing=0 cellPadding=0 border=0>
+      <tr>
+        <td width="550">
+          <img align="left" height=22 src="./imgs/m_ticon.gif" width=14 vspace=7>
+          <img align="left" height=21 alt="銀行名　選択" hspace=7 src="./imgs/at_041.gif" width=400 vspace=6>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <img height=1 src="./imgs/m_b_hr.gif" width=550 vspace=2>
+        </td>
+      </tr>
+    </table>
+  </td>
+</tr>
+</table>
+<br>
+<table width=550 height="13" border=0 cellPadding=0 cellSpacing=0>
+  <tr>
+    <td align="left" height="20" bgcolor="#ddecfb"><strong>　■<TMPL_VAR NAME=BANK_NAME></strong></td>
+  </tr>
+  <tr>
+    <td align="left" height="20" bgcolor="#FFFFFF">金融機関コード：<TMPL_VAR NAME=BANK_CODE></td>
+  </tr>
+</table>
+<br>
+<table width=550 height="13" border=0 cellPadding=0 cellSpacing=0>
+  <tr>
+    <td align="left" height="20" bgcolor="#ddecfb"><strong>　■<TMPL_VAR NAME=SITEN_NAME></strong></td>
+   </tr>
+   <tr>
+     <td align="left" height="20" bgcolor="#FFFFFF">支店コード：<TMPL_VAR NAME=SITEN_NO></td>
+   </tr>
+</table>
+<br>
+<br>
+
+<img height=30 src="./imgs/spc.gif" width=5>
+<span>
+<input onClick="back()" type="button" value="戻る">　　
+<input onClick="end()" type="button" value="決定">　　
+<input type="hidden" name="BANK_NAME" value="<TMPL_VAR NAME=BANK_NAME>">
+<input type="hidden" name="SITEN_NAME" value="<TMPL_VAR NAME=SITEN_NAME>">
+<input type="hidden" name="BANK_CODE" value="<TMPL_VAR NAME=BANK_CODE>">
+<input type="hidden" name="SITEN_NO" value="<TMPL_VAR NAME=SITEN_NO>">
+<input type="hidden" name="BRANCH_INITIAL" value="<TMPL_VAR NAME=BRANCH_INITIAL>">
+<input type="hidden" name="BANK_INITIAL" value="<TMPL_VAR NAME=BANK_INITIAL>">
+<input type="hidden" name="CMD" value="">
+</span>
+</div>
+</form>
+

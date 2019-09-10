@@ -1,0 +1,663 @@
+<script language="JavaScript" type="text/JavaScript">
+<!--
+
+subno   = [
+  [ "" ],
+  <TMPL_LOOP NAME=SUBNOS>
+  [ <TMPL_VAR NAME=LIST> ],
+  </TMPL_LOOP>
+];
+subname = [
+  [ "-----" ],
+  <TMPL_LOOP NAME=SUBNAMES>
+  [ <TMPL_VAR NAME=LIST> ],
+  </TMPL_LOOP>
+];
+function setMenuItemG(n)
+{
+  var i;
+  var flag;
+
+  if ( n == 0 ) {
+      document.CLLIST.FreeGroup.disabled = false;
+      document.CLLIST.FreeGroup.style.backgroundColor = '#ffffff';
+  } else {
+      document.CLLIST.FreeGroup.disabled = true;
+      document.CLLIST.FreeGroup.style.backgroundColor = '#b0b0b0';
+      document.CLLIST.FreeGroup.value    = '';
+  }
+}
+
+function setMenuItem(n)
+{
+  var i;
+  var flag;
+
+  document.CLLIST.SubCategory.length = 1;
+
+  for (i=0; i<=<TMPL_VAR NAME=SUBNUM>; i++) {
+    flag = new Boolean(document.CLLIST.SubCategory.options[i]);
+    if (flag == true) document.CLLIST.SubCategory.options[i] = null;
+  }
+
+  for (i=0; i<=<TMPL_VAR NAME=SUBNUM>; i++) {
+    if (subname[n][i] != undefined) {
+      document.CLLIST.SubCategory.options[i] = new Option(subname[n][i], subno[n][i]);
+    }
+  }
+  if ( n == 0 ) {
+      document.CLLIST.FreeMasterCat.disabled = false;
+      document.CLLIST.FreeMasterCat.style.backgroundColor = '#ffffff';
+      document.CLLIST.FreeSubCat.disabled    = false;
+      document.CLLIST.FreeSubCat.style.backgroundColor = '#ffffff';
+  } else {
+      document.CLLIST.FreeMasterCat.disabled = true;
+      document.CLLIST.FreeMasterCat.style.backgroundColor = '#b0b0b0';
+      document.CLLIST.FreeSubCat.disabled    = true;
+      document.CLLIST.FreeSubCat.style.backgroundColor = '#b0b0b0';
+      document.CLLIST.FreeMasterCat.value    = '';
+      document.CLLIST.FreeSubCat.value    = '';
+  }
+}
+
+function disableFreeSubCat( n )
+{
+    if ( n == 0 ) {
+        document.CLLIST.FreeSubCat.disabled = false;
+        document.CLLIST.FreeSubCat.style.backgroundColor = '#ffffff';
+    } else {
+        document.CLLIST.FreeSubCat.disabled = true;
+        document.CLLIST.FreeSubCat.style.backgroundColor = '#b0b0b0';
+        document.CLLIST.FreeSubCat.value    = '';
+    }
+}
+function changeListnum() {
+    var num = document.CLLIST.ListNum.value;
+    document.CLLIST.reset();
+    document.CLLIST.ListNum.value = num;
+    document.CLLIST.PAGE.value='1';
+    document.CLLIST.action='clientlist.php';
+    document.CLLIST.submit();
+}
+
+function DelMem() {
+
+    var sel = 0;
+
+    if( document.CLLIST.SELID.length > 0){
+        for(i=0; i<document.CLLIST.SELID.length; i++){
+            if(document.CLLIST.SELID[i].checked == true){
+               sel = 1;
+            }
+        }
+    }else{
+       if( document.CLLIST.SELID.checked == true ){
+           sel = 1;
+       }
+    }
+
+    if( sel == 1){
+        document.CLLIST.CLDELBT.disabled=true;
+        document.CLLIST.CMD.value = 'DEL_CONFIRM';
+        document.CLLIST.action = 'client_del.cgi';
+        document.CLLIST.PAGE.value = '<TMPL_VAR name=NPAGE>';
+        document.CLLIST.submit();
+    }
+    return false;
+
+}
+function delSearchList() {
+  var flag = 0;
+  for( i= 1 ;i <= <TMPL_VAR NAME=SMAX>; i++){
+    var pname = "S" + i ;
+    if( document.SEARCHLIST.elements[pname] ){
+      if( document.SEARCHLIST.elements[pname].checked ){
+        document.CLLIST.elements[pname].value = document.SEARCHLIST.elements[pname].value;
+        flag = 1;
+      }
+    }
+  }
+  if( flag == 1 ){
+    if(window.confirm('選択した検索条件を削除してもよろしいですか？')){
+      document.SEARCHLIST.S_DEL_BT.disabled = true;
+      document.CLLIST.CMD.value = 'SDel';
+
+      document.CLLIST.submit();
+    }
+  }else{
+    alert('削除する検索条件を選択してください');
+  }
+}
+
+function resetsearch() {
+    document.CLLIST.MemType.value = 'ALL';
+    document.CLLIST.Account.value = '';
+    document.CLLIST.Name.value    = '';
+    document.CLLIST.Company.value    = '';
+    document.CLLIST.Tel1.value    = '';
+    document.CLLIST.Tel2.value    = '';
+    document.CLLIST.Tel3.value    = '';
+    document.CLLIST.Pref.value    = '選択';
+    document.CLLIST.Mail.value    = '';
+    document.CLLIST.DM.checked    = false;
+    document.CLLIST.DateType.value = 'EntryDate';
+    document.CLLIST.StartYear.value  = '';
+    document.CLLIST.StartMonth.value = '';
+    document.CLLIST.StartDay.value   = '';
+    document.CLLIST.EndYear.value    = '';
+    document.CLLIST.EndMonth.value   = '';
+    document.CLLIST.EndDay.value     = '';
+    document.CLLIST.MinPoint.value = '';
+    document.CLLIST.MaxPoint.value = '';
+    document.CLLIST.MinOrderCnt.value = '';
+    document.CLLIST.MaxOrderCnt.value = '';
+    document.CLLIST.ItemNo.value   = '';
+    document.CLLIST.MasterCategory.value   = '';
+    setMenuItem(0);
+    document.CLLIST.FreeMasterCat.value    = '';
+    document.CLLIST.FreeSubCat.value       = '';
+    document.CLLIST.ItemGroup.value       = '';
+    document.CLLIST.FreeGroup.value       = '';
+    setMenuItemG(0);
+    document.CLLIST.SameMail.checked       = false;
+    document.CLLIST.PCMAIL.checked         = false;
+    document.CLLIST.KTAIMAIL.checked       = false;
+    document.CLLIST.RoutePc.checked         = false;
+    document.CLLIST.RouteMob.checked       = false;
+    document.CLLIST.TemplateName.value       = '';
+    document.CLLIST.S_ID.value       = '';
+    <TMPL_LOOP ENQLIST>
+        document.CLLIST.Enquete<TMPL_VAR ENQNO>Ans.value = '';
+    </TMPL_LOOP>
+}
+
+function SetCheck() {
+    var cnt = <TMPL_VAR name=HCOUNT>;
+    if ( cnt > 1 ) {
+    for (i=0;i<cnt;i++){
+            document.CLLIST.SELID[i].checked=true;
+    }
+    }
+    if ( cnt == 1 ) {
+    document.CLLIST.SELID.checked=true;
+    }
+}
+function UnSetCheck() {
+    var cnt = <TMPL_VAR name=HCOUNT>;
+    if ( cnt > 1 ) {
+    for (i=0;i<cnt;i++){
+            document.CLLIST.SELID[i].checked=false;
+    }
+    }
+    if ( cnt == 1 ) {
+    document.CLLIST.SELID.checked=false;
+    }
+}
+
+function openCltPrev() {
+  var url;
+  var val = document.CLLIST.S_ID.value;
+  url = 'cltmpl_prev.cgi?SID=' + val;
+  window.open(url,'preview','width=750,height=630,menubar=no,scrollbars=yes,resizable=yes,status=yes');
+}
+
+function saveSearchList() {
+    if( valid_check() == 1 ){
+        return;
+    }
+    document.CLLIST.S_SAVE_BT.disabled='true';
+    document.CLLIST.action='clientlist.php';
+    document.CLLIST.CMD.value='SSave';
+    document.CLLIST.submit();
+}
+
+function doSearch(){
+  if( valid_check() == 1 ){
+      return;
+  }
+  document.CLLIST.action='clientlist.php';
+  document.CLLIST.CMD.value='Seek';
+  document.CLLIST.submit();
+}
+
+function valid_check() {
+  var err_code = 0;
+  if( document.CLLIST.StartYear.value != ''
+   || document.CLLIST.StartMonth.value != ''
+   || document.CLLIST.StartDay.value != '' ){
+    if( document.CLLIST.StartYear.value == ''
+     || document.CLLIST.StartMonth.value == ''
+     || document.CLLIST.StartDay.value == '' ){
+      err_code = 1;
+    }
+  }
+  if( document.CLLIST.EndYear.value != ''
+   || document.CLLIST.EndMonth.value != ''
+   || document.CLLIST.EndDay.value != '' ){
+    if( document.CLLIST.EndYear.value == ''
+     || document.CLLIST.EndMonth.value == ''
+     || document.CLLIST.EndDay.value == '' ){
+      err_code = 1;
+    }
+  }
+  if(  document.CLLIST.FreeSubCat.value != '' ){
+    if(  document.CLLIST.FreeMasterCat.value == '' ){
+      if( err_code == 1 ){
+        err_code = 3;
+      }else{
+        err_code = 2;
+      }
+    }
+  }
+  if( err_code == 1 ){
+    alert('「期間」は年月日まで入力してください');
+  }else if (err_code == 2) {
+    alert("「大カテゴリ」を入力、もしくは選択してください");
+  }else if (err_code == 3) {
+    alert("「期間」は年月日まで入力してください\n「大カテゴリ」を入力、もしくは選択してください");
+  }
+  if( err_code == 0){
+    return 0;
+  }else{
+    return 1;
+  }
+
+}
+
+//-->
+</script>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+    <form name="CLINFO" method="POST" action="clientinfo.cgi">
+    <input type="hidden" name="ID" value="">
+    </form>
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">顧客台帳の閲覧、ダウンロード、設定を行います</td>
+    <td align="right" class="midashi">
+       <a href="<TMPL_VAR NAME=Manual>func01/usrlist.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a>
+    </td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+      <div align="right">
+        <a href="<TMPL_VAR NAME=Manual>func01/privacy_use.html" target="manual">&lt;個人情報を適切に取り扱いましょう&gt;</a>
+      </div>
+      <div class="infoArea table_bg">
+        顧客情報を管理します。<br>
+       「お名前」をクリックすると詳細情報が表示され、顧客情報の確認、変更、ポイント加減などができます。<br>
+        顧客情報を削除する場合は、チェックをつけ、顧客情報表示欄下「選択処理」の[削除]ボタンをクリックしてください。<br>
+      </div>
+      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>
+                                                <table class="item-box">
+                                                    <tr>
+                                              <td width="20%" class="item-name">現在の顧客数</td>
+                                              <td width="80%" align="center" class="item"><strong><font color="#FF0000"><TMPL_VAR NAME=TOTALMEMBER>件</font></strong>&nbsp;（上限&nbsp;<TMPL_VAR NAME=MAXMEMBER>件）</td>
+                                            </tr>
+                                                 </table>
+                                            <br>
+    <form name="CLLIST" method="POST" action="clientlist.php">
+    <input type="hidden" name="PAGE" value="1">
+    <input type="hidden" name="CMD" value="SEEK">
+    <TMPL_LOOP SNO>
+      <input type="hidden" name="S<TMPL_VAR NAME=NO>" value="">
+    </TMPL_LOOP>
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                              <tr>
+<td valign="bottom">
+<input type="button" name="Submit" value="全選択" style="font-size:90%; padding-top:3px" onClick="SetCheck()">
+<input type="button" name="Submit" value="全解除" style="font-size:90%; padding-top:3px" onClick="UnSetCheck()">
+</td>
+                                                <td align="right" class="odr-txt">表示件数
+                                                    <select name="ListNum" onChange="changeListnum();">
+                            <option value="10" <TMPL_IF LISTNUM10>selected</TMPL_IF>>10</option>
+                            <option value="20" <TMPL_IF LISTNUM20>selected</TMPL_IF>>20</option>
+                            <option value="30" <TMPL_IF LISTNUM30>selected</TMPL_IF>>30</option>
+                            <option value="40" <TMPL_IF LISTNUM40>selected</TMPL_IF>>40</option>
+                            <option value="50" <TMPL_IF LISTNUM50>selected</TMPL_IF>>50</option>
+                            <option value="100" <TMPL_IF LISTNUM100>selected</TMPL_IF>>100</option>
+                                                    </select>
+                                                    <br>
+<TMPL_IF TOTAL>
+<TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+</TMPL_IF>
+                            </td>
+                                              </tr>
+                                            </table>
+                                            <table class="item-box">
+                                              <tr align="center">
+                                                <td class="odr-midashi">&nbsp;</td>
+                                                <td class="odr-midashi">会員ID</td>
+                                                <td class="odr-midashi">お名前</td>
+                                                <td class="odr-midashi">都道府県</td>
+                                                <td class="odr-midashi">お知らせ</td>
+                                                <td class="odr-midashi">最終注文日</td>
+                                                <td class="odr-midashi">保有ポイント</td>
+                                              </tr>
+<TMPL_LOOP CLIENTS>
+                                              <tr>
+                                                <td align="center" class="odr-txt02">
+                                                <input type="checkbox" name="SELID" value="<TMPL_VAR name=ID>" <TMPL_IF name=SELID>checked</TMPL_IF>>
+                                                </td>
+                                                <td align="center" class="odr-txt02"><TMPL_VAR NAME=MEMACCOUNT></td>
+                                                <td class="odr-txt02"><a href="clientinfo.cgi?ID=<TMPL_VAR NAME=ID>"><TMPL_VAR NAME=NAME></a></td>
+                                                <td align="center" class="odr-txt02"><TMPL_VAR NAME=PREF></td>
+                                                <td align="center" class="odr-txt02"><TMPL_IF DM>○<TMPL_ELSE>×</TMPL_IF></td>
+                                                <td align="center" class="odr-txt02"><TMPL_VAR NAME=LASTORDER></td>
+                                                <td align="center" class="odr-txt02"><TMPL_VAR NAME=ENAPOINT></td>
+                                              </tr>
+</TMPL_LOOP>
+                                            </table>
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                              <tr>
+<td valign="bottom">
+<input type="button" name="Submit" value="全選択" style="font-size:90%; padding-top:3px" onClick="SetCheck(
+)">
+<input type="button" name="Submit" value="全解除" style="font-size:90%; padding-top:3px" onClick="UnSetCheck()">
+</td>
+                                                <td align="right" class="odr-txt">
+<TMPL_IF TOTAL>
+<TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+</TMPL_IF>
+                        </td>
+                                              </tr>
+                                            </table>
+                                            <div align="left">
+                                              <input type="button" name="CLDELBT"  value="選択した顧客を削除" <TMPL_IF name=CLIENTS>onClick="DelMem(1);"</TMPL_IF>>
+                                            </div>
+                                            <br>
+                                            <table class="item-box">
+                                              <tr>
+                                                <td colspan="2" align="center" class="item-name02">顧客検索</td>
+                                              </tr>
+                                              <tr>
+                                                <td colspan="2" align="center" class="item">
+                                                  検索条件：
+                                                  <select name="S_ID" length="3">
+                                                    <option value="">検索条件を選択</option>
+                                                    <TMPL_LOOP SEARCH_LIST>
+                                                    <option value="<TMPL_VAR S_ID>" <TMPL_IF S_SEL>selected</TMPL_IF>><TMPL_VAR S_NAME></option>
+                                                    </TMPL_LOOP>
+                                                  </select>
+                                                  <input type="button" name="Seek" value="検索" onClick="document.CLLIST.action='clientlist.php';document.CLLIST.CMD.value='SSeek';document.CLLIST.submit();">
+                                                  &nbsp;<input type="button" onClick="resetsearch();" value="条件をクリア">
+                                                  &nbsp;
+                                                  <a href="#orderlist">検索条件の削除</a>&nbsp;
+                                                  <a href="" target="preview" onClick="window.open('cltmpl_prev.cgi','preview','width=750,height=630,menubar=no,scrollbars=yes,resizable=yes,status=yes');return false;">検索条件を確認する</a>
+                                                </td>
+                                              </tr>
+                                           <table>
+                                            <img src="../imgs/spc.gif" height="1px" style="margin: 0px;">
+                                            <table class="item-box">
+                                              <tr>
+                                                <td colspan="2" align="center" class="item">
+                                                  <div style="width: 90%; text-align: left; margin: 5px auto;">
+                                                  検索条件をメルマガの配信リストとして保存できます。保存した対象リストは、<a href="../func05/mailmag.cgi">メルマガ発行</a>で選択します。<br>
+                                                  詳しい操作方法はオンラインマニュアルをご確認ください。⇒<a href="<TMPL_VAR NAME=Manual>func05/howto_mm02.html" onClick="window.open(this.href,'manual','width=820,height=700,scrollbars=yes,toolbar=no,resizable=yes');return false;">メールマガジン発行方法</a>
+                                                  </div>
+                                                  <TMPL_IF ERR_MSG_DISP>
+                                                  <div style="width: 90%; text-align: center; margin: 5px auto; color:#FF0000;">
+                                                    <TMPL_LOOP ERR_MSG>
+                                                      <TMPL_VAR NAME=MSG><br>
+                                                    </TMPL_LOOP>
+                                                  </div>
+                                                  </TMPL_IF>
+                                                  検索条件名：&nbsp;<input type="text" name="TemplateName" value="<TMPL_VAR NAME=TemplateName>" class="def-line">
+                                                  <input type="button" name="S_SAVE_BT" value="保存" onClick="saveSearchList();" <TMPL_IF S_SAVE_DISABLE>disabled</TMPL_IF>>
+                                                </td>
+                                              </tr>
+
+                                              <tr>
+                                                <td width="20%" class="item-name">顧客種別</td>
+                                                <td width="80%" class="item"><select name="MemType">
+                                        <option value="ALL" <TMPL_IF MEMALLSEL>selected</TMPL_IF>>全て</option>
+                                        <option value="Member" <TMPL_IF MEMBERSEL>selected</TMPL_IF>>会員</option>
+                                        <option value="Ordinal" <TMPL_IF ORDINALSEL>selected</TMPL_IF>>非会員</option>
+                                                  </select>
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td class="item-name">会員ID</td>
+                                                <td class="item"><input name="Account" type="text" class="def-line" value="<TMPL_VAR NAME=ACCOUNT>" style="ime-mode:disabled">
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td class="item-name">お名前</td>
+                                                <td class="item"><input name="Name" type="text" class="def-line" value="<TMPL_VAR NAME=NAME>">
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td class="item-name">法人名</td>
+                                                <td class="item"><input name="Company" type="text" class="def-line" value="<TMPL_VAR NAME=COMPANY>">
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td class="item-name">電話番号</td>
+                                                <td class="item">
+                                                  <input name="Tel1" type="text" value="<TMPL_VAR NAME=TEL1>" size="7" style="ime-mode:disabled">&nbsp;-&nbsp;
+                                                  <input name="Tel2" type="text" value="<TMPL_VAR NAME=TEL2>" size="7" style="ime-mode:disabled">&nbsp;-&nbsp;
+                                                  <input name="Tel3" type="text" value="<TMPL_VAR NAME=TEL3>" size="7" style="ime-mode:disabled">
+                                                </td>
+                                              </tr>
+
+                                              <tr>
+                                                <td class="item-name">都道府県</td>
+                                                <td class="item"><select name="Pref">
+                                        <TMPL_LOOP PREFLIST>
+                                        <option value="<TMPL_VAR NAME=PREF>" <TMPL_IF SEL>selected</TMPL_IF>><TMPL_VAR NAME=PREF></option>
+                                        </TMPL_LOOP>
+                                                  </select>
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td class="item-name">メールアドレス種別</td>
+                                                <td class="item">
+                                 <input type="checkbox" name="PCMAIL" value="Y" id="PCMAIL_ID1" <TMPL_IF PCSEL>checked</TMPL_IF>>
+                                 <label for="PCMAIL_ID1">パソコン用</label>
+                                 <input type="checkbox" name="KTAIMAIL" value="Y" id="KTAIMAIL_ID1" <TMPL_IF KTSEL>checked</TMPL_IF>>
+                                 <label for="KTAIMAIL_ID1">携帯用</label>
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td class="item-name">メールアドレス</td>
+                                                <td class="item"><input name="Mail" type="text" class="def-line" value="<TMPL_VAR NAME=MAIL>" style="ime-mode:disabled">
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td class="item-name">お知らせ</td>
+                                                <td class="item"><input type="checkbox" name="DM" value="Y" id="DM_ID1" <TMPL_IF DMSEL>checked</TMPL_IF>>
+                                                    <label for="DM_ID1">受け取る（○）</label>
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td class="item-name">期間</td>
+                                                <td class="item"><select name="DateType">
+                                                    <TMPL_LOOP NAME=DATE_TYPE >
+                                                        <option value="<TMPL_VAR NAME=ID>"
+                                                            <TMPL_VAR NAME=SELECTED>
+                                                        >
+                                                        <TMPL_VAR NAME=NAME>
+                                                    </TMPL_LOOP>
+                                                  </select>
+&nbsp;
+                                    </select>
+                                    <br />
+                                    <input name="StartYear" type="text" size="5" value="<TMPL_VAR NAME=STARTYEAR>" style="ime-mode:disabled">年
+                                    <input name="StartMonth" type="text" size="3" value="<TMPL_VAR NAME=STARTMONTH>" style="ime-mode:disabled">月
+                                    <input name="StartDay" type="text" size="3" value="<TMPL_VAR NAME=STARTDAY>" style="ime-mode:disabled">日 &nbsp;〜&nbsp;
+                                    <input name="EndYear" type="text" size="5" value="<TMPL_VAR NAME=ENDYEAR>" style="ime-mode:disabled">年
+                                    <input name="EndMonth" type="text" size="3" value="<TMPL_VAR NAME=ENDMONTH>" style="ime-mode:disabled">月
+                                    <input name="EndDay" type="text" size="3" value="<TMPL_VAR NAME=ENDDAY>" style="ime-mode:disabled">日
+                                </td>
+                                              </tr>
+                                  <tr>
+                                    <td class="item-name">ポイント</td>
+                                    <td class="item">
+                                        <input name="MinPoint" type="text" size="10" value=
+                                        "<TMPL_VAR NAME=MINPOINT>" style="ime-mode:disabled"
+                                        >ポイント&nbsp;〜&nbsp;
+                                        <input name="MaxPoint" type="text" size="10" value=
+                                        "<TMPL_VAR NAME=MAXPOINT>" style="ime-mode:disabled"
+                                        >ポイント</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="item-name">購入回数</td>
+                                    <td class="item">
+                                        <input name="MinOrderCnt" type="text" size="10" value="<TMPL_VAR NAME=MINORDERCNT>" style="ime-mode:disabled">回&nbsp;〜&nbsp;
+                                        <input name="MaxOrderCnt" type="text" size="10" value="<TMPL_VAR NAME=MAXORDERCNT>" style="ime-mode:disabled">回</td>
+                                  </tr>
+                                  <tr>
+                                    <td class="item-name">購入手段</td>
+                                    <td class="item">
+                                      <label for="route_pc"><input type="checkbox" name="RoutePc" id="route_pc" value="Y" <TMPL_IF RPCSEL>checked</TMPL_IF>>パソコン</label>
+                                      <label for="route_mob"><input type="checkbox" name="RouteMob" id="route_mob" value="Y" <TMPL_IF RMOSEL>checked</TMPL_IF>>携帯</label>
+                                    </td>
+                                  </tr>
+                                  <TMPL_IF ENQDISP>
+                                  <TMPL_LOOP ENQLIST>
+                                  <tr>
+                                    <TMPL_IF FIRST>
+                                    <td class="item-name" rowspan="5">注文者アンケート</td>
+                                    </TMPL_IF>
+                                    <td class="item">
+                                      <input type="hidden" name="Enquete<TMPL_VAR ENQNO>Quest" value="<TMPL_VAR NAME=QUEST>">
+                                      <div class="sub-item-name" style="width:98%;"><TMPL_VAR NAME=QUEST>&nbsp;</div>
+                                      <select name="Enquete<TMPL_VAR ENQNO>Ans" <TMPL_IF DISABLE>disabled</TMPL_IF>>
+                                        <TMPL_IF DISABLE><option value="">---</option><TMPL_ELSE><option value="">選択してください</option></TMPL_IF>
+                                        <TMPL_LOOP ANSLIST>
+                                        <option value="<TMPL_VAR ANS>" <TMPL_IF ANSSEL>selected</TMPL_IF>><TMPL_VAR ANS></option>
+                                        </TMPL_LOOP>
+                                      </select>
+                                    </td>
+                                  </tr>
+                                  </TMPL_LOOP>
+                                  </TMPL_IF>
+                                              <tr>
+                                                <td colspan="2" align="center" class="item-name02">注文商品検索</td>
+                                              </tr>
+                                              <tr>
+                                                <td class="item-name">商品番号</td>
+                                                <td class="item"><input name="ItemNo" type="text" value="<TMPL_VAR NAME=ITEMNO>" maxlength="64" style="ime-mode:disabled">
+                                                </td>
+                                              </tr>
+                                            <tr>
+                                              <td class="item-name">カテゴリ</td>
+                                              <td class="item">
+                                                  <select name="MasterCategory"
+                                                      onChange="setMenuItem(this.selectedIndex);">
+                                                  <TMPL_LOOP NAME=MASTERCAT>
+                                                  <option value="<TMPL_VAR NAME=ID>" <TMPL_VAR NAME=SEL>><TMPL_VAR NAME=NAME></option>
+                                                  </TMPL_LOOP>
+                                                  </select>
+                                                  <select name = "SubCategory" >
+                                                  <TMPL_LOOP NAME=SUBCAT>
+                                                  <option value="<TMPL_VAR NAME=ID>" <TMPL_VAR NAME=SEL>><TMPL_VAR NAME=NAME></option>
+                                                  </TMPL_LOOP>
+                                                  </select>
+                                                  <br>
+                                                  大カテゴリ<input name="FreeMasterCat" type="text" value="<TMPL_VAR NAME=FREEMASTERCAT>" <TMPL_IF FreeMCatDisable>style="background-color:#b0b0b0" disabled</TMPL_IF>>
+                                                  &nbsp;
+                                                  小カテゴリ<input name="FreeSubCat" type="text" value="<TMPL_VAR NAME=FREESUBCAT>" <TMPL_IF FreeSCatDisable>style="background-color:#b0b0b0" disabled</TMPL_IF>>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td class="item-name">グループ</td>
+                                              <td class="item">
+                                                  <select name="ItemGroup"
+                                                      onChange="setMenuItemG(this.selectedIndex);">
+                                                  <TMPL_LOOP NAME=ITEMGROUP>
+                                                  <option value="<TMPL_VAR NAME=ID>" <TMPL_VAR NAME=SEL>><TMPL_VAR NAME=NAME></option>
+                                                  </TMPL_LOOP>
+                                                  </select>
+                                                  <br>
+                                                  グループ<input name="FreeGroup" type="text" value="<TMPL_VAR NAME=FREEGROUP>"  <TMPL_IF FreeGrpDisable>style="background-color:#b0b0b0" disabled</TMPL_IF>>
+                                              </td>
+                                            </tr>
+                                              <tr>
+                                                <td colspan="2" class="item">
+                                                  <input type="checkbox" name="SameMail" value="1" <TMPL_IF name=SAMEMAIL>checked</TMPL_IF>>
+                                                  同じメールアドレスのデータをまとめる
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td colspan="2" align="center" class="item"><input type="button" name="Seek" value="検索" onClick="doSearch();">&nbsp;<input type="button" onClick="resetsearch();" value="条件をクリア">
+                                                </td>
+                                              </tr>
+                                            </table>
+                                            <br>
+                                            <table class="item-box">
+                                              <tr>
+                                                <td colspan="2" align="center" class="item-name02">顧客データダウンロード</td>
+                                              </tr>
+<tr>
+  <td width="20%" class="item-name">データ形式</td>
+  <td width="80%" bgcolor="#FFFFFF"><select name="csvid" class="item" style="font-size:90%; margin-bottom:1px">
+                    <option value="1">顧客データの全項目</option>
+  <TMPL_LOOP CSVLIST>
+                    <option value="<TMPL_VAR NAME=csvid>"><TMPL_VAR NAME=csvtitle></option>
+  </TMPL_LOOP>
+                  </select>
+  </td>
+</tr>
+                                              <tr>
+                                                <td colspan="2" align="center" class="item"><input type="button" name="DownLoad" value="ダウンロード" onClick="document.CLLIST.action='clientlist.php';document.CLLIST.CMD.value='DownLoad';document.CLLIST.submit();">
+                                                </td>
+                                              </tr>
+                                            </table><br>
+</form>
+<form name="UPLD" method="POST" action="clientupload.cgi" enctype="multipart/form-data">
+       <table class="item-box" cellpadding="3">
+       <tbody>
+       <tr align="center">
+           <td class="item-name02">新規顧客データ一括登録</td>
+       </tr>
+       <tr>
+           <td class="item" align="center"> ＣＳＶファイル：
+               <input name="UPFILE" type="file" style="font-size:100%;padding:2px 0px 5px 2px" value="master" size="40">
+               <input name="Submit" type="button" onClick="document.UPLD.submit();" value="新規登録">
+               <br>
+               ※新規登録のみ可能です。
+               ダウンロードデータとは項目が異なりますので、<a href="<TMPL_VAR NAME=Manual>func01/clientlist.html" target="manual">こちら</a>をご覧ください。
+           </td>
+       </tr>
+       </tbody>
+       </table>
+</form>
+                                            <table class="item-box">
+                                              <tr>
+                                                <td align="center" class="item-name02"><a name="orderlist">検索条件削除</a></td>
+                                              </tr>
+                                              <tr>
+                                                <td align="center" class="item">
+                                                  <div style="width: 85%; text-align: left; margin: 5px auto;">
+                                                  チェックした検索条件を削除します。
+                                                  </div>
+
+                                                  <table border="0" style="width: 85%; text-align: left;">
+                                                    <form method="post" name="SEARCHLIST">
+                                                    <tr>
+                                                      <TMPL_LOOP SEARCH_LIST>
+                                                      <td width="50%"><input type="checkbox" name="S<TMPL_VAR S_NO>" value="<TMPL_VAR S_ID>"><TMPL_VAR S_NAME></td>
+                                                      <TMPL_IF KAIGYO></tr><tr></TMPL_IF>
+                                                      </TMPL_LOOP>
+                                                    </tr>
+                                                  </table >
+                                                  <br>
+                                                  <input type="button" name="S_DEL_BT" value="選択した条件を削除" onClick="delSearchList();" <TMPL_IF S_DEL_DISABLE>disabled</TMPL_IF>>
+                                                </td>
+                                              </tr>
+                                              </form>
+                                            </table>
+                                          </td>
+                                        </tr>
+                              </table>

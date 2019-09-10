@@ -1,0 +1,194 @@
+<!-- odrdata.html -->
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function EditSub(id,theURL,winName,features) {
+    document.list.csvid.value = id;
+    document.list.target = 'OdrDataEdit';
+    document.list.cmd.value = 'edit';
+    window.open(theURL,winName,features);
+    document.list.action='clidata-edit.cgi';
+    document.list.submit();
+}
+function DelSub(id) {
+    document.list.csvid.value=id;
+    document.list.cmd.value = 'del';
+    document.list.target = '';
+    document.list.action='clidata.cgi';
+
+    if ( confirm("テンプレートを削除します。よろしいですか？") ) {
+        document.list.submit();
+    } else {
+        return;
+    }
+}
+function CopySub(id) {
+    document.list.csvid.value=id;
+    document.list.cmd.value = 'copy';
+    document.list.target = '';
+    document.list.action='clidata.cgi';
+    document.list.submit();
+}
+//-->
+</script>
+<form name="list" method="post" action="dummy.cgi" target="">
+<input type="hidden" name="cmd" value="dummy">
+<input type="hidden" name="csvid" value="0">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+    </table></td>
+<td align="left" class="midashi">ダウンロードする顧客データの項目を設定します</td>
+<td align="right" class="midashi"><a href="<TMPL_VAR NAME=Manual>func01/clidata.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>
+            <div class="infoArea table_bg">
+               顧客データのダウンロード項目を編集します。<br>
+              「顧客データの全項目」をコピーして、コピーしたものを編集してください。<br><br>
+
+               編集した書式は顧客台帳「顧客データダウンロード」のプルダウンに表示されますので、希望の書式を選択して顧客データをダウンロードしてください。<br>
+            </div>
+            <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td><table class="item-box">
+                    <tr align="center">
+                      <td colspan="3" class="item-name02">データ書式設定</td>
+                    </tr>
+                    <tr bgcolor="#FFFFFF">
+                      <td width="14%"><input type="button" name="Submit" value="コピー" onClick="CopySub(1);"<TMPL_IF NAME=nocopy> disabled</TMPL_IF>>
+                      </td>
+                      <td width="80%">顧客データの全項目&nbsp;</td>
+                      <td width="6%">&nbsp;</td>
+                    </tr>
+                    <tr bgcolor="#FFFFFF">
+                        <td nowrap><input type="button" name="Submit" value="コピー"
+                            onClick="CopySub(<TMPL_IF csvid0>
+                                                <TMPL_VAR NAME=csvid0>
+                                                <TMPL_ELSE>0
+                                                </TMPL_IF>);"
+                     <TMPL_IF NAME=nocopy> disabled
+                            <TMPL_ELSE>
+                            <TMPL_UNLESS NAME=csvtitle0> disabled </TMPL_UNLESS>
+                            </TMPL_IF>>
+                     <input type="button" name="Submit" value="編集"
+                     onClick="EditSub(<TMPL_IF csvid0><TMPL_VAR NAME=csvid0>
+                     <TMPL_ELSE>0</TMPL_IF>,'','OdrDataEdit','');">
+                    </td>
+                      <td><TMPL_VAR NAME=csvtitle0>&nbsp;</td>
+                      <td nowrap><input type="button" name="Submit" value="削除"
+                          onClick="DelSub(<TMPL_IF csvid0><TMPL_VAR NAME=csvid0>
+                          <TMPL_ELSE>0</TMPL_IF>);"
+                            <TMPL_UNLESS NAME=csvtitle0> disabled </TMPL_UNLESS>
+                          >
+                      </td>
+                    </tr>
+                    <tr bgcolor="#FFFFFF">
+                        <td><input type="button" name="Submit" value="コピー" 
+                            onClick="CopySub(<TMPL_IF csvid1>
+                            <TMPL_VAR NAME=csvid1>
+                            <TMPL_ELSE>0</TMPL_IF>);"
+                            <TMPL_IF NAME=nocopy> disabled
+                            <TMPL_ELSE>
+                            <TMPL_UNLESS NAME=csvtitle1> disabled </TMPL_UNLESS>
+                            </TMPL_IF>>
+                            <input type="button" name="Submit" value="編集"
+                            onClick="EditSub(<TMPL_IF csvid1>
+                            <TMPL_VAR NAME=csvid1>
+                            <TMPL_ELSE>0</TMPL_IF>,'','OdrDataEdit','');">
+                      </td>
+                      <td><TMPL_VAR NAME=csvtitle1>&nbsp;</td>
+                      <td><input type="button" name="Submit" value="削除"
+                          onClick="DelSub(
+                          <TMPL_IF csvid1><TMPL_VAR NAME=csvid1><TMPL_ELSE>0</TMPL_IF>);"
+                            <TMPL_UNLESS NAME=csvtitle1> disabled </TMPL_UNLESS>
+                          >
+                      </td>
+                    </tr>
+                    <tr bgcolor="#FFFFFF">
+                        <td><input type="button" name="Submit" value="コピー" 
+                            onClick="CopySub(<TMPL_IF csvid2>
+                            <TMPL_VAR NAME=csvid2>
+                            <TMPL_ELSE>0
+                            </TMPL_IF>);"
+                            <TMPL_IF NAME=nocopy> disabled
+                            <TMPL_ELSE>
+                            <TMPL_UNLESS NAME=csvtitle2> disabled </TMPL_UNLESS>
+                            </TMPL_IF>>
+                            <input type="button" name="Submit" value="編集" 
+                            onClick="EditSub(<TMPL_IF csvid2>
+                            <TMPL_VAR NAME=csvid2>
+                            <TMPL_ELSE>0</TMPL_IF>,'','OdrDataEdit','');">
+                      </td>
+                      <td><TMPL_VAR NAME=csvtitle2>&nbsp;</td>
+                      <td><input type="button" name="Submit" value="削除"
+                          onClick="DelSub( <TMPL_IF csvid2>
+                          <TMPL_VAR NAME=csvid2>
+                          <TMPL_ELSE>0</TMPL_IF>);"
+                            <TMPL_UNLESS NAME=csvtitle2> disabled </TMPL_UNLESS>
+                          >
+                      </td>
+                    </tr>
+                    <tr bgcolor="#FFFFFF">
+                        <td><input type="button" name="Submit" value="コピー"
+                            onClick="CopySub(<TMPL_IF csvid3>
+                            <TMPL_VAR NAME=csvid3>
+                            <TMPL_ELSE>0</TMPL_IF>);"
+                            <TMPL_IF NAME=nocopy> disabled
+                            <TMPL_ELSE>
+                            <TMPL_UNLESS NAME=csvtitle3> disabled </TMPL_UNLESS>
+                            </TMPL_IF>>
+                            <input type="button" name="Submit" value="編集" 
+                            onClick="EditSub(<TMPL_IF csvid3><TMPL_VAR NAME=csvid3>
+                                <TMPL_ELSE>0</TMPL_IF>,'','OdrDataEdit','');">
+                      </td>
+                      <td><TMPL_VAR NAME=csvtitle3>&nbsp;</td>
+                      <td><input type="button" name="Submit" value="削除"
+                          onClick="DelSub(<TMPL_IF csvid3>
+                            <TMPL_VAR NAME=csvid3><TMPL_ELSE>0</TMPL_IF>);"
+                            <TMPL_UNLESS NAME=csvtitle3> disabled </TMPL_UNLESS>
+
+                          >
+                      </td>
+                    </tr>
+                    <tr bgcolor="#FFFFFF">
+                        <td><input type="button" name="Submit" value="コピー"
+                            onClick="CopySub(<TMPL_IF csvid4>
+                            <TMPL_VAR NAME=csvid4><TMPL_ELSE>0</TMPL_IF>);"
+                            <TMPL_IF NAME=nocopy> disabled
+                            <TMPL_ELSE>
+                            <TMPL_UNLESS NAME=csvtitle4> disabled </TMPL_UNLESS>
+                            </TMPL_IF>>
+                            <input type="button" name="Submit" value="編集" 
+                            onClick="EditSub(<TMPL_IF csvid4><TMPL_VAR NAME=csvid4>
+                                <TMPL_ELSE>0</TMPL_IF>,'','OdrDataEdit','');">
+                      </td>
+                      <td><TMPL_VAR NAME=csvtitle4>&nbsp;</td>
+                      <td><input type="button" name="Submit" value="削除"
+                          onClick="DelSub( <TMPL_IF csvid4>
+                          <TMPL_VAR NAME=csvid4>
+                          <TMPL_ELSE>0</TMPL_IF>);"
+                            <TMPL_UNLESS NAME=csvtitle4> disabled </TMPL_UNLESS>
+                          >
+                      </td>
+                    </tr>
+                  </table>
+                  <br>                                        </td>
+              </tr>
+          </table></td>
+        </tr>
+    </table></td>
+  </tr>
+</table>
+</form>
+<form name="print" method="post" action="clidata.cgi" target="">
+<input type="hidden" name="cmd" value="dummy">
+</form>

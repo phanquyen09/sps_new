@@ -1,0 +1,112 @@
+<script language="JavaScript" type="text/JavaScript">
+<!--
+
+  function changeService() {
+    var str = document.list.Service.value;
+    document.list.Service.value=str;
+    if (str == 'charge') {  
+      document.list.action='charge_report.cgi';
+    } else { 
+      document.list.action='use_report.cgi';
+    } 
+    document.list.submit();
+  }
+
+  var win_print;
+  function openPrint(obj) {
+
+    if (win_print && !win_print.closed) {
+      alert("既に別の印刷画面が開かれています。\n閉じてから再度実行して下さい。");
+      return;
+    }
+
+    var tag = obj.target; 
+    win_print = window.open("about:blank","use_print","");
+
+    obj.target = "use_print";
+    obj.Cmd.value = "1"; 
+    obj.method = "post";
+    obj.action = "use_reportlist.cgi";
+    obj.submit();
+
+    obj.target = tag;
+    obj.Cmd.value = "0";
+  }
+
+//-->
+</script>
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">各種サービスご利用料の内訳を確認します。</td>
+<td align="right" class="midashi"><a href="<TMPL_VAR NAME=Manual>func01/accrep.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                             <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td>
+                                    <form name="list" method="post" action="use_report.cgi">
+                                    <table class="item-box">
+                                      <tr>
+                                        <td class="item-name">表示切替</td>
+                                        <td class="item02">
+                                          <select name="Service" onChange="changeService();">
+                                            <option value="charge" <TMPL_IF Servicecharge> selected</TMPL_IF>>注文処理・アクセス超過</option>
+                                            <option value="feed" <TMPL_IF Servicefeed> selected</TMPL_IF>>パーク出品サービス</option>
+                                            <option value="siten" <TMPL_IF Servicesiten> selected</TMPL_IF>>支店</option>
+                                          </select>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                    </form>         
+                                    <br>
+                                    <div class="infoArea table_bg">
+                                      「集計期間」をクリックすると、その月に確定したご注文と利用料の一覧を確認できます。<br>
+                                      「印刷」ボタンをクリックすると、明細の印刷画面を表示します。<br>
+                                      レポートは、6ヶ月間保存され、古いものから削除されます。必要があれば、印刷などで保存してください。<br>
+                                    </div>
+                                    <table class="item-box">
+                                      <tr align="center">
+                                        <td colspan="3" class="item-name02"><TMPL_VAR NAME=RepName></td>
+                                      </tr>
+                                      <tr align="center" class="item-name">
+                                        <td width="70%">集計期間</td>
+                                        <td width="20%">ご請求月</td>
+                                        <td width="10%">印刷</td>
+                                      </tr>
+
+<TMPL_IF TERMLIST>
+<TMPL_LOOP TERMLIST>
+                                      <tr>
+                                        <form name="REP<TMPL_VAR NAME=No>" method="POST" action="use_reportlist.cgi">
+                                        <input type="hidden" name="TargetMonth" value="<TMPL_VAR NAME=TargetMonth>">
+                                        <input type="hidden" name="Start" value="<TMPL_VAR NAME=Start>">
+                                        <input type="hidden" name="End"   value="<TMPL_VAR NAME=End>">
+                                        <input type="hidden" name="Cmd" value="0">
+                                        <input type="hidden" name="Service" value="<TMPL_VAR NAME=Service>">
+                                        <input type="hidden" name="BillMonth" value="<TMPL_VAR NAME=BillMonth>">
+                                         <td align="center" class="item02">
+                                           <TMPL_IF PRINT><a href="javascript:document.REP<TMPL_VAR NAME=No>.submit();"></TMPL_IF>
+                                           <TMPL_VAR NAME=Start>&nbsp;〜&nbsp;<TMPL_VAR NAME=End>の確定分
+                                           <TMPL_IF PRINT></a></TMPL_IF></td>
+                                         <td align="center" class="item02"><TMPL_VAR NAME=BillMonth></td>
+                                         <td align="center" class="item02"><input type="button" value="印刷" <TMPL_UNLESS PRINT> disabled</TMPL_UNLESS> onClick="openPrint(document.REP<TMPL_VAR NAME=No>);"></td>
+                                        </form>
+                                      </tr>
+</TMPL_LOOP>
+</TMPL_IF>
+                                  	</table>
+
+                                 </td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>

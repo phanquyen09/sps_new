@@ -1,0 +1,18 @@
+<div>
+<TMPL_LOOP NAME=ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+  <form name="MAIL" method="POST" action="mail-ed.cgi">
+  <input type="hidden" name="MID" value="<TMPL_VAR NAME=MID>">
+  <input type="hidden" name="CMD" value="EDT">
+  <table border=1>
+    <tr>
+      <td>&nbsp;メールアドレス</td><td>&nbsp;<TMPL_VAR NAME=ACC>@<TMPL_VAR NAME=DOM></td>
+    </tr>
+    <tr>
+      <td>&nbsp;パスワード</td><td>&nbsp;<input type="text" name="PWD" value="<TMPL_VAR NAME=PWD>"></td>
+    </tr>
+  </table>
+  <input type="submit" name="go" value="設定">
+  </form>
+</div>

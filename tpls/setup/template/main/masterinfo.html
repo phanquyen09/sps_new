@@ -1,0 +1,127 @@
+<script language="JavaScript">
+<!--
+function delImageID()
+{
+   document.form1.PICSRC.src = '../imgs/spc.gif';
+   document.form1.ImageID.value = '';
+   document.form1.ImageURL.value = '';
+}
+//-->
+</script>
+<form name="form1" method="post" action="masterinfo.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#F39700">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">店長紹介の更新を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/masterinfo.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  「店長紹介」を編集します。<br>
+                                   設定後、[設定を保存する]ボタンをクリックし、管理画面左上の[お店ページの更新へ]ボタンをクリックします。<br><br>
+                                   <a href="../func04/topdesign_sps.cgi">⇒お店ページでの「店長紹介」の表示位置、表示・非表示の設定</a><br><br>
+                                  ※店長日記として外部のブログを利用する場合は、「リンク先URL」に利用するブログのURLを入力してください。<br>
+                                </div>
+                                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+        <TMPL_VAR NAME=err>
+                                  <td>
+<!--
+<div align="right"><a href="diary.cgi">店長日記の新規作成はこちら</a></div>
+-->
+<table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+              <tr>
+                  <td class="item-name">見出し</td>
+                  <td class="item">
+
+                      <input name="label" type="text" class="def-line" value="<TMPL_VAR NAME=label>">
+                  </td>
+                </tr>
+              <tr>
+            <td class="item-name">画像</td>
+            <td class="item">
+                <input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selsize.cgi','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">
+                <input type="button" name="Submit" value="画像削除" onClick="delImageID();">
+<a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a>
+                <br>
+                <br>
+                                        <a href="javascript:;"><img src="<TMPL_VAR NAME=durl>" name="PICSRC" border="0" onClick="window.open(document.form1.ImageURL.value, '', '');"></a> <br>
+                                        <input type="hidden" name="ImageURL" value="<TMPL_VAR NAME=url>">
+                                        <input type="hidden" name="ImageID" value="<TMPL_VAR NAME=IMAGEID>">
+                                </td>
+                </tr>
+              <tr>
+            <td class="item-name">説明</td>
+
+            <td class="item">
+                <textarea name="comment" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=comment></textarea>
+                        <br>※HTMLタグ利用可
+            </td>
+                </tr>
+              <tr>
+                  <td class="item-name">リンク先URL</td>
+                  <td class="item">
+                      <input name="href" type="text" class="def-line" value="<TMPL_VAR NAME=href>">
+<br>※店長日記のURLは「<TMPL_VAR NAME=real>」です。
+
+                  </td>
+                </tr>
+              <tr>
+          <td class="item-name">表示形式</td>
+          <td class="item">
+                        <select name="nwin">
+                                <TMPL_IF name=nwin>
+                                        <option value="0">同ウィンドウ</option>
+                                        <option value="1" selected>別ウィンドウ</option>
+                                <TMPL_ELSE>
+                                        <option value="0" selected>同ウィンドウ</option>
+                                        <option value="1">別ウィンドウ</option>
+                                </TMPL_IF>
+                                </select>
+            </td>
+              </tr>
+            </table><br>
+
+                                  </td>
+                                </tr>
+                            <tr>
+                              <td>店長日記一覧用設定
+                              <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                              <tr>
+                                <td class="item-name">キーワード</td>
+                                <td class="item"><input name="keyword" type="text" class="def-line" value="<TMPL_VAR NAME=keyword>"></td>
+                              </tr>
+                              <tr>
+                                <td class="item-name">ディスクリプション</td>
+                                <td class="item"><input name="description" type="text" class="def-line" value="<TMPL_VAR NAME=description>"></td>
+                            </tr>
+
+                        </table>
+                              </td>
+                            </tr>
+                        </table>
+                          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td>&nbsp;</td>
+                            </tr>
+                          </table>
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                            <tr>
+                              <td align="center" style="padding:10px 10px 10px 10px "><input name="set" type="submit" id="set" value="設定を保存する">
+
+                              </td>
+                            </tr>
+                          </table></td>
+                    </tr></table>
+<input name="mode" type="hidden" value="regist">
+</form>

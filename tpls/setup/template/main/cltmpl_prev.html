@@ -1,0 +1,230 @@
+<style type="text/css">
+<!--
+#prevBox {
+	width:680px;
+	font-size:0.8em;
+	text-align:left;
+	margin:0 auto;
+}
+
+#prevErr {
+	font-weight:bold;
+	color:#ff0000;
+	line-height:1.2em;
+}
+
+#prevCls {
+	text-align:center;
+	margin:2em 0 5em;
+	padding:2em 0 0;
+	border-top:1px solid #666666;
+}
+-->
+</style>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function chgSelList() {
+  document.SLIST.submit();
+}
+
+//-->
+</script>
+<link href="./default01.css" rel="stylesheet" type="text/css">
+<div id="prevBox">
+
+<div class="midashi02">■検索条件を確認</div>
+<br>
+<form name="SLIST" method="POST" action="cltmpl_prev.cgi">
+<select name="SID" length="3" onChange="chgSelList()">
+  <option value="">検索条件を選択してください</option>
+  <TMPL_LOOP SEARCH_LIST>
+  <option value="<TMPL_VAR S_ID>" <TMPL_IF S_SEL>selected</TMPL_IF>><TMPL_VAR S_NAME></option>
+  </TMPL_LOOP>
+</select>
+<br>
+<br>
+<table class="item-box">
+<TMPL_IF NAME=MemType_F>
+<tr>
+  <td class="item-name">顧客種別</td>
+  <td class="item">
+    <TMPL_VAR NAME=MemType>
+  </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=Account_F>
+<tr>
+  <td class="item-name">会員ID</td>
+  <td class="item">
+    <TMPL_VAR NAME=Account>
+  </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=Name_F>
+<tr>
+  <td class="item-name">お名前</td>
+  <td class="item">
+    <TMPL_VAR NAME=Name>を含む
+  </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=Company_F>
+<tr>
+  <td class="item-name">法人名</td>
+  <td class="item">
+    <TMPL_VAR NAME=Company>を含む
+  </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=Tel_F>
+<tr>
+  <td class="item-name">電話番号</td>
+  <td class="item">
+    <TMPL_VAR NAME=Tel> を含む
+  </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=Pref_F>
+<tr>
+  <td class="item-name">都道府県</td>
+  <td class="item">
+    <TMPL_VAR NAME=Pref>
+  </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=MailType_F>
+<tr>
+  <td class="item-name">メールアドレス種別</td>
+  <td class="item">
+    <TMPL_VAR NAME=MailType>
+  </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=Mail_F>
+<tr>
+  <td class="item-name">メールアドレス</td>
+  <td class="item">
+    <TMPL_VAR NAME=Mail>
+  </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=DM_F>
+<tr>
+  <td class="item-name">お知らせ</td>
+  <td class="item">
+    <TMPL_VAR NAME=DM>
+  </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=Date_F>
+<tr>
+  <td class="item-name">期間</td>
+  <td class="item">
+    <TMPL_VAR NAME=Date>
+  </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=Point_F>
+<tr>
+  <td class="item-name">ポイント</td>
+  <td class="item">
+    <TMPL_VAR NAME=Point>
+  </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=OrderCount_F>
+<tr>
+  <td class="item-name">購入回数</td>
+  <td class="item">
+    <TMPL_VAR NAME=OrderCount>
+  </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=Route_F>
+<tr>
+  <td class="item-name">購入ページ</td>
+  <td class="item">
+     <TMPL_VAR NAME=Route>
+  </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=Enquete_F>
+<tr>
+  <td class="item-name" rowspan="5">注文者アンケート</td>
+  <td class="item">
+    <div class="sub-item-name" style="width:98%;"><TMPL_VAR NAME=Enquete1Quest>&nbsp;</div>
+    <TMPL_VAR NAME=Enquete1Ans>&nbsp;
+  </td>
+</tr>
+<tr>
+  <td class="item">
+    <div class="sub-item-name" style="width:98%;"><TMPL_VAR NAME=Enquete2Quest>&nbsp;</div>
+    <TMPL_VAR NAME=Enquete2Ans>&nbsp;
+  </td>
+</tr>
+<tr>
+  <td class="item">
+    <div class="sub-item-name" style="width:98%;"><TMPL_VAR NAME=Enquete3Quest>&nbsp;</div>
+    <TMPL_VAR NAME=Enquete3Ans>&nbsp;
+  </td>
+</tr>
+<tr>
+  <td class="item">
+    <div class="sub-item-name" style="width:98%;"><TMPL_VAR NAME=Enquete4Quest>&nbsp;</div>
+    <TMPL_VAR NAME=Enquete4Ans>&nbsp;
+  </td>
+</tr>
+<tr>
+  <td class="item">
+    <div class="sub-item-name" style="width:98%;"><TMPL_VAR NAME=Enquete5Quest>&nbsp;</div>
+     <TMPL_VAR NAME=Enquete5Ans>&nbsp;
+  </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=ItemNo_F>
+<tr>
+  <td class="item-name">商品番号</td>
+  <td class="item">
+    <TMPL_VAR NAME=ItemNo>を含む
+  </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=Category_F>
+<tr>
+  <td class="item-name">カテゴリ</td>
+  <td class="item">
+    <TMPL_VAR NAME=Category>
+  </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=Group_F>
+<tr>
+  <td class="item-name">グループ</td>
+  <td class="item">
+  <TMPL_VAR NAME=Group>
+  </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=YamiItemGroup>
+<tr>
+  <td class="item-name"><span style="font-size:90%;">闇市グループ</span></td>
+  <td class="item">
+  <TMPL_VAR NAME=YamiItemGroup>
+  </td>
+</tr>
+</TMPL_IF>
+<TMPL_IF NAME=SameMail_F>
+<tr>
+  <td class="item-name"><span style="font-size:90%;">同じメールアドレスのデータをまとめる</span></td>
+  <td class="item">
+  <TMPL_VAR NAME=SameMail>
+  </td>
+</tr>
+</TMPL_IF>
+</table>
+</form>
+<div id="prevCls">
+<input type="button" name="Submit" value="閉じる" onClick="window.close()">
+</div>
+
+</div>

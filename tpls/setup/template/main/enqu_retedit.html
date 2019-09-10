@@ -1,0 +1,119 @@
+<script language="JavaScript">
+<!--
+function do_command(b,cmd) {
+    document.ENQUEDIT.CMD.value=cmd;
+    if(cmd == 'SAVE'){
+        b.disabled=true;
+        document.ENQUEDIT.submit();
+    }else if(cmd == 'TESTSEND'){
+        b.disabled=true;
+        document.ENQUEDIT.submit();
+    }
+
+}
+//-->
+</script>
+<style type="text/css">
+  .outline {
+    width: 100%;
+  }
+</style>
+<table bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td width="12">
+      <table align="right" bgcolor="#f39700" border="0" cellpadding="0" cellspacing="0" height="20" width="50%">
+        <tr>
+          <td>
+            <img src="../imgs/spc.gif">
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td class="midashi" align="left">アンケートの受信メールアドレスや件名などを設定します</td>
+    <td class="midashi" align="right"><a href="https://help.shopserve.jp/help/enqu_select.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+  <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="left" class="main-table">
+       <form name="ENQUEDIT" method="post" action="enquete_retedit.cgi" style="padding:0;margin:0">
+        <input type="hidden" name="EnquPageID" value="<TMPL_VAR NAME=EnquPageID>">
+        <input type="hidden" name="PageNo" value="<TMPL_VAR NAME=PageNo>">
+        <input type="hidden" name="CMD" value="">
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tr>
+            <td>
+              <div style="border:1px solid #666;padding:4px;margin:0 0 1em">
+                <table width="100%">
+                  <tr>
+                    <td>
+                      <div style="text-align:center">
+                      <input style="width:124px" name="enquete01" type="button" onClick="location.href='enquete_edit.cgi?PageNo=<TMPL_VAR NAME=PageNo>'" value="フォームの設定">&nbsp;
+                      <input style="width:124px" name="enquete02" type="button" value="入力画面の設定" onClick="location.href='enquete.cgi?PageNo=<TMPL_VAR NAME=PageNo>&CMD=EDT'">&nbsp;
+                      <input style="width:124px" name="enquete03" type="button" value="確認画面の設定" onClick="location.href='enquete.cgi?PageNo=<TMPL_VAR NAME=PageNo>&CMD=CFMEDT'">&nbsp;
+                      <input style="width:124px" name="enquete04" type="button" value="お礼画面の設定" onClick="location.href='enquete.cgi?PageNo=<TMPL_VAR NAME=PageNo>&CMD=THKEDT'">&nbsp;
+                      <input style="width:124px" name="enquete05" type="button" value="自動返信の設定" onClick="location.href='enquete_retedit.cgi?PageNo=<TMPL_VAR NAME=PageNo>'" disabled>
+                      </div>
+                    </td> 
+                  </tr>
+                </table>
+              </div>
+              <TMPL_LOOP NAME=ERR_MSG>
+                <font color="red">&nbsp;<TMPL_VAR NAME=MSG></font><br>
+              </TMPL_LOOP>
+              <table class="item-box" border="0" cellpadding="0" cellspacing="2" width="100%">
+                <tr align="center">
+                  <td colspan="2" class="item-name02">自動返信メールの設定</td>
+                </tr>
+                <tr>
+                  <td class="item-name" align="left">自動返信メール</td>
+                  <td class="item">
+	            <input type="radio" name="RetMailF" id="RetMailF_Y" value="Y" <TMPL_IF NAME=RetMailF>CHECKED<TMPL_ELSE></TMPL_IF>><label for="RetMailF_Y">送信する</label><br>
+	            <input type="radio" name="RetMailF" id="RetMailF_N" value="N" <TMPL_IF NAME=RetMailF><TMPL_ELSE>CHECKED</TMPL_IF>><label for="RetMailF_N">送信しない</label>
+	          </td>
+                </tr>
+                <tr>
+                  <td class="item-name" align="left">差出人名</td>
+                  <td class="item">
+                    <input name="RetMailFromname" class="def-line" value="<TMPL_VAR NAME=RetMailFromname>" type="text">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item-name" align="left">差出人メールアドレス</td>
+                  <td class="item">
+                    <input name="RetMailFrom" class="def-line" value="<TMPL_VAR NAME=RetMailFrom>" type="text">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item-name" align="left">件名</td>
+                  <td class="item">
+                    <input name="RetMailTitle" class="def-line" value="<TMPL_VAR NAME=RetMailTitle>" type="text">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="item-name" align="left">本文</td>
+                  <td class="item">
+                    <textarea name="RetMailBody" rows="10" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=RetMailBody></textarea>
+	          </td>
+                </tr>
+                <tr>
+                  <td colspan="2" align="center" bgcolor="#ffffff">
+                    <input value="テスト送信する" onClick="do_command(this,'TESTSEND');" type="button">&nbsp;
+                    <input value="設定を保存する" onClick="do_command(this,'SAVE');" type="button">
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </form>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center" style="padding:0px 10px 20px 10px" bgcolor="#ffffff">
+        <input type="button" value="フォーム一覧へ戻る" onClick="location.href='enqu_select.cgi'">
+      </td>
+    </tr>
+  </table>
+

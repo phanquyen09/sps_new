@@ -1,0 +1,23 @@
+<div>
+  <form name="MAILN" method="POST" action="webacc-del.cgi">
+  <input type="hidden" name="CMD" value="DEL">
+  <table border="1"> 
+<TMPL_LOOP NAME=DEL_ACC>
+    <input type="hidden" name="DELAID" value="<TMPL_VAR NAME=DEL_ID>">
+    <tr>
+      <td>&nbsp;<TMPL_VAR NAME=ACC></td>
+      <td>&nbsp;/<TMPL_VAR NAME=DIR></td>
+    </tr>
+</TMPL_LOOP>
+  </table>
+<hr>
+  <input type="submit" name="SAVE" value="ºï½ü">
+  </form>
+  <form name="MAILB" method="POST" action="webacc.cgi">
+  <input type="hidden" name="CMD" value="DEL">
+<TMPL_LOOP NAME=DEL_LIST>
+  <input type="hidden" name="DELAID" value="<TMPL_VAR NAME=DEL_ID>">
+</TMPL_LOOP>
+  <input type="submit" name="BACK" value="Ìá¤ë">
+  </form>
+</div>

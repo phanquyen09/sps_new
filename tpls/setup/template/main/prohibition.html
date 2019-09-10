@@ -1,0 +1,105 @@
+<script language="JavaScript">
+<!--
+function del(f) {
+  if ( confirm("禁止IPを削除します。よろしいですか？") ) {
+    f.submit();
+  } else {
+    return;
+  }
+}
+//-->
+</script>
+<form name="form1" method="post" action="prohibition.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#F39700">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+                            <td align="left" class="midashi">禁止IPの管理を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/prohibition.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                コメントの受け付けを禁止するIPアドレスを管理します。<br>
+                                記載されているIPアドレスからは、コメントを受け付けません。
+                                </div>
+                                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+			<TMPL_VAR NAME=err>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                    <tr>
+                                      <td class="item-name">禁止IPアドレス</td>
+                                      <td class="item"><input name="ip" type="text" style="ime-mode:disabled">
+
+                                      </td>
+                                    </tr>
+                                    <tr align="center">
+                                      <td colspan="2" class="item02"><span class="item">
+                                        <input type="button" name="Submit" onClick="document.form1.mode.value='regist';document.form1.submit();" value="追加">
+                                      </span></td>
+                                    </tr>
+                                  </table>
+                                    <br>
+                                    <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr>
+                                        <td align="right">
+<TMPL_IF NAME=all>
+<TMPL_VAR NAME=nows>&nbsp;-&nbsp;<TMPL_VAR NAME=nowe>&nbsp;（&nbsp;全&nbsp;<TMPL_VAR NAME=all>件&nbsp;）
+</TMPL_IF>
+<TMPL_IF NAME=all>
+<TMPL_VAR NAME=arrow1>　<TMPL_VAR NAME=arrow2>　<TMPL_VAR NAME=page>　<TMPL_VAR NAME=arrow3>　<TMPL_VAR NAME=arrow4>
+</TMPL_IF>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                    <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                      <tr align="center" class="item-name02">
+                                        <td width="20%">選択</td>
+                                        <td width="30%">追加日
+<a href="javascript:;document.form1.o.value='<TMPL_VAR NAME=tdesc>';document.form1.p.value='1';document.form1.submit();">▼</a></td>
+                                        <td width="50%">IPアドレス
+<a href="javascript:;document.form1.o.value='<TMPL_VAR NAME=idesc>';document.form1.p.value='1';document.form1.submit();">▼</a></td>
+
+                                      </tr>
+
+                                       <TMPL_LOOP NAME=prohibition_list>
+                                       <tr>
+                                       <td align="center" bgcolor="#FFFFFF">
+                                       <input type="checkbox" name="id" value="<TMPL_VAR NAME=id>">
+                                       </td>
+                                       <td align="center" bgcolor="#FFFFFF"><TMPL_VAR NAME=uptime></td>
+                                       <td align="center" bgcolor="#FFFFFF"><TMPL_VAR NAME=ip></td>
+                                       </tr>
+                                       </TMPL_LOOP>
+
+                                      <tr bgcolor="#FFFFFF">
+                                        <td colspan="3" align="center"><input type="button" name="Submit" value="削除する" onClick="document.form1.mode.value='del';del(document.form1);">
+                                        </td>
+                                      </tr>
+                                    </table><br>
+</td>
+                                </tr>
+                              </table></td>
+
+                            </tr>
+                        </table>
+                          </td>
+                    </tr>
+<input type="hidden" name="mode" value="">
+<input type="hidden" name="p" value="<TMPL_VAR NAME=p>">
+<input type="hidden" name="o" value="<TMPL_VAR NAME=o>">
+<input type="hidden" name="r" value="<TMPL_VAR NAME=r>">
+<input type="hidden" name="sdesc" value="<TMPL_VAR NAME=sdesc>">
+<input type="hidden" name="tdesc" value="<TMPL_VAR NAME=tdesc>">
+<input type="hidden" name="adesc" value="<TMPL_VAR NAME=adesc>">
+<input type="hidden" name="idesc" value="<TMPL_VAR NAME=idesc>">
+<input type="hidden" name="edesc" value="<TMPL_VAR NAME=edesc>">
+</form>

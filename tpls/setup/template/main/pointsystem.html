@@ -1,0 +1,103 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<form name="POINTINFO" method="POST" action="pointsystem.cgi">
+<input type="hidden" name="CMD" value="EDT">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0093C9">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">ポイントの運用設定を行います</td>
+<td align="right" class="midashi"><a href="<TMPL_VAR NAME=Manual>func03/pntset.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  決済ごとのポイント還元率、ポイント発行ポリシーを設定します。<br>
+                                  「ポイント発行方法」で「手動発行」を選択している場合は「<a href="../func01/orderpnt.cgi">承認台帳</a>」で注文を承認することでポイントが発行されます。<br><br>
+                                  商品ごとにポイント還元率を変更したい場合は「<a href="../func01/itemlist.cgi">商品台帳</a>」で商品ごとに設定してください。<br>
+                                </div>
+                                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td>
+<TMPL_LOOP ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+				    <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                    <tr align="center">
+                                      <td colspan="2" class="item-name02">ポイント運用</td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">ポイント還元率</td>
+                                      <td class="item-sub"><table width="100%">
+<TMPL_LOOP PMLIST>
+                                          <tr>
+                                            <td class="sub-item-name" style="font-size:90%;"><TMPL_VAR NAME=JNAME></td>
+                                            <td class="sub-item"><input name="<TMPL_VAR NAME=RNAME>" type="text" value="<TMPL_VAR NAME=RATE>" style="ime-mode:disabled">
+            ％ </td>
+                                          </tr>
+</TMPL_LOOP>
+                                      </table></td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">ポイント発行/利用対象</td>
+                                      <td class="item"><input name="PointType" type="radio" id="p_base02" value="T" <TMPL_IF POINTTYPET>checked</TMPL_IF>>
+                                          <label for="p_base02">送料や手数料も含む注文合計額（税込）</label>
+                                          <br>
+                                          <input name="PointType" type="radio" value="S"  id="p_base01" <TMPL_IF POINTTYPES>checked</TMPL_IF>>
+                                          <label for="p_base01">商品合計（税込）</label>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">小数点以下の扱い</td>
+                                      <td class="item"><input name="Round" type="radio" value="A" id="p_decimal01" <TMPL_IF ROUNDA>checked</TMPL_IF>>
+                                          <label for="p_decimal01">切り捨て</label>
+                                          <br>
+                                          <input name="Round" type="radio" value="B" id="p_decimal02" <TMPL_IF ROUNDB>checked</TMPL_IF>>
+                                          <label for="p_decimal02">四捨五入</label>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">有効期限</td>
+                                      <td class="item"><input name="PointExp" type="text" value="<TMPL_VAR NAME=POINTEXPIRE>" style="ime-mode:disabled">
+      ヶ月 </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">ポイント利用時の発行対象</td>
+                                      <td class="item"><input name="RemRule" type="radio" value="A" id="p_use01" <TMPL_IF REMRULEA>checked</TMPL_IF>>
+                                          <label for="p_use01">ポイント利用後の残金に対して発行</label>
+                                          <br>
+                                          <input name="RemRule" type="radio" value="B" id="p_use02" <TMPL_IF REMRULEB>checked</TMPL_IF>>
+                                          <label for="p_use02">ポイント利用前の金額に対して発行</label>
+                                          <br>
+                                          <input name="RemRule" type="radio" value="C" id="p_use03" <TMPL_IF REMRULEC>checked</TMPL_IF>>
+                                          <label for="p_use03">ポイント利用時は発行しない</label>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">ポイント名称</td>
+                                      <td class="item"><input name="PointUnit" type="text" value="<TMPL_VAR NAME=POINTUNIT>">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">ポイント発行方法</td>
+                                      <td class="item"><input name="Public" type="radio" value="MANUAL" id="p_timing01" <TMPL_IF PUBMANUAL>checked</TMPL_IF>>
+                                          <label for="p_timing01">手動発行</label>
+                                          <br>
+                                          <input name="Public" type="radio" value="AUTO" id="p_timing02" <TMPL_IF PUBAUTO>checked</TMPL_IF>>
+                                          <label for="p_timing02">自動発行</label>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                    <br>
+                                    
+                                    <div align="center"><input name="set" type="button" id="set" value="設定を保存する" onClick='document.POINTINFO.submit();'></div>
+                                    
+                                    </td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>

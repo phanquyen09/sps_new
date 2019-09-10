@@ -1,0 +1,423 @@
+<script language="JavaScript">
+<!--
+function setMenuItem(n)
+{
+  for (i=0; i<3; i++) {
+      document.SCHARGE.ScDiscountType[i].options[n].selected = true;
+  }
+}
+//-->
+</script>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<form name="SCHARGE" method="POST" action="scharge.cgi">
+<input type="hidden" name="CMD" value="EDT">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0093C9">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">送料の設定を行います</td>
+<td align="right" class="midashi"><a href="<TMPL_VAR NAME=Manual>func03/delivery.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+<script language="JavaScript">
+<!--
+function disSetDef() {
+	document.getElementById('base01').disabled = true;
+	document.getElementById('base02').disabled = true;
+	document.getElementById('base03').disabled = true;
+	document.getElementById('base04').disabled = true;
+	document.getElementById('base05').disabled = true;
+
+	document.getElementById('ScDisp').disabled = true;
+	document.getElementById('ScUniform').disabled = true;
+	document.getElementById('set01').disabled = true;
+	document.getElementById('set02').disabled = true;
+
+	document.getElementById('cool01').disabled = true;
+	document.getElementById('cool02').disabled = true;
+
+	document.getElementById('ScCool').disabled = true;
+
+	document.getElementById('discount02').disabled = true;
+
+<TMPL_LOOP SCDISCLIST>
+        document.getElementById('Prc<TMPL_VAR NAME=NO>').disabled = true;
+        document.getElementById('ScOff<TMPL_VAR NAME=NO>').disabled = true;
+        document.getElementById('ScDiscountType<TMPL_VAR NAME=NO>').disabled = true;
+</TMPL_LOOP>
+
+	document.getElementById('mix01').disabled = true;
+	document.getElementById('mix02').disabled = true;
+	document.getElementById('mix03').disabled = true;
+	document.getElementById('mix04').disabled = true;
+	document.getElementById('mix05').disabled = true;
+
+	document.getElementById('cool02-01').disabled = true;
+	document.getElementById('cool02-02').disabled = true;
+	document.getElementById('cool02-03').disabled = true;
+
+	document.getElementById('priority01').disabled = true;
+	document.getElementById('priority02').disabled = true;
+}
+
+function actSetDef() {
+	document.getElementById('base01').disabled = false;
+	document.getElementById('base02').disabled = false;
+	document.getElementById('base03').disabled = false;
+	document.getElementById('base04').disabled = false;
+	document.getElementById('base05').disabled = false;
+
+	document.getElementById('ScDisp').disabled = false;
+	document.getElementById('ScUniform').disabled = false;
+	document.getElementById('set01').disabled = false;
+	document.getElementById('set02').disabled = false;
+
+	document.getElementById('cool01').disabled = false;
+	document.getElementById('cool02').disabled = false;
+
+	document.getElementById('ScCool').disabled = false;
+
+	document.getElementById('discount02').disabled = false;
+
+	document.getElementById('Prc1').disabled = false;
+	document.getElementById('ScOff1').disabled = false;
+	document.getElementById('ScDiscountType1').disabled = false;
+
+	document.getElementById('Prc2').disabled = false;
+	document.getElementById('ScOff2').disabled = false;
+	document.getElementById('ScDiscountType2').disabled = false;
+
+	document.getElementById('Prc3').disabled = false;
+	document.getElementById('ScOff3').disabled = false;
+	document.getElementById('ScDiscountType3').disabled = false;
+
+	document.getElementById('mix01').disabled = false;
+	document.getElementById('mix02').disabled = false;
+	document.getElementById('mix03').disabled = false;
+	document.getElementById('mix04').disabled = false;
+	document.getElementById('mix05').disabled = false;
+
+	document.getElementById('cool02-01').disabled = false;
+	document.getElementById('cool02-02').disabled = false;
+	document.getElementById('cool02-03').disabled = false;
+
+	document.getElementById('priority01').disabled = false;
+	document.getElementById('priority02').disabled = false;
+}
+
+function disSetDis() {
+	document.getElementById('ScUniform2').disabled = true;
+
+	document.getElementById('cool2-01').disabled = true;
+	document.getElementById('cool2-02').disabled = true;
+
+	document.getElementById('ScCool2').disabled = true;
+
+	document.getElementById('Prc2-01').disabled = true;
+
+	document.getElementById('coment01').disabled = true;
+	document.getElementById('coment02').disabled = true;
+
+	document.getElementById('priority2-01').disabled = true;
+	document.getElementById('priority2-02').disabled = true;
+}
+
+function actSetDis() {
+	document.getElementById('ScUniform2').disabled = false;
+
+	document.getElementById('cool2-01').disabled = false;
+	document.getElementById('cool2-02').disabled = false;
+
+	document.getElementById('ScCool2').disabled = false;
+
+	document.getElementById('Prc2-01').disabled = false;
+
+	document.getElementById('coment01').disabled = false;
+	document.getElementById('coment02').disabled = false;
+
+	document.getElementById('priority2-01').disabled = false;
+	document.getElementById('priority2-02').disabled = false;
+}
+//-->
+</script>
+<div style="background:#f1f7fc;margin:0 0 1em;padding:0.5em;line-height:1.4em">
+1.お店で利用する方の送料設定を選択します。　※[利用中]と表示されている方が現在適用されている送料設定です。<BR>
+2.［詳細設定］ボタンをクリックして各種設定を行います。<br>
+設定完了後、[設定を保存する]ボタンをクリックすることで、送料設定が適用されます。
+</div>
+<TMPL_IF DefOn><img src="../imgs/spc.gif" onLoad="actSetDef();disSetDis();"></TMPL_IF>
+<TMPL_IF DisOn><img src="../imgs/spc.gif" onLoad="actSetDis();disSetDef();"></TMPL_IF>
+<table class="item-box">
+<tr>
+	<td class="item-name02" style="padding:0">
+		<table style="width:100%;margin:0;padding:0">
+		<tr>
+			<td style="width:1.5em;text-align:center"><input name="ScOn" type="radio" value="def" onClick="actSetDef();disSetDis();" <TMPL_IF DefOn> checked</TMPL_IF>></td>
+			<td style="width:13.5em">標準の送料設定を利用する</td>
+			<td style="font-weight:normal"><input type="button" value="詳細設定" onClick="if(getElementById('schargeDef').style.display=='none'){getElementById('schargeDef').style.display='block'}else{getElementById('schargeDef').style.display='none'}"></td>
+			<td style="text-align:right;color:#fc0"><TMPL_IF MaruMoreStatusN>［利用中］<ELSE_IF>&nbsp;</TMPL_IF></td>
+		</tr>
+		</table>
+	</td>
+</tr>
+<tr>
+	<td class="item-sub" style="padding:0">
+		<p style="margin:0.5em 0.5em 1.6em">標準の送料設定です。</p>
+		<div style="margin:0.5em 0.5em 0.5em;color:#f00;font-weight:bold">
+<TMPL_LOOP NAME=ERR_MSG>
+&nbsp;・<TMPL_VAR NAME=MSG><br>
+</TMPL_LOOP>
+<TMPL_IF EDIT><img src="../imgs/spc.gif" onLoad="if(getElementById('schargeDef').style.display=='none'){getElementById('schargeDef').style.display='block'}else{getElementById('schargeDef').style.display='none'}"><TMPL_ELSE><img src="../imgs/spc.gif"></TMPL_IF>
+		</div>
+ 
+		<div id="schargeDef" style="margin:0.5em 0 0;display:none">
+			<table style="width:100%">
+			<tr align="center">
+				<td colspan="2" class="item-name" style="padding:0.5em 0;text-align:center">標準の送料設定</td>
+			</tr>
+			<tr>
+				<td class="sub-item-name" style="width:28%">基本設定</td>
+				<td class="sub-item" style="width:72%">
+					<input name="ScCalc" type="radio" value="F" id="base01" <TMPL_IF SCCALCF>checked</TMPL_IF>>
+					送料無料&nbsp;（
+					<input type="checkbox" name="ScDisp" value="N" id="ScDisp" <TMPL_IF SCDISP>checked</TMPL_IF>>
+					送料欄を表示しない）<br>
+					<input name="ScCalc" type="radio" value="U" id="base02" <TMPL_IF SCCALCU>checked</TMPL_IF>>
+					全国一律&nbsp;
+					<input name="ScUniform" type="text" size="10" value="<TMPL_VAR NAME=SCUNIFORM>" style="ime-mode:disabled" id="ScUniform" >
+					円<br>
+					<input name="ScCalc" type="radio" value="A" id="base03" <TMPL_IF SCCALCA>checked</TMPL_IF>>
+					<label for="base03">
+						地域別
+						<input name="set" type="button" value="料金テーブル設定" onClick="window.open('sc_tiiki.cgi','table','');" id="set01" >
+					</label>
+					<br>
+					<input name="ScCalc" type="radio" value="W" id="base04" <TMPL_IF SCCALCW>checked</TMPL_IF>>
+					<label for="base04">
+						重量別
+						<input name="set" type="button" value="料金テーブル設定" onClick="window.open('sc_weight.cgi','table','');" id="set02" >
+					</label>
+					<br>
+					<input name="ScCalc" type="radio" value="L" id="base05" <TMPL_IF SCCALCL>checked</TMPL_IF>>
+					<label for="base05">別途連絡</label>
+				</td>
+			</tr>
+			<tr>
+				<td class="sub-item-name">クール便設定</td>
+				<td class="sub-item">
+					<input name="ScCoolSel" type="radio" value="N" id="cool01" <TMPL_IF SCCOOLN>checked</TMPL_IF>>
+					<label>計算しない</label>
+					<br>
+					<input name="ScCoolSel" type="radio" value="Y" id="cool02" <TMPL_IF SCCOOLY>checked</TMPL_IF>>
+					<label>
+						計算する&nbsp; （基本設定の送料&nbsp;＋
+						<input name="ScCool" type="text" size="10" value="<TMPL_VAR NAME=SCCOOL>" style="ime-mode:disabled" id="ScCool" >
+						円 ）　※送料無料の場合を除く
+					</label>
+				</td>
+			</tr>
+			<tr>
+				<td class="sub-item-name">商品合計による割引設定</td>
+				<td class="sub-item">
+					<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td><input name="ScDiscount" type="checkbox" value="Y" id="discount02" <TMPL_IF SCDISCOUNTY>checked</TMPL_IF>></td>
+						<td><label for="discount02">有効にする</label></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+						<td>
+                                        <TMPL_LOOP SCDISCLIST>
+                                                  <input name="Prc<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PRC>" style="ime-mode:disabled"> 円以上は
+                                                  <input name="ScOff<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=SCOFF>" style="ime-mode:disabled">
+                                                  <select name="ScDiscountType" onChange="setMenuItem(this.selectedIndex);" id="ScDiscountType<TMPL_VAR NAME=NO>">
+                                                  <option value="YEN" <TMPL_IF SCDISCOUNTTYPEYEN>selected</TMPL_IF>>円になる</option>
+                                                  <option value="PER" <TMPL_IF SCDISCOUNTTYPEPER>selected</TMPL_IF>>％ 割引</option>
+                                                  </select><br>
+                                        </TMPL_LOOP>
+						</td>
+					</tr>
+					</table>
+				</td>
+			</tr>
+			<tr align="center">
+				<td colspan="2" class="item-name" style="padding:0.5em 0;text-align:center">混在時設定</td>
+			</tr>
+			<tr>
+				<td class="sub-item-name">個別送料商品混在時の設定</td>
+				<td class="sub-item">
+					<input name="ScKobetuMix" type="radio" value="A" id="mix01" <TMPL_IF SCKOBETUMIXA>checked</TMPL_IF>>
+					<label for="mix01">個別送料設定のない商品の送料と、個別送料を合算して送料とする</label>
+					<br>
+					<input name="ScKobetuMix" type="radio" value="B" id="mix02" <TMPL_IF SCKOBETUMIXB>checked</TMPL_IF>>
+					<label for="mix02">個別送料だけを合算して送料とする</label>
+					<br>
+					<input name="ScKobetuMix" type="radio" value="C" id="mix03" <TMPL_IF SCKOBETUMIXC>checked</TMPL_IF>>
+					<label for="mix03">個別送料の中で一番高い金額を送料とする</label>
+					<br>
+					<input name="ScKobetuMix" type="radio" value="D" id="mix04" <TMPL_IF SCKOBETUMIXD>checked</TMPL_IF>>
+					<label for="mix04">個別送料の中で一番安い金額を送料とする</label>
+					<br>
+					<input name="ScKobetuMix" type="radio" value="L" id="mix05" <TMPL_IF SCKOBETUMIXL>checked</TMPL_IF>>
+					<label for="mix05">別途連絡</label>
+				</td>
+			</tr>
+			<tr>
+				<td class="sub-item-name">クール便混在時の設定</td>
+				<td class="sub-item">
+					<input name="ScCoolMix" type="radio" value="S" id="cool02-01" <TMPL_IF SCCOOLMIXS>checked</TMPL_IF>>
+					<label for="cool02-01">通常便とクール便を別口で計算</label>
+					<br>
+					<input name="ScCoolMix" type="radio" value="T" id="cool02-02" <TMPL_IF SCCOOLMIXT>checked</TMPL_IF>>
+					<label for="cool02-02">通常便とクール便を1個口で計算</label>
+					<br>
+					<input name="ScCoolMix" type="radio" value="L" id="cool02-03" <TMPL_IF SCCOOLMIXL>checked</TMPL_IF>>
+					<label for="cool02-03">別途連絡</label>
+				</td>
+			</tr>
+			<tr>
+				<td class="sub-item-name">優先送料商品混在時の設定</td>
+				<td class="sub-item">
+					<input name="ScPrioType" type="radio" value="MAX" id="priority01" <TMPL_IF SCPRIOTYPEMAX>checked</TMPL_IF>>
+					<label for="priority01">一番高い金額を送料とする</label>
+					<br>
+					<input name="ScPrioType" type="radio" value="MIN" id="priority02" <TMPL_IF SCPRIOTYPEMIN>checked</TMPL_IF>>
+					<label for="priority02">一番安い金額を送料とする</label>
+				</td>
+			</tr>
+			</table>
+		</div>
+
+	</td>
+</tr>
+<tr>
+	<td class="item-name02" style="padding:0">
+		<table style="width:100%;margin:0;padding:0">
+		<tr>
+			<td style="width:1.5em;text-align:center"><input name="ScOn" type="radio" value="dis" onClick="disSetDef();actSetDis();" <TMPL_IF DisOn> checked</TMPL_IF><TMPL_IF MultiOn>disabled</TMPL_IF>></td>
+			<td style="width:28em">あと○円で送料無料の案内を表示する送料設定を利用する</td>
+			<td><input type="button" value="詳細設定" onClick="if(getElementById('schargeDis').style.display=='none'){getElementById('schargeDis').style.display='block'}else{getElementById('schargeDis').style.display='none'}" style="font-weight:normal"></td>
+			<td style="text-align:right;color:#fc0"><TMPL_IF MaruMoreStatusY>［利用中］<ELSE_IF>&nbsp;</TMPL_IF></td>
+		</tr>
+		</table>
+	</td>
+</tr>
+<tr>
+	<td class="item-sub" style="padding:0">
+		<p style="margin:0.5em">現在の「商品合計金額」と「送料無料になる金額」との差額を案内できる送料設定です。<br>
+		ショッピングカートに「あと○円で送料無料です。」などの案内を表示できます。</p>
+
+		<div style="margin:0.5em 0.5em 0.5em;color:#f00;font-weight:bold">
+<TMPL_IF MultiOn>
+ショッピングカートで商品の送付先が複数選択できる場合、本機能はご利用いただけません。<br>
+「お店設定」＞<a href="./deliv_desc.php">「お届け先設定」</a>で「複数送付先の利用可」のチェックをはずしてからご利用ください。
+<img src="../imgs/spc.gif" onLoad="disSetDis();actSetDef();">
+</TMPL_IF>
+<TMPL_LOOP NAME=M_ERR_MSG>
+&nbsp;・<TMPL_VAR NAME=MSG><br>
+</TMPL_LOOP>
+<TMPL_IF M_EDIT><img src="../imgs/spc.gif" onload="if(getElementById('schargeDis').style.display=='none'){getElementById('schargeDis').style.display='block'}else{getElementById('schargeDis').style.display='none'}"><TMPL_ELSE><img src="../imgs/spc.gif"></TMPL_IF>
+		</div>
+
+		<div id="schargeDis" style="margin:0.5em 0 0;display:none">
+			<table style="width:100%">
+			<tr>
+				<td colspan="2" class="item-name" style="padding:0.5em 0;text-align:center">あと○円で送料無料の案内を表示する送料設定</td>
+			</tr>
+			<tr>
+				<td class="sub-item-name" style="width:28%">基本設定</td>
+				<td class="sub-item" style="width:72%">
+					全国一律&nbsp;
+					<input name="DisScUniform" type="text" size="10" value="<TMPL_VAR NAME=DIS_SCUNIFORM>" style="ime-mode:disabled" id="ScUniform2">
+					円
+				</td>
+			</tr>
+			<tr>
+				<td class="sub-item-name">クール便設定</td>
+				<td class="sub-item">
+					<input name="DisScCoolSel" type="radio" value="N" id="cool2-01" <TMPL_IF DIS_SCCOOLN>checked</TMPL_IF>>
+					計算しない<br>
+					<input name="DisScCoolSel" type="radio" value="Y" id="cool2-02" <TMPL_IF DIS_SCCOOLY>checked</TMPL_IF>>
+					計算する&nbsp;（基本設定の送料&nbsp;＋
+					<input name="DisScCool" type="text" size="10" value="<TMPL_VAR NAME=DIS_SCCOOL>" style="ime-mode:disabled" id="ScCool2">
+					円）　※送料無料の場合を除く
+				</td>
+			</tr>
+			<tr>
+				<td class="sub-item-name">送料無料条件の設定</td>
+				<td class="sub-item">
+					商品合計金額が
+					<input name="DisScDiscountPrc" type="text" size="10" value="<TMPL_VAR NAME=DIS_SCDISCOUNTPRC>" style="ime-mode:disabled" id="Prc2-01">
+					円以上は送料無料
+				</td>
+			</tr>
+			<tr>
+				<td rowspan="4" class="sub-item-name">案内の設定</td>
+				<td class="sub-item-name">差額の案内</td>
+			</tr>
+			<tr>
+				<td class="sub-item">
+					<input name="DisShortMoreYenMsg" type="text" value="<TMPL_VAR NAME=ShortMoreYenMsg>" class="def-line" id="coment01"><br>
+					&lt;FONT&gt; &lt;B&gt; &lt;I&gt; &lt;U&gt; タグ利用可
+				</td>
+			</tr>
+			<tr>
+				<td class="sub-item-name">送料無料の案内</td>
+			</tr>
+			<tr>
+				<td class="sub-item">
+					<input name="DisOverMoreYenMsg" type="text" value="<TMPL_VAR NAME=OverMoreYenMsg>" class="def-line" id="coment02"><br>
+					&lt;FONT&gt; &lt;B&gt; &lt;I&gt; &lt;U&gt; タグ利用可
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2" class="item-name" style="padding:0.5em 0;text-align:center">混在時設定</td>
+			</tr>
+			<tr>
+				<td class="sub-item-name">個別送料商品混在時の設定</td>
+				<td class="sub-item">個別送料設定のない商品の送料と、個別送料を合算して送料とする</td>
+			</tr>
+			<tr>
+				<td class="sub-item-name">クール便混在時の設定</td>
+				<td class="sub-item">通常便とクール便を1個口で計算</td>
+			</tr>
+			<tr>
+				<td class="sub-item-name">優先送料商品混在時の設定</td>
+				<td class="sub-item">
+					<input name="DisScPrioType" type="radio" value="MAX" id="priority2-01" <TMPL_IF DIS_SCPRIOTYPEMAX>checked</TMPL_IF>>
+					一番高い金額を送料とする<br>
+					<input name="DisScPrioType" type="radio" value="MIN" id="priority2-02" <TMPL_IF DIS_SCPRIOTYPEMIN>checked</TMPL_IF>>
+					一番安い金額を送料とする
+					<div style="margin:0.5em 0 0.2em 0.3em;line-height:1.2em">
+						※別途、送料がかかる商品は商品登録で優先設定してください。<br>
+						<span style="margin:0 0 0 1em"><a href="<TMPL_VAR NAME=Manual>func03/about_delivery.html" target="_blank">⇒&nbsp;送料の優先設定について</a></span>
+					</div>
+				</td>
+			</tr>
+			</table>
+		</div>
+
+	</td>
+</tr>
+</table>
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<tr>
+	<td align="center" style="padding:20px 10px 10px 10px "><input name="set" type="button" id="set" value="設定を保存する" onClick="Javascript:document.SCHARGE.submit();"></td>
+</tr>
+</form>
+</table>
+<!--0702変更　ここまで-->
+
+
+
+                                  </td>
+                                </tr>
+                              </table>
+

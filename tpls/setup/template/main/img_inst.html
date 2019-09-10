@@ -1,0 +1,313 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0098)http://setup.est47.com/cgi-bin/item-pic.cgi?MODE=SEL&ITEM_NO=CK-001&FORM=form1&OBJ=SHOUHIN_PIC&N=0 -->
+<HTML>
+<HEAD>
+<META http-equiv=Content-Type content="text/html; charset=EUC-JP">
+<TITLE>画像挿入</TITLE>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<LINK 
+href="img_inst/default.css" type=text/css rel=stylesheet>
+<SCRIPT language=JavaScript type=text/JavaScript>
+<!--
+
+     // ページ編集画面へIMGタグ追加
+     function imgtagadd(){
+        var str = "<img src='http://www.est47.com/ITMP/img/' border=0 width='' height='' alt=\"\">";
+        od = opener.document;
+        od.form1.SHOUHIN_PIC.value = od.form1.SHOUHIN_PIC.value + str;
+        //window.close();
+        
+     }
+
+     // ウィザード画像選択-背景-
+     function wiz_bg_add(){
+        od = opener.document;
+        od.itemwizard.NEXTNUM.value     = od.itemwizard.MNNUM.value;
+        od.itemwizard.CUR_BG_PIC.value  = "";
+        od.itemwizard.CUR_BG_HW.value   = "";
+        od.itemwizard.CUR_BG_ALT.value  = "";
+        od.itemwizard.MODE.value        = "MODIFY";
+        od.itemwizard.action = "item-wizard.cgi";
+        od.itemwizard.target = '_self';
+        od.itemwizard.submit();
+        //window.close();
+        
+     }
+
+     // ウィザード画像選択
+     function wiz_add(){
+        od = opener.document;
+        od.itemwizard.NEXTNUM.value  = od.itemwizard.MNNUM.value;
+        od.itemwizard.CUR_PIC.value  = "";
+        od.itemwizard.CUR_HW.value   = "";
+        od.itemwizard.CUR_ALT.value  = "";
+        od.itemwizard.MODE.value     = "MODIFY";
+        od.itemwizard.action = "item-wizard.cgi";
+        od.itemwizard.target = '_self';
+        od.itemwizard.submit();
+        //window.close();
+        
+     }
+
+     // 商品情報 -画像選択-
+     function ped_add(){
+        od = opener.document;
+        od.form1.SHOUHIN_PIC.value = '';
+        od.form1.CMD.value     = 'EDT_MODIFY';
+        od.form1.action        = 'stock-ped.cgi';
+        od.form1.target        = '_self';
+        od.form1.submit();
+        //window.close();
+        
+     }
+
+     // カゴへ画像
+     function kago_add(){
+        od = opener.document;
+        od.form1.SHOUHIN_PIC.value = '';
+        od.form1.MODE.value    = 'MODIFY';
+        od.form1.action        = 'item-ped.cgi';
+        od.form1.target        = '_self';
+        od.form1.submit();
+        //window.close();
+        
+     }
+
+     // カゴへ画像2
+     function kago_add2(){
+        od = opener.document;
+        od.form1.SHOUHIN_PIC.value = '';
+        od.form1.MODE.value    = 'MODIFY';
+        od.form1.action        = 'item-tool-kago.cgi';
+        od.form1.target        = '_self';
+        od.form1.submit();
+        
+     }
+
+     // 書庫ソート
+     function sortset(nm) {
+         var cur = document.picadd.SORT.value;
+         var sw  = document.picadd.DESC.value;
+         if( cur == nm){
+             if( sw == ""){
+                 document.picadd.DESC.value = "on";
+             }else{
+                 document.picadd.DESC.value = "";
+             }
+         }else{
+             document.picadd.DESC.value = "";
+         }
+         document.picadd.SORT.value = nm;
+         document.picadd.CMD.value = '';
+         document.picadd.target = '_self';
+         document.picadd.submit();
+     }
+
+     // 画像アップロード
+     function upandsel() {
+	 if (document.picadd.ADDFILE.value == ""){
+	     alert("画像を選択してください"); return;
+	 }
+	 upfile = document.picadd.ADDFILE.value;
+	 if ( !upfile.match(/.jpg$/i)
+	   && !upfile.match(/.jpeg$/i)
+	   && !upfile.match(/.gif$/i)
+	   && !upfile.match(/.png$/i) ) {
+	     alert("JPEG、JPG、GIF、PNG形式以外の画像が選択されています"); return;
+	 }
+         document.picadd.CMD.value = 'UPLOAD';
+         document.picadd.UPBTN.disabled = true;
+         document.picadd.target = '_self';
+         document.picadd.submit();
+     }
+
+     // 画像プレビュー
+     function prandsel() {
+	 if (document.picadd.ADDFILE.value == ""){
+	     alert("画像を選択してください"); return;
+	 }
+	 upfile = document.picadd.ADDFILE.value;
+	 if ( !upfile.match(/.jpg$/i)
+	   && !upfile.match(/.jpeg$/i)
+	   && !upfile.match(/.gif$/i)
+	   && !upfile.match(/.png$/i) ) {
+	     alert("JPEG、JPG、GIF、PNG形式以外の画像が選択されています"); return;
+	 }
+	 window.open('', 'preview', 'scrollbars=yes,width=550,height=600'); 
+         document.picadd.CMD.value = 'PREVIEW';
+         document.picadd.target = 'preview';
+         document.picadd.submit();
+     }
+
+     // 画像書庫より選択
+     function selpic(id, obj) {
+         document.picadd.CMD.value = 'SELECT';
+         document.picadd.SELFILE.value = id;
+         obj.disabled = true;
+         document.picadd.target = '_self';
+         document.picadd.submit();
+     }
+
+     // 代替テキスト編集
+     function modpic(id) {
+         document.picadd.CMD.value = 'MODALT';
+         document.picadd.SELFILE.value = id;
+         document.picadd.target = '_self';
+         document.picadd.submit();
+     }
+
+     // 画像書庫より画像削除
+     function delpic(id, obj) {
+         if( window.confirm('画像を削除します。よろしいですか？')){
+             document.picadd.CMD.value = 'DELETE';
+             document.picadd.SELFILE.value = id;
+             obj.disabled = true;
+             document.picadd.target = '_self';
+             document.picadd.submit();
+         }else{
+             return;
+         }
+     }
+
+     // 画像書庫ページ移動
+     function gopage(pos) {
+         document.picadd.CMD.value = '';
+         document.picadd.START.value = pos;
+         document.picadd.target = '_self';
+         document.picadd.submit();
+     }
+
+
+//-->
+</SCRIPT>
+<SCRIPT language=jscript>
+
+     // ページ編集画面へIMGタグ追加
+     function imgtagadd(){
+
+        od = opener.document;
+
+        var r=od.form1.SHOUHIN_PIC.createTextRange();
+        var str  = r.text;
+
+        r.collapse();
+
+        var vl = 0;
+        var i  = 0;
+        for(i=0; i<str.length; i++){
+           if( escape(str.charAt(i)) == '%0D' &&  escape(str.charAt(i+1)) == '%0A'){
+               i = i + 1;
+           }
+           vl = vl + 1;
+        }
+        var nn = 0;
+        for(i=str.length-0; i<str.length; i++){
+           if( escape(str.charAt(i)) == '%0D' &&  escape(str.charAt(i+1)) == '%0A'){
+               i  = i + 1;
+               nn = nn - 1;
+           }
+        }
+        r.moveStart("character",vl-nn);
+
+        r.text = "<img src='http://www.est47.com/ITMP/img/' border=0 width='' height='' alt=\"\">";
+
+        
+        
+     }
+
+</SCRIPT>
+<META content="MSHTML 6.00.2900.2722" name=GENERATOR>
+</HEAD>
+<BODY text=#000000 bgColor=#ffffff leftMargin=18 topMargin=18 marginwidth="18" marginheight="18">
+<FORM name=picadd action=./item-pic.cgi method=post encType=multipart/form-data 
+taget="_self">
+		<INPUT type=hidden value=SHOUHIN_PIC name=OBJ>
+		<INPUT type=hidden 
+value=form1 name=FORM>
+		<INPUT type=hidden value=CK-001 name=ITEM_NO>
+		<INPUT 
+type=hidden name=CMD>
+		<INPUT type=hidden name=SELFILE>
+		<INPUT type=hidden 
+value=on name=DESC>
+		<INPUT type=hidden value=filename name=SORT>
+		<INPUT 
+type=hidden value=SEL name=MODE>
+		<INPUT type=hidden value=SHOUHIN_PIC name=OBJ>
+		<INPUT type=hidden value=0 name=START>
+		<INPUT type=hidden value=filename 
+name=MAE_SORT>
+		<INPUT type=hidden value=0 name=N>
+		<table width="600" border="0" cellspacing="0" cellpadding="4">
+				<tr>
+						<td width="1" bgcolor="#3171BD"><img src="img_inst/spc.gif" width="2" height="5"></td>
+						<td bgcolor="#DEEFFF" class="tdmain" style="padding-left:8px; margin-left:8px">画像挿入</td>
+				</tr>
+		</table>
+		<br>
+		<table border="0" cellspacing="0" cellpadding="0">
+  		<tr>
+  				<td bgcolor="#9CCFFF" class="td00" style="padding:5px 10px 3px 10px ">ファイルから選択</td>
+  				<td>&nbsp;</td>
+  				<td bgcolor="#CCCCCC" class="td00" style="padding:5px 10px 3px 10px; border-bottom:1px solid #FFFFFF "><a href="img_inst02.html">画像書庫から選択</a></td>
+				</tr>
+  		</table>
+		<TABLE width="600" border=0 cellPadding=10 cellSpacing=2 bgcolor="#99CCFF">
+				<TR bgColor=#ffffff>
+						<TD class=td00 bgColor=#ffffff>
+								<TABLE cellSpacing=0 cellPadding=2 width="100%" border=0>
+										<TR>
+												<TD class=td00>画像ファイル</TD>
+												<TD class=td00 width=6>：</TD>
+												<TD class=td00 vAlign=top>
+												
+														<input type="text" name="textfield">
+														<input type="button" name="Submit" value="参照...">
+														（利用可能なファイル ： JPEG / JPG / GIF / PNG）</TD>
+										</TR>
+										<TR>
+												<TD class=td00 noWrap>登録サイズ</TD>
+												<TD class=td00>：</TD>
+												<TD class=td00>
+														<INPUT type=radio CHECKED value=O name=SIZE>
+														原寸
+														<INPUT type=radio value=L name=SIZE>
+														大(440px)
+														<INPUT type=radio value=M name=SIZE>
+														中(220px)
+														<INPUT type=radio value=S name=SIZE>
+														小(100px)
+														<input onClick=prandsel(); type=button value=プレビュー>
+												</TD>
+										</TR>
+										<TR>
+												<TD class=td00 width=80>代替テキスト</TD>
+												<TD class=td00 width=6>：</TD>
+												<TD class=td00 vAlign=top>
+														<INPUT name=ALTSTR>
+												</TD>
+										</TR>
+										<TR align="center">
+												<TD colSpan=3 vAlign=top class=td00><BR>
+														<input onClick="window.close()" type=button value=この画像を挿入>
+												</TD>
+										</TR>
+								</TABLE>
+						</TD>
+				</TR>
+		</TABLE>
+		<BR>
+		<IMG height=1 src="img_inst/cmn_hr.gif" width=600 vspace=10><BR>
+		<TABLE cellSpacing=0 cellPadding=0 width=600 border=0>
+				<TR>
+						<TD>
+								<DIV align=center>
+										<INPUT onclick=window.close(); type=button value=閉じる name=WINCLS>
+								</DIV>
+						</TD>
+				</TR>
+		</TABLE>
+</FORM>
+</BODY>
+</HTML>
+

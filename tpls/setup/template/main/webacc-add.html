@@ -1,0 +1,31 @@
+<div>
+<TMPL_LOOP NAME=ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+  <form name="WEBACC" method="POST" action="webacc-ed.cgi">
+  <input type="hidden" name="AID" value="<TMPL_VAR NAME=AID>">
+  <input type="hidden" name="CMD" value="ADD">
+  <table border=1>
+    <tr>
+      <td>&nbsp;アカウント</td><td>&nbsp;<input type="text" name="ACC" value="<TMPL_VAR NAME=ACC>"></td>
+    </tr>
+    <tr>
+      <td>&nbsp;パスワード</td><td>&nbsp;<input type="text" name="PWD" value="<TMPL_VAR NAME=PWD>"></td>
+    </tr>
+  </table>
+<hr>
+  <table border=1>
+<TMPL_LOOP NAME=WEB_DIR>
+    <tr>
+      <td><input type="radio" name="DIR" value="<TMPL_VAR NAME=DIR>" <TMPL_VAR NAME=CHECK>></td>
+      <td>&nbsp;<TMPL_VAR NAME=JDIR></td>
+    </tr>
+</TMPL_LOOP>
+    <tr>
+      <td><input type="radio" name="DIR" value="new" <TMPL_VAR NAME=NEWCHECK>></td>
+      <td>&nbsp;新規作成<br>&nbsp;/docs/<input type="text" name="NEWDIR" value="<TMPL_VAR NAME=NEWDIR>"></td>
+    </tr>
+  </table>
+  <input type="submit" name="CFM" value="設定">
+  </form>
+</div>

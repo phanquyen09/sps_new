@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<title><TMPL_VAR NAME=SHOP_NAME></title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link rel="stylesheet"type="text/css" href="<TMPL_VAR NAME=CSSLINK>">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<style type="text/css">
+<!--
+.clear_both2 {
+        clear: both;
+        font-size: 1px;
+        visibility: hidden;
+        overflow: hidden;
+        height: 1px;
+        text-align: center;
+}
+-->
+</style>
+</head>
+<body>
+<form name="form1" method="post" action="review_comment.cgi">
+<input type="hidden" name="CMD" value="L">
+<input type="hidden" name="TKN" value="<TMPL_VAR NAME=TKN>">
+<input type="hidden" name="comment" value="<TMPL_VAR NAME=COMMENT>">
+<input type="hidden" name="ITM" value="<TMPL_VAR NAME=ITM>">
+<input type="hidden" name="set_date" value="<TMPL_VAR NAME=SET_DATE>">
+<table id="container" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td id="leftSide">
+    </td>
+    <td id="center1" valign="top">
+      <div class="centerbox">
+        <div class="mainCont">
+          <p>
+            次の内容でよろしければ、「返信する」ボタンをクリックしてください。<br>
+           「内容を修正する」ボタンをクリックすると、前の画面に戻ります。
+          </p>
+        </div>
+        <br>
+        <div class="mainFrame">
+          <div class="mainCont">
+            <div class="layout1">
+              <table class="auto" border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tbody>
+                  <tr>
+                    <td style="text-align: left; width: 30%;" class="red">
+                      おすすめ度　<TMPL_VAR NAME=POINT>
+                    </td>
+                    <td style="text-align: left; width: 50%;">
+                      <TMPL_VAR NAME=NICK_NAME>様
+                    </td>
+                    <td style="text-align: right; width: 20%;">
+                      <TMPL_VAR NAME=WRITE_DATE>
+                    </td>
+                  </tr>
+                    <TMPL_IF NAME=ITEM_NO>
+                    <tr>
+                      <td colspan="3" style="text-align: left;">
+                        <div class="float_left"><a href="http://<TMPL_VAR NAME=DOMAIN>/SHOP/<TMPL_VAR NAME=ITEM_NO>.html" target="_blank"><TMPL_VAR NAME=ITEM_NAME></a></div>
+                      </td>
+                    </tr>
+                    </TMPL_IF>
+                  <tr>
+                    <td colspan="3" class="item" style="text-align: left;">
+                      <TMPL_VAR NAME=MESSAGE>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="3" class="item" style="text-align: left;">
+                      <div class="blogbox">
+                        <div class="red float_left">お店からのコメント</div>
+                        <div class="float_right"><TMPL_VAR NAME=SET_DATE></div>
+                        <div class="clear_both2"></div>
+                        <div class="item"><TMPL_VAR NAME=COMMENT_BR></div>
+                        <br>
+                        <div class="center">
+                          <input type="submit" value="返信する">&nbsp;&nbsp;<input type="button" value="内容を修正する" onClick="document.form1.CMD.value='H';document.form1.submit();">
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </td>
+  </tr>
+</table>
+</form>
+</body>
+</html>
+

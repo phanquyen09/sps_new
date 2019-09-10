@@ -1,0 +1,51 @@
+<meta http-equiv="refresh" content="5">
+<script type="text/javascript">
+<!--
+
+window.onload = function () {
+	blink();
+}
+
+function blink() {
+  if (!document.all) { return; }
+  setTimeout("blink()", 1000);
+}
+// -->
+</script>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                           <td width="12">
+                            <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="<TMPL_VAR NAME=color>">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+                            <td align="left" class="midashi">画像削除中</td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td>
+                                    <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                      <td>
+                                        <table width="100%">
+                                        <tr><td>
+				<img src="../imgs/<TMPL_VAR NAME=rimg>">
+					</td><td><img src="../imgs/spc.gif" width="100"></td><td>
+				<font color="#FF0000">
+				<p class="blink"><blink></blink>
+					<TMPL_VAR NAME=TARGET>を削除中です。完了するまでしばらくお待ちください。
+				</p></font>
+				  完了するまで、画面を閉じたり、設定の変更をしないでください。
+                                        </td></tr></table>
+                                        <BR>
+                                        </td></tr>
+                                  </table></td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>

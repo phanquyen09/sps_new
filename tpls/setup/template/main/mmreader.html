@@ -1,0 +1,193 @@
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function changeListnum() {
+    var num = document.READER.ListNum.value;
+    document.READER.reset();
+    document.READER.ListNum.value = num;
+    document.READER.PAGE.value='1';
+    document.READER.CMD.value = '';
+    document.READER.submit();
+}
+function doCommand( cmd ) {
+    document.READER.CMD.value = cmd;
+    document.READER.PAGE.value='1';
+    document.READER.submit();
+}
+function chgConf() {
+    document.READER.CMD.value = 'CONF';
+    document.READER.PAGE.value='1';
+    document.READER.submit();
+}
+function del( cmd ) {
+  document.READER.CMD.value = 'DEL';
+  document.READER.PAGE.value='1';
+
+  if ( document.READER.MailAddr.value.length == 0 ) {
+    document.READER.submit();
+  }else{
+    if ( confirm("メールアドレスを削除します。よろしいですか？") ) {
+      document.READER.submit();
+    } else {
+      return;
+    }
+  }
+}
+//-->
+</script>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<form name="READERDL" method="POST" action="mmreaderdl.cgi">
+</form>
+<form name="READER" method="POST" action="mmreader.cgi" enctype="multipart/form-data">
+<input type="hidden" name="CMD" value="SEEK">
+<input type="hidden" name="PAGE" value="1">
+                                      <tr>
+                                        <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+                                            <tr>
+                                              <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+                                            </tr>
+                                        </table></td>
+<td align="left" class="midashi">メルマガ登録者の管理を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/mmreader.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                                      </tr>
+                                    </table>
+                                      <img src="../imgs/spc.gif" width="5" height="5">
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                          <td align="left" class="main-table">
+
+<div class="infoArea table_bg">
+お店ページの「メルマガ登録」で登録された方を管理します。
+</div>
+
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+                                              <td><table width="100%"  border="0" cellpadding="2" cellspacing="2" bgcolor="#999999">
+                                                <tr align="left">
+                                                  <td width="17%" align="left" bgcolor="#FFFFFF" class="item-name">現在の登録数</td>
+                                                  <td align="right" bgcolor="#FFFFFF" class="item" style="padding-right:230px"><TMPL_VAR NAME=ALLADDR>件</td>
+                                                </tr>
+                                                <tr align="left">
+                                                  <td align="left" bgcolor="#FFFFFF" class="item-name">配信中</td>
+                                                  <td align="right" bgcolor="#FFFFFF" class="item" style="padding-right:230px"><TMPL_VAR NAME=OKADDR>件</td>
+                                                </tr>
+                                                <tr align="left">
+                                                  <td align="left" bgcolor="#FFFFFF" class="item-name">配信停止</td>
+                                                  <td align="right" bgcolor="#FFFFFF" class="item" style="padding-right:230px"><TMPL_VAR NAME=NGADDR>件</td>
+                                                </tr>
+                                              </table>
+                                                <br>
+            <TMPL_LOOP NAME=ERR_MSG>
+            <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+            </TMPL_LOOP>
+                                                <table width="100%"  border="0" cellpadding="2" cellspacing="2" bgcolor="#999999">
+                                                  <tr align="center" bgcolor="#CCCCCC">
+                                                    <td colspan="2" class="item-name02">読者管理</td>
+                                                  </tr>
+                                                  <tr align="left">
+                                                    <td bgcolor="#FFFFFF" class="item-name">登録／検索／削除／停止解除</td>
+                                                    <td bgcolor="#FFFFFF" class="item"> メールアドレス：
+                                                        <input name="MailAddr" type="text" value="<TMPL_VAR NAME=MAILADDR>" style="ime-mode:disabled">
+                                                        <input type="button" name="Submit" value="登録" onClick="doCommand('ADD');">
+                                                        <input type="button" name="Submit" value="検索" onClick="doCommand('SEEK');">
+                                                        <input type="button" name="Submit" value="削除" onClick="del('DEL');">
+                                                        <input type="button" name="Submit" value="停止解除" onClick="doCommand('RET');">
+                                                        <font size="2">&nbsp; </font> </td>
+                                                  </tr>
+                                                  <tr align="left">
+
+                                                    <td class="item-name" bgcolor="#ffffff">メールアドレス一括登録</td>
+                                                    <td class="item" bgcolor="#ffffff">CSVファイル：
+                                                        <input name="UpFile" value="参照" style="padding: 4px 0px 3px;" size="40" type="file">
+                                                        <input name="Up" value="登録" onclick="doCommand('UP')" type="button">
+                                                    </td>
+                                                  </tr>
+                                                  <tr align="left">
+                                                    <td class="item-name" bgcolor="#ffffff">メールアドレス一括削除</td>
+
+                                                    <td class="item" bgcolor="#ffffff">CSVファイル：
+                                                        <input name="UpFileDel" value="参照" style="padding: 4px 0px 3px;" size="40" type="file">
+                                                        <input name="Up" value="削除" onclick="doCommand('UPDEL')" type="button">
+                                                    </td>
+
+<!--
+                                                    <td bgcolor="#FFFFFF" class="item-name">一括登録／削除</td>
+                                                    <td bgcolor="#FFFFFF" class="item">CSVファイル：
+                                                        <input type="file" name="UpFile" value="参照" style="padding:4px 0px 3px 0px" size="40">
+                                                        <input type="button" name="Up" value="アップロード" onClick="doCommand('UP')">
+                                                        <input type="button" name="Up" value="削除" onClick="doCommand('UPDEL')">
+                                                    </td>
+-->
+                                                  </tr>
+                                                  <tr align="left">
+                                                    <td bgcolor="#FFFFFF" class="item-name">登録リスト</td>
+                                                    <td bgcolor="#FFFFFF" class="item"><input type="button" name="Submit" value="ダウンロード" onClick="document.READERDL.submit()";>
+                                                    </td>
+                                                  </tr>
+                                                  <tr align="left">
+                                                    <td bgcolor="#FFFFFF" class="item-name">エラー処理</td>
+                                                    <td bgcolor="#FFFFFF" class="item">エラー回数：
+                                                        <select name="ErrorThread" style="font-size:90%; margin-top:2px">
+                        <option value="1" <TMPL_IF ERRTHREAD1>selected</TMPL_IF>>1</option>
+                        <option value="2" <TMPL_IF ERRTHREAD2>selected</TMPL_IF>>2</option>
+                        <option value="3" <TMPL_IF ERRTHREAD3>selected</TMPL_IF>>3</option>
+                        <option value="4" <TMPL_IF ERRTHREAD4>selected</TMPL_IF>>4</option>
+                        <option value="5" <TMPL_IF ERRTHREAD5>selected</TMPL_IF>>5</option>
+                                                        </select>
+&nbsp;
+      <input name="ErrorControl" type="radio" id="err01" value="STOP" <TMPL_IF ERRCTLSTOP>checked</TMPL_IF>>
+      配信停止にする
+      <input name="ErrorControl" type="radio" value="DEL" id="err02" <TMPL_IF ERRCTLDEL>checked</TMPL_IF>>
+      削除する
+&nbsp;
+      <input type="button" value="処理方法を保存" name="Conf" onClick="chgConf();">
+                                                    </td>
+                                                  </tr>
+                                                </table>
+                                                <br>
+                                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                  <td align="right">表示件数
+                                                      <select name="ListNum" onChange="changeListnum();">
+                        <option value="10" <TMPL_IF LISTNUM10>selected</TMPL_IF>>10</option>
+                        <option value="20" <TMPL_IF LISTNUM20>selected</TMPL_IF>>20</option>
+                        <option value="30" <TMPL_IF LISTNUM30>selected</TMPL_IF>>30</option>
+                        <option value="40" <TMPL_IF LISTNUM40>selected</TMPL_IF>>40</option>
+                        <option value="50" <TMPL_IF LISTNUM50>selected</TMPL_IF>>50</option>
+                                                      </select>
+                                                      <br>
+<TMPL_IF TOTAL>
+<TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+</TMPL_IF>
+						  </td>
+                                                </tr>
+                                              </table>
+                                                <table width="100%"  border="0" cellpadding="2" cellspacing="2" class="item-box table-padding-default">
+                                                  <tr align="center" bgcolor="#CCCCCC">
+                                                    <td width="20%" class="item-name02">登録日</td>
+                                                    <td width="30%" class="item-name02">ステータス（エラー回数）</td>
+                                                    <td width="50%" class="item-name02">メールアドレス</td>
+                                                  </tr>
+<TMPL_LOOP READERS>
+                                                  <tr bgcolor="#FFFFFF">
+                                                    <td align="center"><TMPL_VAR NAME=SETDATE></td>
+                                                    <td align="center"><TMPL_VAR NAME=STATUS></td>
+                                                    <td align="left"><TMPL_VAR NAME=MAILADDR></td>
+                                                  </tr>
+</TMPL_LOOP>
+                                                </table>
+                                                <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                  <tr>
+                                                    <td align="right">
+<TMPL_IF TOTAL>
+<TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+</TMPL_IF>
+						    </td>
+                                                  </tr>
+                                                </table>
+                                                <br>
+                                              </td>
+                                            </tr>
+                                          </table></td>
+                                        </tr>
+</form>
+                                      </table>

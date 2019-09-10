@@ -1,0 +1,50 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<title>Ｅストアーショップサーブご利用料金お支払いのお願い</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<script type="text/javascript" src="../js/kanri.js"></script>
+<style type="text/css">
+<!--
+body,div,h1,h2,p,form,input {
+	margin:0;
+	padding:0;
+	font-family:meiryo, "ＭＳ Ｐゴシック", Osaka, "ヒラギノ角ゴ Pro W3";
+	font-size:1em;
+	font-weight:normal;
+}
+body {width:680px;margin:0 auto;}
+#pause {padding:1em 0 0;background:#fff;}
+#pause h1 {margin:2em 0 1.5em;text-align:center;font-size:1.3em;}
+#pause p {margin:0 0 1em;line-height:2;}
+#pause form {text-align:center;padding:0 0 2em; }
+#pause input {padding:0.5em 1em;}
+#pause h2 {margin:3em 0 0;text-decoration:underline;font-size:0.95em;}
+#pause h2+div p {line-height:1.8;font-size:0.9em;margin:0.5em 0 0;}
+//-->
+</style>
+</head>
+<body>
+
+<div id="pause">
+	<div><img src="../imgs/ss_logo.gif" border="0" alt="Ｅストアーショップサーブ" width="258" height="33"></div>
+
+	<h1>ご利用料金お支払いのお願い</h1>
+
+	<p>お支払いが確認できていないご利用料金がありますので、サービスを一時停止しております。<br>
+	当社にて、お支払いが確認できましたらサービスを再開いたします。</p>
+
+	<form>
+		<input name="set" type="button" id="set" onClick="MM_openBrWindow('../func01/acf_report.cgi','acf','scrollbars=yes,resizable=yes,width=800,height=800')" value="ご請求金額・お振込先口座・お支払期限日を確認する">
+	</form>
+
+	<p>「支払期限日」までにお支払いが確認できなかった場合、サービスは解約となります。<br>
+	また、サービス停止中もご利用料金は発生いたしますので、あらかじめご了承ください。</p>
+</div>
+
+</body>
+</html>

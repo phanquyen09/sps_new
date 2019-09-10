@@ -1,0 +1,140 @@
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function selebank() {
+    document.getElementById('ebankdisp').style.removeProperty('display');
+    document.getElementById('bankdisp').style.setProperty('display', 'none');
+}
+
+function selbank() {
+    document.getElementById('bankdisp').style.removeProperty('display');
+    document.getElementById('ebankdisp').style.setProperty('display', 'none');
+}
+//-->
+</script>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+                            <td align="left" class="midashi">振込先口座の変更手続きを行います。変更届を印刷して、弊社まで郵送でお送りください。</td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+<TMPL_LOOP ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+				<table id="ebankdisp" width="100%" border="0" cellpadding="0" cellspacing="0" style="<TMPL_IF BANKEBANK><TMPL_ELSE>display:none</TMPL_IF>" class="table-padding-default">
+                                   	<tr align="left">
+                                   		<td><a href="javascript:selbank();">一般銀行の方はこちらをクリックしてください。</a></td>
+                                  	</tr>
+                                <tr>
+                                  <td>
+                                  	<table class="item-box">
+					<form name="EBANK" method="POST" action="chbank.cgi">
+					<input type="hidden" name="CMD" value="EDT">
+					<input type="hidden" name="Bank" value="楽天銀行">
+                                   	<tr align="center">
+                                   		<td colspan="3" class="item-name02">振込先口座</td>
+                                  		</tr>
+                                   	<tr class="item-name">
+                                   		<td width="33%">金融機関名</td>
+                                   		<td width="33%">支店番号</td>
+                                   		<td width="33%">口座番号</td>
+                                  		</tr>
+                                   	<tr>
+                                   		<td class="item02">
+							楽天銀行
+                                  			</td>
+                                   		<td class="item02">
+                                   			<input name="BranchCode" type="text" value="<TMPL_VAR NAME=EBRANCHCODE>">
+                                  			</td>
+                                   		<td class="item02">
+                                   			<input name="AccountNo" type="text" value="<TMPL_VAR NAME=EACCOUNTNO>">
+                                  			</td>
+                                  		</tr>
+                                   	<tr>
+                                   		<td colspan="3" class="item-name">口座名義人（カタカナ）</td>
+                                  		</tr>
+                                   	<tr>
+                                   		<td colspan="3" class="item02">
+                                   			<input name="AccountName" type="text" class="def-line" value="<TMPL_VAR NAME=EACCOUNTNAME>">
+                                  			</td>
+                                  		</tr>
+                                   	<tr align="center">
+                                   		<td colspan="3" class="item">
+                                   			<input type="button" name="Submit" value="戻る" onClick="location='bil_report_sps.cgi';">
+                                   			&nbsp;
+                                   			<input type="button" name="Submit" value="変更届印刷画面へ進む" onClick="document.EBANK.submit();">
+                                  			</td>
+                                  		</tr>
+					</form>
+                                  	</table>
+                                  </td>
+                                </tr>
+                              </table>
+
+				<table id="bankdisp" width="100%" border="0" cellpadding="0" cellspacing="0" style="<TMPL_IF BANKEBANK>display:none</TMPL_IF>" class="table-padding-default">
+                                   	<tr align="left">
+                                   		<td><a href="javascript:selebank();">楽天銀行の方はこちらをクリックしてください。</a></td>
+                                  	</tr>
+                                <tr>
+                                  <td>
+
+
+                                  	<table class="item-box">
+					<form name="BANK" method="POST" action="chbank.cgi">
+					<input type="hidden" name="CMD" value="EDT">
+                                   	<tr align="center">
+                                   		<td colspan="4" class="item-name02">振込先口座</td>
+                                  		</tr>
+                                   	<tr class="item-name">
+                                   		<td width="30%">金融機関名</td>
+                                   		<td width="30%">支店名</td>
+                                   		<td width="20%">科目</td>
+                                   		<td width="20%">口座番号</td>
+                                  		</tr>
+                                   	<tr>
+                                   		<td class="item02">
+                                   			<input name="Bank" type="text" value="<TMPL_VAR NAME=BANK>">
+                                  			</td>
+                                   		<td class="item02">
+                                   			<input name="Branch" type="text" value="<TMPL_VAR NAME=BRANCH>">
+                                  			</td>
+                                   		<td class="item02 whitespace-no-wrap">
+                                   			<input name="Type" type="radio" value="1" <TMPL_IF TYPE1>checked</TMPL_IF>>
+                                   			普通
+                                   			<input name="Type" type="radio" value="2" <TMPL_IF TYPE2>checked</TMPL_IF>>
+                                   			当座
+                                  			</td>
+                                   		<td class="item02">
+                                   			<input name="AccountNo" type="text" value="<TMPL_VAR NAME=ACCOUNTNO>">
+                                  			</td>
+                                  		</tr>
+                                   	<tr>
+                                   		<td colspan="4" class="item-name">口座名義人（カタカナ）</td>
+                                  		</tr>
+                                   	<tr>
+                                   		<td colspan="4" class="item02">
+                                   			<input name="AccountName" type="text" class="def-line" value="<TMPL_VAR NAME=ACCOUNTNAME>">
+                                  			</td>
+                                  		</tr>
+                                   	<tr align="center">
+                                   		<td colspan="4" class="item">
+                                   			<input type="button" name="Submit" value="戻る" onClick="location='bil_report_sps.cgi';">
+                                   			&nbsp;
+                                   			<input type="button" name="Submit" value="変更届印刷画面へ進む" onClick="document.BANK.submit();">
+                                  			</td>
+                                  		</tr>
+					</form>
+                                  	</table>
+                                  </td>
+                                </tr>
+                              </table>
+			     </td>
+                            </tr>
+                        </table>

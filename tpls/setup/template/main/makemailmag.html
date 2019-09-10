@@ -1,0 +1,283 @@
+<script language="JavaScript">
+function SendTest() {
+  document.MAKEMAG.set1.disabled='true';
+  document.MAKEMAG.set2.disabled='true';
+  if( document.MAKEMAG.tmpl1 ){
+      document.MAKEMAG.tmpl1.disabled='true';
+  }
+  if( document.MAKEMAG.tmpl2 ){
+      document.MAKEMAG.tmpl2.disabled='true';
+  }
+  document.MAKEMAG.CMD.value='TEST';
+  document.MAKEMAG.submit();
+}
+
+function SaveTmpl() {
+  document.MAKEMAG.set1.disabled='true';
+  document.MAKEMAG.set2.disabled='true';
+  if( document.MAKEMAG.tmpl1 ){
+      document.MAKEMAG.tmpl1.disabled='true';
+  }
+  document.MAKEMAG.CMD.value='SAVETMPL';
+  document.MAKEMAG.submit();
+  return false;
+}
+
+function OverSaveTmpl() {
+  document.MAKEMAG.set1.disabled='true';
+  document.MAKEMAG.set2.disabled='true';
+  if( document.MAKEMAG.tmpl1 ){
+      document.MAKEMAG.tmpl1.disabled='true';
+  }
+  if( document.MAKEMAG.tmpl2 ){
+      document.MAKEMAG.tmpl2.disabled='true';
+  }
+  document.MAKEMAG.CMD.value='OVERSAVETMPL';
+  document.MAKEMAG.MODE.value='TEMPLATE';
+  document.MAKEMAG.submit();
+  return false;
+}
+
+function BackList() {
+  document.location.href="./mailmag.cgi";
+  return false;
+}
+
+function changeNotUsedPoint(view){
+  var chk = document.getElementById("notUsedPoint");
+  var label = document.getElementById("labelNotUsedPoint");
+  if(!chk || !label) return;
+  if(view){
+    chk.disabled = false;
+    label.style.color = "#333";
+  }else{
+    chk.disabled = true;
+    label.style.color = "#999";
+  }
+}
+
+function showBothBodyRow(){
+    document.getElementById("htmlbody_row").style.display = "";
+    document.getElementById("textbody_row").style.display = "";
+    document.getElementById("MultiNotice").style.display = "";
+}
+
+function hideTextBodyRow(){
+    document.getElementById("htmlbody_row").style.display = "";
+    document.getElementById("textbody_row").style.display = "none";
+}
+
+function hideHtmlBodyRow(){
+    document.getElementById("htmlbody_row").style.display = "none";
+    document.getElementById("textbody_row").style.display = "";
+    document.getElementById("MultiNotice").style.display = "none";
+}
+
+window.onload = function(){changeNotUsedPoint(<TMPL_IF SENDORDER1>false</TMPL_IF><TMPL_IF SENDORDER2>false</TMPL_IF><TMPL_IF SENDORDER3>true</TMPL_IF><TMPL_IF SENDORDER4>true</TMPL_IF>);};
+</script>
+<script type="text/javascript" src="/js/jquery/jquery-1.10.2.min.js"></script>
+
+<style type="text/css">
+<!--
+/* ぶら下がり項目 */
+p.note {
+  font-size: 95%;
+  text-indent: -1em;
+  margin: 5px 0px 0px 2em;
+}
+-->
+</style>
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<form name="MAKEMAG" method="POST" action="makemailmag.cgi" enctype="multipart/form-data">
+<TMPL_IF ID>
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+</TMPL_IF>
+<TMPL_IF TMPLID>
+<input type="hidden" name="TMPLID" value="<TMPL_VAR NAME=TMPLID>">
+</TMPL_IF>
+<input type="hidden" name="MODE" value="<TMPL_VAR MODE>">
+<input type="hidden" name="CMD" value="SCHED">
+                                      <tr>
+                                        <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+                                            <tr>
+                                              <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+                                            </tr>
+                                        </table></td>
+<td align="left" class="midashi">メールマガジンを作成します</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/mailmag.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                                      </tr>
+                                    </table>
+                                      <img src="../imgs/spc.gif" width="5" height="5">
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                          <td align="left" class="main-table">
+                                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                              <td>
+<TMPL_IF TMPLMODE>
+<div class="infoArea table_bg">
+差出人名、メールアドレス、メルマガタイトルと、メルマガ原稿を入力してください。<br>
+<br>
+作成した原稿をテンプレートとして保存するには、「上書き保存する」ボタンをクリックします。<br>
+テスト送信するには、「テスト送信」ボタンをクリックします。差出人メールアドレス宛てに、作成したメルマガが送信されます。<br>
+メルマガを送信するには、送信する時間を選択して、「送信予約」ボタンをクリックします。<br>
+<p class="note">※テンプレートとして保存する場合、送信先や送信日時は保存されません。また、送信先がCSVファイルの場合、送信後はファイル名のみ保存されます。</p>
+</div>
+<TMPL_ELSE>
+<div class="infoArea table_bg">
+差出人名、メールアドレス、メルマガタイトルと、メルマガ原稿を入力してください。<br>
+<TMPL_IF HTML_LINK>
+<br>
+ＨＴＭＬメルマガの送信機能は、有料オプションサービスとなります。<br>
+ご利用される場合は、以下の画面よりお申込みください。<br>
+<a href="./htmlmail.php?CMD=REGIST" target="_self">⇒ HTMLメルマガを申し込む</a>
+</TMPL_IF>
+</div>
+</TMPL_IF>
+
+<TMPL_LOOP NAME=ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+            <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                                <tr align="center">
+                                                  <td colspan="2" class="item-name02">メルマガ作成</td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">送信形式</td>
+                                                  <td class="item">
+                                                      <input id="MailTypeM" name="MailType" type="radio" value="M" <TMPL_IF MAILTYPEM>checked</TMPL_IF> onclick="showBothBodyRow();" /><label for="MailTypeM">HTML+テキスト(マルチパート)</label>
+                                                      <input id="MailTypeH" name="MailType" type="radio" value="H" <TMPL_IF MAILTYPEH>checked</TMPL_IF> onclick="hideTextBodyRow();" /><label for="MailTypeH">HTML</label>
+                                                      <input id="MailTypeT" name="MailType" type="radio" value="T" <TMPL_IF MAILTYPET>checked</TMPL_IF> onclick="hideHtmlBodyRow();" /><label for="MailTypeT">テキスト</label>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">差出人名</td>
+                                                  <td class="item"><input name="FromStr" type="text" class="def-line" value="<TMPL_VAR NAME=FROMSTR>" maxlength=255>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">差出人メールアドレス</td>
+                                                  <td class="item"><input name="FromAddr" type="text" class="def-line" value="<TMPL_VAR NAME=FROMADDR>" style="ime-mode:disabled" maxlength=128>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">メルマガタイトル</td>
+                                                  <td class="item"><input name="Subject" type="text" class="def-line" value="<TMPL_VAR NAME=SUBJECT>" maxlength=255><br><span>※特殊タグ利用可</span>
+                                                  </td>
+                                                </tr>
+                                                <tr id="htmlbody_row" <TMPL_IF MAILTYPET>style="display: none"</TMPL_IF>>
+                                                  <td class="item-name">HTML本文</td>
+                                                  <td class="item"><textarea id="HtmlBody" name="HtmlBody" cols="80" rows="20" wrap="VIRTUAL" style="width:500px;"><TMPL_VAR NAME=HTMLBODY></textarea><span>※特殊タグ利用可</span></td>
+                                                </tr>
+                                                <tr id="textbody_row" <TMPL_IF MAILTYPEH>style="display: none"</TMPL_IF>>
+                                                  <td class="item-name">テキスト本文</td>
+                                                  <td class="item"><span id="MultiNotice" <TMPL_IF MAILTYPET>style="display: none"</TMPL_IF> <TMPL_IF MAILTYPEH>style="display: none"</TMPL_IF> >HTMLが表示できない場合はこちらが表示されます</span><textarea id="Body" name="Body" cols="80" rows="20" wrap="VIRTUAL" style="width:500px;"><TMPL_VAR NAME=BODY></textarea><span>※特殊タグ利用可</span></td>
+                                                </tr>
+
+        <tr>
+          <td class="item-name">送信先</td>
+          <td class="item">
+          <input type="radio" name="SendOrder" value="0" <TMPL_IF SENDORDER0>checked</TMPL_IF> id="SendOrder0" onclick="javascript:changeNotUsedPoint(false);">
+          <label for="SendOrder0">読者管理</label><br>
+
+
+          <TMPL_IF SENDORDER1_RE>
+               <input type="radio" name="SendOrder" value="1" <TMPL_IF SENDORDER1>checked</TMPL_IF> id="SendOrder1" onclick="javascript:changeNotUsedPoint(false);">
+               <label for="SendOrder1">CSVファイル</label>
+         &nbsp;ファイル名：<TMPL_VAR CSVNAME>&nbsp;<br>
+         再設定⇒<input type="file" name="OneShotFile">
+          <TMPL_ELSE>
+               <input type="radio" name="SendOrder" value="1" <TMPL_IF SENDORDER1>checked</TMPL_IF> id="SendOrder1" onclick="javascript:changeNotUsedPoint(false);">
+               <label for="SendOrder1">CSVファイル</label>
+               <input type="file" name="OneShotFile">
+          </TMPL_IF>
+
+          <TMPL_IF name=SEARCH_LIST>
+          <br><input type="radio" name="SendOrder" value="2" <TMPL_IF SENDORDER2>checked</TMPL_IF> id="SendOrder2" onclick="javascript:changeNotUsedPoint(false);"><label for="SendOrder2">顧客台帳</label>
+          <select name="ClientTemplateId">
+          <option value="0">検索条件を選択してください</option>
+          <TMPL_LOOP name=SEARCH_LIST>
+          <option value="<TMPL_VAR S_ID>" <TMPL_VAR SEL>><TMPL_VAR S_NAME></option>
+          </TMPL_LOOP>
+          </select>&nbsp;<a href="" target="preview" onClick="window.open('../func01/cltmpl_prev.php?SID='+document.MAKEMAG.ClientTemplateId.value,'preview','width=750,height=630,menubar=no,scrollbars=yes,resizable=yes,status=yes');return false;">検索条件を確認する</a>
+          </TMPL_IF>
+
+          <!--20130524 ADD by Dung - setting point-->
+          <TMPL_IF name=LIMITED_POINT_LIST>
+          <br><input type="radio" name="SendOrder" value="3" <TMPL_IF SENDORDER3>checked</TMPL_IF><TMPL_IF SENDORDER4>checked</TMPL_IF> id="limitedPoint" onclick="javascript:changeNotUsedPoint(true);"><label for="limitedPoint">期間限定ポイント発行</label>
+          <select name="LimitedPointId">
+          <option value="0">キャンペーンを選択してください</option>
+          <TMPL_LOOP name=LIMITED_POINT_LIST>
+          <option value="<TMPL_VAR S_ID>" <TMPL_VAR SEL>><TMPL_VAR S_NAME></option>
+          </TMPL_LOOP>
+          </select>
+          <br>&nbsp;&nbsp;&nbsp;&nbsp;<input type="checkbox" name="NotUsedPoint" id="notUsedPoint" value="1"<TMPL_IF SENDORDER4> checked</TMPL_IF>/>
+          <label id="labelNotUsedPoint" for="notUsedPoint">現時点で、期間限定ポイントを利用していない会員のみに送信する</label>
+          </TMPL_IF>
+          <!--\ADD-->
+
+          </td>
+        </tr>
+                                                <tr>
+                                                  <td class="item-name">送信日時</td>
+                                                  <td class="item">
+                        <select name="SchedDate">
+                        <TMPL_LOOP SCHEDD>
+                        <option value="<TMPL_VAR NAME=VAL>" <TMPL_IF SEL>selected</TMPL_IF>><TMPL_VAR NAME=DATE></option>
+                        </TMPL_LOOP>
+                        </select>
+                        <select name="SchedHour">
+                        <TMPL_LOOP SCHEDH>
+                        <option value="<TMPL_VAR NAME=HOUR>" <TMPL_IF SEL>selected</TMPL_IF>><TMPL_VAR NAME=HOUR></option>
+                        </TMPL_LOOP>
+                        </select> 時
+                        <select name="SchedMinute">
+                        <TMPL_LOOP SCHEDM>
+                        <option value="<TMPL_VAR NAME=MIN>" <TMPL_IF SEL>selected</TMPL_IF>><TMPL_VAR NAME=MIN></option>
+                        </TMPL_LOOP>
+                        </select> 分
+      <input name="set1" type="button" id="set" value="送信予約" onClick="
+document.MAKEMAG.set1.disabled='true';
+document.MAKEMAG.set2.disabled='true';
+if( document.MAKEMAG.tmpl1 ){
+      document.MAKEMAG.tmpl1.disabled='true';
+}
+if( document.MAKEMAG.tmpl2 ){
+      document.MAKEMAG.tmpl2.disabled='true';
+}
+document.MAKEMAG.CMD.value='SCHED';
+document.MAKEMAG.submit();" <TMPL_IF MAKEMAGAZINE10>disabled</TMPL_IF>>
+<input name="set2" type="button" id="set" value="テスト送信" onClick="SendTest();">
+<br />※送信日時は現時刻より10分以降を設定してください。
+                                                  </td>
+                                                </tr>
+
+    <tr align="center">
+     <td colspan="2" class="item">
+         <input name="preview" type="button" onClick="window.open('mailmag_preview.html', 'mailmag_preview')" value="全体プレビューを表示する">
+     </td>
+    </tr>
+
+<TMPL_IF ID>
+<TMPL_ELSE>
+ <tr align="center">
+  <td colspan="2" class="item">
+  <input type="button" onClick="BackList();" value="キャンセル">
+
+  <TMPL_IF TMPLMODE>
+    <input name="tmpl1" type="button" onClick="OverSaveTmpl();" value="上書き保存する">
+    <input name="tmpl2" type="button" onClick="this.disabled=true; SaveTmpl();" value="コピーして保存する" <TMPL_IF TEMPLATE_DIS>disabled</TMPL_IF>>
+  <TMPL_ELSE>
+    <input name="tmpl1" type="button" onClick="SaveTmpl();" value="テンプレートを保存する" <TMPL_IF TEMPLATE_DIS>disabled</TMPL_IF>>
+  </TMPL_IF>
+  </td>
+ </tr>
+</TMPL_IF>
+                                              </table>
+                                              <br></td>
+                                            </tr>
+                                          </table></td>
+                                        </tr>
+</form>
+                                      </table>

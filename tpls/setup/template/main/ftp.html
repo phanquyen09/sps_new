@@ -1,0 +1,125 @@
+<script language="JavaScript">
+<!--
+function del(f) {
+  if ( confirm("FTPアカウントを削除します。よろしいですか？") ) {
+    f.submit();
+  } else {
+    return;
+  }
+}
+//-->
+</script>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+    <tr>
+	<td width="12">
+	    <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#677C87">
+		<tr>
+		    <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+		</tr>
+	    </table>
+	</td>
+<td align="left" class="midashi">FTPアカウントの管理を行います。</td>
+<td align="right" class="midashi"><a href="<TMPL_VAR NAME=Manual>func06/ftpacc.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+    </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+	<td align="left" class="main-table">
+
+<div class="infoArea table_bg">
+FTPソフトに設定する「FTPアカウント(ID、ユーザー名)」、「パスワード」を作成・管理します。<br>
+ここで設定したFTPアカウント、パスワードを、ご利用のFTPソフトに設定して、ご自身で作成された<br>
+ページなどをＥストアーショップサーブにアップロードします。<br>
+<br>
+⇒<a href="<TMPL_VAR NAME=Manual>guide/ftp_ol.html" target="manual">FTPソフトの設定方法</a>
+</div>
+
+	    <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+		<tr>
+		    <td>
+                        <TMPL_LOOP NAME=ERR_MSG>
+                        <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+                        </TMPL_LOOP>
+			<table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+			    <form name="FTPADD" method="POST" action="ftp.cgi">
+			    <input type="hidden" name="FID" value="new">
+			    <input type="hidden" name="CMD" value="ADD">
+			    <tr align="center">
+				<td colspan="2" class="item-name02">ＦＴＰアカウント作成</td>
+			    </tr>
+			    <tr>
+				<td class="item-name">FTPアカウント</td>
+				<td class="item"><TMPL_VAR NAME=STORENAME>-<input name="ACC" type="text" value="<TMPL_VAR NAME=ACC>" style="ime-mode:disabled"></td>
+			    </tr>
+			    <tr>
+				<td class="item-name">パスワード</td>
+				<td class="item"><input name="PWD" type="text" value="<TMPL_VAR NAME=PWD>" style="ime-mode:disabled"></td>
+			    </tr>
+			    <tr>
+				<td class="item-name">アクセス権</td>
+				<td class="item"><input type="radio" name="DIRTYPE" value="use" <TMPL_VAR NAME=USECHECK> id="ftp01">
+				    <select name="DIR">
+				    <TMPL_LOOP NAME=ADD_DIRS>
+				    <option value="<TMPL_VAR NAME=DIR>" <TMPL_VAR NAME=SELDIR>><TMPL_VAR NAME=JDIR></option>
+				    </TMPL_LOOP>
+				    </select>
+				    <br>
+				    <input type="radio" name="DIRTYPE" value="new" <TMPL_VAR NAME=NEWCHECK> id="ftp02">
+				     /docs/
+				    <input name="NEWDIR" type="text" value="<TMPL_VAR NAME=NEWDIR>" style="ime-mode:disabled">/
+				</td>
+			    </tr>
+			    <tr align="center">
+				<td colspan="2" class="item02"><span class="item">
+				    <input type="button" name="Submit" value="作成" onClick='document.FTPADD.submit();'>
+				    </span></td>
+			    </tr>
+			    </form>
+			</table>
+			<br>
+			<table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+			    <tr align="center">
+				<td nowrap class="item-name02">作成日</td>
+				<td nowrap class="item-name02">FTPアカウント</td>
+				<td nowrap class="item-name02">パスワード</td>
+				<td nowrap class="item-name02">アクセス権</td>
+				<td nowrap class="item-name02">操作</td>
+			    </tr>
+			    <TMPL_LOOP NAME=FTP_ACC>
+			    <tr>
+				<form name="FTP<TMPL_VAR NAME=ID>" method="POST" action="ftp.cgi">
+				<input type="hidden" name="FID" value="<TMPL_VAR NAME=ID>">
+				<input type="hidden" name="CMD" value="EDT">
+				<td width="10%" align="center" nowrap class="item02">&nbsp;<TMPL_VAR NAME=CREATE></td>
+				<td width="20%" nowrap class="item02"><TMPL_VAR NAME=ACC></td>
+				<td width="20%" align="center" class="item02">
+<TMPL_IF ID>
+				    <input name="PWD" type="text" value="<TMPL_VAR NAME=PWD>">
+<TMPL_ELSE>&nbsp;</TMPL_IF>
+				</td>
+				<td width="30%" nowrap class="item02">
+<TMPL_IF ID>
+				    <select name="DIR">
+				    <TMPL_LOOP NAME=DIRS>
+				    <option value="<TMPL_VAR NAME=DIR>" <TMPL_VAR NAME=SELDIR>><TMPL_VAR NAME=JDIR></option>
+				    </TMPL_LOOP>
+				    </select>
+<TMPL_ELSE>&nbsp;</TMPL_IF>
+				</td>
+				<td width="20%" nowrap class="item02">
+<TMPL_IF ID>
+				    <input type="button" name="EDT" value="変更" onClick='document.FTP<TMPL_VAR NAME=ID>.submit();'>
+				    <input type="button" name="DEL" value="削除" onClick='document.FTP<TMPL_VAR NAME=ID>.CMD.value="DEL"; del(document.FTP<TMPL_VAR NAME=ID>);'>
+<TMPL_ELSE>&nbsp;</TMPL_IF>
+				</td>
+				</form>
+			   </tr>
+			   </TMPL_LOOP>
+			</table>
+		    </td>
+		</tr>
+	    </table>
+	</td>
+    </tr>
+</table>

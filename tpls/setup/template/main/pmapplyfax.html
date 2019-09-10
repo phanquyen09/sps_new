@@ -1,0 +1,2099 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<title>Ｅストアーショップサーブ　決済代行サービス申込書</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<style type="text/css">
+<!--
+.page { page-break-after: always}
+.jtd14 { font-size:12pt }
+.small10 { font-size:8pt }
+.j12 { font-size:10pt}
+.jtd10{ font-size:8pt}
+.jtd12 { font-size:10pt}
+.small { font-size: 6pt}
+p.sample1 {page-break-after: always; }
+.line {border:1px solid #000000;}
+
+-->
+</style>
+<script language="JavaScript">
+<!--
+function printalert() {
+  alert('この画面をA4の用紙に印刷して、お読みのうえ、ご郵送ください。');
+}
+//-->
+</script>
+</head>
+<body text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" bgcolor="#FFFFFF" onLoad="printalert()">
+
+<!-- カード申込書ここから -->
+
+<TMPL_IF CARDFLAG>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr> 
+    <td colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+
+  </tr>
+  <tr> 
+    <td class="small10"> 株式会社Ｅストアー<br>
+      「決済代行サービス受付係」　行<br>
+      <br>
+    </td>
+    <td align="right" valign="top" class="small10">(申込書番号 <TMPL_VAR NAME=CARDSNO>)<br>
+
+      <TMPL_VAR NAME=TODAY></td>
+  </tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr> 
+    <td class="j12"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+  <tr> 
+    <td align="center"><b class="jtd14">Ｅストアーショップサーブ「クレジットカード決済代行サービス」申込書</b></td>
+  </tr>
+  <tr> 
+    <td class="j12"><img src="../imgs/spc.gif" width="2" height="10"></td>
+
+  </tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td><span class="j12">以下のお申込条項および決済代行サービス細則に同意のうえ、申し込みいたします。</span><br>
+      <span class="small10"><font color="red">ご契約者の「電話番号」が携帯電話は不可となります。印刷後、手書きにて訂正頂きご送付下さい。</font><br><br><span class="small10">※本申込書にご捺印のうえ、添付書類を添えて、下記住所までご送付ください。<br>
+      〒105-0003東京都港区西新橋1-10-2　住友生命西新橋ビル　株式会社Ｅストアー「決済代行サービス受付係」行
+      <br>
+</span></td>
+  </tr>
+
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+  <tr>
+    <td class="j12"><b>Ｅストアーショップサーブご契約者</b></td>
+  </tr>
+</table>
+<table width="600" border="1" cellspacing="0" cellpadding="3" align="center">
+
+  <tr>
+    <td width="20%" nowrap bgcolor="#F3F3F3" class="jtd12">URL</td>
+    <td colspan="3" class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CUSTURL></td>
+    <td width="5%" align="center" bgcolor="#F3F3F3" class="jtd12">ご捺印欄</td>
+  </tr>
+  <tr>
+    <td class="jtd12" bgcolor="#F3F3F3">契約者名</td>
+
+    <td colspan="3" class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CUSTNAME></td>
+    <td class="jtd12" bgcolor="#FFFFFF" rowspan="3"><img src="../imgs/persona_seal.gif" width="74" height="78"></td>
+  </tr>
+  <tr>
+    <td class="jtd12" bgcolor="#F3F3F3">ご住所</td>
+    <td class="jtd12" bgcolor="#FFFFFF" colspan="3">〒<TMPL_VAR NAME=CUSTZIP> <TMPL_VAR NAME=CUSTADDR></td>
+  </tr>
+  <tr>
+    <td nowrap bgcolor="#F3F3F3" class="jtd12">代表者名(カナ)</td>
+    <td class="jtd12" bgcolor="#FFFFFF" colspan="3"><TMPL_VAR NAME=CUSTDAIHYOKANA></td>
+  </tr>
+
+  <tr>
+    <td width="20%" bgcolor="#F3F3F3" class="jtd12">代表者名</td>
+    <td width="40%" bgcolor="#FFFFFF" class="jtd12"><TMPL_VAR NAME=CUSTDAIHYO></td>
+    <td width="10%" nowrap bgcolor="#F3F3F3" class="jtd12">役職名</td>
+    <td width="25%" colspan="2" bgcolor="#FFFFFF" class="jtd12"><TMPL_VAR NAME=CUSTPOST></td>
+  </tr>
+  <tr>
+    <td class="jtd12" bgcolor="#F3F3F3">電話番号</td>
+    <td class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CUSTTEL></td>
+    <td nowrap class="jtd12" bgcolor="#F3F3F3">FAX番号</td>
+    <td colspan="2" class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CUSTFAX></td>
+  </tr>
+
+  <tr>
+    <td class="jtd12" bgcolor="#F3F3F3" nowrap>ショップID</td>
+    <td colspan="4" bgcolor="#FFFFFF" class="jtd12"><TMPL_VAR NAME=STORENAME></td>
+  </tr>
+</table>
+
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+  <tr> 
+    <td><b class="j12">決済ご担当者</b><span class="small10">&nbsp;&nbsp;&nbsp;&nbsp;※回収代金に関する貴社の連絡窓口となる方です。</span></td>
+  </tr>
+</table>
+<table width="600" border="1" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+
+    <td class="jtd12" nowrap valign="top" bgcolor="#F3F3F3">ご契約者名（会社名）</td>
+    <td class="jtd12" bgcolor="#FFFFFF" colspan="3"><TMPL_VAR NAME=CUSTNAME></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3" width="10%">部署名</td>
+    <td class="jtd12" bgcolor="#FFFFFF" width="40%"><TMPL_VAR NAME=TANTOSECTION></td>
+    <td class="jtd12" bgcolor="#F3F3F3" width="10%">役職</td>
+    <td class="jtd12" bgcolor="#FFFFFF" width="40%"><TMPL_VAR NAME=TANTOPOSITION></td>
+  </tr>
+
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">住所</td>
+    <td class="jtd12" bgcolor="#FFFFFF" colspan="3">〒<TMPL_VAR NAME=TANTOZIP1>-<TMPL_VAR NAME=TANTOZIP2>　<TMPL_VAR NAME=TANTOPREF> <TMPL_VAR NAME=TANTOADDR1> <TMPL_VAR NAME=TANTOADDR2> <TMPL_VAR NAME=TANTOADDR3> <TMPL_VAR NAME=TANTOADDR4></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3" width="10%">担当者名</td>
+    <td class="jtd12" bgcolor="#FFFFFF" width="35%"><TMPL_VAR NAME=TANTOSEI>　<TMPL_VAR NAME=TANTOMEI></td>
+
+    <td class="jtd12" bgcolor="#F3F3F3" width="15%">電話番号</td>
+    <td class="jtd12" bgcolor="#FFFFFF" width="40%"><TMPL_VAR NAME=TANTOTEL></td>
+  </tr>
+  <tr>
+    <td valign="top" nowrap bgcolor="#F3F3F3" class="jtd12">メールアドレス</td>
+    <td class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=TANTOMAIL></td>
+    <td class="jtd12" bgcolor="#F3F3F3">FAX番号</td>
+
+    <td class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=TANTOFAX></td>
+  </tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+  <tr>
+    <td class="j12"><b>お申込内容</b></td>
+
+  </tr>
+</table>
+<table width="600" border="1" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td class="jtd12" nowrap width="25%" valign="top" bgcolor="#F3F3F3">カード利用明細書[屋号]</td>
+    <td colspan="3" bgcolor="#FFFFFF" class="jtd12"><TMPL_VAR NAME=YAGO></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">カード利用明細書(カナ)</td>
+    <td colspan="3" bgcolor="#FFFFFF" class="jtd12"><TMPL_VAR NAME=YAGOKANA></td>
+  </tr>
+  <tr>
+    <td valign="top" nowrap bgcolor="#F3F3F3" class="jtd12">カード利用明細書(ローマ字)</td>
+    <td colspan="3" bgcolor="#FFFFFF" class="jtd12"><TMPL_VAR NAME=YAGOROMA></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">代表者名</td>
+    <td colspan="3" bgcolor="#FFFFFF" class="jtd12"><TMPL_VAR NAME=CUSTDAIHYO></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">代表者名(カナ)</td>
+    <td colspan="3" bgcolor="#FFFFFF" class="jtd12"><TMPL_VAR NAME=CUSTDAIHYOKANA></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">代表者名(ローマ字)</td>
+    <td colspan="3" bgcolor="#FFFFFF" class="jtd12"><TMPL_VAR NAME=ROMASEI> <TMPL_VAR NAME=ROMAMEI></td>
+  </tr>
+  <tr>
+    <td width="20%" valign="top" bgcolor="#F3F3F3" class="jtd12">生年月日</td>
+    <td width="43%" bgcolor="#FFFFFF" class="jtd12"><TMPL_VAR NAME=BIRTHYYYY>年<TMPL_VAR NAME=BIRTHMM>月<TMPL_VAR NAME=BIRTHDD>日</td>
+    <td width="7%" nowrap bgcolor="#F3F3F3" class="jtd12">性別</td>
+    <td width="30%" bgcolor="#FFFFFF" class="jtd12"><TMPL_IF SEXM>男性<TMPL_ELSE>女性</TMPL_IF></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">回収代金振込先金融機関</td>
+
+    <td colspan="3" bgcolor="#FFFFFF" class="jtd12">
+	<TMPL_VAR NAME=BANK>
+	<TMPL_IF BANKEBANK>
+	支店番号( <TMPL_VAR NAME=BRANCHCODE> )
+	<TMPL_ELSE>
+	<TMPL_VAR NAME=BRANCH>
+	<TMPL_IF TYPE1>普通<TMPL_ELSE>当座</TMPL_IF>
+	</TMPL_IF>
+	<TMPL_VAR NAME=ACCOUNTNO>
+    </td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">口座名義人</td>
+    <td colspan="3" bgcolor="#FFFFFF" class="jtd12"><TMPL_VAR NAME=ACCOUNTNAME></td>
+  </tr>
+  <tr>
+
+
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">取扱商品</td>
+    <td colspan="3" bgcolor="#FFFFFF" class="jtd12"><TMPL_VAR NAME=PRODUCTTYPE></td>
+  </tr>
+</table>
+<br>
+<table class="line" width="600" border="0" cellspacing="0" cellpadding="1" align="center">
+  <tr>
+    <td>
+      <table width="100%" border="0" cellspacing="0" cellpadding="2" bgcolor="#FFFFFF">
+        <tr>
+          <td colspan="2" class="jtd12"><b>お申込条項</b></td>
+        </tr>
+
+        <tr>
+          <td valign="top" class="small" align="right">1.</td>
+          <td class="small10">次の商品の販売は行うことはできません。 
+            <table width="100%" border="0" cellspacing="0" cellpadding="3">
+              <tr>
+                <td valign="top" class="small10">(1)</td>
+                <td class="small10">わいせつ等、公序良俗に反するもの、および青少年に有害と思われるもの、性的表現に関するもの、ならびにポルノ、虐待に相当する画像・映像・音声・文字などのデータまたは記録媒体</td>
+              </tr>
+
+              <tr>
+                <td valign="top" class="small10">(2)</td>
+                <td class="small10">第三者の著作権、肖像権、商標権等の知的財産権を侵害するもの</td>
+              </tr>
+              <tr>
+                <td valign="top" class="small10">(3)</td>
+                <td class="small10">特定商取引に関する法律、銃刀法、麻薬、ワシントン条約、その他関連条約、法令に違反するもの</td>
+
+              </tr>
+              <tr>
+                <td valign="top" class="small10">(4)</td>
+                <td class="small10">商品券、プリペイドカード、印紙、切手、回数券、その他の有価証券等の金券類</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+
+        <tr>
+          <td valign="top" class="small10" align="right">2.</td>
+          <td class="small10">以下の資料をご用意ください。<br>
+          弊社提携の信販会社にて審査を行う際に必要となります。
+          <table border="0" cellspacing="0" cellpadding="1">
+            <tr>
+              <td colspan="2" class="small10">●商品内容を確認できる資料</td>
+            </tr>
+            <tr>
+              <td valign="top" class="small10">・</td>
+              <td class="small10">ホームページの場合<br>
+                販売する商品の画像、価格、内容を掲載してください。</td>
+            </tr>
+            <tr>
+              <td valign="top" class="small10">・</td>
+              <td class="small10">資料の場合<br>
+                商品内容を確認できる資料（商品名と価格が記載されているパンフレットや写真など）を申込書とあわせてご郵送ください。</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="small10">●「特定商取引に関する法律に基づく表示」</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="small10">インターネット上で販売する画面では「特定商取引に関する法律に基づく表示」またはこれに準ずるものを表示することとします。</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="small10">以下の点にご注意ください。</td>
+            </tr>
+            <tr>
+              <td valign="top" class="small10">・</td>
+              <td class="small10"> 販売業者・所在地は、本サービスご契約者様と同一である必要があります。<br>（ハンドルネームなどは使用できません）</td>
+            </tr>
+            <tr>
+              <td valign="top" class="small10">・</td>
+              <td class="small10">クレジットカード決済の手数料は購入者負担にできないため、店舗にてご負担ください。</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="small10">表記サンプルは管理ページ「店舗情報」メニューより「特定商取引に関する法律に基づく表示」をご確認下さい。</td>
+            </tr>
+          </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">3.</td>
+          <td class="small10">無限連鎖講（ネズミ講）の運営に関わることには使用できません。</td>
+
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">4.</td>
+          <td class="small10">Ｅストアーショップサーブ契約者と同一会社または同一人にて申し込むこととします。</td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">5.</td>
+
+          <td class="small10">Ｅストアーショップサーブサービス規約、マニュアル等の記載事項を守り、その他提供者からの指導に従うこととします。</td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">6.</td>
+          <td class="small10">商品購入時に取引する際に利用できる1件あたりの取引金額は100円以上300万円以下（消費税込）とします。</td>
+        </tr>
+        <tr>
+
+          <td valign="top" class="small10" align="right">7.</td>
+          <td class="small10">審査結果により、申し込まれたクレジットカード決済代行サービスがご利用できない場合もあります。</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<!-- カードお申込チェックシートここから -->
+
+<br>
+<br>
+
+<hr align="center" noshade width="600" size="1">
+<br><div style="page-break-after: always; "></div>
+<br>
+<table class="line" width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td bgcolor="#000000">
+      <table width="100%"  border="0" cellpadding="10" cellspacing="0">
+        <tr>
+          <td bgcolor="#FFFFFF">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2" align="center">
+              <tr>
+                <td><img src="../imgs/spc.gif" width="8" height="10"></td>
+              </tr>
+              <tr>
+                <td align="center" class="jtd14"><b>お申し込みチェックシート</b></td>
+              </tr>
+              <tr>
+                <td><img src="../imgs/spc.gif" width="5" height="10"></td>
+              </tr>
+              <tr>
+                <td class="j12">クレジットカード決済代行サービスお申し込み前に、以下のチェック項目に基づいて必要書類をご用意ください。</td>
+              </tr>
+              <tr>
+                <td><img src="../imgs/spc.gif" width="5" height="10"></td>
+              </tr>
+              <tr>
+                <td>
+                  <table  border="0" cellspacing="0" cellpadding="2">
+                    <tr>
+                      <td width="13" valign="top" class="j12">●</td>
+                      <td colspan="3" class="j12"><strong>申込書の捺印について</strong>（該当するものをチェック）</td>
+                    </tr>
+                    <tr>
+                      <td rowspan="3" valign="top">&nbsp;</td>
+                      <td width="13">□</td>
+                      <td colspan="2" class="jtd12">添付書類が印鑑証明書の場合は実印を捺印している</td>
+                    </tr>
+                    <tr>
+                      <td valign="top">□</td>
+                      <td colspan="2" class="jtd12">添付書類が運転免許証・パスポート・外国人登録証いずれかのコピーの場合、ご契約者様の<br>
+                                                    印鑑を捺印している（個人・個人事業主のみ）</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" valign="top"><img src="../imgs/spc.gif" width="5" height="10"></td>
+                    </tr>
+                    <tr>
+                      <td width="13" valign="top" class="j12">●</td>
+                      <td colspan="3" class="j12"><strong>印鑑証明書について</strong>（該当するものをチェック）</td>
+                    </tr>
+                    <tr>
+                      <td valign="top">&nbsp;</td>
+                      <td colspan="4"> 
+                        <table border="0" cellspacing="0" cellpadding="2">
+                          <tr>
+                            <td bgcolor="#FFFFFF" valign="top" nowrap>□&nbsp;<span class="j12">法人</span></td>
+                            <td bgcolor="#FFFFFF" class="j12" valign="top">：</td>
+                            <td bgcolor="#FFFFFF" class="j12" valign="top">会社の印鑑証明書を申込書に同封している</td>
+                          </tr>
+                          <tr>
+                            <td bgcolor="#FFFFFF" valign="top" nowrap>□&nbsp;<span class="j12">個人・個人事業主</span></td>
+                            <td bgcolor="#FFFFFF" class="j12" valign="top">：</td>
+                            <td bgcolor="#FFFFFF" class="j12" valign="top">契約者ご本人様の印鑑証明書または運転免許証・パスポート・外国人登録証いずれかのコピーを同封している</td>
+                          </tr>
+                          <tr>
+                            <td colspan="4" class="j12">※印鑑証明書は発行日から3ヶ月以内の原本に限ります<br>
+                                                        ※運転免許証・パスポート・外国人登録証のコピーは有効期限内であることが確認できるものに限ります</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"><span class="j12">●</span></td>
+                      <td colspan="3" class="j12"><strong>酒類、古物など、販売資格が必要な商品を扱う場合について</strong></td>
+                    </tr>
+                    <tr>
+                      <td valign="top">&nbsp;</td>
+                      <td>□</td>
+                      <td colspan="2" class="jtd12">免許証または許可証のコピーを申込書に同封している</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" valign="top"><img src="../imgs/spc.gif" width="5" height="10"></td>
+                    </tr>
+                    <tr>
+                      <td valign="top"><span class="j12">●</span></td>
+                      <td colspan="3" class="j12"><strong>販売する商品情報（商品名と価格）について</strong>（該当するものをチェック）</td>
+                    </tr>
+                    <tr>
+                      <td valign="top">&nbsp;</td>
+                      <td>□</td>
+                      <td colspan="2" class="jtd12">ホームページに掲載している</td>
+                    </tr>
+                    <tr>
+                      <td valign="top">&nbsp;</td>
+                      <td>□</td>
+                      <td colspan="2" class="jtd12">商品のパンフレット・カタログまたは、商品情報（商品の画像、価格、内容）がわかる説明資料を申込書に同封している</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" valign="top"><img src="../imgs/spc.gif" width="5" height="10"></td>
+                    </tr>
+                    <tr>
+                      <td valign="top"><span class="j12">●</span></td>
+                      <td colspan="3" class="j12"><strong>「特定商取引に関する法律に基づく表示」について</strong>（該当するものをチェック）</td>
+                    </tr>
+                    <tr>
+                      <td valign="top">&nbsp;</td>
+                      <td>□</td>
+                      <td colspan="2" class="jtd12">ホームページに掲載している</td>
+                    </tr>
+                    <tr>
+                      <td valign="top">&nbsp;</td>
+                      <td>□</td>
+                      <td colspan="2" class="jtd12">必要項目をまとめて申込書に同封している</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" valign="top"><img src="../imgs/spc.gif" width="5" height="10"></td>
+                    </tr>
+                    <tr>
+                      <td valign="top"><span class="j12">●</span></td>
+                      <td colspan="3" class="j12"><strong>申込書の「カード利用明細書」の入力項目について</strong></td>
+                    </tr>
+                    <tr>
+                      <td rowspan="2" valign="top">&nbsp;</td>
+                      <td>□</td>
+                      <td colspan="2" class="jtd12">屋号・カナ・ローマ字が、みな同じ名称として表記されている</td>
+                    </tr>
+                    <tr>
+                      <td colspan="3" class="jtd12">
+                        <table  border="0" cellspacing="0" cellpadding="1">
+                          <tr class="jtd12">
+                            <td>例）</td>
+                            <td nowrap>屋号が漢字の場合</td>
+                            <td>&nbsp;屋号：山田商事／カナ：ヤマダショウジ／ローマ字：YAMADASHOJI</td>
+                          </tr>
+                          <tr class="jtd12">
+                            <td>&nbsp;</td>
+                            <td nowrap>屋号がアルファベットの場合</td>
+                            <td>&nbsp;屋号：ABSTORE／カナ：エービーストアー／ローマ字：ABSTORE</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" valign="top"><img src="../imgs/spc.gif" width="5" height="10"></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<br>
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+  <tr>
+    <td valign="top" class="jtd12" colspan="2">【送付先住所】</td>
+
+  </tr>
+  <tr>
+    <td class="jtd12" width="1%"><img src="../imgs/spc.gif" width="10" height="10"></td>
+    <td width="99%" class="j12">〒105-0003<br>
+                                東京都港区西新橋1-10-2　住友生命西新橋ビル<br>
+      　                        株式会社Ｅストアー「決済代行サービス受付係」行 </td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+
+  </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+  <tr>
+    <td valign="top" class="jtd12" width="1%">※</td>
+
+    <td class="jtd12" width="99%">次の場合は、下記までご連絡ください。</td>
+  </tr>
+  <tr>
+    <td valign="top" class="jtd12"><img src="../imgs/spc.gif" width="10" height="10"></td>
+    <td>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td valign="top" class="jtd12">　</td>
+          <td class="jtd12">・申込書をご郵送いただいた後、3週間を経過しても弊社より審査結果のお知らせがない場合</td>
+        </tr>
+        <tr>
+          <td valign="top" class="jtd12">　</td>
+          <td class="jtd12">・申込書の印字内容に変更がある場合</td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+  <tr>
+    <td class="jtd12" width="99%">本内容について、ご不明な点・ご質問等ございましたら、下記までご連絡ください。</td>
+
+  </tr>
+  <tr>
+    <td align="center">
+      <table width="80%" class="line" border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="5">
+              <tr>
+                <td bgcolor="#FFFFFF" rowspan="5"><img src="../imgs/spc.gif" width="5" height="5"></td>
+                <td bgcolor="#FFFFFF" colspan="2" class="jtd12">
+            Ｅストアー ストアーデスク <a href="mailto:sp@Estore.co.jp">sp@Estore.co.jp</a></td>
+                <td bgcolor="#FFFFFF" rowspan="5"><img src="../imgs/spc.gif" width="5" height="5"> </td>
+              </tr>
+              <tr>
+                <td bgcolor="#FFFFFF" align="right" valign="top" class="jtd12">TEL</td>
+                <td bgcolor="#FFFFFF" class="jtd12">0570-05-1210（ナビダイヤル:全国共通3分8.5円）<br>
+　　　　　　　　　　※携帯の場合20秒10.5円<br>
+            03-3595-1251（上記ナビダイヤルがご利用できない方）</td>
+              </tr>
+              <tr>
+                <td bgcolor="#FFFFFF" align="right" class="jtd12">電話営業時間</td>
+                <td bgcolor="#FFFFFF" class="jtd12">10時〜18時（土・日・祝祭日を除く）</td>
+              </tr>
+          </table></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td valign="top"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+
+</table><br>
+<hr width="600" size="1" noshade align="center">
+<br>
+
+<!-- カード申込手続きについてここから -->
+
+<br><div style="page-break-after: always; "></div>
+<table width="600" border="0" cellspacing="0" cellpadding="2" align="center">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+  <tr>
+    <td class="j12" align="center"><b>『クレジットカード決済代行サービス』申込手続きについて </b></td>
+  </tr>
+  <tr>
+
+    <td><img src="../imgs/spc.gif" width="2" height="5"></td>
+
+  </tr>
+  <tr>
+    <td class="j12">お申込につきまして、以下の内容をご確認いただきますようお願い申し上げます。<br>
+                    ※本ページは利用開始までお手元に保存していただき、随時ご確認ください。</td>
+  </tr>
+  <tr>
+    <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+
+</table>
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+
+  <tr>
+    <td valign="top" class="jtd12" width="1%">■</td>
+    <td class="jtd12" width="99%">お申込手続きについて</td>
+  </tr>
+  <tr>
+    <td valign="top" class="jtd12"><img src="../imgs/spc.gif" width="10" height="10"></td>
+
+    <td class="j12">このページを印刷しただけでは、申込受付となりません。おそれいりますが、以下の書類を下記住所までご郵送ください。<br>
+
+      重要書類につき、「宅配便」など配達記録の残る配送方法で送付頂くことをお勧めします。 </td>
+  </tr>
+  <tr>
+    <td valign="top" colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+
+  <tr>
+    <td valign="top" class="jtd12" colspan="3">【送付書類】</td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" colspan="3">他の決済代行サービスを同時にお申し込みいただく場合、申込書以外の各書類は1部ずつで結構です。</td>
+  </tr>
+  <tr>
+    <td class="jtd12" rowspan="5"><img src="../imgs/spc.gif" width="10" height="10"></td>
+    <td class="jtd12" valign="top">1.</td>
+    <td><span class="j12">申込書<br>
+
+      印刷していただいた申込書にはご捺印が必要です。添付書類が印鑑証明書の場合は実印をご捺印ください。<br>
+      個人・個人事業主の場合で「運転免許証」「パスポート」「外国人登録証」を本人確認書類としてお申込み頂く場合は、ご契約者様の印鑑をご捺印ください。</span>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td valign="top" class="small10" colspan="2"><img src="../imgs/spc.gif" width="2" height="5"></td>
+          </tr>
+          <tr>
+            <td valign="top" class="jtd12">※</td>
+            <td class="jtd12">申込書が印刷エラー等で印刷できなかった場合、お手数ではございますが、管理画面より再度お手続きください。</td>
+
+          </tr>
+          <tr>
+            <td valign="top" class="jtd12">※</td>
+            <td class="jtd12">印刷内容を書きかえることはできません。契約者情報に変更がある場合は、Ｅストアーショップサーブの契約者情報の変更手続きを行ってからお申し込みください。</td>
+          </tr>
+      </table></td>
+  </tr>
+  <tr>
+
+    <td class="jtd12" valign="top">2.</td>
+    <td colspan="2"><span class="j12"">印鑑証明書<br>
+      Ｅストアーショップサーブのご契約者様が法人契約の場合は、ご契約法人名の印鑑証明書をご用意ください。（発行後3ヶ月以内の原本）<br>
+      個人・個人事業主契約の場合は、ご契約者様の印鑑証明書（発行後3ヶ月以内の原本）、または有効期限が確認できる「運転免許証」「パスポート」「外国人登録証」いずれかのコピーをご用意ください。
+      </span></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top">3.</td>
+    <td colspan="2"><span class="j12">販売免許・許可証のコピー（販売に許認可が必要な商品を取り扱っている場合のみ）<br>
+    一般酒類小売業の免許、古物商許可証など。</span></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top">4.</td>
+    <td colspan="2"><span class="j12">商品の価格や内容がわかるカタログなど（開店ウィザードが完了していない場合のみ）<br>
+      代表的な商品2〜3点の商品写真、商品名、商品の金額が表示されているカタログやパンフレットをご用意ください。カタログ等がない場合は、エクセルやワードなどで自作したものでも結構です。<br>
+      また、すでに他のサーバーでお店がある場合は、そのお店のURLを申込書の上部余白にご記入いただいても結構です。
+      </span></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top">5.</td>
+    <td colspan="2"><span class="j12">特定商取引法の表記を印刷したもの（開店ウィザードが完了していない場合のみ）<br>
+     「特定商取引法に関する表示」に記載する「販売業者」「販売責任者」は、Ｅストアーショップサーブご契約者様と同じ名前、名称をご記入ください。
+      </span></td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" align="center" width="600">
+  <tr>
+    <td valign="top" class="jtd12" width="1%">■</td>
+
+    <td class="jtd12" width="99%">審査について</td>
+  </tr>
+  <tr>
+    <td valign="top" class="jtd12"><img src="../imgs/spc.gif" width="10" height="10"></td>
+
+    <td class="j12">申込書がＥストアーに到着後、Ｅストアーおよび各決済の会社で審査を行います。書類の不備や記載内容に相違があった場合は
+電話もしくはメールでご連絡いたします。お店が準備中（非公開）の場合でも、審査のためＥストアーがページを閲覧いたしますので、
+ご了承ください。審査の結果、ご利用いただけない場合は郵送でお知らせいたします。</td>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+  <td valign="top" class="small10" colspan="2"><img src="../imgs/spc.gif" width="2" height="5"></td>
+  </tr>
+  </table>
+</td>
+  </tr>
+  <tr>
+
+    <td valign="top" colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" align="center" width="600">
+  <tr>
+    <td valign="top" class="jtd12" width="1%">■</td>
+
+    <td class="jtd12" width="99%">ご利用開始について</td>
+  </tr>
+  <tr>
+    <td valign="top" class="jtd12"><img src="../imgs/spc.gif" width="10" height="10"></td>
+
+    <td class="j12">決済担当者メールアドレス宛に、ご利用開始のご連絡をいたします。ご利用開始の目安は以下のとおりです。
+（申込書がＥストアーに到着してからの期間）</td>
+  </tr>
+  <tr>
+    <td valign="top">&nbsp;</td>
+    <td colspan="4">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td bgcolor="#FFFFFF" class="j12" valign="top" nowrap>・クレジットカード決済</span></td>
+          <td bgcolor="#FFFFFF" class="j12" valign="top">：</td>
+          <td bgcolor="#FFFFFF" class="j12" valign="top">約4週間（前もって約2〜3週間で審査結果のご連絡をいたします）</td>
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFFF" class="j12" valign="top" nowrap>・コンビニ決済</span></td>
+          <td bgcolor="#FFFFFF" class="j12" valign="top">：</td>
+          <td bgcolor="#FFFFFF" class="j12" valign="top">約2〜3営業日</td>
+        </tr>
+                                  <tr>
+          <td bgcolor="#FFFFFF" class="j12" valign="top" nowrap>・電子決済</span></td>
+          <td bgcolor="#FFFFFF" class="j12" valign="top">：</td>
+          <td bgcolor="#FFFFFF" class="j12" valign="top">約1〜2営業日</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" align="center" width="600">
+  <tr>
+    <td valign="top" class="jtd12" width="1%">■</td>
+
+    <td class="jtd12" width="99%">利用開始後の設定について</td>
+  </tr>
+  <tr>
+    <td valign="top" class="jtd12"><img src="../imgs/spc.gif" width="10" height="10"></td>
+
+    <td class="j12">ご利用開始の連絡メールが確認できましたら、ショッピングカート内で決済方法として利用できるように設定をしてください。</td>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+  <td valign="top" class="small10" colspan="2"><img src="../imgs/spc.gif" width="2" height="5"></td>
+  </tr>
+  </table>
+</td>
+  </tr>
+  <tr>
+
+    <td valign="top" colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<hr width="600" size="1" noshade align="center">
+<br>
+</TMPL_IF>
+
+<!-- コンビニ申込書ここから -->
+
+<TMPL_IF CVSFLAG>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+  <tr>
+    <td class="small10"> 株式会社Ｅストアー<br>
+      「決済代行サービス受付係」　行<br>
+      <br>
+    </td>
+    <td align="right" valign="top" class="small10">(申込書番号 <TMPL_VAR NAME=CVSSNO>)<br>
+      <TMPL_VAR NAME=TODAY></td>
+  </tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+  <tr>
+    <td align="center"><b class="jtd14">Ｅストアーショップサーブ「コンビニ決済代行サービス」申込書</b></td>
+  </tr>
+  <tr>
+    <td class="j12"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td><span class="j12">以下のお申込条項および決済代行サービス細則に同意のうえ、申し込みいたします。</span><br>
+        <span class="small10">※本申込書のご捺印欄に押印のうえ、添付書類を添えて、下記住所までご郵送ください。<br>
+       
+      〒105-0003東京都港区西新橋1-10-2　住友生命西新橋ビル　株式会社Ｅストアー「決済代行サービス受付係」行</span></td>
+  </tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+  <tr>
+    <td class="j12"><b>Ｅストアーショップサーブご契約者</b></td>
+  </tr>
+</table>
+<table width="600" border="1" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td class="jtd12" bgcolor="#F3F3F3" nowrap>URL</td>
+    <td colspan="3" class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CUSTURL></td>
+    <td width="10%" align="center" bgcolor="#F3F3F3" class="jtd12">ご捺印欄</td>
+  </tr>
+  <tr>
+    <td class="jtd12" bgcolor="#F3F3F3">契約者名</td>
+    <td colspan="3" class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CUSTNAME></td>
+    <td class="jtd12" bgcolor="#FFFFFF" rowspan="3"><img src="../imgs/persona_seal.gif" width="74" height="78"></td>
+  </tr>
+  <tr>
+    <td class="jtd12" bgcolor="#F3F3F3">ご住所</td>
+    <td class="jtd12" bgcolor="#FFFFFF" colspan="3">〒<TMPL_VAR NAME=CUSTZIP>　<TMPL_VAR NAME=CUSTADDR></td>
+  </tr>
+  <tr>
+    <td nowrap bgcolor="#F3F3F3" class="jtd12">代表者名(カナ)</td>
+    <td class="jtd12" bgcolor="#FFFFFF" colspan="3"><TMPL_VAR NAME=CUSTDAIHYOKANA></td>
+  </tr>
+  <tr>
+    <td width="15%" class="jtd12" bgcolor="#F3F3F3">代表者名</td>
+    <td width="40%" class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CUSTDAIHYO></td>
+    <td width="10%" class="jtd12" bgcolor="#F3F3F3">役職名</td>
+    <td width="25%" colspan="2" class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CUSTPOST></td>
+  </tr>
+  <tr>
+    <td nowrap class="jtd12" bgcolor="#F3F3F3" width="15%">電話番号</td>
+    <td class="jtd12" bgcolor="#FFFFFF" width="40%"><TMPL_VAR NAME=CUSTTEL></td>
+    <td nowrap class="jtd12" bgcolor="#F3F3F3" width="10%">FAX番号</td>
+    <td colspan="2" class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CUSTFAX></td>
+  </tr>
+  <tr>
+    <td width="15%" class="jtd12" bgcolor="#F3F3F3" nowrap>ショップID</td>
+    <td colspan="4" bgcolor="#FFFFFF" class="jtd12"><TMPL_VAR NAME=STORENAME></td>
+  </tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+  <tr>
+    <td><b class="j12">決済ご担当者</b><span class="small10">&nbsp;&nbsp;&nbsp;&nbsp;※回収代金に関する貴社の連絡窓口となる方です。</span></td>
+  </tr>
+</table>
+<table width="600" border="1" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td class="jtd12" nowrap valign="top" bgcolor="#F3F3F3">ご契約者（会社名）</td>
+    <td class="jtd12" bgcolor="#FFFFFF" colspan="3"><TMPL_VAR NAME=CUSTNAME></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3" width="10%">部署名</td>
+    <td class="jtd12" bgcolor="#FFFFFF" width="40%"><TMPL_VAR NAME=TANTOSECTION></td>
+    <td class="jtd12" bgcolor="#F3F3F3" width="10%">役職</td>
+    <td class="jtd12" bgcolor="#FFFFFF" width="40%"><TMPL_VAR NAME=TANTOPOSITION></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">ご住所</td>
+    <td class="jtd12" bgcolor="#FFFFFF" colspan="3">〒<TMPL_VAR NAME=TANTOZIP1>-<TMPL_VAR NAME=TANTOZIP2>　<TMPL_VAR NAME=TANTOPREF> <TMPL_VAR NAME=TANTOADDR1> <TMPL_VAR NAME=TANTOADDR2> <TMPL_VAR NAME=TANTOADDR3> <TMPL_VAR NAME=TANTOADDR4></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3" width="10%">ご担当者名</td>
+    <td class="jtd12" bgcolor="#FFFFFF" width="40%"><TMPL_VAR NAME=TANTOSEI>　<TMPL_VAR NAME=TANTOMEI></td>
+    <td class="jtd12" bgcolor="#F3F3F3" width="15%">電話番号</td>
+    <td class="jtd12" bgcolor="#FFFFFF" width="40%"><TMPL_VAR NAME=TANTOTEL></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">メールアドレス</td>
+    <td class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=TANTOMAIL></td>
+    <td class="jtd12" bgcolor="#F3F3F3">FAX番号</td>
+    <td class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=TANTOFAX></td>
+  </tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+  <tr>
+    <td class="j12"><b>お申込内容</b></td>
+  </tr>
+</table>
+<table width="600" border="1" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">回収代金振込先金融機関</td>
+    <td class="jtd12" bgcolor="#FFFFFF">
+	<TMPL_VAR NAME=BANK>
+	<TMPL_IF BANKEBANK>
+	支店番号( <TMPL_VAR NAME=BRANCHCODE> )
+	<TMPL_ELSE>
+	<TMPL_VAR NAME=BRANCH>
+	<TMPL_IF TYPE1>普通<TMPL_ELSE>当座</TMPL_IF>
+	</TMPL_IF>
+	<TMPL_VAR NAME=ACCOUNTNO>
+    </td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">口座名義人</td>
+    <td class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=ACCOUNTNAME></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">取扱商品</td>
+    <td class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=PRODUCTTYPE></td>
+  </tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+  <tr>
+    <td class="j12"><b>払込票の印字内容</b></td>
+  </tr>
+</table>
+<table width="600" border="1" cellspacing="0" cellpadding="3" align="center">
+  <tr>
+    <td class="jtd12" nowrap valign="top" bgcolor="#F3F3F3">差出人名</td>
+    <td class="jtd12" bgcolor="#FFFFFF" colspan="3"><TMPL_VAR NAME=CVSNAME></td>
+  </tr>
+  <tr>
+    <td valign="top" nowrap bgcolor="#F3F3F3" class="jtd12">差出人住所</td>
+    <td class="jtd12" bgcolor="#FFFFFF" colspan="3">〒<TMPL_VAR NAME=CVSZIP1> - <TMPL_VAR NAME=CVSZIP2>　<TMPL_VAR NAME=CVSADDR1>　<TMPL_VAR NAME=CVSADDR2></td>
+  </tr>
+  <tr>
+    <td width="10%" bgcolor="#F3F3F3" class="jtd12">電話番号</td>
+    <td width="40%" bgcolor="#FFFFFF" class="jtd12"><TMPL_VAR NAME=CVSTEL></td>
+    <td width="15%" bgcolor="#F3F3F3" class="jtd12">FAX番号</td>
+    <td width="40%" bgcolor="#FFFFFF" class="jtd12"><TMPL_VAR NAME=CVSFAX></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">コメント</td>
+    <td colspan="3" bgcolor="#FFFFFF" class="jtd12"><TMPL_VAR NAME=CVSCOMMENT></td>
+  </tr>
+  <tr>
+    <td valign="top" nowrap bgcolor="#F3F3F3" class="jtd12">お支払期限日</td>
+    <td colspan="3" bgcolor="#FFFFFF" class="jtd12">決済依頼日から　<TMPL_VAR NAME=CVSDUEDATE>　日以内</td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">通信欄</td>
+    <td colspan="3" bgcolor="#FFFFFF" class="jtd12"><TMPL_VAR NAME=CVSCOLUMN></td>
+  </tr>
+</table>
+<br>
+<table class="line" width="600" border="0" cellspacing="0" cellpadding="1" align="center">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="2" bgcolor="#FFFFFF">
+        <tr>
+          <td colspan="2" class="jtd12"><b>お申込条項</b></td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">1.</td>
+          <td class="small10">次の商品の販売は行うことはできません。
+              <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                <tr>
+                  <td valign="top" class="small10">(1)</td>
+                  <td class="small10">わいせつ等、公序良俗に反するもの、および青少年に有害と思われるもの、性的表現に関するもの、ならびにポルノ、虐待に相当する画像・映像・音声・文字などのデータまたは記録媒体</td>
+                </tr>
+                <tr>
+                  <td valign="top" class="small10">(2)</td>
+                  <td class="small10">第三者の著作権、肖像権、商標権等の知的財産権を侵害するもの</td>
+                </tr>
+                <tr>
+                  <td valign="top" class="small10">(3)</td>
+                  <td class="small10">特定商取引に関する法律、銃刀法、麻薬、ワシントン条約、その他関連条約、法令に違反するもの</td>
+                </tr>
+                <tr>
+                  <td valign="top" class="small10">(4)</td>
+                  <td class="small10">商品券、プリペイドカード、印紙、切手、回数券、その他の有価証券等の金券類</td>
+                </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">2.</td>
+          <td class="small10">商品内容を確認できる資料をご用意ください。<br>
+            弊社提携の収納代行会社にて審査を行う際に必要となります。
+              <table border="0" cellspacing="0" cellpadding="1">
+                <tr>
+                  <td colspan="2" class="small10">●商品内容を確認できる資料</td>
+                </tr>
+                <tr>
+                  <td valign="top" class="small10">・</td>
+                  <td class="small10">ホームページの場合<br>
+                  販売する商品の画像、価格、内容を掲載してください。</td>
+                </tr>
+                <tr>
+                  <td valign="top" class="small10">・</td>
+                  <td class="small10">資料の場合<br>
+                  商品内容を確認できる資料（商品名と価格が記載されているパンフレットや写真など）を申込書とあわせてご郵送ください。</td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="small10">●「特定商取引に関する法律に基づく表示」</td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="small10">インターネット上で販売する画面では「特定商取引に関する法律に基づく表示」またはこれに準ずるものを表示することとします。</td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="small10">以下の点にご注意ください。</td>
+                </tr>
+                <tr>
+                  <td valign="top" class="small10">・</td>
+                  <td class="small10"> 販売業者・所在地は、本サービスご契約者様と同一である必要があります。<br>
+                    （ハンドルネームなどは使用できません）</td>
+                </tr>
+                <tr>
+                  <td colspan="2" class="small10">表記サンプルは管理ページ「店舗情報」メニューより「特定商取引に関する法律に基づく表示」をご確認下さい。</td>
+                </tr>
+              </table>
+        <tr>
+          <td valign="top" class="small10" align="right">3.</td>
+          <td class="small10">無限連鎖講（ネズミ講）の運営に関わることには使用できません。</td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">4.</td>
+          <td class="small10">Ｅストアーショップサーブ契約者と同一会社または同一人にて申し込むこととします。</td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">5.</td>
+          <td class="small10">Ｅストアーショップサーブサービス規約、マニュアル等の記載事項を守り、その他提供者からの指導に従うこととします。</td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">6.</td>
+          <td class="small10">商品購入時に取引する際に利用できる1件あたりの取引金額は315円以上30万円以下（消費税込）とします。</td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">7.</td>
+          <td class="small10">審査結果により、申し込まれたコンビニ決済代行サービスがご利用できない場合もあります。</td>
+        </tr>
+    </table></td>
+  </tr>
+</table>
+
+
+<!-- コンビニ チェックシートここから -->
+
+<br>
+<br>
+<hr align="center" noshade width="600" size="1">
+<br><div style="page-break-after: always; "></div>
+<br>
+<table class="line" width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td bgcolor="#000000"><table width="100%"  border="0" cellpadding="10" cellspacing="0">
+        <tr>
+          <td bgcolor="#FFFFFF"><table width="100%" border="0" cellspacing="0" cellpadding="2" align="center">
+              <tr>
+                <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+              </tr>
+              <tr>
+                <td align="center" class="jtd14"><b>お申し込みチェックシート</b></td>
+              </tr>
+              <tr>
+                <td><img src="../imgs/spc.gif" width="5" height="10"></td>
+              </tr>
+              <tr>
+                <td class="j12">コンビニ決済代行サービスお申し込み前に、以下のチェック項目に基づいて必要書類をご用意ください。</td>
+              </tr>
+              <tr>
+                <td><img src="../imgs/spc.gif" width="5" height="10"></td>
+              </tr>
+              <tr>
+                <td><table  border="0" cellspacing="0" cellpadding="2">
+                    <tr>
+                      <td width="13" valign="top" class="j12">●</td>
+                      <td colspan="3" class="j12"><strong>申込書の捺印について</strong>（該当するものをチェック）</td>
+                    </tr>
+                    <tr>
+                      <td rowspan="3" valign="top">&nbsp;</td>
+                      <td width="13">□</td>
+                      <td colspan="2" class="jtd12">添付書類が印鑑証明書の場合は実印を捺印している</td>
+                    </tr>
+                    <tr>
+                      <td valign="top">□</td>
+                      <td colspan="2" class="jtd12">添付書類が運転免許証・パスポート・外国人登録証いずれかのコピーの場合、ご契約者様の<br>
+                                                    印鑑を捺印している（個人・個人事業主のみ）</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" valign="top"><img src="../imgs/spc.gif" width="5" height="10"></td>
+                    </tr>
+                    <tr>
+                      <td width="13" valign="top" class="j12">●</td>
+                      <td colspan="3" class="j12"><strong>印鑑証明書について</strong>（該当するものをチェック）</td>
+                    </tr>
+                    <tr>
+                      <td valign="top">&nbsp;</td>
+                      <td colspan="4"> 
+                        <table border="0" cellspacing="0" cellpadding="2">
+                          <tr>
+                            <td bgcolor="#FFFFFF" valign="top" nowrap>□&nbsp;<span class="j12">法人</span></td>
+                            <td bgcolor="#FFFFFF" class="j12" valign="top">：</td>
+                            <td bgcolor="#FFFFFF" class="j12" valign="top">会社の印鑑証明書を申込書に同封している</td>
+                          </tr>
+                          <tr>
+                            <td bgcolor="#FFFFFF" valign="top" nowrap>□&nbsp;<span class="j12">個人・個人事業主</span></td>
+                            <td bgcolor="#FFFFFF" class="j12" valign="top">：</td>
+                            <td bgcolor="#FFFFFF" class="j12" valign="top">契約者ご本人様の印鑑証明書または運転免許証・パスポート・外国人登録証いずれかのコピーを同封している</td>
+                          </tr>
+                          <tr>
+                            <td colspan="4" class="j12">※印鑑証明書は発行日から3ヶ月以内の原本に限ります<br>
+                                                        ※運転免許証・パスポート・外国人登録証のコピーは有効期限内であることが確認できるものに限ります</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"><span class="j12">●</span></td>
+                      <td colspan="3" class="j12"><strong>酒類、古物など、販売資格が必要な商品を扱う場合について</strong></td>
+                    </tr>
+                    <tr>
+                      <td valign="top">&nbsp;</td>
+                      <td>□</td>
+                      <td colspan="2" class="jtd12">免許証または許可証のコピーを申込書に同封している</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" valign="top"><img src="../imgs/spc.gif" width="5" height="10"></td>
+                    </tr>
+                    <tr>
+                      <td valign="top"><span class="j12">●</span></td>
+
+                      <td colspan="3" class="j12"><strong>販売する商品情報（商品名と価格）について</strong>（該当するものをチェック）</td>
+                    </tr>
+                    <tr>
+                      <td valign="top">&nbsp;</td>
+                      <td>□</td>
+                      <td colspan="2" class="jtd12">ホームページに掲載している</td>
+                    </tr>
+
+                    <tr>
+                      <td valign="top">&nbsp;</td>
+                      <td>□</td>
+                      <td colspan="2" class="jtd12">商品のパンフレット・カタログまたは、商品情報（商品の画像、価格、内容）がわかる説明資料を申込書に同封している</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" valign="top"><img src="../imgs/spc.gif" width="5" height="10"></td>
+                    </tr>
+
+                    <tr>
+                      <td valign="top"><span class="j12">●</span></td>
+                      <td colspan="3" class="j12"><strong>「特定商取引に関する法律に基づく表示」について</strong>（該当するものをチェック）</td>
+                    </tr>
+                    <tr>
+                      <td valign="top">&nbsp;</td>
+                      <td>□</td>
+
+                      <td colspan="2" class="jtd12">ホームページに掲載している</td>
+                    </tr>
+                    <tr>
+                      <td valign="top">&nbsp;</td>
+                      <td>□</td>
+                      <td colspan="2" class="jtd12">必要項目をまとめて申込書に同封している</td>
+                    </tr>
+
+                    <tr>
+                      <td colspan="4" valign="top"><img src="../imgs/spc.gif" width="5" height="10"></td>
+                    </tr>
+                </table></td>
+              </tr>
+          </table></td>
+        </tr>
+    </table></td>
+  </tr>
+</table>
+<br>
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+  <tr>
+    <td valign="top" class="jtd12" colspan="2">【送付先住所】</td>
+  </tr>
+  <tr>
+    <td class="jtd12" width="1%"><img src="../imgs/spc.gif" width="10" height="10"></td>
+    <td width="99%" class="j12">〒105-0003<br>
+                                東京都港区西新橋1-10-2　住友生命西新橋ビル<br>
+      　                        株式会社Ｅストアー「決済代行サービス受付係」行 </td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+  <tr>
+    <td valign="top" class="jtd12" width="1%">※</td>
+    <td class="jtd12" width="99%">次の場合は、下記までご連絡ください。</td>
+  </tr>
+  <tr>
+    <td valign="top" class="jtd12"><img src="../imgs/spc.gif" width="10" height="10"></td>
+    <td>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td valign="top" class="jtd12">　</td>
+          <td class="jtd12">・申込書をご郵送いただいた後、3週間を経過しても弊社より審査結果のお知らせがない場合</td>
+        </tr>
+        <tr>
+          <td valign="top" class="jtd12">　</td>
+          <td class="jtd12">・申込書の印字内容に変更がある場合</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+  <tr>
+    <td class="jtd12" width="99%">本内容について、ご不明な点・ご質問等ございましたら、下記までご連絡ください。</td>
+  </tr>
+  <tr>
+    <td align="center">
+      <table class="line" width="80%" border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="5">
+              <tr>
+                <td bgcolor="#FFFFFF" rowspan="5"><img src="../imgs/spc.gif" width="5" height="5"></td>
+                <td bgcolor="#FFFFFF" colspan="2" class="jtd12">
+            Ｅストアー ストアーデスク <a href="mailto:sp@Estore.co.jp">sp@Estore.co.jp</a></td>
+                <td bgcolor="#FFFFFF" rowspan="5"><img src="../imgs/spc.gif" width="5" height="5"> </td>
+              </tr>
+              <tr>
+                <td bgcolor="#FFFFFF" align="right" valign="top" class="jtd12">TEL</td>
+                <td bgcolor="#FFFFFF" class="jtd12">0570-05-1210（ナビダイヤル:全国共通3分8.5円）<br>
+　　　　　　　　　　※携帯の場合20秒10.5円<br>
+            03-3595-1251（上記ナビダイヤルがご利用できない方）</td>
+              </tr>
+              <tr>
+                <td bgcolor="#FFFFFF" align="right" class="jtd12">電話営業時間</td>
+                <td bgcolor="#FFFFFF" class="jtd12">10時〜18時（土・日・祝祭日を除く）</td>
+              </tr>
+          </table></td>
+        </tr>
+      </table></td>
+  </tr>
+  <tr> 
+    <td valign="top"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table><br>
+<hr align="center" noshade width="600" size="1">
+<br><div style="page-break-after: always; "></div>
+
+<!-- コンビニ 申込手続きについここから -->
+
+<table width="600" border="0" cellspacing="0" cellpadding="2" align="center">
+
+  <tr>
+    <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+
+  </tr>
+  <tr>
+    <td class="j12" align="center"><b>『コンビニ決済代行サービス』申込手続きについて </b></td>
+  </tr>
+  <tr>
+
+    <td><img src="../imgs/spc.gif" width="2" height="5"></td>
+
+  </tr>
+
+  <tr>
+    <td class="j12">お申込につきまして、以下の内容をご確認いただきますようお願い申し上げます。<br>
+                    ※本ページは利用開始までお手元に保存していただき、随時ご確認ください。</td>
+  </tr>
+  <tr>
+    <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+
+</table>
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+
+  <tr>
+    <td valign="top" class="jtd12" width="1%">■</td>
+    <td class="jtd12" width="99%">お申込手続きについて</td>
+  </tr>
+  <tr>
+    <td valign="top" class="jtd12"><img src="../imgs/spc.gif" width="10" height="10"></td>
+
+    <td class="j12">このページを印刷しただけでは、申込受付となりません。おそれいりますが、以下の書類を下記住所までご郵送ください。<br>
+
+      重要書類につき、「宅配便」など配達記録の残る配送方法で送付頂くことをお勧めします。 </td>
+  </tr>
+  <tr>
+    <td valign="top" colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+
+  <tr>
+    <td valign="top" class="jtd12" colspan="3">【送付書類】</td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" colspan="3">他の決済代行サービスを同時にお申し込みいただく場合、申込書以外の各書類は1部ずつで結構です。</td>
+  </tr>
+  <tr>
+
+    <td class="jtd12" rowspan="5"><img src="../imgs/spc.gif" width="10" height="10"></td>
+    <td class="jtd12" valign="top">1.</td>
+    <td><span class="j12">申込書<br>
+
+      印刷していただいた申込書にはご捺印が必要です。添付書類が印鑑証明書の場合は実印をご捺印ください。<br>
+      個人・個人事業主の場合で「運転免許証」「パスポート」「外国人登録証」を本人確認書類としてお申込み頂く場合は、ご契約者様の印鑑をご捺印ください。</span>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+          <tr>
+            <td valign="top" class="small10" colspan="2"><img src="../imgs/spc.gif" width="2" height="5"></td>
+          </tr>
+          <tr>
+            <td valign="top" class="jtd12">※</td>
+            <td class="jtd12">申込書が印刷エラー等で印刷できなかった場合、お手数ではございますが、管理画面より再度お手続きください。</td>
+
+          </tr>
+
+          <tr>
+            <td valign="top" class="jtd12">※</td>
+            <td class="jtd12">印刷内容を書きかえることはできません。契約者情報に変更がある場合は、Ｅストアーショップサーブの契約者情報の変更手続きを行ってからお申し込みください。</td>
+          </tr>
+      </table></td>
+  </tr>
+  <tr>
+
+    <td class="jtd12" valign="top">2.</td>
+    <td colspan="2"><span class="j12"">印鑑証明書<br>
+      Ｅストアーショップサーブのご契約者様が法人契約の場合は、ご契約法人名の印鑑証明書をご用意ください。（発行後3ヶ月以内の原本）<br>
+      個人・個人事業主契約の場合は、ご契約者様の印鑑証明書（発行後3ヶ月以内の原本）、または有効期限が確認できる「運転免許証」「パスポート」「外国人登録証」いずれかのコピーをご用意ください。
+      </span></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top">3.</td>
+
+    <td colspan="2"><span class="j12">販売免許・許可証のコピー（販売に許認可が必要な商品を取り扱っている場合のみ）<br>
+    一般酒類小売業の免許、古物商許可証など。</span></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top">4.</td>
+    <td colspan="2"><span class="j12">商品の価格や内容がわかるカタログなど（開店ウィザードが完了していない場合のみ）<br>
+      代表的な商品2〜3点の商品写真、商品名、商品の金額が表示されているカタログやパンフレットをご用意ください。カタログ等がない場合は、エクセルやワードなどで自作したものでも結構です。<br>
+
+      また、すでに他のサーバーでお店がある場合は、そのお店のURLを申込書の上部余白にご記入いただいても結構です。
+      </span></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top">5.</td>
+    <td colspan="2"><span class="j12">特定商取引法の表記を印刷したもの（開店ウィザードが完了していない場合のみ）<br>
+     「特定商取引法に関する表示」に記載する「販売業者」「販売責任者」は、Ｅストアーショップサーブご契約者様と同じ名前、名称をご記入ください。
+      </span></td>
+  </tr>
+
+  <tr>
+    <td colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" align="center" width="600">
+  <tr>
+    <td valign="top" class="jtd12" width="1%">■</td>
+
+    <td class="jtd12" width="99%">審査について</td>
+
+  </tr>
+  <tr>
+    <td valign="top" class="jtd12"><img src="../imgs/spc.gif" width="10" height="10"></td>
+
+    <td class="j12">申込書がＥストアーに到着後、Ｅストアーおよび各決済の会社で審査を行います。書類の不備や記載内容に相違があった場合は
+電話もしくはメールでご連絡いたします。お店が準備中（非公開）の場合でも、審査のためＥストアーがページを閲覧いたしますので、
+ご了承ください。審査の結果、ご利用いただけない場合は郵送でお知らせいたします。</td>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+  <td valign="top" class="small10" colspan="2"><img src="../imgs/spc.gif" width="2" height="5"></td>
+  </tr>
+
+  </table>
+</td>
+  </tr>
+  <tr>
+
+    <td valign="top" colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" align="center" width="600">
+  <tr>
+    <td valign="top" class="jtd12" width="1%">■</td>
+
+    <td class="jtd12" width="99%">ご利用開始について</td>
+  </tr>
+  <tr>
+    <td valign="top" class="jtd12"><img src="../imgs/spc.gif" width="10" height="10"></td>
+
+    <td class="j12">決済担当者メールアドレス宛に、ご利用開始のご連絡をいたします。ご利用開始の目安は以下のとおりです。
+（申込書がＥストアーに到着してからの期間）</td>
+  </tr>
+  <tr>
+
+    <td valign="top">&nbsp;</td>
+    <td colspan="4">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td bgcolor="#FFFFFF" class="j12" valign="top" nowrap>・クレジットカード決済</span></td>
+          <td bgcolor="#FFFFFF" class="j12" valign="top">：</td>
+          <td bgcolor="#FFFFFF" class="j12" valign="top">約4週間（前もって約2〜3週間で審査結果のご連絡をいたします）</td>
+
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFFF" class="j12" valign="top" nowrap>・コンビニ決済</span></td>
+          <td bgcolor="#FFFFFF" class="j12" valign="top">：</td>
+          <td bgcolor="#FFFFFF" class="j12" valign="top">約2〜3営業日</td>
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFFF" class="j12" valign="top" nowrap>・電子決済</span></td>
+          <td bgcolor="#FFFFFF" class="j12" valign="top">：</td>
+          <td bgcolor="#FFFFFF" class="j12" valign="top">約1〜2営業日</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top" colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" align="center" width="600">
+  <tr>
+    <td valign="top" class="jtd12" width="1%">■</td>
+
+    <td class="jtd12" width="99%">利用開始後の設定について</td>
+  </tr>
+  <tr>
+    <td valign="top" class="jtd12"><img src="../imgs/spc.gif" width="10" height="10"></td>
+    <td class="j12">ご利用開始の連絡メールが確認できましたら、ショッピングカート内で決済方法として利用できるように設定をしてください。</td>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+  <td valign="top" class="small10" colspan="2"><img src="../imgs/spc.gif" width="2" height="5"></td>
+  </tr>
+  </table>
+</td>
+  </tr>
+  <tr>
+    <td valign="top" colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<br>
+<hr width="600" size="1" noshade align="center">
+<br>
+</TMPL_IF>
+
+<!-- 電子決済申込書ここから -->
+
+
+<TMPL_IF ESTLFLAG>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+  <tr>
+    <td class="small10"> 株式会社Ｅストアー<br>
+      「Ｅストアー決済代行サービス受付係」　行<br>
+      <br>
+    </td>
+    <td align="right" valign="top" class="small10">(申込書番号 <TMPL_VAR NAME=ESTLSNO>)<br>
+      <TMPL_VAR NAME=TODAY></td>
+  </tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td align="center"><b class="jtd14">Ｅストアーショップサーブ「電子決済代行サービス」申込書</b></td>
+  </tr>
+  <tr>
+    <td class="j12"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td><span class="j12">以下のお申込条項および決済代行サービス細則に同意のうえ、申し込みいたします。</span><br>
+        <span class="small10">※本申込書のご捺印欄に押印のうえ、添付書類を添えて、下記住所までご郵送ください。<br>
+	
+      〒105-0003東京都港区西新橋1-10-2　住友生命西新橋ビル　株式会社Ｅストアー「決済代行サービス受付係」行</span></td>
+  </tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+  <tr>
+    <td class="j12"><b>Ｅストアーショップサーブご契約者</b></td>
+  </tr>
+</table>
+<table width="600" border="1" cellspacing="0" cellpadding="5" align="center">
+  <tr>
+    <td class="jtd12" bgcolor="#F3F3F3" nowrap>URL</td>
+    <td colspan="3" class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CUSTURL></td>
+    <td width="10%" align="center" bgcolor="#F3F3F3" class="jtd12">ご捺印欄</td>
+  </tr>
+  <tr>
+    <td class="jtd12" bgcolor="#F3F3F3">契約者名</td>
+    <td colspan="3" class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CUSTNAME></td>
+    <td class="jtd12" bgcolor="#FFFFFF" rowspan="3"><img src="../imgs/persona_seal.gif" width="74" height="78"></td>
+  </tr>
+  <tr>
+    <td class="jtd12" bgcolor="#F3F3F3">ご住所</td>
+    <td class="jtd12" bgcolor="#FFFFFF" colspan="3">〒<TMPL_VAR NAME=CUSTZIP>　<TMPL_VAR NAME=CUSTADDR></td>
+  </tr>
+  <tr>
+    <td nowrap bgcolor="#F3F3F3" class="jtd12">代表者名(カナ)</td>
+    <td class="jtd12" bgcolor="#FFFFFF" colspan="3"><TMPL_VAR NAME=CUSTDAIHYOKANA></td>
+  </tr>
+  <tr>
+    <td width="15%" class="jtd12" bgcolor="#F3F3F3">代表者名</td>
+    <td width="40%" class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CUSTDAIHYO></td>
+    <td width="10%" class="jtd12" bgcolor="#F3F3F3">役職名</td>
+    <td width="25%" colspan="2" class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CUSTPOST></td>
+  </tr>
+  <tr>
+    <td nowrap class="jtd12" bgcolor="#F3F3F3" width="15%">電話番号</td>
+    <td class="jtd12" bgcolor="#FFFFFF" width="40%"><TMPL_VAR NAME=CUSTTEL></td>
+    <td nowrap class="jtd12" bgcolor="#F3F3F3" width="10%">FAX番号</td>
+    <td colspan="2" class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CUSTFAX></td>
+  </tr>
+  <tr>
+    <td width="15%" class="jtd12" bgcolor="#F3F3F3" nowrap>ショップID</td>
+    <td colspan="4" bgcolor="#FFFFFF" class="jtd12"><TMPL_VAR NAME=STORENAME></td>
+  </tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+  <tr>
+    <td><b class="j12">決済ご担当者</b><span class="small10">&nbsp;&nbsp;&nbsp;&nbsp;※回収代金に関する貴社の連絡窓口となる方です。</span></td>
+  </tr>
+</table>
+<table width="600" border="1" cellspacing="0" cellpadding="5" align="center">
+  <tr>
+    <td class="jtd12" nowrap valign="top" bgcolor="#F3F3F3">ご契約者（会社名）</td>
+    <td class="jtd12" bgcolor="#FFFFFF" colspan="3"><TMPL_VAR NAME=CUSTNAME></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3" width="10%">部署名</td>
+    <td class="jtd12" bgcolor="#FFFFFF" width="40%"><TMPL_VAR NAME=TANTOSECTION></td>
+    <td class="jtd12" bgcolor="#F3F3F3" width="10%">役職</td>
+    <td class="jtd12" bgcolor="#FFFFFF" width="40%"><TMPL_VAR NAME=TANTOPOSITION></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">ご住所</td>
+    <td class="jtd12" bgcolor="#FFFFFF" colspan="3">〒<TMPL_VAR NAME=TANTOZIP1>-<TMPL_VAR NAME=TANTOZIP2>　<TMPL_VAR NAME=TANTOPREF> <TMPL_VAR NAME=TANTOADDR1> <TMPL_VAR NAME=TANTOADDR2> <TMPL_VAR NAME=TANTOADDR3> <TMPL_VAR NAME=TANTOADDR4></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3" width="10%">ご担当者名</td>
+    <td class="jtd12" bgcolor="#FFFFFF" width="40%"><TMPL_VAR NAME=TANTOSEI>　<TMPL_VAR NAME=TANTOMEI></td>
+    <td class="jtd12" bgcolor="#F3F3F3" width="15%">電話番号</td>
+    <td class="jtd12" bgcolor="#FFFFFF" width="40%"><TMPL_VAR NAME=TANTOTEL></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">メールアドレス</td>
+    <td class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=TANTOMAIL></td>
+    <td class="jtd12" bgcolor="#F3F3F3">FAX番号</td>
+    <td class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=TANTOFAX></td>
+  </tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+  <tr>
+    <td class="j12"><b>お申込内容</b></td>
+  </tr>
+</table>
+<table width="600" border="1" cellspacing="0" cellpadding="5" align="center">
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">回収代金振込先金融機関</td>
+    <td class="jtd12" bgcolor="#FFFFFF">
+	<TMPL_VAR NAME=BANK>
+	<TMPL_IF BANKEBANK>
+	支店番号( <TMPL_VAR NAME=BRANCHCODE> )
+	<TMPL_ELSE>
+	<TMPL_VAR NAME=BRANCH>
+	<TMPL_IF TYPE1>普通<TMPL_ELSE>当座</TMPL_IF>
+	</TMPL_IF>
+	<TMPL_VAR NAME=ACCOUNTNO>
+    </td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">口座名義人</td>
+    <td class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=ACCOUNTNAME></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" bgcolor="#F3F3F3">取扱商品</td>
+    <td class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=PRODUCTTYPE></td>
+  </tr>
+</table>
+<br>
+<table class="line" width="600" border="0" cellspacing="0" cellpadding="1" align="center">
+  <tr>
+    <td><table width="100%" border="0" cellspacing="0" cellpadding="2" bgcolor="#FFFFFF">
+        <tr>
+          <td colspan="2" class="jtd12"><b>お申込条項</b></td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">1.</td>
+          <td class="small10">次の商品の販売は行うことはできません。
+              <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                <tr>
+                  <td valign="top" class="small10">(1)</td>
+                  <td class="small10">わいせつ等、公序良俗に反するもの、および青少年に有害と思われるもの、性的表現に関するもの、ならびにポルノ、虐待に相当する画像・映像・音声・文字などのデータまたは記録媒体</td>
+                </tr>
+                <tr>
+                  <td valign="top" class="small10">(2)</td>
+                  <td class="small10">第三者の著作権、肖像権、商標権等の知的財産権を侵害するもの</td>
+                </tr>
+                <tr>
+                  <td valign="top" class="small10">(3)</td>
+                  <td class="small10">特定商取引に関する法律、銃刀法、麻薬、ワシントン条約、その他関連条約、法令に違反するもの</td>
+                </tr>
+                <tr>
+                  <td valign="top" class="small10">(4)</td>
+                  <td class="small10">商品券、プリペイドカード、印紙、切手、回数券、その他の有価証券等の金券類</td>
+                </tr>
+            </table></td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">2.</td>
+          <td class="small10">商品内容を確認できる資料をご用意ください。<br>
+            弊社提携の収納代行会社にて審査を行う際に必要となります。
+              <table border="0" cellspacing="0" cellpadding="1">
+                <tr>
+                  <td valign="top" class="small10">・</td>
+                  <td class="small10">ホームページの場合<br>
+                  販売する商品の画像、価格、内容を掲載してください。</td>
+                </tr>
+               <tr>
+                  <td valign="top" class="small10">・</td>
+                  <td class="small10">資料の場合<br>
+                  商品内容を確認できる資料（商品名と価格が記載されているパンフレットや写真など）を申込書とあわせてご郵送ください。</td>
+               </tr>
+              </table></td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">3.</td>
+          <td class="small10">インターネット上で商品を販売する画面では「特定商取引に関する法律に基づく表示」を表示することとします。<br>
+            お申し込み時にご用意いただく必要はございません。販売開始までに作成してください。<br>
+            なお、すでにご用意いただいている方は、以下の点にご注意ください。
+            <table border="0" cellspacing="0" cellpadding="1">
+              <tr>
+                <td valign="top" class="small10">・</td>
+                <td class="small10">販売業者・所在地は、本サービスご契約者様と同一である必要があります。<br>
+                  （ハンドルネームなどは使用できません）</td>
+              </tr>
+          </table></td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">4.</td>
+          <td class="small10">無限連鎖講（ネズミ講）の運営に関わることには使用できません。</td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">5.</td>
+          <td class="small10">Ｅストアーショップサーブ契約者と同一会社または同一人にて申し込むこととします。</td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">6.</td>
+          <td class="small10">Ｅストアーショップサーブサービス規約、電子決済代行サービス規約、マニュアル等の記載事項を守り、その他提供者からの指導に従うこととします。</td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">7.</td>
+          <td class="small10">楽天銀行決済をご利用の際、購入者と取り引する際に利用できる1件あたりの取引金額は、32円以上300万円以下（税込）とします。</td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">8.</td>
+          <td class="small10">ウェブマネー決済をご利用の際、購入者と取り引する際に利用できる1件あたりの取引金額は、20円万以下（税込）とします。なお購入者は、ウェブマネーの1度に使える枚数を超えての取引はできません。</td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">9.</td>
+          <td class="small10">審査結果により、申し込まれた電子決済代行サービスがご利用できない場合もあります。</td>
+        </tr>
+    </table></td>
+  </tr>
+</table>
+<!-- <hr align="center" noshade width="600" size="1" class="page"> -->
+
+<!-- 電子決済 チェックシートについてここから -->
+
+<br>
+<br>
+<hr align="center" noshade width="600" size="1">
+<br class="page">
+<br>
+<table class="line" width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td bgcolor="#000000">
+      <table width="100%"  border="0" cellpadding="10" cellspacing="0">
+        <tr>
+          <td bgcolor="#FFFFFF">
+            <table width="100%" border="0" cellspacing="0" cellpadding="2" align="center">
+              <tr>
+                <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+              </tr>
+              <tr>
+                <td align="center" class="jtd14"><b>お申し込みチェックシート</b></td>
+              </tr>
+              <tr>
+                <td><img src="../imgs/spc.gif" width="5" height="10"></td>
+              </tr>
+              <tr>
+                <td class="j12">電子決済代行サービスお申し込み前に、以下のチェック項目に基づいて必要書類をご用意ください。</td>
+              </tr>
+              <tr>
+                <td><img src="../imgs/spc.gif" width="5" height="10"></td>
+              </tr>
+              <tr>
+                <td>
+
+
+                  <table  border="0" cellspacing="0" cellpadding="2">
+                    <tr>
+                      <td width="13" valign="top" class="j12">●</td>
+                      <td colspan="3" class="j12"><strong>申込書の捺印について</strong>（該当するものをチェック）</td>
+
+                    </tr>
+                    <tr>
+                      <td rowspan="3" valign="top">&nbsp;</td>
+                      <td width="13">□</td>
+                      <td colspan="2" class="jtd12">添付書類が印鑑証明書の場合は実印を捺印している</td>
+                    </tr>
+                    <tr>
+                      <td valign="top">□</td>
+
+                      <td colspan="2" class="jtd12">添付書類が運転免許証・パスポート・外国人登録証いずれかのコピーの場合、ご契約者様の<br>
+                                                    印鑑を捺印している（個人・個人事業主のみ）</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" valign="top"><img src="../imgs/spc.gif" width="5" height="10"></td>
+                    </tr>
+                    <tr>
+                      <td width="13" valign="top" class="j12">●</td>
+
+                      <td colspan="3" class="j12"><strong>印鑑証明書について</strong>（該当するものをチェック）</td>
+                    </tr>
+                    <tr>
+                      <td valign="top">&nbsp;</td>
+                      <td colspan="4"> 
+                        <table border="0" cellspacing="0" cellpadding="2">
+                          <tr>
+                            <td bgcolor="#FFFFFF" valign="top" nowrap>□&nbsp;<span class="j12">法人</span></td>
+
+                            <td bgcolor="#FFFFFF" class="j12" valign="top">：</td>
+                            <td bgcolor="#FFFFFF" class="j12" valign="top">会社の印鑑証明書を申込書に同封している</td>
+                          </tr>
+                          <tr>
+                            <td bgcolor="#FFFFFF" valign="top" nowrap>□&nbsp;<span class="j12">個人・個人事業主</span></td>
+                            <td bgcolor="#FFFFFF" class="j12" valign="top">：</td>
+
+                            <td bgcolor="#FFFFFF" class="j12" valign="top">契約者ご本人様の印鑑証明書または運転免許証・パスポート・外国人登録証いずれかのコピーを同封している</td>
+                          </tr>
+                          <tr>
+                            <td colspan="4" class="j12">※印鑑証明書は発行日から3ヶ月以内の原本に限ります<br>
+                                                        ※運転免許証・パスポート・外国人登録証のコピーは有効期限内であることが確認できるものに限ります</td>
+                          </tr>
+                        </table>
+
+                      </td>
+                    </tr>
+                    <tr>
+                      <td valign="top"><span class="j12">●</span></td>
+                      <td colspan="3" class="j12"><strong>酒類、古物など、販売資格が必要な商品を扱う場合について</strong></td>
+                    </tr>
+                    <tr>
+                      <td valign="top">&nbsp;</td>
+
+                      <td>□</td>
+                      <td colspan="2" class="jtd12">免許証または許可証のコピーを申込書に同封している</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" valign="top"><img src="../imgs/spc.gif" width="5" height="10"></td>
+                    </tr>
+                    <tr>
+                      <td valign="top"><span class="j12">●</span></td>
+
+                      <td colspan="3" class="j12"><strong>販売する商品情報（商品名と価格）について</strong>（該当するものをチェック）</td>
+                    </tr>
+                    <tr>
+                      <td valign="top">&nbsp;</td>
+                      <td>□</td>
+                      <td colspan="2" class="jtd12">ホームページに掲載している</td>
+                    </tr>
+
+                    <tr>
+                      <td valign="top">&nbsp;</td>
+                      <td>□</td>
+                      <td colspan="2" class="jtd12">商品のパンフレット・カタログまたは、商品情報（商品の画像、価格、内容）がわかる説明資料を申込書に同封している</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" valign="top"><img src="../imgs/spc.gif" width="5" height="10"></td>
+                    </tr>
+
+                    <tr>
+                      <td valign="top"><span class="j12">●</span></td>
+                      <td colspan="3" class="j12"><strong>「特定商取引に関する法律に基づく表示」について</strong>（該当するものをチェック）</td>
+                    </tr>
+                    <tr>
+                      <td valign="top">&nbsp;</td>
+                      <td>□</td>
+
+                      <td colspan="2" class="jtd12">ホームページに掲載している</td>
+                    </tr>
+                    <tr>
+                      <td valign="top">&nbsp;</td>
+                      <td>□</td>
+                      <td colspan="2" class="jtd12">必要項目をまとめて申込書に同封している</td>
+                    </tr>
+                    <tr>
+                      <td colspan="4" valign="top"><img src="../imgs/spc.gif" width="5" height="10"></td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<br>
+
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+  <tr>
+    <td valign="top" class="jtd12" colspan="2">【送付先住所】</td>
+
+  </tr>
+  <tr>
+
+    <td class="jtd12" width="1%"><img src="../imgs/spc.gif" width="10" height="10"></td>
+    <td width="99%" class="j12">〒105-0003<br>
+                                東京都港区西新橋1-10-2　住友生命西新橋ビル<br>
+      　                        株式会社Ｅストアー「決済代行サービス受付係」行 </td>
+  </tr>
+  <tr>
+    <td colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+
+  </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+  <tr>
+    <td valign="top" class="jtd12" width="1%">※</td>
+
+    <td class="jtd12" width="99%">次の場合は、下記までご連絡ください。</td>
+  </tr>
+  <tr>
+
+    <td valign="top" class="jtd12"><img src="../imgs/spc.gif" width="10" height="10"></td>
+    <td>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td valign="top" class="jtd12">　</td>
+          <td class="jtd12">・申込書をご郵送いただいた後、3週間を経過しても弊社より審査結果のお知らせがない場合</td>
+        </tr>
+        <tr>
+
+          <td valign="top" class="jtd12">　</td>
+          <td class="jtd12">・申込書の印字内容に変更がある場合</td>
+        </tr>
+
+      </table>
+    </td>
+  </tr>
+  <tr>
+
+    <td valign="top" colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+  <tr>
+    <td class="jtd12" width="99%">本内容について、ご不明な点・ご質問等ございましたら、下記までご連絡ください。</td>
+
+  </tr>
+  <tr>
+    <td align="center">
+
+      <table class="line" width="80%" border="0" cellspacing="0" cellpadding="1">
+        <tr>
+          <td><table width="100%" border="0" cellspacing="0" cellpadding="5">
+              <tr>
+                <td bgcolor="#FFFFFF" rowspan="5"><img src="../imgs/spc.gif" width="5" height="5"></td>
+                <td bgcolor="#FFFFFF" colspan="2" class="jtd12">
+            Ｅストアー ストアーデスク <a href="mailto:sp@Estore.co.jp">sp@Estore.co.jp</a></td>
+                <td bgcolor="#FFFFFF" rowspan="5"><img src="../imgs/spc.gif" width="5" height="5"> </td>
+
+              </tr>
+              <tr>
+                <td bgcolor="#FFFFFF" align="right" valign="top" class="jtd12">TEL</td>
+                <td bgcolor="#FFFFFF" class="jtd12">0570-05-1210（ナビダイヤル:全国共通3分8.5円）<br>
+　　　　　　　　　　※携帯の場合20秒10.5円<br>
+            03-3595-1251（上記ナビダイヤルがご利用できない方）</td>
+              </tr>
+
+              <tr>
+                <td bgcolor="#FFFFFF" align="right" class="jtd12">電話営業時間</td>
+                <td bgcolor="#FFFFFF" class="jtd12">10時〜18時（土・日・祝祭日を除く）</td>
+              </tr>
+          </table></td>
+        </tr>
+      </table></td>
+  </tr>
+
+  <tr> 
+    <td valign="top"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+
+</table><br>
+
+<!-- 電子決済 申込手続きについてここから -->
+
+<hr align="center" noshade width="600" size="1"><div style="page-break-after: always; "></div>
+<table width="600" border="0" cellspacing="0" cellpadding="2" align="center">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+  <tr>
+    <td class="j12" align="center"><b>『電子決済代行サービス』申込手続きについて </b></td>
+  </tr>
+  <tr>
+    <td><img src="../imgs/spc.gif" width="2" height="5"></td>
+  </tr>
+  <tr>
+    <td class="j12">お申込につきまして、以下の内容をご確認いただきますようお願い申し上げます。<br>
+                    ※本ページは利用開始までお手元に保存していただき、随時ご確認ください。</td>
+  </tr>
+  <tr>
+    <td><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+
+
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+
+  <tr>
+    <td valign="top" class="jtd12" width="1%">■</td>
+    <td class="jtd12" width="99%">お申込手続きについて</td>
+  </tr>
+  <tr>
+    <td valign="top" class="jtd12"><img src="../imgs/spc.gif" width="10" height="10"></td>
+
+    <td class="j12">このページを印刷しただけでは、申込受付となりません。おそれいりますが、以下の書類を下記住所までご郵送ください。<br>
+
+      重要書類につき、「宅配便」など配達記録の残る配送方法で送付頂くことをお勧めします。 </td>
+  </tr>
+  <tr>
+    <td valign="top" colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+
+  <tr>
+    <td valign="top" class="jtd12" colspan="3">【送付書類】</td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top" colspan="3">他の決済代行サービスを同時にお申し込みいただく場合、申込書以外の各書類は1部ずつで結構です。</td>
+  </tr>
+  <tr>
+
+    <td class="jtd12" rowspan="5"><img src="../imgs/spc.gif" width="10" height="10"></td>
+    <td class="jtd12" valign="top">1.</td>
+    <td><span class="j12">申込書<br>
+
+      印刷していただいた申込書にはご捺印が必要です。添付書類が印鑑証明書の場合は実印をご捺印ください。<br>
+      個人・個人事業主の場合で「運転免許証」「パスポート」「外国人登録証」を本人確認書類としてお申込み頂く場合は、ご契約者様の印鑑をご捺印ください。</span>
+        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+
+          <tr>
+            <td valign="top" class="small10" colspan="2"><img src="../imgs/spc.gif" width="2" height="5"></td>
+          </tr>
+          <tr>
+            <td valign="top" class="jtd12">※</td>
+            <td class="jtd12">申込書が印刷エラー等で印刷できなかった場合、お手数ではございますが、管理画面より再度お手続きください。</td>
+
+          </tr>
+
+          <tr>
+            <td valign="top" class="jtd12">※</td>
+            <td class="jtd12">印刷内容を書きかえることはできません。契約者情報に変更がある場合は、Ｅストアーショップサーブの契約者情報の変更手続きを行ってからお申し込みください。</td>
+          </tr>
+      </table></td>
+  </tr>
+  <tr>
+
+    <td class="jtd12" valign="top">2.</td>
+    <td colspan="2"><span class="j12"">印鑑証明書<br>
+      Ｅストアーショップサーブのご契約者様が法人契約の場合は、ご契約法人名の印鑑証明書をご用意ください。（発行後3ヶ月以内の原本）<br>
+      個人・個人事業主契約の場合は、ご契約者様の印鑑証明書（発行後3ヶ月以内の原本）、または有効期限が確認できる「運転免許証」「パスポート」「外国人登録証」いずれかのコピーをご用意ください。
+      </span></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top">3.</td>
+
+    <td colspan="2"><span class="j12">販売免許・許可証のコピー（販売に許認可が必要な商品を取り扱っている場合のみ）<br>
+    一般酒類小売業の免許、古物商許可証など。</span></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top">4.</td>
+    <td colspan="2"><span class="j12">商品の価格や内容がわかるカタログなど（開店ウィザードが完了していない場合のみ）<br>
+      代表的な商品2〜3点の商品写真、商品名、商品の金額が表示されているカタログやパンフレットをご用意ください。カタログ等がない場合は、エクセルやワードなどで自作したものでも結構です。<br>
+
+      また、すでに他のサーバーでお店がある場合は、そのお店のURLを申込書の上部余白にご記入いただいても結構です。
+      </span></td>
+  </tr>
+  <tr>
+    <td class="jtd12" valign="top">5.</td>
+    <td colspan="2"><span class="j12">特定商取引法の表記を印刷したもの（開店ウィザードが完了していない場合のみ）<br>
+     「特定商取引法に関する表示」に記載する「販売業者」「販売責任者」は、Ｅストアーショップサーブご契約者様と同じ名前、名称をご記入ください。
+      </span></td>
+  </tr>
+
+  <tr>
+    <td colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" align="center" width="600">
+  <tr>
+    <td valign="top" class="jtd12" width="1%">■</td>
+
+    <td class="jtd12" width="99%">審査について</td>
+
+  </tr>
+  <tr>
+    <td valign="top" class="jtd12"><img src="../imgs/spc.gif" width="10" height="10"></td>
+
+    <td class="j12">申込書がＥストアーに到着後、Ｅストアーおよび各決済の会社で審査を行います。書類の不備や記載内容に相違があった場合は
+電話もしくはメールでご連絡いたします。お店が準備中（非公開）の場合でも、審査のためＥストアーがページを閲覧いたしますので、
+ご了承ください。審査の結果、ご利用いただけない場合は郵送でお知らせいたします。</td>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+  <td valign="top" class="small10" colspan="2"><img src="../imgs/spc.gif" width="2" height="5"></td>
+  </tr>
+
+  </table>
+</td>
+  </tr>
+  <tr>
+
+    <td valign="top" colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" align="center" width="600">
+  <tr>
+    <td valign="top" class="jtd12" width="1%">■</td>
+
+    <td class="jtd12" width="99%">ご利用開始について</td>
+  </tr>
+  <tr>
+    <td valign="top" class="jtd12"><img src="../imgs/spc.gif" width="10" height="10"></td>
+
+    <td class="j12">決済担当者メールアドレス宛に、ご利用開始のご連絡をいたします。ご利用開始の目安は以下のとおりです。
+（申込書がＥストアーに到着してからの期間）</td>
+  </tr>
+  <tr>
+
+    <td valign="top">&nbsp;</td>
+    <td colspan="4">
+      <table border="0" cellspacing="0" cellpadding="2">
+        <tr>
+          <td bgcolor="#FFFFFF" class="j12" valign="top" nowrap>・クレジットカード決済</span></td>
+          <td bgcolor="#FFFFFF" class="j12" valign="top">：</td>
+          <td bgcolor="#FFFFFF" class="j12" valign="top">約4週間（前もって約2〜3週間で審査結果のご連絡をいたします）</td>
+
+        </tr>
+        <tr>
+          <td bgcolor="#FFFFFF" class="j12" valign="top" nowrap>・コンビニ決済</span></td>
+          <td bgcolor="#FFFFFF" class="j12" valign="top">：</td>
+          <td bgcolor="#FFFFFF" class="j12" valign="top">約2〜3営業日</td>
+        </tr>
+                                  <tr>
+
+          <td bgcolor="#FFFFFF" class="j12" valign="top" nowrap>・電子決済</span></td>
+          <td bgcolor="#FFFFFF" class="j12" valign="top">：</td>
+          <td bgcolor="#FFFFFF" class="j12" valign="top">約1〜2営業日</td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+
+  <tr>
+    <td valign="top" colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" align="center" width="600">
+  <tr>
+    <td valign="top" class="jtd12" width="1%">■</td>
+
+    <td class="jtd12" width="99%">利用開始後の設定について</td>
+
+  </tr>
+  <tr>
+    <td valign="top" class="jtd12"><img src="../imgs/spc.gif" width="10" height="10"></td>
+
+    <td class="j12">ご利用開始の連絡メールが確認できましたら、ショッピングカート内で決済方法として利用できるように設定をしてください。</td>
+  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+  <tr> 
+  <td valign="top" class="small10" colspan="2"><img src="../imgs/spc.gif" width="2" height="5"></td>
+  </tr>
+
+  </table></td>
+  </tr>
+  <tr>
+    <td valign="top"><img src="../imgs/spc.gif" width="2" height="10"></td>
+  </tr>
+</table>
+<hr width="600" size="1" noshade align="center">
+<br>
+</TMPL_IF>
+</body>
+</html>

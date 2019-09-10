@@ -1,0 +1,550 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title><TMPL_VAR NAME=ServName>管理画面</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="default01.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function openClose(id,pt,i) {
+		prop = document.getElementById(id).style.display;
+
+//		alert(id+" "+pt+" "+i);
+
+		if(i==0) prop = "none";
+
+		if(prop=="none"){
+				if(pt=="div") document.getElementById(id).style.display="block";
+//						alert("div "+document.getElementById(id).style.display);
+				if(pt=="tr") {
+						if(document.all)	document.getElementById(id).style.display="block";
+						else
+						document.getElementById(id).style.display="table-row";
+//						alert("tr "+document.getElementById(id).style.display);
+				}
+		} else {
+				document.getElementById(id).style.display="none";
+		}
+//		alert(document.getElementById(id).style.display);
+}
+function WinReload() {
+  if( window.opener && !window.opener.closed ) {
+    window.opener.location.reload();
+  }
+}
+//-->
+</script>
+</head>
+<body style="font-size:80%" <TMPL_IF send>onload="WinReload();"</TMPL_IF>>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function SaveSub() {
+    document.odrmail.set1.disabled = 'true';
+    document.odrmail.set2.disabled = 'true';
+    document.odrmail.CMD.value = 'save';
+    document.odrmail.submit();
+}
+function SendMail() {
+    document.odrmail.set1.disabled = 'true';
+    document.odrmail.set2.disabled = 'true';
+    document.odrmail.CMD.value = 'mail';
+    document.odrmail.submit();
+}
+//-->
+</script>
+<form name="odrmail" method="post" action="odrmail-edit.cgi">
+<input type="hidden" name="seq" value="<TMPL_VAR NAME=seq>">
+<input type="hidden" name="CMD" value="">
+<table width="680"  border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td align="left">
+			<div class="midashi02">■メールテンプレート<TMPL_VAR NAME=num>の編集</div>
+			<br>
+			<div class="infoArea table_bg">
+			定型メールのテンプレートを保存します。作成したテンプレートは、受注台帳の注文詳細から何度でも送信できます。<br>
+			メールの例文は、<a href="<TMPL_VAR NAME=Manual>func01/odrmail.html#mailsample" target="_blank">オンラインマニュアル</a>をご覧ください。
+			
+			</div>
+<TMPL_LOOP NAME=ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+			<table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+				<tr>
+                                        <td class="item-name"><TMPL_VAR NAME=err_title>テンプレート名</td>
+                                        <td class="item">
+                                                <input name="title" type="text" class="def-line" value="<TMPL_VAR NAME=title>">
+					</td>
+				</tr>
+			</table>
+			<br>
+			<table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+				<tr align="center">
+					<td colspan="2" class="item-name02">メールテンプレート<TMPL_VAR NAME=num>の設定（パソコン用）</td>
+				</tr>
+				<tr>
+					<td class="item-name"><TMPL_VAR NAME=err_subject>件名</td>
+					<td class="item">
+						<input name="subject" type="text" class="def-line" value="<TMPL_VAR NAME=subject>">
+					</td>
+				</tr>
+				<tr>
+					<td class="item-name"><TMPL_VAR NAME=err_greeting>本文</td>
+					<td class="item">
+						<textarea name="greeting" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=greeting></textarea>
+					</td>
+				</tr>
+                                <tr>
+                                        <td class="item-name">
+                                                <select name="traderdisp">
+        <option value="Y"<TMPL_IF traderdisp_y> selected</TMPL_IF>>表示</option>
+        <option value="N"<TMPL_IF traderdisp_n> selected</TMPL_IF>>非表示</option>
+        </select>
+                                                配送先
+                                        </td>
+                                        <td bgcolor="#FFFFFF" class="item">
+<div style="font-size:90%; margin:5px 5px 5px 5px">
+<pre>
+   [配送業者]           ○○運輸
+   [お問い合わせ番号]   123456789012
+   [確認用URL]          https://xxxxxxxxxx</pre></div>
+                                        </td>
+                                </tr>
+				<tr>
+					<td class="item-name">
+						<select name="orderdisp">
+      	<option value="Y"<TMPL_IF orderdisp_y> selected</TMPL_IF>>表示</option>
+      	<option value="N"<TMPL_IF orderdisp_n> selected</TMPL_IF>>非表示</option>
+      	</select>
+						ご注文内容
+     <td bgcolor="#FFFFFF" class="item">
+<div style="font-size:90%; margin:5px 5px 5px 5px">
+<pre>■ご注文内容 -------------------------------------------------------
+
+    ◆ ご注文番号 xxxxxxxx
+    ◆ ご注文日時 2005/12/15 20:05
+    ◆ お支払方法 銀行振込
+    ◆ お支払金額 1,800円（税込）
+                                                   （全て税込価格）
+   ================================================================
+       商品名                価格         数量              小計
+   ================================================================
+   蜜入りりんご
+                             200円           4               800円
+   緑茶 ペットボトル 
+                             125円           4               500円
+   ================================================================
+   商品合計                                                1,300円
+   ================================================================
+   送料                                      3               500円
+   ラッピング料                                                0円
+   手数料                                                      0円
+   ポイント利用                                                0円
+   ================================================================
+   合計金額                                                1,800円
+   ================================================================</pre>
+</div>
+</td>
+				</tr>
+				<tr>
+					<td class="item-name">
+						<select name="purdisp">
+      	<option value="Y"<TMPL_IF purdisp_y> selected</TMPL_IF>>表示</option>
+      	<option value="N"<TMPL_IF purdisp_n> selected</TMPL_IF>>非表示</option>
+      	</select>
+						ご注文者</td>
+					<td bgcolor="#FFFFFF" class="item">
+     	<div style="font-size:90%; margin:5px 5px 5px 5px">
+     		<pre>■ご注文者 ---------------------------------------------------------
+
+   [法人名・団体名]         株式会社田中工業
+   [法人名・団体名（かな）] かぶしきがいしゃたなかこうぎょう
+   [部署名]
+   [お名前]                 山田 太郎 様
+   [郵便番号]               105-0003
+   [ご住所]                 東京都新宿区新宿10-10-10　サンプルビル
+   [お電話番号]             03-3333-3333
+   [メールアドレス]         yamada@test-domain.com</pre>
+     		</div>
+					</td>
+				</tr>
+                                <tr>
+                                        <td class="item-name">
+                                                <select name="purbkdisp">
+        <option value="Y"<TMPL_IF purbkdisp_y> selected</TMPL_IF>>表示</option>
+        <option value="N"<TMPL_IF purbkdisp_n> selected</TMPL_IF>>非表示</option>
+        </select>
+                                                ご注文者補足</td>
+                                        <td bgcolor="#FFFFFF" class="item">
+        <div style="font-size:90%; margin:5px 5px 5px 5px">
+                <pre>   [当店をどこでお知りになりましたか？]
+   Yahoo!Japan
+
+   [お誕生日の月を以下から選択してください]
+   2月
+
+   [年齢を選択してください]
+   20〜29歳
+
+   [ご職業を選択してください]
+   会社員
+
+   [問い５番]
+   答え５番</pre>
+                </div>
+                                        </td>
+                                </tr>
+				<tr>
+					<td class="item-name">
+					<select name="delivdisp">
+     	<option value="Y"<TMPL_IF delivdisp_y> selected</TMPL_IF>>表示</option>
+     	<option value="N"<TMPL_IF delivdisp_n> selected</TMPL_IF>>非表示</option>
+     	</select>
+					お届け先
+<p style="font-weight:normal; color:#FF0000">赤字部分は複数のお届け先がある場合に表示されます</p>
+</td>
+					<td bgcolor="#FFFFFF" class="item">
+     	<div style="font-size:90%; margin:5px 5px 5px 5px">
+     		<pre>■お届け先 ---------------------------------------------------------
+
+   <font color="#FF0000">◆お届け先1</font>
+   [法人名・団体名]         株式会社田中工業
+   [法人名・団体名（かな）] かぶしきがいしゃたなかこうぎょう
+   [部署名]
+   [お名前]                 山田 太郎 様
+   [郵便番号]               105-0003
+   [ご住所]                 東京都新宿区新宿10-10-10　サンプルビル
+   [お電話番号]             03-3333-3333
+   <font color="#FF0000">[お届け商品]
+                                                   （全て税込価格）
+   ================================================================
+       品名                  価格         数量              小計
+   ================================================================
+   蜜入りりんご
+                             200円           2               400円
+   緑茶 ペットボトル
+                             125円           2               250円
+   ================================================================
+   商品合計                                                  650円
+   ================================================================
+   送料                                                      250円
+   ラッピング料                                                0円
+   ================================================================
+   合計金額                                                  900円
+   ================================================================
+   </font>
+</pre>
+     		</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="item-name">
+					<select name="bikoudisp">
+     	<option value="Y"<TMPL_IF bikoudisp_y> selected</TMPL_IF>>表示</option>
+     	<option value="N"<TMPL_IF bikoudisp_n> selected</TMPL_IF>>非表示</option>
+     	</select>
+					お届け先補足
+					</td>
+					<td bgcolor="#FFFFFF" class="item">
+     	<div style="font-size:90%; margin:5px 5px 5px 5px">
+     		<pre>   [お届け希望日]           特に指定しない
+   [お届け希望時間]         5：00〜18：00
+   [都合の悪い日]           日曜日
+
+   [その他ご要望]
+   なるべく早く届けてください</pre>
+     		</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="item-name">
+					<select name="paydisp">
+     	<option value="Y"<TMPL_IF paydisp_y> selected</TMPL_IF>>表示</option>
+     	<option value="N"<TMPL_IF paydisp_n> selected</TMPL_IF>>非表示</option>
+     	</select>
+					お支払方法</td>
+					<td class="item">
+     	<div style="font-size:90%; margin:5px 5px 5px 5px">
+     		<pre>■お支払い方法 -----------------------------------------------------
+
+   [銀行振込]
+   イーコーポレート銀行 新橋支店
+   普通 1234567
+   カ）オイシイビン</pre>
+     		</div>
+				  </td>
+				</tr>
+                                <tr>
+                                        <td class="item-name">
+                                        <select name="pinfodisp">
+        <option value="Y"<TMPL_IF pinfodisp_y> selected</TMPL_IF>>表示</option>
+        <option value="N"<TMPL_IF pinfodisp_n> selected</TMPL_IF>>非表示</option>
+        </select>
+                                        ご案内</td>
+                                        <td class="item">
+        <div style="font-size:90%; margin:5px 5px 5px 5px">
+                <pre>   銀行振込の場合、先振込となります。
+   振込手数料はお客様ご負担とさせていただきます。入金確認後、２営業日
+   以内に商品発送いたします。
+   </pre>
+                </div>
+                                        </td>
+                                </tr>
+				<tr>
+					<td class="item-name">
+                                        <select name="contactdisp">
+        <option value="Y"<TMPL_IF contactdisp_y> selected</TMPL_IF>>表示</option>
+        <option value="N"<TMPL_IF contactdisp_n> selected</TMPL_IF>>非表示</option>
+        </select>
+                    <TMPL_VAR NAME=err_contact>連絡先</td>
+					<td class="item">
+						<textarea name="contact" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=contact></textarea>
+					</td>
+				</tr>
+			</table>
+			<table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+			</table>
+			<br>
+			<br>
+			<table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+   	<tr align="center">
+   		<td colspan="2" class="item-name02">メールテンプレート<TMPL_VAR NAME=num>の設定（モバイル用）</td>
+  		</tr>
+   	<tr>
+   		<td class="item-name"><TMPL_VAR NAME=err_subject_k>件名</td>
+   		<td class="item">
+   			<input name="subject_k" type="text" class="def-line" value="<TMPL_VAR NAME=subject_k>">
+   		</td>
+  		</tr>
+   	<tr>
+   		<td class="item-name"><TMPL_VAR NAME=err_greeting_k>本文</td>
+   		<td class="item">
+   			<textarea name="greeting_k" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=greeting_k></textarea>
+   		</td>
+  		</tr>
+        <tr>
+                <td class="item-name">
+                        <select name="traderdisp_k">
+        <option value="Y"<TMPL_IF traderdisp_k_y> selected</TMPL_IF>>表示</option>
+        <option value="N"<TMPL_IF traderdisp_k_n> selected</TMPL_IF>>非表示</option>
+        </select>
+                         配送先</td>
+                <td class="item">
+        <div style="font-size:90%; margin:5px 5px 5px 5px">
+<pre>
+[配送業者] ○○運輸
+[お問い合わせ番号] 123456789012
+[確認用URL] https://xxxxxxxxxx</pre>
+        </div>
+                </td>
+        </tr>
+   	<tr>
+   	    <td class="item-name">
+   			<select name="orderdisp_k">
+      	<option value="Y"<TMPL_IF orderdisp_k_y> selected</TMPL_IF>>表示</option>
+      	<option value="N"<TMPL_IF orderdisp_k_n> selected</TMPL_IF>>非表示</option>
+      	</select>
+  			ご注文内容</td>
+   		<td class="item">
+     	<div style="font-size:90%; margin:5px 5px 5px 5px">
+     		<pre>■ご注文内容
+[ご注文番号] xxxxxxxx
+[ご注文日時] 2005/12/15 20:05
+[お支払方法] 銀行振込
+[お支払金額] 1,800円（税込）
+                  (全て税込価格)
+商品名 価格 数量
+蜜入りりんご 200円 4 
+緑茶 ペットボトル 125円 4
+[商品合計] 1,300円
+[送料] 500円
+[ラッピング料] 0円
+[手数料] 0円
+[ポイント利用] 0円
+==========
+合計金額 1,800円</pre>
+     		</div>
+		  </td>
+   	</tr>
+        <tr>
+            <td class="item-name">
+                <select name="purdisp_k">
+                    <option value="Y"<TMPL_IF purdisp_k_y> selected</TMPL_IF>>表示</option>
+                    <option value="N"<TMPL_IF purdisp_k_n> selected</TMPL_IF>>非表示</option>
+                </select>
+            ご注文者</td>
+                <td class="item">
+                    <div style="font-size:90%; margin:5px 5px 5px 5px">
+                <pre>■ご注文者 
+[法人名・団体名] 株式会社田中工業
+[法人名・団体名（かな）] かぶしきがいしゃたなかこうぎょう
+[部署名]
+[お名前] 山田 太郎 様
+[郵便番号] 105-0003
+[ご住所] 東京都新宿区新宿10-10-10　サンプルビル
+[お電話番号] 03-3333-3333
+[メールアドレス] yamada@test-domain.com
+</pre>
+                    </div>
+                </td>
+        </tr>
+        <tr>
+            <td class="item-name">
+                <select name="purbkdisp_k">
+                    <option value="Y"<TMPL_IF purbkdisp_k_y> selected</TMPL_IF>>表示</option>
+                    <option value="N"<TMPL_IF purbkdisp_k_n> selected</TMPL_IF>>非表示</option>
+                </select>
+            ご注文者補足</td>
+                <td class="item">
+                    <div style="font-size:90%; margin:5px 5px 5px 5px">
+                <pre>
+[当店をどこでお知りになりましたか？]
+ Yahoo!Japan
+[お誕生日の月を以下から選択してください]
+ 2月
+[年齢を選択してください]
+ 20〜29歳
+[ご職業を選択してください]
+ 会社員
+[問い５番]
+ 答え５番</pre>
+                    </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="item-name">
+                <select name="delivdisp_k">
+                    <option value="Y"<TMPL_IF delivdisp_k_y> selected</TMPL_IF>>表示</option>
+                    <option value="N"<TMPL_IF delivdisp_k_n> selected</TMPL_IF>>非表示</option>
+                </select>
+                     お届け先
+                      <p style="font-weight:normal; color:#FF0000">赤字部分は複数のお届け先がある場合に表示されます</p>
+            </td>
+            <td class="item">
+                <div style="font-size:90%; margin:5px 5px 5px 5px">
+                <pre>■お届け先 <font color="#FF0000">
+◆お届け先1</font>
+[法人名・団体名] 株式会社田中工業
+[法人名・団体名（かな）] かぶしきがいしゃたなかこうぎょう
+[部署名]
+[お名前] 山田 太郎 様
+[郵便番号] 105-0003
+[ご住所] 東京都新宿区新宿10-10-10　サンプルビル
+[お電話番号] 03-3333-3333
+   <font color="#FF0000">
+[お届け商品]
+                  (全て税込価格)
+商品名 価格 数量
+蜜入りりんご 200円 2 
+緑茶 ペットボトル 125円 2
+[商品合計] 650円
+
+[送料] 250円
+[ラッピング料] 0円
+==========
+合計金額 900円
+   </font>
+</pre>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="item-name">
+                <select name="bikoudisp_k">
+                    <option value="Y"<TMPL_IF bikoudisp_k_y> selected</TMPL_IF>>表示</option>
+                    <option value="N"<TMPL_IF bikoudisp_k_n> selected</TMPL_IF>>非表示</option>
+                </select>
+                お届け先補足
+            </td>
+            <td class="item">
+                <div style="font-size:90%; margin:5px 5px 5px 5px">
+                <pre>
+[お届け希望日] 特に指定しない
+[お届け希望時間] 5：00〜18：00
+[都合の悪い日] 日曜日
+
+[その他ご要望]
+ なるべく早く届けてください</pre>
+                </div>
+            </td>
+        </tr>
+   	<tr>
+   		<td class="item-name">
+   			<select name="paydisp_k">
+      	<option value="Y"<TMPL_IF paydisp_k_y> selected</TMPL_IF>>表示</option>
+      	<option value="N"<TMPL_IF paydisp_k_n> selected</TMPL_IF>>非表示</option>
+      	</select>
+  			お支払方法</td>
+   		<td class="item">
+     	<div style="font-size:90%; margin:5px 5px 5px 5px">
+     		<pre>■お支払い方法  
+[銀行振込]
+イーコーポレート銀行 新橋支店
+普通 1234567
+カ）オイシイビン</pre>
+     		</div>
+		  </td>
+   	</tr>
+                                <tr>
+                                        <td class="item-name">
+                                        <select name="pinfodisp_k">
+        <option value="Y"<TMPL_IF pinfodisp_k_y> selected</TMPL_IF>>表示</option>
+        <option value="N"<TMPL_IF pinfodisp_k_n> selected</TMPL_IF>>非表示</option>
+        </select>
+                                        ご案内</td>
+                                        <td class="item">
+        <div style="font-size:90%; margin:5px 5px 5px 5px">
+                <pre>銀行振込の場合、先振込となります。
+振込手数料はお客様ご負担とさせていただきます。入金確認後、２営業日
+以内に商品発送いたします。
+   </pre>
+                </div>
+                                        </td>
+                                </tr>
+   	<tr>
+    	<td class="item-name">
+                                        <select name="contactdisp_k">
+        <option value="Y"<TMPL_IF contactdisp_k_y> selected</TMPL_IF>>表示</option>
+        <option value="N"<TMPL_IF contactdisp_k_n> selected</TMPL_IF>>非表示</option>
+        </select>
+        <TMPL_VAR NAME=err_contact_k>連絡先</td>
+    	<td class="item">
+    		<textarea name="contact_k" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=contact_k></textarea>
+   		  </td>
+  		</tr>
+  	</table>
+			<br>
+   <div align="center">
+   	<input name="set1" type="button" value="テスト送信する" onClick="SendMail()">
+   	&nbsp;
+   	<input name="set2" type="button" value="設定を保存する" onClick="SaveSub()">
+   </div>
+   <br>
+				<hr size="1" noshade>
+				<br>
+			<div align="center">
+			<input name="set" type="button" id="set" value="閉じる" onClick="window.close()">
+			</div>
+			<br>
+	  <a href="#top"><span class="return-top">[▲] トップへ戻る</span></a> </td>
+	</tr>
+</table>
+</form>
+<br>
+<br>
+</body>
+</html>

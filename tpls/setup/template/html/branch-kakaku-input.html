@@ -1,0 +1,221 @@
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_KAKAKU_CAT><font color="#FF0000">●</font></TMPL_IF>お取り扱いジャンル<br>※複数選択可</td>
+<td align="left" class="item">
+ <table>
+<tr>
+<td><input type="checkbox" name="KAKAKU_CAT" value="パソコン本体" <TMPL_IF name="CAT_1">CHECKED</TMPL_IF> >パソコン本体</td>
+<td><input type="checkbox" name="KAKAKU_CAT" value="パソコン周辺機器" <TMPL_IF name="CAT_2">CHECKED</TMPL_IF> >パソコン周辺機器</td>
+</tr>
+
+<tr>
+<td><input type="checkbox" name="KAKAKU_CAT" value="パソコンパーツ" <TMPL_IF name="CAT_3">CHECKED</TMPL_IF> >パソコンパーツ</td>
+<td><input type="checkbox" name="KAKAKU_CAT" value="ソフト" <TMPL_IF name="CAT_4">CHECKED</TMPL_IF> >ソフト</td>
+</tr>
+
+<tr>
+<td><input type="checkbox" name="KAKAKU_CAT" value="業務用ソフトウェア" <TMPL_IF name="CAT_5">CHECKED</TMPL_IF> >業務用ソフトウェア</td>
+<td><input type="checkbox" name="KAKAKU_CAT" value="くるま・バイク" <TMPL_IF name="CAT_6">CHECKED</TMPL_IF> >くるま・バイク</td>
+</tr>
+
+<tr>
+<td><input type="checkbox" name="KAKAKU_CAT" value="AV・情報家電" <TMPL_IF name="CAT_7">CHECKED</TMPL_IF> >AV・情報家電</td>
+<td><input type="checkbox" name="KAKAKU_CAT" value="調理・生活家電" <TMPL_IF name="CAT_8">CHECKED</TMPL_IF> >調理・生活家電</td>
+</tr>
+
+<tr>
+<td><input type="checkbox" name="KAKAKU_CAT" value="健康・美容家電" <TMPL_IF name="CAT_9">CHECKED</TMPL_IF> >健康・美容家電</td>
+<td><input type="checkbox" name="KAKAKU_CAT" value="季節家電" <TMPL_IF name="CAT_10">CHECKED</TMPL_IF> >季節家電</td>
+</tr>
+
+<tr>
+<td><input type="checkbox" name="KAKAKU_CAT" value="デジタルカメラ" <TMPL_IF name="CAT_12">CHECKED</TMPL_IF> >デジタルカメラ</td>
+<td><input type="checkbox" name="KAKAKU_CAT" value="ビデオカメラ" <TMPL_IF name="CAT_13">CHECKED</TMPL_IF> >ビデオカメラ</td>
+</tr>
+
+<tr>
+<td><input type="checkbox" name="KAKAKU_CAT" value="フラッシュメモリ" <TMPL_IF name="CAT_14">CHECKED</TMPL_IF> >フラッシュメモリ</td>
+<td><input type="checkbox" name="KAKAKU_CAT" value="フィルムカメラ" <TMPL_IF name="CAT_15">CHECKED</TMPL_IF> >フィルムカメラ</td>
+</tr>
+
+<tr>
+<td><input type="checkbox" name="KAKAKU_CAT" value="カメラアクセサリ" <TMPL_IF name="CAT_16">CHECKED</TMPL_IF> >カメラアクセサリ</td>
+<td><input type="checkbox" name="KAKAKU_CAT" value="ゴルフ" <TMPL_IF name="CAT_17">CHECKED</TMPL_IF> >ゴルフ</td>
+</tr>
+
+<tr>
+<td><input type="checkbox" name="KAKAKU_CAT" value="自転車" <TMPL_IF name="CAT_18">CHECKED</TMPL_IF> >自転車</td>
+<td><input type="checkbox" name="KAKAKU_CAT" value="電動工具" <TMPL_IF name="CAT_24">CHECKED</TMPL_IF> >電動工具</td>
+</tr>
+
+<tr>
+<td><input type="checkbox" name="KAKAKU_CAT" value="腕時計" <TMPL_IF name="CAT_19">CHECKED</TMPL_IF> >腕時計</td>
+<td><input type="checkbox" name="KAKAKU_CAT" value="香水" <TMPL_IF name="CAT_20">CHECKED</TMPL_IF> >香水</td>
+</tr>
+
+<tr>
+<td><input type="checkbox" name="KAKAKU_CAT" value="ゲーム" <TMPL_IF name="CAT_11">CHECKED</TMPL_IF> >ゲーム</td>
+<td><input type="checkbox" name="KAKAKU_CAT" value="楽器" <TMPL_IF name="CAT_21">CHECKED</TMPL_IF> >楽器</td>
+</tr>
+
+<tr>
+<td><input type="checkbox" name="KAKAKU_CAT" value="DJ機器" <TMPL_IF name="CAT_23">CHECKED</TMPL_IF> >DJ機器</td>
+<td><input type="checkbox" name="KAKAKU_CAT" value="MIDI機器" <TMPL_IF name="CAT_22">CHECKED</TMPL_IF> >MIDI機器</td>
+</tr>
+ </table>
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_KAKAKU_MULTI><font color="#FF0000">●</font></TMPL_IF>複数発送</td>
+<td align="left" class="item">
+<input type="radio" name="MULTI_SEND" value="0" <TMPL_IF name="MULTI_SEND0">CHECKED</TMPL_IF>><TMPL_VAR name=MULTI_SEND_NAME0><br>
+<input type="radio" name="MULTI_SEND" value="1" <TMPL_IF name="MULTI_SEND1">CHECKED</TMPL_IF>><TMPL_VAR name=MULTI_SEND_NAME1><br>
+
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_DELIVERY><font color="#FF0000">●</font></TMPL_IF>運送業者<br>※複数選択可</td>
+<td align="left" class="item">
+
+<table>
+<tr>
+<td><input type="checkbox" name="DELIVERY" value="0" <TMPL_IF name="DELIVERY0">CHECKED</TMPL_IF> ><TMPL_VAR name=DELIVERY_NAME0></td>
+<td><input type="checkbox" name="DELIVERY" value="1" <TMPL_IF name="DELIVERY1">CHECKED</TMPL_IF> ><TMPL_VAR name=DELIVERY_NAME1></td>
+</tr>
+<tr>
+<td><input type="checkbox" name="DELIVERY" value="2" <TMPL_IF name="DELIVERY2">CHECKED</TMPL_IF> ><TMPL_VAR name=DELIVERY_NAME2></td>
+<td><input type="checkbox" name="DELIVERY" value="3" <TMPL_IF name="DELIVERY3">CHECKED</TMPL_IF> ><TMPL_VAR name=DELIVERY_NAME3></td>
+</tr>
+<tr>
+<td><input type="checkbox" name="DELIVERY" value="4" <TMPL_IF name="DELIVERY4">CHECKED</TMPL_IF> ><TMPL_VAR name=DELIVERY_NAME4></td>
+<td><input type="checkbox" name="DELIVERY" value="5" <TMPL_IF name="DELIVERY5">CHECKED</TMPL_IF> ><TMPL_VAR name=DELIVERY_NAME5></td>
+</tr>
+<tr>
+<td><input type="checkbox" name="DELIVERY" value="6" <TMPL_IF name="DELIVERY6">CHECKED</TMPL_IF> ><TMPL_VAR name=DELIVERY_NAME6></td>
+<td><input type="checkbox" name="DELIVERY" value="7" <TMPL_IF name="DELIVERY7">CHECKED</TMPL_IF> ><TMPL_VAR name=DELIVERY_NAME7></td>
+</tr>
+<tr>
+<td><input type="checkbox" name="DELIVERY" value="8" <TMPL_IF name="DELIVERY8">CHECKED</TMPL_IF> ><TMPL_VAR name=DELIVERY_NAME8></td>
+<td><input type="checkbox" name="DELIVERY" value="9" <TMPL_IF name="DELIVERY9">CHECKED</TMPL_IF> ><TMPL_VAR name=DELIVERY_NAME9></td>
+</tr>
+</table>
+
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_FEEMAX><font color="#FF0000">●</font></TMPL_IF>代引き決済の上限金額</td>
+<td align="left" class="item">
+<input type="text" name="FEEMAX" value="<TMPL_VAR name=FEEMAX>" maxlength="11" size="10">円以下　例）299999円以下
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_SITENAME><font color="#FF0000">●</font></TMPL_IF>ショップ名</td>
+<td align="left" class="item"> 
+<input type="text" name="SITENAME" class="def-line" value="<TMPL_VAR name=SITENAME>" maxlength="255">
+<BR>
+※各種記号（ピリオド、ハイフン 等）をご使用の場合、店舗審査にて削除されることもございます。
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_SITENAME_SHORT><font color="#FF0000">●</font></TMPL_IF>ショップ名　(短)<br>  ※全角8文字、半角16文字まで
+</td>
+<td align="left" class="item">
+<input type="text" name="SITENAME_SHORT" class="def-line" value="<TMPL_VAR name=SITENAME_SHORT>" maxlength="255">
+<table width="100%"  border="000" cellspacing="0" cellpadding="000">
+  <tr>
+    <td style="padding:0px 3px ; " valign="top">※</td>
+    <td style="line-height:120%; ">価格.com内の製品一覧・価格比較ページで表示されるショップ名は全角8文字（半角16文字）までの文字数制限がありますので、長い場合は短いショップ名を別に指定します。
+<br>
+ショップ名が全角8文字（半角16文字）以内の場合は、そのまま入力してください。</td>
+  </tr>
+</table>
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_TENTO_FLAG><font color="#FF0000">●</font></TMPL_IF>店頭販売の有無
+</td>
+<td align="left" class="item">
+<input type="radio" name="TENTO_FLAG" value="0" <TMPL_IF name=TENTO_FLAG0>checked</TMPL_IF>>ネット販売のみ
+&nbsp;
+<input type="radio" name="TENTO_FLAG" value="1" <TMPL_IF name=TENTO_FLAG1>checked</TMPL_IF>>店舗販売あり
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_SCHARGE_URL><font color="#FF0000">●</font></TMPL_IF>送料明記URL</td>
+<td align="left" class="item">http://
+<input type="text" name="SCHARGE_URL" class="def-line" value="<TMPL_VAR name=SCHARGE_URL>" maxlength="255">
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_HOSHOU_URL><font color="#FF0000">●</font></TMPL_IF>保証規定URL
+</td>
+<td align="left" class="item">http://
+<input type="text" name="HOSHOU_URL" class="def-line" value="<TMPL_VAR name=HOSHOU_URL>" maxlength="255"><br>
+※「お店設定」の「ご利用案内」で設定したページのURLをご入力ください。<br>
+　URLがわからない場合は、管理画面「サーバー」の「URL一覧」でご確認ください。
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_HENPIN_URL><font color="#FF0000">●</font></TMPL_IF>返品規定URL
+</td>
+<td align="left" class="item">http://
+<input type="text" name="HENPIN_URL" class="def-line" value="<TMPL_VAR name=HENPIN_URL>" maxlength="255"><br>
+※「お店設定」の「ご利用案内」で設定したページのURLをご入力ください。<br>
+　URLがわからない場合は、管理画面「サーバー」の「URL一覧」でご確認ください。
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_TANTO_NAME><font color="#FF0000">●</font></TMPL_IF>担当者名(フルネーム)</td>
+<td align="left" class="item">
+<input type="text" name="TANTO_NAME" class="def-line" value="<TMPL_VAR name=TANTO_NAME>" maxlength="255">
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_TANTO_NAMEKANA><font color="#FF0000">●</font></TMPL_IF>担当者名ふりがな(フルネーム)</td>
+<td align="left" class="item">
+<input type="text" name="TANTO_NAMEKANA" class="def-line" value="<TMPL_VAR name=TANTO_NAMEKANA>" maxlength="255">
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_TANTO_TEL><font color="#FF0000">●</font></TMPL_IF>担当者電話番号</td>
+<td align="left" class="item">
+<input name="TEL1" type="text" maxlength="5" size="5" value="<TMPL_VAR name=TEL1>">
+-
+<input name="TEL2" type="text" maxlength="4" size="5" value="<TMPL_VAR name=TEL2>">
+-
+<input name="TEL3" type="text" maxlength="4" size="5" value="<TMPL_VAR name=TEL3>">
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_TANTO_MAIL><font color="#FF0000">●</font></TMPL_IF>担当者メールアドレス</td>
+<td align="left" class="item">
+<input type="text" name="TANTO_MAIL" class="def-line" value="<TMPL_VAR name=TANTO_MAIL>" maxlength="128">
+</td>
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

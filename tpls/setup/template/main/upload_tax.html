@@ -1,0 +1,97 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<title>商品価格の事前登録</title>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<link rel="canonical" href="http://shopserve.jp/">
+
+<!-- 消費税率の引き上げにともなう対応用 -->
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+<link type="text/css" rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css">
+<link type="text/css" rel="stylesheet" href="css/tax.css">
+
+<script type="text/javascript">
+function getCookie(cookieValue) {
+    var i, x, y, ARRcookies = document.cookie.split(";");
+    for (i=0; i<ARRcookies.length; i++) {
+        x=ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+        y=ARRcookies[i].substr(ARRcookies[i].indexOf("=")+1);
+        x=x.replace(/^\s+|\s+$/g,"");
+        if (x === cookieValue) {
+            return unescape(y);
+        }
+    }
+}
+_editor_url = "../blog/js";_editor_lang = "ja";
+</script>
+
+</head>
+<body>
+
+<!-- ▼ wrapper -->
+<div id="wrapper">
+
+    <!-- ▼ login情報 -->
+    <div id="login-info">
+    <p>ショップID
+    ：
+    <script type="text/javascript">var store_id = getCookie('STORE_ID');
+    document.write(store_id);
+    </script>
+    ｜
+    お店の名前
+    ：
+    <script type="text/javascript">
+    var store_name = getCookie('STORE_NAME');
+    document.write(decodeURIComponent(store_name));
+    </script>
+    </div>
+    <!-- ▲ login情報 -->
+
+    <!-- ▼ header -->
+    <div id="header">
+    <h1>消費税率の引き上げにともなう対応について</h1>
+    <a href="../func00/index.cgi"><img src="images/top_back.gif" alt="管理画面トップへ戻る" height="22" width="156"></a>
+  </div>
+    <!-- ▲ header -->
+
+<div id="tax-info">
+<TMPL_IF ERRMSG>
+<div>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<TMPL_LOOP ERRMSG>
+<tr>
+  <td><font color="red" style="color:#c00;">・<TMPL_VAR NAME=MSG></font>
+  </td>
+</tr>
+</TMPL_LOOP>
+</table>
+</div>
+<TMPL_ELSE>
+<div class="infoArea table_bg">
+各種一括処理のファイルの登録を行います。<br>登録が完了次第、店長メール宛てにメールでお知らせいたしますので、今しばらくおまちください。<br><br>
+</div>
+</TMPL_IF>
+<div style="text-align:center">
+ <input type="button" name="Submit" value="事前登録画面に戻る" onClick="location.href='tax_preregister.php'">
+</div>
+</div>
+
+</div>
+<div id="footer">
+
+<script type="text/javascript">
+<!--
+var date = new Date();
+var year = date.getYear();
+if(year < 2000) { year += 1900; }
+document.write('Copyright &copy; '+year+' Estore Corporation. All Rights Reserved.');
+//-->
+</script>
+
+</div>
+</body>
+</html>

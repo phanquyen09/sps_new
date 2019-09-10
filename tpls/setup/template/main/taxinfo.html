@@ -1,0 +1,2333 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+  <head>
+    <title>消費税改正への対応</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+    <meta http-equiv="Content-Style-Type" content="text/css">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <link rel="stylesheet" href="css/taxinfo.css" type="text/css" media="all">
+    <link href="https://netdna.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.css" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-41060419-1']);
+      _gaq.push(['_setDomainName', 'shopserve.jp']);
+      _gaq.push(['_trackPageview']);
+
+      (function () {
+        var ga = document.createElement('script');
+        ga.type = 'text/javascript';
+        ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0];
+        s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+
+    <!-- Global site tag (gtag.js) - ここから　Google Analytics2019 -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-143032839-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+
+      gtag('js', new Date());
+      gtag('config', 'UA-143032839-1');
+    </script>
+    <!-- //Global site tag (gtag.js) - ここまで　Google Analytics2019 -->
+
+    <!--ページトップへ戻るボタン 2019 ここから-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+
+    <script>
+      jQuery(document).ready(function () {
+        var offset = 100;
+        var duration = 500;
+        jQuery(window).scroll(function () {
+          if (jQuery(this).scrollTop() > offset) {
+            jQuery('.pagetop').fadeIn(duration);
+          } else {
+            jQuery('.pagetop').fadeOut(duration);
+          }
+        });
+
+        jQuery('.pagetop').click(function (event) {
+          event.preventDefault();
+          jQuery('html, body').animate({scrollTop: 0}, duration);
+          return false;
+        })
+      });
+    </script>
+    <!--//ページトップへ戻るボタン2019 ここまで-->
+
+    <!--タブデザイン 2019 ここから-->
+    <script>
+      jQuery(function ($) {
+        $('.tabcontent > div').hide();
+
+        $('.tabnav a').click(function () {
+          $('.tabcontent > div').hide().filter(this.hash).fadeIn();
+
+          $('.tabnav a').removeClass('active');
+          $(this).addClass('active');
+
+          return false;
+        }).filter(':eq(0)').click();
+      });
+    </script>
+    <!--//タブデザイン 2019 ここまで-->
+
+    <!--タブ動作調整 ここから-->
+    <script>
+      jQuery(function ($) {
+        $('.btn-square-shadow-m.tab02-open').click(function () {
+          $(".tabu01").removeClass("active");
+          $(".tabu02").addClass("active");
+          $(".tabcontent #tab01").attr("style", "display: none;");
+          $(".tabcontent #tab02").attr("style", "display: block;");
+          $(".tabcontent").addClass('tab-02');
+          $(".tabcontent").removeClass('tab-01');
+        });
+        $('.btn-square-shadow-m.tab01-open').click(function () {
+          $(".tabu02").removeClass("active");
+          $(".tabu01").addClass("active");
+          $(".tabcontent #tab02").attr("style", "display: none;");
+          $(".tabcontent #tab01").attr("style", "display: block;");
+          $(".tabcontent").addClass('tab-01');
+          $(".tabcontent").removeClass('tab-02');
+        });
+
+        $('#tab-01 a').click(function () {
+          $(".tabcontent").addClass('tab-01');
+          $(".tabcontent").removeClass('tab-02');
+        });
+        $('#tab-02 a').click(function () {
+          $(".tabcontent").addClass('tab-02');
+          $(".tabcontent").removeClass('tab-01');
+        });
+      });
+    </script>
+    <!--タブ動作調整 ここまで-->
+
+  </head>
+
+  <body>
+    <script type="text/javascript">
+      <!--
+      function getCookie(cookieValue) {
+        var i, x, y, ARRcookies = document.cookie.split(";");
+        for (i = 0; i < ARRcookies.length; i++) {
+          x = ARRcookies[i].substr(0, ARRcookies[i].indexOf("="));
+          y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+          x = x.replace(/^\s+|\s+$/g, "");
+          if (x === cookieValue) {
+            return unescape(y);
+          }
+        }
+      }
+
+      //-->
+    </script>
+
+    <!--▼wrapper▼-->
+    <div id="wrapper">
+      <!-- ログイン情報表示 ここから -->
+      <div id="login-info">
+        <p>ショップID
+          ：
+          <script type="text/javascript">
+            var store_id = getCookie('STORE_ID');
+            document.write(store_id);
+          </script>
+          ｜
+          お店の名前
+          ：
+          <script type="text/javascript">
+            var store_name = getCookie('STORE_NAME');
+            document.write(decodeURIComponent(store_name));
+          </script>
+        </p>
+      </div>
+      <!-- ログイン情報表示 ここまで -->
+      <div id="header">
+        <h1>消費税改正への対応</h1>
+        <a href="../func00/index.cgi"><img src="images/top_back.gif" alt="管理画面トップへ戻る" height="22" width="156"></a>
+      </div>
+
+      <div id="tax-info">
+        <div>
+          <p>
+            ２０１９年１０月１日に消費税の税率が８％から１０％に引き上げられ、同時に消費税の軽減税率制度（食品などの対象品目は８％）が実施されます。<br>
+            消費税改正に伴い、店舗さんに行っていただく作業をご案内します。
+          </p>
+
+          <h6>更新情報 </h6>
+          <ul>
+            <li>2019/08/21&nbsp;&nbsp;【お知らせ】 受注データのＣＳＶファイルに税率に関する６項目を追加できるようになります(１０月リリース予定)</li>
+            <!-- <li>2019/00/00&nbsp;&nbsp;【お知らせ】 <a href="../func00/customer.cgi" target="_blank"> キャッシュレス・消費者還元事業の登録申し込み受付開始しました</a></li> -->
+            <li>2019/07/17&nbsp;&nbsp;【お知らせ】 適格請求書等保存方式のフォーマットに対応する必要項目が記載できる請求書などを発行できるようになります(１０月リリース予定)</li>
+            <li>2019/07/17&nbsp;&nbsp;【お知らせ】 商品台帳で８％または１０％で税率設定ができるようになります(１０月リリース予定)</li>
+            <TMPL_IF isDisplayRegular>
+              <li>2019/07/17&nbsp;&nbsp;【お知らせ】
+                <a href="tax_preregister_regular.php" target="_blank">定期購入・頒布会の申込台帳の商品価格を増税後の税率に合わせた価格へ事前登録できるようになりました(８月)</a>
+              </li>
+            </TMPL_IF>
+            <li>2019/07/17&nbsp;&nbsp;【お知らせ】
+              <a href="tax_preregister.php" target="_blank">増税後の税率と価格の事前登録ができるようになりました(７月)</a>
+            </li>
+          </ul>
+        </div>
+
+        <h2>事前に準備しておくこと</h2>
+        <p>&nbsp;</p>
+        <h4 class="sozai">
+          <img src="images/todo.png">
+          商品が「軽減税率（８％）」対象か「標準税率（１０％）」対象かを確認してください
+        </h4>
+        <div class="infobox">
+          <ul>
+            <li>飲食料品などを対象に「軽減税率制度」が導入されます。
+              <strong>
+                <a href="https://www.gov-online.go.jp/tokusyu/keigen_zeiritsu/taisyohinmoku/naniga.html" target="_blank">軽減税率対象の商品</a>
+              </strong>
+              は、１０月１日の増税後も今と変わらず８％のまま、価格を据え置きにできます。<br>
+              事前登録画面で、軽減税率対象商品は８％で、標準税率対象商品は１０％で設定してください。
+            </li>
+          </ul>
+        </div>
+
+        <h4 class="sozai">
+          <img src="images/todo.png">
+          増税後の税率と商品価格を「事前登録画面」に登録してください
+        </h4>
+        <div class="infobox">
+          <p class="kikan" style="font-size: 1.0em;">
+            事前登録期間 ： ２０１９年７月１７日（水）〜９月３０日（月）１９：００まで
+          </p>
+          <p>
+            増税に向けて、商品の消費税率を「標準税率（１０％）」、「軽減税率（８％）」へ変更する必要があります。
+            事前に対応できるように「事前登録画面」を用意しました。<br>
+            事前登録の方法は、「おまかせ設定」と「個別設定」の２種類あります。詳しくは下記の「事前登録方法」をご覧ください。<br>
+            また、事前登録画面に登録した税率や価格は、２０１９年１０月１日に自動更新されます。増税直後からスムーズに商品台帳の価格を変更できます。
+          </p>
+          <div>
+            <dl>
+              <dt class="bold">事前登録できる項目</dt>
+              <dd style="line-height: 1.5em">
+                税率（8％または10％）<br>
+                販売価格<br>
+                定価<br>
+                セール価格<br>
+                予約価格<br>
+                定期購入・頒布会の初回価格<br>
+                頒布会の最終回価格<br>
+                商品台帳で設定できる個別送料
+              </dd>
+            </dl>
+          </div>
+          <br style="clear:both">
+          <div class="estore">
+            <div class="bu-fl">
+              <p>
+                <a href="tax_preregister.php" class="btn-square-shadow" target="_blank">商品価格の事前登録はこちらから</a>
+              </p>
+            </div>
+            <div class="bu-fr">
+              <p>
+                <a href="#01" class="btn-square-shadow-m tab01-open">操作マニュアルはこちら</a>
+              </p>
+            </div>
+            <div style="clear:both;"></div>
+            <div class="box27">
+              <span class="box-title"> 事前登録方法</span>
+              <br>
+              <p>
+                「 商品価格の事前登録はこちらから 」ボタンをクリックして登録画面を開き、「 おまかせ設定 」 で以下のいずれかを選択します。<br>
+                <br>
+                【１】&nbsp;全ての商品を標準税率１０％にして税込価格を変更する<br>
+                【２】&nbsp;全ての商品を軽減税率８％対象にする（税込価格は据置）<br>
+                【３】&nbsp;全ての商品を税率のみ標準税率１０％にする（税込価格は据置）<br>
+                <br>
+                「 おまかせ設定 」 を利用すれば、商品台帳で新しい商品の追加や価格変更をしても、【１】〜【３】より選択した計算方法で反映されます。<br>
+                また、「 おまかせ設定 」 と 「 個別設定 」 を併用した場合、「 個別設定 」 で登録した金額が優先されます。<br>
+                そのため、<span class="marker bold">「 おまかせ設定 」で全ての商品価格を一括で登録し、設定変更したい商品がある場合に、「 個別設定 」を利用する</span>ことをおすすめします。<br>
+                商品価格の事前登録については、「操作マニュアルはこちら」から、「商品価格の事前登録をする」のタブをクリックし、ご確認ください。
+              </p>
+              <p class="point indent-1">
+                ※
+                <span class="point">商品価格の事前登録の締め切りは、 <strong>２０１９年９月３０日（月）１９：００</strong>を予定しております。</span>
+                <br>
+                １０月１日（火）０：００〜８：００に実施する臨時メインテナンスで、事前登録した価格へ自動更新されます。
+                <br>
+                <strong>事前登録しない場合、「全ての商品を標準税率１０％にして税込価格を変更する」設定が適用され、自動更新されます。</strong>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="page_break"></div>
+
+        <TMPL_IF isDisplayRegular>
+          <h4 class="sozai">
+            <img src="images/todo.png">
+            ＜Ｅストアーリピートを利用している場合＞
+            <br>
+            定期購入・頒布会の申込台帳の商品価格を事前登録してください
+          </h4>
+          <div class="infobox">
+            <p class="kikan">事前登録期間 ：２０１９年８月２１日（水）〜９月３０日（月）１９：００まで</p>
+            <p>すでに申込受付をしている定期購入・頒布会商品の消費税率を「標準税率（１０％）」、「軽減税率（８％）」へ変更する必要があります。「事前登録画面」で事前に変更してください。
+              <br>
+              事前登録画面に登録した税率や価格は、２０１９年１０月１日に自動更新されます。増税直後からスムーズに申込台帳の価格を変更できます。
+            </p>
+            <div class="estore">
+              <div class="bu-fl">
+                <p>
+                  <a href="tax_preregister_regular.php" class="btn-square-shadow" target="_blank">申込価格の事前登録はこちらから</a>
+                </p>
+              </div>
+              <div class="bu-fr">
+                <p>
+                  <a href="#01" class="btn-square-shadow-m tab02-open">操作マニュアルはこちら</a>
+                </p>
+              </div>
+              <div style="clear:both;"></div>
+
+              <div class="box27">
+                <span class="box-title"> 事前登録方法</span>
+                <p>「申込価格の事前登録はこちらから」ボタンをクリックして、「 おまかせ設定 」 で以下のいずれかを選択します。
+                  <br>
+                  おまかせ設定を「利用する」を選択した場合、(１) または (２)から増税後の税込価格を選択します。
+                </p>
+                <br>
+                <div class="l_text">【１】&nbsp;おまかせ設定を「利用する」（税率を１０％にします）</div>
+                <div class="r_text">(１) 増税後の税込価格を自動計算する</div>
+                <div style="clear:both;"></div>
+                <div class="l_text">&nbsp;</div>
+                <div class="r_text">(２) 増税後も現在の税込価格を据え置く</div>
+                <div style="clear:both;"></div>
+                <div class="l_text" style="width:1000px;">【２】&nbsp;おまかせ設定を「利用しない」（税率は８％のまま、現在の税込価格も変更されません）</div>
+                <div style="clear:both;"></div>
+
+                <p>
+                  「 おまかせ設定 」 を利用すれば、申込台帳に新しい申込が追加されても、(１)または(２) で選択した計算方法で反映されます。
+                  <br>
+                  また、
+                  <span class="marker bold">「 おまかせ設定 」で申込台帳の全ての商品を税率１０％に設定し、税率８％のまま税込価格を据え置きたい商品がある場合、「 除外設定 」が利用できます。</span>
+                  <br>
+                  申込価格の事前登録については、「操作マニュアルはこちら」から、「申込価格の事前登録をする」のタブをクリックし、ご確認ください。
+                </p>
+                <p class="point indent-1">
+                  ※申込価格の事前登録の締め切りは、
+                  <strong>２０１９年９月３０日（月）１９：００</strong>
+                  を予定しております。
+                  <br>
+                  １０月１日（火） ０：００〜８：００に実施する臨時メインテナンスで、事前登録した申込台帳の商品価格へ自動更新されます。
+                  <br>
+                  事前登録締切後から臨時メンテナンス開始まで（９月３０日１９：００〜２３：５９）に申込台帳に入った申込は、「おまかせ設定」に従って自動計算されます。
+                  <br>
+                  <span class="point bold indent-1">
+                    事前登録をしない場合、すべての申込商品の税率は１０％に自動更新されます。
+                  </span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </TMPL_IF>
+
+        <h4 class="sozai">
+          <img src="images/todo.png">
+          送料や各種手数料などを見直しましょう
+        </h4>
+        <div class="infobox">
+          <ul>
+            <li>店舗さんの売上や利益の減少を招かないように、商品価格だけではなく、送料、各種手数料の見直しを行ってください。</li>
+          </ul>
+        </div>
+
+        <h4 class="sozai">
+          <img src="images/todo.png">
+          オプション価格など、管理画面で金額設定している箇所を確認しましょう
+        </h4>
+        <div class="infobox">
+          <ul>
+            <li>オプション価格やまとめ割引、高額購入割引の設定など、管理画面で設定している場合は、金額変更の有無を事前に検討してください。</li>
+          </ul>
+        </div>
+
+        <h4 class="sozai">
+          <img src="images/todo.png">
+          お店ページの修正箇所を洗い出しましょう
+        </h4>
+        <div class="infobox">
+          <p>「特定商取引法に関する表示」や「ご利用案内」、「ヘッダ」や「フッタ」などに掲載している、送料、各種手数料、○円以上送料無料など、
+            <span class="marker bold">スマートフォンサイトも含め、すべてのページ修正箇所を事前に洗い出しておきましょう。</span>
+            <br>
+            文章だけではなく画像の修正も必要になる場合があります。素早く差し替えできるように早めに用意しておくことをおすすめします。 制作でお困りのことがあればＥストアーの制作代行サービスをご利用ください。
+          </p>
+        </div>
+
+        <h4 class="sozai">
+          <img src="images/todo.png">
+          事前登録した増税後の金額が正しいか確認しましょう
+        </h4>
+        <div class="infobox">
+          <p>事前登録の「個別設定」から「検索する」ボタンをクリックし、
+            <span class="marker bold">増税後の金額が正しいことを確認してください。</span>
+            <br>
+            また、検索条件から「要確認」をチェックして検索し、
+            <span class="point">赤字の金額</span>
+            がある場合は意図して入力した金額かどうかもあわせて確認してください。
+          </p>
+          <p>
+            <a href="tax_preregister.php" class="btn-square-shadow" target="_blank">事前登録した商品価格を確認する</a>
+          </p>
+        </div>
+
+        <TMPL_IF isDisplayRegular>
+          <h4 class="sozai">
+            <img src="images/todo.png">
+            ＜Ｅストアーリピートを利用している場合＞
+            <br>
+            定期購入・頒布会の申込価格が事前登録した増税後の金額に設定されているか確認しましょう
+          </h4>
+          <div class="infobox">
+            <p>事前登録の「除外設定」から「検索する」ボタンをクリックし、
+              <span class="marker bold">増税後の金額が正しいことを確認してください。</span>
+              <br>
+              また、事前登録画面で申込データをダウンロードしておきましょう。１０月１日以降も、事前登録画面で設定した申込データごとの税率が確認できます。
+            </p>
+            <p>
+              <a href="tax_preregister_regular.php" class="btn-square-shadow" target="_blank">事前登録した申込価格を確認する</a>
+            </p>
+          </div>
+        </TMPL_IF>
+
+        <div class="page_break"></div>
+
+        <h2>Ｅストアーの今後の対応スケジュール</h2>
+        <div class="infobox">
+          <p class="mt20">事前登録機能を含む以下の機能をリリースします。また、各種手数料を変更します。</p>
+          <div class="estore">
+            <h6>１、【７月１７日】 増税後の商品価格の「事前登録画面」をリリース</h6>
+            <p class="mb30 indent">「おまかせ設定」や「個別設定」を利用して、商品台帳へ反映する増税後の税率と価格を事前登録できます。
+            </p>
+            <h6>２、【８月２１日】 定期購入・頒布会の申込データの事前登録機能をリリース</h6>
+            <p class="indent">申込台帳に登録されている商品の税率を１０％または８％に設定して、増税後の金額を事前登録できるようになります。</p>
+            <p class="mb30 indent">２０１９年１０月１日以降に申込台帳から作成された受注データの商品価格は、増税後の税率と商品価格に変更され、商品発送時に新税率が適用されます。
+            </p>
+
+            <h6>３、【９月３０日１９：００】「商品価格の事前登録」「申込価格の事前登録」の受付終了</h6>
+            <p class="indent">事前登録締め切り後、「商品台帳」「申込台帳」「各種一括処理」 の機能は利用できません。</p>
+            <p class="indent">１０月１日以降も、事前登録画面による登録はできません。</p>
+
+            <h6>４、【１０月１日０：００〜８：００】 臨時メインテナンス実施予定</h6>
+            <p class="indent">消費税改正への対応として、臨時メインテナンスを実施します。</p>
+            <p class="indent">また、臨時メインテナンス中は、お店ページへのアクセス、ショッピングカートでのお買い物、管理画面へのログインはできなくなります。</p>
+            <p class="indent">この臨時メインテナンスで事前に登録した増税後の商品価格を反映するなど、下記の機能をリリースします。</p>
+
+            <div class="text">
+              <h6>■通常機能に消費税（税率１０％または８％）を設定する機能をリリース予定</h6>
+              １０月１日より、商品台帳で標準税率１０％、または軽減税率８％の税率設定ができるようになります。
+              <br>
+              １０月以降、登録する際は、こちらの機能を使って設定・変更してください。
+            </div>
+            <div class="text">
+              <h6>■適格請求書等保存方式（インボイス制度）対応の請求書等発行機能をリリース予定</h6>
+              受注台帳から発行する各種印刷書類が適格請求書等保存方式に対応します。
+              <br>
+              適格請求書等保存方式に必要な項目が追加され、税率ごとの金額の内訳を表示できるようになります。
+            </div>
+            <div class="text">
+              <h6>■受注データのＣＳＶファイルに税率に関する項目を追加できる機能をリリース予定
+                <span class="point">［2019/08/21追記］</span>
+              </h6>
+              管理画面の「お店運営＞受注データのダウンロード」において、以下の６項目が受注データに追加できるようになります。
+              <br>
+              ※今回のリリースで「受注データの基本項目」などの既存のデータ形式に変更はありません。
+              <br>
+              ・ 税率
+              <br>
+              ・ 税率ごとの合計（標準税率）
+              <br>
+              ・ 税率ごとの合計（軽減税率）
+              <br>
+              ・ 税率ごとの合計（非課税）
+              <br>
+              ・ 税率ごとの消費税額（標準税率）
+              <br>
+              ・ 税率ごとの消費税額（軽減税率)
+              <br>
+              <span class="order-list"><a href="images/csv/orderlist_taxsample.xlsx">受注データサンプル</a></span>
+            </div>
+            <div class="text">
+              <h6>■ショップサーブで利用中の決済手数料や、注文処理手数料を変更</h6>
+              <table class="price">
+                <tr>
+                  <th colspan="2">決済手数料</th>
+                  <th colspan="2">現在</th>
+                  <th>増税後</th>
+                  <th>適用</th>
+                </tr>
+                <tr>
+                  <td rowspan="4">カード決済</td>
+                  <td rowspan="2">プランＡ</td>
+                  <td>VISA / MASTER</td>
+                  <td>3.675% / 1売上</td>
+                  <td>変更なし</td>
+                  <td>−</td>
+                </tr>
+                <tr>
+                  <td>JCB / AMEX / Diners</td>
+                  <td>4.725% / 1売上</td>
+                  <td>変更なし</td>
+                  <td>−</td>
+                </tr>
+                <tr>
+                  <td rowspan="2">プランＢ
+                    <br>
+                    月額19,800円＋税
+                  </td>
+                  <td>VISA / MASTER</td>
+                  <td>3.59% / 1売上</td>
+                  <td>変更なし</td>
+                  <td>−</td>
+                </tr>
+                <tr>
+                  <td>JCB / AMEX / Diners</td>
+                  <td>4.69% / 1売上</td>
+                  <td>変更なし</td>
+                  <td>−</td>
+                </tr>
+                <tr>
+                  <td colspan="2">コンビニ（番号端末式）・銀行ATM・ネットバンキング決済</td>
+                  <td colspan="2">8,999円以下324円（税込） / 1売上
+                    <br>
+                    9,000円以上3.78% / 1売上
+                    <br>
+                    <br>
+                    回収金額が 50,000 円以上かつ、コンビニ(番号端末式)もしくは、銀行ATMで現金払いの場合は別途、印紙代200 円がかかります。
+                  </td>
+                  <td>8,999円以下
+                    <span>330円（税込）</span>
+                    / 1売上
+                    <br>
+                    9,000円以上
+                    <span>3.85%</span>
+                    / 1売上
+                    <br>
+                    <br>
+                    回収金額が 50,000 円以上かつ、コンビニ(番号端末式)もしくは、銀行ATMで現金払いの場合は別途、印紙代200 円がかかります。
+                  </td>
+                  <td>10/1以降に入金通知のあった受注より</td>
+                </tr>
+                <tr>
+                  <td colspan="2">コンビニ決済（払込票）</td>
+                  <td colspan="2">324円（税込） / 1売上
+                    <br>
+                    回収金額が54,000円以上の場合は別途、印紙代200円
+                  </td>
+                  <td>
+                    <span>330円（税込）</span>
+                    / 1売上
+                    <br>
+                    回収金額が
+                    <span>55,000円</span>
+                    以上の場合は別途、印紙代200円
+                  </td>
+                  <td>10/1以降に入金通知のあった受注より</td>
+                </tr>
+                <tr>
+                  <td colspan="2">Yahoo!ウォレット決済</td>
+                  <td colspan="2">4.7% / 1売上</td>
+                  <td>変更なし</td>
+                  <td>−</td>
+                </tr>
+                <tr>
+                  <td colspan="2">楽天銀行決済</td>
+                  <td colspan="2">4.104% / 1売上</td>
+                  <td>
+                    <span>4.18%</span>
+                    / 1売上
+                  </td>
+                  <td>10/1以降の受注より</td>
+                </tr>
+                <tr>
+                  <td colspan="2">楽天ペイ</td>
+                  <td colspan="2">5.4％ / 1売上</td>
+                  <td>
+                    <span>5.5%</span>
+                    / 1売上
+                  </td>
+                  <td>10/1以降の受注より</td>
+                </tr>
+                <tr>
+                  <td colspan="2" rowspan="2">Amazon Pay</td>
+                  <td colspan="2">月額利用料3,240円（税込）</td>
+                  <td>月額利用料金
+                    <span>3,300円（税込）</span>
+                  </td>
+                  <td>11/1以降（10月分）の請求より</td>
+                </tr>
+                <tr>
+                  <td colspan="2">4.0％/1売上</td>
+                  <td>変更なし</td>
+                  <td>−</td>
+                </tr>
+                <tr>
+                  <td colspan="2" rowspan="2">ＮＰ後払い</td>
+                  <td colspan="2">決済手数料2.9％〜5.0％</td>
+                  <td rowspan="2">
+                    <span>ネットプロテクションズに直接お問い合わせください</span>
+                  </td>
+                  <td rowspan="2">−</td>
+                </tr>
+                <tr>
+                  <td colspan="2">190円＋税/1売上</td>
+                </tr>
+                <tr>
+                  <td colspan="2">ビットコイン決済</td>
+                  <td colspan="2">無料</td>
+                  <td>変更なし</td>
+                  <td>−</td>
+                </tr>
+                <tr>
+                  <td colspan="2" rowspan="3">コンビニ（番号端末式）
+                    <br>
+                    ※新規申込は受付終了しました
+                  </td>
+                  <td colspan="2" rowspan="2">月額利用料金 3,240円（税込）</td>
+                  <td rowspan="2">月額利用料金
+                    <span>3,300円（税込）</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>11/1以降（10月分）の請求より</td>
+                </tr>
+                <tr>
+                  <td colspan="2">9,999円以下324円（税込） / 1売上
+                    <br>
+                    10,000円以上3.24% / 1売上
+                    <br>
+                    回収金額が54,000円以上の場合は別途、印紙代200円
+                  </td>
+                  <td>
+                    9,999円以下
+                    <span>330円（税込）</span>
+                    / 1売上
+                    <br>
+                    10,000円以上
+                    <span>3.3%</span>
+                    / 1売上
+                    <br>
+                    回収金額が
+                    <span>55,000円</span>
+                    以上の場合は別途、印紙代200円
+                  </td>
+                  <td>10/1以降に入金通知のあった受注より</td>
+                </tr>
+                <tr>
+                  <th colspan="2">後払い（コンビニ、郵便局、銀行）決済</th>
+                  <th colspan="2">現在</th>
+                  <th>増税後</th>
+                  <th>適用</th>
+                </tr>
+                <tr>
+                  <td rowspan="4" 　rowspan="4">決済手数料
+                    <br>
+                    &nbsp; &nbsp;＆
+                    <br>
+                    月額固定費
+                    <br>
+                  </td>
+                  <td>プランＡ</td>
+                  <td colspan="2">4.8％、月額0 円</td>
+                  <td>変更なし</td>
+                  <td rowspan="5">10/1以降に入金通知のあった受注より</td>
+                </tr>
+                <tr>
+                  <td>プランＢ</td>
+                  <td colspan="2">4.2％、月額4,860 円（税込）</td>
+                  <td>4.2％、月額
+                    <span>4,950円（税込）</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>プランＣ</td>
+                  <td colspan="2">3.5％、月額19,440 円（税込）</td>
+                  <td>3.5％、月額
+                    <span>19,800円（税込）</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td>プランＤ</td>
+                  <td colspan="2">2.8％、月額48,600 円（税込）</td>
+                  <td>2.8％、月額
+                    <span>49,500円（税込）</span>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="2">請求手数料</td>
+                  <td colspan="2">プランに関わらず一律182円（税込）/１売上ごと</td>
+                  <td>プランに関わらず一律
+                    <span>185円（税込）</span>
+                    /１売上ごと
+                  </td>
+                </tr>
+                <tr>
+                  <th colspan="2">各種手数料</th>
+                  <th colspan="2">現在</th>
+                  <th>増税後</th>
+                  <th>適用</th>
+                </tr>
+                <tr>
+                  <td colspan="2">注文処理手数料</td>
+                  <td colspan="2">36円（税込）/１売上&times;受注件数＝合計金額</td>
+                  <td>
+                    <span>37.4円（税込）/１売上&times;受注件数＝合計金額（端数切捨て）</span>
+                  </td>
+                  <td>2019年10月利用料(11月ご請求分)より</td>
+                </tr>
+                <tr>
+                  <td colspan="2">フレンドリンク手数料</td>
+                  <td colspan="2">売上代金の5.25%</td>
+                  <td>変更なし</td>
+                  <td>−</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="page_break"></div>
+
+        <h2>２０１９年１０月１日　臨時メインテナンス明けにおこなうこと</h2>
+        <h3 style="padding-bottom: 15px;">商品価格以外の自動で更新されない箇所は、店舗さん自身で修正が必要です。</h3>
+        <div style="padding:0.5em 0 1.5em 1.0em;">
+          <p class="point_caution">
+            <img src="images/ico_caution.png" alt=""/>
+            <br>
+            必要であれば、管理画面の「お店設定＞開店・閉店の切替」で「開店準備にする」に切り替えてから作業を行ってください。
+          </p>
+        </div>
+
+        　
+        <h4 class="sozai">
+          <img src="images/todo.png">
+          臨時メインテナンス後に、お店ページを更新してください
+        </h4>
+        <div class="infobox">
+          <p>お店のトップページに掲載している「おすすめ商品」や「新着商品」などの販売価格の表示は、
+            <span class="marker bold">管理画面左上の [ お店ページの更新へ  ] ボタン</span>
+            から更新することで、増税後の販売価格に更新されます。
+          </p>
+          <p>
+            <a href="../func01/rebuild_pause.cgi" target="_blank">&rArr; お店ページを更新する</a>
+          </p>
+        </div>
+
+        　
+        <h4 class="sozai">
+          <img src="images/todo.png">
+          「 送料 」の金額を必要に応じて変更してください
+        </h4>
+        <div class="infobox">
+          <p>配送業者の増税後の送料に合わせてお店の送料変更が必要な場合、管理画面から変更を行ってください。ショッピングカートに即時反映されます。</p>
+          <p>
+            <a href="../func03/scharge.php" target="_blank">&rArr; お店設定＞送料の設定</a>
+          </p>
+        </div>
+
+        　
+        <h4 class="sozai">
+          <img src="images/todo.png">
+          「 手数料 」の金額を必要に応じて変更してください
+        </h4>
+        <div class="infobox">
+          <p>コンビニ決済などの決済手数料が１０月１日より変更になります。
+            <br>
+            消費者へ請求する額を変更する場合、管理画面から変更してください。ショッピングカートに即時反映されます。
+          </p>
+          <p>
+            <a href="../func03/payment.cgi" target="_blank">⇒ お店設定＞決済方法の設定</a>
+          </p>
+        </div>
+
+        <TMPL_IF isDisplayRegular>
+          　
+          <h4 class="sozai">
+            <img src="images/todo.png">
+            ＜Ｅストアーリピートを利用している場合＞
+            <br>
+            定期購入・頒布会の申込台帳に登録している「 送料 」や「 手数料 」の金額を必要に応じて変更してください
+          </h4>
+          <div class="infobox">
+            <p>申込台帳に登録されている送料、手数料を必要に応じて、申込詳細の画面から個別に変更してください。</p>
+            <p>
+              <a href="../func01/rp_order_list.php" target="_blank">⇒ お店設定＞申込台帳をみる</a>
+            </p>
+          </div>
+        </TMPL_IF>
+
+        　
+        <h4 class="sozai">
+          <img src="images/todo.png">
+          お店ページ上の案内を確認して、必要に応じて変更してください
+        </h4>
+        <div class="infobox">
+          <p>店舗さんによって変更箇所は異なりますので事前に確認してください。</p>
+          <p>
+            <a href="../func03/business.cgi" target="_blank">&rArr; お店設定＞特定商取引法の表示編集</a>
+          </p>
+          <p>
+            <a href="../func03/s_guidance.cgi" target="_blank">&rArr; お店設定＞ご利用案内の編集</a>
+          </p>
+          <p>
+            <a href="../func04/newtheme_headfooter.php" target="_blank">&rArr; デザイン設定＞ヘッダとＳＥＯの設定</a>
+          </p>
+          <p>
+            <a href="../func03/shop-message.php" target="_blank">&rArr; お店設定＞メッセージの編集</a>
+          </p>
+        </div>
+
+        　
+        <h4 class="sozai">
+          <img src="images/todo.png">
+          「 オプション価格 」など設定していれば、金額を確認して必要に応じて変更してください
+        </h4>
+        <div class="infobox">
+          <p>店舗さんによって変更箇所は異なりますので事前に確認してください。</p>
+          <p>
+            <a href="../func01/itemoption.php" target="_blank">&rArr; お店運営＞オプションの管理＞オプション価格</a>
+          </p>
+          <p>
+            <a href="../func03/deliv_desc.php" target="_blank">&rArr; お店設定＞お届け先設定＞のし設定・ラッピング設定</a>
+          </p>
+          <p>
+            <a href="../func03/rank-info-set.php" target="_blank">&rArr; お店設定＞会員ランクの設定＞購入金額によるランクアップ条件設定</a>
+          </p>
+          <p>
+            <a href="../func01/bundle_list.php" target="_blank">&rArr; お店運営＞まとめ割引設定</a>
+          </p>
+          <p>
+            <a href="../func03/volume_discount.php" target="_blank">&rArr; お店設定＞高額購入割引の設定</a>
+          </p>
+          <p>
+            <a href="../func03/overseas_sale.php" target="_blank">&rArr; お店設定＞海外販売の設定＞送料・手数料の設定</a>
+          </p>
+          <p>
+            <a href="../func03/regular_cycle.php" target="_blank">&rArr; お店設定＞お届けサイクルの設定＞定期購入の継続特典設定</a>
+          </p>
+          <p>
+            <a href="../func05/couponsystem.php" target="_blank">&rArr; 集客・運用＞クーポン発行＞特典</a>
+          </p>
+        </div>
+
+        　
+        <h4 class="sozai">
+          <img src="images/todo.png">
+          画像内の価格訂正がある場合は、画像の差し替えを行ってください
+        </h4>
+        <div class="infobox">
+          <p>商品画像の変更方法は、詳しくは、オンラインサポートで案内しています。</p>
+          <p>
+            <a href="../func01/itemlist.cgi" target="_blank">&rArr; お店運営＞商品台帳</a>
+          </p>
+          <p>
+            <a href="../func01/imagelist.cgi" target="_blank">⇒ お店運営＞画像台帳</a>
+          </p>
+          <p>
+            <a href="../func01/imageupload.cgi" target="_blank">⇒ お店運営＞画像一括登録（999件以下）</a>
+            　※FTPソフトが必要
+          </p>
+          <p>
+            <a href="../func01/gross_processing.php" target="_blank">&rArr; お店運営＞各種一括処理＞画像 ［CSVファイル］（1,000件以上／同ファイル名の上書き）</a>
+            　※FTPソフトが必要
+          </p>
+        </div>
+
+        　
+        <h4 class="sozai">
+          <img src="images/todo.png">
+          スマートフォンサイトのお店ページも確認し、必要があれば変更してください
+        </h4>
+        <div class="infobox">
+          <p>管理画面の「 スマートフォンサイト設定＞各種設定＞PCページ連動設定 」で、PC用を表示する設定を行っている箇所は、PCサイトを変更すれば連動します。</p>
+          <p>
+            <a href="../func07/smp_setting_header_footer.php" target="_blank">&rArr; スマートフォンサイト設定＞ヘッダ・フッタ設定</a>
+          </p>
+          <p>
+            <a href="../func07/smp_info_s_guidance.php" target="_blank">&rArr; スマートフォンサイト設定＞ご利用案内</a>
+          </p>
+        </div>
+
+        　
+        <h4 class="sozai">
+          <img src="images/todo.png">
+          お店ページの最終確認をしてください
+        </h4>
+        <div class="infobox">
+          <p>お店ページの確認とともに、テスト注文を行い、変更した価格や送料、手数料などが反映されていることを確認してください。</p>
+          <p>
+            <a href="../func00/myhomepage.cgi" target="_blank">&rArr; お店ページをみる</a>
+          </p>
+        </div>
+
+        <div class="page_break"></div>
+
+        <div id="01"></div>
+        <h2>操作マニュアル</h2>
+
+        <ul class="tabnav">
+          <li id="tab-01">
+            <a href="#tab01" class="tabu01">商品価格の事前登録をする</a>
+          </li>
+          <TMPL_IF isDisplayRegular>
+            <li id="tab-02">
+              <a href="#tab02" class="tabu02">申込価格の事前登録をする</a>
+            </li>
+          </TMPL_IF>
+        </ul>
+
+        <div class="tabcontent">
+          <div id="tab01">
+            <div class="tax-info mb50">
+              <div class="midashi-m">
+                <p class="midashi">１、おまかせ設定を利用する</p>
+                <p>「現在の金額」から「増税後の金額」を自動計算して一括で金額設定をします。商品台帳で追加や価格変更を行っても、増税後の金額は自動計算されます。</p>
+              </div>
+              <div class="text">
+                <p class="point_caution">
+                  <img src="images/ico_caution.png" alt=""/>
+                  <br>
+                  「非課税」にしている商品は、「おまかせ設定」の自動計算の対象ではありません。
+                </p>
+                <p class="point">
+                  税率８％のまま、現在の税込価格を変更しない場合は、「全ての商品を軽減税率８％対象にする（税込価格は据置）」に設定してください。
+                </p>
+              </div>
+
+              <div id="guide">
+                <div class="infobox">
+                  <ul>
+                    <li>
+                      <span>１</span>
+                      「おまかせ設定」のタブをクリックします。
+                    </li>
+                    <li>
+                      <span>２</span>
+                      ３つの設定方法から選択します。
+                    </li>
+                    <p class="box2 mb50">
+                      <span>
+                            <strong style="font-size:95%;">全ての商品を標準税率（10%）にして税込価格を変更する</strong><br>
+                            現　在 1,080円（税抜1,000円 消費税80円 税率8％）<br>
+                            増税後 1,100円（税抜1,000円 消費税100円 税率10％）<br>
+                            <br>
+                            <strong style="font-size:95%;">全ての商品を税率のみ標準税率（10%）にする（税込価格は据置）</strong><br>
+                            現　在 1,188円（税抜1,100円 消費税88円 税率8％）<br>
+                            増税後 1,188円（税抜1,080円 消費税108円 税率10％）
+                            </span>
+                    </p>
+                    <br>
+                    <li>
+                      <span>３</span>
+                      「設定する」ボタンをクリックします。
+                    </li>
+                    <li>
+                      <span>４</span>
+                      増税後の金額を確認します。
+                    </li>
+                    <p class="mb20">
+                      <span class="ymarker bold">増税後の欄が黄色になり、</span>
+                      自動計算された税込価格が表示されます。
+                    </p>
+                    <p class="box2 mt50">
+                      <span><strong>事前登録後の確認方法</strong><br>後日、増税後の金額を確認する際に、画面下部に商品リストが表示されていない場合は、「個別設定」のタブから「検索する」ボタンをクリックして確認してください。</span>
+                    </p>
+                    <p class="point_caution mt50">
+                      <img src="images/ico_caution.png" alt=""/>
+                      <br>
+                      自動計算の端数処理は、管理画面の「 お店設定＞消費税の設定 」の基本設定に従います。おまかせ設定のあとに、端数処理を切り替えると、設定金額が変更される場合があります。
+                      <br>
+                      <span><img src="images/taxinfo10.png" alt="個別設定" width="315" height="245"></span>
+                    </p>
+                  </ul>
+                  <span><img src="images/taxinfo01.png" alt="おまかせ設定" width="690"></span>
+                  <div style="clear:both;"></div>
+                </div>
+
+                <div class="btn-center">
+                  <a href="tax_preregister.php" class="btn-square-shadow" target="_blank">商品価格の事前登録はこちらから</a>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="page_break"></div>
+
+            <div class="taxinfo mb50">
+              <div class="midashi-m">
+                <p class="midashi">２、個別設定を利用する</p>
+                <p>商品ごとに増税後の金額を設定できます。 「おまかせ設定」を利用していても、「個別設定」の金額が優先されます。</p>
+              </div>
+              <div class="text">
+                <p class="point_caution">
+                  <img src="images/ico_caution.png" alt=""/>
+                  <br>
+                  個別設定をした商品に対して商品台帳で変更を加えた場合、自動で再計算されません。バリエーション価格も含めて、あらためて価格を見直してください。
+                </p>
+              </div>
+
+              <div id="guide">
+                <div class="infobox">
+                  <ul>
+                    <li>
+                      <span>１</span>
+                      「個別設定」のタブをクリックします。
+                    </li>
+                    <li>
+                      <span>２</span>
+                      個別に設定したい商品を検索します。
+                      <br>
+                      商品名など検索条件を指定し「検索する」ボタンをクリックします。
+                    </li>
+                    <p class="box2">
+                      <span><strong>全商品検索する方法</strong><br>
+                      検索条件を何も指定しないで「検索する」ボタンをクリックしてください。</span>
+                    </p>
+                  </ul>
+
+                  <span><img src="images/taxinfo03.png" alt="個別設定" width="690" height="557"> </span>
+                  <div style="clear:both;"></div>
+                </div>
+
+                <div class="infobox">
+                  <ul>
+                    <li>
+                      <span>３</span>
+                      商品リストが表示されます。
+                      <br>
+                      変更する商品の「商品番号」または「税率」をクリックします。
+                      <br>
+                      <br>
+                      増税後の金額を設定するポップアップ画面が開きます。
+                    </li>
+                    <p class="point_caution">
+                      <img src="images/ico_caution.png" alt=""/>
+                      <br>
+                      「商品名」をクリックすると、現在の金額が表示されている商品ページが開きます。
+                    </p>
+                  </ul>
+                  <span><img src="images/taxinfo04.png" alt="個別設定" width="690"></span>
+                  <div style="clear:both;"></div>
+                </div>
+
+                <div class="infobox mb50">
+                  <ul>
+                    <li>
+                      <span>４</span>
+                      税率８％、または10％を選択します。
+                    </li>
+                    <li>
+                      <span>５</span>
+                      　増税後の金額を入力します。
+                      <br>
+                      未入力にすると、選択した「税率（％）」によって価格を自動計算してくれます。
+                    </li>
+                    <p class="point_caution">
+                      <img src="images/ico_caution.png" alt=""/>
+                      <br>
+                      管理画面の「お店設定＞消費税の設定」で、「税抜価格を登録」に設定している場合、価格欄は「税抜価格」で入力してください。ただし、事前登録画面の一覧などは、すべて税込価格で表示されます。
+                    </p>
+                    <p class="box2">
+                      <span class="bold">おまかせ設定の金額に戻す方法</span>
+                      <br>
+                      <span>「おまかせ設定に戻す」ボタンをクリックしてください。商品リストの
+                                    増税後の欄が青色&rarr;黄色に変更されます。</span>
+                      <br>
+                      <img src="images/taxinfo16.png" alt="個別設定" width="256">
+                    </p>
+                  </ul>
+                  <span><img src="images/taxinfo05.png" alt="個別設定" width="690"></span>
+                  <br>
+                  <div style="clear:both;"></div>
+                </div>
+
+                <div class="infobox mb50">
+                  <ul>
+                    <li>
+                      <span>６</span>
+                      「保存」ボタンをクリックします。
+                      <br>
+                      ポップアップ画面が閉じます。
+                    </li>
+                    <li>
+                      <span>７</span>
+                      　増税後の金額を確認します。
+                    </li>
+                    <p class="mt50">
+                      <span class="bmarker bold">増税後の欄がすべて青色になり、</span>
+                      税込価格が表示されています。
+                    </p>
+                    <p class="point_caution" style="margin-top:50px;">
+                      <img src="images/ico_caution.png" alt=""/>
+                      <br>
+                      税率は商品単位で設定するため、バリエーション単位では変更できません。
+                    </p>
+                    <p class="point_caution">
+                      <img src="images/ico_caution.png" alt=""/>
+                      <br>
+                      １商品に対してバリエーションの組み合わせが1,000件以上の場合、CSVファイルで一括登録をしてください。
+                    </p>
+                    <p class="point_caution">
+                      <img src="images/ico_caution.png" alt=""/>
+                      <br>
+                      商品台帳に登録している「現在の金額」と一桁違う金額が登録された場合や、個別設定後に商品台帳で変更を加えた場合など、確認が必要と判断される金額は、
+                      <span class="bold point">赤字</span>
+                      になります。必ず意図した金額か確認してください。
+                    </p>
+                    <p class="box2">
+                        <span><strong>「 要確認 」を確認する方法</strong><br>
+                        検索条件から「 要確認 」をチェックして検索してください。要確認の表示条件は、<img src="images/newSetup_QuestionG.gif" alt="個別設定"> アイコンをクリックすると確認できます。</span>
+                    </p>
+                  </ul>
+                  <span><img src="images/taxinfo06.png" alt="個別設定" width="690"></span>
+                  <p>
+                    <span><img src="images/taxinfo08.png" alt="個別設定" width="1138"></span>
+                  </p>
+                  <div style="clear:both;"></div>
+                </div>
+
+                <div class="btn-center">
+                  <a href="tax_preregister.php" class="btn-square-shadow" target="_blank">商品価格の事前登録はこちらから</a>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="page_break"></div>
+
+            　
+            <div class="tax-info mb50">
+              <div class="midashi-m">
+                <p class="midashi">3、CSVファイルによる一括登録をする</p>
+                <p>個別設定は、CSVで一括登録も可能です。CSVファイルをダウンロードし、「 税率 」と「 増税後の金額 」を編集後、アップロードを行い一括登録します。 </p>
+              </div>
+              <div class="text">
+                <p class="point_caution">
+                  <img src="images/ico_caution.png" alt=""/>
+                  <br>
+                  CSVファイルによる事前登録は、事前登録締切日時９月３０日（月）１９：００までにアップロードを完了させてください。
+                  <br>
+                  ※１０,０００個の商品を一括で登録する場合、アップロード完了まで、約２時間を目安としてください。
+                </p>
+              </div>
+              <div id="guide">
+                <div class="infobox">
+                  <ul>
+                    <li>
+                      <span>１</span>
+                      「個別設定 」をクリックします。
+                    </li>
+                    <li>
+                      <span>２</span>
+                      　個別に金額設定したい商品を検索します。
+                      <br>
+                      <br>
+                      「検索する」ボタンをクリックして商品リストを表示します。
+                    </li>
+                    <p class="box2">
+                      <span><strong>全商品データをダウンロードする方法</strong><br>
+                検索しない場合、一番下の 「ダウンロード」ボタンをクリックすると「商品データ」または「バリエーションデータ」の全商品がダウンロードされます。</span>
+                    </p>
+                  </ul>
+                  <span> <img src="images/taxinfo11.png" alt="ダウンロード・アップロード" width="690"></span>
+                  <div style="clear:both;"></div>
+                </div>
+
+                <div class="infobox mb50">
+                  <ul>
+                    <li>
+                      <span>３</span>
+                      　ダウンロードするデータの種類を選択します。
+                    </li>
+                    <p class="point_caution">
+                      <img src="images/ico_caution.png" alt=""/>
+                      <br>
+                      商品データに、バリエーションデータは含まれません。
+                      <br>
+                      バリエーションがある商品を一括登録する場合は、「バリエーションデータ」を選択してください。バリエーション商品のみダウンロードされます。
+                    </p>
+                    <p class="box2">
+                      <span>
+                        <strong>＜現在の金額のみ＞</strong><br>
+                        商品台帳に登録されている「現在の金額」のみCSVに入力された状態でダウンロードします。<br>
+                        <br>
+                        <strong>＜個別設定の金額のみ＞</strong><br>
+                        個別設定の商品（青色）のみ、「現在の金額」と「増税後の金額」が入力された状態でダウンロードします。おまかせ設定の商品（黄色）はダウンロードされません。<br>
+                        <br>
+                        <strong>＜個別設定＋おまかせ設定の金額＞</strong><br>
+                        すべての金額がCSVに入力された状態でダウンロードします。
+                      </span>
+                    </p>
+                    <br>
+                    <li>
+                      <span>４</span>
+                      「ダウンロード」ボタンをクリックします。
+                    </li>
+                  </ul>
+                  <span><img src="images/taxinfo12.png" alt="ダウンロード・アップロード" width="560"></span>
+                  <div style="clear:both;"></div>
+
+                </div>
+
+                <div class="infobox mb50">
+                  <ul>
+                    <li>
+                      <span>５</span>
+                      パソコンにファイルを保存します。
+                      <br>
+                      <br>
+                      「ファイルを保存する」を選択して「ＯＫ」ボタンをクリックします。
+                    </li>
+                    <li>
+                      <span>６</span>
+                      　パソコンに保存されたことを確認します。
+                      <br>
+                      <br>
+                      <br>
+                      商品データを選択すると
+                      <br>
+                      「itempricelist.csv」というファイルがダウンロードされます。
+                      <br>
+                      <br>
+                      バリエーションデータを選択すると
+                      <br>
+                      「variationpricelist.csv」というファイルがダウンロードされます。
+                    </li>
+                    <p class="point_caution">
+                      <img src="images/ico_caution.png" alt=""/>
+                      <br>
+                      CSV ファイルを Microsoft Excelで開くと、エクセルの仕様により、「商品番号」が「数字」の場合、違う文字に変換される場合があります。無料でダウンロードできるＣＳＶ編集ソフトなどを利用して、変換されないようにしましょう。
+                    </p>
+                  </ul>
+                  <span><img src="images/taxinfo13.png" alt="ダウンロード・アップロード" width="455"></span>
+                  <div style="clear:both;"></div>
+                </div>
+
+                <div class="infobox mb50">
+                  <p>
+                    <span><img src="images/taxinfo14.png" alt="ダウンロード・アップロード" width="1050"></span>
+                  </p>
+                  <p style="margin-top:30px;">
+                    <span><img src="images/taxinfo15.png" alt="ダウンロード・アップロード" width="1042"></span>
+                  </p>
+                  <div style="clear:both;"></div>
+                </div>
+                　
+                <div class="infobox">
+                  <ul>
+                    <li>
+                      <span>７</span>
+                      　ＣＳＶファイルを編集します。まず、「税率」を入力していきます。
+                      <br>
+                      <br>
+                      バリエーションの場合、１つの商品に関わる設定が複数行あるので、先頭行に税率を入力してください。
+                      <p>
+                        <img src="images/ico_caution.png" alt=""/>
+                        <br>
+                        バリエーションごとに税率設定はできないため、他の行に税率を入力しても反映はされません。先頭行の税率が反映されます。
+                      </p>
+                    </li>
+                    <li>
+                      <span>８</span>
+                      　「増税後の金額」を入力します。未入力にすると、入力した「税率（％）」によって価格を自動計算して金額が設定されます。
+                    </li>
+                    <li>
+                      <span>９</span>
+                      　編集後、「商品データ」または「バリエーションデータ」にチェックを入れます。
+                    </li>
+                    <li>
+                      <span>10</span>
+                      　編集済みCSVファイルを選択します。
+                    </li>
+                    <li>
+                      <span>11</span>
+                      「アップロード」ボタンをクリックします。
+                      <br>
+                      一括登録の開始時と完了時に店長メールアドレス宛てにメールが届きます。また、登録に
+                      <strong>失敗</strong>
+                      した時もエラー報告メールが届きます。メールに記載しているエラー内容を確認して、ＣＳＶを修正して再度アップロードしてください。
+                    </li>
+                    <p class="box2">
+                      <span>
+                        <strong>自動計算で税率に合わせた金額設定する方法</strong><br>
+                        「現在の金額のみ」を選択してダウンロードすれば、「増税後の金額」欄は未入力状態です。たとえば、軽減税率の対象商品だけ税率８％にする場合、「税率（％）」の項目に「8」と入力するだけで編集が完了します。
+                      </span>
+                    </p>
+                    <p class="point_caution">
+                      <img src="images/ico_caution.png" alt=""/><br>
+                      <span class="point bold">増税後の金額が正しいか必ず確認してください。</span><br>
+                      登録完了後に、「個別設定」のタブから「検索する」ボタンをクリックして、金額を確認しましょう。
+                    </p>
+                  </ul>
+                  <span><img src="images/taxinfo09.png" alt="ダウンロード・アップロード" width="677"></span>
+                  <div style="clear:both;"></div>
+                </div>
+
+                <div class="infobox">
+                  <p style="font-size: 120%;">
+                    <span class="bold">■ＣＳＶダウンロード項目</span>
+                  </p>
+                  <p class="point_caution">
+                    入力する価格は、管理画面の「お店設定＞消費税の設定」の基本設定に従います。<br>
+                    税込価格で登録 の場合 ... 税込価格を入力して下さい<br>
+                    税抜価格で登録 の場合 ... 税抜価格を入力して下さい
+                  </p>
+                  <table width="0" border="0" cellpadding="0">
+                    <tbody>
+                      <tr>
+                        <th width="300" rowspan="17" scope="col">
+                          <span class="bold">商品データ</span>
+                        </th>
+                      </tr>
+                      <tr>
+                        <td width="300">商品番号</td>
+                        <td width="850">変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>商品名</td>
+                        <td>変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>販売価格</td>
+                        <td>変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>販売価格（増税後）</td>
+                        <td>
+                          半角数字で入力します。カンマ「,」は不要です。<br>
+                          未入力にすると、入力した「税率（％）」によって価格を自動計算して設定されます。<br>
+                          ※定期購入・頒布会の商品は 350 円以上から登録可能です。<br>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>定価</td>
+                        <td>変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>定価（増税後）</td>
+                        <td>
+                          半角数字で入力します。カンマ「,」は不要です。<br>
+                          未入力にすると、入力した「税率（％）」によって価格を自動計算して設定されます。<br>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>セール・予約価格</td>
+                        <td>変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>セール・予約価格（増税後）</td>
+                        <td>
+                          半角数字で入力します。カンマ「,」は不要です。<br>
+                          未入力にすると、入力した「税率（％）」によって価格を自動計算して設定されます。<br>
+                          セール・予約価格は、タイムセール商品か予約販売商品のみ設定できます。<br>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>初回価格
+                        </td>
+                        <td>変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>初回価格（増税後）
+                        </td>
+                        <td>
+                          半角数字で入力します。カンマ「,」は不要です。<br>
+                          未入力にすると、入力した「税率（％）」によって価格を自動計算して設定されます。<br>
+                          初回価格は、定期購入商品か頒布会商品のみ設定できます。<br>
+                          初回価格が設定されている場合のみ入力できます。<br>
+                          初回価格は、350円以上で入力してください。<br>
+                          初回価格は、販売価格未満で入力してください。
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>最終回価格</td>
+                        <td>変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>最終回価格（増税後）</td>
+                        <td>
+                          半角数字で入力します。カンマ「,」は不要です。<br>
+                          未入力にすると、入力した「税率（％）」によって価格を自動計算して設定されます。<br>
+                          頒布会商品のみ設定できます。<br>
+                          最終回価格が設定されている場合のみ入力できます。
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>個別送料</td>
+                        <td>変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>個別送料（増税後）</td>
+                        <td>
+                          半角数字で入力します。カンマ「,」は不要です。<br>
+                          未入力にすると、入力した「税率（％）」によって価格を自動計算して設定されます。<br>
+                          個別配送設定がされている場合のみ入力できます。
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>非課税商品</td>
+                        <td>「N」　&rarr;　課税対象商品　「Y」　&rarr;　非課税商品</td>
+                      </tr>
+                      <tr>
+                        <td>税率（％）</td>
+                        <td>
+                          半角数字で入力します。<br>
+                          課税対象商品は「8」または「10」と入力します。非課税商品は「0」と入力します。
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <br>
+                  <br>
+                  <table width="0" border="0" cellpadding="0">
+                    <tbody>
+                      <tr>
+                        <th width="300" rowspan="19" scope="col">
+                          <span class="bold">バリエーションデータ</span>
+                        </th>
+                      </tr>
+                      <tr>
+                        <td width="300">商品番号</td>
+                        <td width="850">変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>商品名</td>
+                        <td>変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>バリエーション１項目名
+                        </td>
+                        <td>変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>バリエーション１選択肢</td>
+                        <td>変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>バリエーション２項目名</td>
+                        <td>変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>バリエーション２選択肢</td>
+                        <td>変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>バリエーション３項目名</td>
+                        <td>変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>バリエーション３選択肢</td>
+                        <td>変更不可</td>
+                      </tr>
+
+                      <tr>
+                        <td>販売価格</td>
+                        <td>変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>販売価格（増税後）</td>
+                        <td>
+                          半角数字で入力します。カンマ「,」は不要です。<br>
+                          未入力にすると、入力した「税率（％）」によって価格を自動計算して設定されます。<br>
+                          ※定期購入・頒布会の商品は 350 円以上から登録可能です。
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>定価
+                        </td>
+                        <td>変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>定価（増税後）
+                        </td>
+                        <td>
+                          半角数字で入力します。カンマ「,」は不要です。<br>
+                          未入力にすると、入力した「税率（％）」によって価格を自動計算して設定されます。
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>セール・予約・初回価格</td>
+                        <td>変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>セール・予約・初回価格（増税後）</td>
+                        <td>
+                          半角数字で入力します。カンマ「,」は不要です。<br>
+                          未入力にすると、入力した「税率（％）」によって価格を自動計算して設定されます。<br>
+                          セール・予約価格は、タイムセール商品か予約販売商品のみ設定できます。<br>
+                          初回価格は、定期購入商品か頒布会商品のみ設定できます。<br>
+                          初回価格が設定されている場合のみ入力できます。<br>
+                          初回価格は、350円以上で入力してください。<br>
+                          初回価格は、販売価格未満で入力してください。
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>個別送料</td>
+                        <td>変更不可</td>
+                      </tr>
+                      <tr>
+                        <td>個別送料（増税後）</td>
+                        <td>
+                          半角数字で入力します。カンマ「,」は不要です。<br>
+                          未入力にすると、入力した「税率（％）」によって価格を自動計算して設定されます。<br>
+                          個別配送設定がされている場合のみ入力できます。
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>非課税商品</td>
+                        <td>「N」　&rarr;　課税対象商品　　「Y」　&rarr;　非課税商品</td>
+                      </tr>
+                      <tr>
+                        <td>税率（％）</td>
+                        <td>
+                          半角数字で入力します。<br>
+                          課税対象商品は「8」または「10」と入力します。非課税商品は「0」と入力します。<br>
+                          １つの商品に関わる設定が複数行ある場合、先頭行の税率が反映されます。
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <div class="btn-center">
+                  <a href="tax_preregister.php" class="btn-square-shadow" target="_blank">商品価格の事前登録はこちらから</a>
+                </div>
+
+              </div>
+            </div>
+
+            <div class="page_break"></div>
+
+          </div>
+
+          <TMPL_IF isDisplayRegular>
+            <div id="tab02">
+              <div class="tax-info mb50">
+                <div class="midashi-m">
+                  <p class="midashi">１、定期購入・頒布会　おまかせ設定を利用する</p>
+                  <p>申込台帳の商品価格を税率８％から１０％に変更し、「現在の金額」から「増税後の金額」を自動計算します。新たに追加された申込データも自動計算されます。</p>
+                </div>
+                <div class="text">
+                  <p class="point_caution">
+                    <img src="images/ico_caution.png" alt=""/>
+                    <br>
+                    「非課税」にしている商品は、「おまかせ設定」の自動計算の対象ではありません。
+                  </p>
+                  <p class="point">税率８％のまま、現在の税込価格を変更しない場合は、おまかせ設定を「利用しない」に設定してください。</p>
+                </div>
+
+                <div id="guide">
+                  <div class="infobox">
+                    <ul>
+                      <li>
+                        <span>１</span>
+                        「おまかせ設定」のタブをクリックします。
+                      </li>
+                      <li>
+                        <span>２</span>
+                        おまかせ設定を「利用する」にチェックします。
+                      </li>
+                      <p class="point_caution" style="margin:0 0 20px 0;">
+                        <img src="images/ico_caution.png" alt=""/>
+                        <br>
+                        税率１０％にして現在の税込価格を据え置く場合は、プルダウンメニューで切り替えが必要です。
+                      </p>
+
+                      <p class="box2 mt20">
+                          <span class="btn-text"><strong>「増税後の税込価格を自動計算する」</strong>を選択<br>
+                          現　在 1,080円（税抜1,000円 消費税80円 税率8％）<br>
+                          増税後 1,100円（税抜1,000円 消費税100円 税率10％）<br>
+                           <br>
+                          <strong>「増税後も現在の税込価格を据え置く」</strong>を選択<br>
+                          現　在 1,188円（税抜1,100円 消費税88円 税率8％）<br>
+                          増税後 1,188円（税抜1,080円 消費税108円 税率10％）<br>
+                          </span>
+                      </p>
+                    </ul>
+                    <span><img src="images/taxinfo17.png" alt="おまかせ設定"></span>
+                    <div style="clear:both;"></div>
+                    <ul>
+                      <li>
+                        <span>３</span>
+                        「設定する」ボタンをクリックします。
+                      </li>
+                      <li>
+                        <span>４</span>
+                        増税後の金額を確認します。
+                      </li>
+                    </ul>
+                    <div style="clear:both;"></div>
+                    <p class="mb20">
+                      <span class="ymarker bold">増税後の欄が黄色になり、</span>
+                      自動計算された税込価格が表示されます。
+                    </p>
+                    <span><img src="images/taxinfo19.png" alt="おまかせ設定"></span>
+                  </div>
+
+                  <div class="infobox">
+                    <ul>
+                      <li>
+                        <span>５</span>
+                        申込番号をクリックすると申込詳細が開きます。
+                      </li>
+                      <li>
+                        <span>６</span>
+                        【現在】と【増税後】の商品価格を確認します。
+                      </li>
+                      <p class="point_caution">
+                        <img src="images/ico_caution.png" alt=""/>
+                        <br>
+                        送料（個別送料も含む）や手数料などは変更されません。
+                        <br>
+                        定期購入・頒布会のおまかせ設定は、申込台帳の「商品価格」に対して、税率８％から１０％に変更する設定です。「商品合計」および「合計金額」も自動計算され、【増税後】の金額が変更されます。
+                      </p>
+                      <p class="box2 mt50">
+                        <span>
+                          <strong>事前登録後の確認方法</strong><br>
+                          後日、増税後の金額を確認する際に、画面下部に商品リストが表示されていない場合は、
+                          「除外設定」のタブから「検索する」ボタンをクリックして確認してください。
+                        </span>
+                      </p>
+                      <br>
+                      <p class="point_caution">
+                        <img src="images/ico_caution.png" alt=""/>
+                        <br>
+                        自動計算の端数処理は、管理画面の「 お店設定＞消費税の設定 」の基本設定に従います。
+                        おまかせ設定後に端数処理を切り替えると金額が変更される場合があります。
+                        <span><img src="images/taxinfo10.png" alt="個別設定" width="315" height="245"></span>
+                      </p>
+                    </ul>
+                    <span><img src="images/taxinfo20.png" alt="おまかせ設定"></span>
+                    <div style="clear:both;"></div>
+                    <p>
+                      <img src="images/ico_caution.png" alt=""/>
+                      <br>
+                      <span class="point bold">増税後の金額が正しいか必ず確認してください。</span>
+                      <br>
+                      登録完了後に、「除外設定」のタブから「検索する」ボタンをクリックして、金額を確認しましょう。
+                    </p>
+                  </div>
+
+
+                  <div class="btn-center">
+                    <a href="tax_preregister_regular.php" class="btn-square-shadow" target="_blank">申込価格の事前登録はこちらから</a>
+                  </div>
+                </div>
+              </div>
+
+              <div class="page_break"></div>
+
+              <div class="tax-info mb50">
+                <div class="midashi-m">
+                  <p class="midashi">２、定期購入・頒布会　除外設定 をする</p>
+                  <p>「おまかせ設定」で、税率８％から１０％に一律で変更した申込データを除外する設定ができます。除外した申込データの商品価格は変更されず税率８％で価格は据え置かれます。 「おまかせ設定」を利用していても、「除外設定」が優先されます。</p>
+                </div>
+
+                <div id="guide">
+                  <div class="infobox">
+                    <ul>
+                      <li>
+                        <span>１</span>
+                        「除外設定」のタブをクリックします。
+                      </li>
+                      <li>
+                        <span>２</span>
+                        　除外したい申込データを検索します。
+                      </li>
+                      <li>
+                        <span>３</span>
+                        　除外する申込番号にチェックを入れます。
+                      </li>
+                      <li>
+                        <span>４</span>
+                        「自動計算の対象リストから除外する」ボタンをクリックします。
+                      </li>
+                      <li>
+                        <span>５</span>
+                        申込データが除外されます。
+                      </li>
+                      <p class="mb20">
+                        <span class="gmarker bold"> 除外した申込データは、背景色がグレーになり、</span>
+                        増税後の金額は非表示になります。現在の金額は変更されません。
+                      </p>
+                    </ul>
+                    <span><img src="images/taxinfo21.png"></span>
+
+                    <div style="clear:both;"></div>
+                    <span><img src="images/taxinfo22.png" alt=""></span>
+                    <p>
+                      <img src="images/ico_caution.png" alt=""/>
+                      <br>
+                      除外設定後に、「おまかせ設定」の画面から申込データをダウンロードして、税率８％の商品が除外されているか確認しておきましょう。
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="btn-center">
+                <a href="tax_preregister_regular.php" class="btn-square-shadow" target="_blank">申込価格の事前登録はこちらから</a>
+              </div>
+
+              <div class="page_break"></div>
+
+              <div class="tax-info mb50">
+                <div class="midashi-m">
+                  <p class="midashi">３、定期購入・頒布会　ＣＳＶファイルを利用して一括で除外する</p>
+                  <p>「おまかせ設定」を利用して、すべての申込データの商品価格を税率１０％に設定した後に、ＣＳＶファイルを利用して、一部の申込データを一括で除外設定ができます。
+                    <br>
+                    除外した申込データの商品価格は変更されず、税率８％で価格は据え置かれます。
+                  </p>
+                </div>
+
+                <div id="guide">
+                  <div class="text">
+                    <img src="images/taxinfo18.png">
+                  </div>
+                  <div class="infobox">
+                    <ul>
+                      <li>
+                        <span>１</span>
+                        管理画面の「お店運営＞申込台帳をみる」を開きます。<br>
+                        <br>
+                        税率８％で税込価格を据え置きたい「商品番号」または「商品名」などで検索条件を指定します。
+                      </li>
+                      <p style="margin:10px 0 20px 20px;">
+                        <img src="images/ico_caution.png" alt=""/>
+                        <br>
+                        期間をクリアして全期間で検索してください。
+                      </p>
+                      <br>
+                      <li>
+                        <span>２</span>
+                        　「検索」ボタンをクリックして除外したい申込を検索結果に表示します。
+                      </li>
+                      <li>
+                        <span>３</span>
+                        　「ダウンロード」ボタンをクリックします。
+                        <br>
+                        「regularOrderList.csv」というファイルで検索結果がダウンロードされます。
+                      </li>
+                      <li>
+                        ＣＳＶファイルを編集して除外リストを作成します。
+                      </li>
+                      <p class="box2 mt50">
+                        <span>
+                          <strong>除外リストの作り方</strong><br>
+                          必要な項目は「申込番号」のみです。
+                        </span><br>
+                        <br>
+                        <img src="images/taxinfo24.png">
+                      </p>
+                    </ul>
+                    <span><img src="images/taxinfo28.png"></span>
+                    <div style="clear:both;"></div>
+                  </div>
+                  <div class="infobox">
+                    <ul>
+                      <li>
+                        <span>４</span>
+                        事前登録画面に戻ります。「除外設定」をクリックします。
+                      </li>
+                      <li>
+                        <span>５</span>
+                        　除外リストＣＳＶファイルを選択します。
+                        <br>
+                      </li>
+                      <li>
+                        <span>６</span>
+                        「アップロード」ボタンをクリックします。
+                        <br>
+                        <br>
+                        除外リストに入力している「申込番号」の申込データが除外されます。
+                      </li>
+                      <li>
+                        <span>７</span>
+                        　申込データが除外されたことを確認します。
+                        <br>
+                        除外した申込データの商品価格は、１０月１日以降、税率8％のまま据え置かれます。
+                      </li>
+                      <p class="box2 mt50">
+                        <span>
+                          <strong>おまかせ設定に戻す方法</strong><br>
+                          申込番号の左横にチェックを入れて、「自動計算の対象リストに戻す」ボタンをクリックしてください。<br>
+                          <img src="images/taxinfo29.png">
+                        </span>
+                      </p>
+                    </ul>
+                    <span><img src="images/taxinfo25.png" width="690" height="589"></span>
+                    <div style="clear:both;"></div>
+                    <p class="mb20">
+                      <span class="gmarker bold"> 除外した申込データは、背景色がグレーになり、</span>
+                      増税後の金額は非表示になります。現在の金額は変更されません。
+                    </p>
+                    <span><img src="images/taxinfo26.png" width="1200" height="419"></span>
+                  </div>
+                  <br>
+                  <div class="infobox">
+                    <ul>
+                      <p class="box2 mt50">
+                        <span>
+                          <strong>申込データをダウンロードする</strong><br>
+                          １０月１日以降に、
+                        </span>
+                        <span>
+                          申込番号ごとの税率が確認できるように、事前登録画面で申込データをダウンロードしておきましょう。 <br>
+                          <br>
+                          <span>「除外設定の申込データ」</span>
+                          をダウンロードすれば、税率８％のまま据え置きしている申込を申込台帳で探すことができます。
+                        </span>
+                      </p>
+                      <br>
+                      <li>
+                        <span>８</span>
+                        「おまかせ設定」をクリックします。
+                      </li>
+                      <li>
+                        <span>９</span>
+                        　申込データをを選択します。
+                      </li>
+                      <li>
+                        <span>10</span>
+                        　「ダウンロード」ボタンをクリックします。
+                        <br>
+                        「RegularOrderPriceList.csv」というファイルがダウンロードされます。
+                      </li>
+                      <li>
+                        <span>11</span>
+                        　税率１０％の「おまかせ設定の申込データ」と税率８％の「除外設定の申込データ」を確認します。
+                      </li>
+                    </ul>
+                    <span><img src="images/taxinfo23.png"></span>
+                    <div style="clear:both;"></div>
+                    <span><img src="images/taxinfo27.png"></span>
+                    <p>
+                      <img src="images/ico_caution.png" alt=""/>
+                      <br>
+                      申込価格の事前登録画面で、税率や商品価格の個別設定はできません。
+                      <br>
+                      除外した申込データの商品価格を変更する場合は、管理画面の「お店運営＞申込台帳をみる＞申込詳細」から１０月１日以降に手動で変更してください。
+                    </p>
+                    <p>
+                      <img src="images/ico_caution.png" alt=""/>
+                      <br>
+                      申込データをダウンロードして、税率８％の商品が除外されているか確認しておきましょう。申込台帳で、税率変更はできません。
+                      <br>
+                      事前登録画面で設定した税率を１０月１日以降に税率変更が必要になった場合は、申込詳細で新しい税率の商品を再登録が必要になります。
+                    </p>
+                  </div>
+
+                  <div class="btn-center">
+                    <a href="tax_preregister_regular.php" class="btn-square-shadow" target="_blank">申込価格の事前登録はこちらから</a>
+                  </div>
+                </div>
+              </div>
+              <div class="page_break"></div>
+            </div>
+          </TMPL_IF>
+        </div>
+
+        <h2>消費税改正の関連情報</h2>
+        <h3>軽減税率制度の実施について</h3>
+        <div class="infobox">
+          <p>２０１９年１０月から、消費税率１０％への引き上げにあわせて
+            「酒類・外食を除く飲食料品」「週２回以上発行で定期購読される新聞」の
+            消費税率を８％とする軽減税率制度が実施されます。</p>
+
+          <p>詳しくは、国税庁のホームページ等をご確認ください。</p>
+          <div class="box3">
+            <p>
+              ○消費税率等の引上げについて（令和元年10月1日〜）<br>
+              <a href="https://www.nta.go.jp/publication/pamph/01.htm#s-link3" target="_blank">
+                https://www.nta.go.jp/publication/pamph/01.htm#s-link3
+              </a>
+            </p>
+
+            <p>
+              ○消費税の軽減税率制度について<br>
+              <a href="https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/index.htm" target="_blank">
+                https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/index.htm
+              </a>
+              <br>
+            </p>
+
+            <p>
+              〇政府広報オンライン：消費税の軽減税率制度<br>
+              <a href="https://www.gov-online.go.jp/tokusyu/keigen_zeiritsu/" target="_blank">
+                https://www.gov-online.go.jp/tokusyu/keigen_zeiritsu/
+              </a>
+            </p>
+          </div>
+        </div>
+
+        <h3>軽減税率に伴う、適格請求書等保存方式（インボイス制度）の実施について</h3>
+        <div class="infobox">
+          <p>
+            消費税改正に伴い、２つの消費税率を把握するために、請求書などに適用税率や税額など記載項目を追加する必要があります。<br>
+            <br>
+            必要な記載項目<br>
+            １、軽減税率の対象品目である旨（記号表示）<br>
+            ２、税率ごとの商品合計<br>
+            ３、登録番号<br>
+            ４、税率ごとの消費税額<br>
+            <br>
+            ２０１９年１０月から２０２３年９月まで実施される「区分記載請求書等保存方式」では、「１、２」の記載項目の追加が必要になり<br>
+            ２０２３年１０月から実施される「適格請求書等保存方式（インボイス制度）」では、「１、２、３、４」の記載項目の追加が必要になります。<br>
+            <br>
+            ショップサーブでは、２０１９年１０月から適格請求書等保存方式の「登録番号」以外は、各種書類（納品書、請求書、領収書）に印刷できるようになります。
+            <br>
+            なお、店舗さんが適格請求書発行事業者の登録申請をして、「登録番号」が取得できるようになるのは、２０２１年の１０月からになります。<br>
+          </p>
+          <p>詳しくは、国税庁のホームページをご確認ください。</p>
+
+          <div class="box3">
+            <p>
+              ○適格請求書等保存方式の導入について<br>
+              <a href="https://www.nta.go.jp/publication/pamph/koho/kurashi/html/01_5.htm" target="_blank">https://www.nta.go.jp/publication/pamph/koho/kurashi/html/01_5.htm</a>
+            </p>
+            <p>
+              ○適格請求書等保存方式の概要<br>
+              <a href="https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/pdf/qa/01-03.pdf" target="_blank">https://www.nta.go.jp/taxes/shiraberu/zeimokubetsu/shohi/keigenzeiritsu/pdf/qa/01-03.pdf</a>
+            </p>
+          </div>
+        </div>
+
+        <h3>新税率が適用されるタイミングについて</h3>
+        <div class="infobox">
+          <p>
+            原則、消費税は商品の引き渡しが行われた時点の税率が適用されます。<br>
+            そのため、２０１９年９月３０日以前に注文を受付しても、商品の発送が１０月１日以降になる場合、新税率１０％が適用されます。<br>
+            しかし、経過措置の要件を満たしていれば、２０１９年１０月１日以前に受付した注文を１０月１日以降に発送しても、旧税率８％が適用されます。
+          </p>
+          <p>ショップサーブは、システムの仕様上、８％から１０％への切り替えは、２０１９年１０月１日になり、新税率の適用は１０月１日の受注からになります。</p>
+          <p>経過措置について詳しくは、国税庁のホームページ、または税務署や税理士さんにご確認ください。</p>
+
+          <div class="box3">
+            <p>
+              ○2019年10月1日以後適用する消費税率等に関する経過措置について（平成30年10月）<br>
+              <a href="https://www.nta.go.jp/publication/pamph/shohi/kaisei/pdf/01.pdf" target="_blank">https://www.nta.go.jp/publication/pamph/shohi/kaisei/pdf/01.pdf</a><br>
+              <br>
+              ○2019年10月1日以後に行われる資産の譲渡等に適用される消費税率等に関する経過措置の取扱いQ&amp;A【基本的な考え方編】（平成30年10月）<br>
+              <a href="https://www.nta.go.jp/publication/pamph/shohi/kaisei/pdf/02.pdf" target="_blank">https://www.nta.go.jp/publication/pamph/shohi/kaisei/pdf/02.pdf</a><br>
+              <br>
+              ○平成31年（2019年）10月1日以後に行われる資産の譲渡等に適用される消費税率等に関する経過措置の取扱いQ&amp;A【具体的事例編】（平成30年10月）<br>
+              <a href="https://www.nta.go.jp/publication/pamph/shohi/kaisei/pdf/03.pdf" target="_blank">https://www.nta.go.jp/publication/pamph/shohi/kaisei/pdf/03.pdf</a>
+            </p>
+          </div>
+        </div>
+
+        <h3>消費税転嫁対策特別措置法について</h3>
+        <div class="infobox">
+          <p>消費税率を引き上げ分の円滑かつ適正な転嫁を目的に、２０１３年１０月１日から消費税転嫁対策特別措置法が施工され、消費税分を値引きする等の宣伝や広告を禁止するなどの特別措置が定められています。
+            特別措置法の期限は、１０％引き上げ時から１年半後の２０２１年３月３１日までとなっています。</p>
+          <p>
+            「消費税還元セール」や「消費税は当店が負担します」「消費税相当分、次回の購入に利用できるポイント付与」など、<br>
+            消費者が消費税を負担しなくていいかのように誤認させる表現はしないようにしましょう。<br>
+            <br>
+            詳しくは、内閣府のホームページをご確認ください。
+          </p>
+          <div class="box3">
+            <p>
+              〇消費税価格転嫁等対策<br>
+              <a href="https://www.cao.go.jp/tenkataisaku/index.html" target="_blank">https://www.cao.go.jp/tenkataisaku/index.html</a>
+            </p>
+          </div>
+        </div>
+
+        <div class="page_break"></div>
+
+        <h2>消費税改正への対応 ＦＡＱ</h2>
+        <div class="infobox mt20">
+          <ul>
+            <li>消費税改正への対応に関するよくあるご質問にお答えします。</li>
+          </ul>
+          <div class="accbox">
+            <!--ラベル1-->
+            <label for="label1">Q1　１０月１日に、消費税率は自動的に税率１０％で価格変更しますか？</label>
+            <input type="checkbox" id="label1" class="cssacc"/>
+            <div class="accshow">
+              <!--ここに隠す中身-->
+              <p>
+                はい。おまかせ設定の<strong>「全ての商品を標準税率１０％にして税込価格を変更する」</strong>に設定を行うと、税率１０％で自動的に価格変更されます。<br>
+                <br>
+                なお、店舗さんが事前登録をしなかった場合も、税率１０％で自動的に価格は変更されますが、事前登録を活用いただき、事前にご自身で増税後の価格に認識の相違がないかご確認いただくことをおすすめします。<br>
+              </p>
+            </div>
+            <!--//ラベル1-->
+            <!--ラベル2-->
+            <label for="label2">Q2　１０月１日以降に、商品価格を変更しない場合、何か設定が必要ですか？</label>
+            <input type="checkbox" id="label2" class="cssacc"/>
+            <div class="accshow">
+              <!--ここに隠す中身-->
+              <p>
+                はい。事前登録画面のおまかせ設定で、<strong>税込価格を据置</strong>する設定を行ってください。税込価格での据置方法は、以下の２つより選択できます。<br>
+                <br>
+                &rArr;　「全ての商品を軽減税率８％対象にする（税込価格は据置）」<br>
+                &rArr;　「全ての商品を税率のみ標準税率１０％にする（税込価格は据置）」<br>
+              </p>
+            </div>
+            <!--//ラベル2-->
+            <!--ラベル3-->
+            <label for="label3">Q3　消費税率を１０％に変更すると、配送料金や決済手数料も増額されますか？</label>
+            <input type="checkbox" id="label3" class="cssacc"/>
+            <div class="accshow">
+              <!--ここに隠す中身-->
+              <p> いいえ。配送料金や決済手数料は、１０月１日以降に店舗さん自身で管理画面より変更してください。
+                <br>
+              </p>
+            </div>
+            <!--//ラベル3-->
+            <!--ラベル4-->
+            <label for="label4">Q4　事前登録できるのは商品価格だけですか？</label>
+            <input type="checkbox" id="label4" class="cssacc"/>
+            <div class="accshow">
+              <!--ここに隠す中身-->
+              <p>
+                はい。商品台帳に反映する以下の項目が事前登録できます。<br><br>
+                事前登録できる項目<br>
+                ・ 税率（8％または10％）<br>
+                ・ 販売価格<br>
+                ・ 定価<br>
+                ・ セール価格<br>
+                ・ 予約価格<br>
+                ・ 定期購入・頒布会の初回価格<br>
+                ・ 頒布会の最終回価格<br>
+                ・ 商品台帳で設定できる個別送料<br>
+                <br>
+                なお、Eストアーリピートを利用している場合は、申込台帳の商品価格も事前登録できます。
+              </p>
+            </div>
+            <!--//ラベル4-->
+            <!--ラベル5-->
+            <label for="label5">Q5　税率１０％と軽減税率８％の商品があります。８％と10％の税率設定はできますか？</label>
+            <input type="checkbox" id="label5" class="cssacc"/>
+            <div class="accshow">
+              <!--ここに隠す中身-->
+              <p>
+                はい。事前登録画面で、８％と10％の税率を選択して設定が可能です。<br>
+                たとえば、「おまかせ設定」で一括で全ての商品を税率10％で価格登録したあとに、「個別設定」で、軽減税率の対象商品のみ税率8％の価格へ登録ができます。<br>
+                <br>
+                なお、税率設定は商品単位での設定になるため、バリエーション単位での設定はできません。
+              </p>
+            </div>
+            <!--//ラベル5-->
+            <!--ラベル6-->
+            <label for="label6">Q6　１０月１日より前に、増税後の価格（税率10％）に変更できますか？</label>
+            <input type="checkbox" id="label6" class="cssacc"/>
+            <div class="accshow">
+              <!--ここに隠す中身-->
+              <p>
+                いいえ。１０月１日より前に、税率10％で価格変更はできません。<br>
+                ショップサーブは、９月３０日以前の価格は旧税率が適用され、１０月１日から新税率が適用されます。<br>
+                <br>
+                なお、商品台帳で増税後の価格へ変更して、事前登録画面のおまかせ設定で「全ての商品を税率のみ１０％にする（税込価格は据置）」に設定はできますが、
+                ９月３０日以前の価格は、税率は８％が適用になるため、９月３０日以前の商品ページ上での税額表示や、受注台帳から発行する請求書や納品書などの表示が税率８％で計算されます。<br>
+                <br>
+              </p>
+            </div>
+            <!--//ラベル6-->
+            <!--ラベル7-->
+            <label for="label7">Q7　消費税改正にともなう臨時メインテナンス中は、どのような文言が表示されますか？</label>
+            <input type="checkbox" id="label7" class="cssacc"/>
+            <div class="accshow">
+              <!--ここに隠す中身-->
+              <p>消費税改正にともなう臨時メインテナンス中は、通常の定期メインテナンスと同様に文言を表示します。<br>
+                <br>
+                ■メインテナンス中に表示される文言<br>
+                <br>
+                アクセスありがとうございます。<br>
+                現在、消費税率の改正に伴い、サーバー提供会社による臨時メインテナンスを実施しております。<br>
+                サービスの再開は１０月１日（火）　午前８：００を予定しております。<br>
+                恐れ入りますが、サービス再開後にアクセスいただけますようお願いいたします。<br>
+                <br>
+                ■臨時メインテナンス日時<br>
+                ２０１９年１０月１日 午前０時〜午前８時<br>
+                <br>
+                ご不便をおかけいたしますが、何卒ご理解くださいますようお願いいたします。<br>
+              </p>
+            </div>
+            <!--//ラベル7-->
+            <!--ラベル8-->
+            <label for="label8">Q8　１０月１日以降も、トップページが税率が8％のままで10％に変更されていません。</label>
+            <input type="checkbox" id="label8" class="cssacc"/>
+            <div class="accshow">
+              <!--ここに隠す中身-->
+              <p>
+                お店ページの更新を行ってください。<br>
+                店舗さんが「お店ページの更新」を行わなければ、お店のトップページにある「新着商品」「おすすめ商品」の商品価格は更新されませんので、ご注意ください。<br>
+                なお、自作トップページの場合は、ご自身で修正が必要です。
+                　
+              </p>
+            </div>
+            <!--//ラベル8-->
+            <!--ラベル9-->
+            <label for="label9">Q9　９月３０日以前の受注分を１０月１日以降に発送します。新税率１０％に変更できますか？</label>
+            <input type="checkbox" id="label9" class="cssacc"/>
+            <div class="accshow">
+              <!--ここに隠す中身-->
+              <p>
+                いいえ。９月３０日以前の受注分を、新税率１０％に変更できません。<br>
+                <br>
+                ショップサーブは、９月３０日以前の受注は旧税率が適用され、１０月１日からの受注より新税率が適用されます。<br>
+                仮に、１０月１日以降の発送分を受注台帳で増税分を追加して消費者への請求金額を変更できたとしても、旧税率の受注分なので請求書などの各種印刷書類などは、税率８％で計算されます。<br>
+              </p>
+            </div>
+            <!--//ラベル9-->
+            <!--ラベル10-->
+            <label for="label10">Q10　お店ページの販売価格の表示を「税込価格」と「税抜価格」と「税額」をすべて表示できますか？</label>
+            <input type="checkbox" id="label10" class="cssacc"/>
+            <div class="accshow">
+              <!--ここに隠す中身-->
+              <p>
+                はい。管理画面の「デザイン設定＞商品詳細ページの設定」で、販売価格の表示パターンより設定ができます。<br>
+                販売価格の表示形式は、以下の７パターンから選択できます。<br>
+                <br>
+                13,200円(税込)<br>
+                13,200円(税抜12,000円)<br>
+                13,200円(税抜12,000円、税1,200円)<br>
+                13,200円(本体12,000円)
+                <br>
+                13,200円(本体12,000円、税1,200円)<br>
+                13,200円(うち税1,200円)<br>
+                12,000円(税込13,200円)<br>
+              </p>
+            </div>
+            <!--//ラベル10-->
+            <!--ラベル11-->
+            <label for="labe11">Q11　「全ての商品を標準税率１０％にして税込価格を変更する」の計算式を教えてください。</label>
+            <input type="checkbox" id="labe11" class="cssacc"/>
+            <div class="accshow">
+              <!--ここに隠す中身-->
+              <p>
+                管理画面の「お店設定＞消費税の設定」の端数処理の設定ごとにご案内します。<br><br>
+
+                <br>
+                ■管理画面で「税込価格」で登録している（端数処理2回）<br>
+                <br>
+                1、税込み価格から税抜き価格を求める ( <strong>税込価格÷1.08=税抜き</strong> )　 &rArr;　店舗さんが設定してる端数処理を行う<br>
+                2、税抜き価格から税込み価格を求める ( <strong>税抜価格&times;1.1=税込み</strong> )　 &rArr;　逆の端数処理を行う<br>
+                <br>
+                <br>
+                切り上げ設定時　&rArr;　2回目は「切り捨て」<br>
+
+                切り捨て設定時　&rArr;　2回目は「切り上げ」<br>
+
+                四捨五入設定時　&rArr;　2回目は「四捨五入」<br>
+                <br>
+                <br>
+                【具体例】<br>
+                税込1000円、税率8％を10%に転嫁した税込価格を求める<br>
+                <br>
+                <br>
+                ・四捨五入<br>
+                <br>
+                1000 ÷ 1.08＝925.9<br>
+                税抜926円（四捨五入）<br>
+                <br>
+                926 × 1.1＝1018.6<br>
+                税込価格1019円（四捨五入）<br>
+                <br>
+                <br>
+                ・切り上げ<br>
+                <br>
+                1000 ÷ 1.08＝925.9<br>
+
+                税抜926円（切り上げ）<br>
+                <br>
+                926　× 1.1＝1018.5<br>
+                税込価格1018円（切り捨て）<br>
+                <br>
+                <br>
+                ・切り捨て<br>
+                <br>
+                1000 ÷ 1.08＝925.9<br>
+                税抜925円（切り捨て）<br>
+                <br>
+                925 × 1.1＝1017.5<br>
+                税込価格1018円（切り上げ）<br>
+                <br>
+                -------------------------------------------<br>
+                <br>
+                ■管理画面で「税抜価格」で登録している（端数処理1回）<br>
+                <br>
+                【具体例】<br>
+                税抜999円を税率10％で税込価格を求める<br>
+                999　× 1.1＝1098.9円<br>
+                <br>
+                ・四捨五入：税込1099円<br>
+
+                ・切り上げ：税込1099円<br>
+
+                ・切り捨て：税込1098円<br>
+
+                <br>
+              </p>
+            </div>
+            <!--//ラベル11-->
+            <!--ラベル12-->
+            <label for="labe12">Q12　「全ての商品を税率のみ標準税率１０％にする（税込価格は据置）」の計算式を教えてください。</label>
+            <input type="checkbox" id="labe12" class="cssacc"/>
+            <div class="accshow">
+              <!--ここに隠す中身-->
+              <p>
+                管理画面の「お店設定＞消費税の設定」の端数処理の設定ごとにご案内します。<br>
+                <br>
+                基本的な計算式は、<strong>税込価格　÷（１ + 税率）＝税抜価格</strong>に端数処理を行います。<br>
+                <br>
+                1、税込み価格から税抜き価格を求める ( 税込み価格　÷ 1.1＝ 税抜き価格 )　 ⇒　店舗さんが設定してる端数処理を行う<br>
+                2、消費税の金額を求める（税込み価格−税抜き価格 ＝ 消費税 ）<br>
+                <br>
+                ※「税抜価格」で登録になっていた場合、税抜価格を求めるときは反対の端数処理をします。<br>
+                <br>
+                <br>
+
+                ■管理画面で「税込価格」で登録している<br>
+                <br><br>
+                ・切り上げ<br>
+                <br>
+                現在　：税込1000円（税抜926円 消費税74円 税率8％）<br>
+                増税後：税込1000円　税率10％<br>
+                <br>
+                1000 ÷ 1.1 ＝ 909.09<br>
+                税抜価格910円（切り上げ）<br>
+                <br>
+                1000-910＝90<br>
+                消費税90円<br>
+                <br>
+                <br>
+                ・切り捨て<br>
+                <br>
+                現在　：税込1000円（税抜925円 消費税75円 税率8％）<br>
+                増税後：税込1000円　税率10％<br>
+                <br>
+                1000 ÷ 1.1=909.09<br>
+                税抜909円（切り捨て）<br>
+                <br>
+                1000-909＝91<br>
+                消費税91円<br>
+                <br>
+                <br>
+                ・四捨五入<br>
+                <br>
+                現在　：税込1000円（税抜926円 消費税74円 税率8％）
+                <br>
+                増税後：税込1000円　税率10％<br>
+                <br>
+                1000 ÷ 1.1=909.09<br>
+                税抜909円（四捨五入）<br>
+                <br>
+                1000-909＝91<br>
+                消費税91円<br>
+                <br>
+                -------------------------------------------<br>
+                <br>
+
+                ■管理画面で「税抜価格」で登録している<br>
+                <br>
+
+                ・切り上げ<br>
+                <br>
+                現在：税込2000円（税抜1851円 消費税149円 税率8％）<br>
+                増税後：税込2000円　税率10％<br>
+                <br>
+                2000 ÷ 1.1=1818.18<br>
+                税抜1818円（切り捨て）　※反対の端数処理<br>
+                <br>
+                2000-1818＝182<br>
+                消費税182円<br>
+                <br>
+                <br>
+                ・切り捨て<br>
+                <br>
+                現在：税込1000円（税抜926円 消費税74円 税率8％）<br>
+                <br>
+                増税後：税込1000円　税率10％<br>
+                <br>
+                1000 ÷ 1.1=909.09<br>
+                税抜910円（切り上げ）　※反対の端数処理<br>
+                <br>
+                1000-910＝90<br>
+                消費税90円<br>
+                <br>
+                <br>
+                ・四捨五入<br>
+                <br>
+                現在：税込1000円（税抜926円 消費税74円 税率8％）<br>
+                <br>
+                増税後：税込1000円　税率10％<br>
+                <br>
+                1000 ÷ 1.1=909.09<br>
+                税抜909円（四捨五入）<br>　
+                <br>
+                1000-909＝91<br>
+                消費税91円<br>
+              </p>
+            </div>
+            <!--//ラベル12-->
+            <!--ラベル13-->
+            <label for="label13">Q13　ほとんどが標準税率１０％ですが、一部の対象商品を税率８％にします。一括で登録できますか？</label>
+            <input type="checkbox" id="label13" class="cssacc"/>
+            <div class="accshow">
+              <!--ここに隠す中身-->
+              <p>はい。
+                おまかせ設定で全商品10％にした後に、CSVによる一括登録で、対象商品のみ8％の税率に金額設定できます。</p>
+              <p>ここでは、簡単に登録できる方法をご案内します。<br>
+                <br>
+                <br>
+                （１）「おまかせ設定」で、「全ての商品を標準税率１０％にして税込価格を変更する」に設定します。<br>
+                <br>
+                （２）「個別設定」で、店舗さんが税率８％にしたい商品を検索結果に表示してCSVでダウンロードします。<br>
+                <br>
+                ■ダウンロードするデータ形式<br>
+                商品データの場合&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rArr;&nbsp;&nbsp;「現在の金額のみ」<br>
+                バリエーションデータの場合&nbsp;　&nbsp;&rArr;&nbsp;「現在のバリエーション金額のみ」<br>
+                <br>
+                （３）CSVを開き編集します。<br>
+                <br>
+                税率（％）&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rArr;　　「8」と入力します（バリエーションデータの場合、各商品の先頭行に入力する必要があります。）<br>
+                増税後の金額&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&rArr;　　 未入力にします<br>
+                <br>
+                （４）編集済みCSVファイルをアップロードします。登録完了するまでしばらくお待ちください。<br>
+                <br>
+                （５）登録完了後、「増税後の金額」を確認します。<br>
+                <br>
+                （６）必ず正しい金額が設定されているか確認してください。<br>
+              </p>
+            </div>
+            <!--//ラベル13-->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--▼footer▼-->
+    <div id="footer">
+      <script type="text/javascript">
+        <!--
+        var date = new Date();
+        var year = date.getYear();
+        if (year < 2000) {
+          year += 1900;
+        }
+        document.write('Copyright &copy; ' + year + ' Estore Corporation. All Rights Reserved.');
+        //-->
+      </script>
+    </div>
+    <!--▲footer▲-->
+    <div class="pagetop">▲</div>
+  </body>
+</html>

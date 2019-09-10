@@ -1,0 +1,132 @@
+<script language="JavaScript">
+<!--
+function delImageID_1()
+{
+   document.form1.PICSRC_1.src = '../imgs/spc.gif';
+   document.form1.ImageID_1.value = '';
+   document.form1.ImageURL_1.value = '';
+}
+function delImageID_2()
+{
+   document.form1.PICSRC_2.src = '../imgs/spc.gif';
+   document.form1.ImageID_2.value = '';
+   document.form1.ImageURL_2.value = '';
+}
+function delImageID_3()
+{
+   document.form1.PICSRC_3.src = '../imgs/spc.gif';
+   document.form1.ImageID_3.value = '';
+   document.form1.ImageURL_3.value = '';
+}
+function delImageID_4()
+{
+   document.form1.PICSRC_4.src = '../imgs/spc.gif';
+   document.form1.ImageID_4.value = '';
+   document.form1.ImageURL_4.value = '';
+}
+function delImageID_5()
+{
+   document.form1.PICSRC_5.src = '../imgs/spc.gif';
+   document.form1.ImageID_5.value = '';
+   document.form1.ImageURL_5.value = '';
+}
+function prourl(v)
+{
+   document.form1.eid.value = v;
+   window.open('../func100/product_list.cgi','product','width=100,height=100,scrollbars=yes,resizable=no');
+}
+//-->
+</script>
+<form name="form1" method="post" action="freelink.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#F39700">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">リンクの設定を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/freelink.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                        <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  バナーなどを使った画像リンクを設定します。(5個まで)<br>
+                                  設定後、[設定を保存する]ボタンをクリックし、管理画面左上の[お店ページの更新へ]ボタンをクリックします。<br><br>
+                                  <a href="../func04/topdesign_sps.cgi">⇒お店ページでのリンクの表示位置、表示・非表示の設定</a><br>
+                                </div>
+                                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td>
+
+        <TMPL_LOOP NAME=freelink_list>
+                                  <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+          <tr align="center">
+            <td colspan="2" class="item-name02">リンクの設定<TMPL_VAR NAME=mid></td>
+          </tr>
+
+          <tr>
+                <td class="item-name">テキスト&nbsp;
+                </td>
+              <td class="item">
+                          <input name="comment_<TMPL_VAR NAME=id>" type="text" class="def-line" value="<TMPL_VAR name=comment>">
+              </td>
+          </tr>
+          <tr>
+              <td class="item-name">URL&nbsp;</td>
+
+              <td class="item">
+                  <input name="href_<TMPL_VAR NAME=id>" type="text" class="def-line" value="<TMPL_VAR name=href>"><br>
+                  <input type="button" value="商品ページURL挿入" onClick="prourl('href_<TMPL_VAR NAME=id>');">
+              </td>
+          </tr>
+          <tr>
+              <td class="item-name">表示形式&nbsp;</td>
+              <td class="item">
+                                                <select name="nwin_<TMPL_VAR NAME=id>">
+                                                        <TMPL_IF name=nwin>
+                                                                <option value="0">同ウィンドウ</option>
+                                                                <option selected value="1">別ウィンドウ</option>
+                                                        <TMPL_ELSE>
+                                                                <option selected value="0">同ウィンドウ</option>
+                                                                <option value="1">別ウィンドウ</option>
+                                                        </TMPL_IF>
+                                                                </select>
+              </td>
+          </tr>
+          <tr>
+              <td class="item-name">画像</td>
+
+              <td class="item">
+              <input type="button" name="Submit" value="画像挿入..." onClick="document.form1.dimg.value=<TMPL_VAR NAME=mid>;window.open('../func100/selsize.cgi','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">
+              <input type="button" name="Submit" value="画像削除" onClick="delImageID_<TMPL_VAR NAME=mid>();">
+      <a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a>
+              <br>
+              <br>
+                        <img src="<TMPL_VAR NAME=durl>" name="PICSRC_<TMPL_VAR NAME=mid>"> <br>
+                                        <input type="hidden" name="ImageURL_<TMPL_VAR NAME=mid>" value="<TMPL_VAR NAME=url>">
+                                        <input type="hidden" name="ImageID_<TMPL_VAR NAME=mid>" value="">
+                                </td>
+                </tr>
+                </table>
+            <br>
+            
+        </TMPL_LOOP>
+      </td>
+                                </tr>
+                              </table>
+                              
+                              <div style="text-align:center"><input name="set" type="submit" id="set" value="設定を保存する"></div>
+                              
+                              </td>
+                            </tr>
+                        </table>
+<input type="hidden" name="dimg" value="">
+<input name="mode" type="hidden" value="regist">
+<input name="eid" type="hidden">
+</form>

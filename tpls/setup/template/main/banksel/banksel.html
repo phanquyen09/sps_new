@@ -1,0 +1,120 @@
+<link href="css/banksel.css" rel="stylesheet" type="text/css">
+<script language=JavaScript>
+<!--
+function bank_b(val1, val2) {
+  document.form1.CMD.value = val1;
+  document.form1.BANK_INITIAL.value = val2;
+  document.form1.submit();
+//-->
+}
+
+</script>
+<form name="form1" action="banksel.cgi" method="POST">
+<input type="hidden" name="CMD" value="">
+<input type="hidden" name="BANK_INITIAL" value="">
+<div align="center">
+<br>
+<br>
+<table cellSpacing=0 cellPadding=0 width=530 border=0>
+  <tr>
+    <td>
+    <table cellSpacing=0 cellPadding=0 border=0>
+      <tr>
+        <td width="550">
+          <img align="left" height=22 src="./imgs/m_ticon.gif" width=14 vspace=7>
+          <img align="left" height=21 alt="銀行名　選択" hspace=7 src="./imgs/at_041.gif" width=400 vspace=6>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <img height=1 src="./imgs/m_b_hr.gif" width=550 vspace=2>
+        </td>
+      </tr>
+    </table>
+    </td>
+  </tr>
+</table>
+<br>
+<table width=550 height="104" border=0 cellPadding=0 cellSpacing=0>
+  <tr>
+    <td align="left" height="20" bgcolor="#ddecfb">
+      <strong>　■銀行名の頭文字を選択</strong>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td bgcolor="#666666">
+    <table width="100%" border="0">
+      <tr align="center" bgcolor="#DDECFB">
+        <td><a href="javascript:bank_b('bank', 'A');">ア</a></td>
+        <td><a href="javascript:bank_b('bank', 'KA');">カ</a></td>
+        <td><a href="javascript:bank_b('bank', 'SA');">サ</a></td>
+        <td><a href="javascript:bank_b('bank', 'TA');">タ</a></td>
+        <td><a href="javascript:bank_b('bank', 'NA');">ナ</a></td>
+        <td><a href="javascript:bank_b('bank', 'HA');">ハ</a></td>
+        <td><a href="javascript:bank_b('bank', 'MA');">マ</a></td>
+        <td><a href="javascript:bank_b('bank', 'YA');">ヤ</a></td>
+        <td><a href="javascript:bank_b('bank', 'RA');">ラ</a></td>
+        <td><a href="javascript:bank_b('bank', 'WA');">ワ</a></td>
+      </tr>
+      <tr align="center" bgcolor="#DDECFB">
+        <td><a href="javascript:bank_b('bank', 'I');">イ</a></td>
+        <td><a href="javascript:bank_b('bank', 'KI');">キ</a></td>
+        <td><a href="javascript:bank_b('bank', 'SI');">シ</a></td>
+        <td><a href="javascript:bank_b('bank', 'TI');">チ</a></td>
+        <td><a href="javascript:bank_b('bank', 'NI');">ニ</a></td>
+        <td><a href="javascript:bank_b('bank', 'HI');">ヒ</a></td>
+        <td><a href="javascript:bank_b('bank', 'MI');">ミ</a></td>
+        <td><a href="javascript:bank_b('bank', 'YU');">ユ</a></td>
+        <td><a href="javascript:bank_b('bank', 'RI');">リ</a></td>
+        <td></td>
+      </tr>
+      <tr align="center" bgcolor="#DDECFB" >
+        <td><a href="javascript:bank_b('bank', 'U');">ウ</a></td>
+        <td><a href="javascript:bank_b('bank', 'KU');">ク</a></td>
+        <td><a href="javascript:bank_b('bank', 'SU');">ス</a></td>
+        <td><a href="javascript:bank_b('bank', 'TU');">ツ</a></td>
+        <td><a href="javascript:bank_b('bank', 'NU');">ヌ</a></td>
+        <td><a href="javascript:bank_b('bank', 'HU');">フ</a></td>
+        <td><a href="javascript:bank_b('bank', 'MU');">ム</a></td>
+        <td><a href="javascript:bank_b('bank', 'YO');">ヨ</a></td>
+        <td><a href="javascript:bank_b('bank', 'RU');">ル</a></td>
+        <td>ン</td>
+      </tr>
+      <tr align="center" bgcolor="#DDECFB" >
+        <td><a href="javascript:bank_b('bank', 'E');">エ</a></td>
+        <td><a href="javascript:bank_b('bank', 'KE');">ケ</a></td>
+        <td><a href="javascript:bank_b('bank', 'SE');">セ</a></td>
+        <td><a href="javascript:bank_b('bank', 'TE');">テ</a></td>
+        <td><a href="javascript:bank_b('bank', 'NE');">ネ</a></td>
+        <td><a href="javascript:bank_b('bank', 'HE');">ヘ</a></td>
+        <td><a href="javascript:bank_b('bank', 'ME');">メ</a></td>
+        <td bgcolor="#CCCCCC">&nbsp;</td>
+        <td><a href="javascript:bank_b('bank', 'RE');">レ</a></td>
+        <td bgcolor="#CCCCCC">&nbsp;</td>
+      </tr>
+      <tr align="center" bgcolor="#DDECFB" >
+        <td><a href="javascript:bank_b('bank', 'O');">オ</a></td>
+        <td><a href="javascript:bank_b('bank', 'KO');">コ</a></td>
+        <td><a href="javascript:bank_b('bank', 'SO');">ソ</a></td>
+        <td><a href="javascript:bank_b('bank', 'TO');">ト</a></td>
+        <td><a href="javascript:bank_b('bank', 'NO');">ノ</a></td>
+        <td><a href="javascript:bank_b('bank', 'HO');">ホ</a></td>
+        <td><a href="javascript:bank_b('bank', 'MO');">モ</a></td>
+        <td bgcolor="#CCCCCC">&nbsp;</td>
+        <td><a href="javascript:bank_b('bank', 'RO');">ロ</a></td>
+        <td bgcolor="#CCCCCC">&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+  </table>
+<br>
+
+<img height=30 src="./imgs/spc.gif" width=5>
+<input onClick='window.close();' type="button" value="閉じる">
+</div>
+</form>
+
+

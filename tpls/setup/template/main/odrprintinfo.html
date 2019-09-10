@@ -1,0 +1,888 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<meta name="format-detection" content="telephone=no">
+<script type="text/javascript" src="../js/custom_ui/jquery/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../js/custom_ui/jquery/plugin/jquery.cookie.js"></script>
+<title>注文詳細</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<style type="text/css">
+<!--
+.def_box {
+    font-size:56%;
+    color:#333333;
+    padding:1px 0px 0px 2px;
+    border-collapse:collapse;
+}
+
+.bdr_t1 {
+    border-bottom:1px solid #000000;
+}
+
+.bdr_t2 {
+    border-top:1px solid #000000;
+    border-right:1px solid #000000;
+    border-bottom:1px solid #000000;
+    border-left:1px solid #000000;
+}
+
+.bdr_b1 {
+    border-bottom:1px solid #000000;
+    border-left:1px solid #000000;
+}
+
+.bdr_b2 {
+    border-right:1px solid #000000;
+    border-bottom:1px solid #000000;
+    border-left:1px solid #000000;
+}
+.bdr_b3 {
+    border-left:1px solid #000000;
+}
+
+.cl {
+        page-break-before:always;
+}
+ ul.option_style {
+    list-style: none;
+    padding:0;
+    margin:0;
+}
+
+ul.option_style li {
+    padding-left: 1em;
+    text-indent: -0.9em;
+}
+
+ul.option_style li:before {
+    content: "└ ";
+}
+.odr-body tr:not(:nth-child(0)) ~ tr:not(:last-child) td{ /* ファーストとラスト以外のTR */
+    border-bottom:none;
+    border-top:none;
+}
+.odr-body tr:last-child td{ /* ラストTRのTDのBORDER-TOPを消す */
+    border-top:none;
+}
+.odr-body tr td:nth-child(4),.odr-body tr td:nth-child(5){ /* 数量、 小計の縦方向を上端揃えにする */
+    vertical-align:top;
+}
+.border-none-bottom {
+    border-bottom:none;
+}
+@media print {
+  .header-guide { 
+    display: none !important; 
+  }
+}
+.header-guide {
+  background: none repeat scroll 0 0 #eee;
+  color: #666;
+  font-size: 0.8em;
+  line-height: 1.4;
+  padding: 1em;
+  width: 100%;
+}
+-->
+</style>
+<script type="text/javascript">
+  $(document).ready(function(){
+    var selectFontSize   = $.cookie("SELECT_FONTSIZE");
+    $("#font_size option").each(function(){
+      if($(this).val() == selectFontSize){
+        $("#font_size").val($(this).val());
+        changeFontSize();
+      }
+    });
+  });
+
+  function changeFontSize() {
+    var defaultFontSize = 56;
+    var fontSize = parseInt($("#font_size").val()) + defaultFontSize + '%';
+
+    $(".def_box").each(function(){
+      $(this).css("fontSize", fontSize); 
+    });
+
+    $.cookie("SELECT_FONTSIZE", $("#font_size").val(), {});
+  }
+</script>
+</head>
+<body text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<div class="header-guide">
+  ※このグレーのエリアは印刷されません。<br>
+  文字サイズ：
+  <select id="font_size" onChange="changeFontSize();">
+    <option value="0" selected>100%</option>
+    <option value="25">125%</option>
+    <option value="50">150%</option>
+  </select>
+</div>
+<TMPL_LOOP NAME=mainloop>
+<TMPL_IF disp_oya>
+<table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan="2">
+      <!-- 注文番号 -->
+      <div class="def_box" style="float:left">注文番号：<TMPL_VAR NAME=pub_order_no></div>
+      <!-- 印刷日 -->
+      <div align="right" class="def_box">印刷日：<TMPL_VAR NAME=today></div>
+      <br>
+      <!-- 注文内容 -->
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="def_box">
+        <tr>
+      <td colspan="6" class="bdr_t1">注文内容</td>
+    </tr>
+        <tr align="center" bgcolor="#CCCCCC">
+          <td width="10%" class="bdr_b1">商品番号</td>
+          <td width="40%" class="bdr_b1"><TMPL_VAR NAME=cart_itm_name></td>
+          <td width="15%" class="bdr_b1"><TMPL_VAR NAME=cart_prc_name></td>
+          <td width="8%" class="bdr_b1"><TMPL_VAR NAME=cart_cnt_name></td>
+          <td width="15%" class="bdr_b2"><TMPL_VAR NAME=cart_subttl_name></td>
+        </tr>
+  <TMPL_LOOP NAME=itemlist>
+      <TMPL_IF opt_list>
+      <TBODY class="odr-body">
+      <tr>
+          <td rowspan="<TMPL_VAR NAME=opt_rowspan>" align="center" class="bdr_b1"><TMPL_VAR NAME=item_no><TMPL_IF existsBranchNo>（<TMPL_VAR NAME=branch_no>）</TMPL_IF></td>
+          <td class="bdr_b3"><TMPL_VAR NAME=item_name></td>
+          <td align="right" class="bdr_b3"><TMPL_VAR NAME=item_prc>円</td>
+          <td rowspan="<TMPL_VAR NAME=opt_rowspan>" align="right" class="bdr_b1"><TMPL_VAR NAME=item_cnt></td>
+          <td rowspan="<TMPL_VAR NAME=opt_rowspan>" align="right" class="bdr_b2"><TMPL_VAR NAME=item_tal>円</td>
+        </tr>
+       <TMPL_LOOP NAME=opt_list>
+       <tr>
+          <td class="bdr_b1"><ul class="option_style"><li><TMPL_VAR NAME=option_display_name>:<TMPL_VAR NAME=option_choice_name></li></ul></td>
+          <td class="bdr_b1" align="right"><TMPL_VAR NAME=option_prc></td>
+        </tr>
+      </TMPL_LOOP>
+      </TBODY>
+      <TMPL_ELSE>
+      <tr>
+          <td align="center" class="bdr_b1"><TMPL_VAR NAME=item_no><TMPL_IF existsBranchNo>（<TMPL_VAR NAME=branch_no>）</TMPL_IF></td>
+          <td class="bdr_b1"><TMPL_VAR NAME=item_name></td>
+          <td align="right" class="bdr_b1"><TMPL_VAR NAME=item_prc>円</td>
+          <td align="right" class="bdr_b1"><TMPL_VAR NAME=item_cnt></td>
+          <td align="right" class="bdr_b2"><TMPL_VAR NAME=item_tal>円</td>
+        </tr>
+      </TMPL_IF>
+
+
+  </TMPL_LOOP>
+<TMPL_IF disp_bundle_discount_price>
+        <tr>
+          <td colspan="4" align="right" class="bdr_b1">まとめ割引</td>
+          <td align="right" class="bdr_b2">-<TMPL_VAR NAME=bundle_discount_price>円</td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF disp_rank_discount_price>
+        <tr>
+          <td colspan="4" align="right" class="bdr_b1"><TMPL_VAR NAME=cart_members_discount_name></td>
+          <td align="right" class="bdr_b2">-<TMPL_VAR NAME=rank_discount_price>円</td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF disp_volume_discount_price>
+        <tr>
+          <td colspan="4" align="right" class="bdr_b1"><TMPL_VAR NAME=volume_discount_name ESCAPE=HTML></td>
+          <td align="right" class="bdr_b2">-<TMPL_VAR NAME=volume_discount_price>円</td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF disp_coupon_discount_price>
+        <tr>
+          <td colspan="4" align="right" class="bdr_b1">クーポン割引（<TMPL_VAR NAME=coupon_name>）</td>
+          <td align="right" class="bdr_b2">-<TMPL_VAR NAME=coupon_discount_price>円</td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF disp_discount_price>
+        <tr>
+          <td colspan="4" align="right" class="bdr_b1"><TMPL_VAR NAME=discount_name></td>
+          <td align="right" class="bdr_b2"><TMPL_VAR NAME=disp_discount_price></td>
+        </tr>
+</TMPL_IF>
+        <tr>
+          <td colspan="4" align="right" class="bdr_b1"><TMPL_VAR NAME=cart_itmttl_name></td>
+          <td align="right" class="bdr_b2"><TMPL_VAR NAME=disp_subtotal></td>
+        </tr>
+<TMPL_IF pointS>
+        <tr>
+          <td colspan="4" align="right" class="bdr_b1">ポイント利用</td>
+          <td align="right" class="bdr_b2">-<TMPL_VAR NAME=disp_used_point></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF schargeon>
+        <tr>
+          <td colspan="4" align="right" class="bdr_b1"><TMPL_VAR NAME=cart_scharge_name></td>
+          <td align="right" class="bdr_b2"><TMPL_VAR NAME=disp_scharge></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF wrapon>
+        <tr>
+          <td colspan="4" align="right" class="bdr_b1"><TMPL_VAR NAME=cart_wrap_name></td>
+          <td align="right" class="bdr_b2"><TMPL_VAR NAME=disp_wrap></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF feeon>
+<TMPL_IF disp_fee>
+        <tr>
+          <td colspan="4" align="right" class="bdr_b1"><TMPL_VAR NAME=cart_commission_name></td>
+          <td align="right" class="bdr_b2"><TMPL_VAR NAME=disp_fee></td>
+        </tr>
+</TMPL_IF>
+</TMPL_IF>
+<TMPL_IF pointT>
+        <tr>
+          <td colspan="4" align="right" class="bdr_b1">ポイント利用</td>
+          <td align="right" class="bdr_b2">-<TMPL_VAR NAME=disp_used_point></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF adjuston>
+        <tr>
+          <td colspan="4" align="right" class="bdr_b1"><TMPL_VAR NAME=adjust_name></td>
+          <td align="right" class="bdr_b2"><TMPL_VAR NAME=disp_adjust>円</td>
+        </tr>
+</TMPL_IF>
+        <tr>
+          <td colspan="4" align="right" class="bdr_b1"><TMPL_VAR NAME=cart_total_name></td>
+          <td align="right" class="bdr_b2"><TMPL_VAR NAME=disp_total>円</td>
+        </tr>
+      </table>
+      <!-- 金額の注意書き -->
+      <div align="right" class="def_box">（表示金額は全て税込みです）</div>
+
+<TMPL_IF disp_continue_gift>
+      <!-- 継続特典 -->
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="def_box">
+        <tr>
+          <td colspan="2" class="bdr_t1">継続特典</td>
+        </tr>
+<TMPL_IF disp_continue_gift_price_title>
+        <tr>
+          <td width="30%" bgcolor="#CCCCCC" class="bdr_b1">価格割引</td>
+          <td width="70%" class="bdr_b2">&nbsp;<TMPL_VAR NAME=continue_gift_price_title></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF disp_continue_gift_point_title>
+        <tr>
+          <td width="30%" bgcolor="#CCCCCC" class="bdr_b1">ポイントプレゼント</td>
+          <td width="70%" class="bdr_b2">&nbsp;<TMPL_VAR NAME=continue_gift_point_title><TMPL_VAR NAME=point_unit></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF disp_continue_gift_combine_title>
+        <tr>
+          <td width="30%" bgcolor="#CCCCCC" class="bdr_b1">同梱物</td>
+          <td width="70%" class="bdr_b2">&nbsp;<TMPL_VAR NAME=continue_gift_combine_title></td>
+        </tr>
+</TMPL_IF>
+      </table>
+      <br>
+</TMPL_IF>
+
+      <!-- 注文者 -->
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="def_box">
+        <tr>
+          <td colspan="2" class="bdr_t1">注文者情報</td>
+        </tr>
+<TMPL_IF p_ord_company_disp>
+        <tr>
+          <td width="30%" bgcolor="#CCCCCC" class="bdr_b1">法人名・団体名</td>
+          <td width="70%" class="bdr_b2">&nbsp;<TMPL_VAR NAME=p_company></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF p_ord_compkana_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">法人名・団体名（かな）</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=p_company_kana></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF p_ord_division_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">部署名</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=p_division></td>
+        </tr>
+</TMPL_IF>
+        <tr>
+          <td width="30%" bgcolor="#CCCCCC" class="bdr_b1">お名前</td>
+          <td width="70%" class="bdr_b2">&nbsp;<TMPL_VAR NAME=p_lname><TMPL_VAR NAME=p_fname></td>
+        </tr>
+<TMPL_IF p_ord_namekana_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">お名前（かな）</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=p_lname_kana><TMPL_VAR NAME=p_fname_kana></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF p_ord_zip_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">郵便番号</td>
+    <TMPL_IF global_order>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=p_zip1></td>
+    <TMPL_ELSE>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=p_zip1>-<TMPL_VAR NAME=p_zip2></td>
+    </TMPL_IF>
+        </tr>
+</TMPL_IF>
+<TMPL_IF p_ord_addr_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">ご住所</td>
+    <TMPL_IF global_order>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=p_addr2><TMPL_IF p_addr3>,&nbsp;<TMPL_VAR NAME=p_addr3></TMPL_IF>,&nbsp;<TMPL_VAR NAME=p_addr1></td>
+    <TMPL_ELSE>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=p_pref><TMPL_VAR NAME=p_addr1><TMPL_VAR NAME=p_addr2>　<TMPL_VAR NAME=p_addr3></td>
+    </TMPL_IF>
+        </tr>
+</TMPL_IF>
+<TMPL_IF p_ord_tel_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">電話番号</td>
+    <TMPL_IF global_order>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=p_tel1></td>
+    <TMPL_ELSE>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=p_tel1>-<TMPL_VAR NAME=p_tel2>-<TMPL_VAR NAME=p_tel3></td>
+    </TMPL_IF>
+        </tr>
+</TMPL_IF>
+<TMPL_IF p_ord_fax_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">FAX番号</td>
+    <TMPL_IF global_order>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=p_fax1></td>
+    <TMPL_ELSE>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=p_fax1>-<TMPL_VAR NAME=p_fax2>-<TMPL_VAR NAME=p_fax3></td>
+    </TMPL_IF>
+        </tr>
+</TMPL_IF>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">メールアドレス</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=p_mail></td>
+        </tr>
+<TMPL_IF p_ord_bikou_disp><TMPL_IF p_free_comment>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1"><TMPL_VAR NAME=p_free_title></td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=p_free_comment></td>
+        </tr>
+</TMPL_IF></TMPL_IF>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">会員ID</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=member_acc></td>
+        </tr>
+<TMPL_IF rank_name>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">ランク名</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=rank_name></td>
+        </tr>
+</TMPL_IF>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">購入回数</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=p_count>&nbsp;回</td>
+        </tr>
+  <TMPL_LOOP NAME=p_enqlist>
+        <tr>
+          <td width="30%" bgcolor="#CCCCCC" class="bdr_b1"><TMPL_VAR NAME=enq></td>
+          <td width="70%" class="bdr_b2">&nbsp;<TMPL_VAR NAME=ans></td>
+        </tr>
+  </TMPL_LOOP>
+        <tr>
+          <td width="30%" bgcolor="#CCCCCC" class="bdr_b1">メモ</td>
+          <td width="70%" class="bdr_b2">&nbsp;<TMPL_VAR NAME=p_comment></td>
+        </tr>
+<TMPL_IF tsn_conf_disp><TMPL_IF free_title>
+        <tr>
+          <td width="30%" bgcolor="#CCCCCC" class="bdr_b1"><TMPL_VAR NAME=free_title></td>
+          <td width="70%" class="bdr_b2">&nbsp;<TMPL_VAR NAME=free_comment></td>
+        </tr>
+</TMPL_IF></TMPL_IF>
+      </table>
+      <br>
+<TMPL_IF multi>
+<!-- 届け先 -->
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="def_box">
+        <tr>
+          <td colspan="2" class="bdr_t1">お届け先情報</td>
+        </tr>
+  <TMPL_LOOP dlvstloop>
+        <tr>
+          <td width="30%" bgcolor="#CCCCCC" class="bdr_b1">お届け先<TMPL_VAR NAME=m_num></td>
+          <td width="70%" class="bdr_b2">[&nbsp;<TMPL_VAR NAME=mshipst>&nbsp;]&nbsp;<TMPL_VAR NAME=m_lname><TMPL_VAR NAME=m_fname>&nbsp;<TMPL_VAR NAME=m_addr></td>
+        </tr>
+  </TMPL_LOOP>
+      </table>
+      <br>
+</TMPL_IF>
+<TMPL_UNLESS multi>
+  <TMPL_LOOP dlvlist>
+      <!-- 届け先 -->
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="def_box">
+        <tr>
+          <td colspan="2" class="bdr_t1">お届け先情報</td>
+        </tr>
+<TMPL_IF d_ord_company_disp>
+        <tr>
+          <td width="30%" bgcolor="#CCCCCC" class="bdr_b1">法人名・団体名</td>
+          <td width="70%" class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_company></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_compkana_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">法人名・団体名（かな）</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_company_kana></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_division_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">部署名</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_division></td>
+        </tr>
+</TMPL_IF>
+        <tr>
+          <td width="30%" bgcolor="#CCCCCC" class="bdr_b1">お名前</td>
+          <td width="70%" class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_lname><TMPL_VAR NAME=d_fname></td>
+        </tr>
+<TMPL_IF d_ord_namekana_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">お名前（かな）</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_lname_kana><TMPL_VAR NAME=d_fname_kana></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_zip_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">郵便番号</td>
+    <TMPL_IF d_global_order>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_zip1></td>
+    <TMPL_ELSE>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_zip1>-<TMPL_VAR NAME=d_zip2></td>
+    </TMPL_IF>
+        </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_addr_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">ご住所</td>
+    <TMPL_IF d_global_order>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_addr2><TMPL_IF d_addr3>,&nbsp;<TMPL_VAR NAME=d_addr3></TMPL_IF>,&nbsp;<TMPL_VAR NAME=d_addr1></td>
+    <TMPL_ELSE>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_pref><TMPL_VAR NAME=d_addr1><TMPL_VAR NAME=d_addr2><TMPL_IF d_addr3>　<TMPL_VAR NAME=d_addr3></TMPL_IF>
+          <TMPL_IF NAME=is_delivery_cvs_order><TMPL_VAR NAME=cvs_store_name></TMPL_IF></td>
+    </TMPL_IF>
+        </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_tel_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">電話番号</td>
+    <TMPL_IF d_global_order>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_tel1></td>
+    <TMPL_ELSE>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_tel1>-<TMPL_VAR NAME=d_tel2>-<TMPL_VAR NAME=d_tel3></td>
+    </TMPL_IF>
+        </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_fax_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">FAX番号</td>
+    <TMPL_IF d_global_order>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_fax1></td>
+    <TMPL_ELSE>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_fax1>-<TMPL_VAR NAME=d_fax2>-<TMPL_VAR NAME=d_fax3></td>
+    </TMPL_IF>
+        </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_bikou_disp><TMPL_IF d_free_comment>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1"><TMPL_VAR NAME=d_free_title></td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_free_comment></td>
+        </tr>
+</TMPL_IF></TMPL_IF>
+<TMPL_LOOP NAME=d_enqlist>
+        <tr>
+          <td width="30%" bgcolor="#CCCCCC" class="bdr_b1">&nbsp;<TMPL_VAR NAME=enq></td>
+          <td width="70%" class="bdr_b2">&nbsp;<TMPL_VAR NAME=ans></td>
+        </tr>
+</TMPL_LOOP>
+        <tr>
+          <td width="30%" bgcolor="#CCCCCC" class="bdr_b1">メモ</td>
+          <td width="70%" class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_comment></td>
+        </tr>
+      </table>
+      <br>
+      <!-- 届け先 -->
+<TMPL_IF danowp_disp>
+      <table width="100%" border="0" cellpadding="0" cellspacing="0" class="def_box">
+        <tr>
+          <td colspan="2" class="bdr_t1">お届け情報</td>
+        </tr>
+<TMPL_IF recv_date_disp>
+        <tr>
+          <td width="30%" bgcolor="#CCCCCC" class="bdr_b1">お届け希望日</td>
+          <td width="70%" class="bdr_b2">&nbsp;<TMPL_VAR NAME=recv_date_sw_disp><TMPL_VAR NAME=dlv_date><TMPL_IF disp_space>&nbsp;&nbsp;</TMPL_IF><TMPL_VAR NAME=recv_date_time></td>
+        </tr>
+  <TMPL_IF recv_ngday_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1"><TMPL_VAR NAME=recv_other_name></td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=recv_ngday></td>
+        </tr>
+  </TMPL_IF>
+</TMPL_IF>
+<TMPL_IF nosi_dispon>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1"><TMPL_VAR NAME=wrap_nosi_name>&nbsp;</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=wrap_nosi_val></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF wrap_dispon>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1"><TMPL_VAR NAME=wrap_wrap_name>&nbsp;</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=wrap_wrap_val></td>
+        </tr>
+</TMPL_IF>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">配送業者&nbsp;</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=deliv_trader_name></td>
+        </tr>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">お問い合わせ番号&nbsp;</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=deliv_number></td>
+        </tr>
+      </table>
+</TMPL_IF>
+      <br>
+  </TMPL_LOOP>
+</TMPL_UNLESS>
+      <!--注文情報-->
+    </td>
+  </tr>
+  <tr valign="top">
+    <td width="50%">
+      <table width="98%" border="0" align="left" cellpadding="0" cellspacing="0" class="def_box">
+        <tr>
+          <td colspan="2" class="bdr_t1">注文情報</td>
+        </tr>
+        <tr>
+          <td width="35%" bgcolor="#CCCCCC" class="bdr_b1">注文日時</td>
+          <td width="65%" class="bdr_b2"><TMPL_VAR NAME=order_date></td>
+        </tr>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">フォルダ</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=folder_str></td>
+        </tr>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">注文経路</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=siten_name></td>
+        </tr>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">決済方法</td>
+          <td class="bdr_b2"><TMPL_VAR NAME=pm_str></td>
+        </tr>
+<TMPL_IF delivery_name_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">お届け方法</td>
+          <td class="bdr_b2"><TMPL_VAR NAME=delivery_name ESCAPE=HTML></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF coupon_name_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">ご利用クーポン</td>
+          <td class="bdr_b2"><TMPL_VAR NAME=coupon_name></td>
+        </tr>
+</TMPL_IF>
+      </table>
+    </td>
+    <td width="50%">
+      <table width="98%" border="0" align="right" cellpadding="0" cellspacing="0" class="def_box">
+        <tr>
+          <td colspan="2" class="bdr_t1">&nbsp;</td>
+        </tr>
+        <tr>
+          <td width="35%" bgcolor="#CCCCCC" class="bdr_b1">送信済メール</td>
+          <td width="65%" class="bdr_b2">&nbsp;
+            <TMPL_IF mail_con>&nbsp;確認&nbsp;</TMPL_IF>
+            <TMPL_IF mail_rec> <TMPL_IF mail_con>／</TMPL_IF> &nbsp;入金&nbsp; </TMPL_IF>
+            <TMPL_IF mail_sen> <TMPL_IF mail_con>／<TMPL_ELSE><TMPL_IF mail_rec>／</TMPL_IF></TMPL_IF> &nbsp;発送&nbsp; </TMPL_IF>
+          </td>
+        </tr>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">確認</td>
+          <td class="bdr_b2"><TMPL_VAR NAME=cond_str></td>
+        </tr>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">決済依頼</td>
+          <td class="bdr_b2"><TMPL_VAR NAME=settle_st></td>
+        </tr>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">入金</td>
+          <td class="bdr_b2"><TMPL_VAR NAME=recv_str></td>
+        </tr>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">発送</td>
+          <td class="bdr_b2"><TMPL_VAR NAME=ship_str></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</TMPL_IF>
+<br>
+<TMPL_IF multi>
+  <TMPL_LOOP dlvlist>
+<!-- 改ページ -->
+<TMPL_IF mpage><div style="page-break-before:always"></TMPL_IF>
+<table width="600" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td colspan="2">
+        <div align="center" class="def_box">【お届け先<TMPL_VAR NAME=d_num>】</div>
+        <div style="clear:both;"></div>
+      <!-- 注文番号 -->
+        <div class="def_box" style="float:left">注文番号：<TMPL_VAR NAME=pub_order_no>-<TMPL_VAR NAME=d_num></div>
+        <!-- 印刷日 -->
+        <div align="right" class="def_box">印刷日：<TMPL_VAR NAME=today></div>
+        <br>
+        <!-- 注文内容 -->
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="def_box">
+        <tr>
+      <td colspan="6" class="bdr_t1">注文内容</td>
+    </tr>
+          <tr align="center" bgcolor="#CCCCCC">
+            <td width="10%" class="bdr_b1">商品番号</td>
+            <td width="40%" class="bdr_b1"><TMPL_VAR NAME=cart_itm_name></td>
+            <td width="15%" class="bdr_b1"><TMPL_VAR NAME=cart_prc_name></td>
+            <td width="8%" class="bdr_b1"><TMPL_VAR NAME=cart_cnt_name></td>
+            <td width="15%" class="bdr_b2"><TMPL_VAR NAME=cart_subttl_name></td>
+          </tr>
+  <TMPL_LOOP NAME=dlvitemlist>
+  <TMPL_IF opt_list>
+  <TBODY class="odr-body">
+      <tr>
+          <td rowspan="<TMPL_VAR NAME=opt_rowspan>" align="center" class="bdr_b1"><TMPL_VAR NAME=d_item_no><TMPL_IF existsBranchNo>（<TMPL_VAR NAME=d_branch_no>）</TMPL_IF></td>
+          <td class="bdr_b1 border-none-bottom"><TMPL_VAR NAME=d_item_name></td>
+          <td align="right" class="bdr_b1 border-none-bottom"><TMPL_VAR NAME=d_item_prc>円</td>
+          <td rowspan="<TMPL_VAR NAME=opt_rowspan>" align="right" class="bdr_b1"><TMPL_VAR NAME=d_item_cnt></td>
+          <td rowspan="<TMPL_VAR NAME=opt_rowspan>" align="right" class="bdr_b2"><TMPL_VAR NAME=d_item_tal>円</td>
+        </tr>
+       <TMPL_LOOP NAME=opt_list>
+       <tr class="border-none">
+          <td class="bdr_b1"><ul class="option_style"><li><TMPL_VAR NAME=option_display_name>:<TMPL_VAR NAME=option_choice_name></li></ul></td>
+          <td class="bdr_b1" align="right"><TMPL_VAR NAME=option_prc></td>
+        </tr>
+     </TMPL_LOOP>
+     </TBODY>
+      <TMPL_ELSE>
+      <tr>
+          <td align="center" class="bdr_b1"><TMPL_VAR NAME=d_item_no><TMPL_IF existsBranchNo>（<TMPL_VAR NAME=d_branch_no>）</TMPL_IF></td>
+          <td class="bdr_b1"><TMPL_VAR NAME=d_item_name></td>
+          <td align="right" class="bdr_b1"><TMPL_VAR NAME=d_item_prc>円</td>
+          <td align="right" class="bdr_b1"><TMPL_VAR NAME=d_item_cnt></td>
+          <td align="right" class="bdr_b2"><TMPL_VAR NAME=d_item_tal>円</td>
+        </tr>
+  </TMPL_IF>
+  </TMPL_LOOP>
+          <tr>
+            <td colspan="4" align="right" class="bdr_b1"><TMPL_VAR NAME=cart_itmttl_name></td>
+            <td align="right" class="bdr_b2"><TMPL_VAR NAME=d_disp_subtotal></td>
+          </tr>
+<TMPL_IF d_schargeon>
+          <tr>
+            <td colspan="4" align="right" class="bdr_b1"><TMPL_VAR NAME=cart_scharge_name></td>
+            <td align="right" class="bdr_b2"><TMPL_VAR NAME=d_disp_scharge></td>
+          </tr>
+</TMPL_IF>
+<TMPL_IF d_wrapon>
+          <tr>
+            <td colspan="4" align="right" class="bdr_b1"><TMPL_VAR NAME=cart_wrap_name></td>
+            <td align="right" class="bdr_b2"><TMPL_VAR NAME=d_disp_wrap></td>
+          </tr>
+</TMPL_IF>
+          <tr>
+            <td colspan="4" align="right" class="bdr_b1"><TMPL_VAR NAME=cart_total_name></td>
+            <td align="right" class="bdr_b2"><TMPL_VAR NAME=d_disp_total></td>
+          </tr>
+        </table>
+        <!-- 金額の注意書き -->
+        <div align="right" class="def_box">（表示金額は全て税込みです）</div>
+        <!-- 届け先 -->
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="def_box">
+        <tr>
+          <td colspan="2" class="bdr_t1">お届け先情報</td>
+        </tr>
+<TMPL_IF d_ord_company_disp>
+        <tr>
+          <td width="30%" bgcolor="#CCCCCC" class="bdr_b1">法人名・団体名</td>
+          <td width="70%" class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_company></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_compkana_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">法人名・団体名（かな）</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_company_kana></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_division_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">部署名</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_division></td>
+        </tr>
+</TMPL_IF>
+        <tr>
+          <td width="30%" bgcolor="#CCCCCC" class="bdr_b1">お名前</td>
+          <td width="70%" class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_lname><TMPL_VAR NAME=d_fname></td>
+        </tr>
+<TMPL_IF d_ord_namekana_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">お名前（かな）</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_lname_kana><TMPL_VAR NAME=d_fname_kana></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_zip_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">郵便番号</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_zip1>-<TMPL_VAR NAME=d_zip2></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_addr_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">ご住所</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_pref><TMPL_VAR NAME=d_addr1><TMPL_VAR NAME=d_addr2>　<TMPL_VAR NAME=d_addr3></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_tel_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">電話番号</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_tel1>-<TMPL_VAR NAME=d_tel2>-<TMPL_VAR NAME=d_tel3></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_fax_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">FAX番号</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_fax1>-<TMPL_VAR NAME=d_fax2>-<TMPL_VAR NAME=d_fax3></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_bikou_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1"><TMPL_VAR NAME=d_free_title></td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_free_comment></td>
+        </tr>
+</TMPL_IF>
+<TMPL_LOOP NAME=d_enqlist>
+          <tr>
+            <td width="30%" bgcolor="#CCCCCC" class="bdr_b1">&nbsp;<TMPL_VAR NAME=enq></td>
+            <td width="70%" class="bdr_b2">&nbsp;<TMPL_VAR NAME=ans></td>
+          </tr>
+</TMPL_LOOP>
+          <tr>
+            <td width="30%" bgcolor="#CCCCCC" class="bdr_b1">メモ</td>
+            <td width="70%" class="bdr_b2">&nbsp;<TMPL_VAR NAME=d_comment></td>
+          </tr>
+        </table>
+        <br>
+        <!-- 届け先 -->
+<TMPL_IF danowp_disp>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0" class="def_box">
+          <tr>
+            <td colspan="2" class="bdr_t1">お届け情報</td>
+          </tr>
+<TMPL_IF recv_date_disp>
+          <tr>
+            <td width="30%" bgcolor="#CCCCCC" class="bdr_b1">お届け希望日</td>
+            <td width="70%" class="bdr_b2">&nbsp;<TMPL_VAR NAME=recv_date_sw_disp><TMPL_VAR NAME=dlv_date><TMPL_IF disp_space>&nbsp;&nbsp;</TMPL_IF><TMPL_VAR NAME=recv_date_time></td>
+          </tr>
+  <TMPL_IF recv_ngday_disp>
+          <tr>
+            <td bgcolor="#CCCCCC" class="bdr_b1"><TMPL_VAR NAME=recv_other_name></td>
+            <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=recv_ngday></td>
+          </tr>
+  </TMPL_IF>
+</TMPL_IF>
+  <TMPL_IF nosi_dispon>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1"><TMPL_VAR NAME=wrap_nosi_name></td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=wrap_nosi_val></td>
+        </tr>
+  </TMPL_IF>
+  <TMPL_IF wrap_dispon>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1"><TMPL_VAR NAME=wrap_wrap_name></td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=wrap_wrap_val></td>
+        </tr>
+  </TMPL_IF>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">配送業者&nbsp;</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=deliv_trader_name></td>
+        </tr>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">お問い合わせ番号&nbsp;</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=deliv_number></td>
+        </tr>
+        </table>
+</TMPL_IF>
+        <br>
+
+        <!--注文情報-->
+  </tr>
+  <tr valign="top">
+    <td width="50%">
+      <table width="98%" border="0" align="left" cellpadding="0" cellspacing="0" class="def_box">
+        <tr>
+          <td colspan="2" class="bdr_t1">注文情報</td>
+        </tr>
+        <tr>
+          <td width="35%" bgcolor="#CCCCCC" class="bdr_b1">注文日時</td>
+          <td width="65%" class="bdr_b2"><TMPL_VAR NAME=order_date></td>
+        </tr>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">フォルダ</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=folder_str></td>
+        </tr>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">注文経路</td>
+          <td class="bdr_b2">&nbsp;<TMPL_VAR NAME=siten_name></td>
+        </tr>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">決済方法</td>
+          <td class="bdr_b2"><TMPL_VAR NAME=pm_str></td>
+        </tr>
+<TMPL_IF delivery_name_disp>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">お届け方法</td>
+          <td class="bdr_b2"><TMPL_VAR NAME=delivery_name ESCAPE=HTML></td>
+        </tr>
+</TMPL_IF>
+      </table>
+    </td>
+    <td width="50%">
+      <table width="98%" border="0" align="right" cellpadding="0" cellspacing="0" class="def_box">
+        <tr>
+          <td colspan="2" class="bdr_t1">&nbsp;</td>
+        </tr>
+        <tr>
+          <td width="35%" bgcolor="#CCCCCC" class="bdr_b1">送信済メール</td>
+          <td width="65%" class="bdr_b2">&nbsp;</td>
+        </tr>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">確認</td>
+          <td class="bdr_b2"><TMPL_VAR NAME=cond_str></td>
+        </tr>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">決済依頼</td>
+          <td class="bdr_b2"><TMPL_VAR NAME=settle_st></td>
+        </tr>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">入金</td>
+          <td class="bdr_b2"><TMPL_VAR NAME=recv_str></td>
+        </tr>
+        <tr>
+          <td bgcolor="#CCCCCC" class="bdr_b1">発送</td>
+          <td class="bdr_b2"><TMPL_VAR NAME=ship_str></td>
+        </tr>
+    </table>
+    </td>
+  </tr>
+</table>
+<br>
+<!-- 改ページ -->
+  </TMPL_LOOP>
+</TMPL_IF>
+<!-- 改ページ -->
+<TMPL_IF page><DIV CLASS="cl"><br></DIV></TMPL_IF>
+</TMPL_LOOP>
+<br>
+<br>
+<img src="../func00/click_logger.php?type=PRNT_SQ9" alt="" />
+</body>
+</html>

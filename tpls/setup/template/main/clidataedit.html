@@ -1,0 +1,185 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title><TMPL_VAR NAME=ServName>管理画面</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="default01.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+<script src="odrdata-tmpl.js" type="text/javascript"></script>
+<style type="text/css">
+<!--
+.style3 {color: #0B8C36}
+.style2 {color: #9F4000}
+.style4 {color: #1B8951}
+-->
+</style>
+</head>
+<body <TMPL_VAR NAME=ONLOAD>>
+<form action="clidata-save.cgi" method="POST" name="csvTmpl">
+  <a name="top"></a>
+  <div style="font-size:80%">
+  <table width="680"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="left">
+        <div class="midashi02">■データ書式編集</div>
+        <br><font color="#FF0000"><TMPL_VAR NAME=errmsg></font>
+        <table class="item-box">
+          <tr align="center">
+            <td colspan="2" class="item-name02">データ書式</td>
+          </tr>
+          <tr>
+            <td class="odritem-name">テンプレート名 <TMPL_VAR NAME=errmark></td>
+            <td class="odritem">
+              <input name="tmplTtl" type="text" value="<TMPL_VAR NAME=title>" size="60">
+            </td>
+          </tr>
+          <tr>
+            <td class="odritem-name">項目のカスタマイズ</td>
+            <td class="odritem">
+              
+              <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td align="center" nowrap class="bl12"><b>［顧客データの項目一覧］<br>
+                    </b>
+                    <select name="csvoutBase" size="20" style="width:190px;" multiple>
+                    <TMPL_UNLESS item1><TMPL_UNLESS item1><option value="1">会員ID</option></TMPL_UNLESS></TMPL_UNLESS>
+                    <TMPL_UNLESS item2><option value="2">メールアドレス</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item29><option value="29">携帯アドレス（第2連絡先）</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item3><option value="3">法人名・団体名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item4><option value="4">法人名団体名（かな）</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item5><option value="5">部署名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item6><option value="6">お名前姓</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item7><option value="7">お名前名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item8><option value="8">お名前姓（かな）</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item9><option value="9">お名前名（かな）</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item10><option value="10">郵便番号</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item11><option value="11">都道府県</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item12><option value="12">市区郡ID</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item13><option value="13">町村字番地</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item14><option value="14">建物名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item15><option value="15">お電話番号</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item16><option value="16">FAX番号</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item17><option value="17">お知らせメール</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item18><option value="18">アンケート１</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item19><option value="19">アンケート２</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item20><option value="20">アンケート３</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item21><option value="21">アンケート４</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item22><option value="22">アンケート５</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item23><option value="23">最終注文日</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item24><option value="24">登録日</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item25><option value="25">保有ポイント</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item26><option value="26">商品番号</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item27><option value="27">大カテゴリ</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item28><option value="28">小カテゴリ</option></TMPL_UNLESS>
+                    </select>
+                  </td>
+                  <td>
+                    <input type="button" name="btnAdd" value="追加→" onClick="addData(document.csvTmpl.csvoutBase,document.csvTmpl.csvout);">
+                    <br>
+                    <br>
+                    <input type="button" name="btnDel" value="←削除" onClick="delData(document.csvTmpl.csvout,document.csvTmpl.csvoutBase);">
+                  </td>
+                  <td align="center" nowrap class="bl12"><b>［ダウンロードする項目］<br>
+                    </b>
+                    <select name="csvout" size="20" style="width:190px;" multiple>
+<TMPL_LOOP printlist>
+                    <option value="<TMPL_VAR NAME=itemid>"><TMPL_VAR NAME=title></option>
+</TMPL_LOOP>
+                    </select>
+                  </td>
+                  <td>
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td align="center">
+                          <input type="button" name="btn_top" value="最上段へ" onClick="moveUpDn(document.csvTmpl.csvout, 1,-1);">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td align="center">
+                          <input type="button" name="btn_u5" value="５つ上へ" onClick="moveUpDn(document.csvTmpl.csvout, 1, 5);">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td align="center">
+                          <input type="button" name="btn_u5" value="１つ上へ" onClick="moveUpDn(document.csvTmpl.csvout, 1, 1);">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td align="center">
+                          <input type="button" name="btn_d5" value="１つ下へ" onClick="moveUpDn(document.csvTmpl.csvout, 2, 1);">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td align="center">
+                          <input type="button" name="btn_u5" value="５つ下へ" onClick="moveUpDn(document.csvTmpl.csvout, 2, 5);">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td align="center">
+                          <input type="button" name="btn_bottom" value="最下段へ" onClick="moveUpDn(document.csvTmpl.csvout, 2,-1);">
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+              
+            </td>
+          </tr>
+          
+        </table>
+        <div align="center"> </div>
+        <br>
+        <hr size="1">
+        <br>
+        <div align="center">
+        <input type="button" name="Submit" value="設定を保存する" onClick="dispData()">
+        &nbsp;
+        <input type="button" name="Submit" value="閉じる" onClick="window.close()">
+        </div>
+        <br>
+        <a href="#top"><span class="return-top">[▲] トップへ戻る</span></a><br>
+      </td>
+    </tr>
+  </table>
+  </div>
+</form>
+<!-- Begin POST FORM -->
+<form action="clidata-save.cgi" method="POST" name="POSTCsvTmpl">
+<input type="hidden" name="tmplSelect" value="">
+<input type="hidden" name="tmplTtl" value="">
+<input type="hidden" name="tmplID" value="<TMPL_VAR NAME=csvid>">
+<input type="hidden" name="tmplWMode" value="">
+</form>
+<!-- End POST FORM -->
+</body>
+</html>
+

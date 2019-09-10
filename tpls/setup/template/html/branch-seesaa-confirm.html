@@ -1,0 +1,78 @@
+                                        	<tr>
+                                             		<td align="left" class="item-name">交換について</td>
+                                               		<td align="left" class="item"> 
+                                               			<TMPL_VAR name=INFO_KOUKAN>
+                                              			</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name">販売価格</td>
+                                               		<td align="left" class="item">
+                                               			<TMPL_VAR name=INFO_KAKAKU>
+                                               			</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name">お届け方法</td>
+                                               		<td align="left" class="item"> 
+                                               			<TMPL_VAR name=INFO_RECV>
+                                               		</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name">お届け時間帯の指定</td>
+                                               		<td align="left" class="item">
+                                               			
+                                                        <TMPL_IF name=INFO_RECVTIME>
+                                               			<label for="time02">時間帯の指定を受け付ける</label><br>
+                                                                <TMPL_VAR name=INFO_TIME>
+                                                        <TMPL_ELSE>
+                                               			<label for="time01">時間帯の指定を受け付けない</label>
+                                                        </TMPL_IF>
+                                               			</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name">発送以前のキャンセル</td>
+                                               		<td align="left" class="item">
+                                               			<TMPL_VAR name=INFO_CANCEL>
+                                               			</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name">プライバシーポリシー</td>
+                                               		<td align="left" class="item">
+                                               			<TMPL_VAR name=INFO_PRIVACY>
+                                              			</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name">ホスト名：アカウント名</td>
+                                               		<td align="left" class="item"> http://
+                                                		<TMPL_VAR name=HOSTNAME>
+			.seesaa.net </td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name">ID：メールアドレス</td>
+                                               		<td align="left" class="item">
+                                               			<TMPL_VAR name=ACCMAIL>
+                                               			</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name">パスワード</td>
+                                               		<td align="left" class="item">
+                                               			<TMPL_VAR name=PASSWORD>
+                                               			</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name">ショップ名</td>
+                                               		<td align="left" class="item">
+                                               			<TMPL_VAR name=SITENAME>
+                                               			</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name">ショップ名（ヨミガナ）</td>
+                                               		<td align="left" class="item">
+                                               			<TMPL_VAR name=SITENAMEKANA>
+                                               			</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name">ショップ説明</td>
+                                               		<td align="left" class="item"> 
+                                               			<TMPL_VAR name=SITEDESC>
+                                              			</td>
+                                              		</tr>

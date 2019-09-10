@@ -1,0 +1,153 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<form name="MEMINFO" method="POST" action="memsystem.cgi">
+<input type="hidden" name="CMD" value="EDT">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0093C9">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">会員機能とポイントの基本設定を行います</td>
+<td align="right" class="midashi"><a href="<TMPL_VAR NAME=Manual>func03/point.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  お店の会員機能と、会員に対して発行するポイントの設定をします。<br>
+                                  会員になることで、ショッピングカートでの住所入力の手間が省け、便利にお買い物できます。<br>
+                                  また、ポイントシステムは購入者様にリピート購入を促すうえで、非常に効果的です。<br>
+                                </div>
+<TMPL_LOOP ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                    <tr align="center">
+                                      <td colspan="2" class="item-name02">利用状況</td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">会員機能</td>
+                                      <td align="center" class="item"><font color="#FF0000"><strong><TMPL_IF MEMUSENOW>利用中<TMPL_ELSE>停止中</TMPL_IF></strong></font></td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">ポイント</td>
+                                      <td align="center" class="item"><font color="#FF0000"><strong><TMPL_IF POINTUSENOW>利用中<TMPL_ELSE>停止中</TMPL_IF></strong></font></td>
+                                    </tr>
+                                  </table>
+                                    <br>
+                                    <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                      <tr align="center">
+                                        <td colspan="2" class="item-name02">会員機能とポイントの基本設定</td>
+                                      </tr>
+                                      <tr>
+                                        <td class="item-name">会員機能</td>
+                                        <td class="item">
+					    <TMPL_IF MEMUSE>
+					    <input name="MemberUse" type="radio" value="Y" id="member01" checked>
+					    <label for="member01">会員機能を利用する</label>
+					    <br>
+					    <input name="MemberUse" type="radio" value="N" id="member02">
+					    <label for="member02">会員機能を利用しない</label>
+					    <TMPL_ELSE>
+					    <input name="MemberUse" type="radio" value="Y" id="member01">
+					    <label for="member01">会員機能を利用する</label>
+					    <br>
+					    <input name="MemberUse" type="radio" value="N" id="member02" checked>
+					    <label for="member02">会員機能を利用しない</label>
+					    </TMPL_IF>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="item-name">ポイント</td>
+                                        <td class="item">
+					    <TMPL_IF POINTUSE>
+					    <input name="PointUse" type="radio" value="Y" id="point01" checked>
+					    <label for="point01">ポイントを利用する</label>
+					    <br>
+					    <input name="PointUse" type="radio" value="N" id="point02">
+					    <label for="point02">ポイントを利用しない</label>
+					    <TMPL_ELSE>
+					    <input name="PointUse" type="radio" value="Y" id="point01">
+					    <label for="point01">ポイントを利用する</label>
+					    <br>
+					    <input name="PointUse" type="radio" value="N" id="point02" checked>
+					    <label for="point02">ポイントを利用しない</label>
+					    </TMPL_IF>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="item-name">会員登録</td>
+                                        <td class="item">
+					    <TMPL_IF PERMITMEMADD>
+					    <input name="PermitMemAdd" type="radio" value="Y" id="mem_reg01" checked>
+					    <label for="mem_reg01">ログインページでの会員登録を許可する</label>
+					    <br>
+					    <input name="PermitMemAdd" type="radio" value="N" id="mem_reg02">
+					    <label for="mem_reg02">ログインページでの会員登録を許可しない</label>
+					    <TMPL_ELSE>
+					    <input name="PermitMemAdd" type="radio" value="Y" id="mem_reg01">
+					    <label for="mem_reg01">ログインページでの会員登録を許可する</label>
+					    <br>
+					    <input name="PermitMemAdd" type="radio" value="N" id="mem_reg02" checked>
+					    <label for="mem_reg02">ログインページでの会員登録を許可しない</label>
+					    </TMPL_IF>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="item-name">新規会員へのポイント発行</td>
+                                        <td class="item">
+					    <input name="Share" type="radio" value="N" id="newmem01" <TMPL_IF NOSHARE>checked</TMPL_IF>> 
+                                            <label for="newmem01">新規会員にポイントを発行しない</label>
+                                            <br>
+					    <input name="Share" type="radio"value="Y"  id="newmem02" <TMPL_IF SHAREPOINTY>checked</TMPL_IF>>
+                                            <label for="newmem02">新規会員に</label>
+                                            <input name="SharePoint" type="text" value="<TMPL_VAR NAME=SHAREPOINT>" style="ime-mode:disabled">
+					    <label for="newmem02">ポイント発行する</label>
+                                        </td>
+                                      </tr>
+<!--店舗評価二次工事追加ここから-->
+                                      <tr>
+                                        <td class="item-name">コメント投稿時のポイント発行</td>
+                                        <td class="item">
+                                            <input name="Comment" type="radio" value="N" id="comment01" <TMPL_IF NOCOMMENT>checked</TMPL_IF>>
+                                            <label for="comment01">コメント投稿時にポイントを発行しない</label>
+                                            <br>
+                                            <input name="Comment" type="radio"value="Y"  id="comment02" <TMPL_IF COMMENTPOINTY>checked</TMPL_IF>>
+                                            <label for="comment02">コメント投稿時に</label>
+                                            <input name="CommentPoint" type="text" value="<TMPL_VAR NAME=COMMENTPOINT>" style="ime-mode:disabled">
+                                            <label for="comment02">ポイント発行する</label>
+                                        </td>
+                                      </tr>
+<!--店舗評価二次工事追加ここまで-->
+<!--購入履歴表示切替-->
+                                      <tr>
+                                        <td class="item-name">購入履歴の表示・非表示</td>
+                                        <td class="item">
+                                            <input name="OrderHistoryDisp" type="radio" value="Y" id="history01" <TMPL_IF HISTORYDISPY>checked</TMPL_IF>>
+                                            <label for="history01">マイページに購入履歴を表示する</label>
+                                            <br>
+                                            <input name="OrderHistoryDisp" type="radio" value="N" id="history02" <TMPL_IF HISTORYDISPN>checked</TMPL_IF>>
+                                            <label for="history02">マイページに購入履歴を表示しない</label>
+                                        </td>
+                                      </tr>
+<!--購入履歴表示切替-->
+                                      <tr>
+                                        <td class="item-name">会員規約</td>
+                                        <td class="item"><textarea name="Regulation" rows="20" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=REGULATION></textarea>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                    <br/>
+                                    
+                                    <div align="center"><input name="set" type="button" id="set" value="設定を保存する" onClick='document.MEMINFO.submit();'></div>
+                                    
+                                    </td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+</form>

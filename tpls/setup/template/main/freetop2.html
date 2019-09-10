@@ -1,0 +1,121 @@
+<script type="text/javascript">
+<!--
+function regist1() {
+    window.document.form1.mode.value="regist";
+    document.form1.v.value=1;
+    window.document.form1.submit();
+}
+
+function regist2() {
+    window.document.form1.mode.value="regist";
+    document.form1.v.value=2;
+    window.document.form1.submit();
+}
+
+function regist3() {
+    window.document.form1.mode.value="regist";
+    document.form1.v.value=3;
+    window.document.form1.submit();
+}
+//-->
+</script>
+<form name="form1" method="post" action="freetop2.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#F39700">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">センター用フリーエリアの更新を行います</td>
+<td align="right" class="midashi"><a href="<TMPL_VAR NAME=Manual>func02/free.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+<div align="right"><a href="freetop.cgi">HTML版</a></div>
+                <TMPL_VAR NAME=err>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                        <tr>
+                                          <td colspan="2" align="center" class="item-name02">センター用フリーエリア1</td>
+                                        </tr>
+
+                                        <tr>
+                                          <td class="item-name">見出し</td>
+                                          <td class="item"><input name="title1" type="text" class="def-line" value="<TMPL_VAR NAME=title1>">
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">内容 </td>
+                                          <td class="item">
+                                              <textarea name="body1" id="ta1" rows="10" style="width:455px" wrap="VIRTUAL" class="def-line"><TMPL_VAR escape=html NAME=body1></textarea>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td colspan="2" align="center" class="item02"><input onClick="regist1();" name="set" type="button" id="set" value="設定を保存する">
+                                          </td>
+                                        </tr>
+                                      </table>
+
+                                      <br>
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                        <tr>
+                                          <td colspan="2" align="center" class="item-name02">センター用フリーエリア2</td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">見出し</td>
+                                          <td class="item"><input name="title2" type="text" class="def-line" value="<TMPL_VAR NAME=title2>">
+
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">内容 </td>
+                                          <td class="item">
+                                              <textarea name="body2" id="ta2" rows="10" style="width:455px" wrap="VIRTUAL" class="def-line"><TMPL_VAR escape=html NAME=body2></textarea>
+                                          </td>
+                                        </tr>
+
+                                        <tr>
+                                          <td colspan="2" align="center" class="item02"><input onClick="regist2();" name="set" type="button" id="set" value="設定を保存する">
+                                          </td>
+                                        </tr>
+                                      </table>
+                                      <br>
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                        <tr>
+                                          <td colspan="2" align="center" class="item-name02">センター用フリーエリア3</td>
+
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">見出し</td>
+                                          <td class="item"><input name="title3" type="text" class="def-line" value="<TMPL_VAR NAME=title3>">
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">内容 </td>
+
+                                          <td class="item">
+                                              <textarea name="body3" id="ta3" rows="10" style="width:455px" wrap="VIRTUAL" class="def-line"><TMPL_VAR escape=html NAME=body3></textarea>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td colspan="2" align="center" class="item02"><input onClick="regist3();" name="set" type="button" id="set" value="設定を保存する">
+                                          </td>
+                                        </tr>
+
+                                      </table>
+                                      <br></td></tr>
+                              </table></td>
+                            </tr>
+                        </table>
+                      </td>
+                    </tr>
+<input name="dimg" type="hidden" value="">
+<input name="mode" type="hidden" value="regist">
+<input name="v" type="hidden" value="">
+</form>

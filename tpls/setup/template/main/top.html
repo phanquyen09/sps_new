@@ -1,0 +1,928 @@
+<style type="text/css">
+  @keyframes chartRotate1 {
+    100% {
+      transform: rotate(<TMPL_VAR NAME="DEGREE">deg);
+    }
+  }
+  .donut-chart.chart .quad.one {
+    transform: rotate(<TMPL_VAR NAME="DEGREE">deg);
+    <TMPL_IF NAME=CHART_ROTATE_1>
+    display: block;
+    </TMPL_IF>
+  }
+  .donut-chart.chart .quad.two {
+    <TMPL_IF NAME=CHART_ROTATE_2>
+    display: block;
+    </TMPL_IF>
+  }
+  .donut-chart.chart .quad.three {
+    <TMPL_IF NAME=CHART_ROTATE_3>
+    display: block;
+    </TMPL_IF>
+  }
+  .donut-chart.chart .quad.four {
+    <TMPL_IF NAME=CHART_ROTATE_4>
+    display: block;
+    </TMPL_IF>
+  }
+  .donut-chart.chart .quad.top {
+    <TMPL_IF NAME=CHART_ROTATE_4>
+    opacity: 0;
+    animation: chartCover 0.01s linear 0.8333333333s both;
+    </TMPL_IF>
+  }
+</style>
+
+<div class="main-area">
+  <div class="info-area">
+
+    <div class="mb-20">
+      <a href="taxinfo.cgi" target="_blank"><img src="../imgs/tax_preregister2019.png" border="0" alt="消費税増税事前登録"></a>
+    </div>
+
+    <script language="JavaScript">
+      <!--
+      <TMPL_VAR NAME="HOVER_ALERT">
+      //-->
+    </script>
+    <TMPL_IF IsTrialCourseShop>
+    <TMPL_ELSE>
+      <TMPL_IF SERVICE_MESSAGES>
+        <div class="news-area widget mb-20">
+          <div id="service_messages">
+            <TMPL_LOOP NAME="SERVICE_MESSAGES_LIST">
+              <div class="sm_content">
+                <TMPL_VAR CONTENT>
+              </div>
+            </TMPL_LOOP>
+          </div>
+        </div>
+        </TMPL_IF>
+    </TMPL_IF>
+
+    <TMPL_IF NEWS>
+      <div class="news-area widget mb-20">
+        <TMPL_VAR NAME="NEWS">
+      </div>
+    </TMPL_IF>
+
+    <TMPL_IF NAME="HOGEHOGE">
+      <div class="shop-state-area">
+        <div class="shop-state-wrap widget">
+          <div class="shop-state">
+            <div class="shop-state-header mb-25">
+              <div class="shop-state-header-title">
+                <img src="../imgs/icon/icon_05.png" alt="icon_05">
+                <span class="text-blue-dark">受注台帳</span>
+              </div>
+              <div class="shop-state-header-button">
+                <div class="link-has-icon mb-10">
+                  <a class="bg-green-dark hover:bg-green-light" href="../func01/orderlist.php">確認する <i class="fas fa-chevron-right" aria-hidden="true"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="shop-state-body">
+              <div class="link-has-icon mb-20">
+                <a href="../func01/orderlist-new.cgi?check=0">
+                  未確認
+                  <i class="fas fa-chevron-right text-grey-dark" aria-hidden="true"></i>
+                  <TMPL_VAR NAME="nocheck"> 件
+                </a>
+              </div>
+              <div class="link-has-icon mb-20">
+                <a href="../func01/orderlist-new.cgi?recvst=0">
+                  未入金
+                  <i class="fas fa-chevron-right text-grey-dark" aria-hidden="true"></i>
+                  <TMPL_VAR NAME="nopay"> 件
+                </a>
+              </div>
+              <div class="link-has-icon">
+                <a href="../func01/orderlist-new.cgi?ship0st=1">
+                  未発送
+                  <i class="fas fa-chevron-right text-grey-dark" aria-hidden="true"></i>
+                  <TMPL_VAR NAME="noship"> 件
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shop-state-wrap widget">
+          <div class="shop-state">
+            <div class="shop-state-header mb-25">
+              <div class="shop-state-header-title">
+                <img src="../imgs/icon/icon_06.png" alt="icon_06">
+                <span class="text-blue-dark">在庫管理</span>
+              </div>
+              <div class="shop-state-header-button">
+                <div class="link-has-icon mb-10">
+                  <a class="bg-green-dark hover:bg-green-light" href="../func01/stocklist.cgi">確認する <i class="fas fa-chevron-right" aria-hidden="true"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="shop-state-body">
+              <div class="link-has-icon mb-20">
+                <TMPL_IF WARNSTOCK>
+                  <a href="../func01/stocklist.cgi?CMD=SEEK&Zaiko=WarnStock">
+                    残りわずか商品
+                    <i class="fas fa-chevron-right text-grey-dark" aria-hidden="true"></i>
+                    <TMPL_VAR NAME="WARNSTOCK"> 件
+                  </a>
+                  <TMPL_ELSE>
+                    なし
+                </TMPL_IF>
+              </div>
+              <div class="link-has-icon">
+                <TMPL_IF NOSTOCK>
+                  <a href="../func01/stocklist.cgi?CMD=SEEK&Zaiko=NoStock">
+                    在庫切れ商品
+                    <i class="fas fa-chevron-right text-grey-dark" aria-hidden="true"></i>
+                    <TMPL_VAR NAME="NOSTOCK"> 件
+                  </a>
+                  <TMPL_ELSE>
+                    なし
+                </TMPL_IF>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shop-state-wrap widget">
+          <div class="shop-state">
+            <div class="shop-state-header mb-25">
+              <div class="shop-state-header-title">
+                <img src="../imgs/icon/icon_07.png" alt="icon_07">
+                <span class="text-blue-dark">承認台帳</span>
+              </div>
+              <div class="shop-state-header-button">
+                <div class="link-has-icon mb-10">
+                  <a class="bg-green-dark hover:bg-green-light" href="../func01/orderpnt.cgi">確認する <i class="fas fa-chevron-right" aria-hidden="true"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <form name="ORDPNT" method="POST" action="../func01/orderpnt.cgi">
+              <input type="hidden" name="func" value="">
+            </form>
+
+            <div class="shop-state-body">
+              <div class="link-has-icon mb-20">
+                <span>ポイント</span>
+                <span><a href="JavaScript:document.ORDPNT.func.value='point';document.ORDPNT.submit();"><TMPL_VAR NAME="point"> 件</a></span>
+                <span>パーク出品サービス売上</span>
+                <span><a href="JavaScript:document.ORDPNT.func.value='feed';document.ORDPNT.submit();"><TMPL_VAR NAME="feed"> 件</a></span>
+              </div>
+              <div class="link-has-icon mb-20">
+                <span>支店売上</span>
+                <span><a href="JavaScript:document.ORDPNT.func.value='siten';document.ORDPNT.submit();"><TMPL_VAR NAME="siten"> 件</a></span>
+                <span>Ｅストアーフレンドリンク</span>
+                <span><a href="JavaScript:document.ORDPNT.func.value='myaff';document.ORDPNT.submit();"><TMPL_VAR NAME="affiliate"> 件</a></span>
+              </div>
+              <div class="link-has-icon">
+                <span>コメント</span>
+                <span><a href="../func02/comment.cgi"><TMPL_VAR NAME="COMMENT_NUM"> 件</a></span>
+                <span>トラックバック</span>
+                <span><a href="../func02/trackback.cgi"><TMPL_VAR NAME="TRACKBACK_NUM"> 件</a></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <TMPL_ELSE>
+      <div class="shop-state-area">
+        <div class="shop-state-wrap widget">
+          <div class="shop-state">
+            <div class="shop-state-header mb-25">
+              <div class="shop-state-header-title">
+                <img src="../imgs/icon/icon_05.png" alt="受注台帳">
+                <span class="text-blue-dark">受注台帳</span>
+              </div>
+              <div class="shop-state-header-button">
+                <div class="link-has-icon mb-10">
+                  <a class="bg-green-dark hover:bg-green-light" href="../func01/orderlist.php">確認する <i class="fas fa-chevron-right" aria-hidden="true"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="shop-state-body">
+              <div class="link-has-icon mb-20">
+                <a href="../func01/orderlist-new.cgi?check=0">
+                  未確認
+                  <i class="fas fa-chevron-right text-grey-dark" aria-hidden="true"></i>
+                </a>
+              </div>
+              <div class="link-has-icon mb-20">
+                <a href="../func01/orderlist-new.cgi?recvst=0">
+                  未入金
+                  <i class="fas fa-chevron-right text-grey-dark" aria-hidden="true"></i>
+                </a>
+              </div>
+              <div class="link-has-icon">
+                <a href="../func01/orderlist-new.cgi?ship0st=1">
+                  未発送
+                  <i class="fas fa-chevron-right text-grey-dark" aria-hidden="true"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shop-state-wrap widget">
+          <div class="shop-state">
+            <div class="shop-state-header mb-25">
+              <div class="shop-state-header-title">
+                <img src="../imgs/icon/icon_06.png" alt="在庫管理">
+                <span class="text-blue-dark">在庫管理</span>
+              </div>
+              <div class="shop-state-header-button">
+                <div class="link-has-icon mb-10">
+                  <a class="bg-green-dark hover:bg-green-light" href="../func01/stocklist.cgi">確認する <i class="fas fa-chevron-right" aria-hidden="true"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="shop-state-body">
+              <div class="link-has-icon mb-20">
+                <a href="../func01/stocklist.cgi?CMD=SEEK&Zaiko=WarnStock">
+                  残りわずか商品
+                  <i class="fas fa-chevron-right text-grey-dark" aria-hidden="true"></i></a>
+              </div>
+              <div class="link-has-icon">
+                <a href="../func01/stocklist.cgi?CMD=SEEK&Zaiko=NoStock">
+                  在庫切れ商品
+                  <i class="fas fa-chevron-right text-grey-dark" aria-hidden="true"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="shop-state-wrap widget">
+          <div class="shop-state">
+            <div class="shop-state-header mb-25">
+              <div class="shop-state-header-title">
+              <img src="../imgs/icon/icon_07.png" alt="承認台帳">
+              <span class="text-blue-dark">承認台帳</span>
+              </div>
+              <div class="shop-state-header-button">
+                <div class="link-has-icon mb-10">
+                  <a class="bg-green-dark hover:bg-green-light" href="../func01/orderpnt.cgi">確認する <i class="fas fa-chevron-right" aria-hidden="true"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <form name="ORDPNT" method="POST" action="../func01/orderpnt.cgi">
+              <input type="hidden" name="func" value="">
+            </form>
+
+            <div class="shop-state-body">
+              <div class="link-has-icon mb-20">
+                <a href="JavaScript:document.ORDPNT.func.value='point';document.ORDPNT.submit();">
+                  ポイント
+                  <i class="fas fa-chevron-right text-grey-dark" aria-hidden="true"></i></a>
+              </div>
+              <div class="link-has-icon">
+                <a href="JavaScript:document.ORDPNT.func.value='myaff';document.ORDPNT.submit();">
+                  Ｅストアーフレンドリンク
+                  <i class="fas fa-chevron-right text-grey-dark" aria-hidden="true"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </TMPL_IF>
+
+    <TMPL_IF REPUSER>
+      <div class="report-area widget mb-20">
+        <div class="report-area-head p-20">
+          <div class="report-text">
+            <span>&nbsp;レポートを確認</span>
+          </div>
+          <div class="reportLink">
+            <div class="link-has-icon mb-10">
+              <a class="bg-blue-dark text-white hover:bg-blue-light" href="../clube/clube.cgi?p=%2Fshop_report%2Freport.html?utm_source%3Dkanri%26utm_medium%3Drep" target="_blank">
+                店舗分析レポート
+                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="link-has-icon mb-10">
+              <a class="bg-green-dark text-white hover:bg-green-light" href="../func01/acc_report.cgi">
+                アクセスレポート
+                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+              </a>
+            </div>
+            <div class="link-has-icon mb-10">
+              <a class="bg-green-dark text-white hover:bg-green-light" href="../func01/sales_report.cgi">
+                売上レポート
+                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div class="report-area-body">
+          <table class="table table-striped">
+            <thead class="bg-grey-dark text-white">
+            <tr>
+              <th></th>
+              <th>アクセス数</th>
+              <th>訪問者数</th>
+              <th>売上件数</th>
+              <th>売上金額</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr class="bg-green-lighter">
+              <td class="text-left">先月の合計</td>
+              <td class="text-right">
+                <TMPL_VAR NAME="BEFORE_MONTH_TOTAL_ACC">
+              </td>
+              <td class="text-right">
+                <TMPL_VAR NAME="BEFORE_MONTH_TOTAL_UNIQ">
+              </td>
+              <td class="text-right">
+                <TMPL_VAR NAME="BEFORE_MONTH_TOTAL_SALE_NUM">
+              </td>
+              <td class="text-right">
+                <TMPL_VAR NAME="BEFORE_MONTH_TOTAL_SALE">
+              </td>
+            </tr>
+            <tr class="bg-green-light font-bold border-x border-green-light">
+              <td class="text-left border-y border-green-light">今月の合計</td>
+              <td class="text-right border-y border-green-light">
+                <TMPL_VAR NAME="MONTH_TOTAL_ACC">
+              </td>
+              <td class="text-right border-y border-green-light">
+                <TMPL_VAR NAME="MONTH_TOTAL_UNIQ">
+              </td>
+              <td class="text-right border-y border-green-light">
+                <TMPL_VAR NAME="MONTH_TOTAL_SALE_NUM">
+              </td>
+              <td class="text-right border-y border-green-light">
+                <TMPL_VAR NAME="MONTH_TOTAL_SALE">
+              </td>
+            </tr>
+            <TMPL_LOOP REPLIST>
+              <tr>
+                <td class="text-left">
+                  <TMPL_VAR NAME="DATE">(<TMPL_VAR NAME="YOBI">)
+                </td>
+                <td class="text-right">
+                  <TMPL_VAR NAME="ACCTOTAL">
+                </td>
+                <td class="text-right">
+                  <TMPL_VAR NAME="UNIQTOTAL">
+                </td>
+                <td class="text-right <TMPL_IF NAME=CANCEL>cnclSel</TMPL_IF>">
+                  <TMPL_VAR NAME="SALETOTAL">
+                </td>
+                <td class="text-right <TMPL_IF NAME=CANCEL>cnclSel</TMPL_IF>">
+                  <TMPL_VAR NAME="AMOUNTTOTAL">
+                </td>
+              </tr>
+            </TMPL_LOOP>
+            </tbody>
+          </table>
+          <span>※キャンセルや受注をゴミ箱に移動することにより、売上金額や売上件数の数値が変わることがあります。 この場合、数値欄が黄色で着色されます。</span>
+        </div>
+      </div>
+    </TMPL_IF>
+
+    <link href="top.css?20190821" rel="stylesheet" type="text/css">
+
+    <TMPL_IF REPUSER>
+      <div id="analys-report-head" class="report-area widget">
+
+        <form name="form1" method="POST" action="index.cgi#analys-report-head">
+          <TMPL_IF NAME="TOP">
+            <div class="analys-report-head p-20">
+              <div class="analys-report-date">
+                <TMPL_VAR NAME="MONTH">月の目標
+              </div>
+              <div class="analys-report-title">
+                現状値を知り、目標達成を常に意識することが重要です。
+              </div>
+              <div class="analys-report-link">
+                <div class="link-has-icon">
+                  <TMPL_IF NAME=NO_BEFORE>
+                  <a class="bg-blue-dark text-white hover:bg-blue-light" href="javascript:;document.form1.CMD.value='BEFORE';document.form1.submit();">
+                    <i class="fas fa-chevron-left text-11" aria-hidden="true"></i>先月の目標を見る
+                  </a>
+                  </TMPL_IF>
+                </div>
+              </div>
+            </div>
+            <div class="analys-report-body">
+              <div class="analys-report-target-calc ml-10">
+                <div class="target-calc mt-10 mb-10">
+                  <div class="target-header text-blue-dark">
+                    売上金額
+                  </div>
+
+                  <div class="target-body font-lg font-bold">
+                    <TMPL_VAR NAME="SHOP_TOTAL"><span>円</span>
+                  </div>
+                </div>
+
+                <div class="target-calc mt-10 mb-25">
+                  <div class="target-header text-blue-dark">
+                    目標金額
+                    <div class="tooltip">
+                      <img class="icon" src="../imgs/icon/icon_question.png" >
+                      <div class="hover-box">
+                        （ 1日の平均訪問者数 ｘ 平均転換率 ｘ 平均客単価 ） ｘ 今月の日数
+                      </div>
+                    </div>
+                  </div>
+                  <div class="target-body font-sm font-bold">
+                    <TMPL_VAR NAME="SHOP_TOTAL_TARGET"><span>円</span>
+                  </div>
+                </div>
+
+                <div class="target-achievement-rate">
+                  <div class="donut-chart chart">
+                    <div class="quad one"></div>
+                    <div class="quad two"></div>
+                    <div class="quad three"></div>
+                    <div class="quad four"></div>
+                    <div class="quad top"></div>
+                    <div class="chart-center">
+                      <span class="sp-1">達成率</span>
+                      <div class="sp-2">
+                        <span><TMPL_VAR NAME="CONV_SHOP"></span>
+                        <span class="text-14">%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="analys-report-target-equal">
+                <i class="fas fa-equals"></i>
+              </div>
+
+              <div class="analys-report-target-box">
+                <div class="target-box-list mb-20">
+                  <div class="target-box">
+                    <div class="target-header text-blue-dark text-center">
+                      <span>1日の平均訪問者数</span>
+                      <div class="tooltip">
+                        <img class="icon" src="../imgs/icon/icon_question.png" >
+                        <div class="hover-box">
+                          今月の合計訪問者数 ÷ 経過日数
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="target-body">
+                      <div class="target-box-val">
+                        <TMPL_VAR NAME="UNIQ_TOTAL"><span>人</span>
+                      </div>
+                      <div class="target-box-uniq">
+                        <div class="target-value-title mb-10">
+                          目標値
+                        </div>
+                        <div class="target-value-input">
+                          <input type="text" class="uniq-target-input text-right" name="uniq_target" value="<TMPL_VAR NAME=UNIQ_TARGET>" size="10">
+                          <span>人</span>
+                        </div>
+
+                        <div class="line"></div>
+
+                        <div class="achieving-rate-title">
+                          達成率<div class="percent"><TMPL_VAR NAME="CONV_UNIQ"><span>%</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="icon-times mt-60"><i class="fas fa-times"></i></div>
+
+                  <div class="target-box">
+                    <div class="target-header text-blue-dark text-center">
+                      <span>平均転換率</span>
+                      <div class="tooltip">
+                        <img class="icon" src="../imgs/icon/icon_question.png" >
+                        <div class="hover-box">
+                          今月の合計売上件数 ÷ 訪問者数 × 100
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="target-body">
+                      <div class="target-box-val">
+                        <TMPL_VAR NAME="CONV_TOTAL"><span>%</span>
+                      </div>
+                      <div class="target-box-uniq">
+                        <div class="target-value-title mb-10">
+                          目標値
+                        </div>
+                        <div class="target-value-input">
+                          <input type="text" class="conv-target-input text-right" name="conv_target" value="<TMPL_VAR NAME=CONV_TARGET>" size="10">
+                          <span>%</span>
+                        </div>
+
+                        <div class="line"></div>
+
+                        <div class="achieving-rate-title">
+                          達成率<div class="percent"><TMPL_VAR NAME="CONV_CONV"><span>%</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="icon-times mt-60"><i class="fas fa-times"></i></div>
+
+                  <div class="target-box">
+                    <div class="target-header text-blue-dark text-center">
+                      <span>平均客単価</span>
+                      <div class="tooltip">
+                        <img class="icon" src="../imgs/icon/icon_question.png" >
+                        <div class="hover-box">
+                            今月の合計売上金額 ÷ 売上件数
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="target-body">
+                      <div class="target-box-val">
+                        <TMPL_VAR NAME="SALE_TOTAL"><span>円</span>
+                      </div>
+                      <div class="target-box-uniq">
+                        <div class="target-value-title mb-10">
+                          目標値
+                        </div>
+                        <div class="target-value-input">
+                          <input type="text" class="sale-target-input text-right" name="sale_target" value="<TMPL_VAR NAME=SALE_TARGET>" size="10">
+                          <span>円</span>
+                        </div>
+
+                        <div class="line"></div>
+
+                        <div class="achieving-rate-title">
+                          達成率<div class="percent"><TMPL_VAR NAME="CONV_SALE"><span>%</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="target-btn">
+                  <input class="calculate-button" type="submit" value="計算する">
+                </div>
+              </div>
+            </div>
+            <input type="hidden" name="CMD" value="TARGET">
+          <TMPL_ELSE>
+            <div class="analys-report-head p-20">
+              <div class="analys-report-date">
+                <TMPL_VAR NAME="MONTH">月の目標
+              </div>
+              <div class="analys-report-title">
+                現状値を知り、目標達成を常に意識することが重要です。
+              </div>
+              <div class="analys-report-link">
+                <div class="link-has-icon">
+                  <a class="bg-blue-dark text-white hover:bg-blue-light" href="javascript:;document.form1.submit();">
+                    今月の目標に戻る<i class="fas fa-chevron-right text-11" aria-hidden="true"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            <div class="analys-report-body">
+              <div class="analys-report-target-calc ml-10">
+                <div class="target-calc mt-10 mb-10">
+                  <div class="target-header text-blue-dark">
+                    売上金額
+                  </div>
+
+                  <div class="target-body font-lg font-bold">
+                    <TMPL_VAR NAME="BEFORE_SALE_TOTAL"><span>円</span>
+                  </div>
+                </div>
+
+                <div class="target-calc mt-10 mb-25">
+                  <div class="target-header text-blue-dark">
+                    目標金額
+                      <div class="tooltip">
+                        <img class="icon" src="../imgs/icon/icon_question.png" >
+                        <div class="hover-box">
+                          （ 1日の平均訪問者数 ｘ 平均転換率 ｘ 平均客単価 ） ｘ 今月の日数
+                        </div>
+                      </div>
+                  </div>
+                  <div class="target-body font-sm font-bold">
+                    <TMPL_VAR NAME="BEFORE_SHOP_TOTAL_TARGET"><span>円</span>
+                  </div>
+                </div>
+
+                <div class="target-achievement-rate">
+                  <div class="donut-chart chart">
+                    <div class="quad one"></div>
+                    <div class="quad two"></div>
+                    <div class="quad three"></div>
+                    <div class="quad four"></div>
+                    <div class="quad top"></div>
+                    <div class="chart-center">
+                      <span class="sp-1">達成率</span>
+                      <div class="sp-2">
+                        <span><TMPL_VAR NAME="BEFORE_CONV_SHOP"></span>
+                        <span class="text-14">%</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="analys-report-target-equal">
+                <i class="fas fa-equals"></i>
+              </div>
+
+              <div class="analys-report-target-box">
+                <div class="target-box-list mb-20">
+                  <div class="target-box">
+                    <div class="target-header text-blue-dark text-center">
+                      <span>1日の平均訪問者数</span>
+                      <div class="tooltip">
+                        <img class="icon" src="../imgs/icon/icon_question.png" >
+                        <div class="hover-box">
+                          今月の合計訪問者数 ÷ 経過日数
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="target-body">
+                      <div class="target-box-val">
+                        <TMPL_VAR NAME="BEFORE_UNIQ_TOTAL"><span>人</span>
+                      </div>
+                      <div class="target-box-uniq">
+                        <div class="target-value-title mb-10">
+                          目標値
+                        </div>
+                        <div class="target-value-input">
+                          <div class="target-value"><TMPL_VAR NAME=BEFORE_UNIQ_TARGET></div>
+                          <span>人</span>
+                        </div>
+
+                        <div class="line"></div>
+
+                        <div class="achieving-rate-title">
+                          達成率<div class="percent"><TMPL_VAR NAME="BEFORE_CONV_UNIQ"><span>%</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="icon-times mt-70"><i class="fas fa-times"></i></div>
+
+                  <div class="target-box">
+                    <div class="target-header text-blue-dark text-center">
+                      <span>平均転換率</span>
+                      <div class="tooltip">
+                        <img class="icon" src="../imgs/icon/icon_question.png" >
+                        <div class="hover-box">
+                          今月の合計売上件数 ÷ 訪問者数 × 100
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="target-body">
+                      <div class="target-box-val">
+                        <TMPL_VAR NAME="BEFORE_CONV_TOTAL"><span>%</span>
+                      </div>
+                      <div class="target-box-uniq">
+                        <div class="target-value-title mb-10">
+                          目標値
+                        </div>
+                        <div class="target-value-input">
+                          <div class="target-value"><TMPL_VAR NAME=BEFORE_CONV_TARGET></div>
+                          <span>%</span>
+                        </div>
+
+                        <div class="line"></div>
+
+                        <div class="achieving-rate-title">
+                          達成率<div class="percent"><TMPL_VAR NAME="BEFORE_CONV_CONV"><span>%</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="icon-times mt-70"><i class="fas fa-times"></i></div>
+
+                  <div class="target-box">
+                    <div class="target-header text-blue-dark text-center">
+                      <span>平均客単価</span>
+                      <div class="tooltip">
+                        <img class="icon" src="../imgs/icon/icon_question.png" >
+                        <div class="hover-box">
+                          今月の合計売上金額 ÷ 売上件数
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="target-body">
+                      <div class="target-box-val">
+                        <TMPL_VAR NAME="BEFORE_SALE_TOTAL"><span>円</span>
+                      </div>
+                      <div class="target-box-uniq">
+                        <div class="target-value-title mb-10">
+                          目標値
+                        </div>
+                        <div class="target-value-input">
+                          <div class="target-value"><TMPL_VAR NAME=BEFORE_SALE_TARGET></div>
+                          <span>円</span>
+                        </div>
+
+                        <div class="line"></div>
+
+                        <div class="achieving-rate-title">
+                          達成率<div class="percent"><TMPL_VAR NAME="BEFORE_CONV_SALE"><span>%</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </TMPL_IF>
+        </form>
+      </div>
+    </TMPL_IF>
+  </div>
+
+  <div class="help-area">
+    <div class="widget mb-20">
+      <div class="help-block">
+        <div class="help-block-header mb-10">
+          <img class="icon" src="../imgs/icon/icon_08.png" alt="お困りですか？">
+          <span>お困りですか？</span>
+        </div>
+
+        <div class="help-block-body">
+          <div class="link-has-icon mb-10">
+            <a class="text-white bg-blue-dark hover:bg-blue-light" href="https://help.shopserve.jp/r/" target="_blank">
+              オンラインサポート
+              <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <div class="link-has-icon">
+            <a class="text-white bg-blue-dark hover:bg-blue-light" href="https://help.shopserve.jp/faq/" target="_blank">
+              よくある質問
+              <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="widget mb-20">
+      <div class="help-block">
+        <div class="help-block-header mb-10">
+          <img class="icon" src="../imgs/icon/icon_09.png" alt="インフォメーション">
+          <span>インフォメーション</span>
+        </div>
+
+        <div class="help-block-body">
+          <div class="link-has-icon mb-10">
+            <a class="text-white bg-blue-dark hover:bg-blue-light" href="http://sp.estore.jp/sps/info/" target="_blank">
+              お知らせ
+              <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </a>
+          </div>
+
+          <div class="link-has-icon">
+            <a class="text-white bg-blue-dark hover:bg-blue-light" onclick="window.open('info_mail.cgi','mail','scrollbars=yes,resi zable=yes,width=650,height=480')"
+               href="javascript:void(0)">
+              お知らせメール登録・解除
+              <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <TMPL_IF IsTrialCourseShop>
+      <div id="banner02" style="margin-top: 5px;">
+        <a href="https://sps.estore.jp/seminarinfo/thrivingshop/?id=0325&utm_source=ta&utm_medium=banner" target="_blank">
+          <img src="../imgs/trial_seminar_info_banner.jpg" alt="" style="border: 1px solid #666;" />
+        </a>
+      </div>
+      <div id="banner02" style="margin-top: 5px;">
+        <a href="https://sps.estore.jp/function/function_cat/product-options/?id=0325&utm_source=ta&utm_medium=banner" target="_blank">
+          <img src="../imgs/trial_product_options_banner.jpg" alt="" style="border: 1px solid #666;" />
+        </a>
+      </div>
+    </TMPL_IF>
+
+    <div class="widget mb-20">
+      <div class="help-block">
+        <div class="help-block-header mb-15">
+          <img class="icon" src="../imgs/icon/icon_10.png" alt="ご利用状況">
+          <span>ご利用状況</span>
+        </div>
+
+        <div class="help-block-body">
+          <div class="useBox mb-10">
+            <div class="useBox-header">商品数</div>
+
+            <div class="useBox-body mt-10">
+              <TMPL_IF NAME=WARN_ITEM><span class="useWar text-14"><TMPL_ELSE><span class="text-14"></TMPL_IF>
+              <TMPL_VAR NAME="TOTALITM">&nbsp;<span class="text-12">点</span>
+              </span>
+              &nbsp;/&nbsp;
+              <span class="text-14"><TMPL_VAR NAME="MAXITM">&nbsp;<span class="text-12">点</span></span>
+            </div>
+          </div>
+
+          <div class="useBox mb-15">
+            <div class="useBox-header">顧客数</div>
+
+            <div class="useBox-body mt-10">
+              <TMPL_IF NAME=WARN_CUST><span class="useWar text-14"><TMPL_ELSE><span class="text-14"></TMPL_IF>
+              <TMPL_VAR NAME="TOTALCUST">&nbsp;<span class="text-12">件</span>
+              </span>
+              &nbsp;/&nbsp;
+              <span class="text-14"><TMPL_VAR NAME="MAXCUST"></span>
+            </div>
+          </div>
+
+          <div class="link-has-icon mb-10">
+            <a href="../func00/indicator.cgi" class="text-white bg-blue-dark hover:bg-blue-light">
+              サーバー容量の使用状況 <i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </a>
+          </div>
+        </div>
+
+        <!-- エラーメッセージを出さない場合もこのdivは残す -->
+        <TMPL_LOOP NAME="ERR_MSG">
+          <div class="useErr">
+            <TMPL_VAR NAME="MSG">
+          </div>
+        </TMPL_LOOP>
+
+        <hr class="line" />
+
+        <div class="help-block-header mb-10">
+          <img class="icon" src="../imgs/icon/icon_11.png" alt="アクセス転送量">
+          <span>アクセス転送量</span>
+        </div>
+
+        <div class="help-block-body">
+          <div class="useBox-2">
+            <div class="title">今月</div>
+            <div class="colon">:</div>
+            <div class="capacity">
+              <span class="text-17 font-bold"><TMPL_VAR NAME="TRAFFIC_MON"></span>&nbsp;<span class="text-12">GB</span>
+            </div>
+          </div>
+
+          <div class="useBox-2">
+            <div class="title">超過</div>
+            <div class="colon">:</div>
+            <div class="capacity">
+              <span class="useWar text-17"><TMPL_VAR NAME="TRAFFIC_MON_OVER"></span>&nbsp;<span class="text-12">GB</span>
+            </div>
+          </div>
+
+          <div class="mb-12" style="font-size:11px;font-weight: normal;text-align: right;color:#333333;">（昨日時点）</div>
+
+          <div class="last-month-area bg-grey">
+            <div class="useBox-3 mb-5">
+              <div>前月&nbsp;:</div>
+              <div>
+                <span class="text-14"><TMPL_VAR NAME="TRAFFIC_LASTMON"></span>&nbsp;<span class="text-12">GB</span>
+              </div>
+            </div>
+            <div class="useBox-3">
+              <div>超過&nbsp;:</div>
+              <div>
+                <span class="text-14"><TMPL_VAR NAME="TRAFFIC_LASTMON_OVER"></span>&nbsp;<span class="text-12">GB</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="access-transfer-volume mt-10">
+            <div class="link-has-icon">
+              <a href="http://help.shopserve.jp/manual/203/#04-2" target="_blank">アクセス転送量について
+                <i class="fas fa-chevron-right" aria-hidden="true"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- back to top -->
+<div class="back-to-top">
+  <a href="#top">
+    <span class="return-top">▲ このページのトップへ</span>
+  </a>
+</div>
+<!-- back to top -->

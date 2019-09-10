@@ -1,0 +1,211 @@
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function SaveSub() {
+    document.odrmail.set.disabled='true';
+    document.odrmail.submit();
+}
+//-->
+</script>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+        <tr>
+            <td>
+                <img src="../imgs/spc.gif">
+            </td>
+        </tr>
+      </table>
+    </td>
+<td align="left" class="midashi">各種メール送信の設定を行います</td>
+<td align="right" class="midashi">
+    <a href="<TMPL_VAR NAME=Manual>func01/odrmail.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a>
+</td>
+  </tr>
+</table>
+<!-- table no kugiri -->
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+    <tr>
+        <td align="right" >
+                <a href="<TMPL_VAR NAME=Manual>func01/privacy_use.html" target="manual"
+                    >&lt;個人情報を適切に取り扱いましょう&gt;</a>
+            </td>
+    </tr>
+</table>
+<!-- table no kugiri -->
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+<form name="odrmail" method="post" action="odrmail.cgi">
+<input type="hidden" name="CMD" value="save">
+  <tr>
+    <td align="left" class="main-table">
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+            <div class="infoArea table_bg">
+              受注台帳から送信できる「確認」「入金」「発送」の各連絡メールを編集します。<br />
+	      お買い物直後に購入者様宛に自動送信する「注文確認メール」の設定・編集は、<a href="../func03/ordmail-conf.cgi">「注文確認メール設定」</a>で行ってください。
+            </div>
+            <TMPL_LOOP NAME=ERR_MSG>
+             <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font>
+            </TMPL_LOOP>
+            <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+              <tr align="center">
+                <td colspan="2" class="item-name02">メール差出人設定</td>
+              </tr>
+              <tr>
+                <td class="item-name"><TMPL_VAR NAME=err_name>差出人名</td>
+                <td class="item"><font color="#FF0000">
+                  <input name="fromname" type="text" class="def-line" value="<TMPL_VAR NAME=fromname>">
+                  </font></td>
+              </tr>
+              <tr>
+                <td class="item-name"><TMPL_VAR NAME=err_mail>差出人メールアドレス</td>
+                <td class="item">
+                    <input name="fromaddr" type="text" class="def-line"
+                    value="<TMPL_VAR NAME=fromaddr>" style="ime-mode:disabled">
+                    <br />
+                    ※メールアドレスを必ずご確認ください。
+                </td>
+              </tr>
+            </table>
+            <br/>
+            
+            <div align="center"><input name="set" type="button" id="set" value="設定を保存する" onCLick="SaveSub();"></div>
+            
+            <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+            </table>
+            <br>
+            <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+              <tr align="center">
+                <td colspan="3" class="item-name02">編集メール選択</td>
+              </tr>
+              <tr>
+                <td class="item-name">個別確認メール</td>
+                <td class="item-10">
+                  <input type="button" onClick="window.open('odrmail-edit.cgi?seq=1','mail','')" value="個別確認メールの編集">
+                </td>
+                <td class="item-10">
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">入金連絡メール</td>
+                <td class="item-10">
+                  <input type="button" onClick="window.open('odrmail-edit.cgi?seq=2','mail','')" value="入金連絡メールの編集">
+                </td>
+                <td class="item-10">
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">発送連絡メール</td>
+                <td class="item-10">
+                  <input type="button" onClick="window.open('odrmail-edit.cgi?seq=3','mail','')" value="発送連絡メールの編集">
+                </td>
+                <td class="item-10">
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">注文キャンセルメール</td>
+                <td class="item-10">
+                  <input type="button" onClick="window.open('odrmail-edit.cgi?seq=4','mail','')" value="注文キャンセルメールの編集">
+                </td>
+                <td class="item-10">
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">メールテンプレート１</td>
+                <td class="item-10">
+                  <input type="button" onClick="window.open('odrmail-edit.cgi?seq=101','mail','')" value="テンプレート１の編集" style="width: 186px;">
+                </td>
+                <td class="item-10">
+                  名前：&nbsp;<TMPL_IF 101_title><TMPL_VAR NAME=101_title><TMPL_ELSE>---</TMPL_IF>
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">メールテンプレート２</td>
+                <td class="item-10">
+                  <input type="button" onClick="window.open('odrmail-edit.cgi?seq=102','mail','')" value="テンプレート２の編集" style="width: 186px;">
+                </td>
+                <td class="item-10">
+                  名前：&nbsp;<TMPL_IF 102_title><TMPL_VAR NAME=102_title><TMPL_ELSE>---</TMPL_IF>
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">メールテンプレート３</td>
+                <td class="item-10">
+                  <input type="button" onClick="window.open('odrmail-edit.cgi?seq=103','mail','')" value="テンプレート３の編集" style="width: 186px;">
+                </td>
+                <td class="item-10">
+                  名前：&nbsp;<TMPL_IF 103_title><TMPL_VAR NAME=103_title><TMPL_ELSE>---</TMPL_IF>
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">メールテンプレート４</td>
+                <td class="item-10">
+                  <input type="button" onClick="window.open('odrmail-edit.cgi?seq=104','mail','')" value="テンプレート４の編集" style="width: 186px;">
+                </td>
+                <td class="item-10">
+                  名前：&nbsp;<TMPL_IF 104_title><TMPL_VAR NAME=104_title><TMPL_ELSE>---</TMPL_IF>
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">メールテンプレート５</td>
+                <td class="item-10">
+                  <input type="button" onClick="window.open('odrmail-edit.cgi?seq=105','mail','')" value="テンプレート５の編集" style="width: 186px;">
+                </td>
+                <td class="item-10">
+                  名前：&nbsp;<TMPL_IF 105_title><TMPL_VAR NAME=105_title><TMPL_ELSE>---</TMPL_IF>
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">メールテンプレート６</td>
+                <td class="item-10">
+                  <input type="button" onClick="window.open('odrmail-edit.cgi?seq=106','mail','')" value="テンプレート６の編集" style="width: 186px;">
+                </td>
+                <td class="item-10">
+                  名前：&nbsp;<TMPL_IF 106_title><TMPL_VAR NAME=106_title><TMPL_ELSE>---</TMPL_IF>
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">メールテンプレート７</td>
+                <td class="item-10">
+                  <input type="button" onClick="window.open('odrmail-edit.cgi?seq=107','mail','')" value="テンプレート７の編集" style="width: 186px;">
+                </td>
+                <td class="item-10">
+                  名前：&nbsp;<TMPL_IF 107_title><TMPL_VAR NAME=107_title><TMPL_ELSE>---</TMPL_IF>
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">メールテンプレート８</td>
+                <td class="item-10">
+                  <input type="button" onClick="window.open('odrmail-edit.cgi?seq=108','mail','')" value="テンプレート８の編集" style="width: 186px;">
+                </td>
+                <td class="item-10">
+                  名前：&nbsp;<TMPL_IF 108_title><TMPL_VAR NAME=108_title><TMPL_ELSE>---</TMPL_IF>
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">メールテンプレート９</td>
+                <td class="item-10">
+                  <input type="button" onClick="window.open('odrmail-edit.cgi?seq=109','mail','')" value="テンプレート９の編集" style="width: 186px;">
+                </td>
+                <td class="item-10">
+                  名前：&nbsp;<TMPL_IF 109_title><TMPL_VAR NAME=109_title><TMPL_ELSE>---</TMPL_IF>
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">メールテンプレート１０</td>
+                <td class="item-10">
+                  <input type="button" onClick="window.open('odrmail-edit.cgi?seq=110','mail','')" value="テンプレート１０の編集" style="width: 186px;">
+                </td>
+                <td class="item-10">
+                  名前：&nbsp;<TMPL_IF 110_title><TMPL_VAR NAME=110_title><TMPL_ELSE>---</TMPL_IF>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</form>
+</table>

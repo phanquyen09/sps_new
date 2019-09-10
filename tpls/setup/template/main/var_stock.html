@@ -1,0 +1,149 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+                            <td align="left" class="midashi">バリエーションごとの在庫設定を行います</td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+
+                                <table width="100%" class="item-box">
+                                  <tr>
+                                    <td class="item-name">商品番号</td>
+                                    <td class="item"><TMPL_VAR NAME=ITEMNO></td>
+                                  </tr>
+
+                                  <tr>
+                                    <td class="item-name">商品名</td>
+                                    <td class="item"><TMPL_VAR NAME=ITEMNAME></td>
+                                  </tr>
+                                </table>
+                                <BR>
+
+                              <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                          <tr><td bgcolor="#FFFFFF">在庫数を入力しない場合は、「在庫あり」と表示されます。</td></tr></table></TR>
+                                    <tr>
+                                      <td>
+                                        <table width="100%" class="item-box restock">
+                                        <tr align="center">
+<form name="CLEAR" method="POST" action="set_varstock.cgi">
+<input type="hidden" name="CMD" value="CLEAR">
+<TMPL_IF NEWITEM>
+<input type="hidden" name="NEWITEM" value="1">
+<input name="CP" type="hidden" value="<TMPL_VAR NAME=CP>">
+<input type="hidden" name="IDITEMOLD" value="<TMPL_VAR NAME=IDITEMOLD>">
+</TMPL_IF>
+<input type="hidden" name="MasterID" value="<TMPL_VAR NAME=MASTERID>">
+                                          <td colspan="<TMPL_VAR NAME=VARCNT>" class="item-name02">バリエーション</td>
+                                          <td class="item-name02">在庫設定<br>
+                                              <input type="button" name="Submit" value="全て在庫ありにする" style="width:160px" onClick="document.CLEAR.submit();">
+                                            </td>
+</form>
+                                          </tr>
+                                        <tr align="center" class="odr-midashi">
+                                          <td width="<TMPL_VAR NAME=WIDTH>%"><TMPL_VAR NAME=VAR1NAME></td>
+<TMPL_IF VAR2NAME>
+                                          <td width="<TMPL_VAR NAME=WIDTH>%"><TMPL_VAR NAME=VAR2NAME></td>
+</TMPL_IF>
+<TMPL_IF VAR3NAME>
+                                          <td width="<TMPL_VAR NAME=WIDTH>%"><TMPL_VAR NAME=VAR3NAME></td>
+</TMPL_IF>
+                                          <td width="40%">在庫数</td>
+                                          </tr>
+
+
+<TMPL_LOOP VARIATION>
+    <tr>
+  <TMPL_IF VAR1SPAN>
+  <td rowspan="<TMPL_VAR NAME=VAR1SPAN>" align="center" class="odr-txt03"><TMPL_VAR NAME=VAR1NAME></td>
+  </TMPL_IF>
+  <TMPL_IF VAR2SPAN>
+  <td rowspan="<TMPL_VAR NAME=VAR2SPAN>" align="center" class="odr-txt03"><TMPL_VAR NAME=VAR2NAME></td>
+  </TMPL_IF>
+  <TMPL_IF VAR3SPAN>
+  <td align="center" class="odr-txt03"><TMPL_VAR NAME=VAR3NAME></td>
+  </TMPL_IF>
+  <td align="center" class="odr-txt02"><TMPL_IF STFONT><font color="<TMPL_VAR NAME=STFONT>"></TMPL_IF><TMPL_VAR NAME=STOCKCNT><TMPL_IF STFONT></font></TMPL_IF>
+        <TMPL_IF NEWITEM>
+          <TMPL_IF CP>
+            <input type="button" name="Submit" value="数量設定" onClick="location.href='set_varstock.cgi?NEWITEM=1&MasterID=<TMPL_VAR NAME=MASTERID>&Var1ID=<TMPL_VAR NAME=VAR1ID>&Var2ID=<TMPL_VAR NAME=VAR2ID>&Var3ID=<TMPL_VAR NAME=VAR3ID>&IDITEMOLD=<TMPL_VAR NAME=IDITEMOLD>&CP=<TMPL_VAR NAME=CP>'">
+          <TMPL_ELSE>
+            <input type="button" name="Submit" value="数量設定" onClick="location.href='set_varstock.cgi?NEWITEM=1&MasterID=<TMPL_VAR NAME=MASTERID>&Var1ID=<TMPL_VAR NAME=VAR1ID>&Var2ID=<TMPL_VAR NAME=VAR2ID>&Var3ID=<TMPL_VAR NAME=VAR3ID>'">
+          </TMPL_IF>
+        <TMPL_ELSE>
+          <input type="button" name="Submit" value="数量設定" onClick="location.href='set_varstock.cgi?MasterID=<TMPL_VAR NAME=MASTERID>&Var1ID=<TMPL_VAR NAME=VAR1ID>&Var2ID=<TMPL_VAR NAME=VAR2ID>&Var3ID=<TMPL_VAR NAME=VAR3ID>'">
+        </TMPL_IF>
+        <TMPL_IF BACK_ORDER>
+          <TMPL_IF NEWITEM>
+            <TMPL_IF CP>
+              <a href="set_varstock.cgi?NEWITEM=1&MasterID=<TMPL_VAR NAME=MASTERID>&Var1ID=<TMPL_VAR NAME=VAR1ID>&Var2ID=<TMPL_VAR NAME=VAR2ID>&Var3ID=<TMPL_VAR NAME=VAR3ID>&IDITEMOLD=<TMPL_VAR NAME=IDITEMOLD>&CP=<TMPL_VAR NAME=CP>" class="stockmail"><TMPL_VAR NAME=STOCK_MAIL_STR></a>
+            <TMPL_ELSE>
+              <a href="set_varstock.cgi?NEWITEM=1&MasterID=<TMPL_VAR NAME=MASTERID>&Var1ID=<TMPL_VAR NAME=VAR1ID>&Var2ID=<TMPL_VAR NAME=VAR2ID>&Var3ID=<TMPL_VAR NAME=VAR3ID>" class="stockmail"><TMPL_VAR NAME=STOCK_MAIL_STR></a>
+            </TMPL_IF>
+          <TMPL_ELSE>
+            <a href="set_varstock.cgi?MasterID=<TMPL_VAR NAME=MASTERID>&Var1ID=<TMPL_VAR NAME=VAR1ID>&Var2ID=<TMPL_VAR NAME=VAR2ID>&Var3ID=<TMPL_VAR NAME=VAR3ID>" class="stockmail"><TMPL_VAR NAME=STOCK_MAIL_STR></a>
+          </TMPL_IF>
+        </TMPL_IF>
+  </td>
+    </tr>
+</TMPL_LOOP>
+
+<TMPL_LOOP VARIATION>
+  <form name="STOCK<TMPL_VAR NAME=CNT>" method="POST" action="set_varstock.cgi">
+  <TMPL_IF NEWITEM><input type="hidden" name="NEWITEM" value="1">
+  <input name="CP" type="hidden" value="<TMPL_VAR NAME=CP>">
+  <input type="hidden" name="IDITEMOLD" value="<TMPL_VAR NAME=IDITEMOLD>">
+  </TMPL_IF>
+  <input type="hidden" name="MasterID" value="<TMPL_VAR NAME=MASTERID>">
+  <input type="hidden" name="Var1ID" value="<TMPL_VAR NAME=VAR1ID>">
+  <TMPL_IF VAR2ID>
+  <input type="hidden" name="Var2ID" value="<TMPL_VAR NAME=VAR2ID>">
+  </TMPL_IF>
+  <TMPL_IF VAR3ID>
+  <input type="hidden" name="Var3ID" value="<TMPL_VAR NAME=VAR3ID>">
+  </TMPL_IF>
+  </form>
+</TMPL_LOOP>
+
+
+                                        </table>
+                                        <BR>
+                                      </td></tr>
+                                  </table></td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+                          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td>&nbsp;</td>
+                            </tr>
+                          </table>
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                            <tr>
+                              <td align="center" style="padding:10px 10px 10px 10px ">
+                                <div align="center">
+<TMPL_IF NEWITEM>
+<TMPL_IF CP>
+<input type="button" name="Submit" value="続けてコピーをする" onClick="javascript:;document.ITEMINFO.submit();"  >
+<input type="button" name="Submit" value="商品一覧へ戻る"  onClick="location.href='itemlist.cgi?LastCGI=1'">
+<form name="ITEMINFO" method="POST" action="iteminfo.cgi">
+  <input type="hidden" name="ID" value="<TMPL_VAR NAME=IDITEMOLD>">
+  <input type="hidden" name="CP" value="1">
+</form>
+<TMPL_ELSE>
+<input type="button" name="Submit" value="商品登録" onClick="location='iteminfo.cgi';">
+</TMPL_IF>
+<TMPL_ELSE>
+<input type="button" name="Submit" value="商品一覧へ戻る" onClick="location='itemlist.cgi?LastCGI=1';">
+</TMPL_IF>
+                               </div>
+                              </td>

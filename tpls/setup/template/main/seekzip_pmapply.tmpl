@@ -1,0 +1,432 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP" />
+<meta name="description" content="<TMPL_VAR name=DOMAIN>：">
+<title><TMPL_VAR name=TITLE></title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="/vol1blog/<TMPL_VAR name=ALNUM>/<TMPL_VAR name=DOMAIN>/docs/hpgen/HPB/theme/css/default.css" rel="stylesheet" type="text/css" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="http://<TMPL_VAR name=DOMAIN>/hpgen/HPB/rss.xml" />
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<script language="JavaScript" type="text/javascript" src="/vol1blog/<TMPL_VAR name=ALNUM>/<TMPL_VAR name=DOMAIN>/docs/hpgen/HPB/theme/js/ajax_lib.js" charset="EUC-JP"></script>
+<script language="JavaScript" type="text/javascript" src="/vol1blog/<TMPL_VAR name=ALNUM>/<TMPL_VAR name=DOMAIN>/docs/hpgen/HPB/theme/js/jkl-parsexml.js" charset="EUC-JP"></script>
+
+<!--
+<META http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<title><TMPL_VAR name=TITLE></title>
+-->
+
+<script language="JavaScript">
+<!--
+
+//
+function changefocus() {
+  window.focus();
+}
+window.onload = changefocus;
+window.onblur = changefocus;
+
+//
+function set_addr_sel_tanto() {
+    var addr1 = window.opener.document.getElementById('TantoAddr1');
+    var addr2 = window.opener.document.getElementById('TantoAddr2');
+    addr1.className = "form_text01 textExample";
+    addr2.className = "form_text01 textExample";
+    window.opener.document.<TMPL_VAR name=TARGET>.TantoPref.selectedIndex='<TMPL_VAR name=PREF_NO>';
+    window.opener.document.<TMPL_VAR name=TARGET>.TantoAddr1.value='<TMPL_VAR name=CITY>';
+    window.opener.document.<TMPL_VAR name=TARGET>.TantoAddr2.value='<TMPL_VAR name=TOWN>';
+    window.opener.zipSeachCount("TantoAddr1", '<TMPL_VAR name=CITY>');
+    window.opener.zipSeachCount("TantoAddr2", '<TMPL_VAR name=TOWN>');
+    window.close();
+}
+
+//
+function set_addr_sel_cvs() {
+    var addr1 = window.opener.document.getElementById('CvsAddr1');
+    var addr2 = window.opener.document.getElementById('CvsAddr2');
+    addr1.className = "form_text01 textExample";
+    addr2.className = "form_text01 textExample";
+    window.opener.document.<TMPL_VAR name=TARGET>.CvsAddr1.value='<TMPL_VAR name=PREF>' + '<TMPL_VAR name=CITY>';
+    window.opener.document.<TMPL_VAR name=TARGET>.CvsAddr2.value='<TMPL_VAR name=TOWN>';
+    window.opener.zipSeachCount("CvsAddr1", '<TMPL_VAR name=PREF>' + '<TMPL_VAR name=CITY>');
+    window.opener.zipSeachCount("CvsAddr2", '<TMPL_VAR name=TOWN>');
+    window.close();
+}
+
+//
+function set_addr_sel_yw() {
+    var addr1 = window.opener.document.getElementById('YwAddr1');
+    var addr2 = window.opener.document.getElementById('YwAddr2');
+    addr1.className = "form_text01 textExample";
+    addr2.className = "form_text01 textExample";
+    window.opener.document.<TMPL_VAR name=TARGET>.YwPref.selectedIndex='<TMPL_VAR name=PREF_NO>';
+    window.opener.document.<TMPL_VAR name=TARGET>.YwAddr1.value='<TMPL_VAR name=CITY>';
+    window.opener.document.<TMPL_VAR name=TARGET>.YwAddr2.value='<TMPL_VAR name=TOWN>';
+    window.opener.zipSeachCount("YwAddr1", '<TMPL_VAR name=CITY>');
+    window.opener.zipSeachCount("YwAddr2", '<TMPL_VAR name=TOWN>');
+    window.close();
+}
+
+//
+function set_addr_sel_ywd() {
+    var addr1 = window.opener.document.getElementById('YwDaihyoAddr1');
+    var addr2 = window.opener.document.getElementById('YwDaihyoAddr2');
+    addr1.className = "form_text01 textExample";
+    addr2.className = "form_text01 textExample";
+    window.opener.document.<TMPL_VAR name=TARGET>.YwDaihyoPref.selectedIndex='<TMPL_VAR name=PREF_NO>';
+    window.opener.document.<TMPL_VAR name=TARGET>.YwDaihyoAddr1.value='<TMPL_VAR name=CITY>';
+    window.opener.document.<TMPL_VAR name=TARGET>.YwDaihyoAddr2.value='<TMPL_VAR name=TOWN>';
+    window.opener.zipSeachCount("YwDaihyoAddr1", '<TMPL_VAR name=CITY>');
+    window.opener.zipSeachCount("YwDaihyoAddr2", '<TMPL_VAR name=TOWN>');
+    window.close();
+}
+function set_addr_sel_ri() {
+    var addr1 = window.opener.document.getElementById('RiAddr1');
+    var addr2 = window.opener.document.getElementById('RiAddr2');
+    addr1.className = "form_text01 textExample";
+    addr2.className = "form_text01 textExample";
+    window.opener.document.<TMPL_VAR name=TARGET>.RiPref.selectedIndex='<TMPL_VAR name=PREF_NO>';
+    window.opener.document.<TMPL_VAR name=TARGET>.RiAddr1.value='<TMPL_VAR name=CITY>';
+    window.opener.document.<TMPL_VAR name=TARGET>.RiAddr2.value='<TMPL_VAR name=TOWN>';
+    window.opener.zipSeachCount("RiAddr1", '<TMPL_VAR name=CITY>');
+    window.opener.zipSeachCount("RiAddr2", '<TMPL_VAR name=TOWN>');
+    window.close();
+}
+function set_addr_sel_rikeiyaku() {
+    var addr1 = window.opener.document.getElementById('RiKeiyakuAddr1');
+    var addr2 = window.opener.document.getElementById('RiKeiyakuAddr2');
+    addr1.className = "form_text01 textExample";
+    addr2.className = "form_text01 textExample";
+    window.opener.document.<TMPL_VAR name=TARGET>.RiKeiyakuPref.selectedIndex='<TMPL_VAR name=PREF_NO>';
+    window.opener.document.<TMPL_VAR name=TARGET>.RiKeiyakuAddr1.value='<TMPL_VAR name=CITY>';
+    window.opener.document.<TMPL_VAR name=TARGET>.RiKeiyakuAddr2.value='<TMPL_VAR name=TOWN>';
+    window.opener.zipSeachCount("RiKeiyakuAddr1", '<TMPL_VAR name=CITY>');
+    window.opener.zipSeachCount("RiKeiyakuAddr2", '<TMPL_VAR name=TOWN>');
+    window.close();
+}
+function set_addr_sel_ritanto() {
+    var addr1 = window.opener.document.getElementById('RiTantoAddr1');
+    var addr2 = window.opener.document.getElementById('RiTantoAddr2');
+    addr1.className = "form_text01 textExample";
+    addr2.className = "form_text01 textExample";
+    window.opener.document.<TMPL_VAR name=TARGET>.RiTantoPref.selectedIndex='<TMPL_VAR name=PREF_NO>';
+    window.opener.document.<TMPL_VAR name=TARGET>.RiTantoAddr1.value='<TMPL_VAR name=CITY>';
+    window.opener.document.<TMPL_VAR name=TARGET>.RiTantoAddr2.value='<TMPL_VAR name=TOWN>';
+    window.opener.zipSeachCount("RiTantoAddr1", '<TMPL_VAR name=CITY>');
+    window.opener.zipSeachCount("RiTantoAddr2", '<TMPL_VAR name=TOWN>');
+    window.close();
+}
+function set_addr_sel_office() {
+    var officePref = window.opener.document.getElementById('officePref');
+    var officePrefDisp = window.opener.document.getElementById('officePrefDisp');
+    var officeCity = window.opener.document.getElementById('officeCity');
+    var officeCityDisp = window.opener.document.getElementById('officeCityDisp');
+    officeCity.className = 'textCount textExample form_text01';
+    window.opener.document.<TMPL_VAR name=TARGET>.officePref.value='<TMPL_VAR name=PREF>';
+    officePrefDisp.innerText='<TMPL_VAR name=PREF>';
+    window.opener.document.<TMPL_VAR name=TARGET>.officeCity.value='<TMPL_VAR name=CITY>';
+    officeCityDisp.innerText='<TMPL_VAR name=CITY>';
+    window.opener.zipSeachCount("officeCity", '<TMPL_VAR name=CITY>');
+    window.opener.searchAddressByZipCode('<TMPL_VAR name=organizationCode>');
+    window.close();
+}
+
+//
+function multi_set_addr_sel_tanto() {
+    var addr1 = window.opener.document.getElementById('TantoAddr1');
+    var addr2 = window.opener.document.getElementById('TantoAddr2');
+    addr1.className = "form_text01 textExample";
+    addr2.className = "form_text01 textExample";
+
+    var i;
+    for (i=0; i < document.list.SELADDR.length; i++){
+      if (document.list.SELADDR[i].checked){
+          window.opener.document.<TMPL_VAR name=TARGET>.TantoPref.selectedIndex=document.list.PREF_NO[i].value;;
+          window.opener.document.<TMPL_VAR name=TARGET>.TantoAddr1.value = document.list.CITY[i].value;
+          window.opener.document.<TMPL_VAR name=TARGET>.TantoAddr2.value = document.list.TOWN[i].value;
+          window.opener.zipSeachCount("TantoAddr1", document.list.CITY[i].value);
+          window.opener.zipSeachCount("TantoAddr2", document.list.TOWN[i].value);
+          window.close();
+      }
+    }
+}
+
+//
+function multi_set_addr_sel_cvs() {
+    var addr1 = window.opener.document.getElementById('CvsAddr1');
+    var addr2 = window.opener.document.getElementById('CvsAddr2');
+    addr1.className = "form_text01 textExample";
+    addr2.className = "form_text01 textExample";
+
+    var i;
+    var addr;
+    for (i=0; i < document.list.SELADDR.length; i++){
+      if (document.list.SELADDR[i].checked){
+        var a = document.list.PREF_NO[i].value;
+        addr = document.list.PREF[i].value + document.list.CITY[i].value;
+        a ++;
+        window.opener.document.<TMPL_VAR name=TARGET>.CvsAddr1.value=addr;
+        window.opener.document.<TMPL_VAR name=TARGET>.CvsAddr2.value=document.list.TOWN[i].value;
+        window.opener.zipSeachCount("CvsAddr1", addr);
+        window.opener.zipSeachCount("CvsAddr2", document.list.TOWN[i].value);
+        window.close();
+    }
+  }
+}
+
+//
+function multi_set_addr_sel_yw() {
+    var addr1 = window.opener.document.getElementById('YwAddr1');
+    var addr2 = window.opener.document.getElementById('YwAddr2');
+    addr1.className = "form_text01 textExample";
+    addr2.className = "form_text01 textExample";
+
+    var i;
+    for (i=0; i < document.list.SELADDR.length; i++){
+      if (document.list.SELADDR[i].checked){
+          window.opener.document.<TMPL_VAR name=TARGET>.YwPref.selectedIndex=document.list.PREF_NO[i].value;;
+          window.opener.document.<TMPL_VAR name=TARGET>.YwAddr1.value=document.list.CITY[i].value;
+          window.opener.document.<TMPL_VAR name=TARGET>.YwAddr2.value=document.list.TOWN[i].value;
+          window.opener.zipSeachCount("YwAddr1", document.list.CITY[i].value);
+          window.opener.zipSeachCount("YwAddr2", document.list.TOWN[i].value);
+          window.close();
+      }
+    }
+}
+
+//
+function multi_set_addr_sel_ywd() {
+    var addr1 = window.opener.document.getElementById('YwDaihyoAddr1');
+    var addr2 = window.opener.document.getElementById('YwDaihyoAddr2');
+    addr1.className = "form_text01 textExample";
+    addr2.className = "form_text01 textExample";
+    var i;
+    for (i=0; i < document.list.SELADDR.length; i++){
+      if (document.list.SELADDR[i].checked){
+          window.opener.document.<TMPL_VAR name=TARGET>.YwDaihyoPref.selectedIndex=document.list.PREF_NO[i].value;;
+          window.opener.document.<TMPL_VAR name=TARGET>.YwDaihyoAddr1.value=document.list.CITY[i].value;
+          window.opener.document.<TMPL_VAR name=TARGET>.YwDaihyoAddr2.value=document.list.TOWN[i].value;
+          window.opener.zipSeachCount("YwDaihyoAddr1", document.list.CITY[i].value);
+          window.opener.zipSeachCount("YwDaihyoAddr2", document.list.TOWN[i].value);
+          window.close();
+      }
+    }
+}
+
+function multi_set_addr_sel_ri() {
+    var addr1 = window.opener.document.getElementById('RiAddr1');
+    var addr2 = window.opener.document.getElementById('RiAddr2');
+    addr1.className = "form_text01 textExample";
+    addr2.className = "form_text01 textExample";
+
+    var i;
+    for (i=0; i < document.list.SELADDR.length; i++){
+      if (document.list.SELADDR[i].checked){
+          window.opener.document.<TMPL_VAR name=TARGET>.RiPref.selectedIndex=document.list.PREF_NO[i].value;;
+          window.opener.document.<TMPL_VAR name=TARGET>.RiAddr1.value=document.list.CITY[i].value;
+          window.opener.document.<TMPL_VAR name=TARGET>.RiAddr2.value=document.list.TOWN[i].value;
+          window.opener.zipSeachCount("RiAddr1", document.list.CITY[i].value);
+          window.opener.zipSeachCount("RiAddr2", document.list.TOWN[i].value);
+          window.close();
+      }
+    }
+}
+function multi_set_addr_sel_rikeiyaku() {
+    var addr1 = window.opener.document.getElementById('RiKeiyakuAddr1');
+    var addr2 = window.opener.document.getElementById('RiKeiyakuAddr2');
+    addr1.className = "form_text01 textExample";
+    addr2.className = "form_text01 textExample";
+
+    var i;
+    for (i=0; i < document.list.SELADDR.length; i++){
+      if (document.list.SELADDR[i].checked){
+          window.opener.document.<TMPL_VAR name=TARGET>.RiKeiyakuPref.selectedIndex=document.list.PREF_NO[i].value;;
+          window.opener.document.<TMPL_VAR name=TARGET>.RiKeiyakuAddr1.value=document.list.CITY[i].value;
+          window.opener.document.<TMPL_VAR name=TARGET>.RiKeiyakuAddr2.value=document.list.TOWN[i].value;
+          window.opener.zipSeachCount("RiKeiyakuAddr1", document.list.CITY[i].value);
+          window.opener.zipSeachCount("RiKeiyakuAddr2", document.list.TOWN[i].value);
+          window.close();
+      }
+    }
+}
+function multi_set_addr_sel_ritanto() {
+    var addr1 = window.opener.document.getElementById('RiTantoAddr1');
+    var addr2 = window.opener.document.getElementById('RiTantoAddr2');
+    addr1.className = "form_text01 textExample";
+    addr2.className = "form_text01 textExample";
+
+    var i;
+    for (i=0; i < document.list.SELADDR.length; i++){
+      if (document.list.SELADDR[i].checked){
+          window.opener.document.<TMPL_VAR name=TARGET>.RiTantoPref.selectedIndex=document.list.PREF_NO[i].value;;
+          window.opener.document.<TMPL_VAR name=TARGET>.RiTantoAddr1.value=document.list.CITY[i].value;
+          window.opener.document.<TMPL_VAR name=TARGET>.RiTantoAddr2.value=document.list.TOWN[i].value;
+          window.opener.zipSeachCount("RiTantoAddr1", document.list.CITY[i].value);
+          window.opener.zipSeachCount("RiTantoAddr2", document.list.TOWN[i].value);
+          window.close();
+      }
+    }
+}
+function multi_set_addr_sel_office() {
+  var officePref = window.opener.document.getElementById('officePref');
+  var officePrefDisp = window.opener.document.getElementById('officePrefDisp');
+  var officeCity = window.opener.document.getElementById('officeCity');
+  var officeCityDisp = window.opener.document.getElementById('officeCityDisp');
+  officeCity.className = 'textCount textExample form_text01';
+
+  var i;
+  for (i = 0; i < document.list.SELADDR.length; i++){
+    if (document.list.SELADDR[i].checked){
+      window.opener.document.<TMPL_VAR name=TARGET>.officePref.value=document.list.PREF[i].value;
+      officePrefDisp.innerText=document.list.PREF[i].value;
+      window.opener.document.<TMPL_VAR name=TARGET>.officeCity.value=document.list.CITY[i].value;
+      officeCityDisp.innerText=document.list.CITY[i].value;
+      window.opener.zipSeachCount("officeCity", document.list.CITY[i].value);
+      window.opener.searchAddressByZipCode('<TMPL_VAR name=organizationCode>');
+      window.close();
+    }
+  }
+}
+-->
+</script>
+
+</head>
+
+<body <TMPL_VAR name=ONLOAD>>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" id="enter">
+<tr>
+<td>
+<!-- 中央コンテンツ -->
+<table border="0" width="100%" cellspacing="0" cellpadding="0" align="center">
+<tr>
+<td id="center3">
+<!-- centerbox -->
+<div class="centerbox">
+<h3 class="title1">郵便番号検索結果</h3>
+<!-- mainCont -->
+<div class="mainCont">
+<div class="bordlayoutp3 center">
+
+<TMPL_IF name=ERR_DISP>
+<!-- エラー画面　ここから //-->
+<table border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td nowrap><span class="txt">郵便番号は7桁の数字を入力してください</span></td>
+  </tr>
+</table>
+<!-- エラー画面　ここまで //-->
+</TMPL_IF>
+
+<TMPL_IF name=WAIT_DISP>
+<!-- 検索中画面　ここから //-->
+
+<script language="javascript">
+<!--
+WinW = (screen.width / 2) - 120;
+WinH = (screen.height / 2) - 120;
+window.moveTo(WinW, WinH);
+-->
+</script>
+
+<form name=form1 method=post action="<TMPL_VAR NAME=SCRIPT>.cgi">
+<input type="hidden" name="WAIT"   value="Y">
+<input type="hidden" name="TARGET" value="<TMPL_VAR name=TARGET>">
+<input type="hidden" name="TYPE"   value="<TMPL_VAR name=TYPE>">
+<input type="hidden" name="ZIP1"   value="<TMPL_VAR name=ZIP1>">
+<input type="hidden" name="ZIP2"   value="<TMPL_VAR name=ZIP2>">
+</form>
+<table border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td nowrap><span class="txt">ただいま、郵便番号検索中です。<br>
+      もうしばらくそのままお待ちください。</span></td>
+  </tr>
+</table>
+<!-- 検索中画面　ここまで //-->
+</TMPL_IF>
+
+<TMPL_IF name=NO_DISP>
+<!-- レコードなし画面　ここから //-->
+<table border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td nowrap><span class="txt">該当する住所は存在しませんでした。<br>
+      郵便番号を再度ご確認ください。</span></td>
+  </tr>
+</table>
+<!-- レコードなし画面　ここまで //-->
+</TMPL_IF>
+
+<TMPL_IF name=ONE_DISP>
+<form>
+<!-- 1レコード画面　ここから //-->
+<table border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td nowrap><span class="txt">１件のレコードが検索されました。<br><br>
+     </span></td>
+  </tr>
+  <tr>
+   <td>
+    <span class="txt"><TMPL_VAR name=PREF><TMPL_VAR name=CITY><TMPL_VAR name=TOWN></span><br>
+   </td>
+  </tr>
+</table>
+<br>
+<div align="center">
+  <input type="button" value="決定" onClick="<TMPL_VAR name=ACTION>">
+</div>
+
+<!-- 1レコード画面　ここまで //-->
+</form>
+</TMPL_IF>
+
+<TMPL_IF name=MULTI_DISP>
+<form name="list">
+<!-- レコード複数画面　ここから //-->
+<table border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td nowrap><span class="txt">住所が複数存在します。<br>
+      選択してください。</span></td>
+  </tr>
+  <TMPL_LOOP name=ADDRLIST>
+  <tr>
+   <td>
+    <input type=radio name="SELADDR" value="<TMPL_VAR name=NUM>"><span class="txt"><TMPL_VAR name=PREF><TMPL_VAR name=CITY><TMPL_VAR name=TOWN></span><br>
+    <input type="hidden" name="PREF"    value="<TMPL_VAR name=PREF>">
+    <input type="hidden" name="PREF_NO" value="<TMPL_VAR name=PREF_NO>">
+    <input type="hidden" name="CITY"    value="<TMPL_VAR name=CITY>">
+    <input type="hidden" name="TOWN"    value="<TMPL_VAR name=TOWN>">
+   </td>
+  </tr>
+  </TMPL_LOOP>
+</table>
+<br>
+<div align="center">
+  <input type="button" name="set_addr" value="決定" onClick="<TMPL_VAR name=ACTION>">
+</div>
+
+<!-- レコード複数画面　ここまで //-->
+</form>
+</TMPL_IF>
+
+
+<hr width=90%>
+<div align="center">
+  <input type="button" name="cancel" value="閉じる" onClick="window.close();">
+</div>
+
+
+
+
+</div>
+</div><!-- //mainCont -->
+</div><!-- //centerbox -->
+</td>
+<!-- //中央コンテンツ -->
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</body>
+</html>

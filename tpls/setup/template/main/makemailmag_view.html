@@ -1,0 +1,104 @@
+<script type="text/javascript" src="/js/jquery/jquery-1.10.2.min.js"></script>
+<script language="JavaScript" type="text/JavaScript">
+function BackList() {
+  document.location.href="./mailmag.cgi";
+  return false;
+}
+</script>
+
+<style type="text/css">
+<!--
+/* ぶら下がり項目 */
+p.note {
+  font-size: 95%;
+  text-indent: -1em;
+  margin: 5px 0px 0px 2em;
+}
+-->
+</style>
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<form name="MAKEMAG" method="POST" action="makemailmag.cgi" enctype="multipart/form-data">
+<TMPL_IF ID>
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+</TMPL_IF>
+<TMPL_IF TMPLID>
+<input type="hidden" name="TMPLID" value="<TMPL_VAR NAME=TMPLID>">
+</TMPL_IF>
+<input type="hidden" name="MODE" value="<TMPL_VAR MODE>">
+<input type="hidden" name="CMD" value="SCHED">
+                                      <tr>
+                                        <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+                                            <tr>
+                                              <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+                                            </tr>
+                                        </table></td>
+<td align="left" class="midashi">メールマガジンの送信内容を確認します</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/mailmag.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                                      </tr>
+                                    </table>
+                                      <img src="../imgs/spc.gif" width="5" height="5">
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                          <td align="left" class="main-table">
+                                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                              <td>
+
+<TMPL_LOOP NAME=ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+            <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                                <tr align="center">
+                                                  <td colspan="2" class="item-name02">メルマガ確認</td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">送信形式</td>
+                                                  <td class="item"><TMPL_IF MAILTYPEM>HTML+テキスト(マルチパート)</TMPL_IF><TMPL_IF MAILTYPEH>HTML</TMPL_IF><TMPL_IF MAILTYPET>テキスト</TMPL_IF></td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">メルマガタイトル</td>
+                                                  <td class="item"><TMPL_VAR NAME=SUBJECT></td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">送信開始日時</td>
+                                                  <td class="item"><!--送信予約時刻--><TMPL_VAR SCHED>頃</td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">送信先</td>
+                                                  <td class="item"><TMPL_VAR SENDORDER></td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">配信数</td>
+                                                  <td class="item"><TMPL_VAR SENDCNT>(配信成功数:<TMPL_VAR SUCCESSCNT>/エラー数:<TMPL_VAR ERRCNT>/除外数:<TMPL_VAR EXCCNT>)</td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">差出人</td>
+                                                  <td class="item"><!--差出人名--><TMPL_VAR FROMSTR>&nbsp;&lt;<!--差出人メールアドレス--><TMPL_VAR FROMADDR>&gt;</td>
+                                                </tr>
+                                                <tr <TMPL_IF MAILTYPET>style=display:none;</TMPL_IF>>
+                                                  <td class="item-name">HTML本文</td>
+                                                  <td class="item"><textarea id="HtmlBody" name="HtmlBody" cols="80" rows="20" wrap="VIRTUAL" style="width:500px;" readonly="readonly"><TMPL_VAR NAME=HTMLBODY></textarea></td>
+                                                </tr>
+                                                <tr <TMPL_IF MAILTYPEH>style=display:none;</TMPL_IF>>
+                                                  <td class="item-name">テキスト本文</td>
+                                                  <td class="item"><textarea id="Body" name="Body" cols="80" rows="20" wrap="VIRTUAL" style="width:500px;" readonly="readonly"><TMPL_VAR NAME=BODY></textarea></td>
+                                                </tr>
+
+
+ <tr align="center">
+  <td colspan="2" class="item">
+    <input id="MailTypeT" name="MailType" type="radio" value="T"  style="display: none;" <TMPL_IF MAILTYPET>checked</TMPL_IF>/>
+    <input id="MailTypeH" name="MailType" type="radio" value="H"  style="display: none;" <TMPL_IF MAILTYPEH>checked</TMPL_IF> />
+    <input id="MailTypeM" name="MailType" type="radio" value="M"  style="display: none;" <TMPL_IF MAILTYPEM>checked</TMPL_IF> />
+    <input name="tmpl1" type="button" onClick="BackList();" value="戻る" />
+    <input name="preview" type="button" onClick="window.open('mailmag_preview.html', 'mailmag_preview')" value="全体プレビューを表示する" />
+  </td>
+ </tr>
+                                              </table>
+                                              <br></td>
+                                            </tr>
+                                          </table></td>
+                                        </tr>
+</form>
+                                      </table>

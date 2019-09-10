@@ -1,0 +1,137 @@
+<script language="JavaScript">
+<!--
+function del(f) {
+  if ( confirm("お知らせを削除します。よろしいですか？") ) {
+    f.submit();
+  } else {
+    return;
+  }
+}
+function dis() {
+  document.form1.set.disabled='true';
+  document.form1.set2.disabled='true';
+<TMPL_LOOP NAME=DIS_LIST>
+  document.form1.CBUTTON<TMPL_VAR NAME=COUNT>.disabled='true';
+  document.form1.UBUTTON<TMPL_VAR NAME=COUNT>.disabled='true';
+  document.form1.DBUTTON<TMPL_VAR NAME=COUNT>.disabled='true';
+  document.form1.DDBUTTON<TMPL_VAR NAME=COUNT>.disabled='true';
+</TMPL_LOOP>
+}
+//-->
+</script>
+<form name="form1" method="post" action="infolist.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#F39700">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">ショップからのお知らせの更新を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/infolist.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  お店ページトップの「お知らせ」を編集します。<br><br>
+                                  ＜設定手順＞<br>
+                                  1.「お知らせの追加」にお知らせ内容を入力して[追加する]ボタンをクリック<br>
+                                  2.「表示リスト」に追加されるので、並び順などを確認<br>
+                                  3.管理画面左上の[お店ページの更新へ]ボタンをクリック<br><br>
+                                  <a href="../func04/topdesign_sps.cgi">⇒お店ページでの「お知らせ」の表示位置、表示・非表示の設定</a><br>
+                                </div>
+                                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+				<TMPL_VAR NAME=err>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                    <tr>
+                                      <td class="item-name">見出し</td>
+                                      <td class="item"><input name="title" type="text" class="def-line" value="<TMPL_VAR name=title>">
+
+                                      </td>
+                                    </tr> <tr align="center">
+                                        <td colspan="2" class="item"><input type="button" name="set2" value="設定を保存する" onClick="document.form1.mode.value='stitle';document.form1.submit();"></td>
+                                      </tr>
+                                  </table>
+                                    <br>
+                                    <table width="100%" class="item-box">
+                                      <tr>
+                                        <td align="center" class="item-name02">お知らせの追加</td>
+                                      </tr>
+
+                                      <tr>
+                                          <td class="item02">
+                                              <textarea name="body" rows="5" wrap="VIRTUAL" class="long-line"><TMPL_VAR NAME=body></textarea>
+                                              <br>※HTMLタグ利用可
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td align="center" class="item02"><input name="set" type="button" id="set" value="追加する"
+onClick="
+document.form1.mode.value='regist';
+dis();
+document.form1.submit();">
+                                        </td>
+                                      </tr>
+
+                                    </table>
+                                    <br>
+                                    <br>
+                                    <table width="100%" cellpadding="2" class="item-box">
+                                      <tr align="center">
+                                        <td colspan="3" class="item-name02">表示リスト</td>
+                                      </tr>
+                                      <tr bgcolor="#FFFFFF">
+
+                                        <td width="8%" align="center" bgcolor="#FFFFFF">表示順</td>
+                                        <td width="52%" align="center" bgcolor="#FFFFFF">お知らせの内容</td>
+                                        <td width="40%" align="center" bgcolor="#FFFFFF">操作</td>
+                                      </tr>
+	                <TMPL_LOOP name=label_list>
+                                      <tr bgcolor="#FFFFFF">
+                                        <td align="center" bgcolor="#FFFFFF"><TMPL_VAR name=vord></td>
+                                        <td><textarea name="comment<TMPL_VAR name=vord>" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR name=comment></textarea>
+
+                                        </td>
+                                        <td bgcolor="#FFFFFF"><input type="button" name="CBUTTON<TMPL_VAR NAME=COUNT>" value="変更"
+onClick="
+document.form1.mode.value='mod';
+dis();
+document.form1.vord.value='<TMPL_VAR name=vord>';submit();">
+                                            <input type="button" name="UBUTTON<TMPL_VAR NAME=COUNT>" value="上へ"
+onClick="
+document.form1.mode.value='up';
+dis();
+document.form1.vord.value='<TMPL_VAR name=vord>';submit();">
+                                            <input type="button" name="DBUTTON<TMPL_VAR NAME=COUNT>" value="下へ"
+onClick="
+document.form1.mode.value='down';
+dis();
+document.form1.vord.value='<TMPL_VAR name=vord>';submit();">
+                                            <input type="button" name="DDBUTTON<TMPL_VAR NAME=COUNT>" value="表示リストから削除"
+onClick="
+document.form1.mode.value='del';
+dis();
+document.form1.vord.value='<TMPL_VAR name=vord>';del(document.form1);" style="width:130px">
+                                        </td>
+                                      </tr>
+	                </TMPL_LOOP>
+
+                                    </table>
+
+
+                                  <BR></td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+                      </td>
+                    </tr>
+<input type="hidden" name="mode" value="">
+<input type="hidden" name="vord" value="">
+</form>

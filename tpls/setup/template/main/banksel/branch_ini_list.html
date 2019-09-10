@@ -1,0 +1,96 @@
+<link href="css/banksel.css" rel="stylesheet" type="text/css">
+<script language=JavaScript>
+<!--
+function bank_b(val1, val2) {
+  document.form1.CMD.value = val1;
+  document.form1.BRANCH_INITIAL.value = val2;
+  document.form1.submit();
+}
+
+function back() {
+  document.form1.CMD.value = 'bank';
+  document.form1.submit();
+}
+//-->
+</script>
+
+<form name="form1" action="banksel.cgi" method="POST">
+<div align="center">                
+  <br>
+  <br>
+  <table cellSpacing=0 cellPadding=0 width=530 border=0>
+    <tr>
+      <td>
+        <table cellSpacing=0 cellPadding=0 border=0>
+          <tr>
+            <td width="550">
+              <img align="left" height=22 src="./imgs/m_ticon.gif" width=14 vspace=7>
+              <img align="left" height=21 alt="¶ä¹ÔÌ¾¡¡ÁªÂò" hspace=7 src="./imgs/at_041.gif" width=400 vspace=6>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <img height=1 src="./imgs/m_b_hr.gif" width=550 vspace=2>
+            </td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+  <br>
+<table width=550 height="13" border=0 cellPadding=0 cellSpacing=0>
+  <tr>
+    <td align="left" height="20" bgcolor="#ddecfb">
+      <strong>¡¡¢£<TMPL_VAR NAME=BANK_NAME></strong>
+    </td>
+  </tr>
+</table>
+<br>
+
+<table width=550 height="104" border=0 cellPadding=0 cellSpacing=0>
+  <tr>
+    <td align="left" height="20" bgcolor="#ddecfb">
+      <strong>¡¡¢£»ÙÅ¹Ì¾¤ÎÆ¬Ê¸»ú¤òÁªÂò</strong>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td bgcolor="#666666">
+      <table width="100%" border="0">
+        <TMPL_LOOP NAME=BRANCH_INI_LIST>
+          <TMPL_IF LINE_S>
+          <tr align="center" bgcolor="#DDECFB">
+          </TMPL_IF>
+          <td>
+          <TMPL_IF CNT>
+          <a href="javascript:bank_b('branch', '<TMPL_VAR NAME=INI_ROMA>');"><TMPL_VAR NAME=INI></a>
+          <TMPL_ELSE>
+          <TMPL_VAR NAME=INI>
+          </TMPL_IF>
+          </td>
+          <TMPL_IF LINE_SPACE>
+          <td></td>
+          </TMPL_IF>
+          <TMPL_IF LINE_E>
+          </tr>
+          </TMPL_IF>
+        </TMPL_LOOP>
+      </table>
+  </tr>
+</table>
+<br>
+
+<img height=30 src="./imgs/spc.gif" width=5>
+<img height=30 src="./imgs/spc.gif" width=5>
+<input type="button" value="Ìá¤ë" onClick="back('1206')">
+</div>
+<input type="hidden" name="CMD" value="">
+<input type="hidden" name="BRANCH_INITIAL" value="">
+<input type="hidden" name="BANK_INITIAL" value="<TMPL_VAR NAME=BANK_INITIAL>">
+<input type="hidden" name="BANK_CODE" value="<TMPL_VAR NAME=BANK_CODE>">
+<input type="hidden" name="SITEN_NO" value="<TMPL_VAR NAME=SITEN_NO>">
+<input type="hidden" name="BANK_NAME" value="<TMPL_VAR NAME=BANK_NAME>">
+</form>
+

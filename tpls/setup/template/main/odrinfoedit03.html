@@ -1,0 +1,71 @@
+<a name="top"></a>
+<div style="font-size:100%">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">注文データの詳細を編集します。</td>
+    <td align="right" class="midashi"><a href="https://help.shopserve.jp/help/orderlist.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table>
+
+<img src="../imgs/spc.gif" width="5" height="5">
+<form name="pur" method="post" action="odrinfo-edit03.cgi">
+
+  <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+    <input name="no_odr_dtl" type="hidden" value="<TMPL_VAR NAME=no_odr_dtl>">
+    <TMPL_LOOP NAME=ERR_MSG>
+      <tr><td align="left"><font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font></td></tr>
+    </TMPL_LOOP>
+  </table>
+
+  <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="left" class="main-table">
+        <table width="100%" border="0" cellpadding="0" cellspacing="2" bgcolor="#999999">
+          <tr bgcolor="#CCCCCC" align="center">
+      			<td class="item-name02">注文情報</td>
+      		</tr>
+          <tr>
+            <td style="padding:5px" class="item">
+              <table cellspacing="1" cellpadding="3" border="0" bgcolor="#666666" width="100%">
+                <tbody>
+                  <tr>
+                    <td class="item-name"><TMPL_VAR NAME=err_free_comment><TMPL_VAR NAME=free_title></td>
+                  </tr>
+                  <tr>
+                    <td class="item">
+                      <textarea name="free_comment" wrap="VIRTUAL" style="width:650px;overflow:auto;" rows="8" class="item" maxlength="2000"><TMPL_VAR NAME=free_comment></textarea>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </table>
+        <div class="func_btn cont_spc">
+          <input type="button" name="Submit" value="キャンセル" onClick="document.back.submit()">
+          &nbsp;
+          <input type="button" name="Submit" value="保存" onClick="document.pur.submit()">
+        </div>
+      </td>
+    </tr>
+  </table>
+  <input type="hidden" name="ORDERID" value="<TMPL_VAR NAME=order_id>">
+  <input type="hidden" name="id" value="<TMPL_VAR NAME=purchaser>">
+  <input type="hidden" name="back" value="<TMPL_VAR NAME=back>">
+  <input type="hidden" name="cmd" value="save">
+  <input type="hidden" name="free_title" value="<TMPL_VAR NAME=free_title>">
+</form>
+
+<form name="back" method="post" action="odrinfo.cgi">
+  <input type="hidden" name="ORDERID" value="<TMPL_VAR NAME=order_id>">
+</form>
+<br>
+<br>
+</div>

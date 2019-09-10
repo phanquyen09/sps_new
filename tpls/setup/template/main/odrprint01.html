@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<title>納品書</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link rel="stylesheet" href="odr_print.css" type="text/css">
+<link rel="stylesheet" href="../css/tooltipster.css" type="text/css"/>
+<script type="text/javascript" src="../js/jquery/jquery-1.10.2.min.js"></script>
+<script type="text/javascript" src="../js/jquery.tooltipster.js"></script>
+<script type="text/javascript" src="../js/odrprint_tooltipster.js"></script>
+<style type="text/css"> 
+<!--
+@media print {
+	.header-guide { 
+		display: none !important; 
+	}
+}
+
+.header-guide {
+	background: none repeat scroll 0 0 #eee;
+	color: #666;
+	font-size: 0.8em;
+	line-height: 1.4;
+	padding: 1em;
+	width: 100%;
+}
+
+.odrprint-tooltip {
+	border: solid 2px;
+	border-color: #FFFFFF;
+}
+
+.my-custom-theme {
+        border-radius: 5px;
+        border: 0;
+        background: #FAED7D;
+        color: #000000;
+}
+.my-custom-theme .tooltipster-content {
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        line-height: 16px;
+        padding: 8px 10px;
+}
+-->
+</style>
+</head>
+<body text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<div class="header-guide">
+        ※このグレーのエリアは印刷されません。<br>
+        「納品書見出し」「案内文」「お届け内容見出し」「署名」はダブルクリックで編集できます。
+</div>
+<TMPL_LOOP NAME=mainloop>
+  <table width="600" border="0" align="center">
+    <tr>
+      <td>
+        <br>
+        <!-- ロゴ画像 -->
+        <div align="right"><img src="<TMPL_VAR NAME=logoimg1>" alt="" hspace="2" vspace="2"></div>
+        <br>
+        <!-- 書類見出し -->
+        <div align="center" class="midashi"><div class="odrprint-tooltip" id="edit_area1_<TMPL_VAR NAME=oid_cnt>"><TMPL_VAR NAME=title1></div></div>
+        <br>
+        <br>
+        <!-- 前文 -->
+        <div class="def">
+<div class="odrprint-tooltip" id="edit_area2_<TMPL_VAR NAME=oid_cnt>"><TMPL_VAR NAME=header1></div>
+        </div>
+        <br>
+        <!-- 注文内容 -->
+        <div class="odr-con"><div class="odrprint-tooltip" id="edit_area3_<TMPL_VAR NAME=oid_cnt>"><TMPL_VAR NAME=detail1></div></div>
+        <table width="100%" border="1" cellpadding="3" cellspacing="0">
+          <tr>
+<TMPL_IF disp_itemno1>
+            <td width="15%" class="odr-midashi">品番</td>
+</TMPL_IF>
+            <td width="45%" class="odr-midashi"><TMPL_VAR NAME=cart_itm_name></td>
+<TMPL_IF disp_price1>
+            <td width="16%" class="odr-midashi"><TMPL_VAR NAME=cart_prc_name></td>
+</TMPL_IF>
+            <td width="8%" class="odr-midashi"><TMPL_VAR NAME=cart_cnt_name></td>
+<TMPL_IF disp_price1>
+            <td width="16%" class="odr-midashi"><TMPL_VAR NAME=cart_subttl_name></td>
+</TMPL_IF>
+          </tr>
+<TMPL_LOOP NAME=itemlist>
+          <tr>
+  <TMPL_IF disp_itemno>
+            <td align="center" class="odr-txt"><TMPL_VAR NAME=item_no></td>
+  </TMPL_IF>
+            <td class="odr-txt"><TMPL_VAR NAME=item_name></td>
+  <TMPL_IF disp_price>
+            <td align="right" class="odr-txt"><TMPL_VAR NAME=item_prc>円</td>
+  </TMPL_IF>
+            <td align="right" class="odr-txt"><TMPL_VAR NAME=item_cnt></td>
+  <TMPL_IF disp_price>
+            <td align="right" class="odr-txt"><TMPL_VAR NAME=item_tal>円</td>
+  </TMPL_IF>
+          </tr>
+</TMPL_LOOP>
+<TMPL_IF disp_price1>
+<TMPL_IF disp_rank_discount_price>
+          <tr>
+            <td colspan="<TMPL_IF disp_itemno1>4<TMPL_ELSE>3</TMPL_IF>" align="right" class="odr-txt"><TMPL_VAR NAME=cart_members_discount_name></td>
+            <td align="right" class="odr-txt">-<TMPL_VAR NAME=rank_discount_price>円</td>
+         </tr>
+</TMPL_IF>
+<TMPL_IF disp_coupon_discount_price>
+         <tr>
+          <td colspan="<TMPL_IF disp_itemno1>4<TMPL_ELSE>3</TMPL_IF>" align="right" class="odr-txt">クーポン割引（<TMPL_VAR NAME=coupon_name>）</td>
+          <td align="right" class="odr-txt">-<TMPL_VAR NAME=coupon_discount_price>円</td>
+         </tr>
+</TMPL_IF>
+<TMPL_IF disp_discount_price>
+          <tr>
+            <td colspan="<TMPL_IF disp_itemno1>4<TMPL_ELSE>3</TMPL_IF>" align="right" class="odr-txt"><TMPL_VAR NAME=discount_name></td>
+            <td align="right" class="odr-txt"><TMPL_VAR NAME=disp_discount_price></td>
+         </tr>
+</TMPL_IF>
+          <tr>
+            <td colspan="<TMPL_IF disp_itemno1>4<TMPL_ELSE>3</TMPL_IF>" align="right" class="odr-txt"><TMPL_VAR NAME=cart_itmttl_name></td>
+            <td align="right" class="odr-txt"><TMPL_VAR NAME=disp_subtotal></td>
+          </tr>
+<TMPL_IF pointS>
+          <tr>
+            <td colspan="<TMPL_IF disp_itemno1>4<TMPL_ELSE>3</TMPL_IF>" align="right" class="odr-txt"><TMPL_VAR NAME=point_unit>利用</td>
+            <td align="right" class="odr-txt">-<TMPL_VAR NAME=disp_used_point></td>
+          </tr>
+</TMPL_IF>
+<TMPL_IF schargeon>
+          <tr>
+            <td colspan="<TMPL_IF disp_itemno1>4<TMPL_ELSE>3</TMPL_IF>" align="right" class="odr-txt"><TMPL_VAR NAME=cart_scharge_name></td>
+            <td align="right" class="odr-txt"><TMPL_VAR NAME=disp_scharge></td>
+          </tr>
+</TMPL_IF>
+<TMPL_IF wrapon>
+          <tr>
+            <td colspan="<TMPL_IF disp_itemno1>4<TMPL_ELSE>3</TMPL_IF>" align="right" class="odr-txt"><TMPL_VAR NAME=cart_wrap_name></td>
+            <td align="right" class="odr-txt"><TMPL_VAR NAME=disp_wrap></td>
+          </tr>
+</TMPL_IF>
+<TMPL_IF feeon>
+<TMPL_IF disp_fee>
+          <tr>
+            <td colspan="<TMPL_IF disp_itemno1>4<TMPL_ELSE>3</TMPL_IF>" align="right" class="odr-txt"><TMPL_VAR NAME=cart_commission_name></td>
+            <td align="right" class="odr-txt"><TMPL_VAR NAME=disp_fee></td>
+          </tr>
+</TMPL_IF>
+</TMPL_IF>
+<TMPL_IF pointT>
+          <tr>
+            <td colspan="<TMPL_IF disp_itemno1>4<TMPL_ELSE>3</TMPL_IF>" align="right" class="odr-txt"><TMPL_VAR NAME=point_unit>利用</td>
+            <td align="right" class="odr-txt">-<TMPL_VAR NAME=disp_used_point></td>
+          </tr>
+</TMPL_IF>
+<TMPL_IF adjuston>
+          <tr>
+            <td colspan="<TMPL_IF disp_itemno1>4<TMPL_ELSE>3</TMPL_IF>" align="right" class="odr-txt"><TMPL_VAR NAME=adjust_name></td>
+            <td align="right" class="odr-txt"><TMPL_VAR NAME=disp_adjust></td>
+          </tr>
+</TMPL_IF>
+          <tr>
+            <td colspan="<TMPL_IF disp_itemno1>4<TMPL_ELSE>3</TMPL_IF>" align="right" class="odr-txt"><TMPL_VAR NAME=cart_total_name></td>
+            <td align="right" class="odr-txt"><TMPL_VAR NAME=disp_total>円</td>
+          </tr>
+</TMPL_IF>
+        </table>
+        <!-- 金額の注意書き -->
+<TMPL_IF disp_price1>
+        <div align="right" class="info-txt">（表示金額は全て税込みです）</div>
+</TMPL_IF>
+        <br>
+        <!-- お店情報など -->
+        <div class="def">
+<div class="odrprint-tooltip" id="edit_area4_<TMPL_VAR NAME=oid_cnt>"><TMPL_VAR NAME=footer1></div>
+        </div>
+        <br>
+        <br>
+      </td>
+    </tr>
+  </table>
+  <!-- 改ページ -->
+<TMPL_IF page><DIV CLASS="cl"><br></DIV></TMPL_IF>
+</TMPL_LOOP>
+<img src="../func00/click_logger.php?type=PRNT_SQ1" alt="" />
+</body>
+</html>

@@ -1,0 +1,938 @@
+<style type="text/css">
+.outline{
+  width:100%;
+}
+.item-name{
+  width:195px;
+}
+.item{
+  width:auto;
+}
+.paginate{
+  white-space:nowrap;
+}
+.odr-midashi {
+  padding:0 0.2em;
+}
+.item-box ~ table td.paginate {
+  vertical-align:top;
+}
+#_multi_category_search_part dl dd select {
+  width: 45% !important;
+}
+</style>
+<script language="JavaScript">
+<!--
+function changeListnum() {
+        var num = document.ITEMLIST.ListNum.value;
+        document.ITEMLIST.reset();
+        document.ITEMLIST.ListNum.value = num;
+        document.ITEMLIST.PAGE.value='1';
+        document.ITEMLIST.action="itemlist.cgi";
+        if (document.ITEMLIST.Kensaku.value == 1) {
+            document.ITEMLIST.CMD.value = "";
+        } else {
+            document.ITEMLIST.CMD.value = "SEEK";
+        }
+        document.ITEMLIST.submit();
+}
+function chgTemplate() {
+        if (document.ITEMLIST.Kensaku.value == 1) {
+            document.ITEMLIST.reset();
+            document.ITEMLIST.CMD.value = "";
+        } else {
+            document.ITEMLIST.reset();
+            document.ITEMLIST.CMD.value = "SEEK";
+        }
+        document.ITEMLIST.ListNum.value = 10;
+        document.ITEMLIST.PAGE.value='1';
+        document.ITEMLIST.PIC.value='ON';
+        document.ITEMLIST.action="itemlist.cgi";
+        document.ITEMLIST.submit();
+}
+
+function AllSetCheckBox(obj) {
+    var idlist = new Array(<TMPL_VAR name=NUMLIST>);
+
+    var cnt = <TMPL_VAR name=HCOUNT>;
+
+    if ( obj.checked ){
+        if ( cnt > 1 ) {
+            for (i=0;i<cnt;i++){
+                document.ITEMLIST.EXEC[i].checked=true;
+            }
+        }
+        if ( cnt == 1 ) {
+            document.ITEMLIST.EXEC.checked=true;
+        }
+    }else{
+        if ( cnt > 1 ) {
+            for (i=0;i<cnt;i++){
+                document.ITEMLIST.EXEC[i].checked=false;
+            }
+        }
+        if ( cnt == 1 ) {
+            document.ITEMLIST.EXEC.checked=false;
+        }
+    }
+}
+<!-- 201012_add_e -->
+
+function check_exec_count() {
+  var check_num = 0;
+  var obj = document.ITEMLIST.EXEC; 
+
+  if (obj != null) {
+    if (obj.length != undefined) {
+      for(i=0;i<obj.length;i++){ 
+        if(obj[i].checked == true){ 
+          check_num++;
+        }
+      }
+    } else {
+      if(obj.checked == true){ 
+        check_num++;
+      }
+    }
+  }
+    return check_num;
+}
+
+function check_del() {
+  var obj = document.ITEMLIST.EXEC; 
+  if (obj != null) {
+    for(i=0;i<obj.length;i++){ 
+      if(obj[i].checked == true){ 
+        var valName = obj[i].value;
+        var no = valName.replace('ItemPrice', '');   // noの取得
+        if (! no.match(/^[0-9]+$/)) {
+          continue;
+        }
+        var stock_cnt = 'stock_cnt' + no;
+        var stockObj = document.getElementsByName(stock_cnt);
+        var count = parseInt(stockObj[0].value);
+        if (count > 0) {
+          return false;
+        }
+      }
+    }
+  }
+  return true;
+}
+
+function itemListCommandDo (command) {
+  if (typeof (command) == undefined || command == null || command == '') { return false; }
+
+  // チェックが入ってなければ終了
+  if (check_exec_count() == 0) {
+    alert("商品を選択してください。")
+    return false;
+  }
+
+  var CMD_TYPE = '';
+  switch (command) {
+    case 'new_on':
+      CMD_TYPE = 'NEW_ON';
+      break;
+    case 'new_off':
+      CMD_TYPE = 'NEW_OFF';
+      break;
+    case 'pickup_on':
+      CMD_TYPE = 'PICKUP_ON';
+      break;
+    case 'pickup_off':
+      CMD_TYPE = 'PICKUP_OFF';
+      break;
+    case 'del_var':
+      CMD_TYPE = 'DEL_VAR';
+        if (confirm("選択した商品のバリエーションを削除し、単一商品（在庫無制限）にします。よろしいですか？") == false) {
+          return false;
+        }
+      break;
+    case 'del_item':
+      CMD_TYPE = 'DEL_ITEM';
+      if (check_del() == false) {
+        if ( confirm("選択した商品には入荷連絡待ちの方がいます。\n　削除してよろしいですか？") == false) {
+          return false;
+        }
+      } else {
+        if (confirm("選択した商品を削除します。よろしいですか？") == false) {
+          return false;
+        }
+      }
+      break;
+    case 'public':
+      CMD_TYPE = 'PUBLIC';
+      break;
+    case 'private':
+      CMD_TYPE = 'PRIVATE';
+      break;
+    default:
+  }
+  if (CMD_TYPE == '') {
+    return false;
+  }
+
+  // 2度押し防止
+  document.ITEMLIST.new_on.disabled=true;
+  document.ITEMLIST.new_off.disabled=true;
+  document.ITEMLIST.pickup_on.disabled=true;
+  document.ITEMLIST.pickup_off.disabled=true;
+  document.ITEMLIST.del_var.disabled=true;
+  document.ITEMLIST.del_item.disabled=true;
+  document.ITEMLIST.public.disabled=true;
+  document.ITEMLIST.private.disabled=true;
+  // パラメータ整備
+  document.ITEMLIST.CMD.value='EDT';
+  document.ITEMLIST.CMD_TYPE.value=CMD_TYPE;
+  document.ITEMLIST.submit();
+}
+
+function disable_itemup() {
+    document.UPLD.UPBTN.disabled = true;
+}
+function disable_varup(){
+    document.UPLD.VUPBTN.disabled = true;
+}
+function disable_do(){
+    document.ITEMLIST.DOBTN.disabled = true;
+}
+function pageMove() {
+   obj = document.getElementById('SEARCH_TOP');
+   y = obj.offsetTop;
+   scrollTo(0,y);
+}
+
+function resetsearch() {
+    document.ITEMLIST.ItemName.value = '';
+    document.ITEMLIST.PriceMin.value = '';
+    document.ITEMLIST.PriceMax.value = '';
+    document.ITEMLIST.ItemNo.value = '';
+    document.ITEMLIST.VARSET.checked = false;
+    document.ITEMLIST.ItemName.value = '';
+    document.ITEMLIST.Group.value = '';
+    document.ITEMLIST.YamiGroup.value = '';
+    document.ITEMLIST.StartYear.value  = '';
+    document.ITEMLIST.StartMonth.value = '';
+    document.ITEMLIST.StartDay.value   = '';
+    document.ITEMLIST.EndYear.value    = '';
+    document.ITEMLIST.EndMonth.value   = '';
+    document.ITEMLIST.EndDay.value     = '';
+    document.ITEMLIST.Zaiko[0].checked = true;
+    document.ITEMLIST.OpenItem[0].checked = true;
+    for(i=0; i<document.ITEMLIST.Status.length; i++) {
+        document.ITEMLIST.Status[i].checked = false;
+    }
+    document.ITEMLIST.StockOn.checked = false;
+    document.ITEMLIST.StockMail.checked = false;
+    document.ITEMLIST.PaymentGroup[0].selected = true;
+    document.ITEMLIST.SaleRestrictionY.checked = false;
+    document.ITEMLIST.Tuuzyou.checked = false;
+    document.ITEMLIST.Yoyaku.checked = false;
+    <TMPL_IF NAME=UseRegular>
+    document.ITEMLIST.Teiki.checked = false;
+    document.ITEMLIST.Hanpu.checked = false;
+    </TMPL_IF>
+    <TMPL_IF NAME=OldCoolFlg>
+    document.ITEMLIST.CoolFlagY.checked = false;
+    </TMPL_IF>
+    document.ITEMLIST.CoolFlagR.checked = false;
+    document.ITEMLIST.CoolFlagF.checked = false;
+    document.ITEMLIST.WishList.checked  = false;
+    document.ITEMLIST.Memo.value     = '';
+    <TMPL_IF NAME=DELIVERY_CVS_CONTRACT_STATUS_OK>
+    document.ITEMLIST.DeliveryCvsY.checked = false;
+    document.ITEMLIST.DeliveryCvsN.checked = false;
+    </TMPL_IF>
+}
+
+function csv_upload()
+{
+  document.UPLD.UPBTN.disabled = true;
+
+  var uptype = '';
+  var uptypeList = document.getElementsByName("UPTYPE");
+  for(var i = 0; i<uptypeList.length; i++) {
+    if(uptypeList[i].checked) {
+      uptype = uptypeList[i].value;
+    }
+  }
+
+  switch (uptype) {
+    case 'vari':
+      document.UPLD.action='variupload.cgi';
+      break;
+    case 'vari_branch':
+      document.UPLD.action='variupload_with_branch_no.cgi';
+      break;
+    case 'vari_price':
+      document.UPLD.action='item_var_price_accept.php';
+      break;
+    case 'item':
+      document.UPLD.action='grossupload.cgi';
+      var elm = document.createElement('input');
+      elm.type = 'hidden';
+      elm.name = 'grs_chk';
+      elm.value = 1;
+      document.UPLD.appendChild(elm);
+      break;
+    default:
+      alert('商品データ、バリエーション（バリエーション価格、枝番号、在庫に対応）、バリエーション（バリエーションのみ、在庫は別途登録）、バリエーション（バリエーションのみ、枝番号あり、在庫は別途登録）のいずれかを選択してください。');
+      document.UPLD.UPBTN.disabled = false;
+      return false;
+  }
+
+  if (document.UPLD.UPFILECSV.value == "") {
+    alert('アップロードするファイルを選択してください。');
+    document.UPLD.UPBTN.disabled = false;
+    return false;
+  }
+  else {
+    var uptype = '';
+    var uptypeList = document.getElementsByName('UPTYPE');
+    for(var i = 0; i < uptypeList.length; i++) {
+      if (uptypeList[i].checked) {
+        uptype = uptypeList[i].value;
+      }
+    }
+
+    if (uptype == 'vari' || uptype == 'vari_branch') {
+      document.UPLD.UPFILECSV.name = 'VUPFILE';
+    }
+    else if (uptype == 'vari_price') {
+      document.UPLD.UPFILECSV.name = 'VARI_PRICE_UPFILE';
+    }
+    else {
+      document.UPLD.UPFILECSV.name = 'G_ITEM_UPFILE';
+    }
+  }
+
+  document.UPLD.submit();
+}
+
+function download_items(cmd, pattern) {
+  document.ITEMLIST.CMD.value = cmd;
+  var action = 'itemlistdl.cgi?CMD=' + cmd;
+
+  // 件数
+  var total = '<TMPL_VAR NAME=TOTAL>';
+  if (total == '') {
+    count = '<TMPL_VAR NAME=TOTALITEM>';
+  } else {
+    count = total;
+  }
+  action += '&cnt=' + count;
+
+  // パターン
+  if ( pattern ) {
+    document.ITEMLIST.PATTERN.value = pattern;
+    action += '&pttn=' + pattern;
+  } else if ( cmd == 'DownLoadCSV' ) {
+    alert('ダウンロードする項目を選択してください。');
+    return false;
+  }
+
+  document.ITEMLIST.action=action;
+  document.ITEMLIST.submit();
+  document.ITEMLIST.action='itemlist.cgi';
+}
+
+function download_vari(vari_type) {
+  switch (vari_type) {
+    case 'VARI_TYPE_WITH':
+      document.ITEMLIST.VARI_TYPE.value = 'with_branch';
+      break;
+    case 'VARI_TYPE_WITHOUT':
+      document.ITEMLIST.VARI_TYPE.value = 'without_branch';
+      break;
+    case 'VARI_TYPE_WITH_PRICE':
+      document.ITEMLIST.VARI_TYPE.value = 'vari_price';
+      break;
+    default:
+      alert('バリエーションのダウンロードタイプが不明です。');
+      return false;
+  }
+
+  document.ITEMLIST.CMD.value='VariDownLoad';
+  document.ITEMLIST.action='itemlistdl.cgi';
+  document.ITEMLIST.submit();
+  document.ITEMLIST.action='itemlist.cgi';
+}
+//-->
+</script>
+<form name="ITEMINFO" method="POST" action="iteminfo.cgi">
+  <input type="hidden" name="ID" value="">
+  <input type="hidden" name="CP" value="">
+</form>
+<!--form name="STOCKINFO" method="POST" action="stockinfo.cgi">
+  <input type="hidden" name="ID" value="">
+</form-->
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">商品の管理を行います</td>
+    <td align="right" class="midashi">
+      <a href="https://help.shopserve.jp/help/iteminfo.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a>
+    </td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>
+            <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td>
+                  <form name="ITEMLIST" method="POST" action="itemlist.cgi">
+                  <input type="hidden" name="PAGE" value="<TMPL_VAR NAME=PAGE>">
+                  <input type="hidden" name="CMD" value="SEEK">
+                  <input type="hidden" name="CMD_TYPE">
+                  <input type="hidden" name="PIC" value="OFF">
+                  <input type="hidden" name="PATTERN" value="">
+                  <input type="hidden" name="VARI_TYPE" value="">
+                  <input type="hidden" name="ItemNoKan" value="<TMPL_VAR NAME=ItemNo>">
+                  <input type="hidden" name="Kensaku" value="<TMPL_VAR NAME=Kensaku>">
+                  <TMPL_IF NOITEM_ERR>
+                  <a id="SEARCH_TOP"></a>
+                  <font color="red">・<TMPL_VAR NAME=NOITEM_ERR></font>
+                  </TMPL_IF>
+                  <div class="infoArea table_bg">
+                    商品情報を表示するには、条件を指定し『商品検索』を行ってください。<br>
+                    登録済みの商品情報を利用して追加で商品登録を行うには、[コピー]ボタンをクリックしてください。<br>
+                    多数の商品を新規登録/修正する場合は、<a href="#itemup">『商品データ一括登録』</a>が便利です。<br><br>
+                    <a href="../func01/stocklist.cgi">⇒在庫管理  商品在庫数の追加/変更は、「在庫管理」で変更できます。在庫の一括登録も可能です。</a><br>
+                    <a href="../func04/itemform_list.cgi">⇒商品一覧ページでの商品表示方法、在庫数表示・在庫メッセージの編集</a><br>
+                  </div>
+                  <table class="item-box">
+                    <tr align="left">
+                      <td width="20%" align="left" class="item-name">現在の商品数</td>
+                      <td width="80%" align="center" class="item"><strong><font color="#FF0000"><TMPL_VAR NAME=TOTALITEM>商品</font></strong>&nbsp;（上限&nbsp;<TMPL_VAR NAME=MAXITEM>商品）</td>
+                    </tr>
+                  </table>
+                  <br>
+                  <TMPL_IF NAME=WARNING>
+                  <font color="red"><b>一括登録処理中は商品の新規登録・編集ができませんので、登録処理終了後に行ってください。</b></font><br>
+                  </TMPL_IF>
+                  <TMPL_LOOP NAME=ERR_MSG>
+                  <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+                  </TMPL_LOOP>
+                  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td valign="bottom" class="odr-txt">[&nbsp;画像なし&nbsp;/&nbsp;<a href="javascript:;chgTemplate();">画像あり</a>&nbsp;]</td>
+                      <td align="right" class="odr-txt paginate">表示件数
+                        <select name="ListNum" <TMPL_UNLESS kensaku>onChange="changeListnum();"</TMPL_UNLESS>>
+                          <option value="10" <TMPL_IF LISTNUM10>selected</TMPL_IF>>10</option>
+                          <option value="20" <TMPL_IF LISTNUM20>selected</TMPL_IF>>20</option>
+                          <option value="30" <TMPL_IF LISTNUM30>selected</TMPL_IF>>30</option>
+                          <option value="40" <TMPL_IF LISTNUM40>selected</TMPL_IF>>40</option>
+                          <option value="50" <TMPL_IF LISTNUM50>selected</TMPL_IF>>50</option>
+                          <option value="100" <TMPL_IF LISTNUM100>selected</TMPL_IF>>100</option>
+                          <option value="200" <TMPL_IF LISTNUM200>selected</TMPL_IF>>200</option>
+                          <option value="300" <TMPL_IF LISTNUM300>selected</TMPL_IF>>300</option>
+                        </select>
+                        <br>
+                        <TMPL_IF NAME=TOTAL>
+                        <TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+                        </TMPL_IF>
+                      </td>
+                    </tr>
+                  </table>
+<script type="text/javascript" src="../js/custom_ui/jquery/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="../js/custom_ui/jquery.clickToolTip.js"></script>
+<link href="../css/custom_ui/tooltip.css" rel="stylesheet" type="text/css">
+<table class="item-box restock">
+  <tbody>
+    <tr class="odr-midashi">
+      <td style="width:2.5em;" align="center"><input name="allCheck" value="on" style="font-size:95%" onclick="AllSetCheckBox(this)" type="checkbox"<TMPL_IF allCheck> checked</TMPL_IF>></td>
+      <td align="center">商品番号</td>
+      <td align="center">商品名</td>
+      <td style="width:6em;" align="center">販売価格（税込）</td>
+      <td style="width:9em;" align="center">
+        在庫数<TMPL_IF STOCK_ENSURE_TIMING_CART>（カート）</TMPL_IF>
+        <div class="stockmail">入荷連絡待</div>
+      </td>
+      <td style="width:5em;" align="center">お気に入り</td>
+      <td style="width:4em;" align="center">公開</td>
+      <td style="width:4em;" align="center">新着</td>
+      <td style="width:4em;" align="center">おすすめ</td>
+      <td style="width:9em;" align="center">メモ</td>
+      <td style="width:5em;" align="center">コピー<br>登録</td>
+    </tr>
+
+<TMPL_LOOP ITEMLIST>
+    <tr>
+      <td class="odr-txt02" align="center"><input name="EXEC" value="ItemPrice<TMPL_VAR NAME=ID>" type="checkbox"<TMPL_IF EDIT_CHECK> checked</TMPL_IF>></td>
+      <td class="odr-txt02" align="center"><a href="javascript:;document.ITEMINFO.ID.value=<TMPL_VAR NAME=ID>;document.ITEMINFO.CP.value='';document.ITEMINFO.submit();"><TMPL_VAR NAME=ITEM_NO></a></td>
+      <td class="odr-txt02"><TMPL_VAR NAME=ITEM_NAME>
+        <a target="_blank" href="<TMPL_VAR NAME=SHOP_DOMAIN><TMPL_VAR NAME=ITEM_NO>.html"><img alt="item_link" src="imgs/icon14.png"></a>
+<TMPL_UNLESS IS_MASTER>
+<br>
+<a class="varEdit" href="./item_var_edit.php?master_id=<TMPL_VAR NAME=ID>&VIEW=VAR_PAT" >バリエーション</a>
+</TMPL_UNLESS>
+      </td>
+      <td class="odr-txt02" align="right"> <TMPL_VAR NAME=ITEM_PRC>円<TMPL_VAR NAME=DIFFERENT_VARIATION>
+<TMPL_UNLESS IS_MASTER><TMPL_IF DIFF_PRICE>
+<br>
+<a class="varEdit" href="./item_price_edit.php?master_id=<TMPL_VAR NAME=ID>">バリエーション</a>
+</TMPL_IF></TMPL_UNLESS>
+        <input value="<TMPL_VAR NAME=STOCK_MAIL_CNT>" name="stock_cnt<TMPL_VAR NAME=ID>" type="hidden">
+      </td>
+<TMPL_IF BACK_ORDER>
+  <TMPL_IF UNSET>
+      <td class="odr-txt02" style="text-align:center;">
+        <a href="./item_stock_edit.php?master_id=<TMPL_VAR NAME=ID>"><TMPL_IF STFONT><font color="<TMPL_VAR NAME=STFONT>"></TMPL_IF>未設定<TMPL_IF STFONT></font></TMPL_IF></a>
+        <a href="./item_stock_edit.php?master_id=<TMPL_VAR NAME=ID>" class="stockmail"><TMPL_VAR NAME=STOCK_MAIL_STR></a>
+      </td>
+  <TMPL_ELSE>
+    <TMPL_IF NO_LIMIT>
+      <td class="odr-txt02" style="text-align:center;">
+        <a href="./item_stock_edit.php?master_id=<TMPL_VAR NAME=ID>"><TMPL_IF STFONT><font color="<TMPL_VAR NAME=STFONT>"></TMPL_IF>無制限<TMPL_IF STFONT></font></TMPL_IF></a>
+        <a href="./item_stock_edit.php?master_id=<TMPL_VAR NAME=ID>" class="stockmail"><TMPL_VAR NAME=STOCK_MAIL_STR></a>
+      </td>
+    <TMPL_ELSE>
+      <TMPL_IF TOTAL_STOCK>
+      <td class="odr-txt02" style="text-align:center;">
+        <a href="./item_stock_edit.php?master_id=<TMPL_VAR NAME=ID>"><TMPL_IF STFONT><font color="<TMPL_VAR NAME=STFONT>"></TMPL_IF><TMPL_VAR NAME=TOTAL_STOCK><TMPL_IF STOCK_ENSURE_TIMING_CART>（<TMPL_VAR NAME=KAGO_STOCK>）</TMPL_IF><TMPL_IF STFONT></font></TMPL_IF></a>
+        <a href="./item_stock_edit.php?master_id=<TMPL_VAR NAME=ID>" class="stockmail"><TMPL_VAR NAME=STOCK_MAIL_STR></a>
+      </td>
+      <TMPL_ELSE>
+        <TMPL_IF VAR_STOCK>
+      <td class="odr-txt02" style="text-align:center;">
+<a class="varEdit" href="./item_stock_edit.php?master_id=<TMPL_VAR NAME=ID>">バリエーション</a>
+        <a href="./item_stock_edit.php?master_id=<TMPL_VAR NAME=ID>" class="stockmail"><TMPL_VAR NAME=STOCK_MAIL_STR></a>
+      </td>
+        <TMPL_ELSE>
+      <td class="odr-txt02" style="text-align:center;">
+        <a href="./item_stock_edit.php?master_id=<TMPL_VAR NAME=ID>">在庫あり</a>
+        <a href="./item_stock_edit.php?master_id=<TMPL_VAR NAME=ID>" class="stockmail"><TMPL_VAR NAME=STOCK_MAIL_STR></a>
+      </td>
+        </TMPL_IF>
+      </TMPL_IF>
+    </TMPL_IF>
+  </TMPL_IF>
+<TMPL_ELSE>
+  <TMPL_IF UNSET>
+      <td class="odr-txt02" style="text-align:center;"><a href="./item_stock_edit.php?master_id=<TMPL_VAR NAME=ID>"><TMPL_IF STFONT><font color="<TMPL_VAR NAME=STFONT>"></TMPL_IF>未設定<TMPL_IF STFONT></font></TMPL_IF></a></td>
+  <TMPL_ELSE>
+    <TMPL_IF NO_LIMIT>
+      <td class="odr-txt02" style="text-align:center;"><a href="./item_stock_edit.php?master_id=<TMPL_VAR NAME=ID>"><TMPL_IF STFONT><font color="<TMPL_VAR NAME=STFONT>"></TMPL_IF>無制限<TMPL_IF STFONT></font></TMPL_IF></a></td>
+    <TMPL_ELSE>
+      <TMPL_IF TOTAL_STOCK>
+      <td class="odr-txt02" style="text-align:center;"><a href="./item_stock_edit.php?master_id=<TMPL_VAR NAME=ID>"><TMPL_IF STFONT><font color="<TMPL_VAR NAME=STFONT>"></TMPL_IF><TMPL_VAR NAME=TOTAL_STOCK><TMPL_IF STOCK_ENSURE_TIMING_CART>（<TMPL_VAR NAME=KAGO_STOCK>）</TMPL_IF><TMPL_IF STFONT></font></TMPL_IF></a></td>
+      <TMPL_ELSE>
+        <TMPL_IF VAR_STOCK>
+      <td class="odr-txt02" style="text-align:center;"><a class="varEdit" href="./item_stock_edit.php?master_id=<TMPL_VAR NAME=ID>">バリエーション</a></td>
+        <TMPL_ELSE>
+          <TMPL_IF is_teikihanpu>
+      <td class="odr-txt02" style="text-align:center;">在庫あり</td>
+          <TMPL_ELSE>
+      <td class="odr-txt02" style="text-align:center;"><a href="./item_stock_edit.php?master_id=<TMPL_VAR NAME=ID>">在庫あり</a></td>
+          </TMPL_IF>
+        </TMPL_IF>
+      </TMPL_IF>
+    </TMPL_IF>
+  </TMPL_IF>
+</TMPL_IF>
+
+      <td align="right" class="odr-txt02"><TMPL_VAR NAME=WL_CNT></td>
+<TMPL_IF OPEN>
+<td class="odr-txt02" align="center">○</td>
+<TMPL_ELSE>
+<td class="odr-txt02" align="center">-</td>
+</TMPL_IF>
+<!-- 新携帯対応 end -->
+
+      <td class="odr-txt02" align="center"><TMPL_IF NEW><TMPL_IF YAMI_FLG><span style="color: #ccc;">●</span><TMPL_ELSE>○</TMPL_IF><TMPL_ELSE>-</TMPL_IF></td>
+      <td class="odr-txt02" align="center"><TMPL_IF PICKUP><TMPL_IF YAMI_FLG><span style="color: #ccc">●</span><TMPL_ELSE>○</TMPL_IF><TMPL_ELSE>-</TMPL_IF></td>
+      <td class="odr-txt02" align="center" style="width: 9em;"><TMPL_IF MEMO><TMPL_VAR NAME=MEMO_SHORT_STR><br>
+          <a href="#" class="tgTtip" data-tooltip="&lt;h5&gt;■商品番号&lt;/h5&gt;&lt;p&gt;&lt;a onclick=&quot;javascript:;document.ITEMINFO.ID.value=<TMPL_VAR NAME=ID>;document.ITEMINFO.CP.value='';document.ITEMINFO.submit();&quot; class=&quot;tgToolTip alink&quot;&gt;<TMPL_VAR NAME=ITEM_NO>&lt;/a&gt;&lt;/p&gt;
+                        &lt;h5&gt;■商品メモ&lt;/h5&gt;&lt;p&gt;<TMPL_VAR NAME=MEMO>&lt;/p&gt;">
+            <img src="../imgs/icon/memo_ic.gif" alt="memo" width="18" hspace="1" height="18" border="0">
+          </a>
+        </TMPL_IF>
+      </td>
+      <td class="odr-txt02" align="center">
+        <input value="コピー" onclick="javascript:;document.ITEMINFO.CP.value=1;document.ITEMINFO.ID.value=<TMPL_VAR NAME=ID>;document.ITEMINFO.submit();" type="button">
+      </td>
+    </tr>
+</TMPL_LOOP>
+
+<TMPL_UNLESS ITEMLIST>
+    <tr>
+      <td colspan="11" align="center" class="item-nosearch">
+商品検索に条件を指定して検索してください
+      </td>
+    </tr>
+</TMPL_UNLESS>
+  </tbody>
+</table>
+
+                  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td align="right" class="odr-txt paginate">
+                        <TMPL_IF TOTAL>
+                        <TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+                        </TMPL_IF>
+                      </td>
+                    </tr>
+                  </table>
+                  <br>
+<TMPL_IF ITEMLIST>
+<table class="item-box" cellpadding="2" width="100%">
+  <tbody>
+    <tr align="center">
+      <td colspan="4" class="item-name02">選択処理</td>
+    </tr>
+    <tr>
+      <td class="item-name">新着</td>
+      <td class="item">
+        <input type="button" name="new_on" value="新着" onClick="itemListCommandDo('new_on');">
+        <input type="button" name="new_off" value="新着解除" onClick="itemListCommandDo('new_off');">
+      </td>
+      <td class="item-name">公開</td>
+      <td class="item">
+        <input type="button" name="public" value="公開" onClick="itemListCommandDo('public');">
+        <input type="button" name="private" value="非公開" onClick="itemListCommandDo('private');">
+      </td>
+    </tr>
+    <tr>
+      <td class="item-name">おすすめ</td>
+      <td class="item">
+        <input type="button" name="pickup_on" value="おすすめ" onClick="itemListCommandDo('pickup_on');">
+        <input type="button" name="pickup_off" value="おすすめ解除" onClick="itemListCommandDo('pickup_off');">
+      </td>
+      <td class="item-name">削除</td>
+      <td class="item">
+        <input type="button" name="del_var" value="バリエーション削除" onClick="itemListCommandDo('del_var');">
+        <input type="button" name="del_item" value="商品削除" onClick="itemListCommandDo('del_item');">
+      </td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</TMPL_IF>
+                  <TMPL_IF VARDL_ERR>
+                  <a id="SEARCH_TOP"></a>
+                  <font color="red">・<TMPL_VAR NAME=VARDL_ERR></font><img src="../imgs/spc.gif" width="0" height="0" onLoad="pageMove();">
+                  </TMPL_IF>
+                  <table width="100%" cellpadding="3" class="item-box">
+                    <tr align="center">
+                      <td colspan="2" class="item-name02">商品検索</td>
+                    </tr>
+                    <tr>
+                      <td width="20%" class="item-name">商品名</td>
+                      <td width="80%" class="item"><input type="text" name="ItemName" value="<TMPL_VAR NAME=ITEM_NAME>">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="20%" class="item-name">販売価格（税込）</td>
+                      <td width="80%" class="item">
+                        <input type="text" name="PriceMin" value="<TMPL_VAR NAME=PRICEMIN>" style="ime-mode:disabled">
+                        円&nbsp;〜&nbsp;
+                        <input type="text" name="PriceMax" value="<TMPL_VAR NAME=PRICEMAX>" style="ime-mode:disabled">
+                        円
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="20%" class="item-name">商品番号</td>
+                      <td width="80%" class="item">
+                        <input type="text" name="ItemNo" value="<TMPL_VAR NAME=ITEM_NO>" style="ime-mode:disabled">
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="20%" class="item-name">バリエーション</td>
+                      <td width="80%" class="item">
+                        <input type="checkbox" name="VARSET" id="VarSetY" value="Y" <TMPL_IF VARSET>checked</TMPL_IF>><label for="VarSetY">バリエーションのある商品</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="20%" class="item-name">カテゴリ</td>
+                      <td width="80%" class="item">
+                        <link rel="stylesheet" type="text/css" href="../css/custom_ui/multiCategorySearchApiCss.css" media="all">
+                        <script type="text/javascript" src="/js/custom_ui/jsloader.js"></script>
+                        <script type="text/javascript" src="/js/custom_ui/jquery-multi-category-search-api.js"></script>
+                        <div id="_multi_category_search_part">
+                          <select name="Layer1Category"></select>
+                          <select name="Layer2Category"></select>
+                          <select name="Layer3Category"></select>
+                          <select name="Layer4Category"></select>
+                          <select name="Layer5Category"></select>
+                          <input type="hidden" name="MultiCategory" id="multi_category_recently_search_id" value="<TMPL_VAR NAME=MULTICATEGORY>">
+                        </div>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="20%" class="item-name">グループ</td>
+                      <td width="80%" class="item">
+                        <select name="Group">
+                        <TMPL_LOOP NAME=GROUPS>
+                          <option value="<TMPL_VAR NAME=ID>" <TMPL_VAR NAME=SEL>>
+                            <TMPL_VAR NAME=NAME>
+                          </option>
+                        </TMPL_LOOP>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="20%" class="item-name">シークレットグループ</td>
+                      <td width="80%" class="item">
+                        <select name="YamiGroup" id = "YamiGroup">
+                        <TMPL_LOOP NAME=YAMIGROUPS>
+                          <option value="<TMPL_VAR NAME=ID>" <TMPL_VAR NAME=SEL>>
+                            <TMPL_VAR NAME=NAME>
+                          </option>
+                        </TMPL_LOOP>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="item-name" width="20%">決済方法</td>
+                      <td class="item" width="80%">
+                        <select name="PaymentGroup">
+                        <TMPL_LOOP NAME=PMGROUPS>
+                          <option value="<TMPL_VAR NAME=ID>" <TMPL_VAR NAME=SEL>>
+                            <TMPL_VAR NAME=NAME>
+                          </option>
+                        </TMPL_LOOP>
+                        </select>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="20%" class="item-name">登録日</td>
+                      <td width="80%" class="item">
+                        <input name="StartYear" type="text" size="5" value="<TMPL_VAR NAME=STARTYEAR>" style="ime-mode:disabled">
+                         年
+                         <input name="StartMonth" type="text" size="3" value="<TMPL_VAR NAME=STARTMONTH>" style="ime-mode:disabled">
+                         月
+                         <input name="StartDay" type="text" size="3" value="<TMPL_VAR NAME=STARTDAY>" style="ime-mode:disabled">
+                         日 &nbsp;〜&nbsp;
+                         <input name="EndYear" type="text" size="5" value="<TMPL_VAR NAME=ENDYEAR>" style="ime-mode:disabled">
+                         年
+                         <input name="EndMonth" type="text" size="3" value="<TMPL_VAR NAME=ENDMONTH>" style="ime-mode:disabled">
+                         月
+                         <input name="EndDay" type="text" size="3" value="<TMPL_VAR NAME=ENDDAY>" style="ime-mode:disabled">
+                         日
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="20%" class="item-name">在庫数</td>
+                      <td width="80%" class="item">
+                        <input type="radio" name="Zaiko" id="ZaikoNotSpc" value="NotSpc"    <TMPL_IF NAME=NOTSPC>checked</TMPL_IF>><label for="ZaikoNotSpc">指定しない</label>
+                        <input type="radio" name="Zaiko" id="ZaikoWarnStock" value="WarnStock" <TMPL_IF NAME=WARNSTOCK>checked</TMPL_IF>><label for="ZaikoWarnStock">残りわずか</label>
+                        <input type="radio" name="Zaiko" id="ZaikoNoStock" value="NoStock"   <TMPL_IF NAME=NOSTOCK>checked</TMPL_IF>><label for="ZaikoNoStock">在庫切れ</label><br>
+                        <!-- 入荷連絡ONの場合 -->
+                        <input type="checkbox" name="StockOn" value="1" id="StockOn" <TMPL_IF NAME=STOCKONY>checked</TMPL_IF>>
+                        <label for="StockOn">入荷連絡利用中</label>
+                        <!-- 連絡待がある場合（入荷連絡OFFも含む） -->
+                        <input type="checkbox" name="StockMail" value="1" id="StockMail" <TMPL_IF NAME=STOCKMAILY>checked</TMPL_IF>>
+                        <label for="StockMail">連絡待あり</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="20%" class="item-name">商品ページの公開</td>
+                      <td width="80%" class="item">
+                        <input type="radio" name="OpenItem" value="OpenItemALL" id="OpenItemALL" <TMPL_IF NAME=OpenItemALL>checked</TMPL_IF>>
+                        <label for="OpenItemALL">全て</label>
+                        <input type="radio" name="OpenItem" value="OpenItemY" id="OpenItemY" <TMPL_IF NAME=OpenItemY>checked</TMPL_IF>>
+                        <label for="OpenItemY">公開</label>
+                        <input type="radio" name="OpenItem" value="OpenItemN" id="OpenItemN" <TMPL_IF NAME=OpenItemN>checked</TMPL_IF>>
+                        <label for="OpenItemN">非公開</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="20%" class="item-name">ステータス</td>
+                      <td width="80%" class="item">
+                        <input type="checkbox" name="Status" value="New" id="New" <TMPL_IF NAME=New>checked</TMPL_IF>>
+                        <label for="New">新着</label>
+                        <input type="checkbox" name="Status" value="Pickup" id="Pickup" <TMPL_IF NAME=Pickup>checked</TMPL_IF>>
+                        <label for="Pickup">おすすめ</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="20%" class="item-name">販売方法</td>
+                      <td width="80%" class="item">
+                        <input type="checkbox" name="StyleNormal" value="1" id="Tuuzyou" <TMPL_IF NAME=Tuuzyou>checked</TMPL_IF>>
+                        <label for="Tuuzyou">通常販売</label>
+                        <input type="checkbox" name="StyleYoyaku" value="1" id="Yoyaku" <TMPL_IF NAME=Yoyaku>checked</TMPL_IF>>
+                        <label for="Yoyaku">予約販売</label>
+                    <TMPL_IF NAME=UseRegular>
+                        <input type="checkbox" name="StyleTeiki" value="1" id="Teiki" <TMPL_IF NAME=Teiki>checked</TMPL_IF>>
+                        <label for="Teiki">定期購入</label>
+                        <input type="checkbox" name="StyleHanpu" value="1" id="Hanpu" <TMPL_IF NAME=Hanpu>checked</TMPL_IF>>
+                        <label for="Hanpu">頒布会</label>
+                    </TMPL_IF>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td width="20%" class="item-name">クール便</td>
+                      <td width="80%" class="item">
+                        <TMPL_IF NAME=OldCoolFlg>
+                        <input type="checkbox" name="CoolFlagY" value="1" id="CoolFlagY" <TMPL_IF NAME=CoolFlagY>checked</TMPL_IF>>
+                        <label for="CoolFlagY">クール便</label>
+                        </TMPL_IF>
+                        <input type="checkbox" name="CoolFlagR" value="1" id="CoolFlagR" <TMPL_IF NAME=CoolFlagR>checked</TMPL_IF>>
+                        <label for="CoolFlagR">冷蔵</label>
+                        <input type="checkbox" name="CoolFlagF" value="1" id="CoolFlagF" <TMPL_IF NAME=CoolFlagF>checked</TMPL_IF>>
+                        <label for="CoolFlagF">冷凍</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="item-name" width="20%">同梱不可設定</td>
+                      <td class="item" width="80%">
+                        <input id="SaleRestriction" name="SaleRestrictionY" value="1" type="checkbox" <TMPL_IF NAME=SaleRestrictionY>checked</TMPL_IF>>
+                        <label for="SaleRestriction">同梱不可設定の商品</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="item-name" width="20%">お気に入り登録</td>
+                      <td class="item" width="80%">
+                        <input id="WishList" name="WishListY" value="1" type="checkbox" <TMPL_IF NAME=WishListY>checked</TMPL_IF>>
+                        <label for="WishList">お気に入り登録されている商品</label>
+                      </td>
+                    </tr>
+                    <tr style="display:<TMPL_IF NAME=DELIVERY_CVS_CONTRACT_STATUS_OK>table-row<TMPL_ELSE>none</TMPL_IF>">
+                        <td width="20%" class="item-name">コンビニ受取</td>
+                        <td width="80%" class="item">
+                            <input type="checkbox" name="DeliveryCvsY" value="1" id="DeliveryCvsY" <TMPL_IF NAME=DeliveryCvsY>checked</TMPL_IF>>
+                            <label for="DeliveryCvsY">許可する</label>
+                            <input type="checkbox" name="DeliveryCvsN" value="1" id="DeliveryCvsN" <TMPL_IF NAME=DeliveryCvsN>checked</TMPL_IF>>
+                            <label for="DeliveryCvsN">許可しない</label>
+                        </td>
+                    </tr>
+                    <tr>
+                      <td class="item-name" width="20%">メモ</td>
+                      <td class="item" width="80%">
+                        <input type="text" maxlength="1024" id="Memo" name="Memo" value="<TMPL_VAR NAME=MEMO>" style="width: 70%;">
+                      </td>
+                    </tr>
+                    <tr align="center">
+                      <td colspan="2" class="item"><input type="button" name="Submit" value="以上の条件で検索" onClick="document.ITEMLIST.CMD.value='SEEK';document.ITEMLIST.action='itemlist.cgi';document.ITEMLIST.submit();">
+                        &nbsp;<input type="button" id="resetsearch_param" onClick="resetsearch();" value="条件をクリア">
+                      </td>
+                    </tr>
+                  </table>
+                  <br>
+                  <h3>検索結果のダウンロード</h3>
+                  <div class="infoArea table_bg">検索結果に表示されている商品の「商品データ」および「バリエーション」がダウンロードできます。<br>
+                  ダウンロードしたファイルを編集して、<strong>商品データ一括登録・変更</strong>でアップロードすると、登録情報を一度に変更できます。</div>
+
+<table class="item-box download" width="100%">
+  <tbody>
+    <tr>
+      <td class="item-name" rowspan="2">CSVファイル</td>
+      <td class="item">
+        <div class="infoArea table_bg">
+        商品データ
+        <a href="https://help.shopserve.jp/manual/063/" target="_blank">※各ダウンロードデータに含まれる項目一覧はこちら</a>
+        </div>
+        <div class="btnArea">
+          <span>価格・ポイント還元率・セールに関するデータ
+            <input type="button" value="ダウンロード" onclick="download_items('DownLoadCSV', 'price');"></span>
+          <span>カテゴリ・関連商品に関するデータ
+            <input type="button" value="ダウンロード" onclick="download_items('DownLoadCSV', 'category');"></span>
+          <span>商品画像に関するデータ
+            <input type="button" value="ダウンロード" onclick="download_items('DownLoadCSV', 'image');"></span>
+          <span>紹介文を除いた全てのデータ
+            <input type="button" value="ダウンロード" onclick="download_items('DownLoadCSV', 'ignore_description');"></span>
+          <span>全てのデータ
+            <input type="button" value="ダウンロード" onclick="download_items('DownLoadCSV', 'all');"></span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="item">
+        <div class="infoArea table_bg">
+        バリエーションデータ
+        </div>
+        <div class="btnArea">
+          <span>バリエーション価格、枝番号、在庫に対応
+            <input type="button" value="ダウンロード" onclick="download_vari('VARI_TYPE_WITH_PRICE');"></span>
+          <span>バリエーションのみ
+            <input type="button" value="ダウンロード" onclick="download_vari('VARI_TYPE_WITHOUT');"></span>
+          <span>バリエーションのみ（枝番号あり）
+            <input type="button" value="ダウンロード" onclick="download_vari('VARI_TYPE_WITH');"></span>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="item-name">エクセルファイル</td>
+      <td class="item">
+        <div class="infoArea table_bg">
+        商品データ
+        <span style="margin-left:0.5em;font-size:0.9em;">※CSVよりダウンロードに時間がかかります</span>
+        </div>
+        <div class="btnArea">
+          <span>全てのデータ<input onclick="download_items('DownLoad', null);" value="ダウンロード" name="Submit" type="button"></span>
+        </div>
+      </td>
+    </tr>
+  </tbody>
+</table>
+                </form>
+                <br>
+                <a id="itemup" class="anchor-fix"><h3>商品データ一括登録・変更</h3></a>
+                <form name="UPLD" method="post" action="./itemupload_sps.cgi" enctype="multipart/form-data">
+                  <div class="infoArea table_bg">
+                    ■<b>商品の新規登録</b><br>
+                    新しく商品データを作成して、アップロードします。<br>
+                    ※ファイルの作成方法は<a href="https://help.shopserve.jp/manual/063/" target="_blank">オンラインマニュアル</a>をご確認ください。<br>
+                    ※ショップサーブカテゴリ一覧は<a href="./sf_csv/spscategory.csv">こちら</a>をご確認ください。<br>
+                    <br>
+                    ■<b>商品データの変更</b><br>
+                    「検索結果のダウンロード」からダウンロードして編集したファイルを、項目はそのままでアップロードします。<br>
+                    ダウンロードした項目を任意に追加・削除すると、項目の組み合わせによりエラーになります。<br>
+                    <br>
+                    ■<b>バリエーションの登録</b><br>
+                    商品データを登録した後に行います。<br>
+                   「在庫は別途登録」と記載のある選択肢を選んだ場合、バリエーション登録時に在庫情報がクリアされます。<br>
+                    在庫を管理するには、在庫データの登録が必要です。在庫の一括登録は<a href="../func01/stocklist.cgi">在庫管理</a>から行います。                  </div>
+                  <table class="item-box" width="100%">
+                    <tbody>
+                      <tr>
+                        <td class="item-name">ＣＳＶファイル<span class="fnt80"><br></span></td>
+                        <td class="item">
+
+                          <TMPL_IF UPFILE_ERR>
+                          <span style="color:#FF0000">一括登録処理中....しばらく経ってから画面を再読み込みしてください。</span><br>
+                          <TMPL_ELSE>
+                          <label style="display:block;margin-bottom:0.2em;"><input type="radio" name="UPTYPE" value="item">商品データ</label>
+                          <label style="display:block;margin-bottom:0.2em;"><input type="radio" name="UPTYPE" value="vari_price">バリエーション（バリエーション価格、枝番号、在庫に対応）</label>
+                          <label style="display:block;margin-bottom:0.2em;"><input type="radio" name="UPTYPE" value="vari">バリエーション（バリエーションのみ、在庫は別途登録）</label>
+                          <label style="display:block;margin-bottom:0.4em;"><input type="radio" name="UPTYPE" value="vari_branch">バリエーション（バリエーションのみ、枝番号あり、在庫は別途登録）</label>
+                          </TMPL_IF>
+
+                          <input name="UPFILECSV" type="file">
+                          <input name="UPBTN" value="アップロード" onclick="csv_upload();" type="button"><br>
+                          ※1度にアップロードできるのは、商品データは容量100MBまで、バリエーションは容量100MB（1,000行）まで<br>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="item-name">エクセルファイル</td>
+                        <td class="item">
+                          <input name="UPFILE" type="file">
+                          <input onclick="disable_itemup();document.UPLD.action='itemupload_sps.cgi';document.UPLD.submit();" style="width: 13em;" value="商品データをアップロード" name="Submit" type="button"><br>
+                          ※ファイル形式上、CSVファイルよりアップロードに時間がかかります<br>
+                          ※1度にアップロードできるのは容量100MB（1,000行）まで <br>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  </form>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

@@ -1,0 +1,131 @@
+<script language="JavaScript">
+<!--
+function del(f) {
+  if ( confirm("選択したコメントを削除します。よろしいですか？") ) {
+    f.submit();
+  } else {
+    return;
+  }
+}
+//-->
+</script>
+<form name="form1" method="post" action="comment.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#F39700">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">コメントとトラックバック管理を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/comment.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  各記事によせられたコメント・トラックバックを承認して、お店ページに反映します。<br>
+                                  自動で承認する場合はメインメニュー「お店設定」のコメント・トラックバックの「初期設定」で設定してください。<br>
+                                  <a href="../func03/bcontrol.cgi">⇒コメントトラックバックの「初期設定」</a><br><br>
+                                   [禁止IPに追加]をクリックした場合、次回から追加したIPアドレスからのコメント、トラックバックを受け付けません。<br>
+                                </div>
+                                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+        <TMPL_IF NAME=err_msg>
+                        <TMPL_LOOP NAME=err_msg>
+                        <font color="#ff0000">・<TMPL_VAR NAME=MSG></font><br>
+                        </TMPL_LOOP>
+                        <br>
+        </TMPL_IF>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                    <tr>
+                                      <td class="item-name">表示切替</td>
+                                      <td class="item"><select name="select" onChange="location=this.options[this.selectedIndex].value">
+
+                                          <option value="comment.cgi" selected>コメント管理</option>
+                                          <option value="trackback.cgi">トラックバック管理</option>
+                                        </select>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                    <br>
+                                    <br>
+
+                                    <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr>
+                                        <td align="right">
+<TMPL_IF NAME=all>
+<TMPL_VAR NAME=nows>&nbsp;-&nbsp;<TMPL_VAR NAME=nowe>&nbsp;（&nbsp;全&nbsp;<TMPL_VAR NAME=all>件&nbsp;）
+</TMPL_IF>
+<TMPL_IF NAME=all>
+<TMPL_VAR NAME=arrow1>　<TMPL_VAR NAME=arrow2>　<TMPL_VAR NAME=page>　<TMPL_VAR NAME=arrow3>　<TMPL_VAR NAME=arrow4>
+</TMPL_IF>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                    <table width="100%" cellpadding="2" class="item-box table-padding-default">
+                                      <tr>
+                                        <td colspan="7" align="center" class="item-name02">コメント一覧</td>
+                                      </tr>
+                                      <tr align="center">
+                                        <td width="5%" nowrap bgcolor="#FFFFFF" class="odr-txt">選択</td>
+
+                                        <td width="8%" nowrap bgcolor="#FFFFFF" class="odr-txt">状態&nbsp;
+<a href="javascript:;document.form1.o.value='<TMPL_VAR NAME=sdesc>';document.form1.p.value='1';document.form1.submit();">▼</a></td>
+                                        <td width="10%" bgcolor="#FFFFFF" class="odr-txt">投稿日&nbsp;
+<a href="javascript:;document.form1.o.value='<TMPL_VAR NAME=tdesc>';document.form1.p.value='1';document.form1.submit();">▼</a></td>
+                                        <td width="40%" bgcolor="#FFFFFF" class="odr-txt">コメント（抜粋）</td>
+                                        <td width="12%" bgcolor="#FFFFFF" class="odr-txt">投稿者&nbsp;
+<a href="javascript:;document.form1.o.value='<TMPL_VAR NAME=adesc>';document.form1.p.value='1';document.form1.submit();">▼</a></td>
+                                        <td width="13%" bgcolor="#FFFFFF" class="odr-txt">IPアドレス&nbsp;
+<a href="javascript:;document.form1.o.value='<TMPL_VAR NAME=idesc>';document.form1.p.value='1';document.form1.submit();">▼</a></td>
+                                        <td width="12%" bgcolor="#FFFFFF" class="odr-txt">記事名&nbsp;
+<a href="javascript:;document.form1.o.value='<TMPL_VAR NAME=edesc>';document.form1.p.value='1';document.form1.submit();">▼</a></td>
+                                      </tr>
+
+                                      <TMPL_LOOP NAME=comment_list>
+                                      <tr>
+                                        <td align="center" bgcolor="#FFFFFF" class="odr-txt">
+                                        <input type="checkbox" name="status_<TMPL_VAR NAME=id>" value="<TMPL_VAR NAME=id>">
+                                        </td>
+                                        <td align="center" bgcolor="#FFFFFF" class="odr-txt"><TMPL_IF NAME=status>許可<TMPL_ELSE>保留</TMPL_IF></td>
+                                        <td align="center" bgcolor="#FFFFFF" class="odr-txt"><TMPL_VAR NAME=time></td>
+                                        <td bgcolor="#FFFFFF" class="odr-txt"><TMPL_VAR NAME=comment></td>
+                                        <td bgcolor="#FFFFFF" class="odr-txt"><TMPL_VAR NAME=name></td>
+                                        <td align="center" bgcolor="#FFFFFF" class="odr-txt"><TMPL_VAR NAME=ip></td>
+                                        <td bgcolor="#FFFFFF" class="odr-txt"><a href="<TMPL_VAR NAME=href>" target="_blank"><TMPL_VAR NAME=title></a></td>
+                                      </tr>
+				      </TMPL_LOOP>
+
+                                      <tr bgcolor="#FFFFFF">
+                                        <td colspan="7" align="center">
+      <input type="button" onClick="document.form1.mode.value='regist';document.form1.submit();" name="Submit" value="許可する">
+&nbsp;
+      <input type="button" onClick="document.form1.mode.value='del';del(document.form1);" name="Submit" value="削除する">
+&nbsp;
+      <input type="button" onClick="document.form1.mode.value='reject';document.form1.submit();" name="Submit" value="禁止IPに追加">
+                                        </td>
+
+                                      </tr>
+                                    </table>
+                                    <br>
+</td></tr>
+                              </table></td>
+                            </tr>
+                        </table>
+                      </td>
+                    </tr>
+<input type="hidden" name="mode" value="">
+<input type="hidden" name="p" value="<TMPL_VAR NAME=p>">
+<input type="hidden" name="o" value="<TMPL_VAR NAME=o>">
+<input type="hidden" name="r" value="<TMPL_VAR NAME=r>">
+<input type="hidden" name="sdesc" value="<TMPL_VAR NAME=sdesc>">
+<input type="hidden" name="tdesc" value="<TMPL_VAR NAME=tdesc>">
+<input type="hidden" name="adesc" value="<TMPL_VAR NAME=adesc>">
+<input type="hidden" name="idesc" value="<TMPL_VAR NAME=idesc>">
+<input type="hidden" name="edesc" value="<TMPL_VAR NAME=edesc>">
+</form>

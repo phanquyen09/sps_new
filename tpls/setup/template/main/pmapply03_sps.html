@@ -1,0 +1,514 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>担当者・振込先入力</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<link href="css/pmapply.css" rel="stylesheet" type="text/css">
+
+<script>
+function selbank() {
+    document.getElementById('bankcodedisp').style.display='block';
+    document.getElementById('branchdisp').style.display='block';
+    document.getElementById('typedisp').style.display='block';
+
+    document.getElementById('bankdisp').style.display='block';
+    document.getElementById('ebankdisp').style.display='none';
+}
+
+function seekpczip() {
+    if(document.PMAPPLY03.TantoZip1.className.match(/noModify/)){
+        document.PMAPPLY03.TantoZip1.value = "";
+    }
+    if(document.PMAPPLY03.TantoZip2.className.match(/noModify/)){
+        document.PMAPPLY03.TantoZip2.value = "";
+    }
+    var zip1 = document.PMAPPLY03.TantoZip1.value;
+    var zip2 = document.PMAPPLY03.TantoZip2.value;
+
+    window.open("./seekzip-pmapply.cgi?TARGET=PMAPPLY03&TYPE=TANTO&ZIP1="
+                 +zip1+"&ZIP2="+zip2, "zip","resizable=yes,scrollbars=yes,menubar=yes,width=400,height=250");
+}
+</script>
+</head>
+<body>
+ <div id="head">
+  <h1><img src="images/pmapply/title_input_base.png" alt="担当者・振込先入力"></h1>
+ </div>
+ <div id="gNavi">
+   <div id="tab-area">
+     <ul>
+        <li><img src="images/pmapply/menu01.png" alt="申し込み条項確認" class="menu01"></li>
+        <li><img src="images/pmapply/menu02_o.png" alt="担当者・振込先入力" class="menu02"></li>
+        <li><img src="images/pmapply/menu03.png" alt="各決済情報入力" class="menu03"></li>
+        <li><img src="images/pmapply/menu_rakuten.png" alt="楽天ペイ申し込み" class="menurakuten"></li>
+        <li><img src="images/pmapply/menu04.png" alt="Y!ウォレット申し込み" class="menu04"></li>
+        <li><img src="images/pmapply/menu05.png" alt="入力内容確認" class="menu05"></li>
+        <li><img src="images/pmapply/menu06.png" alt="申込書印刷" class="menu06"></li>
+     </ul>
+    </div>
+  </div>
+
+<form name="PMAPPLY03" method="POST" action="pmapply03_sps.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="NEXT">
+<input type="hidden" name="confirmBack" value="<TMPL_VAR NAME=CONFIRM_BACK>">
+<TMPL_IF NEWAPPLY><input type="hidden" name="NEWAPPLY" value="Y"></TMPL_IF>
+
+<TMPL_IF ERR_MSG>
+<div id="cont">
+<TMPL_LOOP ERR_MSG>
+<div><font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font></div>
+</TMPL_LOOP>
+</div>
+</TMPL_IF>
+
+ <div id="cont">
+<TMPL_IF HOUJIN>
+     <h2 class="midashi03"><img src="images/pmapply/arrow.png">法人情報</h2>
+     <div class="midashi03-s">　　・・・・国税庁指定の13桁の法人番号</div>
+     <div style="clear:both;"></div>
+     <table class="input_table03">
+       <tr>
+         <td class="input_td03-01">法人番号</td>
+         <td class="input_td03-02">
+           <div class="boxbase">
+             <div class="boxtitle1">&nbsp;</div>
+             <div class="boxlong1">
+               <input type="text" name="CorporationNum"  id="CorporationNum" class="textCount textExample form_text01" title="例) 1234567890123" value="<TMPL_VAR NAME=CorporationNum>">
+               <div class="box_lcoment1">法人番号が不明な場合は、（<a href="http://www.houjin-bangou.nta.go.jp" target="_blank">http://www.houjin-bangou.nta.go.jp/</a>）にて<br>確認可能です。</div>
+             </div>
+           </div>
+         </td>
+       </tr>
+     </table>
+</TMPL_IF>
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">決済担当者情報</h2>
+   <div class="midashi03-s">　　・・・・決済代行サービスに関する担当者の情報です。審査結果などをご連絡します。
+   </div>
+
+
+   <div style="clear:both;"></div>
+   <table class="input_table03">
+     <tr>
+       <td class="input_td03-01">
+         契約名義
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">&nbsp;</div>
+           <div class="boxlong1"><TMPL_VAR NAME=CUSTNAME></div>
+         </div>
+       </td>
+     </tr>
+<TMPL_UNLESS KOJIN>
+     <tr>
+       <td class="input_td03-01">
+         部署名
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">&nbsp;</div>
+           <div class="boxlong1">
+             <input type="text" name="TantoSection"  id="TantoSection" class="textCount textExample form_text01" title="例) 経理部" value="<TMPL_VAR NAME=TANTOSECTION>"><span id="TantoSection" class="textCount"></span>
+           </div>
+         </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td03-01">
+         役職名
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">&nbsp;</div>
+           <div class="boxlong1">
+             <input type="text" name="TantoPosition"  id="TantoPosition" class="textCount textExample form_text01" title="例) 部長" value="<TMPL_VAR NAME=TANTOPOSITION>"><span id="TantoPosition" class="textCount"></span>
+           </div>
+         </div>
+       </td>
+     </tr>
+</TMPL_UNLESS>
+     <tr>
+       <td class="input_td03-01">
+         担当者の氏名
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">姓：</div>
+           <div class="boxhalf1">
+             <input type="text" name="TantoSei"  id="TantoSei" class="textCount textExample form_text02" title="例) 鈴木" value="<TMPL_VAR NAME=TANTOSEI>"><span id="TantoSei" class="textCount"></span>
+           </div>
+           <div class="boxtitle1">名：</div>
+           <div class="boxhalf1">
+             <input type="text" name="TantoMei" id="TantoMei" class="textCount textExample  form_text02" title="例) 一郎" value="<TMPL_VAR NAME=TANTOMEI>"><span id="TantoMei" class="textCount"></span>
+           </div>
+         </div>
+         <div class="boxbase">
+           <div class="boxtitle1">せい：</div>
+           <div class="boxhalf1">
+             <input type="text" name="TantoSeiKana" id="TantoSeiKana" class="textCount textExample  form_text02" title="例) すずき" value="<TMPL_VAR NAME=TANTOSEIKANA>"><span id="TantoSeiKana" class="textCount"></span>
+           </div>
+           <div class="boxtitle1">めい：</div>
+           <div class="boxhalf1">
+             <input type="text" name="TantoMeiKana" id="TantoMeiKana" class="textCount textExample  form_text02" title="例) いちろう" value="<TMPL_VAR NAME=TANTOMEIKANA>"><span id="TantoMeiKana" class="textCount"></span>
+           </div>
+         </div>
+         <div class="boxtitle1">&nbsp;</div>
+         <div class="box_lcoment1">
+         個人：契約者本人　　　　　法人：契約法人に所属する人<br>
+         個人事業主：お店の屋号に所属する人
+         </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td03-01">
+         担当者の住所
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">郵便番号：</div>
+           <div class="boxlong1">
+             <input type="text" name="TantoZip1" id="TantoZip1" class="textExample form_text03" maxlength="3" size="7" title="例) 105" value="<TMPL_VAR NAME=TANTOZIP1>">
+             <div class="haifun01">-</div>
+             <input type="text" name="TantoZip2" id ="TantoZip2" class="textExample form_text03" maxlength="4" size="10" title="例) 0003" value="<TMPL_VAR NAME=TANTOZIP2>">
+             &nbsp;&nbsp;<input type="button" value="郵便検索" onClick="seekpczip();">
+           </div>
+         </div>
+         <div class="boxbase">
+           <div class="boxtitle1">都道府県：</div>
+           <div class="boxlong1">
+             <select name="TantoPref" class="form_text02">
+               <option value="">選択してください</option>
+<TMPL_LOOP PREFLIST>
+               <option value="<TMPL_VAR NAME=PREF>"<TMPL_IF SEL>selected</TMPL_IF>><TMPL_VAR NAME=PREF></option>
+</TMPL_LOOP>
+             </select>
+           </div>
+         </div>
+         <div class="boxbase">
+           <div class="boxtitle1">市区郡：</div>
+           <div class="boxlong1">
+             <input type="text" name="TantoAddr1" id="TantoAddr1" class="textCount textExample  form_text01" title="例) 港区" value="<TMPL_VAR NAME=TANTOADDR1>"><span id="TantoAddr1" class="textCount"></span>
+           </div>
+         </div>
+         <div class="boxbase">
+           <div class="boxtitle1">町村字：</div>
+           <div class="boxlong1">
+             <input type="text" name="TantoAddr2" id="TantoAddr2" class="textCount textExample  form_text01" title="例) 西新橋" value="<TMPL_VAR NAME=TANTOADDR2>"><span id="TantoAddr2" class="textCount"></span>
+           </div>
+         </div>
+         <div class="boxbase">
+           <div class="boxtitle1">丁番地：</div>
+           <div class="boxlong1">
+             <input type="text" name="TantoAddr3" id="TantoAddr3" class="textCount textExample  form_text01" title ="例) １ー１０ー２" value="<TMPL_VAR NAME=TANTOADDR3>"><span id="TantoAddr3" class="textCount"></span>
+           </div>
+         </div>
+         <div class="boxbase">
+           <div class="boxtitle1">建物名：</div>
+           <div class="boxlong1">
+             <input type="text" name="TantoAddr4"  id="TantoAddr4" class="textCount textExample  form_text01" title ="例) 住友生命西新橋ビル" value="<TMPL_VAR NAME=TANTOADDR4>"><span id="TantoAddr4" class="textCount"></span>
+           </div>
+         </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td03-01">
+         担当者の電話番号
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">&nbsp;</div>
+           <div class="boxlong1">
+             <input type="text" name="TantoTel1" id="TantoTel1" class="textExample form_text03" title="例) 03" value="<TMPL_VAR NAME=TANTOTEL1>" maxlength="5" size="7" >
+             <div class="haifun01">-</div>
+             <input type="text" name="TantoTel2" id="TantoTel2" class="textExample form_text03"  maxlength="4" size="10" title="例) 0000" value="<TMPL_VAR NAME=TANTOTEL2>">
+             <div class="haifun01">-</div>
+             <input type="text" name="TantoTel3" id="TantoTel3" class="textExample form_text03" maxlength="4" size="10" title="例) 0000" value="<TMPL_VAR NAME=TANTOTEL3>">
+           </div>
+         </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td03-01">
+         担当者のＦＡＸ番号
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">&nbsp;</div>
+           <div class="boxlong1">
+             <input type="text" name="TantoFax1" id="TantoFax1" class="textExample form_text03" maxlength="5" size="7" title="例) 03"  value="<TMPL_VAR NAME=TANTOFAX1>">
+             <div class="haifun01">-</div>
+             <input type="text" name="TantoFax2" id="TantoFax2" class="textExample form_text03" maxlength="4" size="10" title="例) 0000" value="<TMPL_VAR NAME=TANTOFAX2>">
+             <div class="haifun01">-</div>
+             <input type="text" name="TantoFax3"  id="TantoFax3" class="textExample form_text03" maxlength="4" size="10" title="例) 0000" value="<TMPL_VAR NAME=TANTOFAX3>">
+           </div>
+         </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td03-01">
+         担当者のメールアドレス
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">&nbsp;</div>
+           <div class="boxlong1">
+             <input type="text" name="TantoMail"  id="TantoMail" class="textCount textExample form_text01" title="例) sample@sample.ss.shopserve.jp" value="<TMPL_VAR NAME=TANTOMAIL>"><span id="TantoMail" class="textCount"></span>
+           </div>
+         </div>
+       </td>
+     </tr>
+   </table>
+
+<TMPL_IF NAME=furidisp>
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">回収代金の振込先口座</h2>
+   <div style="clear:both;"></div>
+   <table class="input_table03">
+     <tr>
+       <td class="input_td03-01">
+         金融機関名
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">&nbsp;</div>
+           <div class="boxlong1">
+             <input type="text" name="Bank" id="Bank" class="textExample form_text02" title="例) 三菱ＵＦＪ銀行" value="<TMPL_VAR NAME=BANK>">
+             <input type="button" value="銀行検索" id="bank_search" style="text-align:left;" onClick="window.open('./banksel.cgi','bank','scrollbars=yes,height=600,width=800');">
+           </div>
+         </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td03-01">
+         金融機関コード
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">&nbsp;</div>
+           <div class="boxlong1">
+             <input type="text" name="BankCode"  id="BankCode" class="textExample form_text03" maxlength="4" size="10" title="例) 0005" value="<TMPL_VAR NAME=BANKCODE>">
+           </div>
+         </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td03-01">
+         支店名
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">&nbsp;</div>
+           <div class="boxlong1">
+             <input type="text" name="Branch" id="Branch" class="textExample form_text02" title="例) 新橋支店" value="<TMPL_VAR NAME=BRANCH>">
+           </div>
+         </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td03-01">
+         支店コード
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">&nbsp;</div>
+           <div class="boxlong1">
+             <input type="text" name="BranchCode" id="BranchCode" class="textExample form_text03" maxlength="3" size="7" title="例) 433" value="<TMPL_VAR NAME=BRANCHCODE>">
+           </div>
+         </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td03-01">
+         科目
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">&nbsp;</div>
+           <div class="boxlong1">
+             <label><input type="radio" name="Type" value="1" <TMPL_IF TYPE1>checked</TMPL_IF>>普通</label>&nbsp;&nbsp;&nbsp;&nbsp;
+             <label><input type="radio" name="Type" value="2" <TMPL_IF TYPE2>checked</TMPL_IF>>当座</label>
+           </div>
+         </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td03-01">
+         口座番号
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">&nbsp;</div>
+           <div class="boxhalf1">
+             <input type="text" name="AccountNo"  id="AccountNo" class="textCount textExample form_text02"  maxlength="7" title="例) 1234567"  value="<TMPL_VAR NAME=ACCOUNTNO>">
+             <span id="AccountNo" class="textCount"></span>
+           </div>
+         </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td03-01">
+       口座名義人フリガナ
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">&nbsp;</div>
+           <div class="boxlong1">
+             <input type="text" name="AccountName" id="AccountName" class="textCount textExample form_text01" title="例)  カ）コリュウチャハン" value="<TMPL_VAR NAME=ACCOUNTNAME>">
+             <span id="AccountName" class="textCount"></span>
+           </div>
+         </div>
+       </td>
+     </tr>
+   </table>
+</TMPL_IF>
+   <div class="btn02-1">
+     <div class="btn02-5"></div>
+     <div class="btn02-3"><img src="images/pmapply/back.png" alt="もどる" onClick="PMAPPLY02Click();"></div>
+     <div class="btn02-4"><img name="REQ_START" src="images/pmapply/next_on.png" onClick="PMAPPLY03Click();"></div>
+     <div style="clear:both;"></div>
+   </div>
+
+
+
+
+
+   <div class="page-top">
+      <a href="#head">▲このページのトップへ</a>
+   </div>
+ </div>
+
+</form>
+<form name="PMAPPLY02" method="POST" action="pmapply02_sps.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="Agree" value="Y">
+</form>
+
+
+<!--▼footer▼-->
+<div id="footer">
+  <script type="text/javascript">
+  <!--
+         var date = new Date();
+         var year = date.getYear();
+         if(year < 2000) { year += 1900; }
+         document.write('Copyright &copy; 1999-'+year+' Estore Corporation. All Rights Reserved.');
+  //-->
+  </script>
+</div>
+<!--▲footer▲-->
+
+
+
+<style>
+input.noModify{ color: #888888; }
+span.textCount{
+    font-size: 80%;
+    color:#008000;
+    margin-left: -85px;
+}
+span.countError{ color:#ff0000;}
+input.textExample{ font-size:90%; }
+</style>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    // イベント
+    $("input.textExample").focus(function(){
+        if( $(this).hasClass("noModify") ){ $(this).removeClass("noModify").val(""); }
+    }).blur(function(){
+        if($(this).val() == "" ){ $(this).addClass("noModify").val( $(this).attr("title") ); }
+    });
+    $("input.textCount").change(function(){
+        textCount( $(this), $(this).val().length );
+    }).keyup(function(){
+        textCount( $(this), $(this).val().length );
+    });
+    // 初期値
+    $("input.textExample").each( function(){
+        if( $(this).val() == "" || $(this).val() == $(this).attr("title") ){
+            $(this).addClass("noModify").val( $(this).attr("title") );
+        }
+    });
+    $("span.textCount").each( function(){
+        $("input.textCount").each(function(){
+            textCount( $(this), $(this).val().length );
+        });
+        //textCount( $("input#" + $(this).attr("id")),  $(this).attr("id").val().length );
+    });
+
+});
+
+var textCountTbl = {
+    "TantoSection"       : "127",
+    "TantoPosition"      : "127",
+    "TantoSei"           : "15",
+    "TantoMei"           : "15",
+    "TantoSeiKana"       : "30",
+    "TantoMeiKana"       : "30",
+    "TantoAddr1"         : "127",
+    "TantoAddr2"         : "127",
+    "TantoAddr3"         : "127",
+    "TantoAddr4"         : "127",
+    "TantoMail"          : "80",
+    "AccountNo"          : "7",
+    "AccountName"        : "60"
+}
+
+function textCount( obj, len ){
+    var id, nokori, str, errStr;
+    id = obj.attr("id");
+
+    if( obj.hasClass("noModify") ){ len = 0; }
+    nokori = textCountTbl[id] - len;
+    str = " 残り : " + nokori + "文字";
+    errStr = "オーバー！";
+    if( nokori < 0 ){
+         $("span#" + id).text(errStr).addClass("countError");
+    }
+    else{
+          $("span#" + id).text(str).removeClass("countError");
+     }
+}
+
+
+function zipSeachCount( bid, char ){
+    var id, len,nokori, str, errStr;
+    id = bid;
+    len = char.length;
+
+    nokori = textCountTbl[id] - len;
+    str = " 残り : " + nokori + "文字";
+    errStr = "オーバー！";
+
+    if( nokori < 0 ){
+         $("span#" + id).text(errStr).addClass("countError");
+    }
+    else{
+          $("span#" + id).text(str).removeClass("countError");
+     }
+
+}
+
+function PMAPPLY02Click(){
+    $("input.textExample").each( function(){
+        if( $(this).hasClass("noModify") ){ $(this).val(""); }
+    });
+    document.PMAPPLY02.submit();
+}
+function PMAPPLY03Click(){
+    $("input.textExample").each( function(){
+        if( $(this).hasClass("noModify") ){ $(this).val(""); }
+    });
+    document.PMAPPLY03.submit();
+}
+
+</script>
+
+</body>
+</html>
+
+

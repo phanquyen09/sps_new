@@ -1,0 +1,331 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>ショップ開店ウィザード -STEP3 注文確認メールを編集しよう-</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link rel="stylesheet" href="../css/wizard.css" type="text/css" />
+<script type="text/javascript" src="../js/base.js"></script>
+<TMPL_VAR NAME=GANALY>
+</head>
+
+<BODY>
+<form name="form1" method="post" action="wizard04.cgi">
+  <A name=01></A>
+
+  <div id="top-header">
+    <div class="logo-header-wrap">
+      <div class="logo-area">
+        <img src="../imgs/top_img0.gif" alt="Ｅストアーショップサーブ">
+      </div>
+    </div>
+  </div>
+
+  <table class="steps-table-1" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td><img src="../imgs/wi_top_off_001_already.gif"></td>
+      <td><img src="../imgs/wi_top_off_002_already.gif"></td>
+      <td><img src="../imgs/wi_top_on_003.gif"></td>
+      <td><img src="../imgs/wi_top_off_004.gif"></td>
+      <td><img src="../imgs/wi_top_off_005.gif"></td>
+      <td><img src="../imgs/wi_top_off_006.gif"></td>
+      <td><img src="../imgs/wi_top_off_007.gif"></td>
+    </tr>
+  </table>
+
+  <BR>
+  <TABLE cellSpacing=0 cellPadding=0 width=800 align=center border=0>
+    <TR valign="top">
+      <TD colSpan=3>
+        <img src="../imgs/we003_top_sps.gif" width="801" height="47">
+      </TD>
+    </TR>
+    <TR>
+      <TD align="center" bgColor=#1a7eae><IMG src="../imgs/spc.gif" 
+width=3></TD>
+      <TD align="center"><TABLE cellSpacing=10 cellPadding=0 width=791 align=center bgColor=#ffffff 
+      border=0>
+          <TR>
+            <TD><IMG height=35 src="../imgs/we003_01.gif" width=766 style="margin-bottom:20px; ">
+              <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td><img src="../imgs/com-tl.gif" width="5" height="5"></td>
+                  <td background="../imgs/com-tc.gif"><img src="../imgs/com-tc.gif" width="5" height="5"></td>
+                  <td><img src="../imgs/com-tr.gif" width="5" height="5"></td>
+                </tr>
+                <tr>
+                  <td background="../imgs/com-cl.gif"><img src="../imgs/com-cl.gif" width="5" height="5"></td>
+                  <td align="left" class="coment">
+                    <ul class="coment01" type="circle">
+                      <li class="coment03">購入時に、お店と購入者に自動送信される注文確認メールを設定します。例文を元に必要な個所を差し替えてください。</li>
+                    </ul>
+                  </td>
+                  <td background="../imgs/com-cr.gif"><img src="../imgs/com-cr.gif" width="5" height="5"></td>
+                </tr>
+                <tr>
+                  <td><img src="../imgs/com-bl.gif" width="5" height="5"></td>
+                  <td background="../imgs/com-bc.gif"><img src="../imgs/com-bc.gif" width="5" height="5"></td>
+                  <td><img src="../imgs/com-br.gif" width="5" height="5"></td>
+                </tr>
+              </table>
+              <div style="margin:0.5em 0.5em 1em;color:#222;text-align:left;">
+                  <img src="../imgs/attention.png">&nbsp;パソコン用・携帯用のメール文末にある「連絡先」部分は、忘れずにお店の連絡先に変更してください。
+              </div>
+        <TMPL_IF NAME=err_msg>
+                <br>
+                <table>
+                        <tr>
+                        <TMPL_LOOP NAME=err_msg>
+                        <td style="text-align:left;"><font size="2" color="#ff0000"><TMPL_VAR NAME=MSG></font></td>
+                        </tr><tr>
+                        </TMPL_LOOP>
+                        </tr>
+                </table>
+        </TMPL_IF>
+
+                <br>
+              <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                <TR>
+                  <TD valign="top" bgColor=#666666><TABLE cellSpacing=1 cellPadding=5 width="100%" border=0>
+                      <TR valign="top" align="left">
+                        <TD width="230" valign="middle" nowrap bgColor=#c8e8f7>注文確認メールの差出人の名前<BR>
+                          (パソコン用、携帯用共通)</TD>
+                        <TD align="right" valign="middle" bgColor=#FFFFFF><TABLE cellSpacing=0 cellPadding=2 width="100%" border=0>
+                            <TR>
+                              <TD colspan=3 align="left">メールソフトで受信した際に「送信者」または「差出人」として表示されます。 </TD>
+                            </TR>
+                            <TR valign="top" align="left">
+                              <TD width="230" valign="middle" nowrap>
+                                <INPUT size=50 name="ordmail_frmname" value="<TMPL_VAR NAME=ordmail_frmname>">
+                              </TD>
+                              <TD align="right" valign="middle" class="hint03">例）</TD>
+                              <TD align="right" valign="middle" class="hint03">【お店の名前】</TD>
+                            </TR>
+                          </TABLE></TD>
+                      </TR>
+                    </TABLE></TD>
+                </TR>
+              </TABLE>
+              <BR>
+              <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                <TR>
+                  <TD valign="top" bgColor=#666666><TABLE cellSpacing=1 cellPadding=5 width="100%" border=0>
+                      <TR valign="top" align="left">
+                        <TD bgColor=#c8e8f7>パソコン受信用</TD>
+                      </TR>
+                      <TR valign="top" align="left">
+                        <TD bgColor=#ffffff><TABLE cellSpacing=2 cellPadding=2 border=0>
+                            <TR>
+                              <TD valign="middle" align="center" 
+                              bgColor=#eeeeee>&nbsp;&nbsp;題名&nbsp;</TD>
+                              <TD> メールソフトで受信した際に「件名」または「題名」として表示されます。 <BR>
+&lt;ORD NUM&gt;部分には注文番号が自動で入ります。<BR>
+                                <BR>
+                                <INPUT maxLength=180 size=80 value="<TMPL_VAR NAME=ordmail_subject>" name="ordmail_subject">
+                                <table width="100%"  border="0" cellspacing="3" cellpadding="0">
+                                  <tr>
+                                    <td bgcolor="#E4FAFC" style="padding:3px 3px 3px 3px "><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                          <td width="20" height="12" valign="middle"></td>
+
+                                          <td class="hint03">例)　　【お店の名前】ご注文ありがとうございます&lt;ORD NUM&gt;(自動送信メール)</td>
+                                        </tr>
+                                      </table></td>
+                                  </tr>
+                                </table></TD>
+                            </TR>
+                            <TR>
+                              <TD colSpan=2><img src="../imgs/line.gif" width="755"></TD>
+                            </TR>
+                            <TR>
+                              <TD valign="middle" align="center" 
+                              bgColor=#eeeeee>&nbsp;&nbsp;メール本文１&nbsp;&nbsp;</TD>
+                              <TD>注文確認メール文頭の「あいさつ文」を入力します。全角32文字程度で改行してください。<BR>
+&lt;ORD NAM&gt;部分には購入者様の名前が自動で入ります。<BR>
+                                <BR>
+                                <TEXTAREA name="ordmail_greeting" rows=6 cols=75><TMPL_VAR NAME=ordmail_greeting></TEXTAREA>
+                              </TD>
+                            </TR>
+                            <TR>
+                              <TD valign="middle" align="center" 
+                              bgColor=#eeeeee>&nbsp;&nbsp;メール本文２&nbsp;&nbsp;</TD>
+                              <TD><FONT SIZE="2">注文確認メールの文中に表示される注文情報です。※編集はできません。
+                                <div style="font-size:80%; margin:0px 5px 0px 5px; color:#999999;">
+                                  <pre>■ご注文内容 -------------------------------------------------------
+
+    ◆ ご注文番号 10001000
+    ◆ ご注文日時 2005/11/10 11:11
+    ◆ お支払方法 銀行振込
+    ◆ お支払金額 4,460円（税込）<br>                                                   （全て税込価格）<br>   ================================================================<br>       商品名                価格         数量              小計<br>   ================================================================<br>   【ヴィラック】VILACオウガステの傘<br>                           2,980円           1             2,980円<br>   ★50％offセール★【フレンステッドモビール】キャッツモビール <br>                             980円           1               980円<br>   ================================================================<br>   商品合計                                                3,960円<br>   ================================================================<br>   送料                                      3               500円<br>   手数料                                                      0円<br>   ラッピング料                              3                 0円<br>   ポイント利用料                                              0円<br>   ================================================================<br>   合計金額                                                4,460円<br>   ================================================================
+   
+■ご注文者 ---------------------------------------------------------
+
+   [法人名・団体名]
+   [法人名・団体名（かな）] 
+   [部署名]
+   [お名前]                 山田 太郎 様
+   [郵便番号]               105-0003
+   [ご住所]                 東京都新宿区新宿10-10-10サンプルビル
+   [お電話番号]             03-3333-3333
+   [メールアドレス]         yamada@test-domain.com
+   
+■お届け先 ---------------------------------------------------------
+
+   [法人名・団体名]
+   [法人名・団体名（かな）] 
+   [部署名]
+   [お名前]                 山田 太郎 様
+   [郵便番号]               105-0003
+   [ご住所]                 東京都新宿区新宿10-10-10サンプルビル
+   [お電話番号]             03-3333-3333
+
+   [お届け希望日]           特になし
+   [お届け希望時間]         5：00〜18：00
+   [都合の悪い日]           日曜日
+
+   [その他ご要望]
+   なるべく早く届けてください
+
+■お支払い方法 -----------------------------------------------------
+
+   [銀行振込]
+   イーコーポレート銀行 新橋支店
+   普通 1234567
+   カ）ヤマダコウギョウ</pre>
+
+                                </div></TD>
+                            </TR>
+                            <TD colSpan=2><img src="../imgs/line.gif" width="755"></TD>
+                            </TR>
+                            <TR>
+                              <TD valign="middle" align="center" 
+                              bgColor=#eeeeee nowrap>&nbsp;&nbsp;メール本文３&nbsp;&nbsp;</TD>
+                              <TD><FONT SIZE="2">注文確認メール文末に表示される「お店の連絡先」を入力します。
+                                <div class="style4" style="font-size:80%; margin:0px 5px 0px 5px">
+                                  <TEXTAREA name="ordmail_contact" rows=6 cols=70><TMPL_VAR NAME=ordmail_contact></TEXTAREA>
+                                </div></TD>
+                            </TR>
+                          </TABLE></TD>
+                      </TR>
+                    </TABLE></TD>
+                </TR>
+              </TABLE>
+              <BR>
+              <TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                <TR>
+                  <TD valign="top" bgColor=#666666><TABLE cellSpacing=1 cellPadding=5 width="100%" border=0>
+                      <TR valign="top" align="left">
+                        <TD bgColor="#c8e8f7">携帯電話受信用</TD>
+                      </TR>
+                      <TR valign="top" align="left">
+                        <TD bgColor=#ffffff><TABLE cellSpacing=0 cellPadding=0 width="100%" 
+border=0>
+                            <TR>
+                              <TD colSpan=4>&nbsp;</TD>
+                            </TR>
+                            <TR>
+                              <TD width=15><IMG src="../imgs/spc.gif" height=8  width=17></TD>
+                              <TD valign="top" width=180 bgColor=#666666><TABLE cellSpacing=1 cellPadding=5 width=180 
+                              border=0>
+                                  <TR valign="top" align="left">
+                                    <TD bgColor=#ffffff><FONT 
+                                color=#000000 size=2>題名：
+                                      <INPUT value="<TMPL_VAR NAME=ordmail_subject_k>" name="ordmail_subject_k"> 
+                                      <BR>
+                                      本文：<BR>
+                                      <TEXTAREA name="ordmail_greeting_k" rows=6><TMPL_VAR NAME=ordmail_greeting_k></TEXTAREA>
+                                      <FONT  color=#999999><br>
+                                      <BR>
+                                      ■ご注文内容<br>
+                                      [ご注文番号]<br>
+                                      10001000<br>
+                                      [お支払金額] <br>
+
+                                      4,460円<br>
+                                      [商品]<br>
+                                      【ヴィラック】VILACオウガステの傘／★50％offセール★【フレンステッドモビール】キャッツモビール<BR>
+                                      <br>
+                                      ■お支払い方法 <br>
+                                      [銀行振込] イーコーポレート銀行 新橋支店 普通 1234567 カ）ヤマダコウギョウ<br>
+
+                                      <br>
+                                      <TEXTAREA name="ordmail_contact_k" rows=6><TMPL_VAR NAME=ordmail_contact_k></TEXTAREA>
+                                      <SPAN> </TD>
+                                  </TR>
+                                </TABLE></TD>
+                              <TD width=10></TD>
+                              <TD valign="top"><FONT 
+                              size=2><B>携帯電話受信用注文確認メールについて</B><BR>
+                                <TABLE cellSpacing=0 cellPadding=3 width="100%" 
+                              border=0>
+                                  <TR>
+                                    <TD valign="top">・</TD>
+                                    <TD>購入者様のメールアドレスが携帯電話のメールアドレスの場合、携帯電話用の注文確認メールが送信されます。</TD>
+                                  </TR>
+                                  <TR>
+                                    <TD valign="top">&nbsp;</TD>
+                                    <TD>[docomo.ne.jp, t.vodafone.ne.jp, ezweb.ne.jp, softbank.ne.jp・・・他]</TD>
+                                  </TR>
+                                  <TR>
+                                    <TD valign="top">・</TD>
+                                    <TD>携帯各社、ご利用の機種によって、受信できる文字数が異なります。また、携帯電話によってはメールが分割されて届く場合もございます。</TD>
+                                  </TR>
+                                </TABLE></TD>
+                            </TR>
+                          </TABLE></TD>
+                      </TR>
+                    </TABLE></TD>
+                </TR>
+              </TABLE>
+              <BR>
+              <div align="center" style="line-height:150%; ">３つのお支払い方法のいずれかを選んで<strong>［プレビュー］</strong>をクリックすると、実際に送信されるメールの案内文がプレビューできます。<BR>
+                    <INPUT type=radio name="mailtype" value="C" checked id="r1"><LABEL for="r1">代金引換&nbsp;&nbsp;</LABEL>
+                    <INPUT type=radio name="mailtype" value="B" id="r2"><LABEL for="r2">銀行振込&nbsp;&nbsp;</LABEL>
+                    <INPUT type=radio name="mailtype" value="P" id="r3"><LABEL for="r3">郵便振替&nbsp;&nbsp;&nbsp;</LABEL>
+                    <BR>
+                    <INPUT type=button value="プレビュー" onClick="window.open('preview.cgi', 'preview', 'width=600, height=700, scrollbars=yes');document.form1.ex.value='preview';document.form1.target='preview';document.form1.action='preview.cgi';document.form1.submit();"></TD>
+				  </TD>
+          </TR>
+          <TR>
+            <TD align="center"><BR>
+              <HR SIZE=1>
+              <BR>
+              　
+              <INPUT onClick="document.form1.ex.value='';document.form1.target='_self';document.form1.action='wizard04.cgi';document.form1.submit();" type=button value="保存して特定商取引法の設定へ進む"> 
+
+              <p style="text-align:center;" class="red">※作業を中断する場合はこのボタンをクリックし次のステップに進んでから画面を閉じてください。<br>
+              次のステップに進むことにより設定が保存されます。</p>
+
+            </TD>
+          </TR>
+        </TABLE></TD>
+      <TD align="center" bgColor=#1a7eae><IMG src="../imgs/spc.gif" 
+  width=3></TD>
+    </TR>
+    <TR>
+      <TD width=801 background=../imgs/we003_bottom.gif colSpan=3 height=79><TABLE width="100%" border=0>
+          <TR>
+            <TD width=20><IMG height=25 src="../imgs/spc.gif" width=20></TD>
+            <TD vAlign=bottom><A href="#01"><IMG height=20 src="../imgs/we003_to_top.gif" width=129 border=0></A></TD>
+          </TR>
+        </TABLE></TD>
+    </TR>
+  </TABLE>
+  <input type="hidden" value="" name="ex">
+
+<div id="copyright">
+<script type="text/javascript">
+<!--
+var date = new Date();
+var year = date.getYear();
+if(year < 2000) { year += 1900; }
+document.write('Copyright &copy; '+year+' Estore Corporation. All Rights Reserved.');
+//-->
+</script>
+</div>
+
+</form>
+</BODY>
+</HTML>

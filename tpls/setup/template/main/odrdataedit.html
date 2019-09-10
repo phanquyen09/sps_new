@@ -1,0 +1,306 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<title><TMPL_VAR NAME=ServName>管理画面</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link rel="stylesheet" href="../css/default.css?20190821" type="text/css">
+<link href="default01.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+
+function setHeightCsvOut() {
+  var csvoutBaseObj = document.getElementsByName("csvoutBase")[0];
+  var csvoutObj     = document.getElementsByName("csvout")[0];
+
+  if (csvoutBaseObj.children.length == 0) {
+    csvoutBaseObj.style.height = csvoutObj.clientHeight + 'px';
+  } else if (csvoutObj.children.length == 0) {
+    csvoutObj.style.height = csvoutBaseObj.clientHeight + 'px';
+  }
+}
+
+window.onload = function() {
+  setHeightCsvOut();
+};
+
+window.onresize = function() {
+  setHeightCsvOut();
+};
+
+//-->
+</script>
+<script src="odrdata-tmpl.js" type="text/javascript"></script>
+<style type="text/css">
+<!--
+.style3 {color: #0B8C36}
+.style2 {color: #9F4000}
+.style4 {color: #1B8951}
+-->
+</style>
+</head>
+<body <TMPL_VAR NAME=ONLOAD> class="odrdata-edit">
+<form action="odrdata-save.cgi" method="POST" name="csvTmpl">
+  <a name="top"></a>
+  <div style="font-size:80%">
+  <table width="680"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="left">
+        <div class="midashi02">■データ書式編集</div>
+        <TMPL_IF type23>
+        <div style="float:left;padding:10px 0px 10px 10px;">
+          <input type="checkbox" name="tmplCopyInformationOrder" id="tmplCopyInformationOrder" value= "1" <TMPL_IF type3>checked="checked"</TMPL_IF> />
+          <label for="tmplCopyInformationOrder">注文者情報とお届け先情報をコピーする</label>
+        </div>
+        </TMPL_IF>
+        <div style="float:right;padding:10px 10px 10px 0px;">
+          <TMPL_VAR NAME=typestring>
+        </div>
+        <br><font color="#FF0000"><TMPL_VAR NAME=errmsg></font>
+        <table class="item-box">
+          <tr align="center">
+            <td colspan="2" class="item-name02">データ書式</td>
+          </tr>
+          <tr>
+            <td class="odritem-name">テンプレート名 <TMPL_VAR NAME=errmark></td>
+            <td class="odritem">
+              <input name="tmplTtl" type="text" value="<TMPL_VAR NAME=title>" size="60">
+            </td>
+          </tr>
+          <tr>
+            <td class="odritem-name">項目のカスタマイズ</td>
+            <td class="odritem">
+
+              <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td align="center" nowrap class="bl12"><b>［受注データの項目一覧］<br>
+                    </b>
+                    <select name="csvoutBase" size="20" style="width:190px;" multiple>
+                    <TMPL_UNLESS item1><option value="1">受注番号</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item2><option value="2">お届け先</option></TMPL_UNLESS>
+                    <TMPL_IF type1><TMPL_UNLESS item3><option value="3">詳細</option></TMPL_UNLESS></TMPL_IF>
+                    <TMPL_UNLESS item4><option value="4">注文日時</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item5><option value="5">注文者法人名・団体名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item6><option value="6">注文者法人名・団体名（かな）</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item7><option value="7">注文者部署名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item8><option value="8">注文者お名前　姓</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item9><option value="9">注文者お名前　名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item10><option value="10">注文者お名前　姓（かな）</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item11><option value="11">注文者お名前　名（かな）</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item12><option value="12">会員ID</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item13><option value="13">購入回数</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item14><option value="14">注文者郵便番号</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item15><option value="15">注文者都道府県</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item16><option value="16">注文者市区郡</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item17><option value="17">注文者町村字番地</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item18><option value="18">注文者建物名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item19><option value="19">注文者電話番号</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item20><option value="20">注文者FAX番号</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item21><option value="21">注文者メールアドレス</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item22><option value="22">商品合計（税込）</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item24><option value="24">送料（税込）</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item23><option value="23">ラッピング等</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item25><option value="25">手数料（税込）</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item26><option value="26">利用ポイント</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item27><option value="27">項目名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item28><option value="28">調整額</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item29><option value="29">合計額</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item30><option value="30">確認ステータス</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item31><option value="31">確認日</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item32><option value="32">決済方法</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item33><option value="33">決済ステータス</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item34><option value="34">入金ステータス</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item35><option value="35">入金日</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item36><option value="36">発送ステータス</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item37><option value="37">発送ステータス変更日</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item38><option value="38">注文者メモ</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item39><option value="39">注文者問１</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item40><option value="40">注文者問２</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item41><option value="41">注文者問３</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item42><option value="42">注文者問４</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item43><option value="43">注文者問５</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item44><option value="44">商品番号</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item45><option value="45">商品名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item46><option value="46">単価</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item47><option value="47">数量</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item167><option value="167">購入ページ</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item166><option value="166">注文経路</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item48><option value="48">お届け先法人名・団体名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item49><option value="49">お届け先法人名・団体名（かな）</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item50><option value="50">お届け先部署名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item51><option value="51">お届け先お名前　姓</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item52><option value="52">お届け先お名前　名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item53><option value="53">お届け先お名前　姓（かな）</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item54><option value="54">お届け先お名前　名（かな）</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item55><option value="55">お届け先郵便番号</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item56><option value="56">お届け先都道府県</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item57><option value="57">お届け先市区郡</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item58><option value="58">お届け先町村字番地</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item59><option value="59">お届け先建物名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item60><option value="60">お届け先電話番号</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item61><option value="61">お届け先FAX番号</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item62><option value="62">お届け希望日</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item63><option value="63">お届け希望時間帯</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item165><option value="165">お届けフリー項目</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item64><option value="64">のし/ラッピング</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item65><option value="65">お届け先メモ</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item66><option value="66">お届け先問１</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item67><option value="67">お届け先問２</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item68><option value="68">お届け先問３</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item69><option value="69">お届け先問４</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item70><option value="70">お届け先問５</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item71><option value="71">フォルダ</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item320><option value="320">受注番号(システム)</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item321><option value="321">レビューURL</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item408><option value="408">注文者備考</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item409><option value="409">お届け先備考</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item410><option value="410">通信欄</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item411><option value="411">配送業者番号</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item412><option value="412">お問い合わせ番号</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item413><option value="413">受注番号（枝番付き）</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item414><option value="414">商品枝番号</option></TMPL_UNLESS>
+                    <TMPL_IF RegularHanpuPage><TMPL_UNLESS item415><option value="415">申込番号</option></TMPL_UNLESS></TMPL_IF>
+                    <TMPL_IF RegularHanpuPage><TMPL_UNLESS item416><option value="416">定期購入割引</option></TMPL_UNLESS></TMPL_IF>
+                    <TMPL_UNLESS item417><option value="417">ランク名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item418><option value="418">会員ランク割引</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item419><option value="419">お届け方法</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item420><option value="420">クーポン割引</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item421><option value="421">販売方法</option></TMPL_UNLESS>
+                    <TMPL_IF RegularHanpuPage><TMPL_UNLESS item422><option value="422">定期購入・頒布会(回数)</option></TMPL_UNLESS></TMPL_IF>
+                    <TMPL_UNLESS item536><option value="536">クーポン名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item537><option value="537">注文内容メモ</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item541><option value="541">発送予定日</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item542><option value="542">オプション選択肢コード</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item543><option value="543">オプション選択肢名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item544><option value="544">まとめ割引</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item545><option value="545">高額購入割引</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item601><option value="601">単価（税抜）</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item602><option value="602">商品税額</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item603><option value="603">販売価格合計（税抜）</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item604><option value="604">商品税額合計</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item801><option value="801">AmazonリファレンスID</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item802><option value="802">注文者お名前</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item803><option value="803">注文者お名前かな</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item804><option value="804">注文者市区郡以降</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item805><option value="805">お届け先お名前</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item806><option value="806">お届け先お名前かな</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item807><option value="807">お届け先市区郡以降</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item546><option value="546">同梱物番号</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item547><option value="547">同梱物名</option></TMPL_UNLESS>
+                    <TMPL_IF useYamato><TMPL_UNLESS item605><option value="605">（ヤマト）連携管理番号</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item606><option value="606">（ヤマト）通知メールアドレス</option></TMPL_UNLESS></TMPL_IF>
+                    <TMPL_IF useJapanPost><TMPL_UNLESS item607><option value="607">（日本郵便）判別コード</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item608><option value="608">（日本郵便）通販業者コード</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item609><option value="609">（日本郵便）コンビニコード</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item610><option value="610">（日本郵便）コンビニ名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item611><option value="611">（日本郵便）店舗コード</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item612><option value="612">（日本郵便）店舗名</option></TMPL_UNLESS>
+                    <TMPL_UNLESS item613><option value="613">（日本郵便）認証番号</option></TMPL_UNLESS></TMPL_IF>
+                    </select>
+                  </td>
+                  <td>
+                    <input type="button" name="btnAdd" value="追加→" onClick="addData(document.csvTmpl.csvoutBase,document.csvTmpl.csvout);setHeightCsvOut();">
+                    <br>
+                    <br>
+                    <input type="button" name="btnDel" value="←削除" onClick="delData(document.csvTmpl.csvout,document.csvTmpl.csvoutBase);setHeightCsvOut();">
+                  </td>
+                  <td align="center" nowrap class="bl12"><b>［ダウンロードする項目］<br>
+                    </b>
+                    <select name="csvout" size="20" style="width:190px;" multiple>
+<TMPL_LOOP printlist>
+                    <option value="<TMPL_VAR NAME=itemid>"><TMPL_VAR NAME=title></option>
+</TMPL_LOOP>
+                    </select>
+                  </td>
+                  <td>
+                    <table border="0" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td align="center">
+                          <input type="button" name="btn_top" value="最上段へ" onClick="moveUpDn(document.csvTmpl.csvout, 1,-1);">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td align="center">
+                          <input type="button" name="btn_u5" value="５つ上へ" onClick="moveUpDn(document.csvTmpl.csvout, 1, 5);">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td align="center">
+                          <input type="button" name="btn_u5" value="１つ上へ" onClick="moveUpDn(document.csvTmpl.csvout, 1, 1);">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td align="center">
+                          <input type="button" name="btn_d5" value="１つ下へ" onClick="moveUpDn(document.csvTmpl.csvout, 2, 1);">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td align="center">
+                          <input type="button" name="btn_u5" value="５つ下へ" onClick="moveUpDn(document.csvTmpl.csvout, 2, 5);">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td align="center">&nbsp;</td>
+                      </tr>
+                      <tr>
+                        <td align="center">
+                          <input type="button" name="btn_bottom" value="最下段へ" onClick="moveUpDn(document.csvTmpl.csvout, 2,-1);">
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+        </table>
+        <hr size="1">
+        <br>
+        <div align="center">
+        <input type="button" name="Submit" value="設定を保存する" onClick="dispData()">
+        &nbsp;
+        <input type="button" name="Submit" value="閉じる" onClick="window.close()">
+        </div>
+        <br>
+        <a href="#top"><span class="return-top">[▲] トップへ戻る</span></a><br>
+      </td>
+    </tr>
+  </table>
+  </div>
+</form>
+<!-- Begin POST FORM -->
+<form action="odrdata-save.cgi" method="POST" name="POSTCsvTmpl">
+<input type="hidden" name="tmplSelect" value="">
+<input type="hidden" name="tmplTtl" value="">
+<input type="hidden" name="tmplCopyInformationOrder" value="">
+<input type="hidden" name="tmplID" value="<TMPL_VAR NAME=csvid>">
+<input type="hidden" name="tmplWMode" value="">
+</form>
+<!-- End POST FORM -->
+</body>
+</html>
+

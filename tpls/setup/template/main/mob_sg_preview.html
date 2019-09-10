@@ -1,0 +1,25 @@
+<p align="center">◆ご利用案内◆</p>
+<hr>
+<TMPL_LOOP NAME=FIRST>
+<TMPL_IF NAME=TOPIMG><p>■<TMPL_VAR NAME=TITLE><br><TMPL_VAR NAME=IMG><br><TMPL_VAR NAME=COMMENT></p><TMPL_ELSE>■<TMPL_VAR NAME=TITLE><br><TMPL_VAR NAME=COMMENT><br><TMPL_VAR NAME=IMG></p></TMPL_IF>
+</TMPL_LOOP>
+<TMPL_LOOP NAME=SECOND>
+<p>■<TMPL_VAR NAME=TITLE><br><TMPL_VAR NAME=COMMENT></p>
+</TMPL_LOOP>
+<TMPL_IF NAME=POINT>
+<p>■<TMPL_VAR NAME=UNIT>ご利用案内</p>
+<p>お買い上げの際に以下の<TMPL_VAR NAME=UNIT>が発行されます。</p>
+<p>決済別の<TMPL_VAR NAME=UNIT><br>
+<TMPL_VAR NAME=PP></p>
+<p><TMPL_VAR NAME=UNIT>発行ﾙｰﾙ<br>
+<TMPL_VAR NAME=PR></p>
+<p>※このﾍﾟｰｼﾞの内容は随時変更されます。</p>
+</TMPL_IF>
+<TMPL_IF NAME=RANK><p>■会員ランクご利用案内</p>
+<p>会員の皆様へお得な特典をご用意しております。</p>
+<p>
+<TMPL_VAR NAME=RANK_INFO>
+</p></TMPL_IF>
+<TMPL_LOOP NAME=THIRD>
+<p>■<TMPL_VAR NAME=TITLE><br><TMPL_VAR NAME=COMMENT></p>
+</TMPL_LOOP>

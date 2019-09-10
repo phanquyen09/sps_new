@@ -1,0 +1,66 @@
+<form name="form1" method="post" action="bcontrol.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0093C9">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">コメントの設定を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/bcontrol.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  お店ページで公開している店長日記、記事へのコメントの受付に関するポリシーを設定します。<br>
+                                  「自動で承認する」を選択している場合は、コメント投稿直後に反映しますが、選択していない場合は、承認が必要となります。<br>
+                                   <a href="../func02/comment.cgi">⇒コメント・トラックバックの承認</a><br>
+                                </div>
+                                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                    <tr align="center">
+                                      <td colspan="2" class="item-name02">コメント設定</td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">コメント</td>
+                                      <td class="item"><table>
+                                          <tr>
+                                            <td>
+<input name="default_comment_receive" type="radio" value="1" id="coment02" <TMPL_IF NAME=default_comment_receive>checked</TMPL_IF>>
+                                            </td>
+
+                                            <td align="left"><label for="coment02">コメントを受け付ける&nbsp;（
+<input type="checkbox" name="auto_comment_receive" value="1" id="comauto" <TMPL_IF NAME=auto_comment_receive>checked</TMPL_IF>><label for="comauto">
+                                              </label>
+                                                <label for="comauto">自動で承認する）</label>
+                                            </td>
+                                          </tr>
+                                          <tr>
+
+                                            <td>
+<input name="default_comment_receive" type="radio" value="0" id="coment01" <TMPL_IF NAME=default_comment_receive><TMPL_ELSE>checked</TMPL_IF>>
+                                            </td>
+                                            <td><label for="coment01">コメントを受け付けない</label>
+                                            </td>
+                                          </tr>
+                                      </table></td>
+                                    </tr>
+                                  </table>
+                                    <br>
+                                    <div align="center"><input name="set" type="submit" id="set" value="設定を保存する"></div>
+                                  </td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+                      </td>
+                    </tr>
+
+<input type="hidden" name="mode" value="regist">
+</form>

@@ -1,0 +1,350 @@
+<script laungage="Javascript">
+function printVbox(p) {
+        for(i = 11; i <= 50; i++ ) {
+                // Firefoxでのレイアウト崩れ対応(block → "") 081118
+                eval('document.getElementById("' + p + 'vbox' + i + '")').style.display ="";
+        }
+        eval('document.getElementById("row' + p + '")').rowSpan = 50;
+}
+</script>
+<form name='VARIATIONNFO' method='POST' action = 'iteminfo.cgi'>
+<input name="CMD" type="hidden" value="VAREDT">
+<input name="ID" type="hidden" value="<TMPL_VAR NAME=ID>">
+<input name="CP" type="hidden" value="<TMPL_VAR NAME=CP>">
+<input name="ItemNo" type="hidden" value="<TMPL_VAR NAME=ITEM_NO>">
+<input name="ItemName" type="hidden" value="<TMPL_VAR NAME=ITEM_NAME>">
+<input name="FeedSW" type="hidden" value="<TMPL_VAR NAME=FeedSW>">
+<input name="FeedName" type="hidden" value="<TMPL_VAR NAME=FeedName>">
+<input name="FeedCategory_C" type="hidden" value="<TMPL_VAR NAME=FeedCategory_C>">
+<input name="FeedCategory_N" type="hidden" value="<TMPL_VAR NAME=FeedCategory_N>">
+<TMPL_IF SFCNT>
+  <TMPL_LOOP SFLOOP>
+<input type="hidden" name="FeedCategory_<TMPL_VAR NAME=CNT>" value="<TMPL_VAR NAME=VAL>">
+  </TMPL_LOOP>
+</TMPL_IF>
+<input name="ItemPrice" type="hidden" value="<TMPL_VAR NAME=ITEM_PRC>">
+<input name="ItemUrl" type="hidden" value="<TMPL_VAR NAME=ITEM_URL>">
+<input name="Hinban" type="hidden" value="<TMPL_VAR NAME=HINBAN>">
+<input name="Code1" type="hidden" value="<TMPL_VAR NAME=CODE1>">
+<input name="Code2" type="hidden" value="<TMPL_VAR NAME=CODE2>">
+<input name="Code3" type="hidden" value="<TMPL_VAR NAME=CODE3>">
+<input name="Code4" type="hidden" value="<TMPL_VAR NAME=CODE4>">
+<input name="Code5" type="hidden" value="<TMPL_VAR NAME=CODE5>">
+<input name="Code6" type="hidden" value="<TMPL_VAR NAME=CODE6>">
+<input name="Code7" type="hidden" value="<TMPL_VAR NAME=CODE7>">
+<input name="Code8" type="hidden" value="<TMPL_VAR NAME=CODE8>">
+<input name="Code9" type="hidden" value="<TMPL_VAR NAME=CODE9>">
+<input name="Code10" type="hidden" value="<TMPL_VAR NAME=CODE10>">
+<input name="Used" type="hidden" value="<TMPL_VAR NAME=USED>">
+<input name="MakerName" type="hidden" value="<TMPL_VAR NAME=MAKERNAME>">
+<input name="Disp" type="hidden" value="<TMPL_VAR NAME=DISP>">
+
+<input name="Category1" type="hidden" value="<TMPL_VAR NAME=CATEGORY1>">
+<input name="Category2" type="hidden" value="<TMPL_VAR NAME=CATEGORY2>">
+<input name="Category3" type="hidden" value="<TMPL_VAR NAME=CATEGORY3>">
+<input name="Category4" type="hidden" value="<TMPL_VAR NAME=CATEGORY4>">
+<input name="Category5" type="hidden" value="<TMPL_VAR NAME=CATEGORY5>">
+
+<input name="SaleRestriction" type="hidden" value="<TMPL_VAR NAME=SALERESTRICTION>">
+<input name="PaymentGroupID" type="hidden" value="<TMPL_VAR NAME=PAYMENTGROUPID>">
+
+<input name="ProductName"        type="hidden" value="<TMPL_VAR NAME=PRODUCTNAME>">
+<input name="ProductInfo"        type="hidden" value="<TMPL_VAR NAME=PRODUCTINFO>">
+<input name="ProductWeight"      type="hidden" value="<TMPL_VAR NAME=PRODUCTWEIGHT>">
+<input name="ProductWeight_Unit" type="hidden" value="<TMPL_VAR NAME=PRODUCTWEIGHT_UNIT>">
+<input name="ProductWidth"       type="hidden" value="<TMPL_VAR NAME=PRODUCTWIDTH>">
+<input name="ProductDepth"       type="hidden" value="<TMPL_VAR NAME=PRODUCTDEPTH>">
+<input name="ProductHight"       type="hidden" value="<TMPL_VAR NAME=PRODUCTHIGHT>">
+<input name="ManufacturerYear"   type="hidden" value="<TMPL_VAR NAME=MANUFACTURERYEAR>">
+<input name="DispNewOld"         type="hidden" value="<TMPL_VAR NAME=DISPNEWOLD>">
+<input name="ProductGender"      type="hidden" value="<TMPL_VAR NAME=PRODUCTGENDER>">
+<input name="ProductAgeGroup"    type="hidden" value="<TMPL_VAR NAME=PRODUCTAGEGROUP>">
+<input name="ProductColor"       type="hidden" value="<TMPL_VAR NAME=PRODUCTCOLOR>">
+<input name="ProductSize"        type="hidden" value="<TMPL_VAR NAME=PRODUCTSIZE>">
+<input name="ProductMaterial"    type="hidden" value="<TMPL_VAR NAME=PRODUCTMATERIAL>">
+<input name="ProductPattern"     type="hidden" value="<TMPL_VAR NAME=PRODUCTPATTERN>">
+
+<!-- 20140122 start Add by shim -->
+<input name="GoogleKoukoku" type="hidden" value="<TMPL_VAR NAME=GoogleKoukoku>">
+<input name="CriteoKoukoku" type="hidden" value="<TMPL_VAR NAME=CriteoKoukoku>">
+<input name="CriteoCategory1" type="hidden" value="<TMPL_VAR NAME=CRITEOCATEGORY1>">
+<input name="CriteoCategory2" type="hidden" value="<TMPL_VAR NAME=CRITEOCATEGORY2>">
+<input name="CriteoCategory3" type="hidden" value="<TMPL_VAR NAME=CRITEOCATEGORY3>">
+<!-- 20140122 end -->
+
+<input name="PointRate" type="hidden" value="<TMPL_VAR NAME=POINT_RATE>">
+<input name="ItemUnit" type="hidden" value="<TMPL_VAR NAME=ITEM_UNIT>">
+<input name="CatchCopy" type="hidden" value="<TMPL_VAR NAME=CATCHCOPY>">
+<input name="MobCatchCopy" type="hidden" value="<TMPL_VAR NAME=MOB_CATCHCOPY>">
+<input name="PageTitle" type="hidden" value="<TMPL_VAR NAME=PAGE_TITLE>">
+<input name="PageKeyword" type="hidden" value="<TMPL_VAR NAME=PAGE_KEYWORD>">
+<input name="PageDescription" type="hidden" value="<TMPL_VAR NAME=PAGE_DESCRIPTION>">
+<input name="MasterCategory" type="hidden" value="<TMPL_VAR NAME=MASTERCATEGORY>">
+<input name="SubCategory" type="hidden" value="<TMPL_VAR NAME=SUBCATEGORY>">
+<input name="GroupID" type="hidden" value="<TMPL_VAR NAME=GROUPID>">
+<input name="NewGroup" type="hidden" value="<TMPL_VAR NAME=NEWGROUP>">
+<input name="FPType" type="hidden" value="<TMPL_VAR NAME=FPTYPE>">
+<input name="FixedPrice" type="hidden" value="<TMPL_VAR NAME=FIXED_PRC>">
+<input name="Weight" type="hidden" value="<TMPL_VAR NAME=WEIGHT>">
+<input name="PCLimit" type="hidden" value="<TMPL_VAR NAME=PCLIMIT>">
+<input name="MemberFlag" type="hidden" value="<TMPL_VAR NAME=MEMBER_FLAG>">
+<input name="KagoDesc_2" type="hidden" value="<TMPL_VAR NAME=KAGODESC_2>">
+<input name="KagoDesc_3" type="hidden" value="<TMPL_VAR NAME=KAGODESC_3>">
+
+<input name="ScKobetu" type="hidden" value="<TMPL_VAR NAME=SCKOBETU>">
+<input name="ScKobetuFlag" type="hidden" value="<TMPL_IF NAME=SCKOBETUFLAGY>Y<TMPL_ELSE>N</TMPL_IF>">
+<input name="ScZeroFlag" type="hidden" value="<TMPL_IF NAME=SCZEROFLAGY>Y<TMPL_ELSE>N</TMPL_IF>">
+<input name="ScPrioFlag" type="hidden" value="<TMPL_IF NAME=SCPRIOFLAGY>Y<TMPL_ELSE>N</TMPL_IF>">
+<input name="CoolFlag" type="hidden" value="<TMPL_IF NAME=COOLFLAGY>Y<TMPL_ELSE><TMPL_IF NAME=COOLFLAGR>R<TMPL_ELSE><TMPL_IF NAME=COOLFLAGF>F<TMPL_ELSE>N</TMPL_IF></TMPL_IF></TMPL_IF>">
+<input name="MailFlag" type="hidden" value="<TMPL_VAR NAME=delivery_mail>">
+
+<input name="Shuppin" type="hidden" value="<TMPL_VAR NAME=SHUPPIN_VAR>">
+<input name="Plus10" type="hidden" value="<TMPL_IF NAME=PLUS10Y>Y<TMPL_ELSE>N</TMPL_IF>">
+
+<TMPL_IF PC_LIMIT_MAX><input name="PCLimitMax" type="hidden" value="<TMPL_VAR NAME=PC_LIMIT_MAX>"></TMPL_IF>
+<TMPL_IF PC_LIMIT_MIN><input name="PCLimitMin" type="hidden" value="<TMPL_VAR NAME=PC_LIMIT_MIN>"></TMPL_IF>
+
+<input type="hidden" name="RegularType" value="<TMPL_VAR NAME=ITEM_REGULAR_TYPE>">
+<TMPL_IF NAME=KEIYAKU_REGULAR><!-- 定期購入・頒布回対応 start --><TMPL_IF NAME=ITEMSTYLE_T>
+<input type="hidden" name="DiscountPriceUseTeiki" value="<TMPL_VAR NAME=DISCOUNTPRICEUSE>">
+<input type="hidden" name="FirstPriceTeiki" value="<TMPL_VAR NAME=TEIKIDISC_FIRSTPRICE>"></TMPL_IF><TMPL_IF NAME=ITEMSTYLE_H>
+<input type="hidden" name="DeliveryTimes" value="<TMPL_VAR NAME=DELIVERYTIMES>">
+<input type="hidden" name="CycleType" value="<TMPL_VAR NAME=CYCLETYPE>">
+<input type="hidden" name="DateRegularMonth" value="<TMPL_VAR NAME=DATECYCLEMONTH>">
+<input type="hidden" name="DateRegularDate" value="<TMPL_VAR NAME=DATECYCLEDATE>">
+<input type="hidden" name="WeekRegularMonth" value="<TMPL_VAR NAME=WEEKCYCLEMONTH>">
+<input type="hidden" name="WeekRegularLine" value="<TMPL_VAR NAME=WEEKCYCLELINE>">
+<input type="hidden" name="WeekRegularDay" value="<TMPL_VAR NAME=WEEKCYCLEDAY>">
+<input type="hidden" name="DiscountPriceUse" value="<TMPL_VAR NAME=DISCOUNTPRICEUSE>">
+<input type="hidden" name="FirstPrice" value="<TMPL_VAR NAME=HANPUDISC_FIRSTPRICE>">
+<input type="hidden" name="LastPrice" value="<TMPL_VAR NAME=HANPUDISC_LASTPRICE>"></TMPL_IF>
+<!-- 定期購入・頒布回対応 end --></TMPL_IF>
+<!--新携帯対応 start-->
+<TMPL_IF NAME=PREVNOTDISP>
+<input name="MobDescription_1" type="hidden" value="<TMPL_VAR NAME=MOBDESC1>">
+<input name="MobDescCheck_1" type="hidden" value="<TMPL_VAR NAME=MOBDESCCHECK1_2>">
+<input name="MobileDescription_1" type="hidden" value="<TMPL_VAR NAME=MOBILEDESC1>">
+<input name="SmartPhoneDescription_1" type="hidden" value="<TMPL_VAR NAME=SMARTPHONEDESC1>">
+
+<input name="MobDescription_2" type="hidden" value="<TMPL_VAR NAME=MOBDESC2>">
+<input name="MobDescCheck_2" type="hidden" value="<TMPL_VAR NAME=MOBDESCCHECK2_2>">
+<input name="MobileDescription_2" type="hidden" value="<TMPL_VAR NAME=MOBILEDESC2>">
+<input name="SmartPhoneDescription_2" type="hidden" value="<TMPL_VAR NAME=SMARTPHONEDESC2>">
+
+<input name="MobDescription_3" type="hidden" value="<TMPL_VAR NAME=MOBDESC3>">
+<input name="MobDescCheck_3" type="hidden" value="<TMPL_VAR NAME=MOBDESCCHECK3_2>">
+<input name="MobileDescription_3" type="hidden" value="<TMPL_VAR NAME=MOBILEDESC3>">
+<input name="SmartPhoneDescription_3" type="hidden" value="<TMPL_VAR NAME=SMARTPHONEDESC3>">
+
+<input name="MobileCatchCopy" type="hidden" value="<TMPL_VAR NAME=MOBILE_CATCHCOPY>">
+<input name="SmartPhoneCatchCopy" type="hidden" value="<TMPL_VAR NAME=SMARTPHONE_CATCHCOPY>">
+
+<TMPL_ELSE>
+<TMPL_LOOP MOB_ITEMDESC>
+<input name="MobDescription_<TMPL_VAR NAME=DESCNO>" type="hidden" value="<TMPL_VAR NAME=DESC>">
+<input name="MobDescCheck_<TMPL_VAR NAME=DESCNO>" type="hidden" value="<TMPL_VAR NAME=CHECK2>"></TMPL_LOOP>
+</TMPL_IF>
+
+<TMPL_LOOP ITEMDESC>
+<input name="Description_<TMPL_VAR NAME=DESCNO>" type="hidden" value="<TMPL_VAR NAME=DESC>"></TMPL_LOOP>
+<input name="Open" type="hidden" value="<TMPL_VAR NAME=OPEN>">
+<input name="NewFlag" type="hidden" value="<TMPL_VAR NAME=NEW_FLAG>">
+<input name="PickUpFlag" type="hidden" value="<TMPL_VAR NAME=PICKUP_FLAG>">
+<input name="BtnForm" type="hidden" value="<TMPL_VAR NAME=BTNFORM>">
+<input name="BtnFriend" type="hidden" value="<TMPL_VAR NAME=BTNFRIEND>">
+<input name="BtnZaiko" type="hidden" value="<TMPL_VAR NAME=BTNZAIKO>">
+<input name="BtnReview" type="hidden" value="<TMPL_VAR NAME=BTNREVIEW>">
+<input name="BtnKtai" type="hidden" value="<TMPL_VAR NAME=BTNKTAI>">
+<input name="BtnQr" type="hidden" value="<TMPL_VAR NAME=BTNQR>">
+<input name="BtnCart" type="hidden" value="<TMPL_VAR NAME=BTNCART>">
+<input name="ImageID" type="hidden" value="<TMPL_VAR NAME=IMAGEID>">
+<input name="PAT_ID1" type="hidden" value="<TMPL_VAR NAME=PAT_ID>">
+<TMPL_LOOP OPTIONS>
+<input name="Opt<TMPL_VAR NAME=NO>Flag" type="hidden" value="<TMPL_VAR NAME=FLAG>">
+<TMPL_IF OPTNAME><input name="Opt<TMPL_VAR NAME=NO>Name" type="hidden" value="<TMPL_VAR NAME=OPTNAME>"></TMPL_IF>
+</TMPL_LOOP>
+<input name="Variation" type="hidden" value="<TMPL_VAR NAME=VARIATION>">
+<TMPL_IF STOCKSET>
+<input name="StockSet" type="hidden" value="Y"></TMPL_IF>
+<!-- 陳列期間・タイムセール 081016 -->
+<TMPL_IF NAME=sale_status>
+        <input type="hidden" name="sale_status" value="Y">
+        <input type="hidden" name="display_period" value="<TMPL_VAR NAME=display_period>">
+        <input type="hidden" name="sale_period" value="<TMPL_VAR NAME=sale_period>">
+        <input type="hidden" name="sale_prc_str" value="<TMPL_VAR NAME=sale_prc_str>">
+        <input type="hidden" name="sale_prc" value="<TMPL_VAR NAME=sale_prc>">
+        <input type="hidden" name="start_time_year" value="<TMPL_VAR NAME=start_time_year_var>">
+        <input type="hidden" name="start_time_month" value="<TMPL_VAR NAME=start_time_month_var>">
+        <input type="hidden" name="start_time_day" value="<TMPL_VAR NAME=start_time_day_var>">
+        <input type="hidden" name="start_time_hour" value="<TMPL_VAR NAME=start_time_hour_var>">
+        <input type="hidden" name="end_time_year" value="<TMPL_VAR NAME=end_time_year_var>">
+        <input type="hidden" name="end_time_month" value="<TMPL_VAR NAME=end_time_month_var>">
+        <input type="hidden" name="end_time_day" value="<TMPL_VAR NAME=end_time_day_var>">
+        <input type="hidden" name="end_time_hour" value="<TMPL_VAR NAME=end_time_hour_var>">
+        <input type="hidden" name="overtime_disp" value="<TMPL_IF NAME=overtime_disp>Y<TMPL_ELSE>N</TMPL_IF>">
+</TMPL_IF>
+<!-- end -->
+
+<!-- 予約期間 131016 -->
+<TMPL_IF NAME=reservation_status>
+        <input type="hidden" name="reservation_status" value="Y">
+        <input type="hidden" name="reservation_overtime_disp" value="<TMPL_IF NAME=reservation_overtime_disp>Y<TMPL_ELSE>N</TMPL_IF>">
+        <input type="hidden" name="reservation_display_period" value="<TMPL_VAR NAME=reservation_display_period>">
+        <input type="hidden" name="reservation_price_period" value="<TMPL_VAR NAME=reservation_price_period>">
+        <input type="hidden" name="reservation_prc_str" value="<TMPL_VAR NAME=reservation_prc_str>">
+        <input type="hidden" name="reservation_prc" value="<TMPL_VAR NAME=reservation_prc>">
+        <input type="hidden" name="reservation_start_time_year" value="<TMPL_VAR NAME=start_time_year_var>">
+        <input type="hidden" name="reservation_start_time_month" value="<TMPL_VAR NAME=start_time_month_var>">
+        <input type="hidden" name="reservation_start_time_day" value="<TMPL_VAR NAME=start_time_day_var>">
+        <input type="hidden" name="reservation_start_time_hour" value="<TMPL_VAR NAME=start_time_hour_var>">
+        <input type="hidden" name="reservation_end_time_year" value="<TMPL_VAR NAME=end_time_year_var>">
+        <input type="hidden" name="reservation_end_time_month" value="<TMPL_VAR NAME=end_time_month_var>">
+        <input type="hidden" name="reservation_end_time_day" value="<TMPL_VAR NAME=end_time_day_var>">
+        <input type="hidden" name="reservation_end_time_hour" value="<TMPL_VAR NAME=end_time_hour_var>">
+</TMPL_IF>
+<!-- end -->
+
+<!-- サブ画像_s -->
+<TMPL_UNLESS NAME=subimg_flg>
+  <input type="hidden" name="subImg" value="Y">
+<TMPL_ELSE>
+  <input type="hidden" name="subImg" value="N">
+</TMPL_UNLESS>
+<TMPL_LOOP NAME=SUBIMGLIST>
+  <input type="hidden" name="ImagePos_S_<TMPL_VAR NAME=SUB_POSITION>" value="<TMPL_VAR NAME=SUB_POSITION>">
+  <input type="hidden" name="image_type_<TMPL_VAR NAME=SUB_POSITION>" value="<TMPL_VAR NAME=IMAGE_TYPE>">
+  <input type="hidden" name="ImageID_S_<TMPL_VAR NAME=SUB_POSITION>" value="<TMPL_VAR NAME=IMAGEID_S>">
+  <input type="hidden" name="ImageID_SRC_<TMPL_VAR NAME=SUB_POSITION>" value="<TMPL_VAR NAME=PICSRC_S>">
+</TMPL_LOOP>
+<!-- サブ画像_e -->
+<input name="StockAnnounceDisp" type="hidden" value="<TMPL_VAR NAME=stockannouncedisp>">
+<input name="Sort" type="hidden" value="<TMPL_VAR NAME=SORT>">
+<input name="Comment_1" type="hidden" value="<TMPL_VAR NAME=COMMENT_1>">
+<input name="Comment_2" type="hidden" value="<TMPL_VAR NAME=COMMENT_2>">
+<input name="Comment_3" type="hidden" value="<TMPL_VAR NAME=COMMENT_3>">
+
+<input name="closedSale" type="hidden" value="<TMPL_VAR NAME=CLOSEDSALE>">
+<input name="YamiGroup" type="hidden" value="<TMPL_VAR NAME=YAMIGROUP>">
+<input name="reservation_closedSale" type="hidden" value="<TMPL_VAR NAME=reservation_closedSale>">
+<input name="ReservationYamiGroup" type="hidden" value="<TMPL_VAR NAME=Reservation_YamiGroup>">
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+                            <td align="left" class="midashi">バリエーションの設定を行います</td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                      <td>
+<TMPL_LOOP NAME=ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+
+                                      <table width="100%" class="item-box">
+                                          <tr>
+                                            <td class="item-name">商品番号</td>
+                                            <td class="item"><TMPL_VAR NAME=ITEM_NO></td>
+                                          </tr>
+
+                                          <tr>
+                                            <td class="item-name">商品名</td>
+                                            <td class="item"><TMPL_VAR NAME=ITEM_NAME></td>
+                                          </tr>
+                                        </table>
+<BR>
+                                        <table class="item-box">
+
+<TMPL_LOOP VARIATIONS>
+                                        <tr>
+  <TMPL_IF FIRST>
+                                          <td rowspan="3" class="item-name">バリエーション</td>
+  </TMPL_IF>
+                                          <td class="item-sub">
+
+                                            <table width="100%" >
+                                              <tr>
+                                                <td class="odr-txt03" colspan="3"> バリエーション<TMPL_VAR NAME=NO></td>
+                                                </tr>
+                                              <tr>
+                                                <td class="odr-txt03" width="20%">項目名</td>
+                                                <td colspan="2" class="odr-txt02">
+                                                  <input name="Var<TMPL_VAR NAME=NO>Name" type="text" value="<TMPL_VAR NAME=VNAME>">
+                                                  </td>
+                                                </tr>
+    <TMPL_LOOP VARANS>
+<TMPL_IF NAME=WIN>
+                                                                <tr id="<TMPL_VAR NAME=PNO>vbox<TMPL_VAR NAME=NO>" style="display:<TMPL_VAR NAME=OVER>">
+<TMPL_ELSE>
+                <tr>
+</TMPL_IF>
+                        <TMPL_IF FIRST>
+                                <TMPL_IF LAST>
+                                                                        <td class="odr-txt03" rowspan="10">選択肢</td>
+                                <TMPL_ELSE>
+          <TMPL_IF NAME=WIN>
+                                                                        <td id="row<TMPL_VAR NAME=PNO>" class="odr-txt03" rowspan="10">選択肢</td>
+          <TMPL_ELSE>
+                                                                        <td class="odr-txt03" rowspan="50">選択肢</td>
+          </TMPL_IF>
+                                </TMPL_IF>
+                        </TMPL_IF>
+                                                <td width="15%" class="odr-txt02">選択肢<TMPL_VAR NAME=NO> </td>
+                                                <td width="70%" class="odr-txt02">
+                                                  <input name="AnsList<TMPL_VAR NAME=TAG>" type="text" value="<TMPL_VAR NAME=ANAME>">
+<TMPL_IF NAME=R10>
+        <input colspan="2" type="button" value="選択肢50まで表示" onClick="printVbox(<TMPL_VAR NAME=PNO>);">
+</TMPL_IF>
+                                                  </td>
+                                                </tr>
+    </TMPL_LOOP>
+                                              </table>
+                                            </td>
+                                          </tr>
+</TMPL_LOOP>
+<TMPL_IF STOCKSET>
+                                        <tr>
+                                          <td class="item-name">在庫設定</td>
+                                          <td class="item-sub">
+            <input name="ZaikoTbl" type="radio" value="V" id="vari01" <TMPL_IF ZAIKOTBLV>checked</TMPL_IF>>
+            バリエーションごとに在庫を設定
+            <br>
+            <input name="ZaikoTbl" type="radio" value="M" id="vari02" <TMPL_IF ZAIKOTBLM>checked</TMPL_IF> <TMPL_IF ZAIKOTBLZ>checked</TMPL_IF>>
+            まとめて在庫を設定
+                                            </td>
+                                          </tr>
+</TMPL_IF>
+                                        </table>
+                                        <BR>
+                                      </td></tr>
+                                  </table></td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+                          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td>&nbsp;</td>
+                            </tr>
+                          </table>
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                            <tr>
+                              <td align="center" style="padding:10px 10px 10px 10px ">
+                                <div align="center">
+                                 <input type="button" name="Submit" value="戻る" onClick="document.VARIATIONNFO.action='iteminfo.cgi';document.VARIATIONNFO.CMD.value='BACK';document.VARIATIONNFO.submit();">
+&nbsp;
+<input type="button" name="Submit" value="保存して次へ" onClick="document.VARIATIONNFO.submit();">
+                               </div>
+                              </td>
+                            </tr>
+                          </table>
+</form>

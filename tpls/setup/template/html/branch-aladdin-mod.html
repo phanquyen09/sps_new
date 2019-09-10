@@ -1,0 +1,28 @@
+<tr>
+<td width="30%" align="left" class="item-name"><TMPL_IF name=ERR_CATEGORY><font color="#FF0000">●</font></TMPL_IF>店舗のカテゴリ</td>
+  		<td align="left" class="item">
+  			<SELECT NAME="CAT1">
+          				<option value="">選択してください</option>
+<TMPL_LOOP name=ALCAT1>
+<option value="<TMPL_VAR name=CAT_VAL>" <TMPL_VAR name=CAT_SEL> ><TMPL_VAR name=CAT_NAME></option>
+</TMPL_LOOP>
+			</SELECT>
+&nbsp;
+			<SELECT NAME="CAT2">
+				<option value="">選択してください</option>
+<TMPL_LOOP name=ALCAT2>
+<option value="<TMPL_VAR name=CAT_VAL>" <TMPL_VAR name=CAT_SEL> ><TMPL_VAR name=CAT_NAME></option>
+</TMPL_LOOP>
+			</SELECT>
+                                               			</td>
+                                              		</tr>
+
+
+                                               	<tr>
+                                               		<td align="left" class="item-name">サイト名</td>
+                                               		<td align="left" class="item">
+                                               			<TMPL_VAR name=SITENAME>
+<INPUT TYPE=hidden NAME=SITENAME VALUE="<TMPL_VAR name=SITENAME>">
+                                               			</td>
+                                              		</tr>
+                                               	<tr>

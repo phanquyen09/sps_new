@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<title>ショップ開店ウィザード -スタート-</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="../css/wizard.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/base.js"></script>
+<TMPL_VAR NAME=GANALY>
+</head>
+<body id="start">
+<a href="#" name="01"></a>
+<div id="container">
+
+  <!-- ヘッダ -->
+  <div id="top-header">
+    <div class="logo-header-wrap">
+      <div class="logo-area">
+        <img src="../imgs/top_img0.gif" alt="Ｅストアーショップサーブ">
+      </div>
+    </div>
+  </div>
+
+  <!-- ステップ -->
+  <table class="steps-table">
+    <tr>
+      <td><img src="../imgs/wi_top_off_001.gif"></td>
+      <td><img src="../imgs/wi_top_off_002.gif"></td>
+      <td><img src="../imgs/wi_top_off_003.gif"></td>
+      <td><img src="../imgs/wi_top_off_004.gif"></td>
+      <td><img src="../imgs/wi_top_off_005.gif"></td>
+      <td><img src="../imgs/wi_top_off_006.gif"></td>
+      <td><img src="../imgs/wi_top_off_007.gif"></td>
+    </tr>
+  </table>
+
+  <div id="header" class="clearfix">
+    <!-- リンク -->
+    <ul class="link clearfix">
+         <TMPL_IF IsTrialCourseShop>
+         <TMPL_ELSE>
+         <li><a href="https://help.shopserve.jp/manual/guidebook/" target="_blank">ガイドブック最新版ダウンロード</a></li>
+         <li><a href="wizard_ch.cgi">ログインパスワード変更</a></li>
+         <li><a href="javascript:MM_openBrWindow('../func00/pop-domain.cgi','info','scrollbars=yes,resizable=yes,width=650,height=700');">ドメインの新規取得・移転申請</a></li>
+         </TMPL_IF>
+    </ul>
+  </div>
+
+<!-- コンテンツ -->
+<div id="contents">
+    <!-- 見出し -->
+    <h1>必要項目を入れるだけ。<br>
+    開店ウィザードで迷うことなくスムーズに開店！</h1>
+
+    <!-- メイン -->
+    <div id="main_box" class="clearfix">
+        <!-- ウィザード完了後のイメージ -->
+        <div id="section1">
+            <div class="shop_img">
+                <a href="../imgs/wi_end_img.gif" target="_blank"><img src="../imgs/wi_end_simg.gif"><br>
+                ≪開店ウィザード完了後のイメージ≫</a>
+            </div>
+        </div>
+
+        <!-- ウィザード開始の案内 -->
+        <div id="section2">
+            <div class="next_info">
+                <p>全６ステップで開店に必要なすべてのページが出来上がります。</p>
+
+                <p>入力した内容は後から変更できます。<br>
+                考えすぎずに、どんどん進めてください。</p>
+                <!--　ショップ開店ウィザードを始める -->
+                <form name="form1" method="post" action="wizard01.cgi">
+                    <input type="submit" value="ショップ開店ウィザードをはじめる">
+                </form>
+
+                <TMPL_IF IsTrialCourseShop>
+                <TMPL_ELSE>
+                  <div class="navi_img">
+                      ▼
+                      関連ガイドブック<br>
+                      <img src="../imgs/wi_navi_img.gif">
+                  </div>
+                </TMPL_IF>
+            </div>
+        </div>
+    </div>
+    
+    <!-- サブ -->
+    <div id="sub_box">
+        <!-- ウィザードスキップの案内 -->
+        <div class="skip_info">
+            <img src="../func00/click_logger.php?type=STRT_WIZ" alt="" />
+            <p>開店ウィザードを利用せず、いちから自由にお店を作ることもできます。<br>
+            <!--　新しいjavascriptを作る -->
+            <script type="text/javascript">
+            function doSetup() {
+                if(confirm("今後ウィザードが使用できなくなります。\nよろしければ、OKを押してください。") ) {
+                  document.form2.no_wizard.value='1';
+                  document.form2.submit();
+                }
+             }
+            </script>
+            <!--　管理ページに戻る -->
+            <form name="form2" method="post" action="wizard00.cgi">
+                <input type="hidden" name="no_wizard" value="1">
+                <a href="javascript:void(0);" onclick="doSetup();return false;">⇒
+            開店ウィザードをスキップする</a>
+            </form>
+            </p>
+            <p>※スキップすると途中まで入力、保存した内容は消去されます。</p>
+        </div>
+    </div>
+</div>
+
+</div>
+</body>
+</html>
+

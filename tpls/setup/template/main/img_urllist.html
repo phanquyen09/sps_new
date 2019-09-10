@@ -1,0 +1,43 @@
+<style type="text/css">
+<!--
+* {
+  margin:0;
+  padding:0;
+}
+
+body {
+  color:#333;
+  background:#efefef;
+  margin:1em;
+}
+
+#main {
+  text-align:center;
+}
+
+#main p {
+  margin:0 0 1em;
+  font-size:0.95em;
+}
+
+#closeBtn {
+  text-align:center;
+  margin:2em 0;
+  padding:0 0 1em;
+  font-size:0.95em;
+}
+
+#closeBtn input {
+  line-height: 1.3em;
+}
+-->
+</style>
+<div id="main">
+  <p><strong>この画像は複数の商品ページ、および外部連携用データで利用されています</strong></p>
+  <TMPL_LOOP NAME=URLLIST>
+  <p><a href="<TMPL_VAR NAME=URL>" target="_blank"><TMPL_VAR NAME=URL></a></p>
+  </TMPL_LOOP>
+</div>
+<div id="closeBtn">
+  <input type="submit" value="閉じる" onClick="window.close()">
+</div>

@@ -1,0 +1,393 @@
+<style>
+.calendarborder1{
+    border-top: 1px solid #999999;
+    border-left: 1px solid #999999;
+    border-right: 0px;
+    border-bottom: 0px;
+}
+.calendarborder2{
+    border-right: 1px solid #999999;
+    border-bottom: 1px solid #999999;
+    border-top: 0px;
+    border-left: 0px;
+    margin: 0.2em;
+    padding: 0.2em;
+}
+</style>
+
+<script type="text/javascript">
+  _editor_url = "js";
+  _editor_lang = "ja";
+</script>
+<script type=text/javascript src="../blog/js/submitonce.js"></script>
+<script type="text/javascript" src="../blog/js/htmlarea.js"></script>
+<script type="text/javascript" src="../blog/js/dialog.js"></script>
+<SCRIPT type=text/javascript>
+<!--
+
+var comment = new Array(null,<TMPL_VAR NAME=comment>null);
+
+function rgbto16(color) {
+    var tmp;
+    var col1;
+    var col2;
+    var col3;
+    var anser;
+    var h = '0123456789ABCDEF';
+
+    if (color == null || color == undefined) return;
+
+    if (color.match(/rgb/) == 'rgb') {
+	tmp = color.split(",");
+	col1 = (tmp[0].split('('))[1];
+	col2 = tmp[1];
+	col3 = (tmp[2].split(')'))[0];
+
+	if (col1 >= 255) col1 = 'FF';
+	if (col2 >= 255) col2 = 'FF';
+	if (col3 >= 255) col3 = 'FF';
+
+	if (col1 <= 0) col1 = '00';
+	if (col2 <= 0) col2 = '00';
+	if (col3 <= 0) col3 = '00';
+
+	if (col1 < 255) col1 = h.charAt(Math.floor(col1/16)) + h.charAt(col1%16);
+	if (col2 < 255) col2 = h.charAt(Math.floor(col2/16)) + h.charAt(col2%16);
+	if (col3 < 255) col3 = h.charAt(Math.floor(col3/16)) + h.charAt(col3%16);
+
+	anser = '#' + col1 + col2 + col3;
+    } else {
+	anser = color;
+    }
+    return anser;
+}
+
+function calSubmit() {
+    var i;
+    var all = new Array(<TMPL_VAR NAME=all>null);
+    var sub;
+    sub = '';
+
+    for(i=0;all[i]!=null;i++) {
+	var tmp = rgbto16(all[i].style.backgroundColor);
+	sub += i + ':' + tmp + ',';
+    }
+    document.form1.sublist.value = sub;
+    document.form1.set.disabled = true;
+    document.form1.submit();
+}
+
+function wbgColorSet(flg) {
+    var i;
+    var bg;
+    var color;
+    var sun = new Array(<TMPL_VAR NAME=sunday>null);
+    var mon = new Array(<TMPL_VAR NAME=monday>null);
+    var tue = new Array(<TMPL_VAR NAME=tueday>null);
+    var wed = new Array(<TMPL_VAR NAME=wedday>null);
+    var thu = new Array(<TMPL_VAR NAME=thuday>null);
+    var fri = new Array(<TMPL_VAR NAME=friday>null);
+    var sat = new Array(<TMPL_VAR NAME=satday>null);
+
+    if (document.form1.color[0].checked == true) bg = document.form1.img2.style.backgroundColor;
+    if (document.form1.color[1].checked == true) bg = document.form1.img3.style.backgroundColor;
+
+    bg = rgbto16(bg);
+
+    if (bg == null || bg == undefined) return;
+
+    var dom = new Array;
+
+    if (flg == 'sun') dom = sun;
+    if (flg == 'mon') dom = mon;
+    if (flg == 'tue') dom = tue;
+    if (flg == 'wed') dom = wed;
+    if (flg == 'thu') dom = thu;
+    if (flg == 'fri') dom = fri;
+    if (flg == 'sat') dom = sat;
+
+    for(i=0;dom[i]!=null;i++) {
+	old = dom[i].style.backgroundColor;
+	old = rgbto16(old);
+	if (old == '#ffffff' || old == '#FFFFFF') {
+	    dom[i].style.backgroundColor = bg;
+	} else {
+	    dom[i].style.backgroundColor = '#ffffff';
+	}
+    }
+}
+
+function bgColorSet(flg) {
+    var i;
+    var bg;
+    var color;
+
+    var dy = flg.split('day')[1];
+//    if (comment[dy] != null || comment[dy] != undefined) document.form1.dcomment.value = comment[dy];
+
+    document.form1.lastclick.value = flg.split('day')[1];
+
+    if (document.form1.color[0].checked == true) bg = document.form1.img2.style.backgroundColor;
+    if (document.form1.color[1].checked == true) bg = document.form1.img3.style.backgroundColor;
+
+    bg = rgbto16(bg);
+
+    if (bg == null || bg == undefined) return;
+
+    old = document.getElementById(flg).style.backgroundColor;
+    old = rgbto16(old);
+    if (old == '#ffffff' || old == '#FFFFFF') {
+	document.getElementById(flg).style.backgroundColor = bg;
+    } else {
+	document.getElementById(flg).style.backgroundColor = '#ffffff';
+    }
+}
+
+function setcolor(colorflg, flg){  
+    var all = new Array(<TMPL_VAR NAME=all>null);
+
+    var ua = navigator.userAgent;
+
+    if (ua.match(/Safari\/([\.\d]+)/)) {
+
+       Dialog("../blog/js/popups/select_bgcolor_safari.html", function(color) {
+        if (color) { // selection not canceled
+                if (flg == 1) {
+                    var old = document.form1.img1.style.backgroundColor;
+                    document.form1.img1.style.backgroundColor = '#' + color;
+                    document.form1.bgcolor1.value = '#' + color;
+
+                    return;
+
+                    for(i=0;all[i]!=null;i++) {
+                        if (old == all[i].style.backgroundColor) all[i].style.backgroundColor = '#' + color;
+                    }
+                } else if (flg == 2) {
+                    var old = document.form1.img2.style.backgroundColor;
+
+                    document.form1.newbg2.value = '#' + color;
+
+                    document.form1.img2.style.backgroundColor = '#' + color;
+                    document.form1.bgcolor2.value = '#' + color;
+
+                    for(i=0;all[i]!=null;i++) {
+                        if (old == all[i].style.backgroundColor) all[i].style.backgroundColor = '#' + color;
+                    }
+                } else if (flg == 3) {
+                    var old = document.form1.img3.style.backgroundColor;
+
+                    document.form1.newbg3.value = '#' + color;
+
+                    document.form1.img3.style.backgroundColor = '#' + color;
+                    document.form1.bgcolor3.value = '#' + color;
+
+                    for(i=0;all[i]!=null;i++) {
+                        if (old == all[i].style.backgroundColor) all[i].style.backgroundColor = '#' + color;
+                    }
+                }
+        }
+        },
+        "toolbar=no,menubar=no,personalbar=no,width=10,height=10,scrollbars=no,resizable=yes,modal"
+       );
+        return;
+    }
+
+
+    if(colorflg == 'bg'){
+       Dialog("../blog/js/popups/select_bgcolor.html", function(color) {
+       	if (color) { // selection not canceled
+		if (flg == 1) {
+		    var old = document.form1.img1.style.backgroundColor;
+		    document.form1.img1.style.backgroundColor = '#' + color;
+		    document.form1.bgcolor1.value = '#' + color;
+
+		    return;
+
+		    for(i=0;all[i]!=null;i++) {
+			if (old == all[i].style.backgroundColor) all[i].style.backgroundColor = '#' + color;
+		    }
+		} else if (flg == 2) {
+		    var old = document.form1.img2.style.backgroundColor;
+
+		    document.form1.newbg2.value = '#' + color;
+
+		    document.form1.img2.style.backgroundColor = '#' + color;
+		    document.form1.bgcolor2.value = '#' + color;
+
+                    for(i=0;all[i]!=null;i++) {
+			if (old == all[i].style.backgroundColor) all[i].style.backgroundColor = '#' + color;
+                    }
+		} else if (flg == 3) {
+                    var old = document.form1.img3.style.backgroundColor;
+
+		    document.form1.newbg3.value = '#' + color;
+
+		    document.form1.img3.style.backgroundColor = '#' + color;
+		    document.form1.bgcolor3.value = '#' + color;
+
+                    for(i=0;all[i]!=null;i++) {
+                        if (old == all[i].style.backgroundColor) all[i].style.backgroundColor = '#' + color;
+                    }
+		}
+       	}
+       	},
+       	"toolbar=no,menubar=no,personalbar=no,width=10,height=10,scrollbars=no,resizable=yes,modal"
+       );            
+    } else if (colorflg == 'fg'){
+       Dialog("../blog/js/popups/select_color.html", function(color) {
+       	if (color) { // selection not canceled
+       		    document.form1.foreground.value= '#' + color;
+       	}
+       	},
+       	"toolbar=no,menubar=no,personalbar=no,width=10,height=10,scrollbars=no,resizable=yes,modal"
+       );            		
+    }
+}
+//-->
+
+</SCRIPT> 
+<form name="form1" method="post" action="calendar.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#F39700">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">カレンダーの更新を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/calendar.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  「定休日カレンダー」を設定します。<br>
+                                  日付の色変更は「配色」欄でチェックをつけ、「カレンダー」の日付をクリックします。<br><br>
+                                  設定後、[設定を保存する]ボタンをクリックし、管理画面左上の[お店ページの更新へ]ボタンをクリックします。<br><br>
+                                  <a href="../func04/topdesign_sps.cgi">⇒お店ページでの「定休日カレンダー」の表示位置、表示・非表示の設定</a><br>
+
+                                </div>
+                                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+				<TMPL_VAR NAME=err>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                          <tr>
+                                            <td class="item-name">見出し
+                                                <div class="customTemplateInfo2">
+                                                    <a href="http://help.shopserve.jp/ctrlpnl_sup/func02/calendar/custom.html" target="_blank">
+                                                        <img src="../imgs/func02_custTempInfo2.png" alt="カスタムテンプレートのご利用について">
+                                                    </a>
+                                                </div>
+                                            </td>
+                                            <td class="item"><input name="title" type="text" class="def-line" value="<TMPL_VAR NAME=title>">
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td class="item-name">配色</td>
+                                            <td class="item"><table border="0" cellspacing="2" cellpadding="0">
+                                                <tr>
+                                                  <td style="padding:0px 5px 0px 0px">&nbsp;</td>
+<td><img id="img1" src="../imgs/spc.gif" style="background-color: <TMPL_VAR NAME=bgcolor1>;" width="30" height="20" border="0"></td>
+                                                  <td><input type="button" name="Submit" value="色の変更" onClick="setcolor('bg','1');">
+                                                  </td>
+                                                  <td style="padding:0px 5px 0px 5px">今日</td>
+                                                </tr>
+                                                <tr>
+                                                  <td style="padding:0px 5px 0px 0px"><input name="color" type="radio" value="2">
+                                                  </td>
+<td><img id="img2" src="../imgs/spc.gif" style="background-color: <TMPL_VAR NAME=bgcolor2>;" width="30" height="20" border="0"></td>
+                                                  <td><input type="button" name="Submit" value="色の変更" onClick="setcolor('bg','2');">
+                                                  </td>
+                                                  <td style="padding:0px 5px 0px 5px"><input name="bgtext2" type="text" value="<TMPL_VAR NAME=bgtext2>" size="10">
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td style="padding:0px 5px 0px 0px"><input name="color" type="radio" value="3">
+                                                  </td>
+<td><img id="img3" src="../imgs/spc.gif" style="background-color: <TMPL_VAR NAME=bgcolor3>;" width="30" height="20" border="0" onClick="setcolor('bg','3');"></td>
+                                                  <td><input type="button" name="Submit" value="色の変更" onClick="setcolor('bg','3');">
+                                                  </td>
+                                                  <td style="padding:0px 5px 0px 5px"><input name="bgtext3" type="text" value="<TMPL_VAR NAME=bgtext3>" size="10">
+                                                  </td>
+                                                </tr>
+                                            </table></td>
+                                          </tr>
+                                          <tr>
+                                            <td class="item-name">カレンダー</td>
+
+                                            <td class="item"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                                <tr>
+                                                  <td width="33%"><a href="<TMPL_VAR NAME=beforeh>"><TMPL_VAR NAME=beforel></a></td>
+                                                  <td width="34%" align="center"><B><TMPL_VAR NAME=sely>年<TMPL_VAR NAME=selm>月</B></td>
+                                                  <td width="33%" align="right"><a href="<TMPL_VAR NAME=afterh>"><TMPL_VAR NAME=afterl></a></td>
+                                                </tr>
+                                              </table>
+
+                                                <table width="100%" border="1" cellpadding="2" cellspacing="0" class="calendarborder1">
+                                                  <tr align="center">
+                                        <td style="background:#FFFFFF; " id="sun" class="calendarborder2"><a href="javascript:;" onClick="wbgColorSet('sun')">日</a></td>
+                                        <td style="background:#FFFFFF; " id="mon" class="calendarborder2"><a href="javascript:;" onClick="wbgColorSet('mon')">月</a></td>
+                                        <td style="background:#FFFFFF; " id="tue" class="calendarborder2"><a href="javascript:;" onClick="wbgColorSet('tue')">火</a></td>
+                                        <td style="background:#FFFFFF; " id="wed" class="calendarborder2"><a href="javascript:;" onClick="wbgColorSet('wed')">水</a></td>
+                                        <td style="background:#FFFFFF; " id="thu" class="calendarborder2"><a href="javascript:;" onClick="wbgColorSet('thu')">木</a></td>
+                                        <td style="background:#FFFFFF; " id="fri" class="calendarborder2"><a href="javascript:;" onClick="wbgColorSet('fri')">金</a></td>
+                                        <td style="background:#FFFFFF; " id="sat" class="calendarborder2"><a href="javascript:;" onClick="wbgColorSet('sat')">土</a></td>
+                                                  </tr>
+                <TMPL_LOOP NAME=calendar_list>
+                    
+                                                  <tr align="right">
+                                <td style="background-color:<TMPL_VAR NAME=bgday1>; " id="day<TMPL_VAR NAME=day1>" class="calendarborder2"><a href="javascript:;" onClick="bgColorSet('day<TMPL_VAR NAME=day1>')"><TMPL_VAR NAME=day1></a></td>
+                                <td style="background-color:<TMPL_VAR NAME=bgday2>; " id="day<TMPL_VAR NAME=day2>" class="calendarborder2"><a href="javascript:;" onClick="bgColorSet('day<TMPL_VAR NAME=day2>')"><TMPL_VAR NAME=day2></a></td>
+                                <td style="background-color:<TMPL_VAR NAME=bgday3>; " id="day<TMPL_VAR NAME=day3>" class="calendarborder2"><a href="javascript:;" onClick="bgColorSet('day<TMPL_VAR NAME=day3>')"><TMPL_VAR NAME=day3></a></td>
+                                <td style="background-color:<TMPL_VAR NAME=bgday4>; " id="day<TMPL_VAR NAME=day4>" class="calendarborder2"><a href="javascript:;" onClick="bgColorSet('day<TMPL_VAR NAME=day4>')"><TMPL_VAR NAME=day4></a></td>
+                                <td style="background-color:<TMPL_VAR NAME=bgday5>; " id="day<TMPL_VAR NAME=day5>" class="calendarborder2"><a href="javascript:;" onClick="bgColorSet('day<TMPL_VAR NAME=day5>')"><TMPL_VAR NAME=day5></a></td>
+                                <td style="background-color:<TMPL_VAR NAME=bgday6>; " id="day<TMPL_VAR NAME=day6>" class="calendarborder2"><a href="javascript:;" onClick="bgColorSet('day<TMPL_VAR NAME=day6>')"><TMPL_VAR NAME=day6></a></td>
+                                <td style="background-color:<TMPL_VAR NAME=bgday7>; " id="day<TMPL_VAR NAME=day7>" class="calendarborder2"><a href="javascript:;" onClick="bgColorSet('day<TMPL_VAR NAME=day7>')"><TMPL_VAR NAME=day7></a></td>
+                                                  </tr>
+                    
+                </TMPL_LOOP>
+                                              </table></td>
+                                          </tr>
+                                          <tr>
+                                            <td class="item-name">ご案内</td>
+                                            <td class="item">
+                                                <textarea name="dcomment" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=dcomment></textarea>
+                                                <br>※HTMLタグ利用可
+                                            </td>
+                                          </tr>
+                                        </table><BR>
+                                        
+                                        <div style="text-align:center"><input name="set" onClick="calSubmit();" type="button" id="set" value="設定を保存する"></div>
+                                        
+                                  </td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+<input type="hidden" name="now" value="<TMPL_VAR NAME=sely>-<TMPL_VAR NAME=selm>">
+<input type="hidden" name="cal_week" value="<TMPL_VAR NAME=cal_week>">
+<input type="hidden" name="cal_lday" value="<TMPL_VAR NAME=cal_lday>">
+<input type="hidden" name="past_mon" value="<TMPL_VAR NAME=past_mon>">
+<input type="hidden" name="next_mon" value="<TMPL_VAR NAME=next_mon>">
+<input type="hidden" name="sunlist" value="<TMPL_VAR NAME=sunlist>">
+<input type="hidden" name="monlist" value="<TMPL_VAR NAME=monlist>">
+<input type="hidden" name="tuelist" value="<TMPL_VAR NAME=tuelist>">
+<input type="hidden" name="wedlist" value="<TMPL_VAR NAME=wedlist>">
+<input type="hidden" name="thulist" value="<TMPL_VAR NAME=thulist>">
+<input type="hidden" name="frilist" value="<TMPL_VAR NAME=frilist>">
+<input type="hidden" name="satlist" value="<TMPL_VAR NAME=satlist>">
+<input type="hidden" name="bgcolor1" value="<TMPL_VAR NAME=bgcolor1>">
+<input type="hidden" name="bgcolor2" value="<TMPL_VAR NAME=bgcolor2>">
+<input type="hidden" name="bgcolor3" value="<TMPL_VAR NAME=bgcolor3>">
+<input type="hidden" name="lastclick" value="">
+<input type="hidden" name="sublist" value="">
+<input type="hidden" name="mode" value="regist">
+<input type="hidden" name="oldbg2" value="<TMPL_VAR NAME=bgcolor2>">
+<input type="hidden" name="newbg2">
+<input type="hidden" name="oldbg3" value="<TMPL_VAR NAME=bgcolor3>">
+<input type="hidden" name="newbg3">
+</form>

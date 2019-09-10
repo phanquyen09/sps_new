@@ -1,0 +1,320 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-jp">
+<title><TMPL_VAR NAME=ServName>管理画面</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="default03.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function openClose(id,pt,i) {
+		prop = document.getElementById(id).style.display;
+
+		if(i==0) prop = "none";
+
+		if(prop=="none"){
+				if(pt=="div") document.getElementById(id).style.display="block";
+				if(pt=="tr") {
+						if(document.all)	document.getElementById(id).style.display="block";
+						else
+						document.getElementById(id).style.display="table-row";
+				}
+		} else {
+				document.getElementById(id).style.display="none";
+		}
+}
+
+function confsave() {
+    document.FORM1.set1.disabled = 'true';
+    document.FORM1.set2.disabled = 'true';
+    document.FORM1.CMD.value = 'EDT';
+    document.FORM1.submit();
+    return;
+}
+
+function testmail() {
+    document.FORM1.set1.disabled = 'true';
+    document.FORM1.set2.disabled = 'true';
+    document.FORM1.CMD.value = 'TEST';
+    document.FORM1.submit();
+    return;
+}
+
+function type_change() {
+    document.FORM1.set1.disabled = 'true';
+    document.FORM1.set2.disabled = 'true';
+    document.FORM1.CMD.value = 'TYPE_CHANGE';
+    document.FORM1.submit();
+    return;
+}
+
+//-->
+</script>
+</head>
+<!--
+<body leftmargin="0" topmargin="0" marginheight="0" marginwidth="0" style="font-size:80%" <TMPL_VAR name=ONLOAD> >
+ -->
+<body style="font-size:80%" <TMPL_VAR name=ONLOAD>>
+<FORM name="FORM1" method="POST" action="ordmail.cgi">
+<input type="hidden" name="CMD" value="">
+<table width="680"  border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td align="left">
+			<div class="midashi02">■注文確認メールの編集</div>
+			<br>
+<TMPL_LOOP NAME=ERR_MSG>
+        <font color="red"><TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+			<table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+				<tr align="center">
+					<td colspan="2" class="item-name02">注文確認メール設定（パソコン用）</td>
+				</tr>
+<tr>
+<td class="item-name">メールフォーマット</td>
+<td class="item">
+<select name="FMT_TYPE" onChange="type_change();">
+<option value="N" SELECTED>標準</option>
+<option value="O">おてがる通販対応</option>
+</select>
+</td>
+</tr>
+				<tr>
+					<td class="item-name">件名</td>
+					<td class="item">
+						<input name="ORDMAIL_SUBJECT" type="text" class="def-line" value="<TMPL_VAR name=ORDMAIL_SUBJECT>">
+					</td>
+				</tr>
+				<tr>
+					<td class="item-name">挨拶文</td>
+					<td class="item">
+						<textarea name="ORDMAIL_GREETING" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR name=ORDMAIL_GREETING></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td class="item-name">
+	<select name="ORDMAIL_ORDERDISP">
+      	<option value="Y" <TMPL_VAR name=ORDMAIL_ORDERDISP_Y>>表示</option>
+      	<option value="N" <TMPL_VAR name=ORDMAIL_ORDERDISP_N>>非表示</option>
+     	</select>
+						ご注文内容
+     <td bgcolor="#FFFFFF" class="item">
+<div style="font-size:90%; margin:5px 5px 5px 5px">
+<pre>■ご注文内容 -------------------------------------------------------
+
+    ◆ ご注文番号 xxxxxxxx
+    ◆ ご注文日時 2005/12/15 20:05
+    ◆ お支払方法 銀行振込
+    ◆ お支払金額 1,800円（税込）
+                                                   （全て税込価格）
+   ================================================================
+       品番/品名             価格         数量              小計
+   ================================================================
+   AZ1240-S/蜜入りりんご
+                             200円           4               800円
+   AZ1001-B/緑茶 ペットボトル 
+                             125円           4               500円
+   ================================================================
+   商品合計                                                1,300円
+   ================================================================
+   送料                                                      500円
+   ラッピング料                                                0円
+   手数料                                                      0円
+   ポイント利用料                                              0円
+   ================================================================
+   合計金額                                                1,800円
+   ================================================================</pre>
+</div>
+</td>
+				</tr>
+				<tr>
+					<td class="item-name">
+	<select name="ORDMAIL_PURDISP">
+      	<option value="Y" <TMPL_VAR name=ORDMAIL_PURDISP_Y>>表示</option>
+      	<option value="N" <TMPL_VAR name=ORDMAIL_PURDISP_N>>非表示</option>
+     	</select>
+						ご注文者</td>
+					<td bgcolor="#FFFFFF" class="item">
+     	<div style="font-size:90%; margin:5px 5px 5px 5px">
+     		<pre>■ご注文者 ---------------------------------------------------------
+
+   [法人名・団体名]         株式会社田中工業
+   [法人名・団体名（かな）] かぶしきがいしゃたなかこうぎょう
+   [部署名]
+   [お名前]                 山田 太郎 様
+   [郵便番号]               105-0003
+   [ご住所]                 東京都新宿区新宿10-10-10　サンプルビル
+   [お電話番号]             03-3333-3333
+   [メールアドレス]         yamada@test-domain.com</pre>
+    		</div>
+					</td>
+				</tr>
+                                <tr>
+                                        <td class="item-name">
+        <select name="ORDMAIL_PURQDISP">
+        <option value="Y" <TMPL_VAR name=ORDMAIL_PURQDISP_Y>>表示</option>
+        <option value="N" <TMPL_VAR name=ORDMAIL_PURQDISP_N>>非表示</option>
+        </select>
+                                                ご注文者補足</td>
+                                        <td bgcolor="#FFFFFF" class="item">
+        <div style="font-size:90%; margin:5px 5px 5px 5px">
+                <pre>
+   [当店をどこでお知りになりましたか？]
+   Yahoo!Japan
+
+   [お誕生日の月を以下から選択してください]
+   2月
+
+   [年齢を選択してください]
+   20〜29歳
+
+   [ご職業を選択してください]
+   会社員
+
+   [問い５番]
+   答え５番</pre>
+                </div>
+                                        </td>
+                                </tr>
+				<tr>
+					<td class="item-name">
+	<select name="ORDMAIL_DELIVDISP">
+     	<option value="Y" <TMPL_VAR name=ORDMAIL_DELIVDISP_Y>>表示</option>
+     	<option value="N" <TMPL_VAR name=ORDMAIL_DELIVDISP_N>>非表示</option>
+     	</select>
+					お届け先
+<p style="font-weight:normal; color:#FF0000">赤字部分は複数のお届け先がある場合に表示されます</p>
+                                        </td>
+					<td bgcolor="#FFFFFF" class="item">
+     	<div style="font-size:90%; margin:5px 5px 5px 5px">
+     		<pre>■お届け先 ---------------------------------------------------------
+
+   <font color="#FF0000">◆お届け先1</font>
+   [法人名・団体名]         株式会社田中工業
+   [法人名・団体名（かな）] かぶしきがいしゃたなかこうぎょう
+   [部署名]
+   [お名前]                 山田 太郎 様
+   [郵便番号]               105-0003
+   [ご住所]                 東京都新宿区新宿10-10-10　サンプルビル
+   [お電話番号]             03-3333-3333
+   <font color="#FF0000">[お届け商品]
+                                                   （全て税込価格）
+   ================================================================
+       品番/品名             価格         数量              小計
+   ================================================================
+   AZ1240-S/蜜入りりんご
+                             200円           2               400円
+   AZ1001-B/緑茶 ペットボトル 
+                             125円           2               250円
+   ================================================================
+   商品合計                                                  650円
+   ================================================================
+   送料                                                      250円
+   ラッピング料                                                0円
+   ================================================================
+   合計金額                                                  900円
+   ================================================================
+   </font>
+</pre>
+    		</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="item-name">
+	<select name="ORDMAIL_BIKOUDISP">
+     	<option value="Y" <TMPL_VAR name=ORDMAIL_BIKOUDISP_Y>>表示</option>
+     	<option value="N" <TMPL_VAR name=ORDMAIL_BIKOUDISP_N>>非表示</option>
+     	</select>
+					お届け先補足
+					</td>
+					<td bgcolor="#FFFFFF" class="item">
+     	<div style="font-size:90%; margin:5px 5px 5px 5px">
+     		<pre>   [お届け希望日]           特になし
+   [お届け希望時間]         5：00〜18：00
+   [都合の悪い日]           日曜日
+
+   [その他ご要望]
+   なるべく早く届けてください</pre>
+    		</div>
+					</td>
+				</tr>
+				<tr>
+					<td class="item-name">
+	<select name="ORDMAIL_PAYDISP">
+     	<option value="Y" <TMPL_VAR name=ORDMAIL_PAYDISP_Y>>表示</option>
+     	<option value="N" <TMPL_VAR name=ORDMAIL_PAYDISP_N>>非表示</option>
+     	</select>
+					お支払方法</td>
+					<td class="item">
+     	<div style="font-size:90%; margin:5px 5px 5px 5px">
+     		<pre>■お支払い方法 -----------------------------------------------------
+
+   [銀行振込]
+   イーコーポレート銀行 新橋支店
+   普通 1234567
+   カ）オイシイビン</pre>
+    		</div>
+					</td>
+				</tr>
+                                <tr>
+                                        <td class="item-name">
+        <select name="ORDMAIL_PMMSGDISP">
+        <option value="Y" <TMPL_VAR name=ORDMAIL_PMMSGDISP_Y>>表示</option>
+        <option value="N" <TMPL_VAR name=ORDMAIL_PMMSGDISP_N>>非表示</option>
+        </select>
+                                        ご案内</td>
+                                        <td class="item">
+        <div style="font-size:90%; margin:5px 5px 5px 5px">
+                <pre>   振込み確認後、2営業日以内に発送いたします。
+   おそれいりますが、振り込み手数料はご負担
+   くださいますようお願いいたします。</pre>
+                </div>
+                                        </td>
+                                </tr>
+				<tr>
+					<td class="item-name">連絡先</td>
+					<td class="item">
+						<textarea name="ORDMAIL_CONTACT" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR name=ORDMAIL_CONTACT></textarea>
+					</td>
+				</tr>
+			</table>
+			<table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+			</table>
+			<br>
+			<br>
+                        <TMPL_VAR name=ORDMAIL_KTAI>
+			<br>
+   <div align="center">
+   	<input name="set1" type="button" id="set" value="テスト送信する" onClick="javascript:testmail()">
+   	&nbsp;
+   	<input name="set2" type="button" id="set" value="設定を保存する" onClick="javascript:confsave()">
+   </div>
+   <br>
+				<hr size="1" noshade>
+				<br>
+			<div align="center">
+			<input name="set" type="button" id="set" value="閉じる" onClick="window.close()">
+			</div>
+			<br>
+	  <a href="#top"><span class="return-top">[▲] トップへ戻る</span></a> </td>
+	</tr>
+</table>
+<br>
+<br>
+</FORM>
+</body>
+</html>
+
+

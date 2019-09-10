@@ -1,0 +1,317 @@
+<a name="top"></a>
+<div style="font-size:100%">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">¤ªÆÏ¤±Àè¾ðÊó¤òÊÔ½¸¤·¤Þ¤¹¡£</td>
+  </tr>
+</table>
+<form name="dlv" method="post" action="odrinfo-edit02.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+<TMPL_LOOP NAME=ERR_MSG>
+<tr><td align="left"><font color="red">&nbsp;¡¦<TMPL_VAR NAME=MSG></font></td></tr>
+</TMPL_LOOP>
+  <tr>
+    <td align="left" class="main-table">
+      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>
+            <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+           &nbsp;&nbsp;<strong><font color="#dd0000">¢¨</font>&nbsp;</strong>¤ÏÉ¬¿Ü¹àÌÜ¤Ç¤¹¡£
+              <tr>
+                <td>
+                  <table width="100%" border="0" cellpadding="0" cellspacing="2" bgcolor="#999999">
+                    <tr align="center">
+                      <td colspan="2" class="item-name02">&nbsp;¤ªÆÏ¤±ÆâÍÆ</td>
+                    </tr>
+                    <tr valign="top">
+            <td bgcolor="#FFFFFF" style="padding:5px">
+<TMPL_IF recv_disp_disp>
+              <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666">
+                <tr align="left">
+                  <td width="40%" class="item-name"><TMPL_VAR NAME=err_date>¤ªÆÏ¤±´õË¾Æü</td>
+                  <td width="60%" class="item">
+  <TMPL_IF recv_date_disp>
+                    <select name="yy">
+                        <option value="" >-</option>
+                    <TMPL_LOOP NAME=PRINTLISTYEAR>
+                        <option value="<TMPL_VAR NAME=recv_date_year>"<TMPL_IF selon> selected</TMPL_IF>><TMPL_VAR NAME=recv_date_year ESCAPE=HTML ></option>
+                    </TMPL_LOOP>
+                    </select>
+                    Ç¯
+                    <select name="mm">
+                        <option value="" >-</option>
+                    <TMPL_LOOP NAME=PRINTLISTMONTH>
+                        <option value="<TMPL_VAR NAME=recv_date_month>"<TMPL_IF selon> selected</TMPL_IF>><TMPL_VAR NAME=recv_date_month ESCAPE=HTML ></option>
+                    </TMPL_LOOP>
+                    </select>
+                    ·î
+                    <select name="dd">
+                        <option value="" >-</option>
+                    <TMPL_LOOP NAME=PRINTLISTDAY>
+                        <option value="<TMPL_VAR NAME=recv_date_day>"<TMPL_IF selon> selected</TMPL_IF>><TMPL_VAR NAME=recv_date_day ESCAPE=HTML ></option>
+                    </TMPL_LOOP>
+                    </select>
+                    Æü
+  </TMPL_IF>
+                   <TMPL_IF DISPPRINTLIST>
+                    <select name="recv_date_time">
+                        <TMPL_LOOP NAME=PRINTLIST>
+                        <option value="<TMPL_VAR NAME=recv_date_time>"<TMPL_IF selon> selected</TMPL_IF>><TMPL_VAR NAME=recv_date_time></option>
+                        </TMPL_LOOP>
+                    </select>
+                    </TMPL_IF>
+                  </td>
+                </tr>
+                <tr align="left">
+                  <td class="item-name"><TMPL_VAR NAME=err_ngday><TMPL_VAR NAME=recv_other_name></td>
+                  <td class="item">
+                    <input name="recv_ngday" type="text" class="def-line" value="<TMPL_VAR NAME=recv_ngday>">
+                  </td>
+                </tr>
+  <TMPL_IF recv_other_name_disp>
+                <tr align="left">
+                  <td class="item-name"><TMPL_VAR NAME=recv_other_name></td>
+                  <td class="item">
+                    <input name="other_request" type="text" class="def-line" value="<TMPL_VAR NAME=other_request>">
+                  </td>
+                </tr>
+  </TMPL_IF>
+              </table>
+</TMPL_IF>
+            </td>
+          </tr>
+        </table>
+        <br>
+        <table class="item-box">
+          <tr align="center">
+            <td class="item-name02">¤ªÆÏ¤±Àè</td>
+          </tr>
+          <tr>
+            <td bgcolor="#FFFFFF" style="padding:5px">
+              <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#666666" >
+<TMPL_IF no_multi>
+                <tr>
+                  <td colspan="2" class="item-name">¤ªÆÏ¤±Àè¶èÊ¬</td>
+                  <td class="item">
+                    <input type="radio" name="self_flg" id="SelfY" value="Y" <TMPL_IF self_flg_y> checked="true" </TMPL_IF> ><label for="SelfY">ÃíÊ¸¼Ô¤ÈÆ±¤¸</label>
+                    <input type="radio" name="self_flg" id="SelfN" value="N" <TMPL_IF self_flg_n> checked="true" </TMPL_IF> ><label for="SelfN">ÃíÊ¸¼Ô¤È¤ÏÊÌ½»½ê</label>
+                  </td>
+                </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_company_disp>
+                <tr>
+                  <td colspan="2" class="item-name"><TMPL_VAR NAME=err_company>Ë¡¿ÍÌ¾¡¦ÃÄÂÎÌ¾<TMPL_IF ord_company_hisu><font color="#dd0000">¢¨</font></TMPL_IF></td>
+                  <td class="item">
+                    <input name="company" type="text" class="def-line" value="<TMPL_VAR NAME=d_company>">
+                  </td>
+                </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_compkana_disp>
+                <tr>
+                  <td colspan="2" class="item-name"><TMPL_VAR NAME=err_companyk>Ë¡¿ÍÌ¾¡¦ÃÄÂÎÌ¾¡Ê¤«¤Ê¡Ë<TMPL_IF ord_compkana_hisu><font color="#dd0000">¢¨</font></TMPL_IF></td>
+                  <td class="item">
+                    <input name="company_kana" type="text" class="def-line" value="<TMPL_VAR NAME=d_company_kana>">
+                  </td>
+                </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_division_disp>
+                <tr>
+                  <td colspan="2" class="item-name"><TMPL_VAR NAME=err_division>Éô½ðÌ¾<TMPL_IF ord_division_hisu><font color="#dd0000">¢¨</font></TMPL_IF></td>
+                  <td class="item">
+                    <input name="division" type="text" class="def-line" value="<TMPL_VAR NAME=d_division>">
+                  </td>
+                </tr>
+</TMPL_IF>
+                <tr>
+                  <td colspan="2" class="item-name"><TMPL_VAR NAME=err_name>¤ªÌ¾Á°&nbsp;<font color="#dd0000">¢¨</font></td>
+                  <td class="item">
+                    <input name="lname" type="text" value="<TMPL_VAR NAME=d_lname>" size="15">&nbsp;&nbsp;
+                    <input name="fname" type="text" value="<TMPL_VAR NAME=d_fname>" size="15">
+                  </td>
+                </tr>
+<TMPL_IF d_ord_namekana_disp>
+                <tr>
+                  <td colspan="2" class="item-name"><TMPL_VAR NAME=err_namek>¤ªÌ¾Á°¡Ê¤«¤Ê¡Ë<TMPL_IF ord_namekana_hisu><font color="#dd0000">¢¨</font></TMPL_IF></td>
+                  <td class="item">
+                    <input name="lname_kana" type="text" value="<TMPL_VAR NAME=d_lname_kana>" size="15">&nbsp;&nbsp;
+                    <input name="fname_kana" type="text" value="<TMPL_VAR NAME=d_fname_kana>" size="15">
+                  </td>
+                </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_zip_disp>
+                <tr>
+                  <td colspan="2" class="item-name"><TMPL_VAR NAME=err_zip>Í¹ÊØÈÖ¹æ&nbsp;<TMPL_IF ord_zip_hisu><font color="#dd0000">¢¨</font></TMPL_IF></td>
+                  <td class="item">
+                    <TMPL_IF regular_k>
+                      <input name="zip1" type="text" value="<TMPL_VAR NAME=d_zip1>" size="15" style="ime-mode:disabled">
+                    <TMPL_ELSE>
+                      <input name="zip1" type="text" value="<TMPL_VAR NAME=d_zip1>" size="5" style="ime-mode:disabled">&nbsp;-&nbsp;
+                      <input name="zip2" type="text" value="<TMPL_VAR NAME=d_zip2>" size="8" style="ime-mode:disabled">
+                   </TMPL_IF>
+                  </td>
+                </tr>
+</TMPL_IF>
+                <TMPL_IF regular_k>
+                <tr>
+                  <td rowspan="3" class="item-name-sub">¤´½»½ê&nbsp;<font color="#dd0000">¢¨</font></td>
+                  <td align="right" class="item-name-sub"><TMPL_VAR NAME=err_addr1>¹ñ»Ô¶è·´&nbsp;</td>
+                  <td class="item">
+                    <input name="addr1" type="text" class="def-line" value="<TMPL_VAR NAME=d_addr1>">
+                  </td>
+                </tr>
+                <TMPL_ELSE>
+                <tr>
+                  <td rowspan="4" class="item-name-sub">¤´½»½ê&nbsp;<font color="#dd0000">¢¨</font></td>
+                  <td class="item-name-sub" align="right"><TMPL_VAR NAME=err_pref>ÅÔÆ»ÉÜ¸©&nbsp;</td>
+                  <td class="item">
+                    <span class="item"><select name="pref">
+                  <option value="ËÌ³¤Æ»"<TMPL_IF pref1> selected</TMPL_IF>>ËÌ³¤Æ»</option>
+                  <option value="ÀÄ¿¹¸©"<TMPL_IF pref2> selected</TMPL_IF>>ÀÄ¿¹¸©</option>
+                  <option value="´ä¼ê¸©"<TMPL_IF pref3> selected</TMPL_IF>>´ä¼ê¸©</option>
+                  <option value="µÜ¾ë¸©"<TMPL_IF pref4> selected</TMPL_IF>>µÜ¾ë¸©</option>
+                  <option value="½©ÅÄ¸©"<TMPL_IF pref5> selected</TMPL_IF>>½©ÅÄ¸©</option>
+                  <option value="»³·Á¸©"<TMPL_IF pref6> selected</TMPL_IF>>»³·Á¸©</option>
+                  <option value="Ê¡Åç¸©"<TMPL_IF pref7> selected</TMPL_IF>>Ê¡Åç¸©</option>
+                  <option value="°ñ¾ë¸©"<TMPL_IF pref8> selected</TMPL_IF>>°ñ¾ë¸©</option>
+                  <option value="ÆÊÌÚ¸©"<TMPL_IF pref9> selected</TMPL_IF>>ÆÊÌÚ¸©</option>
+                  <option value="·²ÇÏ¸©"<TMPL_IF pref10> selected</TMPL_IF>>·²ÇÏ¸©</option>
+                  <option value="ºë¶Ì¸©"<TMPL_IF pref11> selected</TMPL_IF>>ºë¶Ì¸©</option>
+                  <option value="ÀéÍÕ¸©"<TMPL_IF pref12> selected</TMPL_IF>>ÀéÍÕ¸©</option>
+                  <option value="ÅìµþÅÔ"<TMPL_IF pref13> selected</TMPL_IF>>ÅìµþÅÔ</option>
+                  <option value="¿ÀÆàÀî¸©"<TMPL_IF pref14> selected</TMPL_IF>>¿ÀÆàÀî¸©</option>
+                  <option value="¿·³ã¸©"<TMPL_IF pref15> selected</TMPL_IF>>¿·³ã¸©</option>
+                  <option value="ÉÙ»³¸©"<TMPL_IF pref16> selected</TMPL_IF>>ÉÙ»³¸©</option>
+                  <option value="ÀÐÀî¸©"<TMPL_IF pref17> selected</TMPL_IF>>ÀÐÀî¸©</option>
+                  <option value="Ê¡°æ¸©"<TMPL_IF pref18> selected</TMPL_IF>>Ê¡°æ¸©</option>
+                  <option value="»³Íü¸©"<TMPL_IF pref19> selected</TMPL_IF>>»³Íü¸©</option>
+                  <option value="Ä¹Ìî¸©"<TMPL_IF pref20> selected</TMPL_IF>>Ä¹Ìî¸©</option>
+                  <option value="´ôÉì¸©"<TMPL_IF pref21> selected</TMPL_IF>>´ôÉì¸©</option>
+                  <option value="ÀÅ²¬¸©"<TMPL_IF pref22> selected</TMPL_IF>>ÀÅ²¬¸©</option>
+                  <option value="°¦ÃÎ¸©"<TMPL_IF pref23> selected</TMPL_IF>>°¦ÃÎ¸©</option>
+                  <option value="»°½Å¸©"<TMPL_IF pref24> selected</TMPL_IF>>»°½Å¸©</option>
+                  <option value="¼¢²ì¸©"<TMPL_IF pref25> selected</TMPL_IF>>¼¢²ì¸©</option>
+                  <option value="µþÅÔÉÜ"<TMPL_IF pref26> selected</TMPL_IF>>µþÅÔÉÜ</option>
+                  <option value="ÂçºåÉÜ"<TMPL_IF pref27> selected</TMPL_IF>>ÂçºåÉÜ</option>
+                  <option value="Ê¼¸Ë¸©"<TMPL_IF pref28> selected</TMPL_IF>>Ê¼¸Ë¸©</option>
+                  <option value="ÆàÎÉ¸©"<TMPL_IF pref29> selected</TMPL_IF>>ÆàÎÉ¸©</option>
+                  <option value="ÏÂ²Î»³¸©"<TMPL_IF pref30> selected</TMPL_IF>>ÏÂ²Î»³¸©</option>
+                  <option value="Ä»¼è¸©"<TMPL_IF pref31> selected</TMPL_IF>>Ä»¼è¸©</option>
+                  <option value="Åçº¬¸©"<TMPL_IF pref32> selected</TMPL_IF>>Åçº¬¸©</option>
+                  <option value="²¬»³¸©"<TMPL_IF pref33> selected</TMPL_IF>>²¬»³¸©</option>
+                  <option value="¹­Åç¸©"<TMPL_IF pref34> selected</TMPL_IF>>¹­Åç¸©</option>
+                  <option value="»³¸ý¸©"<TMPL_IF pref35> selected</TMPL_IF>>»³¸ý¸©</option>
+                  <option value="ÆÁÅç¸©"<TMPL_IF pref36> selected</TMPL_IF>>ÆÁÅç¸©</option>
+                  <option value="¹áÀî¸©"<TMPL_IF pref37> selected</TMPL_IF>>¹áÀî¸©</option>
+                  <option value="°¦É²¸©"<TMPL_IF pref38> selected</TMPL_IF>>°¦É²¸©</option>
+                  <option value="¹âÃÎ¸©"<TMPL_IF pref39> selected</TMPL_IF>>¹âÃÎ¸©</option>
+                  <option value="Ê¡²¬¸©"<TMPL_IF pref40> selected</TMPL_IF>>Ê¡²¬¸©</option>
+                  <option value="º´²ì¸©"<TMPL_IF pref41> selected</TMPL_IF>>º´²ì¸©</option>
+                  <option value="Ä¹ºê¸©"<TMPL_IF pref42> selected</TMPL_IF>>Ä¹ºê¸©</option>
+                  <option value="·§ËÜ¸©"<TMPL_IF pref43> selected</TMPL_IF>>·§ËÜ¸©</option>
+                  <option value="ÂçÊ¬¸©"<TMPL_IF pref44> selected</TMPL_IF>>ÂçÊ¬¸©</option>
+                  <option value="µÜºê¸©"<TMPL_IF pref45> selected</TMPL_IF>>µÜºê¸©</option>
+                  <option value="¼¯»ùÅç¸©"<TMPL_IF pref46> selected</TMPL_IF>>¼¯»ùÅç¸©</option>
+                  <option value="²­Æì¸©"<TMPL_IF pref47> selected</TMPL_IF>>²­Æì¸©</option>
+                    </select></span>
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" class="item-name-sub"><TMPL_VAR NAME=err_addr1>»Ô¶è·´&nbsp;</td>
+                  <td class="item">
+                    <input name="addr1" type="text" class="def-line" value="<TMPL_VAR NAME=d_addr1>">
+                  </td>
+                </tr>
+                </TMPL_IF>
+                <tr>
+                  <td align="right" class="item-name-sub"><TMPL_VAR NAME=err_addr2>Ä®Â¼»úÈÖÃÏ&nbsp;</td>
+                  <td class="item">
+                    <input name="addr2" type="text" class="def-line" value="<TMPL_VAR NAME=d_addr2>">
+                  </td>
+                </tr>
+                <tr>
+                  <td align="right" class="item-name-sub"><TMPL_VAR NAME=err_addr3>·úÊªÌ¾&nbsp;</td>
+                  <td class="item">
+                    <input name="addr3" type="text" class="def-line" value="<TMPL_VAR NAME=d_addr3>">
+                  </td>
+                </tr>
+
+<TMPL_IF d_ord_tel_disp>
+                <tr>
+                  <td colspan="2" class="item-name"><TMPL_VAR NAME=err_tel>ÅÅÏÃÈÖ¹æ&nbsp;<TMPL_IF ord_tel_hisu><font color="#dd0000">¢¨</font></TMPL_IF></td>
+                  <td class="item">
+                    <TMPL_IF regular_k>
+                      <input name="tel1" type="text" value="<TMPL_VAR NAME=d_tel1>" size="4" class="def-line" style="ime-mode:disabled">
+                    <TMPL_ELSE>
+                      <input name="tel1" type="text" value="<TMPL_VAR NAME=d_tel1>" size="4" style="ime-mode:disabled">&nbsp;-&nbsp;
+                      <input name="tel2" type="text" value="<TMPL_VAR NAME=d_tel2>" size="8" style="ime-mode:disabled">&nbsp;-&nbsp;
+                      <input name="tel3" type="text" value="<TMPL_VAR NAME=d_tel3>" size="8" style="ime-mode:disabled">
+                    </TMPL_IF>
+                  </td>
+                </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_fax_disp>
+                <tr>
+                  <td colspan="2" class="item-name"><TMPL_VAR NAME=err_fax>FAXÈÖ¹æ<TMPL_IF ord_fax_hisu><font color="#dd0000">¢¨</font></TMPL_IF></td>
+                  <td class="item">
+                    <TMPL_IF regular_k>
+                      <input name="fax1" type="text" value="<TMPL_VAR NAME=d_fax1>" size="4" class="def-line" style="ime-mode:disabled">
+                    <TMPL_ELSE>
+                      <input name="fax1" type="text" value="<TMPL_VAR NAME=d_fax1>" size="4" style="ime-mode:disabled">&nbsp;-&nbsp;
+                      <input name="fax2" type="text" value="<TMPL_VAR NAME=d_fax2>" size="8" style="ime-mode:disabled">&nbsp;-&nbsp;
+                      <input name="fax3" type="text" value="<TMPL_VAR NAME=d_fax3>" size="8" style="ime-mode:disabled">
+                    </TMPL_IF>
+                  </td>
+                </tr>
+</TMPL_IF>
+                <TMPL_IF this_d_bikou>
+                  <tr>
+                    <td colspan="2" class="item-name"><TMPL_VAR NAME=err_free_comment><TMPL_VAR NAME=d_free_title><TMPL_IF ord_bikou_hisu><font color="#dd0000">¢¨</font></TMPL_IF></td>
+                    <td class="item">
+                      <textarea name="free_comment" maxlength="2000" rows="4" class="def-line"><TMPL_VAR NAME=d_free_comment></textarea>
+                      <input type="hidden" name="free_title" value="<TMPL_VAR NAME=d_free_title>">
+                    </td>
+                  </tr>
+                </TMPL_IF>
+              </table>
+            </td>
+            </tr>
+            </table>
+            </td>
+            </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <br>
+      <hr size="1">
+      <br>
+      <div align="center">
+      <input type="button" name="Submit" value="¥­¥ã¥ó¥»¥ë" onClick="document.back.submit()">
+      &nbsp;
+      <input name="set" type="button" id="set" value="ÊÝÂ¸" onClick="document.dlv.submit()">
+      </div><br>
+    </td>
+  </tr>
+</table>
+  <br>
+  <br>
+  <input type="hidden" name="ORDERID" value="<TMPL_VAR NAME=order_id>">
+  <input type="hidden" name="DLVID" value="<TMPL_VAR NAME=deliv_oid>">
+  <input type="hidden" name="DLVTO" value="<TMPL_VAR NAME=deliverto>">
+  <input type="hidden" name="MULTI" value="<TMPL_VAR NAME=multi>">
+  <input type="hidden" name="back" value="<TMPL_VAR NAME=back>">
+  <input type="hidden" name="cmd" value="save">
+</form>
+<form name="back" method="post" action="odrinfo.cgi">
+  <input type="hidden" name="ORDERID" value="<TMPL_VAR NAME=order_id>">
+  <input type="hidden" name="PAGE" value="<TMPL_VAR NAME=page>">
+</form>
+</div>
+

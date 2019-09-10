@@ -1,0 +1,99 @@
+<script type="text/JavaScript">
+<!--
+function cancelMailSubmit(){
+    if(document.cancel.to.value){
+        document.cancel.set.disabled='true';
+        document.cancel.CMD.value='SEND';
+        document.cancel.submit()
+    }else{
+        alert('メール送信に失敗しました。時間をおいて再度実行してください。');
+        window.close();
+   }
+}
+
+
+//-->
+</script>
+<form name="cancel" method="post" action="odrinfo-folder-save.cgi" onsubmit="return false;">
+<input type="hidden" name="PubOrderNo" value="<TMPL_VAR NAME=PUB_ORDER_NO>" >
+<input type="hidden" name="ORDERID" value="<TMPL_VAR NAME=ORDER_ID>" >
+<input type="hidden" name="to" value="<TMPL_VAR NAME=P_MAIL>" >
+<input type ="hidden" name="folderst" value="<TMPL_VAR NAME=FOLDERST>" >
+<input type ="hidden" name="application_id" value="<TMPL_VAR NAME=APPLICATION_ID>" >
+<input type ="hidden" name="regular_count" value="<TMPL_VAR NAME=REGULAR_COUNT>" >
+<input type ="hidden" name="regular_type" value="<TMPL_VAR NAME=REGULAR_TYPE>" >
+<input type ="hidden" name="CMD" value="" >
+<div style="font-size:100%">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<tr>
+<td width="12">
+<table width="50%" align="right" border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009b44">
+<tr>
+<td><img src="../imgs/spc.gif"></td>
+</tr>
+</table>
+</td>
+<td align="left" class="midashi">注文キャンセルメール</td>
+<td align="right" class="midashi"><a href="http://help.shopserve.jp/support/management/if-cancel-order.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+</tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td align="left" class="main-table">
+
+<div class="infoArea table_bg">
+注文キャンセルを実行し、下記の内容でメールを送信します。<br>
+キャンセルメールのテンプレート編集は<a href="odrmail.php">こちら</a>で行えます。<br>
+</div>
+<table  width="100%" border="0" cellpadding="0" cellspacing="2" class="item-box">
+<tr align="center">
+<td colspan="2" class="item-name02">キャンセルメールの送信（<TMPL_IF ktai>モバイル<TMPL_ELSE>パソコン</TMPL_IF>用）</td>
+</tr>
+<tr>
+<td class="item-name">件名</td>
+<td class="item">
+<input name="subject" type="text" class="def-line" value="<TMPL_VAR NAME=subject>">
+</td>
+</tr>
+<tr>
+<td class="item-name">本文</td>
+<td class="item">
+<textarea name="mailbody" cols="85" rows="20" wrap="VIRTUAL" style="font-size:90%"><TMPL_VAR NAME=mailbody></textarea>
+</td>
+</tr>
+</table>
+
+<br>
+<div class="infoArea table_bg">
+「送信する」ボタンを押すと、購入者へ注文キャンセルメールが送信され、
+ 注文はキャンセルフォルダへ移動します。<br>
+<span style="color:#f00;">※注文キャンセルを行う場合は、必ずキャンセルメールが送信されます。</span><br>
+<span style="color:#f00;">※各種手数料や処理の流れについて注意事項がございますので、必ずマニュアルをご確認ください。</span><br>
+<a target="_blank" href="http://help.shopserve.jp/op/032.pdf">⇒注文キャンセルについて</a>
+</div>
+<div align="center">
+<input name="back" type="button" value="戻る" onClick="document.back.submit();" >
+&nbsp;
+<input name = "set" type="button" value="送信する" onClick="cancelMailSubmit();" >
+</div>
+</td>
+</tr>
+</table>
+</div>
+</form>
+<form name="back" method="post" action="odrinfo.cgi">
+<input type="hidden" name="ORDERID" value="<TMPL_VAR NAME=ORDER_ID>">
+</form>
+<!-- Main Contents(END) -->
+
+
+
+
+
+
+
+
+
+

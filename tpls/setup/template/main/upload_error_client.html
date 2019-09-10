@@ -1,0 +1,59 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+                            <td align="left" class="midashi">アップロードエラー</td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                      <td>
+                                      	<table width="100%" class="item-box">
+                                       	<tr>
+                                       		<td bgcolor="#FFFFFF" class="item">エラーが発生しました。
+<br><font color="red">・<TMPL_VAR NAME=ERRMSG></font><br>
+						</td> 
+                                      		</tr>
+                                       	</table>
+                                      	<BR>
+<TMPL_IF ERRLIST>
+<table width="100%" class="item-box">
+<tr>
+  <td bgcolor="#FFFFFF" width="20%" align="center">行数</td>
+  <td bgcolor="#FFFFFF" width="80%">&nbsp;エラー内容</td>
+</tr>
+<TMPL_LOOP ERRLIST>
+<tr>
+  <td bgcolor="#FFFFFF" align="center"><TMPL_VAR NAME=NO></td>
+  <td bgcolor="#FFFFFF">&nbsp;<TMPL_VAR NAME=RES></td>
+</tr>
+</TMPL_LOOP>
+</TMPL_IF>
+                                    	</td></tr>
+                                  </table></td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+                          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td>&nbsp;</td>
+                            </tr>
+                          </table>
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                            <tr>
+                              <td align="center" style="padding:10px 10px 10px 10px ">
+                                <div align="center">
+                                 <input type="button" name="Submit" value="顧客台帳一覧へ戻る" onClick="location.href='clientlist.php?LastParam=1'">
+                               </div>
+                              </td>
+                            </tr>
+                          </table>

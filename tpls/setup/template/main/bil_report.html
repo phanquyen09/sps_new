@@ -1,0 +1,181 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+                            <td align="left" class="midashi">代金回収レポートの閲覧、振込先口座の変更を行います</td>
+<td align="right" class="midashi"><a href="<TMPL_VAR NAME=Manual>func01/billrep.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                             <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td>
+                                  	<table class="item-box">
+                                   	    <tr align="center">
+                                   		<td width="100%" class="item-name02">振込先口座</td>
+                                  	    </tr>
+					  <TMPL_IF ACCINFO>
+					    <TMPL_IF EBANK>
+                                   	    <tr>
+                                   		<td class="item-02">
+						<TMPL_VAR NAME=BANK>　
+						支店番号(<TMPL_VAR NAME=BRANCHCODE>)　
+						<TMPL_VAR NAME=ACCOUNTNO>　
+						<TMPL_VAR NAME=ACCOUNTNAME>&nbsp;
+						</td>
+                                  	    </tr>
+					    <TMPL_ELSE>
+                                   	    <tr>
+                                   		<td class="item-02">
+						<TMPL_VAR NAME=BANK>　
+						<TMPL_VAR NAME=BRANCH>　
+						<TMPL_IF NAME=TYPE1>普通<TMPL_ELSE>当座</TMPL_IF>　
+						<TMPL_VAR NAME=ACCOUNTNO>　
+						<TMPL_VAR NAME=ACCOUNTNAME>&nbsp;
+						</td>
+                                  	    </tr>
+					    </TMPL_IF>
+                                   	    <tr>
+                                   		<td align="center" class="item-02">
+                                   			<input type="button" name="Submit" value="振込先口座変更" onClick="location='chbank.cgi'">
+                                  		</td>
+                                  	    </tr>
+					  <TMPL_ELSE>
+					    <tr>
+						<td align="center" class="item-02">登録されていません</td>
+					    </tr>
+					  </TMPL_IF>
+                                  	</table>
+<TMPL_IF ACCINFO>
+            <br>
+            <table class="item-box">
+<form name="expset" method="post" action="bil_report.cgi">
+<input type="hidden" name="CMD" value="EXP">
+              <tbody>
+                <tr align="center">
+                  <td class="item-name02" width="100%" colspan="2">入金設定</td>
+                </tr>
+                <tr>
+                  <td style="background:#BAE2B9;font-weight:bold;text-align:center;">翌月入金<br>（月2回／月1回）</td>
+                  <td class="item-02">
+                    <P>回収代金の入金回数（月2回／月1回）を設定します。</P>
+                    <p>　　<input type="radio" name="express" value="Y" <TMPL_IF express_Y>checked</TMPL_IF> <TMPL_IF inspct>disabled</TMPL_IF>>　月2回入金　<font color=red><b><TMPL_VAR NAME=APPLY_DATE_Y></b></font><BR>
+                       　　<input type="radio" name="express" value="N" <TMPL_IF express_N>checked</TMPL_IF> <TMPL_IF inspct>disabled</TMPL_IF>>　月1回入金　<font color=red><b><TMPL_VAR NAME=APPLY_DATE_N></b></font>
+                    </p>
+                    <div style="width:90%; text-align:center; margin-left:auto; margin-right:auto;">
+                    <table border="0" cellpadding="1" cellspacing="2" class="item-box">
+                    <tbody>
+                      <tr align="center" bgcolor="#FFFFFF">
+                        <td width="100%" colspan="2">入金スケジュール</td>
+                      </tr>
+                      <tr bgcolor="#FFFFFF">
+                        <td> 月2回入金</td>
+                        <td>
+                          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td width="40%" align="left">毎月1日〜15日確定分</td>
+                            <td align="left">翌月5日入金</td>
+                          </tr>
+                          <tr>
+                            <td align="left">毎月16日〜末日確定分</td>
+                            <td align="left">翌月20日入金</td>
+                          </tr>
+                          <tr align="left">
+                            <td colspan="2">※月2回入金手数料として、振込金額の0.525％がかかります。</td>
+                          </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr bgcolor="#FFFFFF">
+                        <td> 月1回入金</td>
+                        <td>
+                          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td width="40%" align="left">毎月1日〜末日確定分</td>
+                            <td align="left">翌月27日入金</td>
+                          </tr>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                    </table>
+                    　<br>
+                    </div>
+                    　　※入金日が土日祝日の場合は、金融機関の翌営業日に振り込まれます。<br>
+                    　　※変更した場合は、変更した月の1日の確定分から反映されます。<br>
+                    <div style="text-align:center;margin:1em 0;">
+                      <input value="設定する" onclick="document.expset.submit()" type="button" <TMPL_IF inspct>disabled</TMPL_IF>>
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="background:#BAE2B9;font-weight:bold;text-align:center;">スピード入金<br>（月6回）</td>
+                  <td class="item-02"> 
+                    <p>
+                      <a href="http://help.shopserve.jp/support/contract/deposit_set.html" target="_blank">スピード入金設定の月6回入金について</a><br>
+                      回収代金の入金回数を月6回に設定するためにはお申込みが必要です。<br>
+                      お申し込み後の審査完了後（2〜4週間程度）、翌月より適用されます。<br>
+                      ※スピード入金（月6回）手数料として、振込金額の1.3％がかかります。 
+                    </p>
+                    <div style="text-align:center;margin:1em 0;">
+                      <TMPL_IF express_M>
+                        <font color=red><b><p>ご利用中</p></b></font>
+                      <TMPL_ELSE>
+                        <TMPL_IF inspct>
+                          <font color=red><b><p>審査中です　<TMPL_VAR NAME=APPLY_DATE_M></p></b></font>
+                        <TMPL_ELSE>
+                          <input type="button" onClick="window.open('express01.cgi','info','scrollbars=yes,resizable=yes,width=650,height=700')" value="申込む">
+                        </TMPL_IF>
+                      </TMPL_IF>
+                    </div>
+                  </td>
+                </tr>
+
+              </tbody>
+</form>
+            </table>
+</TMPL_IF>
+<TMPL_IF TERMLIST>
+                                  	<br>
+                                   <table class="item-box">
+                                   	<tr align="center">
+                                   		<td colspan="3" class="item-name02">代金回収レポート</td>
+                                  		</tr>
+                                   	<tr align="center" class="item-name">
+                                   		<td width="70%">集計期間</td>
+                                   		<td width="30%">振込年月日</td>
+                                   		<td width="30%">エクセルファイル</td>
+                                  		</tr>
+<TMPL_LOOP TERMLIST>
+                                   	<tr>
+                                   		<td align="center" class="item02">
+                                                <form name="REP<TMPL_VAR NAME=NO>" method="POST" action="bil_reportlist.cgi">
+                                                <input type="hidden" name="Sched" value="<TMPL_VAR NAME=SCHED>">
+                                                <input type="hidden" name="Start" value="<TMPL_VAR NAME=START>">
+                                                <input type="hidden" name="End"   value="<TMPL_VAR NAME=END>">
+                                                <a href="javascript:document.REP<TMPL_VAR NAME=NO>.submit();">
+					
+						<TMPL_VAR NAME=START>&nbsp;〜&nbsp;<TMPL_VAR NAME=END>の回収分
+						</a></form></td>
+                                   		<td align="center" class="item02"><TMPL_VAR NAME=FURIKOMI></td>
+                                                <td class="item02" align="center">
+                                                <form name="REPEX<TMPL_VAR NAME=NO>" method="POST" action="bill_reportexcel.cgi">
+                                                <input type="hidden" name="Sched" value="<TMPL_VAR NAME=SCHED>">
+                                                <input type="hidden" name="Start" value="<TMPL_VAR NAME=START>">
+                                                <input type="hidden" name="End"   value="<TMPL_VAR NAME=END>">
+                                                <input type="submit" value="ダウンロード" <TMPL_UNLESS PRINT> disabled</TMPL_UNLESS>></td>
+					</form>
+                                  	</tr>
+</TMPL_LOOP>
+                                  	</table>
+</TMPL_IF>
+                                 </td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>

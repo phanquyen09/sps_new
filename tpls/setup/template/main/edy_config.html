@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title><TMPL_VAR NAME=ServName>管理画面</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="default03.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+//-->
+</script>
+</head>
+<TMPL_IF OPENERRELOAD>
+<body onLoad='window.close();'>
+</body>
+<TMPL_ELSE>
+<body style="font-size:80% ">
+<table width="700"  border="0" cellspacing="0" cellpadding="0">
+	<tr>
+		<td align="left">
+<div class="midashi02">■楽天Edyの利用設定</div><br>
+
+			<!-- ここから下が入れ込む内容となります -->
+<TMPL_LOOP ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+   <table  border="0" class="item-box">
+<form name="EDYMAIL" method="POST" action="edy_config.cgi">
+<input type="hidden" name="CMD" value="EDT1">
+   	<tr align="center">
+   		<td colspan="2" class="item-name02">楽天Edy請求メール</td>
+  		</tr>
+   	<tr align="center">
+   		<td colspan="2" nowrap class="item"><img src="../imgs/me_disp_mail.gif" width="250" height="320" vspace="10"></td>
+  		</tr>
+   	<tr>
+   		<td width="20%" class="item-name">Ａ．店舗名</td>
+  		 <td class="item">
+     	<input name="StoreName" type="text" class="def-line" value="<TMPL_VAR NAME=STORENAME>">
+     	</td>
+   	</tr>
+   	<tr>
+   		<td nowrap class="item-name">Ｂ．コメント</td>
+  		 <td nowrap class="item"><span class="item-sub">
+  		 	<textarea name="Comment" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=COMMENT></textarea>
+  		 </span></td>
+   	</tr>
+   	<tr>
+   		<td nowrap class="item-name">Ｃ．支払有効期限</td>
+  		 <td nowrap class="item">
+  		 	注文日時から
+  		 		<select name="ExpireSec">
+				<TMPL_LOOP EXPLIST>
+  		 		<option value="<TMPL_VAR NAME=SEC>" <TMPL_IF SEL>selected</TMPL_IF>><TMPL_VAR NAME=DAY></option>
+				</TMPL_LOOP>
+ 		 		</select>
+  		 		日間
+  		 </td>
+   	</tr>
+   	<tr>
+   		<td colspan="2" align="center" nowrap class="item">
+   			<input type="button" value="編集内容を保存する" onClick="document.EDYMAIL.submit();">
+   		</td>
+  		</tr>
+</form>
+  	</table>   
+   <br>
+   <br>
+   <table  border="0" class="item-box">
+<form name="EDYGENRE" method="POST" action="edy_config.cgi">
+<input type="hidden" name="CMD" value="EDT2">
+   	<tr id="Free05">
+   		<td valign="top" class="item-name">取扱商品のジャンル</td>
+   		<td class="item">
+			<TMPL_LOOP GLIST>
+   			<input name="Genre" type="radio" value="<TMPL_VAR NAME=GNO>" <TMPL_IF SEL>checked</TMPL_IF>>
+			<TMPL_VAR NAME=GNAME><br>
+			</TMPL_LOOP>
+  		</tr>
+   	<tr align="center" id="Free05">
+   		<td colspan="2" class="item">
+   			<input type="button" value="店舗情報を登録する" onClick="document.EDYGENRE.submit();">
+   		</td>
+  		</tr>
+  	</table>			
+   <br>
+	  </td>
+	</tr>
+</form>
+<tr>
+    <td align="center">
+        <input type="button" value="閉じる" onClick="window.close()">
+    </td>
+</tr>
+</table>
+<br>
+<br>
+</body>
+</TMPL_IF>
+</html>

@@ -1,0 +1,16 @@
+<html>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function displayfax() {
+  document.FAX.submit();
+}
+//-->
+</script>
+<body onLoad="displayfax();">
+<form name="FAX" method="POST" action="chbankfax.cgi" target="_blank">
+<TMPL_LOOP FAXFORM>
+<input type="hidden" name="<TMPL_VAR NAME=FNAME>" value="<TMPL_VAR NAME=FVAL>">
+</TMPL_LOOP>
+</form>
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<title>スピード入金（月6回）サービス　お申込み完了</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link rel="stylesheet" type="text/css" href="moushikomi.css" media="all">
+
+
+</head>
+<body>
+
+<script language="JavaScript">
+<!--
+function closewin() {
+    window.opener.location.href = 'bil_report_sps.cgi';
+    window.close();
+}
+//-->
+</script>
+
+<form name="EXPRESS03" method="POST" action="express03.cgi">
+
+<div id="mainBox">
+ <h1>スピード入金（月6回）サービス　お申込み完了</h1>
+ <p>
+ スピード入金（月6回）サービスのお申込みが完了しました。<br>
+ ご担当者さまのメールアドレスに<span style="color: #F00; font-weight: bold;">受付完了のメール</span>が数分後送られますので、ご確認ください。
+ </p>
+ <p>
+ 審査結果につきましては、審査が完了次第、下記に記載されたご担当者さま宛に<span style="color: #F00; font-weight: bold;">審査完了のメール</span>をお送りいたします。<br>
+ 受付番号をお控えの上、今しばらくお待ちくださいますよう、お願い致します。
+ </p>
+ 
+ <h2 class="midashi">
+ <span style="font-weight:bold;">受付番号</span>
+ </h2>
+ 
+ <p class="number"><TMPL_VAR NAME=ACPT_NO></p> 
+ 
+ <h2 class="midashi">
+ <span style="font-weight:bold;">決済担当者情報</span>
+ </h2>
+ <div class="message">
+ 審査の際に確認事項がありましたら、下記ご担当者さま宛にお電話、メールにてご連絡致します。
+ </div>
+
+
+ <table class="tablemake">
+   <tbody>
+   <tr>
+     <th>申込者</th>
+     <td ><TMPL_VAR NAME=CUSTNAME></td>
+   </tr>
+   <tr>
+     <th>担当者</th>
+     <td><TMPL_VAR NAME=TANTONAME></td>
+   </tr>
+   <tr>
+ 
+     <th>担当者（かな）</th>
+     <td><TMPL_VAR NAME=TANTOKANA></td>
+   </tr>
+   <tr>
+     <th>住所</th>
+     <td><TMPL_VAR NAME=TANTOADDR></td>
+   </tr>
+   <tr>
+     <th>ＴＥＬ</th>
+     <td><TMPL_VAR NAME=TANTOTEL></td>
+   </tr>
+   <tr>
+     <th>ＦＡＸ</th>
+     <td><TMPL_VAR NAME=TANTOFAX></td>
+ 
+   </tr>
+   <tr>
+     <th>メールアドレス</th>
+     <td><TMPL_VAR NAME=TANTOMAIL></td>
+   </tr>
+   </tbody>
+ </table>
+ 
+ 
+ 
+</div>
+<br>
+<div class="footbutton">
+ <input name="" value="閉じる" type="button" type="button" onClick="closewin();">
+</div>
+
+</form>
+
+</body>
+</html>

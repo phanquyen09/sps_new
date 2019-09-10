@@ -1,0 +1,167 @@
+<SCRIPT language="javascript">
+<!--
+
+    function gonext() {
+        document.FORM1.submit();
+    }
+
+//-->
+</SCRIPT>
+
+<FORM NAME="FORM1" ACTION="branch-open.cgi" METHOD="POST">
+<INPUT TYPE="hidden" NAME="SITEN_ID" VALUE="<TMPL_VAR name=SITEN_ID>">
+<INPUT TYPE="hidden" NAME="CMD" VALUE="CATEGORY">
+
+                                    <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                      <tr>
+                                        <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+                                            <tr>
+                                              <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+                                            </tr>
+                                        </table></td>
+                                        <td align="left" class="midashi"><TMPL_VAR name=SITEN_NAME>へ出店するための店舗情報を入力します</td>
+                                      </tr>
+                                    </table>
+                                      <img src="../imgs/spc.gif" width="5" height="5">
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                          <td align="left" class="main-table">
+<!-- エラーメッセージ //-->
+<TMPL_IF name=ERR_MSG_LST>
+ <TMPL_LOOP name=ERR_MSG_LST>
+    <font size=2 color="#FF0000"><TMPL_VAR name=ERR_MSG></font><br>
+ </TMPL_LOOP>
+</TMPL_IF>
+
+<!-- 2006/04出品可能な商品について追加 -->
+<div style="color:#333333;font-weight:bold">[&nbsp;出品可能な商品&nbsp;：&nbsp;<TMPL_VAR name=TARGET_ITEM>&nbsp;]</div>
+                                           <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                              <td>
+                                              	<table class="item-box">
+                                               	<tr align="center" bgcolor="#CCCCCC">
+                                               		<td colspan="2" class="item-name02">店舗情報</td>
+                                              		</tr>
+                                              <!-- 店舗情報 ここから -->                                               	
+
+                                               	<tr align="center">
+                                               		<td width="30%" align="left" class="item-name">販売業者</td>
+                                               		<td align="left" class="item" ><TMPL_VAR name=COMPANY></td>
+                                              		</tr>
+                                               	<tr align="center">
+                                               		<td align="left" class="item-name">販売責任者</td>
+                                               		<td align="left" class="item" ><TMPL_VAR name=NAME></td>
+                                              		</tr>
+                                               	<tr align="center">
+                                               		<td align="left" class="item-name">郵便番号</td>
+                                               		<td align="left" class="item" ><TMPL_VAR name=ZIP1>-<TMPL_VAR name=ZIP2></td>
+                                              		</tr>
+                                               	<tr align="center">
+                                               		<td align="left" class="item-name">都道府県</td>
+                                               		<td align="left" class="item" ><TMPL_VAR name=PREF></td>
+                                              		</tr>
+                                               	<tr align="center">
+                                               		<td align="left" class="item-name">市区郡</td>
+                                               		<td align="left" class="item" ><TMPL_VAR name=CITY></td>
+                                              		</tr>
+                                               	<tr align="center">
+                                               		<td align="left" class="item-name">町村字</td>
+                                               		<td align="left" class="item" ><TMPL_VAR name=TOWN></td>
+                                              		</tr>
+                                               	<tr align="center">
+                                               		<td align="left" class="item-name">番地</td>
+                                               		<td align="left" class="item" ><TMPL_VAR name=STREET></td>
+                                              		</tr>
+                                               	<tr align="center">
+                                               		<td align="left" class="item-name">建物名</td>
+                                               		<td align="left" class="item" ><TMPL_VAR name=BUILD></td>
+                                              		</tr>
+                                               	<tr align="center">
+                                               		<td align="left" class="item-name">電話番号</td>
+                                               		<td align="left" class="item" ><TMPL_VAR name=TEL></td>
+                                              		</tr>
+                                               	<tr align="center">
+                                               		<td align="left" class="item-name">FAX番号</td>
+                                               		<td align="left" class="item" ><TMPL_VAR name=FAX></td>
+                                              		</tr>
+                                               	<tr align="center">
+                                               		<td align="left" class="item-name">メールアドレス</td>
+                                               		<td align="left" class="item" ><TMPL_VAR name=MAIL></td>
+                                              		</tr>
+                                               	<tr align="center">
+                                               		<td align="left" class="item-name">ホームページ</td>
+                                               		<td align="left" class="item" ><TMPL_VAR name=HOMEPAGE></td>
+                                              		</tr>
+                                               	<tr align="left">
+                                               		<td class=item-name>商品代金以外の必要料金</td>
+                                               		<td class="item"><TMPL_VAR name=INFO01></td>
+                                              		</tr>
+                                               	<tr align="left">
+                                               		<td class=item-name>申込の有効期限</td>
+                                               		<td class="item"><TMPL_VAR name=INFO02></td>
+                                              		</tr>
+                                               	<tr align="left">
+                                               		<td class=item-name>不良品</td>
+                                               		<td class="item"><TMPL_VAR name=INFO03></td>
+                                              		</tr>
+                                               	<tr align="left">
+                                               		<td class=item-name>販売数量</td>
+                                               		<td class="item"><TMPL_VAR name=INFO04></td>
+                                              		</tr>
+                                               	<tr align="left">
+                                               		<td class=item-name>引渡し時期</td>
+                                               		<td class="item"><TMPL_VAR name=INFO05></td>
+                                              		</tr>
+                                               	<tr align="left">
+                                               		<td class=item-name>お支払方法</td>
+                                               		<td class="item"><TMPL_VAR name=INFO06></td>
+                                              		</tr>
+                                               	<tr align="left">
+                                               		<td class=item-name>お支払期限</td>
+                                               		<td class="item"><TMPL_VAR name=INFO07></td>
+                                              		</tr>
+                                               	<tr align="left">
+                                               		<td class=item-name>返品期限</td>
+                                               		<td class="item"><TMPL_VAR name=INFO08></td>
+                                              		</tr>
+                                               	<tr align="left">
+                                               		<td class=item-name>返品送料</td>
+                                               		<td class="item"><TMPL_VAR name=INFO09></td>
+                                              		</tr>
+                                                <tr align="left">
+                                                        <td class=item-name>取扱商品</td>
+                                                        <td class="item"><TMPL_VAR name=INFO10></td>
+                                                        </tr>
+                                               	<tr align="left">
+                                               		<td class=item-name>許認可・資格</td>
+                                               		<td class="item"><TMPL_VAR name=INFO11></td>
+                                              		</tr>
+                                              <!-- 店舗情報 ここまで -->                                               	
+                                              <!-- 支店出店情報 ここから -->                                               	
+                                              <TMPL_VAR name=SITEN_INFO>
+                                              <!-- 支店出店情報 ここまで -->                                               	
+                                              	</table>
+                                              </td>
+                                            </tr>
+                                          </table></td>
+                                        </tr>
+                                      </table>
+                                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                          <td>&nbsp;</td>
+                                        </tr>
+                                      </table>
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                        <tr>
+                                          <td align="center" style="padding:10px 10px 10px 10px ">
+                                          	<input type="button" value="戻る" onClick="location.href='branch.cgi'">
+&nbsp;
+<input type="button" value="次へ" onClick="gonext()">
+                                          </td>
+                                        </tr>
+                                      </table>
+<TMPL_LOOP name=HIDELIST>
+  <input type=hidden name="<TMPL_VAR name=HIDDEN_NAME>" value="<TMPL_VAR name=HIDDEN_VAL>">
+</TMPL_LOOP>
+
+</FORM>

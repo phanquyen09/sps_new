@@ -1,0 +1,325 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Ｅストアーショップサーブ　決済代行申し込み</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<link href="default00.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function openScat(id) {
+		ele = document.getElementById(id+"1");
+		ele.style.display = "block";
+}
+
+function openClose(id,pt,i) {
+		prop = document.getElementById(id).style.display;
+
+//		alert(id+" "+pt+" "+i);
+
+		if(i==0) prop = "none";
+
+		if(prop=="none"){
+				if(pt=="div") document.getElementById(id).style.display="block";
+//						alert("div "+document.getElementById(id).style.display);
+				if(pt=="tr") {
+						if(document.all)	document.getElementById(id).style.display="block";
+						else
+						document.getElementById(id).style.display="table-row";
+//						alert("tr "+document.getElementById(id).style.display);
+				}
+		} else {
+				document.getElementById(id).style.display="none";
+		}
+//		alert(document.getElementById(id).style.display);
+}
+
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
+//-->
+</script>
+</head>
+<body>
+<link href="default00.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function selebank() {
+    document.PMAPPLY03.Bank.value='楽天銀行';
+    document.PMAPPLY03.BankCode.value='';
+    document.PMAPPLY03.Branch.value='';
+
+    document.getElementById('bankcodedisp').style.display='none';
+    document.getElementById('branchdisp').style.display='none';
+    document.getElementById('typedisp').style.display='none';
+
+    document.getElementById('bankdisp').style.display='none';
+    document.getElementById('ebankdisp').style.display='block';
+}
+
+function selbank() {
+    document.getElementById('bankcodedisp').style.display='block';
+    document.getElementById('branchdisp').style.display='block';
+    document.getElementById('typedisp').style.display='block';
+
+    document.getElementById('bankdisp').style.display='block';
+    document.getElementById('ebankdisp').style.display='none';
+}
+
+//-->
+</script>
+<a name="top"></a>
+<div style="font-size:80%" align="center">
+<form name="PMAPPLY03" method="POST" action="pmapply03.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="NEXT">
+<TMPL_IF NEWAPPLY><input type="hidden" name="NEWAPPLY" value="Y"></TMPL_IF>
+
+  <table width="600"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center"><img src="imgs/payment_navi03.gif" width="590" height="52"></td>
+    </tr>
+    <tr>
+      <td align="left" height="15"><img src="../imgs/spc.gif" width="5" height="5"></td>
+    </tr>
+  </table>
+
+  <table width="600"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="left" class="outbox"><div class="midashi">振込先口座</div>
+        <br>
+<TMPL_IF NEWAPPLY>
+	<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+<TMPL_IF ERR_MSG>
+<TR>
+<TD class=j12 align=left>
+<TMPL_LOOP ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+</TD>
+</TR>
+</TMPL_IF>
+          <tr>
+            <td class="comment_box">振込先の口座情報を入力して[次へ]ボタンをクリックしてください。<br>
+口座情報に誤りがあると、回収代金がお振込みできなくなってしまいますので、預金通帳と照らし合わせながら正確に入力してください。
+            <a href="http://manual.estore.co.jp/shared/input_wng.html" target="_blank">入力時のご注意</a>
+            </td>
+          </tr>
+        </table>
+        <br>
+
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+<!--
+          <tr id="bankdisp" style="display:<TMPL_IF BANKEBANK>none<TMPL_ELSE>block</TMPL_IF>">
+            <td><a href="javascript:;selebank();">楽天銀行の方はこちらをクリックしてください。</a><br><br></td>
+          </tr>
+-->
+	  <tr id="ebankdisp" style="display:<TMPL_IF BANKEBANK>block<TMPL_ELSE>none</TMPL_IF>">
+	    <td><a href="javascript:;selbank();">一般銀行の方はこちらをクリックしてください。</a><br><br></td>
+	  </tr>
+          <tr>
+            <td><input type="button" value="銀行検索" onClick="window.open('http://myaf.estore.co.jp/cgi-bin/ShopServe/banksel.cgi','bank','scrollbars=yes,height=400,width=600');">
+            ※銀行検索で指定の金融機関や支店がない場合は、直接入力ください。</td>
+          </tr>
+        </table>
+        <br>
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td>金融機関情報</td>
+          </tr>
+        </table>
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td bgcolor="#333333" style="padding:1px ">
+		<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
+                <tr align="left">
+                  <td width="20%" class="box_title_side">金融機関名</td>
+                  <td bgcolor="#FFFFFF"><input type="text" style="width:350px" name="Bank" value="<TMPL_VAR NAME=BANK>">
+                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                        <tr class="example_box">
+                          <td width="5%" nowrap>例）</td>
+                          <td>三菱ＵＦＪ銀行</td>
+                        </tr>
+                    </table></td>
+                </tr>
+		</table>
+
+		<div id="bankcodedisp" style="display:<TMPL_IF BANKEBANK>none<TMPL_ELSE>block</TMPL_IF>">
+		<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
+		<tr align="left">
+                  <td width="20%" class="box_title_side">金融機関コード</td>
+                  <td bgcolor="#FFFFFF"><input type="text" style="width:200px" name="BankCode" value="<TMPL_VAR NAME=BANKCODE>">
+                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                        <tr class="example_box">
+                          <td width="5%" nowrap>例）</td>
+                          <td>0000</td>
+                        </tr>
+                    </table></td>
+                </tr>
+		</table></div>
+
+		<div id="branchdisp" style="display:<TMPL_IF BANKEBANK>none<TMPL_ELSE>block</TMPL_IF>">
+		<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
+		  <tr align="left">
+                  <td width="20%" class="box_title_side">支店名</td>
+                  <td bgcolor="#FFFFFF"><input type="text" style="width:350px" name="Branch" value="<TMPL_VAR NAME=BRANCH>">
+                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                        <tr class="example_box">
+                          <td width="5%" nowrap>例）</td>
+                          <td>新宿支店</td>
+                        </tr>
+                    </table></td>
+                </tr>
+		</table></div>
+
+		<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
+                <tr align="left">
+                  <td width="20%" class="box_title_side">支店コード</td>
+                  <td bgcolor="#FFFFFF"><input type="text" style="width:200px" name="BranchCode" value="<TMPL_VAR NAME=BRANCHCODE>">
+                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                        <tr class="example_box">
+                          <td width="5%" nowrap>例）</td>
+                          <td>000</td>
+                        </tr>
+                    </table></td>
+                </tr>
+		</table>
+            </td>
+          </tr>
+        </table>
+        <br>
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td bgcolor="#333333" style="padding:1px ">
+		<div id="typedisp" style="display:<TMPL_IF BANKEBANK>none<TMPL_ELSE>block</TMPL_IF>">
+		<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
+		<tr align="left">
+                  <td width="20%" class="box_title_side">科目</td>
+                  <td bgcolor="#FFFFFF"><input type="radio" name="Type" value="1" <TMPL_IF TYPE1>checked</TMPL_IF>> 
+                      　 普通　
+                      <input type="radio" name="Type" value="2" <TMPL_IF TYPE2>checked</TMPL_IF>>
+                      　 当座</td>
+                </tr>
+		</table></div>
+
+		<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
+                <tr align="left">
+                  <td class="box_title_side">口座番号</td>
+                  <td bgcolor="#FFFFFF"><input type="text" style="width:200px" name="AccountNo" value="<TMPL_VAR NAME=ACCOUNTNO>">
+                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                        <tr class="example_box">
+                          <td width="5%" nowrap>例）</td>
+                          <td>1234567</td>
+                        </tr>
+                    </table></td>
+                </tr>
+		</table>
+
+		<table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
+                <tr align="left">
+                  <td class="box_title_side">口座名義人(カナ)</td>
+                  <td bgcolor="#FFFFFF"><input type="text" style="width:350px" name="AccountName" value="<TMPL_VAR NAME=ACCOUNTNAME>">
+                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                        <tr class="example_box">
+                          <td width="5%" nowrap>例）</td>
+                          <td>カ）　コリュウチャハン</td>
+                        </tr>
+                    </table></td>
+                </tr>
+                </table></td>
+          </tr>
+        </table>
+<TMPL_ELSE>
+	<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td class="comment_box">振込先の口座情報を確認して[次へ]ボタンをクリックしてください。<br>
+口座情報に誤りがあると、回収代金がお振込みできなくなってしまいますので、預金通帳と照らし合わせながら正確に入力してください。 </td>
+          </tr>
+        </table>
+        <br>
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td>金融機関情報</td>
+          </tr>
+        </table>
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td bgcolor="#333333"><table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
+<TMPL_IF BANKEBANK>
+                <tr align="left">
+                  <td width="40" valign="top" class="box_title_side">金融機関名</td>
+                  <td class="box_txt"><TMPL_VAR NAME=BANK></td>
+                </tr>
+<TMPL_ELSE>
+                <tr align="left">
+                  <td width="40" valign="top" class="box_title_side">金融機関名</td>
+                  <td class="box_txt"><TMPL_VAR NAME=BANK>(<TMPL_VAR NAME=BANKCODE>)</td>
+                </tr>
+</TMPL_IF>
+<TMPL_IF BANKEBANK>
+                <tr align="left">
+                  <td width="40" valign="top" class="box_title_side">支店番号</td>
+                  <td class="box_txt"><TMPL_VAR NAME=BRANCHCODE></td>
+                </tr>
+<TMPL_ELSE>
+                <tr align="left">
+                  <td width="40" valign="top" class="box_title_side">支店名</td>
+                  <td class="box_txt"><TMPL_VAR NAME=BRANCH>(<TMPL_VAR NAME=BRANCHCODE>)</td>
+                </tr>
+</TMPL_IF>
+<TMPL_IF BANKEBANK>
+<TMPL_ELSE>
+<TMPL_IF TYPE1>
+                <tr align="left">
+                  <td width="40" valign="top" class="box_title_side">科目</td>
+                  <td class="box_txt">普通</td>
+                </tr>
+</TMPL_IF>
+<TMPL_IF TYPE2>
+                <tr align="left">
+                  <td width="40" valign="top" class="box_title_side">科目</td>
+                  <td class="box_txt">当座</td>
+                </tr>
+</TMPL_IF>
+</TMPL_IF>
+                <tr align="left">
+                  <td width="40" valign="top" class="box_title_side">口座番号</td>
+                  <td class="box_txt"><TMPL_VAR NAME=ACCOUNTNO></td>
+                </tr>
+                <tr align="left">
+                  <td width="40" valign="top" class="box_title_side">口座名義人</td>
+                  <td class="box_txt"><TMPL_VAR NAME=ACCOUNTNAME></td>
+                </tr>
+            </table></td>
+          </tr>
+        </table>
+</TMPL_IF>
+        <br>
+        <br>
+        <div align="center">
+          <input type="button" value="戻る" onClick="document.PMAPPLY02.submit();">　
+          <input type="button" onClick="document.PMAPPLY03.submit();" value="次へ">
+        </div>
+        <br>
+				
+          <hr size="1" noshade>
+          <br>
+      </td>
+    </tr>
+  </table>
+</form>
+<form name="PMAPPLY02" method="POST" action="pmapply02.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="Agree" value="Y">
+</form>
+</div>
+</body>
+</html>

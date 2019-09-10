@@ -1,0 +1,76 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">売上レポートの閲覧を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/sales_report.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td><table  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                        <tr>
+                                          <td align="left" class="item-name">月間売上集計</td>
+                                          <td class="item-02"><table width="100%" border="0" cellpadding="0" cellspacing="0" >
+					    <TMPL_IF MREPORT>
+					      <TMPL_LOOP MREPORT>
+                                              <tr>
+                                                <td align="left">
+						    <a href="<TMPL_VAR NAME=LINK>" target="report">
+						    <TMPL_VAR NAME=FIL>　（<TMPL_VAR NAME=START>〜<TMPL_VAR NAME=END>）</a></td>
+                                              </tr>
+					      </TMPL_LOOP>
+					    <TMPL_ELSE>
+					      <tr>
+						<td align="left">レポートはありません</td>
+					      </tr>
+					    </TMPL_IF>
+                                          </table></td>
+                                        </tr>
+                                        <tr>
+                                          <td align="left" class="item-name">週間売上集計</td>
+                                          <td class="item-02"><table width="100%" border="0" cellpadding="0" cellspacing="0" >
+					    <TMPL_IF WREPORT>
+					      <TMPL_LOOP WREPORT>
+                                              <tr>
+                                                <td align="left"><a href="<TMPL_VAR NAME=LINK>" target="report">
+						    <TMPL_VAR NAME=START>〜<TMPL_VAR NAME=END></a></td>
+                                              </tr>
+					      </TMPL_LOOP>
+					    <TMPL_ELSE>
+					      <tr>
+						<td align="left">レポートはありません</td>
+					      </tr>
+					    </TMPL_IF>
+                                          </table></td>
+                                        </tr>
+                                        <tr>
+                                          <td align="left" class="item-name">日次売上集計</td>
+                                          <td class="item-02"><table width="100%" border="0" cellpadding="0" cellspacing="0" >
+					    <TMPL_IF DREPORT>
+					      <TMPL_LOOP DREPORT>
+                                              <tr>
+                                                <td align="left"><a href="<TMPL_VAR NAME=LINK>" target="report">
+						<TMPL_VAR NAME=START> [<TMPL_VAR NAME=END>]</a></td>
+                                              </tr>
+					      </TMPL_LOOP>
+					    <TMPL_ELSE>
+					      <tr>
+						<td align="left">レポートはありません</td>
+					      </tr>
+					    </TMPL_IF>
+                                          </table></td>
+                                        </tr>
+                                      </table>
+                                      <br>
+				  </td>
+                                </tr>
+                              </table>
+                            </tr>
+                        </table>

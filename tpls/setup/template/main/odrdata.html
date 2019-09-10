@@ -1,0 +1,275 @@
+<!-- odrdata.html -->
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function EditSub(id,theURL,winName,features) {
+    document.list.csvid.value = id;
+    document.list.target = 'OdrDataEdit';
+    document.list.cmd.value = 'edit';
+    window.open(theURL,winName,features);
+    document.list.action='odrdata-edit.cgi';
+    document.list.submit();
+}
+function DelSub(id) {
+    document.list.csvid.value=id;
+    document.list.cmd.value = 'del';
+    document.list.target = '';
+    document.list.action='odrdata.cgi';
+
+    if ( confirm("テンプレートを削除します。よろしいですか？") ) {
+        document.list.submit();
+    } else {
+        return;
+    }
+}
+function CopySub(id) {
+    document.list.csvid.value=id;
+    document.list.cmd.value = 'copy';
+    document.list.target = '';
+    document.list.action='odrdata.cgi';
+    document.list.submit();
+}
+function YamatoSub() {
+    document.list.cmd.value = 'yamcol';
+    document.list.target = '';
+    document.list.action='odrdata.cgi';
+    document.list.submit();
+}
+//-->
+</script>
+<form name="list" method="post" action="dummy.cgi" target="">
+<input type="hidden" name="cmd" value="dummy">
+<input type="hidden" name="csvid" value="0">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+    </table></td>
+<td align="left" class="midashi">ダウンロードする受注データの項目を設定します</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/odrdata.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td><table class="item-box table-padding-default">
+                  <div class="infoArea table_bg">
+                    受注データのダウンロード項目を編集します。<br>
+                    「受注データの基本項目」または「受注データの基本項目２」のいずれかをコピーして、コピーしたものを編集してください。<br>
+                    編集した書式は受注台帳「受注データダウンロード」のプルダウンに表示されますので、希望の書式を選択して受注データをダウンロードしてください。<br>
+                  </div>
+                    <tr align="center">
+                      <td colspan="3" class="item-name02">データ書式設定</td>
+                    </tr>
+<TMPL_LOOP deflist>
+                    <tr bgcolor="#FFFFFF">
+                      <td width="14%"><input type="button" name="Submit" value="コピー" onClick="CopySub(<TMPL_VAR NAME=id>);"<TMPL_IF NAME=nocopy> disabled</TMPL_IF>>
+                      </td>
+                      <td width="80%" style="padding: 0.2em;"><TMPL_VAR NAME=title>&nbsp;</td>
+                      <td width="6%">&nbsp;</td>
+                    </tr>
+</TMPL_LOOP>
+                    <tr bgcolor="#FFFFFF">
+                      <td><input type="button" name="Submit" value="コピー" onClick="CopySub(<TMPL_IF csvid0><TMPL_VAR NAME=csvid0><TMPL_ELSE>0</TMPL_IF>);"<TMPL_IF NAME=nocopy> disabled</TMPL_IF><TMPL_UNLESS csvid0> disabled</TMPL_UNLESS>>
+                        <input type="button" name="Submit" value="編集" onClick="EditSub(<TMPL_IF csvid0><TMPL_VAR NAME=csvid0><TMPL_ELSE>0</TMPL_IF>,'','OdrDataEdit','');"<TMPL_UNLESS csvid0> disabled</TMPL_UNLESS>>
+                      </td>
+                      <td>
+                        <TMPL_VAR NAME=csvtitle0>
+                        <div class="table_bg" style="padding-left:10px;font-size:90%;">
+                          <TMPL_VAR NAME=csvtypestring0>
+                        </div>
+                      </td>
+                      <td><input type="button" name="Submit" value="削除" onClick="DelSub(<TMPL_IF csvid0><TMPL_VAR NAME=csvid0><TMPL_ELSE>0</TMPL_IF>);"<TMPL_UNLESS csvid0> disabled</TMPL_UNLESS>>
+                      </td>
+                    </tr>
+                    <tr bgcolor="#FFFFFF">
+                      <td nowrap><input type="button" name="Submit" value="コピー" onClick="CopySub(<TMPL_IF csvid1><TMPL_VAR NAME=csvid1><TMPL_ELSE>0</TMPL_IF>);"<TMPL_IF NAME=nocopy> disabled</TMPL_IF><TMPL_UNLESS csvid1> disabled</TMPL_UNLESS>>
+                        <input type="button" name="Submit" value="編集" onClick="EditSub(<TMPL_IF csvid1><TMPL_VAR NAME=csvid1><TMPL_ELSE>0</TMPL_IF>,'','OdrDataEdit','');"<TMPL_UNLESS csvid1> disabled</TMPL_UNLESS>></td>
+                      <td>
+                        <TMPL_VAR NAME=csvtitle1>
+                        <div class="table_bg" style="padding-left:10px;font-size:90%;">
+                          <TMPL_VAR NAME=csvtypestring1>
+                        </div>
+                      </td>
+                      <td nowrap><input type="button" name="Submit" value="削除" onClick="DelSub(<TMPL_IF csvid1><TMPL_VAR NAME=csvid1><TMPL_ELSE>0</TMPL_IF>);"<TMPL_UNLESS csvid1> disabled</TMPL_UNLESS>>
+                      </td>
+                    </tr>
+                    <tr bgcolor="#FFFFFF">
+                      <td><input type="button" name="Submit" value="コピー" onClick="CopySub(<TMPL_IF csvid2><TMPL_VAR NAME=csvid2><TMPL_ELSE>0</TMPL_IF>);"<TMPL_IF NAME=nocopy> disabled</TMPL_IF><TMPL_UNLESS csvid2> disabled</TMPL_UNLESS>>
+                        <input type="button" name="Submit" value="編集" onClick="EditSub(<TMPL_IF csvid2><TMPL_VAR NAME=csvid2><TMPL_ELSE>0</TMPL_IF>,'','OdrDataEdit','');"<TMPL_UNLESS csvid2> disabled</TMPL_UNLESS>>
+                      </td>
+                      <td>
+                        <TMPL_VAR NAME=csvtitle2>
+                        <div class="table_bg" style="padding-left:10px;font-size:90%;">
+                          <TMPL_VAR NAME=csvtypestring2>
+                        </div>
+                      </td>
+                      <td><input type="button" name="Submit" value="削除" onClick="DelSub(<TMPL_IF csvid2><TMPL_VAR NAME=csvid2><TMPL_ELSE>0</TMPL_IF>);"<TMPL_UNLESS csvid2> disabled</TMPL_UNLESS>>
+                      </td>
+                    </tr>
+                    <tr bgcolor="#FFFFFF">
+                      <td><input type="button" name="Submit" value="コピー" onClick="CopySub(<TMPL_IF csvid3><TMPL_VAR NAME=csvid3><TMPL_ELSE>0</TMPL_IF>);"<TMPL_IF NAME=nocopy> disabled</TMPL_IF><TMPL_UNLESS csvid3> disabled</TMPL_UNLESS>>
+                        <input type="button" name="Submit" value="編集" onClick="EditSub(<TMPL_IF csvid3><TMPL_VAR NAME=csvid3><TMPL_ELSE>0</TMPL_IF>,'','OdrDataEdit','');"<TMPL_UNLESS csvid3> disabled</TMPL_UNLESS>>
+                      </td>
+                      <td>
+                        <TMPL_VAR NAME=csvtitle3>
+                        <div class="table_bg" style="padding-left:10px;font-size:90%;">
+                          <TMPL_VAR NAME=csvtypestring3>
+                        </div>
+                      </td>
+                      <td><input type="button" name="Submit" value="削除" onClick="DelSub(<TMPL_IF csvid3><TMPL_VAR NAME=csvid3><TMPL_ELSE>0</TMPL_IF>);"<TMPL_UNLESS csvid3> disabled</TMPL_UNLESS>>
+                      </td>
+                    </tr>
+                    <tr bgcolor="#FFFFFF">
+                      <td><input type="button" name="Submit" value="コピー" onClick="CopySub(<TMPL_IF csvid4><TMPL_VAR NAME=csvid4><TMPL_ELSE>0</TMPL_IF>);"<TMPL_IF NAME=nocopy> disabled</TMPL_IF><TMPL_UNLESS csvid4> disabled</TMPL_UNLESS>>
+                        <input type="button" name="Submit" value="編集" onClick="EditSub(<TMPL_IF csvid4><TMPL_VAR NAME=csvid4><TMPL_ELSE>0</TMPL_IF>,'','OdrDataEdit','');"<TMPL_UNLESS csvid4> disabled</TMPL_UNLESS>>
+                      </td>
+                      <td>
+                        <TMPL_VAR NAME=csvtitle4>
+                        <div class="table_bg" style="padding-left:10px;font-size:90%;">
+                          <TMPL_VAR NAME=csvtypestring4>
+                        </div>
+                      </td>
+                      <td><input type="button" name="Submit" value="削除" onClick="DelSub(<TMPL_IF csvid4><TMPL_VAR NAME=csvid4><TMPL_ELSE>0</TMPL_IF>);"<TMPL_UNLESS csvid4> disabled</TMPL_UNLESS>>
+                      </td>
+                    </tr>
+                  </table>
+                  <br>
+                  <table class="item-box table-padding-default">
+                    <tbody>
+                      <tr bgcolor="#ffffff">
+                        <td width="14%"><font color="#999999">※操作不可</font></td>
+                        <td width="80%" style="padding: 0.2em;"><font color="#999999">【ゆうパック】ゆうパックプリントV2用</font></td>
+                        <td width="6%">&nbsp;                        </td>
+                      </tr>
+                      <tr bgcolor="#ffffff">
+                        <td width="14%"><font color="#999999">※操作不可</font></td>
+                        <td width="80%" style="padding: 0.2em;"><font color="#999999">【ゆうパック】ネットショップ参入支援システム用</font></td>
+                        <td width="6%">&nbsp;                        </td>
+                      </tr>
+                      <tr bgcolor="#ffffff">
+                        <td><font color="#999999">※操作不可</font></td>
+                        <td><font color="#999999">【ゆうパック】ゆうパックプリントVer.4.0用</font></td>
+                        <td>&nbsp;                        </td>
+                      </tr>
+                      <tr bgcolor="#ffffff">
+                        <td><font color="#999999">※操作不可</font></td>
+                        <td><font color="#999999">【ゆうパック】ゆうパックプリントＲ</font></td>
+                        <td>&nbsp;                        </td>
+                      </tr>
+                      <tr bgcolor="#ffffff">
+                        <td><font color="#999999">※操作不可</font></td>
+                        <td><font color="#999999">【ゆうパック】ゆうプリＲ　標準レイアウト（郵便・ゆうパック標準フォーマット）</font></td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr bgcolor="#ffffff">
+                        <td><font color="#999999">※操作不可</font></td>
+                        <td><font color="#999999">【ヤマト運輸】送り状発行ソフトB2用（Ver.5）</font></td>
+                        <td>&nbsp;                        </td>
+                      </tr>
+                      <tr bgcolor="#ffffff">
+                        <td><font color="#999999">※操作不可</font></td>
+                        <td><font color="#999999">【ヤマト運輸】送り状発行ソフトB2用（Ver.6）</font></td>
+                        <td>&nbsp;                        </td>
+                      </tr>
+                      <tr bgcolor="#ffffff">
+                        <td><font color="#999999">※操作不可</font></td>
+                        <td><font color="#999999">【ヤマト運輸】送り状発行ソフトB2用（Ver.7）</font></td>
+                        <td>&nbsp;                        </td>
+                      </tr>
+                      <tr bgcolor="#ffffff">
+                        <td><font color="#999999">※操作不可</font></td>
+                        <td><font color="#999999">【ヤマト運輸】送り状発行ソフトB2クラウド用</font></td>
+                        <td>&nbsp;</td>
+                      </tr>
+                      <tr bgcolor="#ffffff">
+                        <td><font color="#999999">※操作不可</font></td>
+                        <td><font color="#999999">【佐川急便】送り状発行システムe飛伝用</font></td>
+                        <td>&nbsp;                        </td>
+                      </tr>
+                      <tr bgcolor="#ffffff">
+                        <td><font color="#999999">※操作不可</font></td>
+                        <td><font color="#999999">【佐川急便】送り状発行システムe飛伝2用</font></td>
+                        <td>&nbsp;                        </td>
+                      </tr>
+                      <tr bgcolor="#ffffff">
+                        <td><font color="#999999">※操作不可</font></td>
+                        <td><font color="#999999">NP後払い用</font></td>
+                        <td>&nbsp;                        </td>
+                      </tr>
+                      <tr bgcolor="#ffffff">
+                        <td><font color="#999999">※操作不可</font></td>
+                        <td><font color="#999999">産直くん９用</font></td>
+                        <td>&nbsp;                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <br>
+                  <TMPL_IF OLDCOOLFLG>
+                  <div class="infoArea table_bg">
+                    配送会社に合わせて、クール便の項目を変換してダウンロードします。<br>
+                    商品登録時に「クール便」を選択している場合に、適用されます。<br>
+                  </div>
+                  <table class="item-box">
+                    <tbody>
+                      <tr align="center">
+                        <td colspan="3" class="item-name02">クール便商品の温度区分設定</td>
+                      </tr>
+                      <tr bgcolor="#ffffff">
+                        <td width="30%" rowspan="2">ゆうパックプリントV2の温度区分設定</td>
+                        <td width="70%">
+                          <input type="radio" name="yupack_cool" value="2" id="yupack_cool_2" <TMPL_IF yupack_cool_2> checked</TMPL_IF>>
+                          <label for="yupack_cool_2">クール便を冷凍としてダウンロードする</label></td>
+                      </tr>
+                      <tr bgcolor="#ffffff">
+                        <td>
+                          <input type="radio" name="yupack_cool" value="1" id="yupack_cool_1" <TMPL_IF yupack_cool_1> checked</TMPL_IF>>
+                          <label for="yupack_cool_1">クール便を冷蔵としてダウンロードする</label></td>
+                      </tr>
+                      <tr bgcolor="#ffffff">
+                        <td width="30%" rowspan="2">ヤマト運輸の温度区分設定</td>
+                        <td width="70%">
+                          <input type="radio" name="yamato_cool" value="1" id="yamato_cool_1" <TMPL_IF yamato_cool_1> checked</TMPL_IF>>
+                          <label for="yamato_cool_1">クール便を冷凍としてダウンロードする</label></td>
+                      </tr>
+                      <tr bgcolor="#ffffff">
+                        <td>
+                          <input type="radio" name="yamato_cool" value="2" id="yamato_cool_2" <TMPL_IF yamato_cool_2> checked</TMPL_IF>>
+                          <label for="yamato_cool_2">クール便を冷蔵としてダウンロードする</label></td>
+                      </tr>
+                      <tr bgcolor="#ffffff">
+                        <td width="30%" rowspan="2">佐川急便の温度区分設定</td>
+                        <td width="70%">
+                          <input type="radio" name="sagawa_cool" value="150" id="sagawa_cool_150" <TMPL_IF sagawa_cool_150> checked</TMPL_IF>>
+                          <label for="sagawa_cool_150">クール便を冷凍としてダウンロードする</label></td>
+                      </tr>
+                      <tr bgcolor="#ffffff">
+                        <td>
+                          <input type="radio" name="sagawa_cool" value="140" id="sagawa_cool_140" <TMPL_IF sagawa_cool_140> checked</TMPL_IF>>
+                          <label for="sagawa_cool_140">クール便を冷蔵としてダウンロードする<label></td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <br>
+                  
+                  <div align="center">
+                  <input type="button" name="Submit" value="設定を保存する" onClick="YamatoSub();">
+                  </div>
+                  <br>
+                  </TMPL_IF></td>
+              </tr>
+          </table></td>
+        </tr>
+    </table></td>
+  </tr>
+</table>
+</form>
+<form name="print" method="post" action="odrdata.cgi" target="">
+<input type="hidden" name="cmd" value="dummy">
+</form>

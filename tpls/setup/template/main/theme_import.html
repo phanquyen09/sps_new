@@ -1,0 +1,167 @@
+<script language="JavaScript">
+<!--
+function done(f) {
+  f.mode.value = 'regist';
+  if ( f.id.value == "" ) {
+    alert("<TMPL_VAR NAME=ERR_MSG>");
+    return false;
+  }
+  f.submit();
+}
+//-->
+</script>
+<form name="form1" method="post" action="theme_import_sps.cgi" enctype="multipart/form-data">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#856791">
+        <tr>
+          <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">CSSのインポートを行います</td>
+    <td align="right" class="midashi"><a href="https://help.shopserve.jp/help/theme_import_sps.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="3" height="3">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+      <div class="infoArea table_bg">
+          ご自身で作成されたオリジナルのCSS（スタイルシート）と画像を登録することにより、独自のテーマが利用できます。<br>
+          ※CSSファイルには必ず文字コード宣言（@charset）を記述してください。<br>
+          <a href="https://help.shopserve.jp/manual/177/" target="manual">⇒ スタイルシートについて</a>
+      </div>
+
+<TMPL_IF NAME=cart_theme_no_use>
+<div id="theme_status" class="theme_status04">
+  <table class="shop item-box">
+    <tr>
+      <td class="item-name">お店ページで利用中のテーマ</td>
+      <td class="item"><TMPL_VAR NAME=shop_theme_label></td>
+    </tr>
+  </table>
+  <TMPL_IF NAME=diff_theme>
+  <table class="kanri item-box">
+   <tr>
+     <td class="item-name">管理画面で編集中のテーマ</td>
+     <td class="item"><TMPL_IF NAME=user_category_type><TMPL_VAR NAME=user_category_type> &gt; </TMPL_IF><TMPL_IF NAME=user_category_name><TMPL_VAR NAME=user_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=theme_name></td>
+   </tr>
+  </table>
+  </TMPL_IF>
+<TMPL_ELSE>
+<div id="theme_status" class="theme_status04 cart_theme_status">
+    <table class="shop item-box">
+    <tbody><tr>
+        <td class="item-name" <TMPL_IF NAME=cart_theme_label>rowspan="2"</TMPL_IF>>お店ページで利用中の<br>テーマ</td>
+        <td class="item item-category">お店ページ</td>
+        <td class="item"><TMPL_VAR NAME=shop_theme_label></td>
+    </tr>
+    <TMPL_IF NAME=cart_theme_label>
+    <tr>
+        <td class="item item-category">カート</td>
+        <td class="item"><TMPL_VAR NAME=cart_theme_label></td>
+    </tr>
+    </TMPL_IF>
+    </tbody></table>
+<TMPL_IF NAME=diff_show>
+    <table class="kanri item-box">
+    <tbody>
+    <tr>
+        <td class="item-name" rowspan="2">管理画面で編集中の<br>テーマ</td>
+    <TMPL_IF NAME=diff_theme>
+        <td class="item item-category">お店ページ</td>
+        <td class="item"><TMPL_IF NAME=user_category_type><TMPL_VAR NAME=user_category_type> &gt; </TMPL_IF><TMPL_IF NAME=user_category_name><TMPL_VAR NAME=user_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=theme_name></td>
+    </tr>
+    </TMPL_IF>
+    <TMPL_IF NAME=cart_diff_theme>
+    <tr>
+        <td class="item item-category">カート</td>
+        <td class="item"><TMPL_IF NAME=cart_category_type><TMPL_VAR NAME=cart_category_type> &gt; </TMPL_IF><TMPL_IF NAME=cart_category_name><TMPL_VAR NAME=cart_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=cart_theme_name></td>
+    </tr>
+    </TMPL_IF>
+    </tbody></table>
+</TMPL_IF>
+</TMPL_IF>
+</div>
+
+      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <font color="red"><TMPL_VAR NAME=ERR></font>
+          <td>
+            <table class="item-box" width="100%">
+              <tr>
+                <td colspan="2" align="center" class="item-name02">テーマのアップロード</td>
+              </tr>
+              <tr>
+                <td class="item">テーマの名前</td>
+                <td align="left" class="item"><input type="text" name="name" size="60" style="padding: 4px 0px 3px;" value="<TMPL_VAR NAME=TITLE>" maxlength="128"></td>
+              </tr>
+              <tr>
+                <td class="item">テーマ用データファイル</td>
+                <td align="left" class="item">
+                <input type="file" name="upfile" size="60" style="padding: 4px 0px 3px;"><input type="button" value="登録" onClick="document.form1.mode.value='upload';document.form1.submit();">
+                </td>
+              </tr>
+            </table>
+<br>
+            <table class="item-box theme-import-sps-table"><!--<table width="100%"  border="0" cellspacing="0" cellpadding="0">-->
+              <tr align="center">
+                <td colspan="3" class="item-name02">インポートテーマ</td>
+              </tr>
+              <TMPL_LOOP NAME=user_list>
+              <tr bgcolor="#FFFFFF">
+              <TMPL_IF NAME=NAME>
+                <td bgcolor="#FFFFFF" style="width:30px;" align="center">
+                <input type="radio" name="user" <TMPL_IF NAME=cur>checked</TMPL_IF> onClick="document.form1.id.value='<TMPL_VAR NAME=ID>';">
+                </td>
+                <td bgcolor="#FFFFFF">　&nbsp;<TMPL_VAR NAME=NAME ESCAPE=HTML></td>
+                <td bgcolor="#FFFFFF" style="width:160px;">
+                <input type="button" value="ダウンロード" style="height:20px;" onClick="document.form1.did.value='<TMPL_VAR NAME=ID>';document.form1.mode.value='download';document.form1.submit();document.form1.did.value='';">　&nbsp;
+                <input type="button" value="削除" style="height:20px;" onClick="document.form1.did.value='<TMPL_VAR NAME=ID>';document.form1.mode.value='delete';document.form1.submit();">
+              <TMPL_ELSE>
+                <td bgcolor="#FFFFFF"></td>
+                <td bgcolor="#FFFFFF">　&nbsp;未設定</td>
+                <td bgcolor="#FFFFFF">
+              </TMPL_IF>
+                </td>
+              </tr>
+              </TMPL_LOOP>
+            </table>
+<br>
+<br>
+            <table class="item-box">
+              <tr>
+                <td align="center" class="item-name02">トップページ　レイアウト設定</td>
+              </tr>
+              <tr>
+                <td class="item">
+                  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td valign="top"><select name="layout"<TMPL_IF NAME=is_new_theme> disabled</TMPL_IF>>
+                      <option value="lr" <TMPL_IF NAME=lr>selected</TMPL_IF>>標準</option>
+                      <option value="l" <TMPL_IF NAME=l>selected</TMPL_IF>>右サイドバーなし</option>
+                      </select></td>
+                      <td valign="top">※</td>
+                      <td>「右サイドバーなし」を選択すると、トップページが右サイドバーのないデザインになります。 </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+            <br>
+          </td>
+        </tr>
+        <tr>
+          <td style="text-align: center;"><input type="button" value="テーマを設定する" onClick="done(document.form1)"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+<input type="hidden" name="mode" value="regist">
+<input type="hidden" name="id" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="did">
+</form>

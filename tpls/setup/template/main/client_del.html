@@ -1,0 +1,132 @@
+<script language="JavaScript" type="text/JavaScript">
+
+function BackList() {
+    document.BACK_CLIST.submit();
+}
+
+function DelMem() {
+    document.CLLIST.CMD.value = 'DELETE';
+    document.CLLIST.action='client_del.cgi';
+    document.CLLIST.submit();
+
+}
+//-->
+</script>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+    <form name="BACK_CLIST" method="POST" action="clientlist.php?LastParam=1">
+    </form>
+
+    <form name="CLINFO" method="POST" action="clientinfo.cgi">
+    <input type="hidden" name="ID" value="">
+    </form>
+    <form name="CLLIST" method="POST" action="client_del.cgi">
+
+    <input type="hidden" name="S_ID" value="<TMPL_VAR name=S_ID>">
+    <input type="hidden" name="TemplateName" value="<TMPL_VAR name=TemplateName>">
+    <input type="hidden" name="MemType" value="<TMPL_VAR name=MemType>">
+    <input type="hidden" name="Account" value="<TMPL_VAR name=Account>">
+    <input type="hidden" name="Name"    value="<TMPL_VAR name=Name>">
+    <input type="hidden" name="Company" value="<TMPL_VAR name=Company>">
+    <input type="hidden" name="Tel1" value="<TMPL_VAR name=Tel1>">
+    <input type="hidden" name="Tel2" value="<TMPL_VAR name=Tel2>">
+    <input type="hidden" name="Tel3" value="<TMPL_VAR name=Tel3>">
+    <input type="hidden" name="Pref"    value="<TMPL_VAR name=Pref>">
+    <input type="hidden" name="PCMAIL" value="<TMPL_VAR name=PCMAIL>">
+    <input type="hidden" name="KTAIMAIL" value="<TMPL_VAR name=KTAIMAIL>">
+    <input type="hidden" name="Mail"    value="<TMPL_VAR name=Mail>">
+    <input type="hidden" name="DM"      value="<TMPL_VAR name=DM>">
+    <input type="hidden" name="DateType" value="<TMPL_VAR name=DateType>">
+    <input type="hidden" name="StartYear"  value="<TMPL_VAR name=StartYear>">
+    <input type="hidden" name="StartMonth" value="<TMPL_VAR name=StartMonth>">
+    <input type="hidden" name="StartDay"   value="<TMPL_VAR name=StartDay>">
+    <input type="hidden" name="EndYear"    value="<TMPL_VAR name=EndYear>">
+    <input type="hidden" name="EndMonth"   value="<TMPL_VAR name=EndMonth>">
+    <input type="hidden" name="EndDay"     value="<TMPL_VAR name=EndDay>">
+    <input type="hidden" name="MinPoint"   value="<TMPL_VAR name=MinPoint>">
+    <input type="hidden" name="MaxPoint"   value="<TMPL_VAR name=MaxPoint>">
+    <input type="hidden" name="MinOrderCnt" value="<TMPL_VAR name=MinOrderCnt>">
+    <input type="hidden" name="MaxOrderCnt" value="<TMPL_VAR name=MaxOrderCnt>">
+    <input type="hidden" name="RoutePc" value="<TMPL_VAR name=RoutePc>">
+    <input type="hidden" name="RouteMob" value="<TMPL_VAR name=RouteMob>">
+    <input type="hidden" name="Enquete1Ans" value="<TMPL_VAR name=Enquete1Ans>">
+    <input type="hidden" name="Enquete2Ans" value="<TMPL_VAR name=Enquete2Ans>">
+    <input type="hidden" name="Enquete3Ans" value="<TMPL_VAR name=Enquete3Ans>">
+    <input type="hidden" name="Enquete4Ans" value="<TMPL_VAR name=Enquete4Ans>">
+    <input type="hidden" name="Enquete5Ans" value="<TMPL_VAR name=Enquete5Ans>">
+    <input type="hidden" name="ItemNo" value="<TMPL_VAR name=ItemNo>">
+    <input type="hidden" name="MasterCategory" value="<TMPL_VAR name=MasterCategory>">
+    <input type="hidden" name="FreeMasterCat" value="<TMPL_VAR name=FreeMasterCat>">
+    <input type="hidden" name="SubCategory" value="<TMPL_VAR name=SubCategory>">
+    <input type="hidden" name="FreeSubCat" value="<TMPL_VAR name=FreeSubCat>">
+    <input type="hidden" name="ItemGroup" value="<TMPL_VAR name=ItemGroup>">
+    <input type="hidden" name="FreeGroup" value="<TMPL_VAR name=FreeGroup>">
+    <input type="hidden" name="SameMail" value="<TMPL_VAR name=SameMail>">
+
+    <input type="hidden" name="PAGE" value="<TMPL_VAR name=PAGE>">
+    <input type="hidden" name="CMD" value="SEEK">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+                            <td align="left" class="midashi">以下の顧客情報を削除します</td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+<TMPL_IF name=MEMBER>
+<font color="red">
+会員の顧客情報が含まれています。<br>
+ポイント機能をご利用の場合は、保有ポイントがなくなりますがよろしいですか？
+</font>
+</TMPL_IF>
+                                <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                          <td>
+                                            <table class="item-box">
+                                              <tr align="center">
+                                                <td class="odr-midashi">会員ID</td>
+                                                <td class="odr-midashi">お名前</td>
+                                                <td class="odr-midashi">都道府県</td>
+                                                <td class="odr-midashi">お知らせ</td>
+                                                <td class="odr-midashi">最終注文日</td>
+                                                <td class="odr-midashi">保有ポイント</td>
+                                              </tr>
+<TMPL_LOOP CLIENTS>
+                                              <tr>
+                                                <td align="center" class="odr-txt02"><TMPL_VAR NAME=MEMACCOUNT>
+<input type="hidden" name="SELID" value="<TMPL_VAR name=ID>">
+</td>
+                                                <td class="odr-txt02"><a href="clientinfo.cgi?ID=<TMPL_VAR NAME=ID>"><TMPL_VAR NAME=NAME></a></td>
+                                                <td align="center" class="odr-txt02"><TMPL_VAR NAME=PREF></td>
+                                                <td align="center" class="odr-txt02"><TMPL_IF DM>○<TMPL_ELSE>×</TMPL_IF></td>
+                                                <td align="center" class="odr-txt02"><TMPL_VAR NAME=LASTORDER></td>
+                                                <td align="center" class="odr-txt02"><TMPL_VAR NAME=ENAPOINT></td>
+                                              </tr>
+</TMPL_LOOP>
+                                            </table>
+                                            <br>
+                  <div align="center">
+                  <table>
+                    <tr align="center">
+                      <td align="center">
+                        <input type="button" name="backbtn" value="戻る" onClick="BackList();">
+                        &nbsp;
+                        <input type="button" name="Submit" value="削除" onClick="DelMem();">
+                      </td>
+                    </tr>
+                  </table>
+                  </div>
+
+                                            <br>
+                                          </td>
+                                        </tr>
+                                    </table></td>
+                                </tr>
+</form>
+                              </table>

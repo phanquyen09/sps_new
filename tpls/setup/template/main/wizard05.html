@@ -1,0 +1,627 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-jp">
+<title>ショップ開店ウィザード -STEP5 商品を登録しよう-</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link rel="stylesheet" href="../css/wizard.css" type="text/css" />
+<script type="text/javascript" src="../js/base.js"></script>
+<TMPL_VAR NAME=GANALY>
+<script language="JavaScript">
+<!--
+function delImageID()
+{
+   document.ITEMINFO.PICSRC.src = '../imgs/spc.gif';
+   document.ITEMINFO.ImageID.value = '';
+}
+
+
+
+function addJANcodeBox() {
+   var jan_count = document.ITEMINFO.jan_count.value;
+
+   if ( jan_count == '' || jan_count == 0 ) {
+     jan_count = 1;
+   }
+
+   if ( jan_count == 9 ) {
+     document.getElementById("addJAN").disabled = true;
+   }
+
+   var after  = parseInt(jan_count) + 1;
+   document.ITEMINFO.jan_count.value = after;
+
+   var code_no = 'jan_code' + after;
+
+   document.getElementById(code_no).style.display = 'block'; 
+
+}
+
+function checkValue() {
+
+   var i = 1;
+   for ( i=2; i<=10; i++ ) {
+
+     var code_div  = 'jan_code' + i;
+     var code_input = 'jan_input' + i;
+
+     // JANコードが複数設定されていればあるだけ表示
+     // 空のテキストボックスは表示しない
+     if ( document.getElementById(code_input).value != '' ) {
+        document.getElementById(code_div).style.display = 'block';
+     } else {
+        document.getElementById(code_div).style.display = 'none';
+     }
+   }
+}
+
+/* 商品検索の商品情報読み込み時にJANコードが１０個(max)あったら追加ボタン使用不可 */
+function checkCount() {
+     jan_count = document.ITEMINFO.jan_count.value;
+     if ( jan_count == 10 ) {
+     document.getElementById("addJAN").disabled = true;
+     }
+}
+
+function iteminfo_disp(){
+    if (document.ITEMINFO.Disp.checked == false) {
+        document.ITEMINFO.Disp.value='N';
+        document.ITEMINFO.DispNewOld.value='N';
+        document.ITEMINFO.DispNewOld_dummy.disabled = true;
+        document.ITEMINFO.DispNewOld_dummy.checked = false;
+        document.getElementById('ex1').innerHTML = "<font color='#A9A9A9'>お店ページに「新品･中古区分」を表示する</font>";
+    } else {
+        document.ITEMINFO.Disp.value='Y';
+        document.ITEMINFO.DispNewOld_dummy.disabled = false;
+        document.getElementById('ex1').innerHTML = "<font color='#000000'>お店ページに「新品･中古区分」を表示する</font>";
+    }
+}
+
+// 新品・中古区分をお店ページに表示する
+function iteminfo_newold_disp()
+{
+  if (document.ITEMINFO.DispNewOld_dummy.checked == false) {
+    document.ITEMINFO.DispNewOld.value='N';
+  } else {
+    document.ITEMINFO.DispNewOld.value='Y';
+  }
+}
+
+//-->
+</script>
+</head>
+<body>
+<form name="ITEMINFO" method="post" action="wizard06.cgi">
+  <a name="01"></a>
+
+  <div id="top-header">
+    <div class="logo-header-wrap">
+      <div class="logo-area">
+        <img src="../imgs/top_img0.gif" alt="Ｅストアーショップサーブ">
+      </div>
+    </div>
+  </div>
+
+  <table class="steps-table-1" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td><img src="../imgs/wi_top_off_001_already.gif"></td>
+      <td><img src="../imgs/wi_top_off_002_already.gif"></td>
+      <td><img src="../imgs/wi_top_off_003_already.gif"></td>
+      <td><img src="../imgs/wi_top_off_004_already.gif"></td>
+      <td><img src="../imgs/wi_top_on_005.gif"></td>
+      <td><img src="../imgs/wi_top_off_006.gif"></td>
+      <td><img src="../imgs/wi_top_off_007.gif"></td>
+    </tr>
+  </table>
+
+  <br>
+  <table width="800"  border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr valign="top">
+      <td colspan="3">
+        <img src="../imgs/we005_top_sps.gif" width="801" height="47">
+      </td>
+    </tr>
+    <tr>
+      <td align="center" bgcolor="#1B8951"><img src="../imgs/spc.gif" width="3"></td>
+      <td align="center"><table width="791" border="0" cellpadding="0" cellspacing="10" bgcolor="#FFFFFF">
+          <tr>
+            <td><img src="../imgs/we005_01.gif" width="766" height="35" style="margin-bottom:20px; ">
+              <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td><img src="../imgs/com-tl.gif" width="5" height="5"></td>
+                  <td background="../imgs/com-tc.gif"><img src="../imgs/com-tc.gif" width="5" height="5"></td>
+                  <td><img src="../imgs/com-tr.gif" width="5" height="5"></td>
+                </tr>
+                <tr>
+                  <td background="../imgs/com-cl.gif"><img src="../imgs/com-cl.gif" width="5" height="5"></td>
+                  <td align="left" class="coment">
+                    <ul class="coment01" type="circle">
+                      <li class="coment03">販売する商品を１つ登録します。</li>
+                      <li class="coment04">商品追加、色、サイズなどのバリエーション設定は本ウィザード完了後に管理画面で行えます。</li>
+                    </ul>
+                  </td>
+                  <td background="../imgs/com-cr.gif"><img src="../imgs/com-cr.gif" width="5" height="5"></td>
+                </tr>
+                <tr>
+                  <td><img src="../imgs/com-bl.gif" width="5" height="5"></td>
+                  <td background="../imgs/com-bc.gif"><img src="../imgs/com-bc.gif" width="5" height="5"></td>
+                  <td><img src="../imgs/com-br.gif" width="5" height="5"></td>
+                </tr>
+              </table>
+              <div style="margin:0.5em 0.5em 1em;color:#222;text-align:left;">
+                  <img src="../imgs/attention.png">&nbsp;機種依存文字や半角カタカナなどは使用しないでください。
+                  <a href="https://help.shopserve.jp/ctrlpnl_sup/func03/business/ngword.html" target="_blank">⇒ 使用できない文字一覧</a>
+              </div>
+    <TMPL_IF NAME=err_msg>
+        <br>
+        <table>
+            <tr>
+            <TMPL_LOOP NAME=err_msg>
+                  <td style="text-align:left;"><font size="2" color="#ff0000"><TMPL_VAR NAME=MSG></font></td>
+            </tr><tr>
+            </TMPL_LOOP>
+            </tr>
+        </table>
+    </TMPL_IF>
+
+              <br>
+              <TABLE cellSpacing=0 cellPadding=0 width=100% border=0>
+                <TR>
+                  <TD bgColor="#999999"><TABLE cellSpacing=1 cellPadding=4 width="100%" border=0 style="text-align:left; ">
+                      <tr>
+                        <td class="td05" width="190">商品番号（必須）<div class="limit_txt">半角64文字以内</div></td>
+                        <td align="left" bgcolor="#FFFFFF">商品を識別するための番号です。1商品ずつ異なる番号を入力してください。<br>
+                          商品番号には半角英数字「-（ハイフン）」、「_（アンダーバー）」が利用できます。<BR>
+                          <br>
+                          ※商品番号は、「商品詳細ページ」のURLに使用されますので変更することはできません
+                          <input name="ItemNo" type="text" size="70" value="<TMPL_VAR NAME=ItemNo>" style="ime-mode:disabled">
+                          <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="hint05">
+                            <tr>
+                              <td width="20" valign="top">例）</td>
+                              <td>ABC00012</td>
+                            </tr>
+                          </table></td>
+                      </tr>
+                      <tr>
+                        <td class="td05">商品名（必須）<div class="limit_txt">全角127文字以内</div></td>
+                        <td align="left" bgcolor="#FFFFFF">商品の名前を入力します。　<a href="https://help.shopserve.jp/ctrlpnl_sup/func01/iteminfo/ngword.html" target="_blank">使用できない文字一覧</a><BR>
+                          <input name="ItemName" type="text" size="70" value="<TMPL_VAR NAME=ItemName>">
+                          <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="hint05">
+                            <tr>
+                              <td width="20" valign="top">例）</td>
+                              <td>【送料無料】青森県産りんご「蜜入り葉とらずふじ5kg」糖度13度以上の甘い完熟リンゴ＜贈答用に最適！＞</td>
+                            </tr>
+                          </table></td>
+                      </tr>
+                    <tr>
+                        <td class="td05">ショップサーブカテゴリ（必須）</td>
+                        <td align="left" bgcolor="#FFFFFF">
+                            Ｅストアーショップサーブで用意しているカテゴリの中から販売する商品が当てはまるカテゴリを選択してください。<br>
+                            <input type="button" value="ショップサーブカテゴリ選択" style="width:14em" onClick="window.open('../func01/shopserve_category_list.php?CMD=List&opener_form_name=ITEMINFO&opener_categorycode_name=ecat_code&opener_categoryname_name=ecat_name&shopserve_category_code=','catwin','resizable=yes,scrollbars=yes,menubar=yes,width=600,height=500')"><br>
+                            <input type="text" name="ecat_code" style="border:1px solid #ffffff;width:99%" value="<TMPL_VAR NAME=ecat_code>" readonly>
+                            <input type="text" name="ecat_name" style="border:1px solid #ffffff;width:99%" value="<TMPL_VAR NAME=ecat_name>" readonly>
+                            <table width="99%"  border="0" cellspacing="0" cellpadding="0" class="hint05">
+                            <tr>
+                                <td width="20" valign="top">例）</td>
+                                <td>グルメ・ドリンク＞フルーツ・果物＞りんご＞ふじ</td>
+                            </tr>
+                            </table>
+                        </td>
+                    </tr>
+<!--0612デフォルト化用ここまで-->
+                      <tr>
+<!--0612デフォルト化ここから-->
+                        <td class="td05">商品カテゴリ（必須）<div class="limit_txt">全角30文字以内</div></td>
+<!--0612デフォルト化ここまで-->
+                    <TMPL_IF NAME=CATLIST>
+                        <td align="left" bgcolor="#FFFFFF">商品カテゴリと商品の紐づけを行います。
+                            <P>■カテゴリの選択:<BR>
+                            <link rel="stylesheet" type="text/css" href="../css/custom_ui/multiCategorySearchApiCss.css" media="all">
+                            <script type="text/javascript" src="/js/custom_ui/jsloader.js"></script>
+                            <script type="text/javascript" src="/js/custom_ui/jquery-multi-category-search-api.js"></script>
+                            <div id="_multi_category_search_part">
+                            <select name="MasterCategory"></select>
+                            <select name="SubCategory"></select>
+                            <select name="Layer3Category"></select>
+                            <select name="Layer4Category"></select>
+                            <select name="Layer5Category"></select>
+                            <input type="hidden" name="MultiCategory" id="multi_category_recently_search_id" value="<TMPL_VAR NAME=MULTI_CATEGORY>"/>
+                            </div>
+                            </P>
+                        </td>
+                    <TMPL_ELSE>
+                        <td align="left" bgcolor="#FFFFFF">お店ページで商品を分類するためのカテゴリを作成し、商品の紐づけを行います。<BR>ウィザードでは第1階層目まで作成できます。<BR>
+                            <p><table width="100%"  border="0" cellspacing="0" cellpadding="0" class="hint05">
+                              <tr><span class="red">カテゴリを検討中の場合は、ウィザード終了後に管理画面から変更できますので、このままお進みください。<BR>「商品一覧」という名前のカテゴリが作成され、このカテゴリに商品が分類されます。<BR>カテゴリが決まっている場合は、「商品一覧」を書き換えてお進みください。</span></td>
+                              </tr>
+                            </table></p>
+                            <P>■カテゴリの新規作成:<BR><input type="text" name="NewMasterCategory" value="<TMPL_VAR NAME=NEW_MASTER_CATEGORY>"><br><br>※カテゴリはウィザード終了後の画面で自由に編集できます。</p>
+                        </td>
+                    </TMPL_IF>
+                      </tr>
+                      <tr>
+                        <td class="td05">販売価格（必須）<div class="limit_txt">半角8文字以内</div></td>
+                        <td align="left" bgcolor="#FFFFFF"> 商品の販売価格を消費税込で入力します。<br>
+                          ※消費税抜で販売価格を登録したい場合はウィザード完了後変更できます。<br>
+                          <input name="ItemPrice" value="<TMPL_VAR NAME=ITEM_PRC>" style="ime-mode:disabled">
+                          円
+                          <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="hint05">
+                            <tr>
+                              <td width="20" valign="top">例）</td>
+                              <td>4750　　※カンマ（&nbsp;,&nbsp;）不要</td>
+                            </tr>
+                          </table></td>
+                      </tr>
+                      <tr>
+                        <td class="td05">商品画像（必須） </td>
+                        <td align="left" bgcolor="#FFFFFF"><table width="100%"  border="0" cellpadding="0" cellspacing="5">
+                            <tr align="center" bgcolor="#25BE72">
+                              <td height="30" colspan="2" widht=200><strong><font color="#FFFFFF" size="2">メイン画像を登録する</font></strong></td>
+                            </tr>
+                            <TR align=left>
+                              <TD colSpan=2 height=56 widht="200">
+                                <p style="margin-top:0.5em;">商品画像を登録します。</p>
+                                <p><strong>≪推奨サイズ≫</strong><br>
+                                横幅：640px以上 ／高さ：任意</p>
+                                <p><strong>≪設定手順≫</strong><br>
+                                1)【画像登録画面へ】ボタンをクリックし、画像挿入画面を開きます。<br>
+                                2)画像挿入画面の「画像ファイル」から【参照】ボタンをクリックし、パソコンにある画像ファイルを選択します。<br>
+                                3)画像挿入画面の「代替テキスト」に商品名を入力し、【挿入する】ボタンをクリックします。<br>
+                                4)以下の「イメージ」欄に登録した画像が表示されます。</p>
+                              </TD>
+                            </TR>
+                            <tr align="center">
+                              <td width="20%" bgcolor="#EAFBF2"><strong><font color="#25BE72" size="2">画像</font></strong></td>
+                              <td width="80%" height="30" align="center" bgcolor="#CCCCCC" widht=200><input type="button" onClick="window.open('../func100/selimg.cgi','画像登録画面','scrollbars=yes,resizable=yes,width=800,height=800')" value="画像登録画面へ"></td>
+                            </tr>
+                            <tr align="center">
+                              <td bgcolor="#EAFBF2" widht=200><strong><font color="#25BE72" size="2">イメージ</font></strong></td>
+                              <td height="49" align="center" bgcolor="#CCCCCC" widht=200><table width="34%"  border="0">
+                                  <tr>
+                                    <td height="89" align="center" bgcolor="#FFFFFF" style="padding:5px 5px 5px 5px  "><img id="PICSRC" src="<TMPL_IF NAME=PICSRC><TMPL_VAR NAME=PICSRC><TMPL_ELSE>../imgs/spc.gif</TMPL_IF>">
+                                      <input type="hidden" name="ImageID" value="<TMPL_VAR NAME=IMAGEID>"></td>
+                                  </tr>
+                                </table>
+                                <br>
+                                <font size="2" color=#333333>※この画像は縮小して表示しています </font><font size="2" color=FFFFFF>&nbsp; </font></td>
+                            </tr>
+                          </table></td>
+                      </tr>
+                      <tr>
+                        <td class="td05">商品紹介</td>
+                        <td align="left" bgcolor="#FFFFFF">
+                        商品詳細ページで表示する商品の紹介文を入力します。画像を挿入する場合は[画像挿入]をクリックしてください。
+                        <table width="100%"  border="0" cellpadding="0" cellspacing="5">
+                            <tr align="center">
+                            <td height="30" colspan="2" bgcolor="#25BE72">
+                              <table width="100%"  border="0" cellspacing="1" cellpadding="1">
+                                <tr>
+                                  <td align="left" valign="middle" style="padding-left:10px;">
+                                    <span style="color:#FFFFFF; font-weight:bold;margin-bottom:5px;">メイン紹介文（必須）</span>
+                                    <span style="color:#fff;padding-left:0.5em;font-size:0.9em;">全角32500文字以内</span>
+                                  </td>
+                                  <td align="right"><input type="button" value="画像挿入..." onClick="window.open('../func100/selimg_tag.cgi?TARGET=document.ITEMINFO.Description_1','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')"></td>
+                            </tr>
+                              </table>
+                              </td>
+                            </tr>
+                          <tr>
+                            <td colspan="2"><textarea name="Description_1" cols="60" rows="10"><TMPL_VAR NAME=Description_1></textarea></td>
+                          </tr>
+                          </table>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="td05">
+                            ページタイトル
+                            <div class="limit_txt">全角127文字以内</div>
+                        </td>
+                        <td align="left" bgcolor="#FFFFFF">
+                        SEO対策として重要な商品詳細ページのタイトルを入力します。<BR>
+                        空欄の場合は「商品名／店名」が自動的にタイトルとして設定されます。　
+                                                <P><input name="PageTitle" type="text" size="70" value="<TMPL_VAR NAME=PAGE_TITLE>"></P>
+                        <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="hint05">
+                          <tr>
+                            <td width="20" valign="top">例）</td>
+                            <td>【産直ショップ　フォーシーズン】青森県産りんご「蜜入り葉とらずふじ5kg」糖度13度以上の甘い完熟リンゴ＜送料無料！贈答用に最適！＞</td>
+                          </tr>
+                        </table></td>
+                      </tr>
+                      <tr>
+<!--0612デフォルト化ここから-->
+                        <td class="td05">外部用キャッチコピー（必須）<div class="limit_txt">全角5000文字以内</div></td>
+<!--0612デフォルト化ここまで-->
+                        <td align="left" bgcolor="#FFFFFF">
+                        検索エンジンの検索結果に表示される商品の簡単な説明文を入力します。　※120文字程度<BR>
+                        <A HREF="https://help.shopserve.jp/ctrlpnl_sup/func01/iteminfo/ngword.html" target="_blank">使用できない文字一覧</A>
+                                                <P><textarea name="PageDescription" cols="50" rows="5"><TMPL_VAR NAME=PAGE_DESCRIPTION></textarea></P>
+                        <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="hint05">
+                          <tr>
+                            <td width="20" valign="top">例）</td>
+                            <td>青森県産りんご「蜜入り葉とらずふじ」は、甘くて、ジューシー、シャキシャキの歯ごたえが魅力です。特に、贈答用は、糖度13度以上を保証されたりんごを、一つ一つ丁寧にネットで包んで、箱詰めしておりますので、贈り物として最適です。１箱１２〜１５個入り。送料無料です。</td>
+                          </tr>
+                        </table></td>
+                      </tr>
+
+
+<!--
+                      <tr>
+                        <td class="td05">内部用キャッチコピー<div class="limit_txt">全角5000文字以内</div></td>
+                        <td align="left" bgcolor="#FFFFFF">
+                        お店ページの商品一覧、おすすめ商品一覧など、商品が一覧で表示されるページでの簡単な説明文を入力します。　
+                                                <P><textarea name="CatchCopy" cols="50" rows="5"><TMPL_VAR NAME=CATCHCOPY></textarea></P>
+                        <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="hint05">
+                          <tr>
+                            <td width="20" valign="top">例）</td>
+                            <td>青森県産りんご「蜜入り葉とらずふじ」は、甘くて、ジューシー、シャキシャキの歯ごたえが魅力です。特に、贈答用は、さらにスタッフが表面をチェックし、キズなどがない贈答用基準に合格したりんごだけを厳選しております。１箱１２〜１５個入りで、一つ一つ丁寧にネットで包んで、箱詰めしておりますので、安心して大切な方へお届けできます。送料無料です。</td>
+                          </tr>
+                        </table>
+                        </td>
+                      </tr>
+-->
+                    <input type="hidden" name="feed_item" value="N" />
+<!--0612デフォルト化ここまで-->
+                      <tr>
+<!--0612デフォルト化ここから-->
+                        <td class="td05">在庫設定<div class="limit_txt">半角4文字以内</div></td>
+<!--0612デフォルト化ここまで-->
+                        <td align="left" bgcolor="#FFFFFF">
+                        <P>商品の在庫を管理する場合は、在庫数を設定します。<BR>
+                        色、サイズなどのバリエーション別に在庫を管理するには、ウィザード終了後、
+                        管理画面の「バリエーション別在庫設定」で設定します。</P>
+                        
+                        
+                        
+          <input type=hidden value="Y" name="StockSet">
+          <table cellspacing=5 cellpadding=0 width="100%" border=0>
+          <tr>
+            <td width="9%"><font size=2><img height=8 
+                        src="../imgs/spc.gif" width=50> </font></td>
+            <td width="25%"><font size=2>在庫数　 </font></td>
+            <td width="66%"><font size=2>
+              <input name="TotalStock" value="<TMPL_VAR NAME=TotalStock>" style="ime-mode:disabled">
+              個 </font></td>
+          </tr>
+          <tr>
+            <td>&nbsp;</td>
+            <td width="25%"><font size=2>のこりわずか在庫数　 </font></td>
+            <td width="66%"><font size=2>
+              <input name="WarnStock" value="<TMPL_VAR NAME=WarnStock>" style="ime-mode:disabled">
+              個 </font></td>
+
+          </tr>
+    </table>
+    </td>
+  </tr>
+                      <tr>
+                        <td class="td05">付加情報</td>
+                        <td align="left" bgcolor="#FFFFFF">
+                        <P>商品を「新着商品」、または「おすすめ商品」のコーナーで表示する場合はチェックをつけます。<BR>
+                        ウィザード終了後のお店ページでは、それぞれのコーナーで、最初に登録した4つの商品が表示されます。</P>
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td width="5%">
+            <input type="checkbox" name="NewFlag" value="Y"<TMPL_IF NEW_FLAG> checked="checked"</TMPL_IF> <TMPL_IF NonErr> checked="checked"</TMPL_IF> id="c1">
+          </td>
+          <td>
+            <LABEL for="c1"><font size="2">新着商品にする</font></LABEL>
+            </td>
+          <td width="5%">
+            <input type="checkbox" name="PickUpFlag" value="Y"<TMPL_IF PICKUP_FLAG> checked="checked"</TMPL_IF>  <TMPL_IF NonErr> checked="checked"</TMPL_IF> id="c2">
+          </td>
+          <td>
+            <LABEL for="c2"><font size="2">おすすめ商品にする</font></LABEL>
+          </td>
+
+        </tr>
+      </table>
+
+      </td>
+                      </tr>
+                      <tr>
+                        <td class="td05">商品追加情報<br>（集客用）</td>
+                        <td align="left" bgcolor="#FFFFFF">
+            <p style="margin:0 0 1em;padding:0.5em;background: #EBFCF3;"><strong class="red">集客を増やすために効果のある以下の項目に入力してください。</strong><br>
+            Googleショッピングなど、集客力の高い提携サイトに上位表示されやすくなります。<br>
+            ※なお、Googleショッピングに出品するには、<strong class="red">「型番」「JANコード」「メーカー」のうち２つ以上の入力が必須</strong>です。
+            </p>
+            <table width="100%"  border="0" cellpadding="0" cellspacing="5">
+            <tr align="center">
+                <td width="20%" bgcolor="#eafbf2">
+                    <strong style="color:#25be72;">表示</strong>
+                </td>
+                <td width="80%" height="30" align="left" bgcolor="#cccccc" style="padding:5px;">
+                    <input type="checkbox" name="Disp" id="Disp" value="<TMPL_IF Disp>Y<TMPL_ELSE>N</TMPL_IF>" onClick="iteminfo_disp();"<TMPL_IF Disp> checked</TMPL_IF>>
+                    <label for="Disp">お店ページに商品追加情報を表示する</label>
+                </td>
+            </tr>
+            <tr align="center">
+                <td width="20%" bgcolor="#eafbf2">
+                    <strong style="color:#25be72;">商品説明</strong>
+                </td>
+                <td width="80%" height="30" align="left" bgcolor="#cccccc" style="padding:5px;">
+                    <textarea name="ProductInfo"  rows="5" wrap="VIRTUAL" style="width:90%;"><TMPL_VAR NAME=ProductInfo></textarea><br>
+                    ※HTMLタグ利用不可、1000文字以内
+                </td>
+            </tr>
+            <tr align="center">
+                <td width="20%" bgcolor="#eafbf2">
+                    <strong style="color:#25be72;">製品名</strong>
+                </td>
+                <td width="80%" height="30" align="left" bgcolor="#cccccc" style="padding:5px;">
+                    <input name="ProductName" type="textbox" style="width:15em;" value="<TMPL_VAR NAME=ProductName>">&nbsp;※70文字以内
+                </td>
+            </tr>
+            <tr align="center">
+                <td width="20%" bgcolor="#eafbf2">
+                    <strong style="color:#25be72;">JANコード</strong>
+                </td>
+                        
+                        
+                <td width="80%" height="30" align="left" bgcolor="#cccccc" style="padding:5px;" id="addItemInfo">
+                    <input type="textbox" name="Code1" value="<TMPL_VAR NAME=CODE1>">
+                                               <input type="button" value="JANコードを追加する" id="addJAN" onClick="addJANcodeBox();"><br>
+                                               <input type="hidden" name="jan_count" value="<TMPL_VAR NAME=CODECOUNT>">
+                                               <!-- JANコードのテキストボックス・デフォルトは非表示 -->
+                                               <div style="display:none" id="jan_code2"><input type="textbox" name="Code2" value="<TMPL_VAR NAME=CODE2>" id="jan_input2"></div>
+                                               <div style="display:none" id="jan_code3"><input type="textbox" name="Code3" value="<TMPL_VAR NAME=CODE3>" id="jan_input3"></div>
+                                               <div style="display:none" id="jan_code4"><input type="textbox" name="Code4" value="<TMPL_VAR NAME=CODE4>" id="jan_input4"></div>
+                                               <div style="display:none" id="jan_code5"><input type="textbox" name="Code5" value="<TMPL_VAR NAME=CODE5>" id="jan_input5"></div>
+                                               <div style="display:none" id="jan_code6"><input type="textbox" name="Code6" value="<TMPL_VAR NAME=CODE6>" id="jan_input6"></div>
+                                               <div style="display:none" id="jan_code7"><input type="textbox" name="Code7" value="<TMPL_VAR NAME=CODE7>" id="jan_input7"></div>
+                                               <div style="display:none" id="jan_code8"><input type="textbox" name="Code8" value="<TMPL_VAR NAME=CODE8>" id="jan_input8"></div>
+                                               <div style="display:none" id="jan_code9"><input type="textbox" name="Code9" value="<TMPL_VAR NAME=CODE9>" id="jan_input9"></div>
+                                               <div style="display:none" id="jan_code10"><input type="textbox" name="Code10" value="<TMPL_VAR NAME=CODE10>" id="jan_input10"></div>
+                </td>
+            </tr>
+            <tr align="center">
+                <td width="20%" bgcolor="#eafbf2">
+                    <strong style="color:#25be72;">メーカー</strong>
+                </td>
+                <td width="80%" height="30" align="left" bgcolor="#cccccc" style="padding:5px;">
+                    <input type="textbox" style="width:15em;" name="MakerName" value="<TMPL_VAR NAME=MAKERNAME>">
+                </td>
+            </tr>
+            <tr align="center">
+                <td width="20%" bgcolor="#eafbf2">
+                    <strong style="color:#25be72;">型番</strong>
+                </td>
+                <td width="80%" height="30" align="left" bgcolor="#cccccc" style="padding:5px;">
+                    <input type="textbox" name="Hinban" style="width:15em;" value="<TMPL_VAR NAME=HINBAN>">
+                </td>
+            </tr>
+            <tr align="center">
+                <td width="20%" bgcolor="#eafbf2">
+                    <strong style="color:#25be72;">製造年</strong>
+                </td>
+                <td width="80%" height="30" align="left" bgcolor="#cccccc" style="padding:5px;">
+                    <input type="textbox" style="width:5em;" name="ManufacturerYear" value="<TMPL_VAR NAME=ManufacturerYear>">&nbsp;年
+                </td>
+            </tr>
+            <tr align="center">
+                <td width="20%" bgcolor="#eafbf2">
+                    <strong style="color:#25be72;">外寸法</strong>
+                </td>
+                <td width="80%" height="30" align="left" bgcolor="#cccccc" style="padding:5px;">
+                    <table border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td style="border-style:none;">幅</td>
+                        <td style="border-style:none;">
+                            :
+                            <input type="textbox" style="width:5em;" name="ProductWidth" value="<TMPL_VAR NAME=ProductWidth>">&nbsp;mm
+                        </td>
+          </tr>
+          <tr>
+                        <td style="border-style:none;">奥行</td>
+                        <td style="border-style:none;">
+                            :
+                            <input type="textbox" style="width:5em;" name="ProductDepth" value="<TMPL_VAR NAME=ProductDepth>">&nbsp;mm
+                        </td>
+          </tr>
+          <tr>
+                        <td style="border-style:none;">高さ</td>
+                        <td style="border-style:none;">
+                            :
+                            <input type="textbox" style="width:5em;" name="ProductHight" value="<TMPL_VAR NAME=ProductHight>">&nbsp;mm
+                        </td>
+                    </tr>
+                    </table>
+                </td>
+            </tr>
+            <tr align="center">
+                <td width="20%" bgcolor="#eafbf2">
+                    <strong style="color:#25be72;">製品重量</strong>
+                </td>
+                <td width="80%" height="30" align="left" bgcolor="#cccccc" style="padding:5px;">
+                    <input type="textbox" style="width:5em;" name="ProductWeight" value="<TMPL_VAR NAME=ProductWeight>">
+                    <select name="ProductWeight_Unit">
+                    <option value="">単位を選択</option>
+                    <option value="g" <TMPL_IF NAME=PRODUCTWEIGHT_UNIT_G>selected</TMPL_IF>>g (ｸﾞﾗﾑ)</option>
+                    <option value="kg" <TMPL_IF NAME=PRODUCTWEIGHT_UNIT_KG>selected</TMPL_IF>>kg (ｷﾛｸﾞﾗﾑ)</option>
+                    </select>
+                </td>
+            </tr>
+            <tr align="center">
+                <td width="20%" bgcolor="#eafbf2">
+                    <strong style="color:#25be72;">新品・中古区分</strong>
+                </td>
+                <td width="80%" height="30" align="left" bgcolor="#cccccc" style="padding:5px;">
+                    <select name="Used">
+                    <option value="N" <TMPL_IF NAME=USED_N>selected</TMPL_IF>>新品</option>
+                    <option value="U" <TMPL_IF NAME=USED_U>selected</TMPL_IF>>中古</option>
+                    <option value="R" <TMPL_IF NAME=USED_R>selected</TMPL_IF>>再生品</option>
+                    </select><br>
+                    <input type="checkbox" id="new_old" name="DispNewOld_dummy" id="use" value="Y" <TMPL_IF NAME=DispNewOld_Y> checked <TMPL_ELSE><TMPL_IF NAME=DISP_N> disabled="disabled" <TMPL_ELSE><TMPL_IF NAME=DISP><TMPL_ELSE> disabled="disabled" </TMPL_IF></TMPL_IF></TMPL_IF>id="DispNewOld_dummy" onClick="iteminfo_newold_disp();">
+                    <label for="new_old"><span id="ex1" <TMPL_IF NAME=DispNewOld_Y> style="color: #000000;" <TMPL_ELSE><TMPL_IF NAME=DISP_N> style="color: #A9A9A9;" <TMPL_ELSE><TMPL_IF NAME=DISP> style="color: #000000;" <TMPL_ELSE> style="color: #A9A9A9;" </TMPL_IF></TMPL_IF></TMPL_IF>>お店ページに「新品･中古区分」を表示する</span></label>
+                    <input type="hidden" name="DispNewOld" value="<TMPL_VAR NAME=DISPNEWOLD>">
+                </td>
+          </tr>
+    </table>
+    </td>
+  </tr>
+                    </TABLE></TD>
+                </TR>
+                <TR>
+                  <TD align=middle><BR>
+                  <TABLE align=center border=0>
+              <TBODY>
+          </TABLE>
+                  </TD>
+                </TR>
+              </TABLE></td>
+          </tr>
+          <tr>
+            <td align="center"><br>
+              <hr size="1">
+              <br>
+                <input type="button" onClick="document.ITEMINFO.action='wizard06.cgi';document.ITEMINFO.cont.value='1'; document.ITEMINFO.prev.value=''; document.ITEMINFO.submit();" value="保存してページデザインの選択画面へ進む">
+<p style="text-align:center;" class="red">※作業を中断する場合はこのボタンをクリックし次のステップに進んでから画面を閉じてください。<br>
+次のステップに進むことにより設定が保存されます。</p>
+            </td>
+          </tr>
+        </table></td>
+      <td align="center" bgcolor="#1B8951"><img src="../imgs/spc.gif" width="3"></td>
+    </tr>
+    <tr>
+      <td colspan="3" width="801" height="79" background="../imgs/we005_bottom.gif"><table width="100%"  border="0">
+          <tr>
+            <td width="20"><img src="../imgs/spc.gif" width="20" height="25"></td>
+            <td valign="bottom"><a href="#01"><img src="../imgs/we005_to_top.gif" width="129" height="20" border="0"></a></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+<input type="hidden" name="imgurl">
+<input type="hidden" name="cont">
+<input type="hidden" name="prev">
+
+<div id="copyright">
+<script type="text/javascript">
+<!--
+var date = new Date();
+var year = date.getYear();
+if(year < 2000) { year += 1900; }
+document.write('Copyright &copy; '+year+' Estore Corporation. All Rights Reserved.');
+//-->
+</script>
+</div>
+
+</form>
+
+<!-- GoogleShopping関連 -->
+<script Language="JavaScript">
+<!--
+   checkValue();
+   checkCount();
+// -->
+</script>
+
+<script type="text/javascript">
+  var arrTargetKeys = [
+                        'Description_1'
+                      ];
+  setTargetCursorPosition(arrTargetKeys);
+</script>
+</body>
+</html>

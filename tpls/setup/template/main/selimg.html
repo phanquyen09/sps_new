@@ -1,0 +1,472 @@
+<!-- StyleSheet & JavaScript(START) -->
+<style type="text/css">
+<!--
+body {
+      font-size:0.8em;
+      width:680px;
+      margin:1em auto;
+      text-align:left;
+}
+-->
+</style>
+
+<script language="JavaScript">
+<!--
+//サブ画像max
+var gl_sub_cnt = 10;
+//サブ画像用タグ
+var delHtml = '<input type="button" name="del" value="削除" onClick="return delImg(this);">';
+var mainHtml = 'メイン'
+var lmvHtml = '\n<input type="button" value="←" name="lmv" onClick="return moveImg(this);">';
+var rmvHtml = '\n<input type="button" value="→" name="rmv" onClick="return moveImg(this);">';
+function instImg(f)
+{
+  var len     = f.name.length;
+  var wrk_id  = f.name.substr(3,len);
+  var wrk_obj = document.getElementById( 'PICSRC'+Number(wrk_id) );
+
+  var flg = new Boolean(window.opener.document.ITEMINFO.ImageURL);
+  if (flg == true) window.opener.document.ITEMINFO.ImageURL.value = wrk_obj.src;
+  if (window.name == 'img_inst'){
+    window.opener.document.ITEMINFO.ImageID.value = f.ID.value;
+    try {
+      window.opener.document.ITEMINFO.PICSRC.src = wrk_obj.src;
+    } catch(err) {
+      window.opener.document.getElementById('PICSRC').src = wrk_obj.src;
+    }
+
+    var dellist;
+    //メイン画像の番号調べる
+    for (i = 1; i <= gl_sub_cnt; i++){
+      dellist = window.opener.document.getElementsByName( "image_type_"+Number(i) )[0];
+      if (dellist.value == "Y"){
+        break;
+      }
+    }
+
+    //右隣のオブジェクト
+    //移動リンクの表示変更用
+    var divsimgid_obj_tonari  = window.opener.document.getElementsByName("ImageID_S_"+Number(i+1) )[0];
+
+    //自分のオブジェクト
+    var divsimgid_obj  = window.opener.document.getElementsByName("ImageID_S_"+Number(i) )[0];
+    var divsimgsrc_obj = window.opener.document.getElementById( "PICSRC_S_"+Number(i) );
+    var divsimgsrchdn_obj  = window.opener.document.getElementsByName( "ImageID_SRC_"+Number(i) )[0];
+    var divdel_obj     = window.opener.document.getElementById( "d_del_"+Number(i) );
+    var divmv_obj      = window.opener.document.getElementById( "d_mv_"+Number(i) );
+
+    divsimgid_obj.value = f.ID.value;
+    divsimgsrc_obj.src  = wrk_obj.src;
+    divsimgsrchdn_obj.value  = wrk_obj.src;
+    divdel_obj.innerHTML  = mainHtml;
+    if (i == 1){
+      divmv_obj.innerHTML   = rmvHtml;
+    } else if (i == 10){
+      divmv_obj.innerHTML   = lmvHtml;
+    } else if (divsimgid_obj_tonari.value == "" ){
+      divmv_obj.innerHTML   = lmvHtml;
+    } else {
+      divmv_obj.innerHTML   = lmvHtml + rmvHtml;
+    }
+  } else if(window.name == 'subimg_inst'){
+
+    var divsimgid_obj;
+    var divsimgtp_obj;
+    var btnsimg_obj = window.opener.document.getElementsByName( "SubmitSub")[0];
+    //画像挿入先の番号調べる
+    for (i = 1; i <= gl_sub_cnt; i++){
+      divsimgid_obj = window.opener.document.getElementsByName( "ImageID_S_"+Number(i) )[0];
+      divsimgtp_obj = window.opener.document.getElementsByName( "image_type_"+Number(i) )[0];
+//alert(i+"\n"+divsimgid_obj.value+"\n"+divsimgtp_obj.value);
+      if (divsimgid_obj.value == '' && divsimgtp_obj.value == '' ){
+        break;
+      }
+    }
+//alert("001->"+i);
+
+    //画像が全て埋まっていた場合の処理
+    if ( i == 11 ){
+      i = 10;
+      btnsimg_obj.disabled = true;
+      window.self.close();
+      return false;
+    }
+
+    //左隣のオブジェクト(move_link)
+    //移動リンクの表示変更用
+    var divmv_obj_tonari = window.opener.document.getElementById( "d_mv_"+Number(i-1) );
+    //左隣が2番目以降ならリンクの表示を変更する
+    if ( i > 2 ) {   //1はありえない
+        divmv_obj_tonari.innerHTML   = lmvHtml + rmvHtml;
+    }
+
+    //新規のオブジェクト(sub_img,del_button,move_link)
+    var divsimgid_obj  = window.opener.document.getElementsByName( "ImageID_S_"+Number(i) )[0];
+    var divsimgtp_obj  = window.opener.document.getElementsByName( "image_type_"+Number(i) )[0];
+    var divsimgsrc_obj = window.opener.document.getElementById( "PICSRC_S_"+Number(i) );
+    var divdel_obj     = window.opener.document.getElementById( "d_del_"+Number(i) );
+    var divmv_obj      = window.opener.document.getElementById( "d_mv_"+Number(i) );
+    var divsimgsrchdn_obj  = window.opener.document.getElementsByName( "ImageID_SRC_"+Number(i) )[0];
+
+    divsimgid_obj.value = f.ID.value;
+    divsimgtp_obj.value = 'N';
+    divsimgsrc_obj.src  = wrk_obj.src;
+    divdel_obj.innerHTML  = delHtml;
+    divmv_obj.innerHTML   = lmvHtml;
+    divsimgsrchdn_obj.value  = wrk_obj.src;
+    if ( i == 10 ){
+      btnsimg_obj.disabled = true;    
+    }
+
+  } else if(window.name == 'plaimg_inst') {
+    window.opener.document.ITEMINFO.PlaImageId.value = f.ID.value;
+    try {
+      window.opener.document.ITEMINFO.PICSRC_PLA.src = wrk_obj.src;
+    } catch(err) {
+      window.opener.document.getElementById('PICSRC_PLA').src = wrk_obj.src;
+    }
+
+  } else {
+    window.opener.document.ITEMINFO.ImageID.value = f.ID.value;
+    try {
+      window.opener.document.ITEMINFO.PICSRC.src = wrk_obj.src;
+    } catch(err) {
+      window.opener.document.getElementById('PICSRC').src = wrk_obj.src;
+    }
+
+  }
+  window.self.close();
+}
+function seek(f) {
+  checkValueSeek();
+  document.IMAGELIST.FILENAME.value = f.FILENAME.value;
+  document.IMAGELIST.ALTNAME.value = f.ALTNAME.value;
+  document.IMAGELIST.PAGE.value = 1;
+  var tmp = f.CATEGORY.options[f.CATEGORY.selectedIndex].value;
+  document.IMAGELIST.Category_Id.value = tmp;
+  document.IMAGELIST.CMD.value = 'SEEK';
+  document.IMAGELIST.submit();
+}
+<TMPL_IF ADDIMG>
+function instAddImg()
+{
+  var flg = new Boolean(window.opener.document.ITEMINFO.ImageURL);
+  if (flg == true) window.opener.document.ITEMINFO.ImageURL.value = '<TMPL_VAR NAME=ADDPICSRC>';
+
+//  window.opener.document.ITEMINFO.ImageID.value = '<TMPL_VAR NAME=ADDID>';
+//  window.opener.document.ITEMINFO.PICSRC.src = '<TMPL_VAR NAME=ADDPICSRC>';
+  if (window.name == 'img_inst'){
+    window.opener.document.ITEMINFO.ImageID.value = '<TMPL_VAR NAME=ADDID>';
+    try {
+      window.opener.document.ITEMINFO.PICSRC.src = '<TMPL_VAR NAME=ADDPICSRC>';
+    } catch(err) {
+      window.opener.document.getElementById('PICSRC').src = '<TMPL_VAR NAME=ADDPICSRC>';
+    }
+
+    var dellist;
+    //メイン画像の番号調べる
+    for (i = 1; i <= gl_sub_cnt; i++){
+      dellist = window.opener.document.getElementsByName( "image_type_"+Number(i) )[0];
+      if (dellist.value == "Y"){
+        break;
+      }
+    }
+
+    //右隣のオブジェクト
+    //移動リンクの表示変更用
+    var divsimgid_obj_tonari  = window.opener.document.getElementsByName("ImageID_S_"+Number(i+1) )[0];
+
+    //自分のオブジェクト
+    var divsimgid_obj  = window.opener.document.getElementsByName("ImageID_S_"+Number(i) )[0];
+    var divsimgsrc_obj = window.opener.document.getElementById( "PICSRC_S_"+Number(i) );
+    var divsimgsrchdn_obj  = window.opener.document.getElementsByName( "ImageID_SRC_"+Number(i) )[0];
+    var divdel_obj     = window.opener.document.getElementById( "d_del_"+Number(i) );
+    var divmv_obj      = window.opener.document.getElementById( "d_mv_"+Number(i) );
+
+    divsimgid_obj.value = '<TMPL_VAR NAME=ADDID>';
+    divsimgsrc_obj.src  = '<TMPL_VAR NAME=ADDPICSRC>';
+    divsimgsrchdn_obj.value  = '<TMPL_VAR NAME=ADDPICSRC>';
+    divdel_obj.innerHTML  = mainHtml;
+    if (i == 1){
+      divmv_obj.innerHTML   = rmvHtml;
+    } else if (i == 10){
+      divmv_obj.innerHTML   = lmvHtml;
+    } else if (divsimgid_obj_tonari.value == "" ){
+      divmv_obj.innerHTML   = lmvHtml;
+    } else {
+      divmv_obj.innerHTML   = lmvHtml + rmvHtml;
+    }
+  } else if (window.name == 'subimg_inst'){
+
+    var divsimgid_obj;
+    var divsimgtp_obj;
+    var btnsimg_obj = window.opener.document.getElementsByName( "SubmitSub")[0];
+    //画像挿入先の番号調べる
+    for (i = 1; i <= gl_sub_cnt; i++){
+      divsimgid_obj = window.opener.document.getElementsByName( "ImageID_S_"+Number(i) )[0];
+      divsimgtp_obj = window.opener.document.getElementsByName( "image_type_"+Number(i) )[0];
+      if (divsimgid_obj.value == '' && divsimgtp_obj.value == '' ){
+        break;
+      }
+    }
+//alert(i);
+
+    //画像が全て埋まっていた場合の処理
+    if ( i == 11 ){
+      i = 10;
+      btnsimg_obj.disabled = true;
+      window.self.close();
+      return false;
+    }
+
+    //左隣のオブジェクト(move_link)
+    //移動リンクの表示変更用
+    var divmv_obj_tonari = window.opener.document.getElementById( "d_mv_"+Number(i-1) );
+    //左隣が2番目以降ならリンクの表示を変更する
+    if ( i > 2 ) {   //1はありえない
+        divmv_obj_tonari.innerHTML   = lmvHtml + rmvHtml;
+    }
+
+    //新規のオブジェクト(sub_img,del_button,move_link)
+    var divsimgid_obj  = window.opener.document.getElementsByName( "ImageID_S_"+Number(i) )[0];
+    var divsimgtp_obj  = window.opener.document.getElementsByName( "image_type_"+Number(i) )[0];
+    var divsimgsrc_obj = window.opener.document.getElementById( "PICSRC_S_"+Number(i) );
+    var divdel_obj     = window.opener.document.getElementById( "d_del_"+Number(i) );
+    var divmv_obj      = window.opener.document.getElementById( "d_mv_"+Number(i) );
+    var divsimgsrchdn_obj  = window.opener.document.getElementsByName( "ImageID_SRC_"+Number(i) )[0];
+
+    divsimgid_obj.value = '<TMPL_VAR NAME=ADDID>';
+    divsimgtp_obj.value = 'N';
+    divsimgsrc_obj.src  = '<TMPL_VAR NAME=ADDPICSRC>';
+    divdel_obj.innerHTML  = delHtml;
+    divmv_obj.innerHTML   = lmvHtml;
+    divsimgsrchdn_obj.value  = '<TMPL_VAR NAME=ADDPICSRC>';
+    if ( i == 10 ){
+      btnsimg_obj.disabled = true;    
+    }
+
+  } else if (window.name == 'plaimg_inst'){
+    window.opener.document.ITEMINFO.PlaImageId.value = '<TMPL_VAR NAME=ADDID>';
+    try {
+      window.opener.document.ITEMINFO.PICSRC_PLA.src = '<TMPL_VAR NAME=ADDPICSRC>';
+    } catch(err) {
+      window.opener.document.getElementById('PICSRC_PLA').src = '<TMPL_VAR NAME=ADDPICSRC>';
+    }
+
+  } else {
+    window.opener.document.ITEMINFO.ImageID.value = '<TMPL_VAR NAME=ADDID>';
+    try {
+      window.opener.document.ITEMINFO.PICSRC.src = '<TMPL_VAR NAME=ADDPICSRC>';
+    } catch(err) {
+      window.opener.document.getElementById('PICSRC').src = '<TMPL_VAR NAME=ADDPICSRC>';
+    }
+  }
+
+  window.self.close();
+}
+</TMPL_IF>
+
+function imageadd(f) {
+  var tmp = f.READY_CATEGORY.options[f.READY_CATEGORY.selectedIndex].value;
+  if (tmp != '') f.Category_Id.value = tmp;
+  f.submit();
+}
+//-->
+function disable_all() {
+  document.getElementById("SRCH_BT").disabled = true;
+  document.getElementById("UPLOAD_BT").disabled = true;
+}
+function clearPlaceHolder (e) {
+    if ( e.value == 'ファイル名を入力' ) {
+        e.value       = "";
+        e.style.color = '#000';
+    }
+}
+function setPlaceHolder (e) {
+    if ( !e.value ) {
+        e.value       = 'ファイル名を入力' ;
+        e.style.color = '#999';
+    }
+}
+function clearPlaceHolderAltName (e) {
+    if ( e.value == '代替テキストを入力' ) {
+        e.value       = "";
+        e.style.color = '#000';
+    }
+}
+function setPlaceHolderAltName (e) {
+    if ( !e.value ) {
+        e.value       = '代替テキストを入力' ;
+        e.style.color = '#999';
+    }
+}
+function checkValueSeek(){
+  if ( document.SEEK.FILENAME.value == 'ファイル名を入力' ) {
+     document.SEEK.FILENAME.value = '';
+     document.SEEK.FILENAME.style.color = '#000';
+  }
+  if ( document.SEEK.ALTNAME.value == '代替テキストを入力' ){
+     document.SEEK.ALTNAME.value = '';
+     document.SEEK.ALTNAME.style.color = '#000';
+  }
+}
+function checkSeek() {
+      if ( document.SEEK.FILENAME.value == '' ) {
+          document.SEEK.FILENAME.value = 'ファイル名を入力';
+      } else {
+          document.SEEK.FILENAME.style.color = '#000';
+      }
+      if ( document.SEEK.ALTNAME.value == '' ){
+          document.SEEK.ALTNAME.value = '代替テキストを入力' ;
+      } else {
+          document.SEEK.ALTNAME.style.color = '#000';
+      }
+}
+window.onload=checkSeek;
+</script>
+<TMPL_IF ADDIMG>
+<img src="../imgs/spc.gif" onLoad="instAddImg();">
+</TMPL_IF>
+<link href="../func00/default00.css" rel="stylesheet" type="text/css">
+<link href="../css/imagelist.css" rel="stylesheet" type="text/css">
+<form name="IMAGELIST" method="POST" action="selimg.cgi">
+<input type="hidden" name="CMD" value="SEEK">
+<input type="hidden" name="PAGE" value="1">
+<input type="hidden" name="FILENAME" value="<TMPL_VAR NAME=FILENAME>">
+<input type="hidden" name="ALTNAME" value="<TMPL_VAR NAME=ALTNAME>">
+<input type="hidden" name="CATEGORY">
+<INPUT type="hidden" name="Category_Id" value="<TMPL_VAR NAME=CATEGORY_ID>">
+</form>
+<div id="imgList">
+  <div class="title">|| 商品画像挿入</div>
+  <div class="infoArea lBlue" style="margin:0 0 1.5em">
+    ファイル名や代替テキストの入力方法、エラー対策など、画像の追加方法につきましては「画像挿入について」をご覧ください。
+    <a href="https://help.shopserve.jp/manual/058/" target="_blank">⇒ 画像挿入について</a>
+  </div>
+  <TMPL_LOOP NAME=ERR_MSG>
+  <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+  </TMPL_LOOP>
+  <table class="imgBox" style="margin:0 0 2em">
+  <form name="IMAGEADD" method="POST" action="selimg.cgi" enctype="multipart/form-data">
+  <INPUT type="hidden" name="Category_Id">
+  <input type="hidden" name="CMD" value="ADD">
+  <tr>
+    <th colspan="2" class="dBlue">新規画像を挿入</th>
+  </tr>
+  <tr>
+    <td width="20%" class="mBlue">画像ファイル</td>
+    <td width="80%">
+      <input name="UPFILE" type="file" size="90" class="file"><br>
+      登録可能なファイル（<span class="fRed">2MB以内</span>） ： jpeg / jpg / gif / png
+    </td>
+  </tr>
+  <tr>
+    <td class="mBlue">ファイル名</td>
+    <td>
+      <input name="ImageName" type="text" value="<TMPL_VAR NAME=IMAGENAME>" style="ime-mode:disabled"><br>
+      ※画像ファイル名が日本語の場合は、拡張子も含め<span class="fRed">半角英数</span>で入力してください。<br>
+      例）ショップタイトル.gif ⇒ <span class="fRed">shop_title.gif</span>
+    </td>
+  </tr>
+  <tr>
+    <td class="mBlue">代替テキスト</td>
+    <td><input name="ImageAlt" type="text" class="alt" value="<TMPL_VAR NAME=IMAGEALT>"></td>
+  </tr>
+  <tr>
+    <td class="mBlue">画像カテゴリ</td>
+    <td>
+      <select name="READY_CATEGORY">
+      <option value="">既存カテゴリから選択</option>
+      <TMPL_LOOP NAME=CateList>
+      <option value="<TMPL_VAR NAME=ID>" <TMPL_IF NAME=ADD_SELECT>selected</TMPL_IF>><TMPL_VAR NAME=CATEGORY></option>
+      </TMPL_LOOP>
+      </select><br>
+      新規作成
+      <input name="Category" type="text" value="<TMPL_VAR NAME=CATEGORY>" <TMPL_IF NAME=CATMAX>disabled</TMPL_IF>>
+      <TMPL_IF NAME=CATMAX>
+      <br><font color="#FF0000">※画像カテゴリが最大数（<TMPL_VAR NAME=MAXCATEGORY>個）まで登録されています。</font>
+      </TMPL_IF>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="center">
+      <input type="button" id="UPLOAD_BT" name="Submit" value="挿入する" onClick="imageadd(document.IMAGEADD);">
+    </td>
+  </tr>
+  </form>
+  </table>
+    <style type="text/css">
+    <!--
+    /********** 以下を default01.css の「共通」の上に追加 **********/
+    /************************************************/
+    /*画像台帳*/
+    /************************************************/
+    /* 画像検索用 */
+    #imgSearchBox {margin:2em 0 1em;padding:5px;border:1px solid #999;background:#eee;}
+    #imgSearchBox span {padding:0 5px;}
+    #imgSearchBox input[type=text] {color:#999;width:10em;}
+    //-->
+    </style>
+    <form name="SEEK" method="POST" action="selimg.cgi" >
+    <div id="imgSearchBox">
+        <span>画像検索</span>
+        <input name="FILENAME" id="FILENAME" style="width:160px;" type="text"  value="<TMPL_VAR NAME=FILENAME>" style="ime-mode:disabled" onfocus="clearPlaceHolder(this);" onblur="setPlaceHolder(this);">
+        <input name="ALTNAME"  id="ALTNAME" style="width:160px;" type="text"  value="<TMPL_VAR NAME=ALTNAME>" onfocus="clearPlaceHolderAltName(this);" onblur="setPlaceHolderAltName(this);">
+          <select name="CATEGORY">
+          <option value="">既存カテゴリから選択</option>
+          <TMPL_LOOP NAME=CateList>
+          <option value="<TMPL_VAR NAME=ID>" <TMPL_IF NAME=SRCH_SELECT>selected</TMPL_IF>><TMPL_VAR NAME=CATEGORY></option>
+          </TMPL_LOOP>
+          </select>
+          <input type="button" id="SRCH_BT" name="Submit" value="検索する" onClick="document.IMAGELIST.CMD.value='SEEK';document.IMAGELIST.action='selimg.cgi';disable_all();seek(document.SEEK)">
+        
+    </div>
+    <input type="hidden" name="CMD" value="SEEK">
+    <input type="hidden" name="PAGE" value="<TMPL_VAR NAME=PAGE>">
+    <br/>
+  <div class="page">
+  <TMPL_IF TOTAL>
+  <TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+  </TMPL_IF>
+  </div>
+  </form>
+  <table class="imgBox">
+  <tr>
+    <th colspan="3" class="dBlue">画像台帳から挿入</th>
+  </tr>
+  <tr>
+    <td class="center mBlue" style="width:15%">画像</td>
+    <td class="center mBlue" style="width:45%">ファイル名 [登録日]/挿入する</td>
+    <td class="center mBlue" style="width:40%">代替テキスト/画像カテゴリ</td>
+  </tr>
+<TMPL_LOOP NAME=ORIGINALS>
+  <form name="IMG<TMPL_VAR NAME=ID>">
+  <tr>
+    <td class="center">
+      <input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+      <a href="../func01/img_preview.cgi?ID=<TMPL_VAR NAME=ID>" target="popup">
+        <img id="PICSRC<TMPL_VAR NAME=ID>" src="<TMPL_VAR NAME=USERWEB>/docs/pic-labo/timg/<TMPL_VAR NAME=FILENAME>" alt="<TMPL_VAR NAME=ALT>" width="<TMPL_VAR NAME=TWIDTH>" height="<TMPL_VAR NAME=THEIGHT>" border="0">
+      </a>
+      <input class="prev" onClick="window.open('../func01/img_preview.cgi?ID=<TMPL_VAR NAME=ID>','popup','')" type="button" value="プレビュー" name="PREV">
+    </td>
+    <td>
+      <TMPL_VAR NAME=FILENAME><span class="date">[<TMPL_VAR NAME=SETDATE>]</span><br>
+      <input type="button" name="INST" value="挿入する" onClick='instImg(document.IMG<TMPL_VAR NAME=ID>);'>
+    </td>
+    <td>
+      <div class="txtCat" style="margin-bottom:0.2em"><TMPL_VAR NAME=ALT>&nbsp;</div>
+      <div class="txtCat"><TMPL_VAR NAME=CATEGORY>&nbsp;</div>
+    </td>
+  </tr>
+  </form>
+  </TMPL_LOOP>
+  </table>
+  <div class="page" style="margin:0 0 2em">
+  <TMPL_IF TOTAL>
+  <TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+  </TMPL_IF>
+  </div>
+  <div class="center" style="border-top:1px solid #999;margin:3em 0 0;padding:2em 0 2em">
+    <input type="button" name="Submit" value="閉じる" onClick="window.close()">
+  </div>
+</div>

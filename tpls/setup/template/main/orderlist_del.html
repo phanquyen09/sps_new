@@ -1,0 +1,162 @@
+<!-- orderlist.html -->
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function BackSub() {
+    document.list.target = '';
+    document.list.action='orderlist.php';
+    document.list.CMD.value='BACK';
+    document.list.backsub.disabled = true;
+    document.list.delcfmsub.disabled = true;
+    document.list.submit();
+}
+function DelCfmSub() {
+    document.list.target = '';
+    document.list.action='orderlist.php';
+    document.list.CMD.value='DEL';
+    document.list.backsub.disabled = true;
+    document.list.delcfmsub.disabled = true;
+    document.list.submit();
+}
+function ngBackSub() {
+    document.list.target = '';
+    document.list.action='orderlist.php';
+    document.list.CMD.value='BACK';
+    document.list.backsub.disabled = true;
+    document.list.submit();
+}
+//-->
+</script>
+<form name="list" method="post" action="dummy.cgi" target="">
+<input type="hidden" name="folder" value="<TMPL_VAR NAME=folder>">
+<input type="hidden" name="check" value="<TMPL_VAR NAME=check>">
+<input type="hidden" name="ship0st" value="<TMPL_VAR NAME=ship0st>">
+<input type="hidden" name="ship1st" value="<TMPL_VAR NAME=ship1st>">
+<input type="hidden" name="shipst" value="">
+<input type="hidden" name="recvst" value="<TMPL_VAR NAME=recvst>">
+<input type="hidden" name="download" value="0">
+<input type="hidden" name="oprat_date" value="<TMPL_VAR NAME=oprat_date>">
+<input type="hidden" name="CMD" value="">
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">以下の受注をごみ箱から削除します
+    </td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>
+<TMPL_IF NAME=ng>
+<!-- エラーメッセージ -->
+<font color="#cc3333"><strong>
+・以下に該当する受注が選択されております。これらの受注は削除できません。<br>
+・クレジットカード、コンビニ、後払い、NP後払い、Amazon Pay、Yahoo!ウォレット、楽天銀行、楽天ペイ、<br>
+　ビットコイン決済、楽天Edy、WebMoneyの各決済で決済処理中（決済依頼〜回収予定）。<br>
+　これらは決済処理が回収済になりましたら、削除できます。いましばらくお待ちください。
+</strong></font>
+<TMPL_LOOP NAME=printlist>
+  <input type="hidden" name="checkbox" value="<TMPL_VAR NAME=order_id>">
+</TMPL_LOOP>
+<TMPL_ELSE>
+<!-- 注意メッセージ -->
+              <table width="100%" cellpadding="3" class="item-box">
+                <tr align="center" bgcolor="#CCCCCC">
+                  <td class="odr-midashi">選択</td>
+                  <td class="odr-midashi">注文日時&nbsp;</td>
+                  <td class="odr-midashi">注文番号&nbsp;</td>
+                  <td class="odr-midashi">注文者&nbsp;</td>
+                  <td class="odr-midashi">合計金額&nbsp;</td>
+                  <td class="odr-midashi">決済&nbsp;</td>
+                  <td class="odr-midashi">決済依頼&nbsp;</td>
+                  <td class="odr-midashi">入金&nbsp;</td>
+                  <td class="odr-midashi">発送&nbsp;</td>
+                  <td class="odr-midashi">メール</td>
+                  <td class="odr-midashi">メモ</td>
+                </tr>
+<TMPL_LOOP NAME=printlist>
+                <tr>
+                  <td align="center" class="odr-txt<TMPL_VAR NAME=class>"><TMPL_IF multi><span style="color:#FF0000">*</span><TMPL_ELSE>&nbsp;</TMPL_IF><input type="hidden" name="checkbox[]" value="<TMPL_VAR NAME=order_id>">
+<input type="checkbox" name="print" value="<TMPL_VAR NAME=order_id>" checked disabled>
+                  </td>
+                  <td align="center" class="odr-txt<TMPL_VAR NAME=class>"><TMPL_VAR NAME=order_date></td>
+                  <td align="center" class="odr-txt<TMPL_VAR NAME=class>"><TMPL_VAR NAME=pub_order_no></td>
+                  <td class="odr-txt<TMPL_VAR NAME=class>"><TMPL_VAR NAME=p_name>
+                  <TMPL_IF NAME=clienton>
+                    <a href="ord_clientinfo.cgi?ID=<TMPL_VAR NAME=client_id>&Target=2"><div class="mem_ic_on">会員</div></a>
+                  </TMPL_IF>
+                  </td>
+                  <td align="right" class="odr-txt<TMPL_VAR NAME=class>"><TMPL_VAR NAME=total>円</td>
+                  <td align="center" class="odr-txt<TMPL_VAR NAME=class>"><img src="../imgs/icon/ordr_ic_<TMPL_VAR NAME=paymethod>.gif" width="18" height="18" hspace="1" border="0"></td>
+                  <td align="center" class="odr-txt<TMPL_VAR NAME=class>"><TMPL_VAR NAME=irai_date></td>
+                  <td align="center" class="odr-txt<TMPL_VAR NAME=class>"><img src="../imgs/icon/rec_ic_<TMPL_VAR NAME=recv_st1>.gif" width="18" height="18" hspace="1" border="0" alt="未入金"><img src="../imgs/icon/rec_ic_<TMPL_VAR NAME=recv_st2>.gif" width="18" height="18" hspace="1" border="0" alt="入金済"></td>
+                  <td align="center" class="odr-txt<TMPL_VAR NAME=class>">
+  <img src="../imgs/icon/sen_ic_<TMPL_IF multi>plu_</TMPL_IF><TMPL_VAR NAME=ship_st1>.gif" width="18" height="18" hspace="1" border="0" alt="未発送"><img src="../imgs/icon/sen_ic_<TMPL_IF multi>plu_</TMPL_IF><TMPL_VAR NAME=ship_st2>.gif" width="18" height="18" hspace="1" border="0" alt="発送予約"><img src="../imgs/icon/sen_ic_<TMPL_IF multi>plu_</TMPL_IF><TMPL_VAR NAME=ship_st3>.gif" width="18" height="18" hspace="1" border="0" alt="発送済">
+                  </td>
+                  <td align="center" class="odr-txt<TMPL_VAR NAME=class>"><img src="../imgs/icon/<TMPL_VAR NAME=mail_st1>.gif" width="18" height="18" hspace="1" border="0" alt="個別確認メール"><img src="../imgs/icon/<TMPL_VAR NAME=mail_st2>.gif" width="18" height="18" hspace="1" border="0" alt="入金連絡メール"><img src="../imgs/icon/<TMPL_VAR NAME=mail_st3>.gif" width="18" height="18" hspace="1" border="0" alt="発送連絡メール"></td>
+                  <td align="center" class="odr-txt<TMPL_VAR NAME=class>"><img src="../imgs/icon/<TMPL_VAR NAME=memo_st>.gif" width="18" height="18" hspace="1" border="0"></td>
+                </tr>
+</TMPL_LOOP>
+              </table>
+</TMPL_IF>
+            <br>
+<!--            <table width="100%" cellpadding="2" class="item-box"> -->
+            <table width="100%" cellpadding="2">
+              <tr align="center" bgcolor="#FFFFFF">
+                <td>
+<TMPL_IF ng>
+                  <input type="button" name="backsub" value="戻る"  onClick="ngBackSub();">
+<TMPL_ELSE>
+                  <input type="button" name="backsub" value="戻る"  onClick="BackSub();">
+                  <input type="button" name="delcfmsub" value="削除"  onClick="DelCfmSub();">
+</TMPL_IF>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<input type="hidden" name="date_sel" value="<TMPL_VAR NAME=date_sel>">
+<input type="hidden" name="syy" value="<TMPL_VAR NAME=syy>">
+<input type="hidden" name="smm" value="<TMPL_VAR NAME=smm>">
+<input type="hidden" name="sdd" value="<TMPL_VAR NAME=sdd>">
+<input type="hidden" name="eyy" value="<TMPL_VAR NAME=eyy>">
+<input type="hidden" name="emm" value="<TMPL_VAR NAME=emm>">
+<input type="hidden" name="edd" value="<TMPL_VAR NAME=edd>">
+<input type="hidden" name="pubodrno" value="<TMPL_VAR NAME=pubodrno>">
+<input type="hidden" name="p_name" value="<TMPL_VAR NAME=p_name>">
+<input type="hidden" name="mintotal" value="<TMPL_VAR NAME=mintotal>">
+<input type="hidden" name="maxtotal" value="<TMPL_VAR NAME=maxtotal>">
+<input type="hidden" name="mail_con" value="<TMPL_VAR NAME=mail_con>">
+<input type="hidden" name="mail_rec" value="<TMPL_VAR NAME=mail_rec>">
+<input type="hidden" name="mail_sen" value="<TMPL_VAR NAME=mail_sen>">
+<input type="hidden" name="memo_st" value="<TMPL_VAR NAMEmemo_st>">
+<TMPL_IF pay1><input type="hidden" name="paymethod" value="1"></TMPL_IF>
+<TMPL_IF pay2><input type="hidden" name="paymethod" value="2"></TMPL_IF>
+<TMPL_IF pay3><input type="hidden" name="paymethod" value="3"></TMPL_IF>
+<TMPL_IF pay4><input type="hidden" name="paymethod" value="4"></TMPL_IF>
+<TMPL_IF pay5><input type="hidden" name="paymethod" value="5"></TMPL_IF>
+<TMPL_IF pay6><input type="hidden" name="paymethod" value="6"></TMPL_IF>
+<TMPL_IF pay8><input type="hidden" name="paymethod" value="8"></TMPL_IF>
+<TMPL_IF pay9><input type="hidden" name="paymethod" value="9"></TMPL_IF>
+<TMPL_IF pay10><input type="hidden" name="paymethod" value="10"></TMPL_IF>
+<TMPL_IF pay91><input type="hidden" name="paymethod" value="91"></TMPL_IF>
+<TMPL_IF pay92><input type="hidden" name="paymethod" value="92"></TMPL_IF>
+<TMPL_IF pay93><input type="hidden" name="paymethod" value="93"></TMPL_IF>
+<TMPL_IF pay94><input type="hidden" name="paymethod" value="94"></TMPL_IF>
+<TMPL_IF pay95><input type="hidden" name="paymethod" value="95"></TMPL_IF>
+<input type="hidden" name="ng" value="<TMPL_VAR NAME=ng>">
+</form>

@@ -1,0 +1,314 @@
+<script language="JavaScript">
+<!--
+function del(f) {
+  if ( confirm("カスタムテーマを削除します。よろしいですか？") ) {
+    f.submit();
+  } else {
+    return;
+  }
+}
+function customSubmit(flg) {
+
+//  if ( document.form1.noBtnUp.checked ){
+//    if ( ! confirm("カスタムボタンの設定を引き継ぎます。\nよろしいですか。") ) {
+//      return;
+//    }
+//  }
+
+  buttonDisabled();
+  document.form1.mode.value = flg;
+  document.form1.target = '_self';
+  document.form1.submit();
+}
+var key = true;
+function buttonDisabled() {
+  // keyがtureの場合、無効にする。falseの場合は有効にする。
+  var eElements = document.getElementsByTagName("input");
+  var size = eElements.length;
+  for (i = 0; i < size; i++) {
+    if(eElements[i].type == "submit" || eElements[i].type == "button") {
+      eElements[i].disabled = key;
+    }
+  }
+  eElements = document.getElementsByTagName("button");
+  var size = eElements.length;
+  for (i = 0; i < size; i++) {
+    eElements[i].disabled = key;
+  }
+  key = !key
+}
+
+function setting_save_button(){
+	document.form1.setting_save.disabled = false;
+}
+
+function newtpl_preview() {
+    // バックアップ
+    var tag = document.form1.target;
+    var act = document.form1.action;
+
+    // 表示するテンプレート
+    var tpl = document.createElement('input');
+    tpl.name = 'tpl';
+    tpl.type = 'hidden';
+    tpl.value = 'index.tpl';
+
+    // データ参照先
+    var mode = document.createElement('input');
+    mode.name = 'preview_mode';
+    mode.type = 'hidden';
+    mode.value = 'edit';
+
+    // 呼び元
+    var kanri = document.createElement('input');
+    kanri.name = 'kanri';
+    kanri.type = 'hidden';
+    kanri.value = 'theme_custom';
+
+    document.form1.appendChild(tpl);
+    document.form1.appendChild(mode);
+    document.form1.appendChild(kanri);
+
+    // プレビュー表示
+    document.form1.CMD.value = "preview_post_css";
+    document.form1.target = "template_preview";
+    document.form1.method = "post";
+    document.form1.action= "../func100/cartPreview.php";
+    document.form1.submit();
+
+    // 後始末
+    document.form1.target = tag;
+    document.form1.action = act;
+    document.form1.removeChild(tpl);
+    document.form1.removeChild(mode);
+    document.form1.removeChild(kanri);
+}
+//-->
+</script>
+<form name="form1" method="post" action="./cart_custom_sps.cgi">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                      <tbody><tr>
+                                        <td width="12"><table width="50%" align="right" border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#856791">
+                                            <tbody><tr>
+                                              <td><img src="./imgs/spc.gif" width="8" height="8"></td>
+                                            </tr>
+                                        </tbody></table></td>
+<td align="left" class="midashi">カート専用CSSをカスタマイズします</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/cart_custom_sps.php" target="manual"><img src="./imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                                      </tr>
+                                    </tbody></table>
+                                      <img src="./imgs/spc.gif" width="5" height="5">
+                                      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tbody><tr>
+                                          <td class="main-table" align="left">
+
+<table width="100%" border="0" cellspacing="0" cellpadding="0"><tbody><tr><td>
+
+</td></tr></tbody></table>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0"><tr><td>
+                    <TMPL_VAR NAME=err>
+</td></tr></table>
+
+                                              <TMPL_IF NAME=cart_theme_no_use>
+                                              <div id="theme_status" class="theme_status04">
+                                                <table class="shop item-box">
+                                                  <tr>
+                                                    <td class="item-name">お店ページで利用中のテーマ</td>
+                                                    <td class="item"><TMPL_VAR NAME=shop_theme_label></td>
+                                                  </tr>
+                                                </table>
+                                                <TMPL_IF NAME=diff_theme>
+                                                <table class="kanri item-box">
+                                                 <tr>
+                                                   <td class="item-name">管理画面で編集中のテーマ</td>
+                                                   <td class="item"><TMPL_IF NAME=user_category_type><TMPL_VAR NAME=user_category_type> &gt; </TMPL_IF><TMPL_IF NAME=user_category_name><TMPL_VAR NAME=user_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=theme_name></td>
+                                                 </tr>
+                                                </table>
+                                                </TMPL_IF>
+                                             <TMPL_ELSE>
+                                             <div id="theme_status" class="theme_status04 cart_theme_status">
+                                                  <table class="shop item-box">
+                                                  <tbody><tr>
+                                                      <td class="item-name" <TMPL_IF NAME=cart_theme_label>rowspan="2"</TMPL_IF>>お店ページで利用中の<br>テーマ</td>
+                                                      <td class="item item-category">お店ページ</td>
+                                                      <td class="item"><TMPL_VAR NAME=shop_theme_label></td>
+                                                  </tr>
+                                                  <TMPL_IF NAME=cart_theme_label>
+                                                  <tr>
+                                                      <td class="item item-category">カート</td>
+                                                      <td class="item"><TMPL_VAR NAME=cart_theme_label></td>
+                                                  </tr>
+                                                  </TMPL_IF>
+                                                  </tbody></table>
+                                              <TMPL_IF NAME=diff_show>
+                                                  <table class="kanri item-box">
+                                                  <tbody>
+                                                  <tr>
+                                                      <td class="item-name" rowspan="2">管理画面で編集中の<br>テーマ</td>
+                                                  <TMPL_IF NAME=diff_theme>
+                                                      <td class="item item-category">お店ページ</td>
+                                                      <td class="item"><TMPL_IF NAME=user_category_type><TMPL_VAR NAME=user_category_type> &gt; </TMPL_IF><TMPL_IF NAME=user_category_name><TMPL_VAR NAME=user_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=theme_name></td>
+                                                  </tr>
+                                                  </TMPL_IF>
+                                                  <TMPL_IF NAME=cart_diff_theme>
+                                                  <tr>
+                                                      <td class="item item-category">カート</td>
+                                                      <td class="item"><TMPL_IF NAME=cart_category_type><TMPL_VAR NAME=cart_category_type> &gt; </TMPL_IF><TMPL_IF NAME=cart_category_name><TMPL_VAR NAME=cart_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=cart_theme_name></td>
+                                                  </tr>
+                                                  </TMPL_IF>
+                                                  </tbody></table>
+                                              </TMPL_IF>
+                                              </TMPL_IF>
+                                              </div>
+
+                                                                                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                            <tbody><tr>
+
+                                              <td><table id="cart_setting" class="item-box">
+                                                <tbody><tr align="center">
+                                                  <td class="item-name02" colspan="2">利用設定</td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">カート専用テーマ</td>
+                                                  <td bgcolor="#FFFFFF">
+                                                    <label>
+                                                      <input type="radio" name="usecartcss" value="1" <TMPL_IF NAME=is_use_cart_theme>checked</TMPL_IF> onchange="javascript:setting_save_button();">
+                                                      利用する
+                                                    </label>　
+                                                      <TMPL_IF NAME=is_use_cart_theme>
+                                                        <a href="javascript:window.open('../func100/cartPreview.php', 'cart_preview'); void(0);"> >>プレビューで確認する</a><br>
+                                                      <TMPL_ELSE>
+                                                        <a href="https://help.shopserve.jp/ctrlpnl_sup/func04/cart_custom_sps/"  target="manual">>>イメージを見る</a><br>
+                                                      </TMPL_IF>
+                                                    <label>
+                                                      <input type="radio" name="usecartcss" value="0" <TMPL_IF NAME=is_use_cart_theme><TMPL_ELSE>checked</TMPL_IF> onchange="javascript:setting_save_button();">
+                                                      利用しない
+                                                    </label>
+                                                  </td>
+                                                </tr>
+                                              </tbody></table>
+                                              <img src="./imgs/spc.gif" width="1" height="20"><br>
+                                              <center><input type="button" name="setting_save" value="設定を保存する" onclick="document.form1.mode.value='setting';document.form1.submit();" disabled="disabled"></center><br>
+
+                                                <br>
+
+                                              <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                            <tbody><tr>
+                                              <td><table id="cart_theme_list" class="item-box table-padding-default">
+                                                <tbody><tr align="center">
+                                                  <td colspan="3" class="item-name02">カート専用テーマ</td>
+                                                </tr>
+                                                <td colspan=2 class="item-name">初期テーマ</td>
+                                                <td width="25%" bgcolor="#FFFFFF">
+                                                  <input <TMPL_IF NAME=is_use_cart_theme><TMPL_IF NAME=default_btn><TMPL_ELSE>disabled</TMPL_IF><TMPL_ELSE>disabled</TMPL_IF> type="button" value="適用" onClick="document.form1.mode.value='default_theme';document.form1.target='_self';document.form1.submit();">
+                                                </td>
+<TMPL_IF NAME=is_use_cart_theme>
+                    <TMPL_LOOP NAME=theme_list>
+                                                <tr bgcolor="#FFFFFF">
+                                                  <td width="20%" class="item-name">テーマ<TMPL_VAR NAME=id></td>
+
+
+                                                  <td width="55%" bgcolor="#FFFFFF"><TMPL_VAR NAME=title><TMPL_IF NAME=org_theme_name>
+                                                  <div class="customOriginal">編集元：<TMPL_VAR NAME=org_category_type> &gt; <TMPL_IF NAME=org_category_name><TMPL_VAR NAME=org_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=org_theme_name></div></TMPL_IF>
+                                                  </td>
+
+                                                  <td width="25%" bgcolor="#FFFFFF">
+<input <TMPL_IF NAME=disable>disabled</TMPL_IF> type="button" value="編集" onClick="document.form1.mode.value='edit';document.form1.target='_self';document.form1.eid.value='<TMPL_VAR NAME=eid>';document.form1.submit();">
+<input <TMPL_IF NAME=disable>disabled</TMPL_IF> type="button" value="適用" onClick="document.form1.eid.value='<TMPL_VAR NAME=eid>';customSubmit('rep');">
+<input <TMPL_IF NAME=disable>disabled<TMPL_ELSE><TMPL_IF NAME=user_set>disabled</TMPL_IF></TMPL_IF> type="button" value="削除" onClick="document.form1.mode.value='del';document.form1.target='_self';document.form1.eid.value='<TMPL_VAR NAME=eid>';del(document.form1);">
+                                                  </td>
+                                                </tr>
+                    </TMPL_LOOP>
+<TMPL_ELSE>
+                    <TMPL_LOOP NAME=theme_list>
+                                                <tr bgcolor="#FFFFFF">
+                                                  <td width="20%" class="item-name">テーマ<TMPL_VAR NAME=id></td>
+
+
+                                                  <td width="55%" bgcolor="#FFFFFF"><TMPL_VAR NAME=title><TMPL_IF NAME=org_theme_name>
+                                                  <div class="customOriginal">編集元：<TMPL_VAR NAME=org_category_type> &gt; <TMPL_IF NAME=org_category_name><TMPL_VAR NAME=org_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=org_theme_name></div></TMPL_IF>
+                                                  </td>
+
+                                                  <td width="25%" bgcolor="#FFFFFF">
+<input disabled type="button" value="編集" onClick="document.form1.mode.value='edit';document.form1.target='_self';document.form1.eid.value='<TMPL_VAR NAME=eid>';document.form1.submit();">
+<input disabled type="button" value="適用" onClick="document.form1.eid.value='<TMPL_VAR NAME=eid>';customSubmit('rep');">
+<input disabled type="button" value="削除" onClick="document.form1.mode.value='del';document.form1.target='_self';document.form1.eid.value='<TMPL_VAR NAME=eid>';del(document.form1);">
+                                                  </td>
+                                                </tr>
+                    </TMPL_LOOP>
+</TMPL_IF>
+                                                <tr align="center" bgcolor="#FFFFFF">
+                                                  <td colspan="3" class="new_css_button">
+                                                  <TMPL_IF NAME=is_exist_edit_theme>
+                                                    <TMPL_IF NAME=default_btn>
+                                                      <TMPL_IF NAME=is_editing>
+                                                        <TMPL_IF NAME=diff_show>
+                                                          <input type="button" name="Submit" value="編集中のテーマから作成する" onClick="document.form1.eid.value='';document.form1.mode.value='get';document.form1.submit();" <TMPL_IF NAME=is_use_cart_theme><TMPL_ELSE>disabled="disabled"</TMPL_IF> >
+                                                        <TMPL_ELSE>
+                                                          <input type="button" name="Submit" value="利用中のテーマから作成する" onClick="document.form1.eid.value='';document.form1.mode.value='get';document.form1.submit();" <TMPL_IF NAME=is_use_cart_theme><TMPL_ELSE>disabled="disabled"</TMPL_IF> >
+                                                        </TMPL_IF>
+                                                      </TMPL_IF>
+                                                    <TMPL_ELSE>
+                                                      <input type="button" name="Submit" value="初期テーマから作成する" onClick="document.form1.eid.value='';document.form1.mode.value='get';document.form1.submit();" <TMPL_IF NAME=is_use_cart_theme><TMPL_ELSE>disabled="disabled"</TMPL_IF> >
+                                                    </TMPL_IF>
+                                                  <TMPL_ELSE>
+                                                    <input type="button" name="Submit" value="初期テーマから作成する" onClick="document.form1.eid.value='';document.form1.mode.value='get';document.form1.submit();" <TMPL_IF NAME=is_use_cart_theme><TMPL_ELSE>disabled="disabled"</TMPL_IF> >
+                                                  </TMPL_IF>
+                                                  </td>
+                                                </tr>
+
+                                              </tbody></table>
+                                                <br>
+<TMPL_IF NAME=EDIT>
+                                                <table class="item-box">
+                                                  <tbody><tr align="center">
+                                                    <td colspan="2" class="item-name02">CSS編集</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">テーマの名前</td>
+
+                                                    <td class="item"><input name="title" type="text" class="sub-line" value="<TMPL_VAR NAME=title>" maxlength="128">
+                                                    </td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td colspan="2" class="item"><textarea name="body" rows="30" style="width:95%"><TMPL_VAR NAME=body></textarea>
+                                                    </td>
+                                                  </tr>
+
+                                                  <tr align="center">
+                                                    <td colspan="2" class="item">
+                                                      <input type="button" name="Submit" value="プレビュー" onClick="window.open('../func100/cartPreview.php', 'cart_preview');return false;">
+                                                      &nbsp;
+                                                      <input type="button" name="Submit" value="保存" onClick="document.form1.mode.value='save';buttonDisabled();document.form1.target='_self';document.form1.submit();">
+                                                      &nbsp;
+                                                      <input type="button" name="Submit" value="保存して適用" onClick="document.form1.mode.value='save_apl';buttonDisabled();document.form1.target='_self';document.form1.submit();">
+                                                    </td>
+                                                  </tr>
+                                                </tbody></table>
+</TMPL_IF>
+                                                <div align="center"></div>
+
+                                              </td>
+                                            </tr>
+                                          </tbody></table></td>
+                                        </tr>
+                                      </tbody></table>
+                                      <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                                        <tbody><tr>
+                                          <td>&nbsp;</td>
+                                        </tr>
+
+                                      </tbody></table>
+                                    </td>
+                                </tr>
+<input type="hidden" name="mode" value="save">
+<input type="hidden" name="eid" value="<TMPL_VAR NAME=edtid>">
+<input type="hidden" name="category_code" value="<TMPL_VAR NAME=category_code>">
+<input type="hidden" name="theme_code" value="<TMPL_VAR NAME=theme_code>">
+<input type="hidden" name="plus_theme" value="<TMPL_VAR NAME=plus_theme>">
+<input type="hidden" name="CMD" value="">
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</form>

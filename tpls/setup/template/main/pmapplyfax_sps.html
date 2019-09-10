@@ -1,0 +1,1228 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>申込書印刷</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<link href="css/pmapply.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="css/print.css" media="print">
+</head>
+<body style="border-top-width:0px;">
+<TMPL_VAR NAME=DEBUG>
+<TMPL_UNLESS insatu_huyo>
+<div id="head">
+  <div class="headbtn">
+    <a href="javascript:window.print()" title="ページを印刷する"><img src="images/pmapply/print.png"></a>
+  </div>
+  <div class="headbtn_side">
+    申込書を印刷できなかった場合、お手数ですが再度入力からやり直してください。
+  </div>
+  <div style="clear:both;"></div>
+</div>
+</TMPL_UNLESS>
+
+<div id="cont">
+<TMPL_IF YONLY>
+<TMPL_ELSE>
+<TMPL_IF insatu_huyo><!-- 印刷不要 START -->
+<hr class="pageline">お申し込みが完了しました。<br><br>
+既に決済代行サービスをお申し込み済みのため、申込書の印刷、郵送は不要です。<br>
+「決済代行サービス申し込み受付完了のお知らせ」が、決済担当者メールアドレス宛てに届きますので、<br>
+ご確認ください。
+  <hr class="pageline"><br><br>
+
+  <h2 class="midashi03"><img src="images/pmapply/arrow.png">申し込み決済代行サービス種別</h2>
+   <div style="clear: both;"></div>
+   <table class="pri-table1">
+     <tbody>
+     <TMPL_IF wellnetflag>
+     <tr>
+       <td class="pri-table2">
+         ・コンビニ(番号端末式)・銀行ATM・ネットバンキング決済
+       </td>
+     </tr>
+     </TMPL_IF>
+     <TMPL_IF atobaraiflag>
+     <tr>
+       <td class="pri-table2">
+         ・後払い（コンビニ、郵便局、銀行）決済 <TMPL_VAR NAME=ATOBARAIPLAN>
+       </td>
+     </tr>
+     </TMPL_IF>
+     <TMPL_IF cvsflag>
+     <tr>
+       <td class="pri-table2">
+         ・コンビニ決済（払込票）
+       </td>
+     </tr>
+     </TMPL_IF>
+     <TMPL_IF estlflag>
+     <tr>
+       <td class="pri-table2">
+         ・楽天銀行決済
+       </td>
+     </tr>
+     </TMPL_IF>
+     <TMPL_IF bitcoinflag>
+     <tr>
+       <td class="pri-table2">
+         ・ビットコイン決済
+       </td>
+     </tr>
+     </TMPL_IF>
+   </tbody></table>
+<br><br>
+<div style="clear: both;"></div>
+</TMPL_IF><!-- 印刷不要 END --!>
+
+<TMPL_IF card_huyo><!-- ウォレット申込 & クレカー不要 START -->
+<hr class="pageline">既にクレジットカード決済をお申込済みのため、「決済代行サービス利用開始手続き依頼書 」の
+  印刷・郵送は不要です。
+<TMPL_IF rakutenflag>「楽天ペイ（オンライン決済）サービス利用開始手続き依頼書」</TMPL_IF>
+<TMPL_IF ywalletflag>「Yahoo!ウォレット決済サービス利用開始手続き依頼書」</TMPL_IF>
+を印刷・郵送してください。<br>今回追加でお手続きいただいた決済については、ご利用開始のメールが決済担当者メールアドレス宛てに届きますので、それまでお待ちください。
+  <hr class="pageline">
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">申し込み決済代行サービス種別</h2>
+   <div style="clear: both;"></div>
+   <table class="pri-table">
+   <table class="pri-table1">
+     <TMPL_IF rakutenflag>
+     <tr>
+       <td class="pri-table2">
+         ・楽天ペイ（オンライン決済）
+       </td>
+     </tr>
+     </TMPL_IF>
+     <TMPL_IF ywalletflag>
+     <tr>
+       <td class="pri-table2">
+         ・Yahoo!ウォレット決済
+       </td>
+     </tr>
+     </TMPL_IF>
+     <TMPL_IF wellnetflag>
+     <tr>
+       <td class="pri-table2">
+         ・コンビニ(番号端末式)・銀行ATM・ネットバンキング決済
+       </td>
+     </tr>
+     </TMPL_IF>
+     <TMPL_IF atobaraiflag>
+     <tr>
+     <td class="pri-table2">
+         ・後払い（コンビニ、郵便局、銀行）決済 <TMPL_VAR NAME=ATOBARAIPLAN>
+       </td>
+     </tr>
+     </TMPL_IF>
+     <TMPL_IF cvsflag>
+     <tr>
+       <td class="pri-table2">
+         ・コンビニ決済（払込票）
+       </td>
+     </tr>
+     </TMPL_IF>
+     <TMPL_IF estlflag>
+     <tr>
+       <td class="pri-table2">
+         ・楽天銀行決済
+       </td>
+     </tr>
+     </TMPL_IF>
+     <TMPL_IF bitcoinflag>
+     <tr>
+       <td class="pri-table2">
+         ・ビットコイン決済
+       </td>
+     </tr>
+     </TMPL_IF>
+   </table>
+  <br><br>
+
+  <table class="destination_table">
+    <tbody><tr>
+      <td class="destination_td1">
+        郵送先
+      </td>
+      <td class="destination_td2">
+        〒060-0001　北海道札幌市中央区北一条西4-1-2　武田りそなビル<br>
+        株式会社Ｅストアー「決済代行サービス受付係」行
+      </td>
+    </tr>
+    <tr>
+      <td class="destination_td3">
+        その他の書類
+      </td>
+      <td class="destination_td4">
+        別紙の「必要書類チェックシート」をご覧ください
+      </td>
+    </tr>
+  </tbody></table>
+  </table>
+  <div style="page-break-after: always;"></div>
+</TMPL_IF><!-- ウォレット申込 & クレカー不要 END -->
+
+
+<TMPL_UNLESS card_huyo>
+<TMPL_UNLESS insatu_huyo>
+<!--#################### 決済代行サービス利用開始手続き依頼書 ####################-->
+  <div class="app_main01" style="color:red;">
+    ※本申込書にご捺印のうえ、その他の必要書面を添えてご郵送ください。
+  </div>
+  <table class="destination_table">
+    <tr>
+      <td class="destination_td1">
+        郵送先
+      </td>
+      <td class="destination_td2">
+        〒060-0001　北海道札幌市中央区北一条西4-1-2　武田りそなビル<br>
+        株式会社Ｅストアー「決済代行サービス受付係」行
+      </td>
+    </tr>
+    <tr>
+      <td class="destination_td3">
+        その他の書類
+      </td>
+      <td class="destination_td4">
+        別紙の「必要書類チェックシート」をご覧ください
+      </td>
+    </tr>
+  </table>
+  <div class="print-date">
+    <TMPL_VAR NAME=TODAY>
+  </div>
+  <div class="app_title">
+    決済代行サービス利用開始手続き依頼書
+  </div>
+  <div class="check05">
+    　申込条項を確認し、以下内容にて決済代行サービスの申込みを依頼します。
+  </div>
+  <h2 class="midashi03"><img src="images/pmapply/arrow.png">申し込み決済代行サービス種別</h2>
+  <div style="clear:both;"></div>
+  <table class="pri-table1">
+     <tbody>
+       <tr>
+         <td class="pri-table3">
+             コンビニ（番号端末式）・銀行ATM・ネットバンキング
+         </td>
+         <td class="pri-table3">
+             <TMPL_VAR NAME=WELLNET_SERIAL>
+         </td>
+         <td class="pri-table3">
+             ビットコイン決済
+         </td>
+         <td class="pri-table3">
+             <TMPL_VAR NAME=BITCOIN_SERIAL>
+         </td>
+         <td class="pri-table3">
+             後払い
+         </td>
+         <td class="pri-table3">
+             <TMPL_VAR NAME=ATOBARAI_SERIAL>
+         </td>
+       </tr>
+       <tr>
+         <td class="pri-table3">
+             コンビニ決済（払込票）
+         </td>
+         <td class="pri-table3">
+             <TMPL_VAR NAME=CVS_SERIAL>
+         </td>
+         <td class="pri-table3">
+             クレジットカード
+         </td>
+         <td class="pri-table3">
+             <TMPL_VAR NAME=CARD_SERIAL>
+         </td>
+         <td class="pri-table3">
+             楽天銀行
+         </td>
+         <td class="pri-table3">
+             <TMPL_VAR NAME=EBANK_SERIAL>
+         </td>
+       </tr>
+     </tbody>
+   </table>
+
+<TMPL_IF cardflag>
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">割賦販売法及び特定商取引法に基づく確認事項</h2><br>
+   <table class="pri-table1">
+     <tbody>
+       <tr>
+         <td class="pri-table3 sales-method-name">訪問販売</td>
+         <td class="pri-table3" style="text-align:center;"><TMPL_VAR NAME=DtoDSale></td>
+         <td class="pri-table3 sales-method-name">連鎖販売取引</td>
+         <td class="pri-table3" style="text-align:center;"><TMPL_VAR NAME=MultiSale></td>
+         <td class="pri-table3 sales-method-name">電話勧誘販売</td>
+         <td class="pri-table3" style="text-align:center;"><TMPL_VAR NAME=TelSale></td>
+         <td class="pri-table3 sales-method-name">業務提供誘引販売</td>
+         <td class="pri-table3" style="text-align:center;"><TMPL_VAR NAME=SubJobSale></td>
+       </tr>
+     </tbody>
+   </table>
+</TMPL_IF>
+
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">Ｅストアーショップサーブ契約情報</h2>
+   <div style="clear:both;"></div>
+   <table class="pri-table1">
+     <tr>
+       <td class="pri-table3 w20">
+         契約形態
+       </td>
+       <td class="pri-table3">
+         <TMPL_VAR NAME=CustKind>
+       </td>
+       <td class="pri-table3 w20" style="text-align:center;">
+         法人番号
+       </td>
+       <td class="pri-table3">
+         <TMPL_IF CorporationNum><TMPL_VAR NAME=CorporationNum></TMPL_IF>
+       </td>
+       <td class="pri-table3 w20" style="text-align:center;">
+         ご捺印欄
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         契約名義
+       </td>
+       <td class="pri-table3" colspan="3">
+         <TMPL_VAR NAME=CUSTNAME>
+       </td>
+       <td class="pri-table3" rowspan="7" style="text-align:center;vertical-align:middle;">
+         <img src="images/pmapply/persona_seal2.gif">
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3">
+         住所
+       </td>
+       <td class="pri-table3" colspan="3">
+         〒<TMPL_VAR NAME=CUSTZIP> <TMPL_VAR NAME=CUSTADDR>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3">
+         電話番号
+       </td>
+       <td class="pri-table3" colspan="3">
+         <TMPL_VAR NAME=CUSTTEL>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3">
+         ＦＡＸ番号
+       </td>
+       <td class="pri-table3" colspan="3">
+         <TMPL_VAR NAME=CUSTFAX>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3">
+         代表者の氏名
+       </td>
+       <td class="pri-table3" colspan="3">
+         <TMPL_VAR NAME=CUSTDAIHYO>　（<TMPL_VAR NAME=CUSTDAIHYOKANA>）
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3">
+         役職名
+       </td>
+       <td class="pri-table3" colspan="3">
+         <TMPL_VAR NAME=CUSTPOST>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3">
+         ショップID
+       </td>
+       <td class="pri-table3" colspan="3">
+         <TMPL_VAR NAME=STORENAME>
+       </td>
+     </tr>
+   </table>
+
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">決済担当者情報</h2>
+   <div style="clear:both;"></div>
+   <table class="pri-table1">
+     <tr>
+       <td class="pri-table3 w20">
+         契約名義
+       </td>
+       <td class="pri-table3 w80" colspan="3">
+         <TMPL_VAR NAME=CUSTNAME>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         部署名
+       </td>
+       <td class="pri-table3 w40">
+         <TMPL_VAR NAME=TANTOSECTION>
+       </td>
+       <td class="pri-table3 w20">
+         役職
+       </td>
+       <td class="pri-table3 w20">
+         <TMPL_VAR NAME=TANTOPOSITION>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         担当者
+       </td>
+       <td class="pri-table3 w40">
+         <TMPL_VAR NAME=TANTOSEI>　<TMPL_VAR NAME=TANTOMEI>
+       </td>
+       <td class="pri-table3 w20">
+         電話番号
+       </td>
+       <td class="pri-table3 w20">
+         <TMPL_VAR NAME=TANTOTEL>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         メールアドレス
+       </td>
+       <td class="pri-table3 w40">
+         <TMPL_VAR NAME=TANTOMAIL>
+       </td>
+       <td class="pri-table3 w20">
+         ＦＡＸ番号
+       </td>
+       <td class="pri-table3 w20">
+         <TMPL_VAR NAME=TANTOFAX>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         住所
+       </td>
+       <td class="pri-table3 w80" colspan="3">
+         〒<TMPL_VAR NAME=TANTOZIP1>-<TMPL_VAR NAME=TANTOZIP2>　<TMPL_VAR NAME=TANTOPREF><TMPL_VAR NAME=TANTOADDR1><TMPL_VAR NAME=TANTOADDR2><TMPL_VAR NAME=TANTOADDR3> <TMPL_VAR NAME=TANTOADDR4>
+       </td>
+     </tr>
+   </table>
+
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">お申し込み内容</h2>
+   <div style="clear:both;"></div>
+   <table class="pri-table1">
+     <tr>
+       <td class="pri-table3 w20" rowspan="3">
+         利用明細書の表記名
+       </td>
+       <td class="pri-table4 w80">
+         <TMPL_VAR NAME=YAGO>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table4 w80">
+         <TMPL_VAR NAME=YAGOKANA>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w80">
+         <TMPL_VAR NAME=YAGOROMA>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20" rowspan="3">
+         代表者の氏名
+       </td>
+       <td class="pri-table4 w80">
+         <TMPL_VAR NAME=CUSTDAIHYO>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table4 w80">
+         <TMPL_VAR NAME=CUSTDAIHYOKANA>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w80">
+         <TMPL_VAR NAME=ROMASEI>　<TMPL_VAR NAME=ROMAMEI>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         代表者の性別
+       </td>
+       <td class="pri-table3 w80">
+         <TMPL_IF SEXM>男性<TMPL_ELSE>女性</TMPL_IF>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         代表者の生年月日
+       </td>
+       <td class="pri-table3 w80">
+         <TMPL_VAR NAME=BIRTHYYYY>年<TMPL_VAR NAME=BIRTHMM>月<TMPL_VAR NAME=BIRTHDD>日
+       </td>
+<TMPL_IF furidisp><!-- 回収代金の振込先口座 START -->
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         回収代金の振込先口座
+       </td>
+       <td class="pri-table3 w80">
+<TMPL_IF BANKEBANK>
+          <TMPL_VAR NAME=BANK> 支店番号( <TMPL_VAR NAME=BRANCHCODE> ) <TMPL_VAR NAME=ACCOUNTNO>
+<TMPL_ELSE>
+         <TMPL_VAR NAME=BANK> <TMPL_VAR NAME=BRANCH> <TMPL_IF TYPE1>普通<TMPL_ELSE>当座</TMPL_IF> <TMPL_VAR NAME=ACCOUNTNO>
+</TMPL_IF>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         口座名義人フリガナ
+       </td>
+       <td class="pri-table3 w80">
+         <TMPL_VAR NAME=ACCOUNTNAME>
+       </td>
+     </tr>
+</TMPL_IF><!-- 回収代金の振込先口座 END -->
+     <tr>
+       <td class="pri-table3 w20">
+         取り扱い商品
+       </td>
+       <td class="pri-table3 w80">
+         <TMPL_VAR NAME=PRODUCTTYPE>
+       </td>
+     </tr>
+   </table>
+
+     <hr class="pageline">
+   <div style="page-break-after: always;"></div>
+</TMPL_UNLESS>
+</TMPL_UNLESS>
+</TMPL_IF>
+
+<TMPL_IF RAKUTENFLAG>
+<!--#################### 楽天ペイ（オンライン決済）サービス利用開始手続き依頼書 ####################-->
+
+  <div class="app_no">
+    (申込書番号 <TMPL_VAR NAME=RINO>)<br>
+    <TMPL_VAR NAME=TODAY>
+  </div>
+  <div class="app_title">
+    楽天ペイ（オンライン決済）サービス利用開始手続き依頼書
+  </div>
+  <div class="app_main01">
+    楽天ペイ（オンライン決済）サービスのお申込みが受け付けられました。<br />
+    なお、楽天ペイ（オンライン決済）サービスをご利用いただくためには、本依頼書を株式会社Ｅストアーへ<br />
+    ご郵送いただく必要がございます。印刷後ご捺印と添付書類を添えて下記住所までご送付ください。<br />
+    〒０６０‐０００１北海道札幌市中央区北一条西4-1-2 武田りそなビル 株式会社Ｅストアー「決済代行サービス受付係」行
+  </div>
+  <table class="destination_table" style="border:0">
+    <tr>
+      <td class="destination" style="border:0">
+        楽天ペイ（オンライン決済）では、手書きの訂正は受付けできません。変更がある場合、再度入力画面からお手続きください。
+      </td>
+    </tr>
+  </table>
+
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">Ｅストアーショップサーブご契約者</h2>
+   <div style="clear:both;"></div>
+   <table class="pri-table1">
+     <tr>
+       <td class="pri-table3 w20">
+         URL
+       </td>
+       <td class="pri-table3">
+         <TMPL_VAR NAME=CUSTURL>
+       </td>
+       <td class="pri-table3 w20" style="text-align:center;">
+         ご捺印欄
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3">
+         契約者名
+       </td>
+       <td class="pri-table3">
+         <TMPL_VAR NAME=CUSTNAME>
+       </td>
+       <td class="pri-table3" rowspan="4" style="text-align:center;vertical-align:middle;">
+         <img src="images/pmapply/persona_seal2.gif">
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3">
+         ご住所（カナ）
+       </td>
+       <td class="pri-table3">
+         〒<TMPL_VAR NAME=RIKEIYAKUZIP>　<TMPL_VAR NAME=RIKEIYAKUPREF><br />
+         <TMPL_VAR NAME=RIKEIYAKUADDR1>&nbsp;<TMPL_VAR NAME=RIKEIYAKUADDR2>&nbsp;<TMPL_VAR NAME=RIKEIYAKUADDR3>&nbsp;<TMPL_VAR NAME=RIKEIYAKUADDR4><br />
+         (<TMPL_VAR NAME=RIKEIYAKUADDR1KANA>&nbsp;<TMPL_VAR NAME=RIKEIYAKUADDR2KANA>)
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3">
+         代表者の氏名（カナ）
+       </td>
+       <td class="pri-table3">
+         <TMPL_VAR NAME=RIBOSS>　（<TMPL_VAR NAME=RIBOSSKANA>）
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3">
+         ショップID
+       </td>
+       <td class="pri-table3">
+         <TMPL_VAR NAME=STORENAME>
+       </td>
+     </tr>
+   </table>
+
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">楽天からの連絡先</h2>
+   <div style="clear:both;"></div>
+   <table class="pri-table1">
+     <tr>
+       <td class="pri-table3 w20">
+         契約者名（会社名）
+       </td>
+       <td class="pri-table3 w80" colspan="3">
+         <TMPL_VAR NAME=CUSTNAME>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         部署名
+       </td>
+       <td class="pri-table3 w40">
+         <TMPL_VAR NAME=RITANTOSECTION>
+       </td>
+       <td class="pri-table3 w20">
+         電話番号
+       </td>
+       <td class="pri-table3 w20">
+         <TMPL_VAR NAME=RITANTOTEL>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         担当者（カナ）
+       </td>
+       <td class="pri-table3 w40">
+         <TMPL_VAR NAME=RITANTONAME>(<TMPL_VAR NAME=RITANTONAMEKANA>)
+       </td>
+       <td class="pri-table3 w20">
+         ＦＡＸ番号
+       </td>
+       <td class="pri-table3 w20">
+         <TMPL_VAR NAME=RITANTOFAX>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         住所（カナ）
+       </td>
+       <td class="pri-table3 w80" colspan="3">
+         〒<TMPL_VAR NAME=RITANTOZIP>　<TMPL_VAR NAME=RITANTOPREF><TMPL_VAR NAME=RITANTOADDR1>&nbsp;<TMPL_VAR NAME=RITANTOADDR2>&nbsp;<TMPL_VAR NAME=RITANTOADDR3>&nbsp;<TMPL_VAR NAME=RITANTOADDR4><br />
+         (<TMPL_VAR NAME=RITANTOADDR1KANA>&nbsp;<TMPL_VAR NAME=RITANTOADDR2KANA>)
+       </td>
+     </tr>
+   </table>
+
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">楽天ペイ（オンライン決済）サービス申請情報</h2>
+   <div style="clear:both;"></div>
+   <table class="pri-table1">
+     <tr>
+       <td class="pri-table3 w20">
+         契約者名（会社名）
+       </td>
+       <td class="pri-table3 w80" colspan="3">
+         <TMPL_VAR NAME=CUSTNAME>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         代表者名（カナ）
+       </td>
+       <td class="pri-table3 w80" colspan="3">
+         <TMPL_VAR NAME=RIBOSS>　（<TMPL_VAR NAME=RIBOSSKANA>）
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         代表者住所
+       </td>
+       <td class="pri-table3 w80" colspan="3">
+         〒<TMPL_VAR NAME=RIZIP1>-<TMPL_VAR NAME=RIZIP2>　<TMPL_VAR NAME=RIPREF><TMPL_VAR NAME=RIADDR1><TMPL_VAR NAME=RIADDR2><TMPL_VAR NAME=RIADDR3> <TMPL_VAR NAME=RIADDR4>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         代表者生年月日
+       </td>
+       <td class="pri-table3 w80" colspan="3">
+         <TMPL_VAR NAME=RIBIRTHYYYY>年<TMPL_VAR NAME=RIBIRTHMM>月<TMPL_VAR NAME=RIBIRTHDD>日
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         会社設立年月日
+       </td>
+       <td class="pri-table3 w20">
+       <TMPL_IF SETSURITSU_SHOW>
+         <TMPL_VAR NAME=RAKUTENYYYY>年<TMPL_VAR NAME=RAKUTENMM>月<TMPL_VAR NAME=RAKUTENDD>日
+        </TMPL_IF>
+       </td>
+       <td class="pri-table3 w20">
+         社員数
+       </td>
+       <td class="pri-table3 w20">
+         <TMPL_VAR NAME=RIEMP> 人
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         資本金
+       </td>
+       <td class="pri-table3 w20">
+         <TMPL_VAR NAME=RICAPITAL> 百万円
+       </td>
+       <td class="pri-table3 w20">
+         インターネット販売実績
+       </td>
+       <td class="pri-table3 w20">
+         <TMPL_IF RINETSELLN>無し</TMPL_IF><TMPL_IF RINETSELLY>有り</TMPL_IF>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         年商
+       </td>
+       <td class="pri-table3 w20">
+         <TMPL_VAR NAME=RIYEARSELL> 百万円
+       </td>
+       <td class="pri-table3 w20">
+         インターネット年間取扱高
+       </td>
+       <td class="pri-table3 w20">
+         <TMPL_IF RINETSELLN>-</TMPL_IF><TMPL_IF RINETSELLY><TMPL_VAR NAME=RINETYEARSELL> 百万円</TMPL_IF>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         販売商品 最低単価
+       </td>
+       <td class="pri-table3 w20">
+         <TMPL_VAR NAME=RIYASUI> 円
+       </td>
+       <td class="pri-table3 w20">
+         販売商品 最高単価
+       </td>
+       <td class="pri-table3 w20">
+         <TMPL_VAR NAME=RITAKAI> 円
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         お客様問合せ先メールアドレス
+       </td>
+       <td class="pri-table3 w80" colspan="3">
+         <TMPL_VAR NAME=RIQUESTIONMAIL>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         代表連絡先メールアドレス
+       </td>
+       <td class="pri-table3 w80" colspan="3">
+         <TMPL_VAR NAME=RIBOSSMAIL>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         担当者連絡先メールアドレス
+       </td>
+       <td class="pri-table3 w80" colspan="3">
+         <TMPL_VAR NAME=RICONTACTMAIL>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         セキュリティコード
+       </td>
+       <td class="pri-table3 w80" colspan="3">
+         <TMPL_IF RISECCODEN>利用しない</TMPL_IF><TMPL_IF RISECCODEY>利用する</TMPL_IF>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         利用明細の表記名（通常表記）
+       </td>
+       <td class="pri-table3 w80" colspan="3">
+         <TMPL_VAR NAME=RIYAGO>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         （カタカナ）
+       </td>
+       <td class="pri-table3 w20" colspan="1">
+         <TMPL_VAR NAME=RIYAGOKANA>
+       </td>
+       <td class="pri-table3 w20">
+         （ローマ字）
+       </td>
+       <td class="pri-table3 w20" colspan="1">
+         <TMPL_VAR NAME=RIYAGOROMA>
+       </td>
+     </tr>
+     <tr>
+       <td class="pri-table3 w20">
+         取り扱い商品
+       </td>
+       <td class="pri-table3 w80" colspan="3">
+         <TMPL_VAR NAME=PRODUCTTYPE>
+       </td>
+     </tr>
+   </table>
+
+     <hr class="pageline">
+   <div style="page-break-after: always;"></div>
+</TMPL_IF>
+
+
+<TMPL_IF YWALLETFLAG>
+
+        <table style="width:700px;margin:5px auto;text-align:left;font-size:95%;">
+            <tr>
+                <td></td>
+                <td class="t-right">(申込書番号 <TMPL_VAR NAME=YWALLETSNO>)<br><TMPL_VAR NAME=TODAY></td>
+            </tr>
+        </table>
+
+        <!--#################### Yahoo!ウォレット決済サービス利用開始手続き依頼書 ####################-->
+        <p style="width:700px;font-weight:bold;font-size:14pt;margin:10px auto;text-align:center;">
+            Yahoo!ウォレット決済サービス利用開始手続き依頼書
+        </p>
+        <p class="def-text">
+            Yahoo!ウォレット決済サービスのお申込みが受け付けられました。<br>
+            なお、Yahoo!ウォレット決済サービスをご利用いただくためには、本依頼書を株式会社Ｅストアーへ<br>
+            ご郵送いただく必要がございます。印刷後ご捺印と添付書類を添えて下記住所までご送付ください。
+        </p>
+        <p class="def-text">
+            〒060-0001北海道札幌市中央区北一条西4-1-2　武田りそなビル　株式会社Ｅストアー「決済代行サービス受付係」行
+        </p>
+        </p>
+                <div class="yw_atte_phone">
+                <p>ご契約者の【電話番号】が携帯電話の番号になっている場合は、手書きで訂正のうえ送付してください。</p>
+                <p>Yahoo!ウォレット決済は、携帯電話の番号では承れません。 </p>
+                </div>
+
+        <!--========== Ｅストアーショップサーブご契約者 ==========-->
+        <h2 class="form_caption">Ｅストアーショップサーブご契約者</h2>
+        <table class="pri-table">
+            <tr>
+                <th>URL</th>
+                <td colspan="3"><TMPL_VAR NAME=CUSTURL></td>
+                <th style="text-align:center;">ご捺印欄</th>
+            </tr>
+            <tr>
+                <th>契約者名</th>
+                <td colspan="3"><TMPL_VAR NAME=CUSTNAME></td>
+                <td rowspan="5" style="vertical-align:middle;text-align:center;width:15%;"><img src="images/pmapply/persona_seal2.gif"></td>
+            </tr>
+            <tr>
+                <th>ご住所</th>
+                <td colspan="3">〒<TMPL_VAR NAME=CUSTZIP> <TMPL_VAR NAME=CUSTADDR></td>
+            </tr>
+            <tr>
+                <th>代表者名(カナ)</th>
+                <td colspan="3"><TMPL_VAR NAME=CUSTDAIHYOKANA></td>
+            </tr>
+            <tr>
+                <th>代表者名</th>
+                <td><TMPL_VAR NAME=CUSTDAIHYO></td>
+                <th>役職名</th>
+                <td><TMPL_VAR NAME=CUSTPOST></td>
+            </tr>
+            <tr>
+                <th>電話番号</th>
+                <td><TMPL_VAR NAME=CUSTTEL></td>
+                <th>FAX番号</th>
+                <td><TMPL_VAR NAME=CUSTFAX></td>
+            </tr>
+            <tr>
+                <th>ショップID</th>
+                <td colspan="4"><TMPL_VAR NAME=STORENAME></td>
+            </tr>
+        </table>
+
+        <!--========== 決済ご担当者 ==========-->
+        <h2 class="form_caption">Yahoo!ウォレット決済サービス申請情報</h2>
+        <table class="pri-table">
+            <tr>
+                <th nowrap>ご契約者名（会社名）</th>
+                <td colspan="4"><TMPL_VAR NAME=CUSTNAME></td>
+            </tr>
+            <tr>
+                <th nowrap>部署名</td>
+                <td><TMPL_VAR NAME=TANTOSECTION></td>
+                <th nowrap>役職</th>
+                <td colspan="2"><TMPL_VAR NAME=TANTOPOSITION></td>
+            </tr>
+            <tr>
+                <th>ご住所</th>
+                <td colspan="4">〒<TMPL_VAR NAME=YWTANTOZIP1>-<TMPL_VAR NAME=YWTANTOZIP2>　<TMPL_VAR NAME=YWTANTOPREF><TMPL_VAR NAME=YWTANTOADDR1><TMPL_VAR NAME=YWTANTOADDR2><TMPL_VAR NAME=YWTANTOADDR3> <TMPL_VAR NAME=YWTANTOADDR4></td>
+            </tr>
+            <tr>
+                <th nowrap>サービス責任者氏名</th>
+                <td><TMPL_VAR NAME=YWTANTOSEI>　<TMPL_VAR NAME=YWTANTOMEI></td>
+                <th nowrap>電話番号</th>
+                <td colspan="2"><TMPL_VAR NAME=YWTANTOTEL></td>
+            </tr>
+            <tr>
+                <th nowrap>メールアドレス</th>
+                <td><TMPL_VAR NAME=TANTOMAIL></td>
+                <th nowrap>FAX番号</th>
+                <td colspan="2"><TMPL_IF NAME=YWTANTOFAX><TMPL_VAR NAME=YWTANTOFAX><TMPL_ELSE>　</TMPL_IF></td>
+            </tr>
+            <tr>
+                <th nowrap>
+                    企業住所(登記簿住所)<br>
+                    <span style="font-size:80%;">(個人事業主の方は代表者の住民票住所)</span>
+                </th>
+                <td colspan="4" class="middle">〒<TMPL_VAR NAME=YWZIP1>-<TMPL_VAR NAME=YWZIP2>　<TMPL_VAR NAME=YWPREF><TMPL_VAR NAME=YWADDR1><TMPL_VAR NAME=YWADDR2><TMPL_VAR NAME=YWADDR3> <TMPL_VAR NAME=YWADDR4></td>
+            </tr>
+            <tr>
+                <th nowrap style="border-bottom:1px dotted;">フリガナ</th>
+                <td colspan="4" style="border-bottom:1px dotted;"><TMPL_VAR NAME=YWNAMEKANA></td>
+            </tr>
+            <tr>
+                <th nowrap  style="border-top:1px dotted;">企業名</th>
+                <td colspan="4" style="border-top:1px dotted;"><TMPL_VAR NAME=YWNAME></td>
+            </tr>
+            <tr>
+                <th nowrap style="border-bottom:1px dotted;">フリガナ</th>
+                <td colspan="4" style="border-bottom:1px dotted;"><TMPL_VAR NAME=YWDAIHYONAMEKANA></td>
+            </tr>
+            <tr>
+                <th nowrap style="border-top:1px dotted;">代表者氏名</th>
+                <td colspan="4" style="border-top:1px dotted;"><TMPL_VAR NAME=YWDAIHYONAME></td>
+            </tr>
+            <tr>
+                <th nowrap>代表電話番号</th>
+                <td colspan="4"><TMPL_VAR NAME=CUSTTEL></td>
+            </tr>
+            <tr>
+                <th style="width:150px;">代表者自宅住所</th>
+                <td colspan="4">〒<TMPL_VAR NAME=YWDAIHYOZIP1>-<TMPL_VAR NAME=YWDAIHYOZIP2> <TMPL_VAR NAME=YWDAIHYOPREF><TMPL_VAR NAME=YWDAIHYOADDR1><TMPL_VAR NAME=YWDAIHYOADDR2><TMPL_VAR NAME=YWDAIHYOADDR3> <TMPL_VAR NAME=YWDAIHYOADDR4></td>
+            </tr>
+            <tr>
+                <th nowrap>代表者自宅電話番号</th>
+                <td><TMPL_VAR NAME=YWDAIHYOTEL1>-<TMPL_VAR NAME=YWDAIHYOTEL2>-<TMPL_VAR NAME=YWDAIHYOTEL3></td>
+                <th nowrap>代表者生年月日</th>
+                <td colspan="2"><TMPL_VAR NAME=BIRTHYYYY>年<TMPL_VAR NAME=BIRTHMM>月<TMPL_VAR NAME=BIRTHDD>日</td>
+            </tr>
+            <tr>
+                <th nowrap rowspan="2">
+                    表示店舗名
+                </th>
+                <td colspan="3" style="border-bottom:1px dotted;"><TMPL_VAR NAME=YWSHOPNAME></td>
+            </tr>
+            <tr>
+                <td colspan="3" style="border-top:1px dotted;"><TMPL_VAR NAME=YWSHOPNAMEKANA></td>
+            </tr>
+            <tr>
+                <th nowrap>予約販売</th>
+                <td colspan="4">
+                  <TMPL_IF YWYOYAKUY>有り</TMPL_IF><TMPL_IF YWYOYAKUN>無し</TMPL_IF>
+                </td>
+            </tr>
+            <tr>
+                <th nowrap>
+                    他に運営するHPのURL
+                </th>
+                <td colspan="4"><TMPL_VAR NAME=YWOTHERSITEURL></td>
+            </tr>
+        </table>
+
+     <hr class="pageline">
+    <div style="page-break-after: always;"></div>
+</TMPL_IF>
+
+
+<!--#################### 必要書類チェックシート ####################-->
+<TMPL_UNLESS insatu_huyo>
+  <div class="app_title">
+    必要書類チェックシート
+  </div>
+  <div class="app_main01">
+    以下のチェック項目に基づいて必要書類をご用意ください。
+  </div>
+  <hr style="color:#999;">
+
+  <h2 class="check01">申込書</h2>
+  <div class="check02">
+    <div class="check03">
+      <p class="check04">捺印<span class="check05">　　　*いずれかチェック</span></p>
+      <table class="check06">
+        <tr>
+          <td class="check08">□身分証明書が印鑑証明書の場合は実印を捺印している
+          </td>
+        </tr>
+        <tr>
+          <td class="check08">□身分証明書が運転免許証・パスポート・外国人登録証いずれかのコピーの場合、ご契約者様の印鑑を捺印している<br>
+　           （個人・個人事業主のみ）
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="check03">
+      <p class="check04">「利用明細書の表記名」の入力項目</p>
+      <table class="check06">
+        <tr>
+          <td class="check08">□通常表記・カナ・ローマ字を、みな同じ名称として表記している
+          </td>
+        </tr>
+      </table>
+      <table class="check07">
+        <tr>
+         <td>例）
+         </td>
+         <td>通常表記が漢字の場合
+         </td>
+         <td>：山田商事／カナ：ヤマダショウジ／ローマ字：YAMADASHOJI
+         </td>
+        </tr>
+        <tr>
+         <td>
+         </td>
+         <td>通常表記がアルファベットの場合
+         </td>
+         <td>：ABSTORE／カナ：エービーストアー／ローマ字：ABSTORE
+         </td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <h2 class="check01">その他の書類</h2>
+  <div class="check02">
+    <div class="check03">
+      <p class="check04">身分証明書<span class="check05">　　　*いずれかチェック</span></p>
+      <table class="check06">
+        <tr>
+          <td class="check08">□ 法人
+          </td>
+          <td class="check08">→　
+          </td>
+          <td class="check08">会社の印鑑証明書を申込書に同封
+          </td>
+        </tr>
+        <tr>
+          <td class="check08">□ 個人・個人事業主
+          </td>
+          <td class="check08">→　
+          </td>
+          <td class="check08">契約者本人の印鑑証明書または運転免許証・パスポート・外国人登録証いずれかのコピーを同封
+          </td>
+        </tr>
+      </table>
+      <table class="check07">
+        <tr>
+         <td>※印鑑証明書は発行日から3ヶ月以内の原本に限ります
+         </td>
+        </tr>
+        <tr>
+         <td>※運転免許証・パスポート・外国人登録証のコピーは有効期限内であることが確認できるものに限ります
+         </td>
+        </tr>
+      </table>
+    </div>
+    <div class="check03">
+      <p class="check04">販売免許・許可証のコピー　<span class="check09">（一般酒類小売業の免許、古物商許可証など）</span><span class="check05">　　*いずれかチェック</span></p>
+      <table class="check06">
+        <tr>
+          <td class="check08">□販売に許認可が必要な商品は扱わない
+          </td>
+          <td class="check08">→　
+          </td>
+          <td class="check08">郵送不要
+          </td>
+        </tr>
+        <tr>
+          <td class="check08">□酒類、古物など、販売に許認可が必要な商品を扱う
+          </td>
+          <td class="check08">→　
+          </td>
+          <td class="check08">販売免許、許可証などのコピーを同封
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="check03">
+      <p class="check04">販売する商品情報<span class="check05">　　　*いずれかチェック</span></p>
+      <table class="check06">
+        <tr>
+          <td class="check08">□ホームページに掲載している
+          </td>
+          <td class="check08">→　
+          </td>
+          <td class="check08">郵送不要
+          </td>
+        </tr>
+        <tr>
+          <td class="check08">□ホームページに掲載していない
+          </td>
+          <td class="check08">→　
+          </td>
+          <td class="check08">商品のパンフレット・カタログまたは、商品名、商品の画像、価格、内容がわかる<br>
+          説明資料を申込書に同封
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="check03">
+      <p class="check04">「特定商取引に関する法律に基づく表示」<span class="check05">　　　*いずれかチェック</span></p>
+      <table class="check06">
+        <tr>
+          <td class="check08">□ホームページに掲載している
+          </td>
+          <td class="check08">→　
+          </td>
+          <td class="check08">郵送不要</td>
+        </tr>
+        <tr>
+          <td class="check08">□ホームページに掲載していない
+          </td>
+          <td class="check08">→　
+          </td>
+          <td class="check08">必要項目をまとめて申込書に同封</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <hr style="color:#999;">
+  <div class="app_main01">
+    必要書類は申込書と同梱して弊社へ郵送してください。<br>
+    なお、このチェックシートはお客様にて保管ください。弊社へ郵送する必要はありません。
+  </div>
+
+     <hr class="pageline">
+    <div style="page-break-after: always;"></div>
+</TMPL_UNLESS><!-- 印刷必要書類チェックシート --!>
+
+<!--#################### ご案内 ####################-->
+  <div class="app_title">ご案内</div>
+  <div class="app_main01">
+    &nbsp;
+  </div>
+  <TMPL_UNLESS insatu_huyo>
+  <p class="check04">書類について</p>
+  <ul class="guide01">
+    <li>申込書は重要書類のため、「宅配便」など配達記録の残る配送方法でお送りいただくことをおすすめします。</li>
+    <TMPL_IF goannai_syoru>
+    <li>Yahoo!ウォレット決済・楽天ペイ（オンライン決済）を合わせて同時に申し込む場合も、申込書以外の書類はそれぞれ１部ずつでけっこうです。</li>
+    </TMPL_IF>
+  </ul>
+  </TMPL_UNLESS>
+  <p class="check04">審査について</p>
+  <ul class="guide01">
+    <li>Ｅストアーに申込書が到着したのち、Ｅストアーおよび各決済の信販会社が審査します。</li>
+    <li>書類不備や記載内容に相違があった場合、電話もしくはメールで連絡します。</li>
+    <li>お店が準備中（非公開）の場合でも、審査のためにＥストアーがお店ページを閲覧しますので、あらかじめご了承ください。</li>
+    <li>「ご利用案内ページ」「特商法ページ」など、お店ページ表記の送料を統一した金額にしておいてください。<br>
+    重要な審査項目の１つです。</li>
+    <li>審査の結果、ご利用いただけない場合も決済担当者メールアドレス宛に連絡します。</li>
+    <li>取扱商品によっては、信販会社から別途書面の提出を求められる場合もございます。</li>
+  </ul>
+
+  <p class="check04">ご利用開始について</p>
+  <ul class="guide01">
+    <li>決済担当者メールアドレス宛に、ご利用開始の連絡をします。</li>
+    <li>ご利用開始までの期間の目安は以下の通りです。申込書が当社に到着した日から起算します。</li>
+    <table class="guide02">
+      <tr>
+        <td>クレジットカード決済（VISA / MASTER）</td>
+        <td>：</td>
+        <td>最短１営業日</td>
+      </tr>
+      <tr>
+        <td>クレジットカード決済（JCB / AMEX / Diners）</td>
+        <td>：</td>
+        <td>約１〜２週間</td>
+      </tr>
+      <tr>
+        <td>コンビニ(番号端末式)・銀行ＡＴＭ・ネットバンキング決済　</td>
+        <td>：</td>
+        <td>約２週間</td>
+      </tr>
+      <tr>
+        <td>コンビニ決済（払込票）</td>
+        <td>：</td>
+        <td>約２〜３営業日</td>
+      </tr>
+      <tr>
+        <td>楽天銀行決済</td>
+        <td>：</td>
+        <td>約１〜２営業日</td>
+      </tr>
+      <tr>
+        <td>Yahoo!ウォレット決済</td>
+        <td>：</td>
+        <td>約４週間</td>
+      </tr>
+      <tr>
+        <td>後払い（コンビニ、郵便局、銀行）決済</td>
+        <td>：</td>
+        <td>約５〜７営業日</td>
+      </tr>
+      <tr>
+        <td>楽天ペイ（オンライン決済）</td>
+        <td>：</td>
+        <td>約２〜３週間</td>
+      </tr>
+      <tr>
+        <td>ビットコイン決済</td>
+        <td>：</td>
+        <td>最短２営業日</td>
+      </tr>
+    </table>
+    <li>ご利用開始の連絡メールが届いた日が利用開始日となります。</li>
+    <p>後払い（コンビニ、郵便局、銀行）決済で、月額の発生するプラン（Ｂ、Ｃ、Ｄプラン）をお申込みの場合、</p>
+    <p>月額料金は利用開始月より発生します。</p>
+  </ul>
+
+
+  <p class="check04">ご利用開始後の設定について</p>
+  <p class="guide03">
+    ご利用開始の連絡メールが届いたら、カート内で決済方法として利用できるように設定してください。<br>
+    設定方法はオンラインサポートで詳しくご案内しています。
+    <table class="guide04">
+      <tr>
+        <td>オンラインサポート　　　</td>
+        <td>：</td>
+        <td>https://help.shopserve.jp/</td>
+      </tr>
+      <tr>
+        <td>設定マニュアル　</td>
+        <td>：</td>
+        <td>オンラインサポートで検索「212」</td>
+      </tr>
+    </table>
+  </p>
+
+  <div class="footer01">
+    <div class="footer02">Ｅストアーストアーデスク</div>
+    <div class="footer03">平日１０時〜１８時</div>
+    <hr class="footer04">
+    <div class="footer05">0570-05-1210<span class="footer07">（市内通話料のみ）</span></div>
+    <div class="footer05">03-3595-1251<span class="footer07">（ＩＰ電話）</span></div>
+    <div style="clear:both;"></div>
+    <div class="footer05">sp@Estore.co.jp</div>
+    <div style="clear:both;"></div>
+    <div class="footer03">お問い合わせの際は「ショップID」をお知らせください</div>
+  </div>
+</div>
+</body>
+</html>
+
+

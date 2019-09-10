@@ -1,0 +1,239 @@
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function openClose(id,pt,i) {
+        prop = document.getElementById(id).style.display;
+
+        if(i==0) prop = "none";
+
+        if(prop=="none"){
+                if(pt=="div") document.getElementById(id).style.display="block";
+                if(pt=="tr") {
+                        if(document.all)        document.getElementById(id).style.display="block";
+                        else
+                        document.getElementById(id).style.display="table-row";
+                }
+        } else {
+                document.getElementById(id).style.display="none";
+        }
+}
+function defaultOnOff(obj, id, no)
+{
+        var index = obj.options.selectedIndex;
+        var type  = obj.options[index].value;
+        var onOffName  = id + '_' + no;
+
+        if ( type == '0' ) {
+            document.getElementById(onOffName).style.display = "block";
+        } else {
+            document.getElementById(onOffName).style.display = "none";
+        }
+}
+//-->
+</script>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<form name="SHOPPARAM" method="POST" action="shop-param.cgi">
+<input type="hidden" name="CMD" value="EDT">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0093C9">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">入力項目の設定を行います</td>
+<td align="right" class="midashi"><a href="<TMPL_VAR NAME=Manual>func03/cartitm.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  表示項目・・・[カートに入れる]ボタンをクリックした直後のカート画面で表示する各項目を設定します。<br>
+                                  入力項目・・・レジ画面で購入者様に入力していただく購入者情報を設定します。<br>
+                                  注文者アンケート・・・購入者様用アンケートを設定します。会員の方は初回購入時のみ表示されます。<br>
+                                </div>
+<TMPL_LOOP NAME=ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+				<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                    <tr align="center">
+                                      <td colspan="2" class="item-name02">表示項目</td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">ショッピングカート</td>
+                                      <td class="item"><table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#666666" >
+                                          <tr align="center" bgcolor="#FFFFFF">
+                                            <td><input name="CartPicName" type="text" value="<TMPL_VAR NAME=CARTPICNAME>" size="10">
+                                            </td>
+                                            <td><input name="CartItmName" type="text" value="<TMPL_VAR NAME=CARTITMNAME>" size="10">
+                                            </td>
+                                            <td><input name="CartPrcName" type="text" value="<TMPL_VAR NAME=CARTPRCNAME>" size="10">
+                                            </td>
+                                            <td><input name="CartCntName" type="text" value="<TMPL_VAR NAME=CARTCNTNAME>" size="10">
+                                            </td>
+                                            <td><input name="CartSubttlName" type="text" value="<TMPL_VAR NAME=CARTSUBTTLNAME>" size="10">
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td align="center" bgcolor="#FFFFFF"><img src="../imgs/spc.gif" width="70" height="70" border="1"></td>
+                                            <td bgcolor="#FFFFFF">特選！蜜入りりんご</td>
+                                            <td align="right" bgcolor="#FFFFFF">1,000円</td>
+                                            <td align="right" bgcolor="#FFFFFF">4</td>
+                                            <td align="right" bgcolor="#FFFFFF">4,000円</td>
+                                          </tr>
+                                          <tr>
+                                            <td align="center" bgcolor="#FFFFFF"><img src="../imgs/spc.gif" width="70" height="70" border="1"></td>
+                                            <td bgcolor="#FFFFFF">緑茶</td>
+                                            <td align="right" bgcolor="#FFFFFF">500円</td>
+                                            <td align="right" bgcolor="#FFFFFF">4</td>
+                                            <td align="right" bgcolor="#FFFFFF">2,000円</td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="4" align="right" bgcolor="#FFFFFF"><input name="CartItmttlName" type="text" value="<TMPL_VAR NAME=CARTITMTTLNAME>" size="20">
+                                            </td>
+                                            <td align="right" bgcolor="#FFFFFF">6,000円</td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="4" align="right" bgcolor="#FFFFFF"><input name="CartSchargeName" type="text" value="<TMPL_VAR NAME=CARTSCHARGENAME>" size="20">
+                                            </td>
+                                            <td align="right" bgcolor="#FFFFFF">2,000円</td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="4" align="right" bgcolor="#FFFFFF"><input name="CartWrapName" type="text" value="<TMPL_VAR NAME=CARTWRAPNAME>" size="20">
+                                            </td>
+                                            <td align="right" bgcolor="#FFFFFF">200円</td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="4" align="right" bgcolor="#FFFFFF"><input name="CartCommissionName" type="text" value="<TMPL_VAR NAME=CARTCOMMISSIONNAME>" size="20">
+                                            </td>
+                                            <td align="right" bgcolor="#FFFFFF">300円</td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="4" align="right" bgcolor="#FFFFFF"><input name="CartTotalName" type="text" value="<TMPL_VAR NAME=CARTTOTALNAME>" size="20">
+                                            </td>
+                                            <td align="right" bgcolor="#FFFFFF">8,500円</td>
+                                          </tr>
+                                      </table></td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">お知らせを受け取る</td>
+                                      <td class="item">
+					  <select name="MailDisp">
+                                          <option value="Y" <TMPL_IF MAILDISPY>selected</TMPL_IF>>表示</option>
+                                          <option value="N" <TMPL_IF MAILDISPN>selected</TMPL_IF>>非表示</option>
+                                          </select>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                    <br>
+                                    <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                      <tr align="center">
+                                        <td colspan="2" class="item-name02"> 入力項目</td>
+                                      </tr>
+                                      <tr>
+                                        <td class="item-name">注文者情報</td>
+                                        <td class="item-sub"><table width="100%">
+                                            <tr align="center">
+                                              <td class="sub-item-name00"><strong>項目名</strong></td>
+                                              <td align="center" bgcolor="#fafafa"><strong>表示</strong></td>
+                                              <td align="center" bgcolor="#fafafa"><strong>必須</strong></td>
+                                            </tr>
+<TMPL_LOOP PCLIST>
+                                            <tr>
+                                              <td class="sub-item-name00"><TMPL_VAR NAME=NAME></td>
+                                              <td align="center" bgcolor="#fafafa"><input type="checkbox" name="Ord<TMPL_VAR NAME=CODE>Disp" value="Y" <TMPL_IF DISP>checked</TMPL_IF> <TMPL_IF SELDIS>disabled</TMPL_IF>>
+                                              </td>
+                                              <td align="center" bgcolor="#fafafa"><input type="checkbox" name="Ord<TMPL_VAR NAME=CODE>Hisu" value="Y" <TMPL_IF HISU>checked</TMPL_IF> <TMPL_IF SELDIS>disabled</TMPL_IF>>
+                                              </td>
+                                            </tr>
+</TMPL_LOOP>
+                                        </table></td>
+                                      </tr>
+                                    </table>
+                                    <br>
+                                    <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                      <tr align="center">
+                                        <td colspan="2" class="item-name02">注文者アンケート</td>
+                                      </tr>
+
+<TMPL_LOOP ENQLIST>
+                                      <tr>
+                                        <td align="left" class="item-name">アンケート<TMPL_VAR NAME=NO></td>
+                                        <td class="item-sub"><table width="100%">
+                                            <tr align="left">
+                                              <td class="sub-item-name">質問項目</td>
+                                              <td class="sub-item"><input name="Enq<TMPL_VAR NAME=NO>_Quest" type="text" value="<TMPL_VAR NAME=ENQUETE>">
+                                                  <input name="set" type="button" id="set" value="詳細設定" onClick="openClose('Enq_<TMPL_VAR NAME=NO>_info', 'div');">
+                                              </td>
+                                            </tr>
+                                          </table>
+                                          <div id="Enq_<TMPL_VAR NAME=NO>_info" style="display:<TMPL_IF NAME=EDT>none<TMPL_ELSE>block</TMPL_IF>">
+					  <table>
+					    <tr align="left">
+						<td  class="sub-item-name">表示</td>
+						<td class="sub-item">
+						<input type="checkbox" name="Enq<TMPL_VAR NAME=NO>_Disp" value="Y" id="item-chk<TMPL_VAR NAME=NO>" <TMPL_IF DISP>checked</TMPL_IF>>
+						<label for="item-chk<TMPL_VAR NAME=NO>">表示する</label>
+					      </td>
+					    </tr>
+						<tr align="left">
+							<td  class="sub-item-name">必須</td>
+							<td class="sub-item">
+								<input type="checkbox" name="Enq<TMPL_VAR NAME=NO>_Hisu" value="Y" id="item-hisu-chk<TMPL_VAR NAME=NO>" <TMPL_IF HISU>checked</TMPL_IF>>
+								<label for="item-hisu-chk<TMPL_VAR NAME=NO>">回答必須にする</label>
+							</td>
+						</tr>
+					    <tr align="left">
+					      <td class="sub-item-name">回答タイプ</td>
+					      <td class="sub-item">
+						<select name="Enq<TMPL_VAR NAME=NO>_Kind" onChange="defaultOnOff(this, 'onlyPull', <TMPL_VAR NAME=NO>)">
+						<TMPL_LOOP ENQTYPE>
+						<option value="<TMPL_VAR NAME=CODE>" <TMPL_IF SEL>selected</TMPL_IF>><TMPL_VAR NAME=TYPENAME></option>
+						</TMPL_LOOP>
+						</select>
+					      </td>
+					    </tr>
+                                          </table>
+                                          <div id="onlyPull_<TMPL_VAR NAME=NO>" style="display:none">
+                                          <table>
+                                            <tr align="left">
+                                              <td class="sub-item-name">初期値</td>
+                                              <td class="sub-item">選択してください</td>
+                                            </tr>
+                                          </table>
+                                          </div>
+                                          <table>
+					    <TMPL_LOOP ANSLIST>
+					    <tr align="left">
+					      <td class="sub-item-name">回答<TMPL_VAR NAME=ANSNO></td>
+					      <td class="sub-item">
+						<input name="ANSER<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=ANSNO>" type="text" class="sub-line" value="<TMPL_VAR NAME=ANSER>">
+					      </td>
+					    </tr>
+					    </TMPL_LOOP>
+					  </table>
+                                          </div>
+					</td>
+</TMPL_LOOP>
+                                      </tr>
+                                    </table>
+                                    <br>
+                                    
+                                    <div align="center"><input name="set" type="button" id="set" value="設定を保存する" onClick="document.SHOPPARAM.submit();"></div>
+                                    
+                                    </td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+</form>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+    for ( i=1; i<=5; i++) {
+
+        eval( 'defaultOnOff(document.SHOPPARAM.Enq' + i + '_Kind, \'onlyPull\', ' + i + ')' );
+    }
+//-->
+</script>

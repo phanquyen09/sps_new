@@ -1,0 +1,285 @@
+<script language="javascript">
+<!--
+function changeListnum() {
+        var num = document.ITEMLIST.ListNum.value;
+        document.ITEMLIST.reset();
+        document.ITEMLIST.ListNum.value = num;
+        document.ITEMLIST.PAGE.value='1';
+        document.ITEMLIST.CMD.value = 'SEEK';
+        document.ITEMLIST.submit();
+        document.ITEMLIST.sort.value = '';
+}
+function allreset() {
+	document.ITEMLIST.search_year1.value        = '';
+	document.ITEMLIST.search_month1.value       = '';
+	document.ITEMLIST.search_day1.value         = '';
+        document.ITEMLIST.search_year2.value        = '';
+        document.ITEMLIST.search_month2.value       = '';
+        document.ITEMLIST.search_day2.value         = '';
+        document.ITEMLIST.search_af_user_id.value   = '';
+        document.ITEMLIST.search_sitename.value     = '';
+        document.ITEMLIST.search_af_user_name.value = '';
+        document.ITEMLIST.search_order_id.value     = '';
+        document.ITEMLIST.search_item_name.value    = '';
+        document.ITEMLIST.search_item_min.value     = '';
+        document.ITEMLIST.search_item_max.value     = '';
+        document.ITEMLIST.search_reward_min.value   = '';
+        document.ITEMLIST.search_reward_max.value   = '';
+        document.ITEMLIST.sort.value                = '';
+}
+function sortAffiDate() {
+        document.ITEMLIST.sort.value='affi_date';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+        document.ITEMLIST.submit();
+}
+function sortAffiliate() {
+        document.ITEMLIST.sort.value='affiliate';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+        document.ITEMLIST.submit();
+}
+function sortSiteName() {
+        document.ITEMLIST.sort.value='sitename';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+        document.ITEMLIST.submit();
+}
+function sortAfName() {
+        document.ITEMLIST.sort.value='afname';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+        document.ITEMLIST.submit();
+}
+function sortOrderID() {
+        document.ITEMLIST.sort.value='order_id';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+        document.ITEMLIST.submit();
+}
+function sortItemName() {
+        document.ITEMLIST.sort.value='item_name';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+        document.ITEMLIST.submit();
+}
+function sortItemPrc() {
+        document.ITEMLIST.sort.value='item_prc';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+        document.ITEMLIST.submit();
+}
+function sortRewards() {
+        document.ITEMLIST.sort.value='rewards';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+        document.ITEMLIST.submit();
+}
+// -->
+</script>
+<FORM NAME=ITEMLIST ACTION="my-sales-report.cgi" METHOD=POST>
+<INPUT TYPE=hidden NAME=PAGE value="<TMPL_VAR name=PAGE>">
+<INPUT TYPE=hidden NAME=CMD  value="SEEK">
+<INPUT TYPE=hidden NAME=SITEN_ID  value="<TMPL_VAR name=SITEN_ID>">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                      <tr>
+                                        <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+
+                                            <tr>
+                                              <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+                                            </tr>
+                                        </table></td>
+<td align="left" class="midashi">売上が確定した受注の一覧を表示します</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/my-sales-report.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                                      </tr>
+                                    </table>
+                                      <img src="../imgs/spc.gif" width="5" height="5">
+
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                          <td align="left" class="main-table">
+
+<div class="infoArea table_bg">
+＜Ｅストアーフレンドリンク＞<br>
+お店のリピーター、お友達などのサイトで商品を紹介してもらい、紹介されたサイト経由での売上に対して成果報酬を支払うシステムです。<br>
+リピーターや、お店のファンに商品の魅力を強くアピールしてもらうことで、効果的な宣伝が期待できます。<br>
+また、紹介者には売上ごとに報酬が支払われますので、紹介することのメリットを伝えることで、口コミでの宣伝効果も期待できます。<br>
+<br>
+月額利用料金はかかりません。<br>
+※商品が売れた場合のみ、システム利用料5.25%(税込)／1売上＋アフィリエイターへの成果報酬がかかります。<br>
+---------------------------------------------------------------------------------------------<br>
+<br>
+ここでは「Ｅストアーフレンドリンク」経由の売上を管理します。<br>
+</div>
+
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                              <td><table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                      <tr>
+                                                        <td valign="bottom" style="padding-bottom:2px">&nbsp;</td>
+                                                        <td align="right" valign="bottom">表示件数
+                                                  <select name="ListNum" onChange="changeListnum();">
+                        <option value="10" <TMPL_IF LISTNUM10>selected</TMPL_IF>>10</option>
+                        <option value="20" <TMPL_IF LISTNUM20>selected</TMPL_IF>>20</option>
+                        <option value="30" <TMPL_IF LISTNUM30>selected</TMPL_IF>>30</option>
+                        <option value="40" <TMPL_IF LISTNUM40>selected</TMPL_IF>>40</option>
+                        <option value="50" <TMPL_IF LISTNUM50>selected</TMPL_IF>>50</option>
+                                                  </select>
+
+                                                            <br>
+<TMPL_IF NAME=TOTAL_NUM>
+<TMPL_VAR name=START_NUM>&nbsp;-&nbsp;<TMPL_VAR name=END_NUM>&nbsp;&nbsp;（&nbsp;全&nbsp;<TMPL_VAR name=TOTAL_NUM>件&nbsp;）
+&nbsp;
+<TMPL_LOOP name=PAGE_LIST>
+<TMPL_VAR name=LINK>
+</TMPL_LOOP>
+</TMPL_IF>
+                                                      </td></tr>
+                                                    </table>
+
+                                                    <table width="100%" cellpadding="3" class="item-box">
+                                                      <tr align="center" bgcolor="#CCCCCC">
+                                                        <td class="odr-midashi">売上確定日&nbsp;<a href="javascript:;sortAffiDate();">▼</a></td>
+                                                        <td class="odr-midashi">アフィリエイターID&nbsp;<a href="javascript:;sortAffiliate();">▼</a></td>
+                                                        <td class="odr-midashi">サイト名&nbsp;<a href="javascript:;sortSiteName();">▼</a></td>
+                                                        <td class="odr-midashi">アフィリエイター名&nbsp;<a href="javascript:;sortAfName();">▼</a></td>
+                                                        <td class="odr-midashi">注文番号&nbsp;<a href="javascript:;sortOrderID();">▼</a></td>
+                                                        <td class="odr-midashi">商品名&nbsp;<a href="javascript:;sortItemName();">▼</a></td>
+                                                        <td class="odr-midashi">商品金額&nbsp;<a href="javascript:;sortItemPrc();">▼</a></td>
+                                                        <td class="odr-midashi">成果報酬&nbsp;<a href="javascript:;sortRewards();">▼</a></td>
+                                                      </tr>
+
+					<TMPL_LOOP NAME=report>
+                                          <tr bgcolor="#FFFFFF">
+                                            <td height="30" align="center" class="odr-txt"><TMPL_VAR NAME=ddate></td>
+                                            <td align="center" class="odr-txt">
+<a href="javascript:;" onClick="MM_openBrWindow('my-sales-detail.cgi?ID=<TMPL_VAR NAME=ID>','detail','scrollbars=yes,resizable=yes,width=800,height=700');"><TMPL_VAR NAME=user_id></a></td>
+                                            <td align="center" class="odr-txt"><a href="<TMPL_VAR NAME=homepage>" target="_blank"><TMPL_VAR NAME=sitename></a></td>
+                                            <td align="center" class="odr-txt"><TMPL_VAR NAME=name></td>
+                                            <td align="center" class="odr-txt"><TMPL_VAR NAME=order_id></td>
+                                            <td align="center" class="odr-txt"><TMPL_VAR NAME=item_name></td>
+                                            <td align="right" class="odr-txt"><TMPL_VAR NAME=item_prc></td>
+                                            <td align="right" class="odr-txt"><TMPL_VAR NAME=result></td>
+                                          </tr>
+					</TMPL_LOOP>
+
+                                                    </table>
+                                                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                      <tr>
+                                                        <td valign="bottom">&nbsp;</td>
+                                                        <td align="right">
+<TMPL_IF NAME=TOTAL_NUM>
+<TMPL_VAR name=START_NUM>&nbsp;-&nbsp;<TMPL_VAR name=END_NUM>&nbsp;&nbsp;（&nbsp;全&nbsp;<TMPL_VAR name=TOTAL_NUM>件&nbsp;）
+&nbsp;
+<TMPL_LOOP name=PAGE_LIST>
+<TMPL_VAR name=LINK>
+</TMPL_LOOP>
+</TMPL_IF>
+                                                      </td></tr>
+                                                    </table>
+                                                    <br>
+                                                    <table width="100%" cellpadding="3" class="item-box">
+                                                      <tr align="center">
+                                                        <td colspan="2" class="item-name02">売上検索</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td class="item-name">売上確定日</td>
+                                                        <td bgcolor="#FFFFFF" class="item">&nbsp;
+              <input name="search_year1" type="text" size="5" value="<TMPL_VAR NAME=search_year1>" style="ime-mode:disabled">
+              年
+              <input name="search_month1" type="text" size="3" value="<TMPL_VAR NAME=search_month1>" style="ime-mode:disabled">
+              月
+              <input name="search_day1" type="text" size="3" value="<TMPL_VAR NAME=search_day1>" style="ime-mode:disabled">
+              日 &nbsp;〜&nbsp;
+
+              <input name="search_year2" type="text" size="5" value="<TMPL_VAR NAME=search_year2>" style="ime-mode:disabled">
+              年
+              <input name="search_month2" type="text" size="3" value="<TMPL_VAR NAME=search_month2>" style="ime-mode:disabled">
+              月
+              <input name="search_day2" type="text" size="3" value="<TMPL_VAR NAME=search_day2>" style="ime-mode:disabled">
+              日</td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td class="item-name">アフィリエイターＩＤ</td>
+
+<td bgcolor="#FFFFFF" class="item"><input type="text" name="search_af_user_id" value="<TMPL_VAR NAME=search_af_user_id>" style="ime-mode:disabled">
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td class="item-name">サイト名</td>
+<td bgcolor="#FFFFFF" class="item"><input type="text" name="search_sitename" value="<TMPL_VAR NAME=search_sitename>">
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td class="item-name">アフィリエイター名</td>
+<td bgcolor="#FFFFFF" class="item"><input type="text" name="search_af_user_name" value="<TMPL_VAR NAME=search_af_user_name>">
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td class="item-name">注文番号</td>
+<td bgcolor="#FFFFFF" class="item"><input type="text" name="search_order_id" value="<TMPL_VAR NAME=search_order_id>" style="ime-mode:disabled">
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td class="item-name">商品名</td>
+<td bgcolor="#FFFFFF" class="item"><input type="text" name="search_item_name" value="<TMPL_VAR NAME=search_item_name>">
+                                                        </td>
+                                                      </tr>
+                                                      <tr>
+                                                        <td class="item-name">商品金額合計（税込）</td>
+<td bgcolor="#FFFFFF" class="item"><input type="text" name="search_item_min" value="<TMPL_VAR NAME=search_item_min>" style="ime-mode:disabled">
+              円&nbsp;〜&nbsp;
+              <input type="text" name="search_item_max" value="<TMPL_VAR NAME=search_item_max>" style="ime-mode:disabled">
+              円</td>
+                                                      </tr>
+                                                      <tr>
+
+                                                        <td class="item-name">成果報酬</td>
+<td bgcolor="#FFFFFF" class="item"><input type="text" name="search_reward_min" value="<TMPL_VAR NAME=search_reward_min>" style="ime-mode:disabled">
+              円&nbsp;〜&nbsp;
+              <input type="text" name="search_reward_max" value="<TMPL_VAR NAME=search_reward_max>" style="ime-mode:disabled">
+              円</td>
+                                                      </tr>
+						      <tr align="center" bgcolor="#FFFFFF">
+							<td colspan="2" class="item">
+							  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                                            <tr>
+							      <td colspan="3" align="center"><input type="submit" onclick="document.ITEMLIST.PAGE.value='1'" name="Submit" value="検索">&nbsp;
+							      <input type="button" name="Submit" value="条件をクリア" onClick="allreset();">&nbsp;
+						            </td></tr>
+							  </table></td>
+							</tr>
+						      </table>
+                                                              </td>
+                                                            </tr>
+                                                        </table>
+<br>
+                                            <table class="item-box">
+                                              <tr>
+                                                <td align="center" class="item-name02">CSVダウンロード</td>
+                                              </tr>
+                                              <tr>
+                                                <td align="center" class="item">
+							      <input type="button" name="Submit" value="ダウンロード" style="font-size:90%; padding-top:3px" onClick="document.ITEMLIST.action='my-sales-report.csv';document.ITEMLIST.submit();document.ITEMLIST.action='my-sales-report.cgi';">&nbsp;
+                                                </td>
+                                              </tr>
+                                            </table>
+
+                                                </td>
+                                            </tr>
+                                          </table></td>
+
+                                        </tr>
+<input type="hidden" name="sort" value="<TMPL_VAR NAME=sort>">
+<input type="hidden" name="desc" value="<TMPL_VAR NAME=desc>">
+</FORM>

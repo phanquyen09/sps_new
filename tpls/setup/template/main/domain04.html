@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Ｅストアーショップサーブ　ドメイン取得</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="default00.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function openScat(id) {
+		ele = document.getElementById(id+"1");
+		ele.style.display = "block";
+}
+
+function openClose(id,pt,i) {
+		prop = document.getElementById(id).style.display;
+
+//		alert(id+" "+pt+" "+i);
+
+		if(i==0) prop = "none";
+
+		if(prop=="none"){
+				if(pt=="div") document.getElementById(id).style.display="block";
+//						alert("div "+document.getElementById(id).style.display);
+				if(pt=="tr") {
+						if(document.all)	document.getElementById(id).style.display="block";
+						else
+						document.getElementById(id).style.display="table-row";
+//						alert("tr "+document.getElementById(id).style.display);
+				}
+		} else {
+				document.getElementById(id).style.display="none";
+		}
+//		alert(document.getElementById(id).style.display);
+}
+
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+.outbox {
+	padding:5px;
+}
+
+.inbox {
+	padding:3px;
+}
+.inbox1 {	padding:3px;
+}
+.outbox1 {	padding:5px;
+}
+-->
+</style>
+</head>
+<body>
+<form name="next" method="post">
+  <input type="hidden" name="ID" value="<TMPL_VAR name="ID">">
+  <input type="hidden" name="CMD" value="REG">
+<a name="top"></a>
+<div style="font-size:80%" align="center">
+  <table width="600"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center"><img src="imgs/domain_navi04.gif" width="590" height="52"></td>
+    </tr>
+    <tr>
+      <td align="left" height="15"><img src="../imgs/spc.gif" width="5" height="5"></td>
+    </tr>
+  </table>
+  <table width="600"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="left" class="outbox"><div class="midashi">ご契約者情報確認</div>
+        <br>
+        <table width="95%" border="0" cellspacing="1" cellpadding="1" align="center">
+                <tr align="left">
+                  <td class="comment_box">
+                    下記内容をご確認のうえ、「この内容で申し込む」ボタンをクリックしてください。ドメインの取得、または移転申請を行います。<br>
+                    <b>※ドメイン名の取得、移転は初回のみ無料となります。ドメイン名を変更する場合は、事務手数料<TMPL_VAR NAME=DomCnclFee>円<span style="font-size:85%;">(税込<TMPL_VAR NAME=DomCnclFeeTaxIn>円)</span>が必要となります。</b>
+                  </td>
+                </tr>
+        </table>
+        <br>
+		<table width="95%" border="0" cellspacing="1" cellpadding="1" align="center">
+                <tr align="left">
+                  <td align="center" class="domain_box"><strong>ドメイン名　<TMPL_VAR name="DOMAIN"></strong></td>
+                </tr>
+        </table><br>
+
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td bgcolor="#333333"><table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
+              <tr align="center">
+                <td colspan="3" valign="top" class="box_title"><strong>ご契約者情報</strong></td>
+              </tr>
+<TMPL_IF name="COM">
+              <tr align="left">
+                <td colspan="2" valign="top" class="box_title_side">法人名</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_NAME"></td>
+              </tr>
+              <tr align="left">
+                <td colspan="2" valign="top" class="box_title_side">法人名(かな)</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_KN_NAME"></td>
+              </tr>
+              <tr align="left">
+                <td colspan="2" valign="top" class="box_title_side">法人名(英文)</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_EN_NAME"></td>
+              </tr>
+              <tr align="left">
+                <td colspan="2" valign="top" class="box_title_side">代表者名</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_DAIHYO"></td>
+              </tr>
+              <tr align="left">
+                <td colspan="2" valign="top" class="box_title_side">代表者名(かな)</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_KN_DAIHYO_SEI"> <TMPL_VAR NAME="CUST_KN_DAIHYO_MEI"></td>
+              </tr>
+              <tr align="left">
+                <td colspan="2" valign="top" class="box_title_side">代表者名(英文)</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_EN_DAIHYO_SEI"> <TMPL_VAR NAME="CUST_EN_DAIHYO_MEI"></td>
+              </tr>
+              <tr align="left">
+                <td colspan="2" valign="top" class="box_title_side">代表者役職</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_POST"></td>
+              </tr>
+<TMPL_IF name="JPRS">
+              <tr align="left">
+                <td colspan="2" valign="top" class="box_title_side">登記年月日</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_FUD_YY">/<TMPL_VAR NAME="CUST_FUD_MM">/<TMPL_VAR NAME="CUST_FUD_DD"></td>
+              </tr>
+              <tr align="left">
+                <td colspan="2" valign="top" class="box_title_side">登記地住所</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_FUD_ADR"></td>
+              </tr>
+</TMPL_IF>
+<TMPL_ELSE>
+              <tr align="left">
+                <td colspan="2" valign="top" class="box_title_side">契約者名</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_DAIHYO"></td>
+              </tr>
+              <tr align="left">
+                <td colspan="2" valign="top" class="box_title_side">契約者名(かな)</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_KN_DAIHYO_SEI"> <TMPL_VAR NAME="CUST_KN_DAIHYO_MEI"></td>
+              </tr>
+              <tr align="left">
+                <td colspan="2" valign="top" class="box_title_side">契約者名(英文)</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_EN_DAIHYO_SEI"> <TMPL_VAR NAME="CUST_EN_DAIHYO_MEI"></td>
+              </tr>
+</TMPL_IF>
+              <tr align="left">
+                <td colspan="2" valign="top" class="box_title_side">郵便番号</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_ZIP"></td>
+              </tr>
+              <tr align="left">
+                <td colspan="2" valign="top" class="box_title_side">住所</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_TOFU"><TMPL_VAR NAME="CUST_SIKU"><TMPL_VAR NAME="CUST_CHOSON"
+><TMPL_VAR NAME="CUST_BANTI"> <TMPL_VAR NAME="CUST_TATESITU"></td>
+              </tr>
+              <tr align="left">
+                <td width="40" rowspan="3" valign="top" class="box_title_side_sub">住所<BR>
+      （かな）</td>
+                <td align="right" valign="top" class="box_title_side_sub">都道府県</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_KN_TOFU"></td>
+              </tr>
+              <tr align="left">
+                <td align="right" valign="top" class="box_title_side_sub">市区郡</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_KN_SIKU"></td>
+              </tr>
+              <tr align="left">
+                <td align="right" valign="top" class="box_title_side_sub">町村字</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_KN_AZA"></td>
+              </tr>
+              <tr align="left">
+                <td rowspan="5" valign="top" class="box_title_side_sub">住所<BR>
+                  （英文）</td>
+                <td align="right" valign="top" class="box_title_side_sub">都道府県</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_EN_TOFU"></td>
+              </tr>
+              <tr align="left">
+                <td align="right" valign="top" class="box_title_side_sub">市区郡</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_EN_SIKU"></td>
+              </tr>
+              <tr align="left">
+                <td align="right" valign="top" class="box_title_side_sub">町村字</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_EN_AZA"></td>
+              </tr>
+              <tr align="left">
+                <td align="right" valign="top" class="box_title_side_sub">番地</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_EN_BANTI"></td>
+              </tr>
+              <tr align="left">
+                <td align="right" valign="top" class="box_title_side_sub">建物名</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_EN_TATESITU"></td>
+              </tr>
+              <tr align="left">
+                <td colspan="2" valign="top" class="box_title_side">電話番号</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_TEL"></td>
+              </tr>
+              <tr align="left">
+                <td colspan="2" valign="top" class="box_title_side">ＦＡＸ番号</td>
+                <td class="box_txt"><TMPL_VAR NAME="CUST_FAX"></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table>
+        <br>
+        <div align="center">
+		
+          <input type="button" onClick="document.back.submit();" value="戻る">
+          <input type="button" onClick="document.next.submit();" value="この内容で申し込む">
+        </div>
+        <br>
+        <hr size="1" noshade>          
+        <br>
+      </td>
+    </tr>
+  </table>
+</div>
+</form>
+<form name="back" method="post">
+  <input type="hidden" name="ID" value="<TMPL_VAR name="ID">">
+  <input type="hidden" name="CMD" value="CNT">
+  <input type="hidden" name="BAK" value="YES">
+</form>
+</body>
+</html>
+

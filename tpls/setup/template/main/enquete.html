@@ -1,0 +1,352 @@
+<link href="../css/custom_ui/popupmanager.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+  .outline {
+    width: 100%;
+  }
+</style>
+<TMPL_IF NAME=displayHtmlEditor>
+<script type="text/javascript">
+  _editor_url = "../blog/js";
+  _editor_lang = "ja";
+</script>
+<script type="text/javascript" src="../blog/js/htmlarea.js"></script>
+<script type="text/javascript" src="../blog/js/entry1.js"></script>
+<script type="text/javascript" src="../blog/js/entry2.js"></script>
+<script type="text/javascript" src="../blog/js/initeditor1.js"></script>
+<script type="text/javascript" src="../blog/js/initeditor2.js"></script>
+<script language="JavaScript">
+<!--
+function edinit() {
+    initEditor1();
+    initEditor2();
+}
+//-->
+</script>
+</TMPL_IF>
+<!-- 新携帯対応 Start -->
+<TMPL_IF NAME=PREVNOTDISP>
+<TMPL_IF NAME=displayHtmlEditor>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../js/tiny_mce/jquery.tinymce.js"></script>
+<script type="text/javascript" src="../js/default.js"></script>
+<script type="text/javascript" src="../js/default_smp.js"></script>
+</TMPL_IF>
+</TMPL_IF>
+<!-- 新携帯対応 End -->
+<script type="text/javascript" src="../js/custom_ui/popupmanager.js"></script>
+<script language="JavaScript">
+<!--
+
+function do_command(cmd) {
+  document.ENQUINFO.CMD.value=cmd;
+  var isResponsiveTheme = <TMPL_VAR NAME=isResponsiveTheme>;
+
+  if (cmd == 'PREV') {
+    if (isResponsiveTheme) {
+      var winOpenScreenHeight = window.innerHeight;
+      var winOpen = window.open("about:blank","enquete_preview","scrollbars=yes, resizable=yes, width=420, height=" + winOpenScreenHeight);
+    }
+    document.ENQUINFO.action='<TMPL_VAR NAME=EnquURL>';
+    document.ENQUINFO.PREV.value='Y';
+    document.ENQUINFO.target='enquete_preview';
+    document.ENQUINFO.onsubmit();
+    document.ENQUINFO.submit();
+  } else if (cmd == 'SAVE') {
+    document.ENQUINFO.action='enquete.cgi';
+    document.ENQUINFO.PREV.value='';
+    document.ENQUINFO.target='_self';
+    document.ENQUINFO.onsubmit();
+    document.ENQUINFO.submit();
+  }
+}
+
+function openClose(id,pt,i) {
+    prop = document.getElementById(id).style.display;
+    if(i==0) prop = "none";
+    if(prop=="none"){
+        if(pt=="div") document.getElementById(id).style.display="block";
+        if(pt=="tr") {
+            if(document.all)    document.getElementById(id).style.display="block";
+        else
+            document.getElementById(id).style.display="table-row";
+        }
+    } else {
+        document.getElementById(id).style.display="none";
+    }
+}
+
+function increaseTextarea()
+{
+    document.ENQUINFO.action='enquete.cgi';
+    document.ENQUINFO.increaseTextareaHeight.value="Increase";
+    document.ENQUINFO.CMD.value="EDT";
+    <TMPL_IF NAME=displayHtmlEditor>
+    if (HTMLAreaSupported1()) {
+        document.ENQUINFO.ta1.form.onsubmit();
+    }
+    </TMPL_IF>
+    document.ENQUINFO.target="_self";
+    document.ENQUINFO.submit();
+}
+//-->
+</script>
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#F39700">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+      </table>
+    </td>
+    <td class="midashi" align="left">アンケートフォームの入力画面の設定を行います</td>
+    <td class="midashi" align="right"><a href="https://help.shopserve.jp/help/enqu_select.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+      <form name="ENQUINFO" method="POST" action="enquete.cgi" onsubmit="">
+      <input type="hidden" name="CMD" value="SAVE">
+      <input type="hidden" name="EnquPageID" value="<TMPL_VAR NAME=EnquPageID>">
+      <input type="hidden" name="PageNo" value="<TMPL_VAR NAME=PageNo>">
+      <input type="hidden" name="PAGE" value="<TMPL_VAR NAME=PageNo>">
+      <input type="hidden" name="PREV" value="">
+      <input type="hidden" name="increaseTextareaHeight" value="">
+
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td>
+              <div style="border:1px solid #666;padding:4px;margin:0 0 1em">
+                <table width="100%">
+                  <tr>
+                      <td>
+                        <div style="text-align:center">
+                          <input style="width:124px" name="enquete01" type="button" value="フォームの設定" onClick="location.href='enquete_edit.cgi?PageNo=<TMPL_VAR NAME=PageNo>'">&nbsp;
+                          <input style="width:124px" name="enquete02" type="button" value="入力画面の設定" onClick="location.href='enquete.cgi?PageNo=<TMPL_VAR NAME=PageNo>&CMD=EDT'"  disabled>&nbsp;
+                          <input style="width:124px" name="enquete03" type="button" value="確認画面の設定" onClick="location.href='enquete.cgi?PageNo=<TMPL_VAR NAME=PageNo>&CMD=CFMEDT'">&nbsp;
+                          <input style="width:124px" name="enquete04" type="button" value="お礼画面の設定" onClick="location.href='enquete.cgi?PageNo=<TMPL_VAR NAME=PageNo>&CMD=THKEDT'">&nbsp;
+                          <input style="width:124px" name="enquete05" type="button" value="自動返信の設定" onClick="location.href='enquete_retedit.cgi?PageNo=<TMPL_VAR NAME=PageNo>'">
+                        </div>
+                      </td>
+                  </tr>
+                </table>
+              </div>
+              <TMPL_LOOP NAME=ERR_MSG>
+                <font color="red">&nbsp;<TMPL_VAR NAME=MSG></font><br>
+              </TMPL_LOOP>
+              JavaScriptを使用する場合は、HTMLエディタをOFFにしてご利用ください。<br>
+              <a href="../func02/htmleditor.php">⇒HTMLエディタ OFF/ON 切替</a><br>
+              <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                <tr align="center">
+                  <td colspan="2" class="item-name02">入力画面の設定</td>
+                </tr>
+                <tr>
+                  <td class="item-name">headタグ<img class="near-popup" src="./imgs/newSetup_QuestionOrange.gif" alt="?" onclick="popUp('popup_head_tag',1);" style="cursor:pointer;"></td>
+                  <td class="item">
+                      <textarea name="head_tag" style="width:98.5%" rows="<TMPL_VAR NAME='increaseTextareaHeight'>" wrap="VIRTUAL" class="def-line"><TMPL_VAR escape=html NAME=headTag></textarea>
+                      <br>
+                      <input type="button" name="button1" value="入力エリアの拡大" style="width:130px" onClick="increaseTextarea()">
+                  </td>
+                </tr>
+                <tr>
+                  <TMPL_IF NAME=ErrTitle>
+                  <td align="left" class="item-name" style="background-color:#e0ffff">タイトル<span class="must">（必須）</span></td>
+                  <td class="item" style="background-color:#e0ffff">
+                    <input name="title" type="text" class="def-line" value="<TMPL_VAR NAME=TITLE>">
+                  </td>
+                  <TMPL_ELSE>
+                  <td align="left" class="item-name">タイトル<span class="must">（必須）</span></td>
+                  <td class="item">
+                    <input name="title" type="text" class="def-line" value="<TMPL_VAR NAME=TITLE>">
+                  </td>
+                  </TMPL_IF>
+                </tr>
+
+                <TMPL_IF PREVNOTDISP>
+                <!-- 新携帯対応 start -->
+                <tr>
+                  <td class="item-name" align="left">ご案内［上部］</td>
+                  <td class="item-sub">
+                    <div class="enq_info_midashi clearfix">
+                      <h4>PC用</h4>
+                      <input type="button" value="-" onclick="if(this.value=='+'){this.value='-';document.getElementById('enq_top_pc').style.display='block';}else{this.value='+';document.getElementById('enq_top_pc').style.display='none';}">
+                    </div>
+                    <div id="enq_top_pc" class="enq_info_box">
+                    <table width="100%">
+                      <tr>
+                        <td class="sub-item">
+                          <textarea name="head" id="ta1" rows="10" class="def-line" ><TMPL_VAR escape=html NAME=HEAD></textarea><br>
+                          ※HTMLタグ利用可
+                        </td>
+                      </tr>
+                    </table>
+                    </div>
+                    <TMPL_IF NAME=SMPUSEFLG>
+                    <div class="enq_info_midashi clearfix">
+                      <h4>スマートフォン用</h4>
+                      <h5 style='position:relative; margin:auto;'><span class="icon_for_estoremb">Ｅストアーモバイル専用</span></h5>
+                      <input type="button" value="-" onclick="if(this.value=='+'){this.value='-';document.getElementById('enq_top_smt').style.display='block';}else{this.value='+';document.getElementById('enq_top_smt').style.display='none';}">
+                    </div>
+                    <div id="enq_top_smt" class="enq_info_box">
+                    <table width="100%">
+                      <tr>
+                        <td class="sub-item">
+                          <div class='settable parts_box'>
+                          <textarea name="smartphonehead" rows="10" class="tm_wswg_emj_smp" ><TMPL_VAR NAME=SMARTPHONEHEAD></textarea><br>
+                          ※HTML5タグ利用可
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                    </div>
+                    </TMPL_IF>
+                  </td>
+                </tr>
+                <!-- 新携帯対応 end -->
+                <TMPL_ELSE>
+                <tr>
+                  <td class="item-name" align="left">ご案内［上部］</td>
+                  <td class="item">
+                    <textarea name="head" id="ta2" rows="10" style="width:455px" class="def-line" ><TMPL_VAR NAME=HEAD></textarea>
+                  </td>
+                </tr>
+                </TMPL_IF>
+
+                <TMPL_LOOP ENQUETE>
+                <tr>
+                  <td align="left" class="item-name">アンケート<TMPL_VAR NAME=NO></td>
+                  <td class="item-sub">
+                    <table width="100%">
+                      <tr align="left">
+                        <td class="sub-item-name">質問項目</td>
+                        <td class="sub-item">
+                          <input name="Enqu<TMPL_VAR NAME=NO>_Quest" type="text" value="<TMPL_VAR NAME=ENQUQUEST>">
+                          <input name="set" type="button" id="set" value="詳細設定" onClick="openClose('Enqu_<TMPL_VAR NAME=NO>_info', 'div');">
+                        </td>
+                      </tr>
+                      <tr>
+                        <td colspan="2">
+                          <table id="Enqu_<TMPL_VAR NAME=NO>_info" style="display:none" width=100%>
+                            <tr align="left">
+                              <td class="sub-item-name">表示</td>
+                              <td class="sub-item">
+                                <input type="checkbox" name="Enqu<TMPL_VAR NAME=NO>_Disp" value="Y" id="enq<TMPL_VAR NAME=NO>_disp" <TMPL_IF DISP>checked</TMPL_IF>>
+                                <label for="enq<TMPL_VAR NAME=NO>_disp">表示する</label>
+                              </td>
+                            </tr>
+                            <tr align="left">
+                              <td class="sub-item-name">回答必須</td>
+                              <td class="sub-item">
+                                <input type="checkbox" name="Enqu<TMPL_VAR NAME=NO>_Indis" value="Y" id="enq<TMPL_VAR NAME=NO>_indis" <TMPL_IF INDIS>checked</TMPL_IF>>
+                                <label for="enq<TMPL_VAR NAME=NO>_indis">回答必須にする</label>
+                              </td>
+                            </tr>
+                            <tr align="left">
+                              <td class="sub-item-name">回答タイプ</td>
+                              <td class="sub-item">
+                                <select name="Enqu<TMPL_VAR NAME=NO>_Kind">
+                                <TMPL_LOOP ENQUTYPE>
+                                  <option value="<TMPL_VAR NAME=CODE>" <TMPL_IF SEL>selected</TMPL_IF>><TMPL_VAR NAME=TYPENAME></option>
+                                </TMPL_LOOP>
+                                </select>
+                              </td>
+                            </tr>
+                            <TMPL_LOOP SELELIST>
+                            <tr align="left">
+                              <td class="sub-item-name">回答<TMPL_VAR NAME=SelNo></td>
+                              <td class="sub-item">
+                                <input name="SEL<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=SELNO>" type="text" class="sub-line" value="<TMPL_VAR NAME=SELECT>">
+                              </td>
+                            </tr>   
+                            </TMPL_LOOP>
+                          </table>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+                </TMPL_LOOP>
+
+                <TMPL_IF PREVNOTDISP>
+                <!-- 新携帯対応 start -->
+                <tr>
+                  <td class="item-name" align="left">ご案内［下部］</td>
+                  <td class="item-sub">
+                    <div class="enq_info_midashi clearfix">
+                      <h4>PC用</h4>
+                      <input type="button" value="-" onclick="if(this.value=='+'){this.value='-';document.getElementById('enq_btm_pc').style.display='block';}else{this.value='+';document.getElementById('enq_btm_pc').style.display='none';}">
+                    </div>
+                    <div id="enq_btm_pc" class="enq_info_box">
+                      <table width="100%">
+                        <tr>
+                          <td class="sub-item">
+                            <textarea name="foot" id="ta2" rows="10" class="def-line"><TMPL_VAR escape=html NAME=FOOT></textarea><br>
+                            ※HTMLタグ利用可
+                          </td>
+                        </tr>
+                      </table>
+                    </div>
+                    <TMPL_IF NAME=SMPUSEFLG>
+                    <div class="enq_info_midashi clearfix">
+                      <h4>スマートフォン用</h4>
+                      <h5 style='position:relative; margin:auto;'><span class="icon_for_estoremb">Ｅストアーモバイル専用</span></h5>
+                      <input type="button" value="-" onclick="if(this.value=='+'){this.value='-';document.getElementById('enq_btm_smt').style.display='block';}else{this.value='+';document.getElementById('enq_btm_smt').style.display='none';}">
+                    </div>
+                    <div id="enq_btm_smt" class="enq_info_box">
+                    <table width="100%">
+                      <tr>
+                        <td class="sub-item">
+                          <div class='settable parts_box'>
+                          <textarea name="smartphonefoot" rows="10" class="tm_wswg_emj_smp" ><TMPL_VAR NAME=SMARTPHONEFOOT></textarea><br>
+                          ※HTML5タグ利用可
+                          </div>
+                        </td>
+                      </tr>
+                    </table>
+                    </div>
+                    </TMPL_IF>
+                  </td>
+                </tr>
+                <!-- 新携帯対応 end -->
+                <TMPL_ELSE>
+                <tr>
+                  <td class="item-name" align="left">ご案内［下部］</td>
+                  <td class="item">
+                    <textarea name="foot" id="ta1" rows="10" style="width:455px" class="def-line"><TMPL_VAR NAME=FOOT></textarea>
+                  </td>
+                </tr>
+                </TMPL_IF>
+
+                <tr>
+                  <td colspan="2" bgcolor="#FFFFFF" align="center">
+                    <input type="submit" value="設定を保存する" onClick="do_command('SAVE')">&nbsp;
+                    <input type="button" value="入力画面をみる" onClick="do_command('PREV');">
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+        </table>
+      </form>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" align="center" style="padding:0px 10px 20px 10px" bgcolor="#ffffff">
+        <input type="button" value="フォーム一覧へ戻る" onClick="location.href='enqu_select.cgi'">
+      </td>
+    </tr>
+  <img src="../imgs/spc.gif" <TMPL_IF NAME=displayHtmlEditor>onload="edinit();"</TMPL_IF>>
+</table>
+<div id="popup_head_tag" class="dialog_disp">
+  <div id="popup_head_tag_f" class="dialog_main">
+    <a href="#close" class="close" onclick="return dlgClose()"></a>
+    <dl class="content">
+      アンケートフォーム入力画面のheadタグに出力したい内容を入力します。<br>
+      なお、未入力の場合は「<a href="/<TMPL_VAR NAME=storeName>/func05/remarketing_tag.php" target="_blank">リマーケティングタグ設定</a>」にて、その他ページの設定のheadタグに入力した内容が出力されます。
+    </dl>
+  </div>
+</div>

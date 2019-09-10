@@ -1,0 +1,257 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+    </table></td>
+<td align="left" class="midashi">受注台帳の設定を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/orderset.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <form name="orderset" id="orderset" method="post" action="orderset-save.cgi">
+  <tr>
+    <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td>
+                  <div class="infoArea table_bg">
+                     注文番号の設定や受注の確認ステータスを変更するタイミングなどを設定します。<br>
+                     注文番号を変更した場合は、変更後に入った受注から反映されます。
+                  </div>
+                  <TMPL_LOOP NAME=ERR_MSG>
+                    <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+                  </TMPL_LOOP>
+                  <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                    <tr>
+                      <td colspan="2" align="center" class="item-name02">受注台帳設定</td>
+                    </tr>
+<!--
+                    <tr>
+                      <td class="item-name">入金ステータス設定</td>
+                      <td class="item-sub"><table width="100%" >
+                          <tr>
+                            <td class="smenu02">クレジットカード</td>
+                            <td><input name="card" type="radio" value="radiobutton" id="card01" checked>
+                              <label for="card01">
+                              <select name="select">
+                              <option selected>入金予定</option>
+                              <option>依頼中</option>
+                              <option>回収済</option>
+                              </select>
+                              は自動的に「入金済」とする<br>
+                              </label>
+                              <input name="card" type="radio" value="radiobutton" id="card02">
+                              <label for="card02">手動で変更する</label>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="smenu02">コンビニ</td>
+                            <td><input name="conv" type="radio" value="radiobutton" id="conv01" checked>
+                              <label for="conv01">
+                              <select name="select">
+                              <option selected>入金予定</option>
+                              <option>依頼中</option>
+                              <option>回収済</option>
+                              </select>
+                              は自動的に「入金済」とする<br>
+                              </label>
+                              <input name="conv" type="radio" value="radiobutton" id="conv02">
+                              <label for="conv02">手動で変更する</label>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="smenu02">楽天銀行</td>
+                            <td><input name="ebank" type="radio" value="radiobutton" id="ebank01" checked>
+                              <label for="ebank01">
+                              <select name="select">
+                              <option selected>入金予定</option>
+                              <option>依頼中</option>
+                              <option>回収済</option>
+                              </select>
+                              は自動的に「入金済」とする<br>
+                              </label>
+                              <input name="ebank" type="radio" value="radiobutton" id="ebank02">
+                              <label for="ebank02">手動で変更する</label>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="smenu02">ウェブマネー</td>
+                            <td><input name="webmon" type="radio" value="radiobutton" id="webmon01" checked>
+                              <label for="webmon01">
+                              <select name="select">
+                              <option selected>入金予定</option>
+                              <option>依頼中</option>
+                              <option>回収済</option>
+                              </select>
+                              は自動的に「入金済」とする<br>
+                              </label>
+                              <input name="webmon" type="radio" value="radiobutton" id="webmon02">
+                              <label for="webmon02">手動で変更する</label>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="smenu02">モバイルエディ</td>
+                            <td><input name="edy" type="radio" value="radiobutton" id="edy01" checked>
+                              <label for="edy01">
+                              <select name="select">
+                              <option selected>入金予定</option>
+                              <option>依頼中</option>
+                              <option>回収済</option>
+                              </select>
+                              は自動的に「入金済」とする<br>
+                              </label>
+                              <input name="edy" type="radio" value="radiobutton" id="edy02">
+                              <label for="edy02">手動で変更する</label>
+                            </td>
+                          </tr>
+                      </table></td>
+                    </tr>
+-->
+                    <tr>
+                      <td class="item-name">注文番号任意設定</td>
+                      <td class="item"><table width="100%" cellpadding="3" cellspacing="1" bgcolor="#666666" >
+                          <tr>
+                            <td class="sub-item-name">現在の形式</td>
+                            <td class="sub-item"><TMPL_VAR name=PUB_OID_AAAA_START>&nbsp;<TMPL_VAR name=PUB_OID_BBBB_START></td>
+                          </tr>
+                        </table>
+                        <div style="margin:5px 0px 0px 0px">
+                        <input name="PUB_OID_TYPE" type="radio" id="other01-d01" value="1" <TMPL_IF name=PUB_OID_TYPE1> checked</TMPL_IF>>
+                        <label for="other01-d01">8桁の数字</label>
+                        <input name="PUB_OID" type="text" size="10" maxlength=8 value="<TMPL_VAR name=PUB_OID>" style="ime-mode:disabled">
+                        <br>
+                        &nbsp;※指定の数字から、注文ごとに1ずつ増えます。
+                        </div>
+                        <div style="margin:5px 0px 5px 0px">
+                        <input name="PUB_OID_TYPE" type="radio" value="2" id="other01-d02" <TMPL_IF name=PUB_OID_TYPE2> checked</TMPL_IF>>
+                        <label for="other01-d02">前4桁＋後4桁の数字</label>
+                        <input name="PUB_OID_AAAA" type="text" size="5" maxlength=4 value="<TMPL_VAR name=PUB_OID_AAAA>" style="ime-mode:disabled">
+                        <input name="PUB_OID_BBBB" type="text" size="5" maxlength=4 value="<TMPL_VAR name=PUB_OID_BBBB>" style="ime-mode:disabled">
+                        <br>
+                        &nbsp;前4桁 ：1日1回午前0時に1ずつ増えます。<br>
+                        &nbsp;後4桁 ：1日1回午前0時に指定の数字に戻り、注文ごとに1ずつ増えます。
+                        </div></td>
+                    </tr>
+                    <tr>
+                      <td class="item-name">受注台帳の期間設定</td>
+                      <td class="item">
+                           <select name="date_sel" onchange="changeDisabledDelivRecvDate(document.orderset.deliv_recv_date, this);">
+                                <option value="1" <TMPL_IF date_sel_1> selected</TMPL_IF>>注文日時</option>
+                                <option value="2" <TMPL_IF date_sel_2> selected</TMPL_IF>>入金日</option>
+                                <option value="5" <TMPL_IF date_sel_5> selected</TMPL_IF>>発送予定日</option>
+                                <option value="3" <TMPL_IF date_sel_3> selected</TMPL_IF>>発送完了日</option>
+                                <option value="4" <TMPL_IF date_sel_4> selected</TMPL_IF>>お届け希望日</option>
+                            </select>
+                          <br/>
+                          <input type="radio" name="use_date_range" id="use_date_range_1" value="1"  <TMPL_IF USE_DATE_RANGE_1> checked</TMPL_IF> <TMPL_IF USE_DATE_RANGE_1_DISABLED >disabled</TMPL_IF> >
+                          <label for="use_date_range_1">過去
+                          <input name="date_range" type="text" maxlength="4" size="5"  value="<TMPL_VAR name=DATE_RANGE>" style="ime-mode:disabled;">&nbsp;&nbsp;日間</label>
+                          <br/>
+                          <input type="radio" name="use_date_range" id="use_date_range_2" value="2" <TMPL_IF USE_DATE_RANGE_2> checked</TMPL_IF> <TMPL_IF USE_DATE_RANGE_2_DISABLED >disabled</TMPL_IF> >
+                          <label for="use_date_range_2">設定しない（全件検索）</label>
+                          <br/>
+                          <input type="radio" name="use_date_range" id="use_date_range_3" value="3" <TMPL_IF USE_DATE_RANGE_3> checked</TMPL_IF> <TMPL_IF USE_DATE_RANGE_3_DISABLED >disabled</TMPL_IF> >
+                          <label for="use_date_range_3">本日より
+                          <input name="deliv_recv_date" type="text" style="ime-mode:disabled;" value="<TMPL_IF USE_DELIV_RECV_DATE ><TMPL_VAR name=DELIV_RECV_DATE></TMPL_IF>" maxlength="4" size="5" <TMPL_IF DELIV_RECV_DATE_DISABLED >disabled</TMPL_IF> >
+                          &nbsp;&nbsp;日間</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="item-name" style="width:13em;">新規受注の取得方法</td>
+                      <td class="item"><input name="check_new_orders" type="radio" value="2" id="check_new_orders_02"<TMPL_IF check_new_orders_2> checked</TMPL_IF>>
+                        <label for="check_new_orders_02">受注台帳を開いたら自動で新規受注を取得する</label>
+                        <br>
+                        <input name="check_new_orders" type="radio" value="1" id="check_new_orders_01"<TMPL_IF check_new_orders_1> checked</TMPL_IF>>
+                        <label for="check_new_orders_01">受注台帳の「新しい受注を確認する」ボタンで新規受注を取得する</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="item-name">確認ステータスの変更方法</td>
+                      <td class="item"><input name="condition" type="radio" value="1" id="orderset01-01"<TMPL_IF orderset1> checked</TMPL_IF>>
+                        <label for="orderset01-01">注文詳細を開いたら自動的に「確認済」とする</label>
+                        <br>
+                        <input name="condition" type="radio" value="0" id="orderset01-02"<TMPL_IF orderset0> checked</TMPL_IF>>
+                        <label for="orderset01-02">注文詳細から手動で変更する</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="item-name">決済依頼忘れ通知メール</td>
+                      <td class="item">
+                        <input name="capture_notification" type="radio" value="1" id="capture_notification_01"<TMPL_IF capture_notification_1> checked</TMPL_IF>>
+                        <label for="capture_notification_01">受け取る</label>
+                        <br>
+                        <input name="capture_notification" type="radio" value="0" id="capture_notification_02"<TMPL_IF capture_notification_0> checked</TMPL_IF>>
+                        <label for="capture_notification_02">受け取らない</label>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="item-name">キャンセル後の動作</td>
+                      <td class="item">
+                        <div style="margin: 5px 0px;">
+                          注文詳細でキャンセル処理をした後の移動先を設定します。 
+                        </div>
+                          <input type="radio" name="cancel_st" id="cancel_st_01" value="2" <TMPL_IF cancel_st_2> checked</TMPL_IF>>
+                          <label for="cancel_st_01">「受注キャンセル」に移動する</label>
+                          <br>
+                          <input type="radio" name="cancel_st" id="cancel_st_02" value="3" <TMPL_IF cancel_st_3> checked</TMPL_IF>>
+                          <label for="cancel_st_02">「ごみ箱」に移動する</label>
+                      </td>
+                    </tr>
+                  </table>
+                  </div>
+                  <div align="center"> </div>
+                  <br>
+                </td>
+              </tr>
+          </table></td>
+        </tr>
+    </table>
+    
+      <div align="center"><input name="set" type="button" id="set" value="設定を保存する" onClick="document.orderset.submit()"></div>
+    
+    </td>
+  </tr>
+  </form>
+</table>
+<script language="JavaScript" type="text/JavaScript">
+function changeDisabledDelivRecvDate (deliv_recv_date, date_sel) {
+    var use_date_range_1 = document.getElementById("use_date_range_1");
+    var use_date_range_2 = document.getElementById("use_date_range_2");
+    var use_date_range_3 = document.getElementById("use_date_range_3");
+    switch(date_sel.value) {
+        case '1':
+            if (use_date_range_3.checked) {
+                use_date_range_1.checked = true;
+            }
+            deliv_recv_date.value     = '';
+            deliv_recv_date.disabled  = true;
+            use_date_range_1.disabled = false;
+            use_date_range_2.disabled = false;
+            use_date_range_3.disabled = true;
+            break;
+        case '2':
+        case '3':
+            if (use_date_range_3.checked) {
+                use_date_range_1.checked = true;
+            }
+            deliv_recv_date.value     = '';
+            deliv_recv_date.disabled  = true;
+            use_date_range_1.disabled = false;
+            use_date_range_2.disabled = false;
+            use_date_range_3.disabled = true;
+            break;
+        case '4':
+        case '5':
+            use_date_range_1.disabled = false;
+            use_date_range_2.disabled = false;
+            use_date_range_3.disabled = false;
+            deliv_recv_date.disabled  = false;
+            break;
+    }
+}
+</script>

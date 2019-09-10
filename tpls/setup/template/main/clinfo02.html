@@ -1,0 +1,144 @@
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+function changeListnum() {
+        var num = document.CLINFO.ListNum.value;
+        document.CLINFO.reset();
+        document.CLINFO.ListNum.value = num;
+        document.CLINFO.PAGE.value='1';
+        document.CLINFO.submit();
+}
+function ReviewOpenWindow( ord ) {
+    window.open("./show_comment.cgi?ORD=" + ord , "review", "");
+}
+//-->
+</script>
+<form name="CLINFO" method="POST" action="<TMPL_VAR NAME=SCRIPT>">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="Target" value="2">
+<input type="hidden" name="PAGE" value="1">
+<input type="hidden" name="CMD" value="SEEK">
+<a name="top"></a>
+<div style="font-size:100%">
+	<table width="680"  border="0" cellpadding="0" cellspacing="0">
+		<tr>
+			<td align="left">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">顧客詳細</td>
+    <td align="right" class="midashi">
+      <a href="<TMPL_VAR NAME=Manual>func01/usrlist.html#03" target="_blank"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table>
+				<br>
+				<table width="100%"  border="0" cellpadding="5" cellspacing="1" bgcolor="#666666">
+    	<tr bgcolor="#FFFFFF">
+    		<td>
+<TMPL_UNLESS NULL>    			<input type="button" name="Submit" value="顧客情報" onClick='Javascript:document.CLINFO.Target.value="1";document.CLINFO.CMD.value="";document.CLINFO.submit();'>
+</TMPL_UNLESS>
+&nbsp;
+			<input type="button" name="Submit" value="購入履歴" disabled>
+&nbsp;
+<TMPL_IF MEMID>
+			<input type="button" name="Submit" value="お届け先リスト" onClick='Javascript:document.CLINFO.Target.value="3";document.CLINFO.submit();'>
+&nbsp;
+			<input type="button" name="Submit" value="ポイント履歴" onClick='Javascript:document.CLINFO.Target.value="4";document.CLINFO.CMD.value="";document.CLINFO.submit();'>
+</TMPL_IF>
+   			</td>
+   		</tr>
+   	</table>
+				<br>
+					<table width="100%" border="0" cellpadding="0" cellspacing="0">
+						<tr>
+							<td align="right"><font size="2">表示件数
+								<select name="ListNum" style="font-size:90%; margin-top:2px" onChange="changeListnum();">
+                            <option value="10" <TMPL_IF LISTNUM10>selected</TMPL_IF>>10</option>
+                            <option value="20" <TMPL_IF LISTNUM20>selected</TMPL_IF>>20</option>
+                            <option value="30" <TMPL_IF LISTNUM30>selected</TMPL_IF>>30</option>
+                            <option value="40" <TMPL_IF LISTNUM40>selected</TMPL_IF>>40</option>
+                            <option value="50" <TMPL_IF LISTNUM50>selected</TMPL_IF>>50</option>
+								</select>
+								<br>
+<TMPL_IF PAGE_LIST>
+<TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=DTOTAL>件 ）&nbsp;
+<font size="2">
+<TMPL_LOOP NAME=PAGE_LIST>
+<TMPL_VAR NAME=LINK>
+</TMPL_LOOP>
+</font>
+</TMPL_IF>
+
+						</font>
+						</td>
+						</tr>
+					</table>
+					<table width="100%"  border="0" cellpadding="2" cellspacing="2" class="item-box">
+						<tr align="center" class="item-name02">
+							<td width="10%" class="odr-midashi">日付</td>
+							<td width="20%" class="odr-midashi">注文番号</td>
+							<td width="20%" class="odr-midashi">購入金額</td>
+                                                        <td width="20%" class="odr-midashi">評価コメント</td>
+						</tr>
+<TMPL_LOOP ORDERLIST>
+						<tr class="item">
+							<td align="center" class="odr-txt"><TMPL_VAR NAME=ORDER_DATE></td>
+							<td align="center" class="odr-txt"><a href="cl_odrinfo.cgi?ORDERID=<TMPL_VAR NAME=ORDERID>" target="_self"><TMPL_VAR NAME=PUB_ORDER_NO></a></td>
+							<td align="center" class="odr-txt"><TMPL_VAR NAME=TOTAL>円</td>
+                                                        <td align="center" class="odr-txt">
+                                                          <TMPL_IF NAME=COMMENT>
+                                                            <a href="javascript:ReviewOpenWindow('<TMPL_VAR NAME=ORDERID>');">あり</a>
+                                                          </TMPL_IF>
+                                                        </td>
+						</tr>
+</TMPL_LOOP>
+				</table>
+				<table width="100%" border="0" cellpadding="0" cellspacing="0">
+     	<tr>
+     		<td align="right">
+<TMPL_IF PAGE_LIST>
+<TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=DTOTAL>件 ）&nbsp;
+<font size="2">
+<TMPL_LOOP NAME=PAGE_LIST>
+<TMPL_VAR NAME=LINK>
+</TMPL_LOOP>
+</font>
+</TMPL_IF>
+		</td>
+    		</tr>
+   	</table>
+				<br>
+    <hr size="1">
+    <br>
+    <div align="center">
+<TMPL_IF FROMORDER>
+        <input type="button" name="Submit" value="受注一覧へ戻る" onClick="location.href='orderlist.php?LastCGI=1'">
+</TMPL_IF>
+
+<TMPL_IF FROMORDERS>
+        <input type="button" name="Submit" value="申込一覧へ戻る" onClick="location.href='rp_order_list.php?LastParam=1'">
+</TMPL_IF>
+
+<TMPL_IF BUTTON>
+       <input type="button" name="Submit" value="顧客一覧へ戻る" onClick="location.href='clientlist.php?LastParam=1'">
+</TMPL_IF>
+   	</div><br>
+		  </td>
+		</tr>
+	</table>
+</div>
+</form>

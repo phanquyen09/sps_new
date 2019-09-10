@@ -1,0 +1,106 @@
+<form name="form1" method="post" action="prohibition_blog.cgi">
+<table width="700"  border="0" cellspacing="0" cellpadding="0">
+		<tr>
+				<td>
+						<div class="midashi">■禁止IP・ブログ管理</div>
+
+						<br>
+						<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+								<tr>
+										<td><img src="../imgs/com-tl.gif" width="5" height="5"></td>
+										<td background="../imgs/com-tc.gif"><img src="../imgs/com-tc.gif" width="5" height="5"></td>
+										<td><img src="../imgs/com-tr.gif" width="5" height="5"></td>
+								</tr>
+								<tr>
+										<td background="../imgs/com-cl.gif"><img src="../imgs/com-cl.gif" width="5" height="5"></td>
+
+										<td class="coment">
+												<ul type="circle" class="coment01">
+														<li class="coment02">禁止IP・ブログの管理を行います</li>
+														<li class="coment03">禁止IP・ブログの管理を行います</li>
+														<li class="coment04">禁止IP・ブログの管理を行います</li>
+												</ul>
+										</td>
+
+										<td background="../imgs/com-cr.gif"><img src="../imgs/com-cr.gif" width="5" height="5"></td>
+								</tr>
+								<tr>
+										<td><img src="../imgs/com-bl.gif" width="5" height="5"></td>
+										<td background="../imgs/com-bc.gif"><img src="../imgs/com-bc.gif" width="5" height="5"></td>
+										<td><img src="../imgs/com-br.gif" width="5" height="5"></td>
+								</tr>
+						</table>
+						<br>
+
+						<br>
+						<table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+								<tr>
+										<td class="item-name">表示切替</td>
+										<td class="item">
+			<select name="select" onChange="location=this.options[this.selectedIndex].value">
+            		<option value="prohibition.cgi">禁止IPアドレスを表示</option>
+            		<option value="prohibition_blog.cgi" selected>禁止ブログを表示</option>
+			</select>
+										</td>
+								</tr>
+						</table>
+						<br>
+						<br>
+						<table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+      		<tr>
+      				<td class="item-name">禁止ブログ名</td>
+
+      				<td class="item">
+      						<input name="blog_name" type="text">
+      						</td>
+    				</tr>
+      		<tr align="center">
+      				<td colspan="2" class="item02"><span class="item">
+      						<input type="submit" name="Submit" value="追加">
+      						</span></td>
+    				</tr>
+
+      		</table>
+												<br>
+						<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+      		<tr>
+      				<td>**&nbsp;-&nbsp;**&nbsp;（&nbsp;全&nbsp;***件&nbsp;）</td>
+
+      				<td align="right">page</td>
+
+    				</tr>
+    		</table>
+						<table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+								<tr align="center" class="item-name02">
+										<td>選択</td>
+										<td>追加日▼</td>
+										<td>ブログ名▼</td>
+
+								</tr>
+
+				<TMPL_LOOP NAME=prohibition_list>
+
+								<tr>
+										<td align="center" bgcolor="#FFFFFF">
+          		<input type="checkbox" name="id" value="<TMPL_VAR NAME=id>">
+        		</td>
+										<td align="center" bgcolor="#FFFFFF"><TMPL_VAR NAME=uptime></td>
+										<td align="center" bgcolor="#FFFFFF"><TMPL_VAR NAME=blog_name></td>
+								</tr>
+				</TMPL_LOOP>
+								<tr bgcolor="#FFFFFF">
+										<td colspan="3" align="center">
+												<input type="button" onClick="document.form1.mode.value='del';document.form1.submit();" value="削除する">
+
+						      </td>
+		      </tr>
+						</table>
+						<br>
+						<br>
+						<a href="#top"><span class="return-top">[▲] トップへ戻る</span></a><br>
+				</td>
+		</tr>
+
+</table>
+<input type="hidden" name="mode" value="regist">
+</form>

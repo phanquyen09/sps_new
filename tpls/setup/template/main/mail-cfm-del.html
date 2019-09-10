@@ -1,0 +1,18 @@
+<div>
+  <form name="MAILN" method="POST" action="mail-del.cgi">
+  <input type="hidden" name="CMD" value="DEL">
+<TMPL_LOOP NAME=DEL_ACC>
+  <input type="hidden" name="DELMID" value="<TMPL_VAR NAME=DEL_ID>">
+  <TMPL_VAR NAME=ACC><br>
+</TMPL_LOOP>
+<hr>
+  <input type="submit" name="SAVE" value="ºï½ü">
+  </form>
+  <form name="MAILB" method="POST" action="mail.cgi">
+  <input type="hidden" name="CMD" value="DEL">
+<TMPL_LOOP NAME=DEL_LIST>
+  <input type="hidden" name="DELMID" value="<TMPL_VAR NAME=DEL_ID>">
+</TMPL_LOOP>
+  <input type="submit" name="BACK" value="Ìá¤ë">
+  </form>
+</div>

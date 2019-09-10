@@ -1,0 +1,312 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<title><TMPL_VAR NAME=ServName>管理画面</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="default05.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function openScat(id) {
+		ele = document.getElementById(id+"1");
+		ele.style.display = "block";
+}
+
+function openClose(id,pt,i) {
+		prop = document.getElementById(id).style.display;
+
+//		alert(id+" "+pt+" "+i);
+
+		if(i==0) prop = "none";
+
+		if(prop=="none"){
+				if(pt=="div") document.getElementById(id).style.display="block";
+//						alert("div "+document.getElementById(id).style.display);
+				if(pt=="tr") {
+						if(document.all)	document.getElementById(id).style.display="block";
+						else
+						document.getElementById(id).style.display="table-row";
+//						alert("tr "+document.getElementById(id).style.display);
+				}
+		} else {
+				document.getElementById(id).style.display="none";
+		}
+//		alert(document.getElementById(id).style.display);
+}
+
+function allreset() {
+	document.form1.search_order_id.value   = '';
+	document.form1.search_item_name.value  = '';
+	document.form1.search_item_min.value   = '';
+	document.form1.search_item_max.value   = '';
+	document.form1.search_reward_min.value = '';
+	document.form1.search_reward_max.value = '';
+}
+
+function sortAffiDate() {
+        document.form1.sort.value='affi_date';
+        if (document.form1.desc.value == 'desc') { document.form1.desc.value = 'asc';
+        } else if (document.form1.desc.value == 'asc') { document.form1.desc.value = 'desc';
+        } else { document.form1.desc.value = 'desc'; }
+        document.form1.submit();
+}
+
+function sortOrderID() {
+        document.form1.sort.value='order_id';
+        if (document.form1.desc.value == 'desc') { document.form1.desc.value = 'asc';
+        } else if (document.form1.desc.value == 'asc') { document.form1.desc.value = 'desc';
+        } else { document.form1.desc.value = 'desc'; }
+        document.form1.submit();
+}
+function sortItemName() {
+        document.form1.sort.value='item_name';
+        if (document.form1.desc.value == 'desc') { document.form1.desc.value = 'asc';
+        } else if (document.form1.desc.value == 'asc') { document.form1.desc.value = 'desc';
+        } else { document.form1.desc.value = 'desc'; }
+        document.form1.submit();
+}
+function sortItemPrc() {
+        document.form1.sort.value='item_prc';
+        if (document.form1.desc.value == 'desc') { document.form1.desc.value = 'asc';
+        } else if (document.form1.desc.value == 'asc') { document.form1.desc.value = 'desc';
+        } else { document.form1.desc.value = 'desc'; }
+        document.form1.submit();
+}
+function sortRewards() {
+        document.form1.sort.value='rewards';
+        if (document.form1.desc.value == 'desc') { document.form1.desc.value = 'asc';
+        } else if (document.form1.desc.value == 'asc') { document.form1.desc.value = 'desc';
+        } else { document.form1.desc.value = 'desc'; }
+        document.form1.submit();
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+.list-txt {
+	padding-left: 5px;
+}
+-->
+</style>
+</head>
+<body>
+<div style="font-size:80% ">
+<a name="top"></a>
+<form method="post" name="form1" action="my-sales-detail.cgi">
+<table width="683"  border="0" cellpadding="0" cellspacing="0" align="center">
+		<tr>
+
+		  <td width="679" align="left">
+<div class="midashi02">■アフィリエイター詳細</div><div align="right"><a href="https://help.shopserve.jp/help/my-sales-report.php" target="_blank"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></div><br>
+				<table width="100%" cellpadding="3" class="item-box">
+                 <TR>
+                   <TD class=item-name noWrap>申込日</TD>
+                    <TD bgcolor="#FFFFFF"><TMPL_VAR NAME=af_user_regist_datetime></TD>
+          </TR>
+
+                  <TR>
+                    <TD class=item-name noWrap>サイト名(ホームページ)</TD>
+                    <TD bgcolor="#FFFFFF"><TMPL_VAR NAME=af_user_site_name>(<A href="<TMPL_VAR NAME=af_user_site_url>" target=_blank><TMPL_VAR NAME=af_user_site_url></A>)</TD>
+                  </TR>
+                  <TR>
+                    <TD class=item-name noWrap>メールマガジン登録URL</TD>
+
+                    <TD bgcolor="#FFFFFF"><TMPL_VAR NAME=af_user_ml_name><TMPL_VAR NAME=kako_s><A href="<TMPL_VAR NAME=af_user_ml_address>" target=_blank><TMPL_VAR NAME=af_user_ml_address></A><TMPL_VAR NAME=kako_e></TD>
+                  </TR>
+                  <TR>
+                    <TD class=item-name noWrap>法人名</TD>
+                    <TD bgcolor="#FFFFFF"><TMPL_VAR NAME=af_user_company></TD>
+                  </TR>
+                  <TR>
+
+                    <TD class=item-name noWrap>アフィリエイター名</TD>
+                    <TD bgcolor="#FFFFFF"><TMPL_VAR NAME=af_user_last_name>　<TMPL_VAR NAME=af_user_first_name></TD>
+                  </TR>
+                  <TR>
+                    <TD class=item-name noWrap>アフィリエイターID</TD>
+                    <TD bgcolor="#FFFFFF"><TMPL_VAR NAME=af_user_name></TD>
+                  </TR>
+
+                  <TR>
+                    <TD class=item-name noWrap>メールアドレス</TD>
+                    <TD bgcolor="#FFFFFF"><TMPL_VAR NAME=af_user_email></TD>
+                  </TR>
+                  <TR>
+                    <TD class=item-name noWrap>概要</TD>
+                    <TD bgcolor="#FFFFFF"><TMPL_VAR NAME=af_user_site_profile></TD>
+
+                  </TR>
+                  <TR>
+                    <TD class=item-name noWrap>ステータス</TD>
+                    <TD bgcolor="#FFFFFF"><TMPL_VAR NAME=af_user_disabled></TD>
+                  </TR>
+                  
+				  
+				  
+                  <tr align="center" bgcolor="#FFFFFF">
+                    <td colspan="2">
+					
+					<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+
+                        <TR>
+    <TD class=j12 align=middle colSpan=2> <INPUT type=button value=停止 onClick="document.form1.stop.value='1';document.form1.submit();" <TMPL_IF NAME=sstop>disabled</TMPL_IF>>
+      &nbsp; <INPUT type=button value=再開 onClick="document.form1.start.value='1';document.form1.submit();" <TMPL_IF NAME=sstart>disabled</TMPL_IF>>
+    </TD></TR>                    </table>
+	
+	</td>
+                  </tr>
+            </table><br>
+                <table width="100%" cellpadding="3" class="item-box">
+
+                  <TBODY>
+                    <TR align="center">
+                      <TD colspan="5" class="item-name02">販売実績</TD>
+                    </TR>
+                    <TR class=item-name03>
+                      <TD width="10%">&nbsp;</TD>
+                      <TD align=middle width="20%">受注数</TD>
+                      <TD align=middle width="20%">受注確定数</TD>
+
+                      <TD align=middle width="25%">売上確定金額</TD>
+                      <TD align=middle width="25%">成果報酬</TD>
+                    </TR>
+                    <TR bgColor=#ffffff>
+                      <TD><TMPL_VAR NAME=nowm>月</TD>
+                      <TD align=right><TMPL_VAR NAME=nowm_all></TD>
+                      <TD align=right><TMPL_VAR NAME=nowm_ok></TD>
+
+                      <TD align=right>￥<TMPL_VAR NAME=nowm_ok_price></TD>
+                      <TD align=right>￥<TMPL_VAR NAME=nowm_ok_reward></TD>
+                    </TR>
+		<TMPL_IF NAME=bm>
+                    <TR bgColor=#ffffff>
+                      <TD><TMPL_VAR NAME=bm>月</TD>
+                      <TD align=right><TMPL_VAR NAME=bm_all></TD>
+                      <TD align=right><TMPL_VAR NAME=bm_ok></TD>
+
+                      <TD align=right>￥<TMPL_VAR NAME=bm_ok_price></TD>
+                      <TD align=right>￥<TMPL_VAR NAME=bm_ok_reward></TD>
+                    </TR>
+		</TMPL_IF>
+		<TMPL_IF NAME=bbm>
+                    <TR bgColor=#ffffff>
+                      <TD><TMPL_VAR NAME=bbm>月</TD>
+                      <TD align=right><TMPL_VAR NAME=bbm_all></TD>
+                      <TD align=right><TMPL_VAR NAME=bbm_ok></TD>
+
+                      <TD align=right>￥<TMPL_VAR NAME=bbm_ok_price></TD>
+                      <TD align=right>￥<TMPL_VAR NAME=bbm_ok_reward></TD>
+                    </TR>
+		</TMPL_IF>
+                    <TR bgColor=#ffffff>
+                      <TD>累計</TD>
+                      <TD align=right><TMPL_VAR NAME=all></TD>
+                      <TD align=right><TMPL_VAR NAME=ok></TD>
+                      <TD align=right>￥<TMPL_VAR NAME=ok_price></TD>
+                      <TD align=right>￥<TMPL_VAR NAME=ok_reward></TD>
+                    </TR>
+                  </TBODY>
+                </TABLE>
+            <br>
+            <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+              <tr>
+
+                <td align="center"><strong><TMPL_VAR NAME=now></strong> </td>
+              </tr>
+            </table>
+                        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td align="left"><TMPL_VAR NAME=before></td>
+                <td align="right"><TMPL_VAR NAME=after></td>
+
+              </tr>
+            </table>
+           <table width="100%" cellpadding="3" class="item-box">
+            <tr align="center" bgcolor="#CCCCCC" class="odr-midashi">
+              <td class="odr-midashi">売上確定日&nbsp;<a href="javascript:;sortAffiDate();">▼</a></td>
+              <td class="odr-midashi">注文番号&nbsp;<a href="javascript:;sortOrderID();">▼</a></td>
+              <td class="odr-midashi">商品名&nbsp;<a href="javascript:;sortItemName();">▼</a></td>
+              <td class="odr-midashi">商品金額&nbsp;<a href="javascript:;sortItemPrc();">▼</a></td>
+              <td class="odr-midashi">成果報酬&nbsp;<a href="javascript:;sortRewards();">▼</a></td>
+            </tr>
+
+	<TMPL_LOOP NAME=list>
+            <tr bgcolor="#FFFFFF">
+              <td height="30" align="center" class="odr-txt"><TMPL_VAR NAME=date>&nbsp;</td>
+              <td align="center" class="odr-txt"><TMPL_VAR NAME=item_no></td>
+              <td align="center" class="odr-txt"><TMPL_VAR NAME=item_name></td>
+              <td align="right" class="odr-txt"><TMPL_VAR NAME=item_prc>円</td>
+              <td align="right" class="odr-txt"><TMPL_VAR NAME=result>円</td>
+            </tr>
+	</TMPL_LOOP>
+	   </table>
+
+           <br>
+           <table width="100%" cellpadding="3" class="item-box">
+             <tr align="center">
+               <td colspan="2" class="item-name02">販売実績の検索　＜複数条件可＞</td>
+             </tr>
+             <tr>
+               <td class="item-name">注文番号</td>
+               <td bgcolor="#FFFFFF" class="item"><input type="text" name="search_order_id" style="width:300px " value="<TMPL_VAR NAME=search_order_id>" style="ime-mode:disabled">
+               注文番号の一部でも可</td>
+             </tr>
+             <tr>
+               <td class="item-name">商品名</td>
+               <td bgcolor="#FFFFFF" class="item"><input type="text" name="search_item_name" style="width:300px " value="<TMPL_VAR NAME=search_item_name>">
+               商品名の一部でも可</td>
+             </tr>
+             <tr>
+               <td class="item-name">商品金額合計（税込）</td>
+
+               <td bgcolor="#FFFFFF" class="item"><input type="text" name="search_item_min" value="<TMPL_VAR NAME=search_item_min>" style="ime-mode:disabled">
+               円から
+                 <input type="text" name="search_item_max" value="<TMPL_VAR NAME=search_item_max>" style="ime-mode:disabled">
+円</td>
+             </tr>
+             <tr>
+               <td class="item-name">成果報酬</td>
+               <td bgcolor="#FFFFFF" class="item"><input type="text" name="search_reward_min" value="<TMPL_VAR NAME=search_reward_min>" style="ime-mode:disabled">
+円から
+  <input type="text" name="search_reward_max" value="<TMPL_VAR NAME=search_reward_max>" style="ime-mode:disabled">
+
+円 </td>
+             </tr>
+			
+			<tr align="center" bgcolor="#FFFFFF">
+               <td colspan="2"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                   <tr>
+		     <td colspan="2" align="center"><input type="submit" name="Submit" value="検索">　<input type="button" name="Submit" value="条件をクリア" onClick="allreset();"></td>
+<!--
+                     <td align="left" width="33%"><input type="submit" name="Submit" value="再表示"></td>
+                     <td align="right" width="33%"><input type="button" name="Submit" value="条件をクリア" onClick="allreset();"></td>
+-->
+                   </tr>
+               </table></td>
+
+             </tr>
+           </table>
+           <div align="center"><br>
+             
+<input name="set" type="button" id="set" value="閉じる" onClick="window.opener.document.ITEMLIST.submit();self.close()"></div><br>
+          <a href="#top"><span class="return-top">[▲] トップへ戻る</span></a></td>
+             </tr>
+           </table>
+		   </div>
+
+<input type="hidden" name="when" value="<TMPL_VAR NAME=when>">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="stop" value="">
+<input type="hidden" name="start" value="">
+<input type="hidden" name="sort" value="<TMPL_VAR NAME=sort>">
+<input type="hidden" name="desc" value="<TMPL_VAR NAME=desc>">
+</form>
+</body>
+</html>

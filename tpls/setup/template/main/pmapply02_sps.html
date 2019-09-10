@@ -1,0 +1,160 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>申し込み条項確認</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<link href="css/pmapply.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function btn_chg() {
+    if ( document.PMAPPLY02.Agree.checked ) {
+        // document.PMAPPLY02.REQ_START.disabled = false;
+        document.REQ_START.disabled = false;
+        document.REQ_START.src="images/pmapply/next_on.png";
+    } else {
+        // document.PMAPPLY02.REQ_START.disabled = true;
+        document.REQ_START.disabled = true;
+        document.REQ_START.src="images/pmapply/next_off.png";
+    }
+}
+function input_check() {
+    if ( !document.PMAPPLY02.Agree.checked ){
+        alert("申し込み条項に同意してから\nお進みください");
+        return false;
+    }
+    document.PMAPPLY02.submit();
+}
+//-->
+</script>
+</head>
+<body>
+ <div id="head">
+  <h1><img src="images/pmapply/title_provision.png" alt="申し込み条項確認"></h1>
+ </div>
+ <div id="gNavi">
+   <div id="tab-area">
+     <ul>
+        <li><img src="images/pmapply/menu01_o.png" alt="申し込み条項確認" class="menu01"></li>
+        <li><img src="images/pmapply/menu02.png" alt="担当者・振込先入力" class="menu02"></li>
+        <li><img src="images/pmapply/menu03.png" alt="各決済情報入力" class="menu03"></li>
+        <li><img src="images/pmapply/menu_rakuten.png" alt="楽天ペイ申し込み" class="menurakuten"></li>
+        <li><img src="images/pmapply/menu04.png" alt="Y!ウォレット申し込み" class="menu04"></li>
+        <li><img src="images/pmapply/menu05.png" alt="入力内容確認" class="menu05"></li>
+        <li><img src="images/pmapply/menu06.png" alt="申込書印刷" class="menu06"></li>
+     </ul>
+    </div>
+  </div>
+
+<form name="PMAPPLY02" method="POST" action="pmapply02_sps.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input name="CMD" value="NEXT" type="hidden">
+
+ <div id="cont">
+   <h2 class="midashi02">申し込み条項</h2>
+   <ol class="list02">
+    <li class="list03">
+    当社、または当社提携の信販会社、および収納代行会社にて審査をします。<br>
+    審査結果により本サービスを利用できない場合があります。
+    </li>
+    <li class="list03">
+    <a href="http://estore.co.jp/kiyaku/shopserve_agreement.pdf" target="_blank">決済代行サービス細則</a>を遵守してください。<br>
+    その他、当社から指導があった場合も従っていただきます。
+    </li>
+    <li class="list03">
+    クレジットカード決済、楽天ペイ（オンライン決済）、Yahoo!ウォレット決済の手数料は店舗にてご負担ください。<br>
+    購入者負担にはできません。
+    </li>
+    <li class="list03">
+    次の商品の販売には利用できません。<br>
+    <p>1）金券類</p>
+    <p>2）生物　（一部例外がございます）</p>
+    <p>3）各法律に違反または抵触している商品</p>
+    <p class="ex_space">例）特定商取引法、薬機法等、景品表示法、健康増進法、霊感商法等</p>
+    <p>4）偽ブランド品、コピー商品</p>
+    <p>5）誇大広告及び効果効能を強調した商品</p>
+    <p>6）販売に許認可・資格等必要な商品の無資格無許可での販売</p>
+    <p class="ex_space">例）酒類・古物・薬品・食品・高度医療機器</p>
+    <p>7）その他、サービス規約で禁止している商品</p>
+    </li>
+    <li class="list03">
+      直近5年以内に「特定商取引法による行政処分」または「消費者契約違反を理由とした敗訴判決」を受けている場合は、クレジットカード決済のお申込みをいただくことができません。
+    </li>
+    <li class="list03">
+      クレジットカード決済利用にあたり、当社定型の国際ブランド（VISA/MASTER/JCB/AMEX/Diners）各社のレギュレーション違反（主に法律違反等の禁止行為）が発覚した場合、当該ブランドからペナルティが課されることがあります。
+    </li>
+    <li class="list03">
+    決済方法ごとに<a href="javascript:void(0);" onclick="window.open('pmapply_limit.html', 'limit', 'width=750, height=520, menubar=no, toolbar=no, scrollbars=yes');">１件あたりの取引限度額</a>があります。あらかじめご了承ください。
+    </li>
+    <li class="list03">
+    <a href="javascript:void(0);" onclick="window.open('pmapply_responsibility.html', 'responsibility', 'width=750, height=650, menubar=no, toolbar=no, scrollbars=yes');">提供者の免責事項</a>を確認のうえ、ご承諾ください。
+    </li>
+    <li class="list03">
+    Ｅストアーショップサーブ契約と同一名義で申し込んでいただきます。
+    <p class="contracttitle">申し込み者情報</p>
+    <table frame="hsides">
+      <tr>
+      <td class="contractmenu">契約名義</td><td class="contractinfo"><TMPL_VAR NAME=CUSTNAME></td>
+      </tr>
+<TMPL_UNLESS KOJIN>
+      <tr>
+      <td class="contractmenu">代表者</td><td class="contractinfo"><TMPL_VAR NAME=CUSTDAIHYO></td>
+      </tr>
+      <tr>
+      <td class="contractmenu">役職名</td><td class="contractinfo"><TMPL_VAR NAME=CUSTPOST></td>
+      </tr>
+</TMPL_UNLESS>
+      <tr>
+      <td class="contractmenu">住所</td><td class="contractinfo"><TMPL_VAR NAME=CUSTADDR></td>
+      </tr>
+      <tr>
+      <td class="contractmenu">電話番号</td><td class="contractinfo"><TMPL_VAR NAME=CUSTTEL></td>
+      </tr>
+      <tr>
+      <td class="contractmenu">ＦＡＸ番号</td><td class="contractinfo"><TMPL_VAR NAME=CUSTFAX></td>
+      </tr>
+      <tr>
+      <td class="contractmenu">お店のＵＲＬ</td><td class="contractinfo"><TMPL_VAR NAME=CUSTURL></td>
+      </tr>
+    </table>
+    </li>
+   </ol>
+   <div class="btn02-1">
+     <div class="btn02-2"><label><input name="Agree" value="Y" type="checkbox" onClick="btn_chg();">申し込み条項に同意する</label></div>
+     <div class="btn02-5"></div>
+     <div class="btn02-3"><img src="images/pmapply/back.png" alt="戻る" onClick="document.PMAPPLY01.submit();"></div>
+     <div class="btn02-4"><img name="REQ_START" src="images/pmapply/next_off.png" alt="次へ" onClick="input_check();"></div>
+     <div style="clear:both;"></div>
+   </div>
+
+
+   <div class="page-top">
+      <a href="#head">▲このページのトップへ</a>
+   </div>
+ </div>
+
+</form>
+<form name="PMAPPLY01" method="POST" action="pmapply_sps.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+</form>
+
+
+
+<!--▼footer▼-->
+<div id="footer">
+  <script type="text/javascript">
+  <!--
+         var date = new Date();
+         var year = date.getYear();
+         if(year < 2000) { year += 1900; }
+         document.write('Copyright &copy; 1999-'+year+' Estore Corporation. All Rights Reserved.');
+  //-->
+  </script>
+</div>
+<!--▲footer▲-->
+</body>
+</html>
+
+

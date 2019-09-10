@@ -1,0 +1,368 @@
+<script type="text/javascript" src="../blog/js/entry1.js"></script>
+<script type="text/javascript" src="../blog/js/entry2.js"></script>
+<script type="text/javascript" src="../blog/js/entry3.js"></script>
+<script language="JavaScript">
+<!--
+function seek(f) {
+  document.ITEMLIST.ItemName.value = f.ItemName.value;
+  document.ITEMLIST.ItemNo.value = f.ItemNo.value;
+  var tmp = f.CATEGORY.options[f.CATEGORY.selectedIndex].value;
+  if (tmp != '') document.ITEMLIST.Category_Id.value = tmp;
+  document.ITEMLIST.submit();
+}
+urllist = [
+  <TMPL_LOOP NAME=URLLIST>[ <TMPL_VAR NAME=URLINFO> ],
+  </TMPL_LOOP>
+];
+altlist = [
+  <TMPL_LOOP NAME=ALTLIST>[ <TMPL_VAR NAME=IMAGEALT> ],
+  </TMPL_LOOP>
+];
+function preview(f,n)
+{
+  var info = urllist[n][f.SIZE.selectedIndex];
+  var SPinfo = info.split(",");
+  var width  = eval(SPinfo[1]) + 6;
+  var height = eval(SPinfo[2]) + 50;
+
+  var w = window.open('', 'popup', 'toolbar=no,location=no,resizable=yes,directories=no,status=no,menubar=no,width=' + width +  ',height=' + height);
+  w.document.open();
+  w.document.writeln('<html><head>', '<title>画像</title>', '<meta http-equiv="Content-Type" content="text/html; charset=euc-jp">', '</head><body bgcolor="#eeeeee" style="margin: 3px;">', '<div align="center">', '<img name="img" hspace="0" vspace="0" border="0" ', 'src="'+SPinfo[0]+'" width="'+SPinfo[1]+'" height="'+SPinfo[2]+'">', '</div>', '<div align="center" style="margin-top: 10px;">', '<button style="line-height: 1.3em;" onclick="javascript:window.close()">閉じる</button>', '</div></body></html>');
+  w.document.close();
+  w.window.focus();
+}
+function instImg(f)
+{
+  var of = window.opener.document.forms[0];
+
+  var flg = new Boolean(of.dimg);
+  if (flg == true) {
+    if (of.dimg.value == 1) {
+      of.PICSRC_1.src = f.SIZE[f.SIZE.selectedIndex].value;
+      of.ImageURL_1.value = f.SIZE[f.SIZE.selectedIndex].value;
+      of.ImageID_1.value = f.ID.value;
+    } else if (of.dimg.value == 2) {
+      of.PICSRC_2.src = f.SIZE[f.SIZE.selectedIndex].value;
+      of.ImageURL_2.value = f.SIZE[f.SIZE.selectedIndex].value;
+      of.ImageID_2.value = f.ID.value;
+    } else if (of.dimg.value == 3) {
+      of.PICSRC_3.src = f.SIZE[f.SIZE.selectedIndex].value;
+      of.ImageURL_3.value = f.SIZE[f.SIZE.selectedIndex].value;
+      of.ImageID_3.value = f.ID.value;
+    } else if (of.dimg.value == 4) {
+      of.PICSRC_4.src = f.SIZE[f.SIZE.selectedIndex].value;
+      of.ImageURL_4.value = f.SIZE[f.SIZE.selectedIndex].value;
+      of.ImageID_4.value = f.ID.value;
+    } else if (of.dimg.value == 5) {
+      of.PICSRC_5.src = f.SIZE[f.SIZE.selectedIndex].value;
+      of.ImageURL_5.value = f.SIZE[f.SIZE.selectedIndex].value;
+      of.ImageID_5.value = f.ID.value;
+    }
+    window.self.close();
+  }
+
+  of.PICSRC.src = f.SIZE[f.SIZE.selectedIndex].value;
+  of.ImageURL.value = f.SIZE[f.SIZE.selectedIndex].value;
+  of.ImageID.value = f.ID.value;
+
+  // alert(f.SIZE[f.SIZE.selectedIndex].value);
+  window.self.close();
+}
+<TMPL_IF ADDIMG>
+function instAddImg()
+{
+  var of = window.opener.document.forms[0];
+
+  var flg = new Boolean(of.dimg);
+  if (flg == true) {
+    if (of.dimg.value == 1) {
+      of.PICSRC_1.src = '<TMPL_VAR NAME=ADDPICSRC>';
+      of.ImageID_1.value = '<TMPL_VAR NAME=ADDID>';
+      window.self.close();
+    } else if (of.dimg.value == 2) {
+      of.PICSRC_2.src = '<TMPL_VAR NAME=ADDPICSRC>';
+      of.ImageID_2.value = '<TMPL_VAR NAME=ADDID>';
+      window.self.close();
+    } else if (of.dimg.value == 3) {
+      of.PICSRC_3.src = '<TMPL_VAR NAME=ADDPICSRC>';
+      of.ImageID_3.value = '<TMPL_VAR NAME=ADDID>';
+      window.self.close();
+    } else if (of.dimg.value == 4) {
+      of.PICSRC_4.src = '<TMPL_VAR NAME=ADDPICSRC>';
+      of.ImageID_4.value = '<TMPL_VAR NAME=ADDID>';
+      window.self.close();
+    } else if (of.dimg.value == 5) {
+      of.PICSRC_5.src = '<TMPL_VAR NAME=ADDPICSRC>';
+      of.ImageID_5.value = '<TMPL_VAR NAME=ADDID>';
+      window.self.close();
+    }
+  }
+
+  of.PICSRC.src = '<TMPL_VAR NAME=ADDPICSRC>';
+  of.ImageID.value = '<TMPL_VAR NAME=ADDID>';
+  window.self.close();
+
+  // alert('<TMPL_VAR NAME=ADDPICSRC>');
+}
+</TMPL_IF>
+//-->
+</script>
+<script src="../blog/js/popups/popup.js" type="text/javascript"></script>
+<script type="text/javascript">
+window.resizeTo(800, 700);
+document.body.scroll = "auto";
+function Init() {
+  __dlg_init();
+  var param = window.dialogArguments;
+  if (param) {
+      document.getElementById("f_url").value = param["f_url"];
+      document.getElementById("f_alt").value = param["f_alt"];
+      document.getElementById("f_border").value = param["f_border"];
+      document.getElementById("f_align").value = param["f_align"];
+      document.getElementById("f_vert").value = param["f_vert"];
+      document.getElementById("f_horiz").value = param["f_horiz"];
+      document.getElementById("f_width").value = param["f_width"];
+      document.getElementById("f_height").value = param["f_height"];
+      window.ipreview.location.replace(param.f_url);
+  }
+//  document.getElementById("f_url").focus();
+}
+function onOK(f, n) {
+  var item_url;
+
+  var of = window.opener.document.forms[0];
+  var fl = new Boolean(of);
+  if ( fl == true ) fl = new Boolean(of.eid);
+  if ( fl == true ) {
+    eval('of.' + of.eid.value).value = '<TMPL_VAR NAME=TRANSFER><TMPL_VAR NAME=WWW><TMPL_VAR NAME=DOMAIN>/SHOP/' + n + '.html?<BASE_QUERY>';
+  } else {
+    item_url = '<TMPL_VAR NAME=TRANSFER><TMPL_VAR NAME=WWW><TMPL_VAR NAME=DOMAIN>/smp/item/' + n + '.html?<BASE_QUERY>';
+  }
+
+  window.opener.document.getElementById("href").value = item_url;
+
+  window.close();
+  return false;
+};
+
+function onOK2() {
+  document.getElementById("f_url").value = '<TMPL_VAR NAME=ADDPICSRC>';
+//  document.getElementById("f_width").value = '<TMPL_VAR NAME=ADDPICWIDTH>';
+//  document.getElementById("f_height").value = '<TMPL_VAR NAME=ADDPICHEIGHT>';
+  document.getElementById("f_alt").value = '<TMPL_VAR NAME=ADDPICALT>';
+  document.getElementById("f_align").value = 'baseline';
+
+/*
+  document.form1.f_url.value = '<TMPL_VAR NAME=ADDPICSRC>';
+  document.form1.f_width.value = '<TMPL_VAR NAME=ADDPICWIDTH>';
+  document.form1.f_height.value = '<TMPL_VAR NAME=ADDPICHEIGHT>';
+  document.form1.f_alt.value = '<TMPL_VAR NAME=ADDPICALT>';
+  document.form1.f_align.value = 'baseline';
+*/
+
+  // __dlg_init();
+  window.dialogArguments = opener.Dialog._arguments;
+  var param = window.dialogArguments;
+
+  var fields = ["f_url", "f_alt", "f_align", "f_border", "f_horiz", "f_vert", "f_width", "f_height"];
+  var param = new Object();
+  for(var i in fields) {
+    var id = fields[i];
+    var el = document.getElementById(id);
+    param[id] = el.value;
+  }
+
+  __dlg_close(param);
+  return false;
+};
+
+function onCancel() {
+  __dlg_close(null);
+  return false;
+};
+
+function imageadd(f) {
+  var tmp = f.READY_CATEGORY.options[f.READY_CATEGORY.selectedIndex].value;
+  if (tmp != '') f.Category_Id.value = tmp;
+  f.submit();
+};
+  function HTMLAreaSupported() {
+    var agent = navigator.userAgent.toLowerCase();
+    if (agent.indexOf("msie") != -1) {  // IE
+        if (agent.indexOf("mac") != -1) {       // Mac IE
+            return false;
+        }
+        if (agent.indexOf("opera") != -1) {
+            return false;
+        }
+        return true;
+    }
+    if ((navigator.product == "Gecko") && (navigator.productSub >= 20030210)) {
+        return true;
+    }
+    if (agent.indexOf("chrome") != -1) {
+    	return true;
+    }
+    return false;
+  }
+</script>
+
+<TMPL_IF ADDIMG>
+<!-- <img src="../imgs/spc.gif" onLoad="onOK2();"> -->
+</TMPL_IF>
+
+<!--
+<img src="../imgs/spc.gif" onLoad="Init();">
+-->
+<link href="../func00/default00.css" rel="stylesheet" type="text/css">
+<div style="font-size:80%">
+<table width="680"  border="0" cellpadding="0" cellspacing="0">
+<form name="ITEMLIST" method="POST" action="smp_product_list.cgi">
+<input type="hidden" name="ItemName" value="<TMPL_VAR NAME=ITEM_NAME>">
+<input type="hidden" name="MasterCategory" value="<TMPL_VAR NAME=MASTER_C>">
+<input type="hidden" name="SubCategory" value="<TMPL_VAR NAME=SUB_C>">
+<input type="hidden" name="CMD" value="SEEK">
+<input type="hidden" name="SELSIZE" value="1">
+<input type="hidden" name="PAGE" value="1">
+<input type="hidden" name="MultiCategory" value="<TMPL_IF MULTICATEGORY><TMPL_VAR NAME=MULTICATEGORY></TMPL_IF>"/>
+</form>
+    <tr>
+	<td align="left">
+	    <div class="midashi02">■商品リンク挿入</div>
+	    <br>
+	    <TMPL_LOOP NAME=ERR_MSG>
+            <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+            </TMPL_LOOP>
+	    <table width="100%"  border="0" cellpadding="0" cellspacing="2">
+		<tr>
+		    <td align="right">
+                        <td align="right" class="item-02">
+<TMPL_IF TOTAL>
+<TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+</TMPL_IF>
+		    </td>
+		</tr>
+	    </table>
+        <table class="item-box">
+        	<tr align="center" valign="middle">
+        		<td colspan="7" class="item-name02">商品管理から挿入</td>
+       		</tr>
+        	<tr align="center" class="item-name" valign="middle">
+        		<td width="15%">商品番号</td>
+        		<td width="25%">商品名</td>
+        		<td width="15%">商品画像</td>
+        		<td width="10%">登録日</td>
+        		<td width="25%">カテゴリ</td>
+<!--
+        		<td width="25%">内部キャッチコピー</td>
+        		<td width="10%">挿入サイズ</td>
+-->
+        		<td width="10%">操作</td>
+       		</tr>
+
+		<TMPL_LOOP NAME=ITEMLIST>
+      		<tr valign="middle">
+		<form name="ITEM<TMPL_VAR NAME=ID>">
+      		    <td class="item02">&nbsp;<TMPL_VAR NAME=ITEM_NO></td>
+      		    <td class="item02">&nbsp;<TMPL_VAR NAME=ITEM_NAME></td>
+		    <td class="item02" align="center">
+			<input type="hidden" name="PicAlt" value="<TMPL_VAR NAME=PICALT>">
+			<image id="PICSRC" src="<TMPL_VAR NAME=PICSRC>" alt="<TMPL_VAR NAME=PICALT>">
+		    </td>
+      		    <td nowrap class="item02">&nbsp;<TMPL_VAR NAME=SETDATE></td>
+      		    <td class="item02">&nbsp;<TMPL_VAR NAME=M_CATEGORY><TMPL_IF NAME=S_CATEGORY> &gt; <TMPL_VAR NAME=S_CATEGORY></TMPL_IF></td>
+<!--
+                    <td nowrap class="item02">&nbsp;<TMPL_VAR NAME=CATCHCOPY>
+			<input type="hidden" name="Moto_Catch" value="<TMPL_VAR NAME=MOTO_CATCH>">
+		    </td>
+      		    <td nowrap class="item02">
+			<select name="SIZE">
+			<TMPL_LOOP SZLIST>
+			<option value="<TMPL_VAR NAME=URL>"><TMPL_VAR NAME=SZNAME>(<TMPL_VAR NAME=WIDTH>×<TMPL_VAR NAME=HEIGHT>)</option>
+			</TMPL_LOOP>
+			</select>
+		    </td>
+-->
+      		    <td nowrap class="item02" align="center">
+<!--
+		    <input type="button" name="PREV" value="プレビュー" onClick='preview(document.ITEM<TMPL_VAR NAME=ID>, <TMPL_VAR NAME=ITEM_NO>);'>
+-->
+<br>
+		    <input type="button" name="INST" value="挿入" onClick="onOK(document.ITEM<TMPL_VAR NAME=ID>, '<TMPL_VAR NAME=ITEM_NO>');">
+		</form>
+      		    </td>
+      		</tr>
+		</TMPL_LOOP>
+	    </table>
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                        <td align="right" class="item-02">
+<TMPL_IF TOTAL>
+<TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+</TMPL_IF>
+</td>
+                </tr>
+        </table>
+        <br>
+        <table class="item-box">
+<form name="SEEK" method="POST" action="smp_product_list.cgi">
+<input type="hidden" name="CMD" value="SEEK">
+                <tr align="center">
+                        <td colspan="2" class="item-name02">商品検索</td>
+                </tr>
+                <tr>
+                        <td width="15%" class="item-name">商品名</td>
+                        <td width="85%" class="item02">
+                                <input name="ItemName" type="text" class="sub-line" value="<TMPL_VAR NAME=ITEM_NAME>">
+                                </td>
+                </tr>
+<!--
+                <tr>
+                        <td class="item-name">商品番号</td>
+                        <td class="item02">
+                                <input name="ItemNo" type="text" class="sub-line" value="<TMPL_VAR NAME=ITEM_NO>">
+                                </td>
+                </tr>
+-->
+                <tr>
+                        <td class="item-name">カテゴリ</td>
+                        <td class="item02">
+                            <link rel="stylesheet" type="text/css" href="../css/custom_ui/multiCategorySearchApiCss.css" media="all">
+                            <script type="text/javascript" src="/js/custom_ui/jsloader.js"></script>
+                            <script type="text/javascript" src="/js/custom_ui/jquery-multi-category-search-api.js"></script>
+                            <div id="_multi_category_search_part">
+                                <select name="MasterCategory"></select>
+                                <select name="SubCategory"></select>
+                                <select name="Layer3Category"></select>
+                                <select name="Layer4Category"></select>
+                                <select name="Layer5Category"></select>
+                                <input type="hidden" name="MultiCategory" id="multi_category_recently_search_id" value="<TMPL_IF MULTICATEGORY><TMPL_VAR NAME=MULTICATEGORY></TMPL_IF>"/>
+                            </div>
+                        </td>
+                </tr>
+                <tr align="center">
+                        <td colspan="2" class="item">
+                                <input type="button" name="Submit" value="検索する" onClick="document.SEEK.submit();">
+                                </td>
+                </tr>
+</form>
+</table>
+
+        <br>
+
+        <hr size="1">
+        <br>
+        <div align="center">
+                <input type="button" name="Submit" value="閉じる" onClick="window.close()">
+        </div>
+
+
+	</td>
+    </tr>
+</table>
+
+<TMPL_IF ADDIMG>
+<img src="../imgs/spc.gif" onLoad="onOK2();">
+</TMPL_IF>
+</div>

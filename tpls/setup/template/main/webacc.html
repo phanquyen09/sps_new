@@ -1,0 +1,119 @@
+<script language="JavaScript">
+<!--
+function del(f) {
+  if ( confirm("認証の設定を削除します。よろしいですか？") ) {
+    f.submit();
+  } else {
+    return;
+  }
+}
+//-->
+</script>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#677C87">
+        <tr>
+          <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+        </tr>
+    </table></td>
+<td align="left" class="midashi">ユーザー認証の設定を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/webacc.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+      <div id="acc-list" style="display:block">
+
+      <div class="infoArea table_bg">
+      アクセスする際に「ユーザー名」、「パスワード」の入力が必要なURLを設定します。<br>
+      ※URLは「.html」、「.htm」などのファイル単位ではなく、ディレクトリ単位で指定します。<br>
+        設定可能な「ユーザー名」、「パスワード」はディレクトリごとに1個ずつとなります。<br>
+      </div>
+
+      <TMPL_LOOP NAME=ERR_MSG>
+      <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+      </TMPL_LOOP>
+      <form name="WEBADD" method="POST" action="webacc.cgi">
+      <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+        <tr align="center">
+          <td colspan="2" class="item-name02">ユーザー名設定</td>
+        </tr>
+        <tr>
+
+          <td class="item-name">設定するURL</td>
+          <td class="item">
+<input type="hidden" name="WID" value="new">
+<input type="hidden" name="CMD" value="ADD">
+<input name="DIRTYPE" type="radio" id="usracc01" value="use" <TMPL_VAR NAME=USECHECK>>
+              <select name="DIR">
+<TMPL_LOOP NAME=URL_LIST>
+<option value="<TMPL_VAR NAME=DIR>" <TMPL_VAR NAME=SELDIR>><TMPL_VAR NAME=JDIR></option>
+</TMPL_LOOP>
+              </select>
+              <br>
+              <input name="DIRTYPE" type="radio" value="new" id="usracc02" <TMPL_VAR NAME=NEWCHECK>>
+               <TMPL_VAR NAME=TRANSFER><TMPL_VAR NAME=WWW><TMPL_VAR NAME=DOMAIN>/
+              <input name="NEWDIR" type="text" value="<TMPL_VAR NAME=NEWDIR>" style="ime-mode:disabled">
+/
+          </td>
+        </tr>
+        <tr>
+          <td class="item-name">ユーザー名</td>
+          <td class="item"><input name="ACC" type="text" value="<TMPL_VAR NAME=ACC>" style="ime-mode:disabled">&nbsp;※半角英数字1〜8文字
+          </td>
+        </tr>
+        <tr>
+          <td class="item-name">パスワード</td>
+          <td class="item"><input name="PWD" type="text" value="<TMPL_VAR NAME=PWD>" style="ime-mode:disabled">&nbsp;※半角英数字3〜8文字
+          </td>
+        </tr>
+        <tr align="center">
+          <td colspan="2" class="item"><input type="button" name="ADD" value="設定を保存する" onClick="document.WEBADD.submit();">
+          </td>
+        </tr>
+      </table>
+    </form>
+                                            </div>
+                                            <br>
+                                            <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                              <tr align="center">
+                                                <td width="10%" nowrap class="item-name02">作成日</td>
+                                                <td width="30%" nowrap class="item-name02">URL</td>
+                                                <td width="20%" nowrap class="item-name02">ユーザー名</td>
+                                                <td width="20%" nowrap class="item-name02">パスワード</td>
+                                                <td width="20%" nowrap class="item-name02">操作</td>
+                                              </tr>
+<TMPL_LOOP NAME=WEB_ACC>
+<form name="WEB<TMPL_VAR NAME=ID>" method="POST" action="webacc.cgi">
+<input type="hidden" name="WID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="UID" value="<TMPL_VAR NAME=UID>">
+<input type="hidden" name="CMD" value="EDT">
+                                              <tr>
+                                                <td align="center" nowrap class="item02"><TMPL_VAR NAME=CREATE></td>
+                                                <td nowrap class="item02"><TMPL_VAR NAME=URL></td>
+                                                <td nowrap class="item02">
+<TMPL_IF ID>
+<input name="ACC" type="text" value="<TMPL_VAR NAME=ACC>" style="ime-mode:disabled">
+<TMPL_ELSE>&nbsp;</TMPL_IF>
+            </td>
+                                                <td class="item02">
+<TMPL_IF ID>
+<input name="PWD" type="text" value="<TMPL_VAR NAME=PWD>" style="ime-mode:disabled">
+<TMPL_ELSE>&nbsp;</TMPL_IF>
+            </td>
+                                                <td nowrap class="item02">
+<TMPL_IF ID>
+<input type="button" name="EDT" value="変更" onClick='document.WEB<TMPL_VAR NAME=ID>.submit();'>
+<input type="button" name="DEL" value="削除" onClick='document.WEB<TMPL_VAR NAME=ID>.CMD.value="DEL";del(document.WEB<TMPL_VAR NAME=ID>);'>
+<TMPL_ELSE>&nbsp;</TMPL_IF>
+            </td>
+                                              </tr>
+</form>
+</TMPL_LOOP>
+                                            </table>
+                                            <br></td>
+                                        </tr>
+                                      </table>
+

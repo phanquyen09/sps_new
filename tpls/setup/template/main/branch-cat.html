@@ -1,0 +1,103 @@
+<script language="javascript">
+    function seekcat(trg1, trg2) {
+      window.open("seekcat.cgi?SITEN_ID=<TMPL_VAR name=SITEN_ID>&TRG1="+ trg1 +"&TRG2=" + trg2,
+              "catwin","resizable=yes,scrollbars=yes,menubar=yes,width=600,height=700");
+    }
+
+    function goprev(){
+        document.FORM1.CMD.value = 'BACK_INPUT';
+        document.FORM1.submit();
+    }
+
+    function gonext(){
+        document.FORM1.CMD.value = 'CONFIRM';
+        document.FORM1.submit();
+    }
+</script>
+
+
+<FORM NAME=FORM1 ACTION="branch-open.cgi" METHOD="POST">
+<INPUT TYPE="hidden" NAME="SITEN_ID" value="<TMPL_VAR name=SITEN_ID>">
+<INPUT TYPE="hidden" NAME="CMD" value="">
+
+                                    <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                      <tr>
+                                        <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+                                            <tr>
+                                              <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+                                            </tr>
+                                        </table></td>
+                                        <td align="left" class="midashi"><TMPL_VAR name=SITEN_NAME>へ出店するためのカテゴリを選択します</td>
+                                      </tr>
+                                    </table>
+                                      <img src="../imgs/spc.gif" width="5" height="5">
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                          <td align="left" class="main-table">
+<!-- エラーメッセージ //-->
+<TMPL_IF name=ERR_MSG_LST>
+ <TMPL_LOOP name=ERR_MSG_LST>
+    <font size=2 color="#FF0000"><TMPL_VAR name=ERR_MSG></font><br>
+ </TMPL_LOOP>
+</TMPL_IF>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                              <td>
+<TMPL_IF name=SITEN14>
+価格.comでは商品の型番を用いて商品をカテゴリ分けするためカテゴリ選択を行う必要はありません。<br>
+出品するカテゴリにチェックをつけて「次へ」ボタンをクリックしてください。
+</TMPL_IF>
+                                              	<table class="item-box">
+                                               	<tr align="center">
+                                               		<td colspan="3" class="item-name02">出品カテゴリ選択</td>
+                                              		</tr>
+                                               	<tr align="center">
+                                                	<td class="odr-midashi">出品</td>
+                                                	<td class="odr-midashi">店舗のカテゴリ（第1階層）</td>
+                                                	<td class="odr-midashi"><TMPL_VAR name=SITEN_NAME>のカテゴリ</td>
+                                              		</tr>
+        <TMPL_LOOP name=CAT_LIST>
+        <tr>
+        <td width="5%" align="center" class="item02">
+        <input name="SHUPIN_<TMPL_VAR name=CAT_ID>" type="checkbox" value="Y" <TMPL_VAR name=SHUPIN_CHK>>
+        </td>
+        <td width="45%" align="left" class="item02"><TMPL_VAR name=STORE_CAT_NAME></td>
+        <td width="50%" align="left" class="item02">
+        <input name="SITEN_CATNAME_<TMPL_VAR name=CAT_ID>" type="text" value="<TMPL_VAR name=SITEN_CATNAME>" class="cat-line" readonly>
+        <input type="hidden" name="MASTER_ID_<TMPL_VAR name=CAT_ID>" value="<TMPL_VAR name=MASTER_ID>">
+        <input type="button" value="カテゴリ選択" onClick="seekcat('MASTER_ID_<TMPL_VAR name=CAT_ID>','SITEN_CATNAME_<TMPL_VAR name=CAT_ID>')" <TMPL_IF name=DISBTN>disabled</TMPL_IF>>
+        </td>
+        </tr>
+        </TMPL_LOOP>
+                                               	</table>
+                                              </td>
+                                            </tr>
+                                          </table>
+
+<TMPL_IF name=SITEN15>
+<span style="color:#dc0000;">※小カテゴリごとの出品カテゴリは、審査完了後「出品カテゴリ設定」より変更できます。</span>
+</TMPL_IF>
+
+</td>
+                                        </tr>
+                                      </table>
+                                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                          <td>&nbsp;</td>
+                                        </tr>
+                                      </table>
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                        <tr>
+                                          <td align="center" style="padding:10px 10px 10px 10px ">
+                                          	<input type="button" value="戻る" onClick="goprev()">
+&nbsp;
+<input type="button" onClick="gonext()" value="次へ">
+                                          </td>
+                                        </tr>
+                                      </table>
+
+<TMPL_LOOP name=HIDELIST>
+  <input type=hidden name="<TMPL_VAR name=HIDDEN_NAME>" value="<TMPL_VAR name=HIDDEN_VAL>">
+</TMPL_LOOP>
+
+</FORM>

@@ -1,0 +1,929 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>楽天ペイ（オンライン決済）申し込み</title>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="css/pmapply.css" rel="stylesheet" type="text/css">
+<link href="css/newsetup.css" rel="stylesheet" type="text/css">
+<link href="../css/custom_ui/popupmanager.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/custom_ui/popupmanager.js"></script>
+<script type="text/javascript" src="js/newsetup.js"></script>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+
+function seekpczip(type) {
+    var zip1;
+    var zip2;
+    if ( type == 'RI' ){
+        if(document.PMAPPLY04.RiZip1.className.match(/noModify/)){
+            document.PMAPPLY04.RiZip1.value = "";
+        }
+        if(document.PMAPPLY04.RiZip2.className.match(/noModify/)){
+            document.PMAPPLY04.RiZip2.value = "";
+        }
+        zip1 = document.PMAPPLY04.RiZip1.value;
+        zip2 = document.PMAPPLY04.RiZip2.value;
+    }else if ( type == 'RiKeiyaku' ){
+        if(document.PMAPPLY04.RiKeiyakuZIP1.className.match(/noModify/)){
+            document.PMAPPLY04.RiKeiyakuZIP1.value = "";
+        }
+        if(document.PMAPPLY04.RiKeiyakuZIP2.className.match(/noModify/)){
+            document.PMAPPLY04.RiKeiyakuZIP2.value = "";
+        }
+        zip1 = document.PMAPPLY04.RiKeiyakuZIP1.value;
+        zip2 = document.PMAPPLY04.RiKeiyakuZIP2.value;
+    }else if ( type == 'RiTanto' ){
+        if(document.PMAPPLY04.RiTantoZip1.className.match(/noModify/)){
+            document.PMAPPLY04.RiTantoZip1.value = "";
+        }
+        if(document.PMAPPLY04.RiTantoZip2.className.match(/noModify/)){
+            document.PMAPPLY04.RiTantoZip2.value = "";
+        }
+        zip1 = document.PMAPPLY04.RiTantoZip1.value;
+        zip2 = document.PMAPPLY04.RiTantoZip2.value;
+    }
+    window.open("./seekzip-pmapply.cgi?TARGET=PMAPPLY04&TYPE="+type+"&ZIP1="
+                 +zip1+"&ZIP2="+zip2, "zip","resizable=yes,scrollbars=yes,menubar=yes,width=400,height=250");
+}
+
+function chkRadioButton() {
+    for(var i=0; i<document.PMAPPLY051.rakuten_w.length; i++){
+        if (document.PMAPPLY051.rakuten_w[i].checked) {
+            if (document.PMAPPLY051.rakuten_w[i].value == 'Y') {
+                ChgDisplayBlock("");
+                return false;
+                break;
+            }
+        }
+    }
+   // document.PMAPPLY051.disabled;
+    PMAPPLY051Click();
+   // document.PMAPPLY051.submit();
+}
+
+function ChgDisplayBlock(arg)
+{
+    if ( arg.length >= 0 ) {
+        $("#cont").css("display", "none");
+        $("#cont1").css("display","block");
+    } else {
+        $("#cont").css("display", "block");
+        $("#cont1").css("display","none");
+    }
+}
+
+function input_check() {
+    if ( !document.PMAPPLY04.Agree.checked ){
+        alert("利用規約に同意してから\nお進みください");
+        return false;
+    }
+    //document.PMAPPLY04.disabled="true";
+    PMAPPLY04Click();
+}
+function btn_chg() {
+    if ( document.PMAPPLY04.Agree.checked ) {
+        //document.PMAPPLY04.REQ_START.disabled = false;
+        document.PMAPPLY04.REQ_START.src="images/pmapply/rakutenid_next_on.png";
+    } else {
+        //document.PMAPPLY04.REQ_START.disabled = true;
+        document.PMAPPLY04.REQ_START.src="images/pmapply/rakutenid_next_off.png";
+    }
+}
+//-->
+</script>
+</head>
+<body>
+ <div id="head">
+  <h1><img src="images/title_rakutenid.png" alt="楽天ペイ（オンライン決済）申し込み"></h1>
+ </div>
+ <div id="gNavi">
+   <div id="tab-area">
+     <ul>
+        <li><img src="images/pmapply/menu01.png" alt="申し込み条項確認" class="menu01"></li>
+        <li><img src="images/pmapply/menu02.png" alt="担当者・振込先入力" class="menu02"></li>
+        <li><img src="images/pmapply/menu03.png" alt="各決済情報入力" class="menu03"></li>
+        <li><img src="images/pmapply/menu_rakuten_o.png" alt="楽天ペイ申し込み" class="menurakuten"></li>
+        <li><img src="images/pmapply/menu04.png" alt="Yahoo!ウォレット決済申し込み" class="menu04"></li>
+        <li><img src="images/pmapply/menu05.png" alt="入力内容確認" class="menu05"></li>
+        <li><img src="images/pmapply/menu06.png" alt="申込書印刷" class="menu06"></li>
+     </ul>
+    </div>
+  </div>
+
+<div id="cont" <TMPL_IF DESC_OPEN>style="display:none"</TMPL_IF> >
+<form name="PMAPPLY051" method="POST" action="pmapply_rakuten_sps.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="NEXT">
+
+   <div class="main05">
+合わせて楽天ペイ（オンライン決済）も申し込めます。<br />
+<br />
+利用契約はＥストアーショップサーブ契約とは別に、楽天株式会社と結んでいただきます。
+   </div>
+   <div class="yw01"><label for="YW_Y"><input type="radio" id="YW_Y" name="rakuten_w" value="Y" checked>申し込む</label><br>
+        <label for="YW_N"><input type="radio" id="YW_N" name="rakuten_w" value="N">申し込まずに次へ進む</label>
+   </div>
+
+
+   <div class="btn02-1">
+     <div class="btn02-5"></div>
+     <div class="btn02-3"><img src="images/pmapply/back.png" onClick="PMAPPLY052Click();"></div>
+     <div class="btn02-4"><img name="REQ_START" src="images/pmapply/next_on.png" onClick="chkRadioButton();"></div>
+     <div style="clear:both;"></div>
+   </div>
+
+   <div class="main05">
+     <div class="yw02">
+       楽天ペイ（オンライン決済）とは？・・・
+     </div>
+     <div class="yw03">
+本店サイトで楽天スーパーポイントを使えて貯められる決済です。<br />
+お客さんは支払い方法で「楽天ペイ」を選択して楽天IDでログインすると、登録<br />
+済みクレジットカードで支払えます。本店サイトを訪れた楽天会員のお客<br />
+さんに買ってもらえる可能性が高まります。
+     </div>
+     <div style="clear:both;"></div>
+
+   </div>
+
+   <div class="page-top">
+      <a href="#head">▲このページのトップへ</a>
+   </div>
+ </div>
+
+<!--▲wrapper▲-->
+</form>
+
+<form name="PMAPPLY052" method="POST" action="<TMPL_IF DESC_OPEN><TMPL_IF YONLY>pmapply02_sps.cgi<TMPL_ELSE><TMPL_IF step4skip>pmapply03_sps.cgi<TMPL_ELSE>pmapply04_sps.cgi</TMPL_IF></TMPL_IF><TMPL_ELSE><TMPL_IF YONLY>pmapply02_sps.cgi<TMPL_ELSE><TMPL_IF step4skip>pmapply03_sps.cgi<TMPL_ELSE>pmapply04_sps.cgi</TMPL_IF></TMPL_IF></TMPL_IF>">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+</form>
+
+<div id="cont1" style="display:<TMPL_IF DESC_OPEN>block<TMPL_ELSE>none</TMPL_IF>">
+  <form name="PMAPPLY04" method="POST" action="pmapply_rakuten_sps.cgi">
+  <input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+  <input type="hidden" name="CMD" value="NEXT">
+  <TMPL_IF ISBACK>
+  <input type="hidden" name="TO_CONFIRM" value="1">
+  <TMPL_ELSE>
+  <input type="hidden" name="TO_CONFIRM" value="0">
+  </TMPL_IF>
+  <input type="hidden" name="YwName"     value="<TMPL_VAR NAME=YWNAME>">
+  <input type="hidden" name="YwNameKana" value="<TMPL_VAR NAME=YWNAMEKANA>">
+<table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+  <TMPL_IF ERR_MSG>
+    <TR>
+      <TD class=j12 align=left>
+      <TMPL_LOOP ERR_MSG>
+        <font color="red">&nbsp;・ 
+          <TMPL_VAR NAME=MSG>
+        </font>
+        <br>
+      </TMPL_LOOP>
+      </TD>
+    </TR>
+  </TMPL_IF>
+</table>
+<h2 class="midashi03">
+  <img src="images/pmapply/arrow.png">楽天ペイ（オンライン決済）の加盟情報 
+</h2>
+<div style="clear:both;"></div>
+<table class="input_table03">
+  <tr>
+    <td class="input_td03-01">契約名義 
+    </td>
+    <td class="input_td03-02">
+    <div class="boxbase">
+      <div class="boxtitle1">&nbsp;</div>
+      <div class="boxlong1">
+        <TMPL_VAR NAME=RINAME>
+      </div>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="input_td03-01">代表者氏名 
+    </td>
+    <td class="input_td03-02">
+    <div class="boxbase">
+      <div class="boxtitle1">姓：</div>
+      <div class="boxhalf1">
+        <input type="text" name="RiBossSei" id="RiBossSei" class="textCount textExample form_text02" title="例) 鈴木" value="<TMPL_VAR NAME=RIBOSSSEI>">
+        <span id="RiBossSei" class="textCount"></span>
+      </div>
+      <div class="boxtitle1">名：</div>
+      <div class="boxhalf1">
+        <input type="text" name="RiBossMei" id="RiBossMei" class="textCount textExample form_text02" title="例) 一郎" value="<TMPL_VAR NAME=RIBOSSMEI>">
+        <span id="RiBossMei" class="textCount"></span>
+      </div>
+    </div>
+    <div class="boxbase">
+      <div class="boxtitle1">セイ：</div>
+      <div class="boxhalf1">
+        <input type="text" name="RiBossSeiKana" id="RiBossSeiKana" class="textCount textExample form_text02" title="例) スズキ" value="<TMPL_VAR NAME=RIBOSSSEIKANA>">
+        <span id="RiBossSeiKana" class="textCount"></span>
+      </div>
+      <div class="boxtitle1">メイ：</div>
+      <div class="boxhalf1">
+        <input type="text" name="RiBossMeiKana" id="RiBossMeiKana" class="textCount textExample form_text02" title="例) イチロウ" value="<TMPL_VAR NAME=RIBOSSMEIKANA>">
+        <span id="RiBossMeiKana" class="textCount"></span>
+      </div>
+    </div>
+    <div class="boxbase">
+      <div class="boxlong2">
+        <p style="color:blue;">※法人にて代表者変更があった場合は、ご提出いただく本人確認書類と同じ情報をご入力ください。個人・個人事業主の場合は、本お手続きによる代表者の変更は行えません。（別途、譲渡手続きが必要となります）</p>
+      </div>
+  </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="input_td03-01">代表者の生年月日 
+    </td>
+    <td class="input_td03-02">
+    <div class="boxbase">
+      <div class="boxtitle1">&nbsp;</div>
+      <div class="boxlong1">
+        <input type="text" name="RiBirthYYYY" id="RiBirthYYYY" class="textExample form_text03" value="<TMPL_VAR NAME=RIBIRTHYYYY>" title="例) 2000" maxlength="4" size="8">
+        <div class="haifun01">年　</div>
+        <input type="text" name="RiBirthMM" id="RiBirthMM" class="textExample form_text03" value="<TMPL_VAR NAME=RIBIRTHMM>" title="例) 4" maxlength="2" size="6">
+        <div class="haifun01">月　</div>
+        <input type="text" name="RiBirthDD" id="RiBirthDD" class="textExample form_text03" value="<TMPL_VAR NAME=RIBIRTHDD>" title="例) 1" maxlength="2" size="6">
+        <div class="haifun01">日</div>
+      </div>
+    </div>
+  </div>
+  </td>
+</tr>
+<!-- 代表者住所 -->
+<tr>
+  <td class="input_td03-01">代表者住所 
+  </td>
+  <td class="input_td03-02">
+  <div class="boxbase">
+    <div class="boxtitle1">郵便番号：</div>
+    <div class="boxlong1">
+      <input type="text" name="RiZip1" id="RiZip1" class="textExample form_text03" value="<TMPL_VAR NAME=RIZIP1>" title="例) 105" maxlength="3" size="7">
+      <div class="haifun01">-</div>
+      <input type="text" name="RiZip2" id="RiZip2" class="textExample form_text03" value="<TMPL_VAR NAME=RIZIP2>" title="例) 0003" maxlength="4" size="10">&nbsp;&nbsp; 
+      <input type="button" value="郵便検索" onClick="seekpczip('RI');">
+    </div>
+  </div>
+  <div class="boxbase">
+    <div class="boxtitle1">都道府県：</div>
+    <div class="boxlong1">
+      <select name="RiPref" class="form_text02">
+        <option value="">選択してください</option>
+        <TMPL_LOOP PREFLIST>
+          <option value="<TMPL_VAR NAME=PREF>" 
+            <TMPL_IF SEL>selected</TMPL_IF>>
+            <TMPL_VAR NAME=PREF>
+          </option>
+        </TMPL_LOOP>
+      </select>
+    </div>
+  </div>
+  <div class="boxbase">
+    <div class="boxtitle1">市区郡：</div>
+    <div class="boxlong1">
+      <input type="text" name="RiAddr1" id="RiAddr1" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RIADDR1>" title="例）　港区" >
+      <span id="RiAddr1" class="textCount"></span>
+    </div>
+  </div>
+  <div class="boxbase">
+    <div class="boxtitle1">町村字：</div>
+    <div class="boxlong1">
+      <input type="text" name="RiAddr2" id="RiAddr2" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RIADDR2>" title="例）　西新橋" >
+      <span id="RiAddr2" class="textCount"></span>
+    </div>
+  </div>
+  <div class="boxbase">
+    <div class="boxtitle1">丁番地：</div>
+    <div class="boxlong1">
+      <input type="text" name="RiAddr3" id="RiAddr3" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RIADDR3>" title="例）　１−１０−２" >
+      <span id="RiAddr3" class="textCount"></span>
+    </div>
+  </div>
+  <div class="boxbase">
+    <div class="boxtitle1">建物名：</div>
+    <div class="boxlong1">
+      <input type="text" name="RiAddr4" id="RiAddr4" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RIADDR4>" title="例）　住友生命西新橋ビル" >
+      <span id="RiAddr4" class="textCount"></span>
+    </div>
+  </div>
+  <div class="boxbase">
+    <div class="boxlong2">
+      <p style="color:blue;">※法人の場合は、登記簿謄本と同一の住所をご入力ください。個人・個人事業主の場合は、ご提出いただく本人確認書類と同じ情報を入力してください。本人確認書類と異なる場合、受付けできません。</p>
+    </div>
+  </div>
+</div>
+</td>
+</tr>
+<!-- 登記上の会社住所 -->
+<tr>
+<td class="input_td03-01">登記上の会社住所
+</td>
+<td class="input_td03-02">
+<div class="boxbase">
+  <div class="boxtitle1">郵便番号：</div>
+  <div class="boxlong1">
+    <input type="text" name="RiKeiyakuZIP1" id="RiKeiyakuZIP1" class="textExample form_text03" value="<TMPL_VAR NAME=RIKEIYAKUZIP1>" title="例) 105" maxlength="3" size="7">
+    <div class="haifun01">-</div>
+    <input type="text" name="RiKeiyakuZIP2" id="RiKeiyakuZIP2" class="textExample form_text03" value="<TMPL_VAR NAME=RIKEIYAKUZIP2>" title="例) 0003" maxlength="4" size="10">&nbsp;&nbsp; 
+    <input type="button" value="郵便検索" onClick="seekpczip('RiKeiyaku');">
+  </div>
+</div>
+<div class="boxbase">
+  <div class="boxtitle1">都道府県：</div>
+  <div class="boxlong1">
+    <select name="RiKeiyakuPref" class="form_text02">
+      <option value="">選択してください</option>
+      <TMPL_LOOP KEIYAKUPREFLIST>
+        <option value="<TMPL_VAR NAME=PREF>" 
+          <TMPL_IF SEL>selected</TMPL_IF>>
+          <TMPL_VAR NAME=PREF>
+        </option>
+      </TMPL_LOOP>
+    </select>
+  </div>
+</div>
+<div class="boxbase">
+  <div class="boxtitle1" style="line-height:32px;">市区郡： 
+    <br />(カナ)： 
+  </div>
+  <div class="boxlong1">
+    <input type="text" name="RiKeiyakuAddr1" id="RiKeiyakuAddr1" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RIKEIYAKUADDR1>" title="例）　港区" >
+    <span id="RiKeiyakuAddr1" class="textCount"></span>
+    <br />
+    <input type="text" name="RiKeiyakuAddr1Kana" id="RiKeiyakuAddr1Kana" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RIKEIYAKUADDR1KANA>" title="例）　ミナトク" >
+    <span id="RiKeiyakuAddr1Kana" class="textCount"></span>
+  </div>
+</div>
+<div class="boxbase">
+  <div class="boxtitle1" style="line-height:32px;">町村字： 
+    <br />(カナ)： 
+  </div>
+  <div class="boxlong1">
+    <input type="text" name="RiKeiyakuAddr2" id="RiKeiyakuAddr2" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RIKEIYAKUADDR2>" title="例）　西新橋" >
+    <span id="RiKeiyakuAddr2" class="textCount"></span>
+    <br />
+    <input type="text" name="RiKeiyakuAddr2Kana" id="RiKeiyakuAddr2Kana" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RIKEIYAKUADDR2KANA>" title="例）　ニシシンバシ" >
+    <span id="RiKeiyakuAddr2Kana" class="textCount"></span>
+  </div>
+  <div class="boxbase">
+    <div class="boxtitle1" style="line-height:32px;">丁番地：</div>
+    <div class="boxlong1">
+      <input type="text" name="RiKeiyakuAddr3" id="RiKeiyakuAddr3" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RIKEIYAKUADDR3>" title="例）　１−１０−２" >
+      <span id="RiKeiyakuAddr3" class="textCount"></span>
+    </div>
+  </div>
+  <div class="boxbase">
+    <div class="boxtitle1" style="line-height:32px;">建物名：</div>
+    <div class="boxlong1">
+      <input type="text" name="RiKeiyakuAddr4" id="RiKeiyakuAddr4" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RIKEIYAKUADDR4>" title="例）　住友生命西新橋ビル" >
+      <span id="RiKeiyakuAddr4" class="textCount"></span>
+    </div>
+  </div>
+  <div class="boxbase">
+    <div class="boxlong2">
+      <p style="color:blue;">※法人の場合、登記上の会社住所は印鑑証明書記載の本店所在地と同じ住所を入力してください。ご提出いただいた印鑑証明書と記載の住所が異なる場合、受付けできません。個人事業主の場合、本人確認書類と同じ住所を入力してください。</p>
+    </div>
+  </div>
+  </td>
+</tr>
+<!-- 担当者住所 -->
+<tr>
+  <td class="input_td03-01">楽天からの連絡先
+  </td>
+  <td class="input_td03-02">
+  <div class="boxbase">
+    <div class="boxtitle1">部署名：</div>
+    <div class="boxlong1">
+      <input type="text" name="RiTantoSection" id="RiTantoSection" class="textExample form_text03" value="<TMPL_VAR NAME=RITANTOSECTION>" title="例) 新規開発部" maxlength="50" size="10">
+    </div>
+  </div>
+  <div class="boxbase">
+    <div class="boxtitle1">担当者姓：</div>
+    <div class="boxhalf1">
+      <input type="text" name="RiTantoSei" id="RiTantoSei" class="textCount textExample form_text02" title="例) 鈴木" value="<TMPL_VAR NAME=RITANTOSEI>">
+      <span id="RiTantoSei" class="textCount"></span>
+    </div>
+    <div class="boxtitle1">担当者名：</div>
+    <div class="boxhalf1">
+      <input type="text" name="RiTantoMei" id="RiTantoMei" class="textCount textExample form_text02" title="例) 一郎" value="<TMPL_VAR NAME=RITANTOMEI>">
+      <span id="RiTantoMei" class="textCount"></span>
+    </div>
+  </div>
+  <div class="boxbase">
+    <div class="boxtitle1">セイ：</div>
+    <div class="boxhalf1">
+      <input type="text" name="RiTantoSeiKana" id="RiTantoSeiKana" class="textCount textExample form_text02" title="例) スズキ" value="<TMPL_VAR NAME=RITANTOSEIKANA>">
+      <span id="RiTantoSeiKana" class="textCount"></span>
+    </div>
+    <div class="boxtitle1">メイ：</div>
+    <div class="boxhalf1">
+      <input type="text" name="RiTantoMeiKana" id="RiTantoMeiKana" class="textCount textExample form_text02" title="例) イチロウ" value="<TMPL_VAR NAME=RITANTOMEIKANA>">
+      <span id="RiTantoMeiKana" class="textCount"></span>
+    </div>
+  </div>
+  <div class="boxbase">
+    <div class="boxtitle1">電話番号：</div>
+    <div class="boxlong1">
+      <input type="text" name="RiTantoTel1" id="RiTantoTel1" class="textExample form_text03" title="例) 03" value="<TMPL_VAR NAME=RITANTOTEL1>" maxlength="5" size="7" >
+      <div class="haifun01">-</div>
+      <input type="text" name="RiTantoTel2" id="RiTantoTel2" class="textExample form_text03" maxlength="4" size="10" title="例) 0000" value="<TMPL_VAR NAME=RITANTOTEL2>">
+      <div class="haifun01">-</div>
+      <input type="text" name="RiTantoTel3" id="RiTantoTel3" class="textExample form_text03" maxlength="4" size="10" title="例) 0000" value="<TMPL_VAR NAME=RITANTOTEL3>">
+    </div>
+  </div>
+  <div class="boxbase">
+    <div class="boxlong2">
+      <font style="color:blue;">※固定電話を入力してください。携帯電話・フリーダイヤルは受付けできません。</font>
+    </div>
+  </div>
+  <div class="boxbase">
+    <div class="boxtitle1">FAX番号：</div>
+    <div class="boxlong1">
+      <input type="text" name="RiTantoFax1" id="RiTantoFax1" class="textExample form_text03" title="例) 03" value="<TMPL_VAR NAME=RITANTOFAX1>" maxlength="5" size="7" >
+      <div class="haifun01">-</div>
+      <input type="text" name="RiTantoFax2" id="RiTantoFax2" class="textExample form_text03" maxlength="4" size="10" title="例) 0000" value="<TMPL_VAR NAME=RITANTOFAX2>">
+      <div class="haifun01">-</div>
+      <input type="text" name="RiTantoFax3" id="RiTantoFax3" class="textExample form_text03" maxlength="4" size="10" title="例) 0000" value="<TMPL_VAR NAME=RITANTOFAX3>">
+    </div>
+  </div>
+  <div class="boxbase">
+    <div class="boxtitle1">郵便番号：</div>
+    <div class="boxlong1">
+      <input type="text" name="RiTantoZip1" id="RiTantoZip1" class="textExample form_text03" value="<TMPL_VAR NAME=RITANTOZIP1>" title="例) 105" maxlength="3" size="7">
+      <div class="haifun01">-</div>
+      <input type="text" name="RiTantoZip2" id="RiTantoZip2" class="textExample form_text03" value="<TMPL_VAR NAME=RITANTOZIP2>" title="例) 0003" maxlength="4" size="10">&nbsp;&nbsp; 
+      <input type="button" value="郵便検索" onClick="seekpczip('RiTanto');">
+    </div>
+  </div>
+  <div class="boxbase">
+    <div class="boxtitle1">都道府県：</div>
+    <div class="boxlong1">
+      <select name="RiTantoPref" class="form_text02">
+        <option value="">選択してください</option>
+        <TMPL_LOOP TANTOPREFLIST>
+          <option value="<TMPL_VAR NAME=PREF>" 
+            <TMPL_IF SEL>selected</TMPL_IF>>
+            <TMPL_VAR NAME=PREF>
+          </option>
+        </TMPL_LOOP>
+      </select>
+    </div>
+  </div>
+  <div class="boxbase">
+    <div class="boxtitle1" style="line-height:32px;">市区郡： 
+      <br />(カナ)： 
+    </div>
+    <div class="boxlong1">
+      <input type="text" name="RiTantoAddr1" id="RiTantoAddr1" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RITANTOADDR1>" title="例）　港区" >
+      <span id="RiTantoAddr1" class="textCount"></span>
+      <br />
+      <input type="text" name="RiTantoAddr1Kana" id="RiTantoAddr1Kana" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RITANTOADDR1KANA>" title="例）　ミナトク" >
+      <span id="RiTantoAddr1Kana" class="textCount"></span>
+    </div>
+  </div>
+  <div class="boxbase">
+    <div class="boxtitle1" style="line-height:32px;">町村字： 
+      <br />(カナ)： 
+    </div>
+    <div class="boxlong1">
+      <input type="text" name="RiTantoAddr2" id="RiTantoAddr2" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RITANTOADDR2>" title="例）　西新橋" >
+      <span id="RiTantoAddr2" class="textCount"></span>
+      <br />
+      <input type="text" name="RiTantoAddr2Kana" id="RiTantoAddr2Kana" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RITANTOADDR2KANA>" title="例）　ニシシンバシ" >
+      <span id="RiTantoAddr2Kana" class="textCount"></span>
+    </div>
+    <div class="boxbase">
+      <div class="boxtitle1" style="line-height:32px;">丁番地：</div>
+      <div class="boxlong1">
+        <input type="text" name="RiTantoAddr3" id="RiTantoAddr3" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RITANTOADDR3>" title="例）　１−１０−２" >
+        <span id="RiTantoAddr3" class="textCount"></span>
+      </div>
+    </div>
+    <div class="boxbase">
+      <div class="boxtitle1" style="line-height:32px;">建物名：</div>
+      <div class="boxlong1">
+        <input type="text" name="RiTantoAddr4" id="RiTantoAddr4" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RITANTOADDR4>" title="例）　住友生命西新橋ビル" >
+        <span id="RiTantoAddr4" class="textCount"></span>
+      </div>
+    </div>
+    <div class="boxbase">
+      <div class="boxlong2">
+        <font style="color:blue;">※個人・個人事業主の場合、本人確認書類と同じ住所を入力してください。</font>
+      </div>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="input_td03-01">会社設立年月日 
+    </td>
+    <td class="input_td03-02">
+    <div class="boxbase">
+      <div class="boxtitle1">&nbsp;</div>
+      <div class="boxlong1">
+        ※個人・個人事業主の方は事業を開始した日付をご入力ください。<BR />
+        <input type="text" name="RakutenYYYY" id="RakutenYYYY" class="textExample form_text03" value="<TMPL_VAR NAME=RAKUTENYYYY>" title="例) 2000" maxlength="4" size="8">
+        <div class="haifun01">年　</div>
+        <input type="text" name="RakutenMM" id="RakutenMM" class="textExample form_text03" value="<TMPL_VAR NAME=RAKUTENMM>" title="例) 4" maxlength="2" size="6">
+        <div class="haifun01">月　</div>
+        <input type="text" name="RakutenDD" id="RakutenDD" class="textExample form_text03" value="<TMPL_VAR NAME=RAKUTENDD>" title="例) 1" maxlength="2" size="6">
+        <div class="haifun01">日</div><br />&nbsp;
+      </div>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="input_td03-01">社員数 
+    </td>
+    <td class="input_td03-02">
+    <div class="boxbase">
+      <div class="boxtitle1">&nbsp;</div>
+      <div class="boxlong1">
+        <input type="text" name="RiEmp" id="RiEmp" class="textExample form_text03" value="<TMPL_VAR NAME=RIEMP>" title="例) 30" maxlength="5" size="7">
+        <div class="haifun01">人</div>
+      </div>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="input_td03-01">資本金 
+    <br />&nbsp; 
+    </td>
+    <td class="input_td03-02">
+    <div class="boxbase">
+      <div class="boxtitle1">&nbsp;</div>
+      <div class="boxlong1">※個人・個人事業主の方は「0」をご記入ください。 
+        <br />※整数として「1」に満たない場合は「0」をご入力ください。
+        <br />
+        <input type="text" name="RiCapital" id="RiCapital" class="textExample form_text03" value="<TMPL_VAR NAME=RICAPITAL>" title="例) 10" maxlength="8" size="7">
+        <div class="haifun01">百万円</div>
+        <br />&nbsp;
+      </div>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="input_td03-01">年商 
+    </td>
+    <td class="input_td03-02">
+    <div class="boxbase">
+      <div class="boxtitle1">&nbsp;</div>
+      <div class="boxlong1">※年商が100万円未満の場合、「0」をご記入ください。 
+        <br />
+        <input type="text" name="RiYearSell" id="RiYearSell" class="textExample form_text03" value="<TMPL_VAR NAME=RIYEARSELL>" title="例) 2000" maxlength="8" size="8">
+        <div class="haifun01">百万円</div>
+        <br />&nbsp;
+      </div>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="input_td03-01">インターネット販売実績 
+    </td>
+    <td class="input_td03-02">
+    <div class="boxbase">
+      <div class="boxtitle1">&nbsp;</div>
+      <div class="boxlong1">
+        <input type="radio" name="RiNetSell" value="N" id="RiNetSellN" <TMPL_IF RINETSELLN>checked</TMPL_IF> onclick="this.form.elements['RiNetYearSell'].disabled = true;">
+        <label for="RiNetSellN">無し</label>
+      </div>
+    </div>
+    <div class="boxbase">
+      <div class="boxtitle1">&nbsp;</div>
+      <div class="boxlong1">
+        <input type="radio" name="RiNetSell" value="Y" id="RiNetSellY" <TMPL_IF RINETSELLY>checked</TMPL_IF> onclick="this.form.elements['RiNetYearSell'].disabled = false;">
+        <label for="RiNetSellY">有り</label>
+      </div>
+    </div>
+      <div class="boxtitle1">&nbsp;</div>
+      <div class="boxlong1">※年間取扱高が100万円未満の場合、「0」をご記入ください。 
+      </div>
+    <div class="boxbase-rakuten">
+      <div class="boxtitle-rakuten2">インターネット年間取扱高：</div>
+      <div class="boxlong-rakuten2">
+        <input type="text" name="RiNetYearSell" id="RiNetYearSell" class="textExample form_text03" value="<TMPL_VAR NAME=RINETYEARSELL>" title="例) 2000" maxlength="8" size="8" <TMPL_IF RINETSELLN>disabled</TMPL_IF>>
+        <div class="haifun01">百万円</div>
+      </div>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="input_td03-01">販売商品単価 
+    </td>
+    <td class="input_td03-02">
+    <div class="boxbase">
+      <div class="boxtitle1">&nbsp;</div>
+      <div class="boxlong1">
+        <div class="haifun01">最低</div>
+        <input type="text" name="RiPriceLow" id="RiPriceLow" class="textExample form_text03" value="<TMPL_VAR NAME=RIPRICEMIN>" title="例) 1080" maxlength="8" size="8">
+        <div class="haifun01">円&nbsp;／&nbsp;最高</div>
+        <input type="text" name="RiPriceHigh" id="RiPriceHigh" class="textExample form_text03" value="<TMPL_VAR NAME=RIPRICEMAX>" title="例) 108000" maxlength="8" size="8">
+        <div class="haifun01">円</div>
+      </div>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="input_td03-01">販売店の屋号 
+    </td>
+    </td>
+    <td class="input_td03-02">
+    <div class="boxbase">
+      <div class="boxbase">
+        <div class="boxtitle1">&nbsp;</div>
+        <div class="boxlong1">お店の名前を入力してください。</div>
+      </div>
+      <div class="boxtitle1">通常表記：</div>
+      <div class="boxlong1">
+        <input type="text" name="RiYago" id="RiYago" class="textExample form_text01" value="<TMPL_VAR NAME=RIYAGO>" title="例）　茶通販の虎龍茶販　　　　　　　　　　　  ※記号不可" >
+      </div>
+    </div>
+    <div class="boxbase">
+      <div class="boxtitle1">カタカナ：</div>
+      <div class="boxlong1">
+        <input type="text" name="RiYagoKana" id="RiYagoKana" class="textExample form_text01" value="<TMPL_VAR NAME=RIYAGOKANA>" title="例）　チャツウハンノコリュウチャハン　　　　　※記号不可" >
+      </div>
+    </div>
+    <div class="boxbase">
+      <div class="boxtitle1">ローマ字：</div>
+      <div class="boxlong1">
+        <input type="text" name="RiYagoRoma" id="RiYagoRoma" class="textExample form_text01" value="<TMPL_VAR NAME=RIYAGOROMA>" title="例）　CHATSUHANNOKORYUCHAHAN　　※スペース、記号不可" >
+      </div>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="input_td03-01">お客様問い合わせ先 
+    <br />メールアドレス 
+    <img src="images/pmapply/newSetup_QuestionG.gif" onClick="popUp('pmapply_sc_markmail',1);" style="cursor:pointer;">
+    </td>
+    <td class="input_td03-02">
+    <div class="boxbase">
+      <div class="boxtitle1">&nbsp;</div>
+      <div class="boxlong1">※フリーメール/携帯メール以外をご入力ください。
+        <input type="text" name="RiQuestionMail" id="RiQuestionMail" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RIQUESTIONMAIL>" title="例）　sample@sample.ss.shopserve.jp" >
+        <span id="RiQuestionMail" class="textCount"></span>
+      </div>
+      <div id="pmapply_sc_markmail" class="dialog_disp">
+        <div id="pmapply_sc_markmail_f" class="dialog_main">
+          <a href="#close" class="close" onclick="return dlgClose()"></a>
+          <dl class="content">
+            <p>楽天ペイ（オンライン決済）を利用されたユーザーからの問い合わせ先です。</p>
+          </dl>
+        </div>
+      </div>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="input_td03-01">代表連絡先 
+    <br />メールアドレス 
+    </td>
+    <td class="input_td03-02">
+    <div class="boxbase">
+      <div class="boxtitle1">&nbsp;</div>
+      <div class="boxlong1">※フリーメール/携帯メール以外をご入力ください。 
+        <br />
+        <input type="text" name="RiBossMail" id="RiBossMail" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RIBOSSMAIL>" title="例）　sample@sample.ss.shopserve.jp" >
+        <span id="RiBossMail" class="textCount"></span>
+      </div>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="input_td03-01">担当者連絡先 
+    <br />メールアドレス 
+    </td>
+    <td class="input_td03-02">
+    <div class="boxbase">
+      <div class="boxtitle1">&nbsp;</div>
+      <div class="boxlong1">※フリーメール/携帯メール以外をご入力ください。 
+        <br />
+        <input type="text" name="RiContactMail" id="RiContactMail" class="textCount textExample form_text01" value="<TMPL_VAR NAME=RICONTACTMAIL>" title="例）　sample@sample.ss.shopserve.jp" >
+        <span id="RiContactMail" class="textCount"></span>
+      </div>
+      <div id="pmapply_sc_markname" class="dialog_disp" style="display: none; opacity: 0; top: 200px;">
+        <div id="pmapply_sc_markname_f" class="dialog_main">
+          <a href="#close" class="close" onclick="return dlgClose()"></a>
+          <dl class="content">セキュリティコードは、クレジットカードの不正利用を防ぐ目的で、クレジットカードが消費 
+            <br>者の手元にあることを確認するために使われる３桁または４桁の番号です。通常、セキュリ 
+            <br>ティコードはカード裏面に印字されています。 
+          </dl>
+        </div>
+      </div>
+    </div>
+    </td>
+  </tr>
+  <tr>
+    <td class="input_td03-01">セキュリティコード 
+    <img src="images/pmapply/newSetup_QuestionG.gif" onClick="popUp('pmapply_sc_markname',1);" style="cursor:pointer;">
+    </td>
+    <td class="input_td03-02">
+    <div class="boxbase">
+      <div class="boxtitle1">&nbsp;</div>
+      <div class="boxlong1">
+        <label>
+          <input type="radio" name="RiSecCode" value="Y" 
+          <TMPL_IF RISECCODEY>checked</TMPL_IF>>利用する
+          <font style="color:red; padding-left: 30px;">※セキュリティコードは必須です。</font>
+        </label>
+      </div>
+    </div>
+    </td>
+  </tr>
+</table>
+  <h2 class="midashi03"><img src="images/pmapply/arrow.png">楽天ペイ（オンライン決済）申し込みの注意事項</h2>
+  <div style="clear:both;"></div>
+  <ul class="list_yw01">
+    <li class="list_yw02">    <font style="color:red;">楽天ペイ（オンライン決済）では、印刷した書類の手書きによる修正は受付けできません。<br />変更がある場合は、必ず入力画面で変更してください。</font></li>
+    <li class="list_yw02">    楽天ペイ（オンライン決済）をご利用の場合、決済時にセキュリティコード認証を導入することが必須となります。<br />
+※セキュリティコード認証とはユーザが決済時にクレジットカードの裏面または表面に記載されたセキュリティコードを入力し、本人利用であることを認証します。</li>
+    <li class="list_yw02">    楽天株式会社に対する楽天ペイ（オンライン決済）のお申し込みは、下記のお申し込みボタンを押し、最終画面の申込書を印刷して郵送（証明書・許可証等の必要書類のコピーも同封）することで完了します。</li>
+    <li class="list_yw02">    取扱商品が以下の場合は、お申し込みをご遠慮頂いております。<br />
+例：情報商材・タバコ・偽ブランド品・宗教色が強い商材・特定継続的役務（エステや英会話など）・楽天グループと競合になるサービス・募金・孫包括契約・生き物（尚、生き物の中には昆虫も含まれております。）・法律違反商材・第三者のプライバシーを侵害するもの・金券（換金性の高いもの）・アダルトグッズ</li>
+    <li class="list_yw02">    サイト内容の確認のため、楽天株式会社より直接ご連絡差し上げる場合がございますので、予めご了承願います。    </li>
+    <li class="list_yw02">    本サービスを通じて楽天ペイ（オンライン決済）代行サービスを利用するにあたり、楽天株式会社が提供する楽天ペイ（オンライン決済）のサービスの一部が利用できない場合がございます。あらかじめご了承ください。 </li>
+    <li class="list_yw02">    以下の「楽天ペイ（オンライン決済）」利用規約に同意の上、お申し込み下さい。<br />
+      <a href="https://manager.checkout.gl.rakuten.co.jp/p/mgrc/pdf/Rakuten_Checkout_terms_of_service_Estore.pdf" target="_blank">楽天ペイ（オンライン決済）利用規約</a></li>
+  </ul>
+
+  <div class="btn05-1">
+    <div class="btn05-2">
+      <label><input name="Agree" id="Agree" value="Y" type="checkbox" OnClick="btn_chg();">楽天ペイ（オンライン決済）サービスの利用規約に同意する</label>
+    </div>
+    <div class="btn02-5"></div>
+    <div class="btn02-3"><img src="images/pmapply/back.png" alt="もどる" onClick="<TMPL_IF YONLY>document.PMAPPLY052.submit();<TMPL_ELSE>ChgDisplayBlock(1);</TMPL_IF>"></div>
+    <div class="btn02-4"><img name="REQ_START" src="images/pmapply/rakutenid_next_off.png" onClick="input_check();"></div>
+    <div style="clear:both;"></div>
+  </div>
+  </form>
+  <div class="page-top">
+    <a href="#head">
+      ▲このページのトップへ
+    </a>
+  </div>
+</div>
+
+
+<!--▼footer▼-->
+<div id="footer">
+  <script type="text/javascript">
+  <!--
+         var date = new Date();
+         var year = date.getYear();
+         if(year < 2000) { year += 1900; }
+         document.write('Copyright &copy; 1999-'+year+' Estore Corporation. All Rights Reserved.');
+  //-->
+  </script>
+</div>
+<!--▲footer▲-->
+<!-- 20130604 -->
+<style>
+input.noModify{ color: #888888; }
+span.textCount{
+    font-size: 80%;
+    color:#008000;
+    margin-left: -85px;
+}
+span.countError{ color:#ff0000;}
+input.textExample{ font-size:90%; }
+</style>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    // イベント
+    $("input.textExample").focus(function(){
+        if( $(this).hasClass("noModify") ){ $(this).removeClass("noModify").val(""); }
+    }).blur(function(){
+        if($(this).val() == "" ){ $(this).addClass("noModify").val( $(this).attr("title") ); }
+    });
+    $("input.textCount").change(function(){
+        ret = chkValidate( $(this), $(this).val());
+        if(ret != 1 ){
+            textCount( $(this), $(this).val().length );
+        }
+    }).keyup(function(){
+        ret = chkValidate( $(this), $(this).val());
+        if(ret != 1 ){
+            textCount( $(this), $(this).val().length );
+        }
+    });
+    // 初期値
+    $("input.textExample").each( function(){
+        if( $(this).val() == "" || $(this).val() == $(this).attr("title") ){
+            $(this).addClass("noModify").val( $(this).attr("title") );
+        }
+    });
+    $("span.textCount").each( function(){
+        $("input.textCount").each(function(){
+            textCount( $(this), $(this).val().length );
+    });
+    });
+
+});
+
+var textCountTbl = {
+    "RiBossSei"          : "15",
+    "RiBossMei"          : "15",
+    "RiBossSeiKana"      : "30",
+    "RiBossMeiKana"      : "30",
+    "RiAddr1"            : "127",
+    "RiAddr2"            : "127",
+    "RiAddr3"            : "127",
+    "RiAddr4"            : "127",
+    "RiQuestionMail"     : "80",
+    "RiBossMail"         : "80",
+    "RiContactMail"      : "80",
+    "RiKeiyakuAddr1"     : "127",
+    "RiKeiyakuAddr2"     : "127",
+    "RiKeiyakuAddr3"     : "127",
+    "RiKeiyakuAddr4"     : "127",
+    "RiKeiyakuAddr1Kana" : "127",
+    "RiKeiyakuAddr2Kana" : "127",
+    "RiTantoSei"         : "15",
+    "RiTantoMei"         : "15",
+    "RiTantoSeiKana"     : "15",
+    "RiTantoMeiKana"     : "15",
+    "RiTantoAddr1"       : "127",
+    "RiTantoAddr2"       : "127",
+    "RiTantoAddr3"       : "127",
+    "RiTantoAddr4"       : "127",
+    "RiTantoAddr1Kana"   : "127",
+    "RiTantoAddr2Kana"   : "127",
+}
+
+function chkValidate( obj, v ){
+    var id,errStr, str;
+    id = obj.attr("id");
+    errStr = "入力不可！"
+    if( id == "YwShopName" && $(obj).val() != "" ){
+      str = v.match( /^[ァ-ロワヲ-ヴＡ-Ｚ０-９ー]+$/);
+      if(str == null){
+          $("span#" + id).text(errStr).addClass("countError");
+          return 1;
+      }
+    }
+}
+
+function textCount( obj, len ){
+    var id, nokori, str, errStr;
+    id = obj.attr("id");
+    if( obj.hasClass("noModify") ){ len = 0; }
+    nokori = textCountTbl[id] - len;
+    str = " 残り : " + nokori + "文字";
+    errStr = "オーバー！";
+    if( nokori < 0 ){
+         $("span#" + id).text(errStr).addClass("countError");
+    }
+    else{
+          $("span#" + id).text(str).removeClass("countError");
+     }
+}
+
+function zipSeachCount( bid, char ){
+    var id, len,nokori, str, errStr;
+    id = bid;
+    len = char.length;
+
+    nokori = textCountTbl[id] - len;
+    str = " 残り : " + nokori + "文字";
+    errStr = "オーバー！";
+
+    if( nokori < 0 ){
+         $("span#" + id).text(errStr).addClass("countError");
+    }
+    else{
+          $("span#" + id).text(str).removeClass("countError");
+     }
+
+}
+
+function PMAPPLY052Click(){
+    $("input.textExample").each( function(){
+        if( $(this).hasClass("noModify") ){ $(this).val(""); }
+    });
+    document.PMAPPLY052.submit();
+}
+function PMAPPLY051Click(){
+    $("input.textExample").each( function(){
+        if( $(this).hasClass("noModify") ){ $(this).val(""); }
+    });
+    document.PMAPPLY051.submit();
+}
+function PMAPPLY04Click(){
+    $("input.textExample").each( function(){
+        if( $(this).hasClass("noModify") ){ $(this).val(""); }
+    });
+    document.PMAPPLY04.submit();
+}
+</script>
+</body>
+</html>
+
+

@@ -1,0 +1,263 @@
+<!-- 新携帯対応 Start -->
+<TMPL_IF NAME=PREVNOTDISP>
+<TMPL_IF NAME=displayHtmlEditor>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../js/tiny_mce/jquery.tinymce.js"></script>
+<script type="text/javascript" src="../js/default.js"></script>
+<script type="text/javascript">
+ _editor_url = "../blog/js";
+ _editor_lang = "ja";
+</script>
+<script type="text/javascript" src="../blog/js/htmlarea_img_mbp.js"></script>
+<script type="text/javascript" src="../js/default_smp.js"></script>
+</TMPL_IF>
+</TMPL_IF>
+<!-- 新携帯対応 End -->
+<script language="JavaScript" type="text/JavaScript">
+var status = 0;
+<TMPL_VAR NAME=STATUS_CHG>
+function stat(val) {
+    status = val;
+}
+function done() {
+    document.form1.submit();
+    return;
+}
+</script>
+
+<form name="form1" method="post" action="rating.cgi">
+<input type="hidden" name="CMD" value="EDT">
+<table bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" width="100%">
+                          <tbody><tr>
+                            <td width="12"><table align="right" bgcolor="#f39700" border="0" cellpadding="0" cellspacing="0" height="20" width="50%">
+
+                                <tbody><tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </tbody></table></td>
+<td class="midashi" align="left">評価ページの設定を行います</td>
+<td class="midashi" align="right"><a href="https://help.shopserve.jp/help/rating.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </tbody></table>
+                          <img src="../imgs/spc.gif" height="5" width="5">
+
+                          <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                            <tbody><tr>
+                              <td class="main-table" valign="top" align="left">
+                  <div class="infoArea table_bg">
+■導入手順<BR>
+1.本ページで評価ページの設定をします。<BR>
+2.<A HREF="../func01/odrmail.php">「商品到着確認メール」</A>、または <A HREF="../func01/odrmail.php">「フォローメール」</A> に特殊タグ『 &lt;REVIEW URL&gt; 』を挿入します。<a href="https://help.shopserve.jp/manual/053/" target="manual">⇒マニュアルをみる</a><BR>
+3.メインメニュー「デザイン設定」の <a href="../func04/headfooter.php">「ヘッダとSEOの設定」</a> で 『 お客様の声 』 を設定します。<BR>
+JavaScriptを使用する場合は、HTMLエディタをOFFにしてご利用ください。<br>
+<a href="../func02/htmleditor.php">⇒HTMLエディタ OFF/ON 切替</a><br>
+                                  </div>
+<TMPL_LOOP NAME=ERR_MSG>
+                                  <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+                                  <table class="item-box" width="100%">
+                                    <tbody>
+                                      <tr>
+                                        <td colspan="2" align="center" class="item-name02">評価ページの設定</td>
+                                      </tr>
+                                      <tr>
+                                        <td class="item-name">評価ページ</td>
+                                        <td class="item02">
+                                        <input name="status" type="radio" value="Y" id="rating01" <TMPL_IF NAME=STATUSY>checked</TMPL_IF> onClick="stat(0);"><label for="rating01">評価ページを利用する</label>
+                                        <br>
+                                        <input name="status" type="radio" value="N" id="rating02" <TMPL_IF NAME=STATUSN>checked</TMPL_IF> onClick="stat(1);"><label for="rating02">評価ページを利用しない</label></td>
+                                      </tr>
+                                      <tr>
+                                        <td class="item-name">タイトル</td>
+                                        <td class="item02">
+                                          <input name="title" type="textl" value="<TMPL_VAR NAME=TITLE>" size="60">
+                                      </tr>
+<!--店舗評価二次工事追加ここから-->
+                                      <tr>
+                                        <td class="item-name">購入商品名の表示</td>
+                                        <td class="item02">
+                                          <input type="radio" name="disp_item" value="Y" id="disp_items_Y" <TMPL_IF NAME=DISP_ITEMY>checked</TMPL_IF>><label for="disp_items_Y">お客様の声ページに商品名を表示する</label>
+                                          <br>
+                                          <input type="radio" name="disp_item" value="N" id="disp_items_N" <TMPL_IF NAME=DISP_ITEMN>checked</TMPL_IF>><label for="disp_items_N">お客様の声ページに商品名を表示しない</label>
+                                      </tr>
+<!--店舗評価二次工事追加ここまで-->
+                                      <tr>
+                                        <td class="item-name">並べ替えプルダウン</td>
+                                        <td class="item02">
+                                          <input type="radio" name="sort_disp" value="Y" id="sort_disp_Y" <TMPL_IF NAME=SORT_DISPY>checked</TMPL_IF>><label for="sort_disp_Y">表示する</label>
+                                          <br>
+                                          <input type="radio" name="sort_disp" value="N" id="sort_disp_N" <TMPL_IF NAME=SORT_DISPN>checked</TMPL_IF>><label for="sort_disp_N">表示しない</label>
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="item-name">投稿されたコメントの表示方法</td>
+                                        <td class="item02">
+                                          <input type="radio" name="default_status" value="Y" id="default_status_Y" <TMPL_IF NAME=DEFAULT_STATUSY>checked</TMPL_IF>><label for="default_status_Y">自動表示</label>
+                                          <br>
+                                          <input type="radio" name="default_status" value="N" id="default_status_N" <TMPL_IF NAME=DEFAULT_STATUSN>checked</TMPL_IF>><label for="default_status_N">手動表示</label>
+                                        </td>
+                                      </tr>
+                                     
+                                    </tbody>
+                                  </table>
+                                  <br>
+<!-- 新携帯対応 start -->
+<TMPL_IF NAME=PREVNOTDISP>
+<table class="item-box" width="100%">
+<tr>
+    <td colspan="2" align="center" class="item-name02">入力画面の案内</td>
+</tr>
+<tr>
+    <td class="item-name">ご案内</td>
+    <td class="item-sub">
+
+        <div class="rating_info_midashi clearfix">
+            <h4>PC用</h4>
+            <input type="button" value="-" onclick="if(this.value=='+'){this.value='-';document.getElementById('rating_input_pc').style.display='block';}else{this.value='+';document.getElementById('rating_input_pc').style.display='none';}">
+        </div>
+
+        <div id="rating_input_pc" class="rating_info_box">
+            <table width="100%">
+            <tr>
+                <td class="sub-item">
+<textarea name="input_info" id="ta1" rows="10" class="def-line"><TMPL_VAR NAME=INPUT_INFO></textarea><br>
+                    ※HTMLタグ利用可
+                </td>
+            </tr>
+            </table>
+        </div>
+<TMPL_IF NAME=SMPUSEFLG>
+        <div class="rating_info_midashi clearfix">
+            <h4>スマートフォン用</h4>
+            <h5 style='position:relative; margin:auto;'><span class="icon_for_estoremb">Ｅストアーモバイル専用</span></h5>
+            <input type="button" value="-" onclick="if(this.value=='+'){this.value='-';document.getElementById('rating_input_smt').style.display='block';}else{this.value='+';document.getElementById('rating_input_smt').style.display='none';}">
+        </div>
+
+        <div id="rating_input_smt" class="rating_info_box">
+            <table width="100%">
+            <tr>
+                <td class="sub-item">
+                                <div class='settable parts_box'>
+<textarea name="smartphone_input_info" rows="5" wrap="VIRTUAL" class="tm_wswg_emj_smp"><TMPL_VAR NAME=SMARTPHONE_INPUT_INFO></textarea><br>
+                    ※HTML5タグ利用可
+                                </div>
+                </td>
+            </tr>
+            </table>
+        </div>
+</TMPL_IF>
+    </td>
+</tr>
+</table>
+<br>
+
+
+
+<table class="item-box" width="100%">
+<tr>
+  <td colspan="2" align="center" class="item-name02">完了画面の案内</td>
+</tr>
+<tr>
+    <td class="item-name">ご案内</td>
+    <td class="item-sub">
+
+        <div class="rating_info_midashi clearfix">
+            <h4>PC用</h4>
+            <input type="button" value="-" onclick="if(this.value=='+'){this.value='-';document.getElementById('rating_end_pc').style.display='block';}else{this.value='+';document.getElementById('rating_end_pc').style.display='none';}">
+        </div>
+
+        <div id="rating_end_pc" class="rating_info_box">
+            <table width="100%">
+            <tr>
+                <td class="sub-item">
+<textarea name="end_info" id="ta2" rows="10" class="def-line"><TMPL_VAR NAME=END_INFO></textarea><br>
+                    ※HTMLタグ利用可
+                </td>
+            </tr>
+            </table>
+        </div>
+<TMPL_IF NAME=SMPUSEFLG>
+        <div class="rating_info_midashi clearfix">
+            <h4>スマートフォン用</h4>
+            <h5 style='position:relative; margin:auto;'><span class="icon_for_estoremb">Ｅストアーモバイル専用</span></h5>
+            <input type="button" value="-" onclick="if(this.value=='+'){this.value='-';document.getElementById('rating_end_smt').style.display='block';}else{this.value='+';document.getElementById('rating_end_smt').style.display='none';}">
+        </div>
+
+        <div id="rating_end_smt" class="rating_info_box">
+            <table width="100%">
+            <tr>
+                <td class="sub-item">
+                                <div class='settable parts_box'>
+<textarea name="smartphone_end_info" rows="5" wrap="VIRTUAL" class="tm_wswg_emj_smp"><TMPL_VAR NAME=SMARTPHONE_END_INFO></textarea><br>
+                    ※HTML5タグ利用可
+                                </div>
+                </td>
+            </tr>
+            </table>
+        </div>
+</TMPL_IF>
+    </td>
+</tr>
+</table>
+
+<TMPL_ELSE>
+                                    <table class="item-box" width="100%">
+                                    <tbody>
+                                      <tr>
+                                        <td colspan="2" align="center" class="item-name02">入力画面の案内</td>
+                                      </tr>
+                                      <tr>
+                                        <td class="item-name">ご案内</td>
+                                        <td class="item02"><textarea name="input_info" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=INPUT_INFO></textarea></td>
+                                      </tr>
+                                    </tbody>
+                                    </table>
+                                    <br>
+                                    <table class="item-box" width="100%">
+                                      <tbody>
+                                        <tr>
+                                          <td colspan="2" align="center" class="item-name02">完了画面の案内</td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">ご案内</td>
+                                          <td class="item02"><textarea name="end_info" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=END_INFO></textarea></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+</TMPL_IF>
+                                    <br>
+                                    <a id="rating-form" class="anchor-fix"></a>
+                                    <table class="item-box" width="100%">
+                                      <tbody>
+                                        <tr>
+                                          <td colspan="2" align="center" class="item-name02">評価お礼メールの設定</td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">差出人名</td>
+                                          <td class="item02"><input name="from_name" type="text" class="def-line" style="ime-mode:active" value="<TMPL_VAR NAME=FROM_NAME>"></td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">差出人メールアドレス</td>
+                                          <td class="item02"><input name="from_addr" type="text" class="def-line" style="ime-mode:disabled" value="<TMPL_VAR NAME=FROM_ADDR>"></td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">件名</td>
+                                          <td class="item02"><input name="subject" type="text" class="def-line" style="ime-mode:active" value="<TMPL_VAR NAME=SUBJECT>"></td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">本文</td>
+                                          <td class="item02"><textarea name="body" rows="8" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=BODY></textarea></td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    <br/>
+                                    <div style="text-align:center">
+                                      <input name="set" type="button" id="set" value="テスト送信する" onClick="document.form1.CMD.value='TEST';document.form1.submit();">&nbsp;&nbsp;
+  <input name="set" type="button" id="set" value="設定を保存する" onClick="done();">
+                                    </div>
+                                    </td>
+                            </tr>
+                        </tbody></table>
+                      </form></td>
+                    </tr>

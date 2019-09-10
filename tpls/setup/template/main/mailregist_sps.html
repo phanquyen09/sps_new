@@ -1,0 +1,199 @@
+<script language="JavaScript">
+<!--
+function kakunin(flg)
+{
+  var name;
+  if (flg == 'ADDR'){
+    name = window.confirm('差出人名（店舗名）、差出人メールアドレスを一括で登録します。'+'\nよろしいですか？');
+  } else {
+    name = window.confirm('パソコン用・携帯用のメール署名を一括で登録します。'+'\nよろしいですか？');
+  }
+  if ( name == true ){
+    if (flg == 'ADDR'){
+      document.MAILREGIST.CMD.value='MAILNAMEADDR';
+      document.MAILREGIST.submit();
+    } else {
+      document.MAILREGIST.CMD.value='MAILCONTACT';
+      document.MAILREGIST.submit();
+    }
+  }
+}
+//-->
+</script>
+
+<!-- HEADER -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<tr>
+	<td width="12">
+		<table width="50%" align="right" border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0093C9">
+		<tr>
+			<td><img src="../imgs/spc.gif"></td>
+		</tr>
+		</table>
+	</td>
+	<td align="left" class="midashi">各種メールの差出人名、メールアドレス、署名の設定を一括で行います。</td>
+	<td align="right" class="midashi"><a href="http://help.shopserve.jp/support/build/from-sign-set.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+</tr>
+</table>
+<!-- table no kugiri -->
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+    <tr>
+        <td align="right" >
+                <a href="<TMPL_VAR NAME=Manual>func01/privacy_use.html" target="manual"
+                    >&lt;個人情報を適切に取り扱いましょう&gt;</a>
+            </td>
+    </tr>
+</table>
+<!-- table no kugiri -->
+
+<form name="MAILREGIST" method="POST" action="mailregist.cgi">
+<input type="hidden" name="CMD" value="">
+
+<!-- MAILNAMEADDR -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+	<td align="left" class="main-table">
+		<div class="infoArea table_bg">
+<!--
+お買い物直後に購入者様宛てに送信する「注文確認メール」を設定します。<br>
+同じ内容のメールが店舗様へも送信されます。<br>
+&lt;ORD NAM&gt;、&lt;ORD NUM&gt;などの特殊タグ表記箇所には、自動でそれぞれの購入者様の情報が記載されます。<br>
+受注台帳から購入者様宛てにて送信する「個別確認メール」「入金確認メール」「発送連絡メール」などの各種連絡メールの編集は、「<a href="../func01/odrmail.php">メールのテンプレート</a>」で行ってください。
+-->
+購入者様に送信する各種メールの差出人名や差出人メールアドレス、署名の設定を一括で変更します。<br>
+一回の受注で、購入者様に何通かメールを送信することになりますので、差出人情報や署名を統一しておくことで店舗様の信頼度を高めることができます。<br>
+		</div>
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td>
+<TMPL_LOOP NAME=ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+				<table width="100%" border="0" cellpadding="0" cellspacing="2" class="item-box">
+				<tr align="center">
+					<td colspan="2" class="item-name02">メール差出人設定</td>
+				</tr>
+				<tr>
+					<td class="item-name">差出人名（店舗名）</td>
+					<td class="item">
+						<input type="text" maxlength="255" class="def-line" name="FromName" value="<TMPL_VAR NAME=FROM_NAME>">
+					</td>
+				</tr>
+				<tr>
+					<td class="item-name">差出人メールアドレス<br>（店舗メールアドレス）</td>
+					<td class="item">
+						<input type="text" maxlength="100" class="def-line" name="FromAddr" value="<TMPL_VAR NAME=FROM_ADDR>"><br>
+						※メールアドレスを必ずご確認ください。
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="infoArea table_bg">
+<p style="margin:0;">
+下記9種類の差出人名（店舗名）、差出人メールアドレス（店舗メールアドレス）に反映されます。<br>
+各メールの差出人情報を個別に変更したい場合は、設定を保存後、下記リンク先の各設定画面より変更してください。
+</p>
+
+<p style="margin:0.5em 0 0;line-height:1.6;">
+<a href="../func03/ordmail-conf.php">注文確認メールの設定</a>
+<a href="../func01/odrmail.php"       style="margin-left:1em;">メールのテンプレート</a>
+<a href="../func04/formmail.cgi"      style="margin-left:1em;">問い合わせフォームの設定</a>
+<a href="../func03/membermail.cgi"    style="margin-left:1em;">会員への自動送信メール設定</a><br>
+<a href="../func04/itemform.cgi">商品のお問い合せフォームの設定</a>
+<a href="../func04/itemform.cgi"      style="margin-left:1em;">友達に教える・携帯に送るフォームの設定</a>
+<a href="../func04/itemform.cgi"      style="margin-left:1em;">入荷連絡フォームの設定</a><br>
+<a href="../func02/rating.cgi">評価ページの設定</a>
+<a href="../func05/my-sales-mail.cgi" style="margin-left:1em;">アフィリエイターへのメール</a>
+<a href="../func04/mailmagpage.cgi"  style="margin-left:1em;">メルマガ自動送信メールの設定</a>
+</p>
+
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="item center" style="padding:5px 0;">
+						<input name="set" type="button" id="set" value="設定を保存する" onClick="kakunin('ADDR');">
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		</table>
+	</td>
+</tr>
+</table>
+
+
+<img src="../imgs/spc.gif" width="5" height="10">
+
+<!-- MAILCONTACT -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+<tr>
+	<td align="left" class="main-table">
+		<table width="100%" border="0" cellspacing="0" cellpadding="0">
+		<tr>
+			<td>
+<TMPL_LOOP NAME=ERR_MSG2>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+				<table width="100%" border="0" cellpadding="0" cellspacing="2" class="item-box">
+				<tr align="center">
+					<td colspan="2" class="item-name02">メールの署名設定</td>
+				</tr>
+				<tr>
+					<td class="item-name">パソコン用メールの署名</td>
+					<td class="item">
+						<textarea name="Contact" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=CONTACT></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td class="item-name">携帯用メールの署名</td>
+					<td class="item">
+						<textarea name="ContactK" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=CONTACT_K></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="infoArea table_bg">
+<p style="margin:0;">
+下記15種類の署名（パソコン用／携帯用）に反映されます。<br>
+各メールの差出人情報を個別に変更したい場合は、設定を保存後、下記リンク先の各設定画面より変更してください。
+</p>
+
+<p style="margin:0.5em 0 0;line-height:1.6;">
+<a href="../func03/ordmail.cgi" target="_blank">注文確認メールの編集</a>
+<a href="../func01/odrmail-edit.cgi?seq=1" target="_blank" style="margin-left:1em;">個別確認メールの編集</a>
+<a href="../func01/odrmail-edit.cgi?seq=2" target="_blank" style="margin-left:1em;">入金連絡メールの編集</a>
+<a href="../func01/odrmail-edit.cgi?seq=3" target="_blank" style="margin-left:1em;">発送連絡メールの編集</a><br>
+<a href="../func01/odrmail-edit.cgi?seq=4" target="_blank">キャンセルメールの編集</a>
+<a href="../func01/odrmail-edit.cgi?seq=101" target="_blank" style="margin-left:1em;">テンプレート１の編集</a>
+<a href="../func01/odrmail-edit.cgi?seq=102" target="_blank" style="margin-left:1em;">テンプレート２の編集</a>
+<a href="../func01/odrmail-edit.cgi?seq=103" target="_blank" style="margin-left:1em;">テンプレート３の編集</a><br>
+<a href="../func01/odrmail-edit.cgi?seq=104" target="_blank">テンプレート４の編集</a>
+<a href="../func01/odrmail-edit.cgi?seq=105" target="_blank" style="margin-left:1em;">テンプレート５の編集</a>
+<a href="../func01/odrmail-edit.cgi?seq=106" target="_blank" style="margin-left:1em;">テンプレート６の編集</a>
+<a href="../func01/odrmail-edit.cgi?seq=107" target="_blank" style="margin-left:1em;">テンプレート７の編集</a><br>
+<a href="../func01/odrmail-edit.cgi?seq=108" target="_blank">テンプレート８の編集</a>
+<a href="../func01/odrmail-edit.cgi?seq=109" target="_blank" style="margin-left:1em;">テンプレート９の編集</a>
+<a href="../func01/odrmail-edit.cgi?seq=110" target="_blank" style="margin-left:1em;">テンプレート１０の編集</a><br>
+</p>
+
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="item center" style="padding:5px 0;">
+						<input name="set" type="button" id="set" value="設定を保存する" onClick="kakunin('CONTACT');">
+					</td>
+				</tr>
+				</table>
+			</td>
+		</tr>
+		</table>
+	</td>
+</tr>
+</table>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<tr>
+	<td>&nbsp;</td>
+</tr>
+</table>
+
+</form>

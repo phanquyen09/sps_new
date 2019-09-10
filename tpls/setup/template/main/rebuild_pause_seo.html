@@ -1,0 +1,251 @@
+<style>
+.infoArea h3:before {
+  content: none;
+}
+</style>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+    <tr>
+    <td width="12">
+        <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="<TMPL_VAR NAME=bgcl>">
+        <tr>
+            <td><img src="../imgs/spc.gif" width="<TMPL_VAR NAME=t_gif_width>" height="8"></td>
+        </tr>
+        </table>
+    </td>
+    <td align="left" class="midashi">お店ページを更新します</td>
+    <td align="right" class="midashi"><img src="../imgs/spc.gif" alt="" align="center" height="22" width="153" border="0"></td>
+    </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+    <td align="left" class="main-table">
+
+<TMPL_IF NAME=cart_theme_no_use>
+<div id="theme_status" class="theme_status<TMPL_VAR NAME=funcNo>">
+  <table class="shop item-box">
+    <tr>
+      <td class="item-name">お店ページで利用中のテーマ</td>
+      <td class="item"><TMPL_VAR NAME=shop_theme_label></td>
+    </tr>
+  </table>
+  <TMPL_IF NAME=diff_theme>
+  <table class="kanri item-box">
+   <tr>
+     <td class="item-name">管理画面で編集中のテーマ</td>
+     <td class="item"><TMPL_IF NAME=user_category_type><TMPL_VAR NAME=user_category_type> &gt; </TMPL_IF><TMPL_IF NAME=user_category_name><TMPL_VAR NAME=user_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=theme_name></td>
+   </tr>
+  </table>
+  </TMPL_IF>
+<TMPL_ELSE>
+<div id="theme_status" class="theme_status<TMPL_VAR NAME=funcNo> cart_theme_status">
+    <table class="shop item-box">
+    <tbody><tr>
+        <td class="item-name" <TMPL_IF NAME=cart_theme_label>rowspan="2"</TMPL_IF>>お店ページで利用中の<br>テーマ</td>
+        <td class="item item-category">お店ページ</td>
+        <td class="item"><TMPL_VAR NAME=shop_theme_label></td>
+    </tr>
+    <TMPL_IF NAME=cart_theme_label>
+    <tr>
+        <td class="item item-category">カート</td>
+        <td class="item"><TMPL_VAR NAME=cart_theme_label></td>
+    </tr>
+    </TMPL_IF>
+    </tbody></table>
+<TMPL_IF NAME=diff_show>
+    <table class="kanri item-box">
+    <tbody>
+    <tr>
+        <td class="item-name" rowspan="2">管理画面で編集中の<br>テーマ</td>
+    <TMPL_IF NAME=diff_theme>
+        <td class="item item-category">お店ページ</td>
+        <td class="item"><TMPL_IF NAME=user_category_type><TMPL_VAR NAME=user_category_type> &gt; </TMPL_IF><TMPL_IF NAME=user_category_name><TMPL_VAR NAME=user_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=theme_name></td>
+    </tr>
+    </TMPL_IF>
+    <TMPL_IF NAME=cart_diff_theme>
+    <tr>
+        <td class="item item-category">カート</td>
+        <td class="item"><TMPL_IF NAME=cart_category_type><TMPL_VAR NAME=cart_category_type> &gt; </TMPL_IF><TMPL_IF NAME=cart_category_name><TMPL_VAR NAME=cart_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=cart_theme_name></td>
+    </tr>
+    </TMPL_IF>
+    </tbody></table>
+</TMPL_IF>
+</TMPL_IF>
+</div>
+
+<div class="infoArea table_bg">
+<TMPL_IF NAME=displayGuidanceResponsive>
+  <div id="guidanceResponsive">
+    <h3>▼ レスポンシブデザイン対応テーマをご利用の場合</h3>
+    <p>レスポンシブデザイン対応テーマを使用したお店をスマートフォンのアプリ内ブラウザから閲覧している場合、カート画面において一部正常に動作しないことがあるため、スマートフォン向けのカート画面にはEストアーモバイルのご利用を推奨しています。</p>
+    <p>まだ設定されていない場合は、「<a href="../func07/smp_open_close.php?mode=smp" target="_blank">スマートフォンサイト設定＞各種設定＞開店・閉店設定</a>」にて、以下の設定を行ったうえで、当ページでの操作を続けてください。</p>
+    <p class="explain_list">・「開店・閉店切替」を「開店する」に設定</p>
+    <p>・「転送設定」を「カートのみスマートフォンサイトを表示する」に設定</p>
+  </div>
+</TMPL_IF>
+
+    <div id="pageRebuild">
+        <p>商品カテゴリの登録や変更、お知らせやフリーエリアの更新など、利用中のテーマでお店ページを更新する場合はこちらのボタンをクリックしてください。<br>
+        利用中のテーマでお店を運営しながら、別テーマのカスタマイズを行う場合にご活用いただけます。<br>
+        デザイン設定の「テーマの選択」から「ヘッダとSEOの設定」以外の変更はこちらのボタンで反映できます。</p>
+
+        <form method="post" action="rebuild.cgi">
+            <div><input  type="submit" name="aaado_build" value="利用中のテーマでお店ページを更新する"></div>
+        </form>
+
+        <p class="time">最終更新日時： <TMPL_VAR NAME=update_date></p>
+    </div>
+
+    <TMPL_IF NAME='diff_theme'><div id="themeRebuild">
+        <p>テンプレートの切り替えなど、編集中のテーマでお店ページを更新する場合はこちらのボタンをクリックしてください。<br>
+        下記の注意事項をご確認いただき、準備が完了したら「注意事項に同意する」をチェックし、こちらのボタンをクリックします。</p>
+
+        <h3>▼ 注意事項</h3>
+
+        <ol>
+            <li>
+                <p>ベーシックテンプレートとカスタムテンプレートはHTMLやCSSの仕様、ご利用いただける機能が一部異なります。
+                詳細は以下をご覧ください。</p>
+                <p><a href="https://help.shopserve.jp/manual/198/" target="_blank">⇒
+                テンプレートの仕様と機能比較</a></p>
+            </li>
+
+            <li>
+                <p>テンプレートを切り替えた場合、HTMLやCSSの構造が異なるためレイアウトが崩れる可能性があります。<br>
+                テンプレートの切り替え手順、戻す手順をご用意しておりますので、必ずご確認の上、作業を行ってください。</p>
+                <p><a href="https://help.shopserve.jp/manual/192/" target="_blank">⇒
+                テンプレートの切り替え手順</a></p>
+            </li>
+
+            <li>
+                <p>以下のプレビューをご確認の上、お店ページを更新してください。</p>
+                <div>
+                <form name="form1" method="post" action="">
+                    <TMPL_IF NAME='selected_new_theme'>
+                    <input type="button" value="トップページのプレビュー" onclick="<TMPL_IF NAME=isResponsiveTheme>responsivePreview('index');<TMPL_ELSE>newtpl_preview('index');</TMPL_IF>">
+                    <input type="button" value="商品ページのプレビュー" onclick="<TMPL_IF NAME=isResponsiveTheme>responsivePreview('item-desc');<TMPL_ELSE>newtpl_preview('item-desc');</TMPL_IF>">
+                    <input type="button" value="カゴ画面のプレビュー" onclick="window.open('../func100/cartPreview.php', 'cart_preview');">
+                    <TMPL_ELSE>
+                    <input type="button" value="トップページのプレビュー" onclick="preview();">
+                    <input type="button" value="カゴ画面のプレビュー" onclick="window.open('../func100/cartPreview.php', 'cart_preview');">
+                    </TMPL_IF>
+                </form>
+                </div>
+            </li>
+            <li>
+                <p>自作のCSSファイルをご利用の場合は、必ず文字コード（@charset）の指定を記述してください。</p>
+            </li>
+        </ol>
+
+        <form name="change_theme" method="post" action="rebuild.cgi">
+            <input type="hidden" id="theme" name="theme" value="1">
+            <p class="agree"><input type="checkbox" id="agree"><label for="agree">注意事項に同意する</label></p>
+
+            <div><input type="button" value="編集中のテーマでお店ページを更新する" onClick="javascript:execApplyTheme();"></div>
+        </form>
+
+        <p class="time">最終更新日時： <TMPL_VAR NAME=edit_update_date></p>
+    </div></TMPL_IF>
+
+</div>
+    </td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+// お店のページを更新するボタンのOFF
+function r_RebuildButtonOff() {
+  var oLink = document.getElementsByTagName("a");
+  //alert(oLink.length);
+  for(i=0;i<oLink.length;i++) {
+    if ((oLink.item(i).id) && (oLink.item(i).id == 'r_pause')) {
+      oLink.item(i).href='javascript:void(0);';
+      break;
+    }
+  }
+}
+
+// Jump トップへ戻る
+function r_TopJump() {
+  var a=location.pathname.toString();
+  var b=a.replace('rebuild_pause.cgi','');
+  location.href=b;
+}
+
+function execApplyTheme() {
+  var check_agree = document.change_theme.agree.checked;
+  if(check_agree) {
+    document.change_theme.submit();
+    return true;
+  } else {
+    alert('注意事項をご確認いただき「注意事項に同意する」をチェックしてください。');
+    return false;
+  }
+}
+
+r_RebuildButtonOff();
+
+function newtpl_preview(button)
+{
+  tplPreview(button, 'seo');
+}
+
+function responsivePreview(button)
+{
+  tplPreview(button, 'responsive');
+}
+
+function tplPreview(button, type)
+{
+  if (type === 'responsive') {
+    var winOpenScreenHeight = window.innerHeight;
+    var winOpen = window.open("about:blank","template_preview","scrollbars=yes, resizable=yes, width=420, height=" + winOpenScreenHeight);
+  }
+
+  // 表示するテンプレート
+  var tpl = document.createElement('input');
+  tpl.name = 'tpl';
+  tpl.type = 'hidden';
+  tpl.value = button + '.tpl';
+  document.form1.appendChild(tpl);
+
+  // データ参照先
+  var mode = document.createElement('input');
+  mode.name = 'preview_mode';
+  mode.type = 'hidden';
+  mode.value = 'edit';
+  document.form1.appendChild(mode);
+
+  // 呼び元
+  var kanri = document.createElement('input');
+  kanri.name = 'kanri';
+  kanri.type = 'hidden';
+  kanri.value = 'htmlcustomize';
+  document.form1.appendChild(kanri);
+
+  // プレビュー表示
+  document.form1.setAttribute('target', "template_preview");
+  document.form1.setAttribute('method', "post");
+  document.form1.setAttribute('action', "../func100/newtplPreview.php");
+  document.form1.submit();
+
+  // 後始末
+  document.form1.removeChild(tpl);
+  document.form1.removeChild(mode);
+  document.form1.removeChild(kanri);
+}
+
+function preview() {
+    // データ参照先
+    var mode = document.createElement('input');
+    mode.name = 'mode';
+    mode.type = 'hidden';
+    mode.value = 'preview';
+    document.form1.appendChild(mode);
+    document.form1.setAttribute('target', "template_preview");
+    document.form1.setAttribute('method', "post");
+    document.form1.setAttribute('action', "rebuild_pause.cgi");
+    document.form1.submit();
+    document.form1.target='_self';
+}
+</script>

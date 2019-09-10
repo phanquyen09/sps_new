@@ -1,0 +1,427 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Ｅストアーショップサーブ　決済代行申し込み</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<link href="default00.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function openScat(id) {
+		ele = document.getElementById(id+"1");
+		ele.style.display = "block";
+}
+
+function openClose(id,pt,i) {
+		prop = document.getElementById(id).style.display;
+
+//		alert(id+" "+pt+" "+i);
+
+		if(i==0) prop = "none";
+
+		if(prop=="none"){
+				if(pt=="div") document.getElementById(id).style.display="block";
+//						alert("div "+document.getElementById(id).style.display);
+				if(pt=="tr") {
+						if(document.all)	document.getElementById(id).style.display="block";
+						else
+						document.getElementById(id).style.display="table-row";
+//						alert("tr "+document.getElementById(id).style.display);
+				}
+		} else {
+				document.getElementById(id).style.display="none";
+		}
+//		alert(document.getElementById(id).style.display);
+}
+
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
+//-->
+</script>
+</head>
+<link href="default00.css" rel="stylesheet" type="text/css">
+<a name="top"></a>
+<div style="font-size:80%" align="center">
+<form name="PMAPPLY09" method="POST" action="pmapply09.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="NEXT">
+  <table width="600"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center"><img src="imgs/payment_navi07.gif" width="590" height="52"></td>
+    </tr>
+    <tr>
+      <td align="left" height="15"><img src="../imgs/spc.gif" width="5" height="5"></td>
+    </tr>
+  </table>
+  <table width="600"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="left" class="outbox"><div class="midashi">確認画面</div>
+        <br>
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td class="comment_box">下記の内容で申し込みます。よろしければ、[申込書印刷画面へ進む]ボタンをクリックしてください。<BR>
+              修正する場合は<input type="button" value="変更">をクリックします。<BR>
+              お手数ですが、次の画面を印刷してご捺印のうえ、添付書類とともに弊社までご郵送ください。</SPAN><BR>
+            <SPAN 
+class=redj12>※口座情報を、再度ご確認ください。</SPAN></td>
+          </tr>
+        </table>
+<br>
+          <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td bgcolor="#666666">
+			<table width="100%" border="0" cellspacing="1" cellpadding="0" align="center">
+          <tr>
+            <td bgcolor="#FFFFFF" class="box_title">お申込み決済代行種別</td>
+			<td width="5%" bgcolor="#FFFFFF" class="box_title"><input type="button" value="変更" onClick="document.PMAPPLY01.submit();"></td>
+          </tr>
+          <tr>
+            <td colspan="2" bgcolor="#FFFFFF" class="inbox"><br>
+              <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+              <tr>
+                <td bgcolor="#333333"><table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
+<TMPL_LOOP PMLIST>
+                    <tr align="left">
+                      <td class="box_txt">・<TMPL_VAR NAME=PMNAME></td>
+</TMPL_LOOP>
+                </table></td>
+              </tr>
+            </table>
+              <br></td>
+          </tr>
+        </table>
+			</td>
+          </tr>
+        </table>
+
+        <br>
+        <br>
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td bgcolor="#666666"><table width="100%" border="0" cellspacing="1" cellpadding="0" align="center">
+                <tr>
+                  <td bgcolor="#FFFFFF" class="box_title">振込先口座</td>
+<TMPL_IF USEROTEHR>
+                  <td width="5%" bgcolor="#FFFFFF" class="box_title">&nbsp;</td>
+<TMPL_ELSE>
+                  <td width="5%" bgcolor="#FFFFFF" class="box_title"><input type="button" value="変更" onClick="document.PMAPPLY03.submit();"></td>
+</TMPL_IF>
+                </tr>
+                <tr>
+                  <td colspan="2" bgcolor="#FFFFFF" class="inbox"><br>
+                      <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+                        <tr>
+                          <td bgcolor="#333333"><table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
+                              <tr align="left">
+                                <td width="40" valign="top" class="box_title_side">金融機関名</td>
+<TMPL_IF BANKEBANK>
+				<td class="box_txt"><TMPL_VAR NAME=BANK></td>
+<TMPL_ELSE>
+                                <td class="box_txt"><TMPL_VAR NAME=BANK>(<TMPL_VAR NAME=BANKCODE>)</td>
+</TMPL_IF>
+                              </tr>
+			      <tr align="left">
+<TMPL_IF BANKEBANK>
+                                <td width="40" valign="top" class="box_title_side">支店番号</td>
+                                <td class="box_txt"><TMPL_VAR NAME=BRANCHCODE></td>
+<TMPL_ELSE>
+                                <td width="40" valign="top" class="box_title_side">支店名</td>
+                                <td class="box_txt"><TMPL_VAR NAME=BRANCH>(<TMPL_VAR NAME=BRANCHCODE>)</td>
+</TMPL_IF>
+<TMPL_IF BANKEBANK>
+<TMPL_ELSE>
+                              </tr>
+			      <tr align="left">
+                                <td width="40" valign="top" class="box_title_side">科目</td>
+                                <td class="box_txt"><TMPL_IF TYPE1>普通<TMPL_ELSE>当座</TMPL_IF></td>
+                              </tr>
+</TMPL_IF>
+			      <tr align="left">
+                                <td width="40" valign="top" class="box_title_side">口座番号</td>
+                                <td class="box_txt"><TMPL_VAR NAME=ACCOUNTNO></td>
+                              </tr>
+							  <tr align="left">
+                                <td width="40" valign="top" class="box_title_side">口座名義人</td>
+                                <td class="box_txt"><TMPL_VAR NAME=ACCOUNTNAME></td>
+                              </tr>
+                          </table></td>
+                        </tr>
+                      </table>
+                      <br></td>
+                </tr>
+            </table></td>
+          </tr>
+        </table>
+        <br>
+<TMPL_IF CARDFLAG>
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td bgcolor="#666666"><table width="100%" border="0" cellspacing="1" cellpadding="0" align="center">
+                <tr>
+                  <td bgcolor="#FFFFFF" class="box_title">クレジットカード加盟情報</td>
+				  <td width="5%" bgcolor="#FFFFFF" class="box_title"><input type="button" value="変更" onClick="document.PMAPPLY04.submit();"></td>
+                </tr>
+                <tr>
+                  <td colspan="2" bgcolor="#FFFFFF" class="inbox"><br>
+                      <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+                        <tr>
+                          <td bgcolor="#333333"><table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
+                              <tr align="left">
+                                <td colspan="2" valign="top" class="box_title_side">代表者</td>
+                                <td class="box_txt"><TMPL_VAR NAME=CUSTDAIHYO></td>
+                              </tr>
+			      <tr align="left">
+                                <td colspan="2" align="right" valign="top" class="box_title_side">（カナ）</td>
+                                <td class="box_txt"><TMPL_VAR NAME=CUSTDAIHYOKANA></td>
+                              </tr>
+			      <tr align="left">
+                                <td colspan="2" align="right" valign="top" class="box_title_side">（ローマ字）</td>
+                                <td class="box_txt"><TMPL_VAR NAME=ROMASEI> <TMPL_VAR NAME=ROMAMEI></td>
+                              </tr>
+			      <tr align="left">
+                                <td colspan="2" valign="top" class="box_title_side">性別</td>
+                                <td class="box_txt"><TMPL_IF SEXM>男性<TMPL_ELSE>女性</TMPL_IF></td>
+                              </tr>
+			      <tr align="left">
+                                <td colspan="2" valign="top" class="box_title_side">生年月日</td>
+                                <td class="box_txt"><TMPL_VAR NAME=BIRTHYYYY>年<TMPL_VAR NAME=BIRTHMM>月<TMPL_VAR NAME=BIRTHDD>日</td>
+                              </tr>
+                              <tr align="left">
+                                <td colspan="2" valign="top" class="box_title_side">カード利用明細書</td>
+                                <td class="box_txt">&nbsp;</td>
+                              </tr>
+                              <tr align="left">
+                                <td width="40" rowspan="3" valign="top" class="box_title_side_sub">&nbsp;</td>
+                                <td align="right" valign="top" class="box_title_side_sub">屋号</td>
+                                <td class="box_txt"><TMPL_VAR NAME=YAGO></td>
+                              </tr>
+                              <tr align="left">
+                                <td align="right" valign="top" class="box_title_side_sub">カナ</td>
+                                <td class="box_txt"><TMPL_VAR NAME=YAGOKANA></td>
+                              </tr>
+                              <tr align="left">
+                                <td align="right" valign="top" class="box_title_side_sub">ローマ字</td>
+                                <td class="box_txt"><TMPL_VAR NAME=YAGOROMA></td>
+                              </tr>
+                          </table></td>
+                        </tr>
+                      </table>
+                      <br></td>
+                </tr>
+            </table></td>
+          </tr>
+        </table>
+        <br>
+</TMPL_IF>
+<TMPL_IF CVSFLAG>
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td bgcolor="#666666"><table width="100%" border="0" cellspacing="1" cellpadding="0" align="center">
+                <tr>
+                  <td bgcolor="#FFFFFF" class="box_title">払込票情報</td>
+				  <td width="5%" bgcolor="#FFFFFF" class="box_title"><input type="button" value="変更" onClick="document.PMAPPLY05.submit();"></td>
+                </tr>
+                <tr>
+                  <td colspan="2" bgcolor="#FFFFFF" class="inbox"><br>
+                      <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+                        <tr>
+                          <td bgcolor="#333333"><table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
+                              <tr align="left">
+                                <td colspan="2" valign="top" class="box_title_side">差出人</td>
+                                <td class="box_txt"><TMPL_VAR NAME=CVSNAME></td>
+                              </tr>
+                              <tr align="left">
+                                <td width="40" rowspan="3" valign="top" class="box_title_side_sub">住所</td>
+                                <td align="right" valign="top" class="box_title_side_sub">郵便番号</td>
+                                <td class="box_txt"><TMPL_VAR NAME=CVSZIP1>-<TMPL_VAR NAME=CVSZIP2></td>
+                              </tr>
+                              <tr align="left">
+                                <td align="right" valign="top" class="box_title_side_sub">住所１</td>
+                                <td class="box_txt"><TMPL_VAR NAME=CVSADDR1></td>
+                              </tr>
+                              <tr align="left">
+                                <td align="right" valign="top" class="box_title_side_sub">住所２</td>
+                                <td class="box_txt"><TMPL_VAR NAME=CVSADDR2></td>
+                              </tr>
+                              <tr align="left">
+                                <td colspan="2" valign="top" class="box_title_side">電話番号</td>
+                                <td class="box_txt"><TMPL_VAR NAME=CVSTEL></td>
+                              </tr>
+                              <tr align="left">
+                                <td colspan="2" valign="top" class="box_title_side">FAX番号</td>
+                                <td class="box_txt"><TMPL_VAR NAME=CVSFAX></td>
+                              </tr>
+                              <tr align="left">
+                                <td colspan="2" valign="top" class="box_title_side">コメント欄</td>
+                                <td class="box_txt"><TMPL_VAR NAME=CVSCOMMENT></td>
+                              </tr>
+                              <tr align="left">
+                                <td colspan="2" valign="top" class="box_title_side">お支払期限日</td>
+                                <td class="box_txt"><TMPL_VAR NAME=CVSDUEDATE>日以内</td>
+                              </tr>
+                              <tr align="left">
+                                <td colspan="2" valign="top" class="box_title_side">通信欄</td>
+                                <td class="box_txt"><TMPL_VAR NAME=CVSCOLUMN></td>
+                              </tr>
+                          </table></td>
+                        </tr>
+                      </table>
+                      <br></td>
+                </tr>
+            </table></td>
+          </tr>
+        </table>
+        <br>
+</TMPL_IF>
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td bgcolor="#666666"><table width="100%" border="0" cellspacing="1" cellpadding="0" align="center">
+                <tr>
+                  <td bgcolor="#FFFFFF" class="box_title">取扱商品情報</td>
+				  <td width="5%" bgcolor="#FFFFFF" class="box_title"><input type="button" value="変更" onClick="document.PMAPPLY06.submit();"></td>
+                </tr>
+                <tr>
+                  <td colspan="2" bgcolor="#FFFFFF" class="inbox"><br>
+                      <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+                        <tr>
+                          <td bgcolor="#333333"><table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
+                              <tr align="left">
+                                <td colspan="2" valign="top" class="box_title_side">取扱商品</td>
+                                <td class="box_txt"><TMPL_VAR NAME=PRODUCTTYPE></td>
+                              </tr>
+                          </table></td>
+                        </tr>
+                      </table>
+                      <br></td>
+                </tr>
+            </table></td>
+          </tr>
+        </table>
+        <br>
+
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td bgcolor="#666666"><table width="100%" border="0" cellspacing="1" cellpadding="0" align="center">
+                <tr>
+                  <td bgcolor="#FFFFFF" class="box_title">決済担当者情報</td>
+                  <td width="5%" bgcolor="#FFFFFF" class="box_title"><input type="button" value="変更" onClick="document.PMAPPLY07.submit();"></td>
+                </tr>
+                <tr>
+                  <td colspan="2" bgcolor="#FFFFFF" class="inbox"><br>
+                      <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+                        <tr>
+                          <td bgcolor="#333333"><table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
+                              <tr align="left">
+                                <td colspan="2" valign="top" class="box_title_side">契約者</td>
+                                <td class="box_txt"><TMPL_VAR NAME=CUSTNAME></td>
+                              </tr>
+			      <tr align="left">
+                                <td colspan="2" valign="top" class="box_title_side">部署名</td>
+                                <td class="box_txt"><TMPL_VAR NAME=TANTOSECTION></td>
+                              </tr>
+			      <tr align="left">
+                                <td colspan="2" valign="top" class="box_title_side">役職名</td>
+                                <td class="box_txt"><TMPL_VAR NAME=TANTOPOSITION></td>
+                              </tr>
+			      <tr align="left">
+                                <td colspan="2" valign="top" class="box_title_side">担当者</td>
+                                <td class="box_txt"><TMPL_VAR NAME=TANTOSEI>　<TMPL_VAR NAME=TANTOMEI></td>
+                              </tr>
+			      <tr align="left">
+                                <td colspan="2" align="right" valign="top" class="box_title_side">かな</td>
+                                <td class="box_txt"><TMPL_VAR NAME=TANTOSEIKANA>　<TMPL_VAR NAME=TANTOMEIKANA></td>
+                              </tr>
+                              <tr align="left">
+                                <td width="40" rowspan="6" valign="top" class="box_title_side_sub">住所</td>
+                                <td align="right" valign="top" class="box_title_side_sub">郵便番号</td>
+                                <td class="box_txt"><TMPL_VAR NAME=TANTOZIP1>-<TMPL_VAR NAME=TANTOZIP2></td>
+                              </tr>
+                              <tr align="left">
+                                <td align="right" valign="top" class="box_title_side_sub">都道府県</td>
+                                <td class="box_txt"><TMPL_VAR NAME=TANTOPREF></td>
+                              </tr>
+                              <tr align="left">
+                                <td align="right" valign="top" class="box_title_side_sub">市区郡</td>
+                                <td class="box_txt"><TMPL_VAR NAME=TANTOADDR1></td>
+                              </tr>
+                              <tr align="left">
+                                <td align="right" valign="top" class="box_title_side_sub">町村字</td>
+                                <td class="box_txt"><TMPL_VAR NAME=TANTOADDR2></td>
+                              </tr>
+                              <tr align="left">
+                                <td align="right" valign="top" class="box_title_side_sub">丁番地</td>
+                                <td class="box_txt"><TMPL_VAR NAME=TANTOADDR3></td>
+                              </tr>
+			      <tr align="left">
+                                <td align="right" valign="top" class="box_title_side_sub">建物名</td>
+                                <td class="box_txt"><TMPL_VAR NAME=TANTOADDR4></td>
+                              </tr>
+			      <tr align="left">
+                                <td colspan="2" valign="top" class="box_title_side">電話番号</td>
+                                <td class="box_txt"><TMPL_VAR NAME=TANTOTEL></td>
+                              </tr>
+			      <tr align="left">
+                                <td colspan="2" valign="top" class="box_title_side">ＦＡＸ番号</td>
+                                <td class="box_txt"><TMPL_VAR NAME=TANTOFAX></td>
+                              </tr>
+			      <tr align="left">
+                                <td colspan="2" valign="top" class="box_title_side">連絡先メールアドレス</td>
+                                <td class="box_txt"><TMPL_VAR NAME=TANTOMAIL></td>
+                              </tr>
+                          </table></td>
+                        </tr>
+                      </table>
+                      <br></td>
+                </tr>
+            </table></td>
+          </tr>
+        </table>
+        <br>
+        <br>
+        <div align="center">
+          <input type="button" onClick="document.PMAPPLY09.submit();" value="申込書印刷画面へ進む">
+        </div>
+        <br>
+				
+          <hr size="1" noshade>
+          <br>
+      </td>
+    </tr>
+  </table>
+</form>
+<form name="PMAPPLY01" method="POST" action="pmapply.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+</form>
+<form name="PMAPPLY03" method="POST" action="pmapply03.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+</form>
+<TMPL_IF CARDFLAG>
+<form name="PMAPPLY04" method="POST" action="pmapply04.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+</form>
+</TMPL_IF>
+<TMPL_IF CVSFLAG>
+<form name="PMAPPLY05" method="POST" action="pmapply05.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+</form>
+</TMPL_IF>
+<form name="PMAPPLY06" method="POST" action="pmapply06.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+</form>
+<form name="PMAPPLY07" method="POST" action="pmapply07.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+</form>
+</div>
+</body>
+</html>

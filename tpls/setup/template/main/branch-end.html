@@ -1,0 +1,137 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<tr>
+<td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+<tr>
+<td><img src="../imgs/spc.gif" width="8" height="8"></td>
+</tr>
+</table></td>
+<td align="left" class="midashi"><TMPL_VAR name=SITEN_NAME>への出店手続きが完了しました</td>
+</tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td>
+<table class="item-box">
+<tr>
+<td align="center" class="item-name02" style="padding:5px ">出店手続き完了</td>
+</tr>
+<tr>
+<td class="item" style="padding:5px ">
+<TMPL_IF name=OPEN>
+<TMPL_VAR name=SITEN_NAME>への出店申し込みは既に承っています。
+</TMPL_IF>
+
+<TMPL_IF name=CLOSE0>
+<TMPL_VAR name=SITEN_NAME>への出店申し込みが完了していないため、情報変更はできません。
+</TMPL_IF>
+
+<TMPL_IF name=CLOSE1>
+現在、<TMPL_VAR name=SITEN_NAME>への出店審査中のため、情報変更はできません。
+</TMPL_IF>
+
+<TMPL_IF name=SITEN01>
+SeesaaSHOPPINGへの出店手続きが完了しました。<br>
+支店で審査を行い、 1営業日以内に審査結果をメールでご連絡いたします。<br>
+審査完了後、出品台帳の支店切替から「SeesaaSHOPPING」を
+選択して出品作業を行ってください。
+</TMPL_IF>
+
+<TMPL_IF name=SITEN02>
+健康万歳！への出店手続きが完了しました。<br>
+出品台帳の支店切替から「健康万歳！」を選択して出品作業を行ってください。<br>
+1〜3営業日後に『特選健康グッズ』カテゴリに商品が掲載されます。<br>
+</TMPL_IF>
+
+<TMPL_IF name=SITEN03>
+0141万歳！への出店手続きが完了しました。<br>
+出品台帳の支店切替から「0141万歳！」を選択して出品作業を行ってください。<br>
+1〜3営業日後に『お取り寄せグルメセレクト』カテゴリに商品が掲載されます。<br>
+</TMPL_IF>
+
+<TMPL_IF name=SITEN05>
+@MyRoomへの出店手続きが完了しました。<br>
+支店で審査を行い、 1週間以内に審査結果をメールでご連絡いたします。<br>
+審査完了後、出品台帳の支店切替から「@MyRoom」を選択して出品作業を行ってください。
+</TMPL_IF>
+
+<TMPL_IF name=SITEN07>
+コレゾへの出店手続きが完了しました。<br>
+支店で審査を行い、 2〜5営業日以内に審査結果をメールでご連絡いたします。<br>
+審査完了後、出品台帳の支店切替から「コレゾ」を選択して出品作業を行ってください。
+</TMPL_IF>
+
+
+<TMPL_IF name=SITEN10>
+アラジンへの出店手続きが完了しました。<br>
+支店で審査を行い、 2〜5営業日以内に審査結果をメールでご連絡いたします。<br>
+審査完了後、出品台帳の支店切替から「アラジン」を選択して出品作業を行ってください。
+</TMPL_IF>
+
+<TMPL_IF name=SITEN11>
+ペット万歳！への出店手続きが完了しました。<br>
+出品台帳の支店切替から「ペット万歳！」を選択して出品作業を行ってください。<br>
+1〜3営業日後に『特選ペットグッズ』カテゴリに商品が掲載されます。<br>
+</TMPL_IF>
+
+<TMPL_IF name=SITEN12>
+健康万歳！サプリメント通販ガイドへの出店手続きが完了しました。<br>
+出品台帳の支店切替から「健康万歳！サプリメント通販ガイド」を選択して出品作業を行ってください。<br>
+1〜3営業日以内に『特選おすすめサプリメント』の『人気サプリメント 』に
+商品が掲載されます。<br>
+</TMPL_IF>
+
+<TMPL_IF name=SITEN14>
+価格.comへの出店手続きが完了しました。<br>
+ただいまから審査を行い、1週間〜1ヶ月前後で審査結果をメールでご連絡いたします。<br>
+審査完了後、Ｅストアーショップサーブ管理画面の「集客・運用」→「支店出品」から<br>
+「出品台帳」を選び、「支店切替」で「価格.com」を選択して出品作業を行ってください。
+</TMPL_IF>
+
+<TMPL_IF name=SITEN15>
+		<div style="font-size:1.1em;line-height:1.8em;margin:0.5em 1em 0">パーク出品サービスへの出店申込が完了いたしました。<br>
+		2〜5営業日以内に、ご入力いただきました <span style="color:#dc0000;">「担当者メールアドレス」</span> 宛に審査結果をご連絡いたします。</div>
+
+		<div style="margin:1.8em;padding:0.5em;border:1px solid #666666">
+			<div style="text-align:center;font-size:1.1em;font-weight:bold;border-bottom:1px dotted #666666;padding:0.2em 0 0.5em">【審査完了後のご利用方法について】</div>
+			<ol>
+				<li style="font-weight:bold">「商品カテゴリ設定」から、商品をパーク出品サービスの、どのカテゴリに出品するか設定してください。
+				<div style="font-weight:normal">大カテゴリはもちろんのこと、小カテゴリごとに出品カテゴリを設定できますので、商品をより最適なカテゴリに出品することができます。</div>
+
+				<li style="margin:1.8em 0 0;font-weight:bold">「出品台帳」から、商品をパーク出品サービスへ出品してください。
+				<div style="font-weight:normal">支店切替から「パーク出品サービス」を選択し、出品する商品をチェックして［出品する］ボタンをクリックします。</div>
+
+			<!-- この案内は11月8日から表示 
+				<li style="margin:1.8em 0 0;font-weight:bold">「パーク出品サービスへ投稿」から、パーク出品サービスへニュースを投稿してください。
+				<div style="font-weight:normal">購入者様の興味を引くニュースを定期的に投稿することにより、集客アップが期待できます。</div>
+			この案内は11月8日から表示 ここまで -->
+
+				<li style="margin:1.8em 0 0;font-weight:bold">「お店運営」の「承認台帳」から、パーク出品サービスを経由して入った注文の承認作業を行ってください。
+				<div style="font-weight:normal">表示切替から「支店売上」を選択し、承認する商品をチェックして［承認する］ボタンをクリックします。<br>
+				<span style="color:#dc0000">※受注から35日経過すると自動的に承認となり、システム利用料が発生いたしますので、注文がキャンセルになった場合などは商品をチェックして［取消］ボタンをクリックしてください。</span>
+				</div>
+			</ol>
+		</div>
+</TMPL_IF>
+</td>
+</tr>
+                                               	</table>
+                                              </td>
+                                            </tr>
+                                          </table></td>
+                                        </tr>
+                                      </table>
+                                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                          <td>&nbsp;</td>
+                                        </tr>
+                                      </table>
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                        <tr>
+                                          <td align="center" style="padding:10px 10px 10px 10px ">
+                                          	<input type="button" value="支店管理へ戻る" onClick="location.href='branch.cgi'">
+                                          </td>
+                                        </tr>
+                                      </table>

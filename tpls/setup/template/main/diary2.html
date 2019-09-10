@@ -1,0 +1,165 @@
+<script language="JavaScript">
+<!--
+function barea(param)
+{
+    document.form1.mode.value="up";
+    document.form1.target="_self";
+    document.form1.button1.disabled='true';
+    document.form1.set1.disabled='true';
+    document.form1.submit();
+}
+function regist1() {
+    document.form1.mode.value="regist";
+    document.form1.target="_self";
+    document.form1.button1.disabled='true';
+    document.form1.set1.disabled='true';
+    document.form1.submit();
+}
+var last = null;
+function preview() {
+    var now = new Date();
+    if ( last != null && (now-last) < 5000  ) {
+      return;
+    }
+    last = now;
+    document.form1.mode.value="preview";
+    document.form1.target="template_preview";
+    document.form1.submit();
+}
+function donate(ac) {
+    document.form1.mode.value="skip";
+    document.form1.target="_self";
+    document.form1.button1.disabled='true';
+    document.form1.set1.disabled='true';
+    document.form1.action=ac;
+    document.form1.submit();
+}
+//-->
+</script>
+<form name="form1" method="post" action="diary2.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#F39700">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">店長日記を書きます</td>
+<td align="right" class="midashi"><a href="<TMPL_VAR NAME=Manual>func02/shopmasterdiary.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+<div align="right"><a href="diary.cgi">HTML版</a></div>
+<div align="right"><a href="entry_select.cgi">店長日記の編集はこちら</a></div>
+                <TMPL_VAR NAME=err>
+                                  <td>
+<table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                    <tr>
+                                      <td class="item-name">タイトル</td>
+                                      <td class="item"><input name="title" type="text" class="def-line" value="<TMPL_VAR NAME=title>">
+
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">内容 </td>
+                                      <td class="item">
+                                            <textarea name="body" id="ta1" style="width:455px" rows="<TMPL_VAR NAME=ta1>" wrap="VIRTUAL" class="def-line"><TMPL_VAR escape=html NAME=body></textarea>
+                                            <br>
+                                            <input type="button" name="button1" value="入力エリアの拡大" style="width:130px" onClick="barea('up')">
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">記事の状態</td>
+                                      <td class="item">
+                                                <TMPL_IF NAME=status>
+                                                <input name="status" type="radio" value="1" id="open01" checked>
+                                                <TMPL_ELSE>
+                                                <input name="status" type="radio" value="1" id="open01">
+                                                </TMPL_IF>
+
+                                                <label for="open01">公開する</label>
+                                                <TMPL_IF NAME=status>
+                                                <input name="status" type="radio" value="0" id="open02">
+                                                <TMPL_ELSE>
+                                                <input name="status" type="radio" value="0" id="open02" checked>
+                                                </TMPL_IF>
+                                                <label for="open02">下書き</label>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">日付の表示</td>
+                                      <td class="item">
+                                                <TMPL_IF NAME=is_display_date>
+                                                <input name="is_display_date" type="radio" value="1" id="date01" checked>
+                                                <TMPL_ELSE>
+                                                <input name="is_display_date" type="radio" value="1" id="date01">
+                                                </TMPL_IF>
+                                                <label for="date01">表示する</label>
+                                                <TMPL_IF NAME=is_display_date>
+                                                <input name="is_display_date" type="radio" value="0" id="date02">
+                                                <TMPL_ELSE>
+                                                <input name="is_display_date" type="radio" value="0" id="date02" checked>
+                                                </TMPL_IF>
+                                                <label for="date02">表示しない</label>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">コメント</td>
+                                      <td class="item">
+                                                <TMPL_IF NAME=comment_receive>
+                                                <input name="comment_receive" type="radio" value="1" id="coment01" checked>
+                                                <TMPL_ELSE>
+                                                <input name="comment_receive" type="radio" value="1" id="coment01">
+                                                </TMPL_IF>
+                                                <label for="coment01">受け付ける</label>
+                                                <TMPL_IF NAME=comment_receive>
+                                                <input name="comment_receive" type="radio" value="0" id="coment02">
+                                                <TMPL_ELSE>
+                                                <input name="comment_receive" type="radio" value="0" id="coment02" checked>
+                                                </TMPL_IF>
+                                                <label for="coment02">受け付けない</label>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                    <br>
+
+                                    <div align="center">
+                                      <TMPL_IF NAME=isnewlogic>
+                                      <input name="set" type="button" id="set" value="プレビュー" onClick="newtpl_preview('diary');">
+                                      <TMPL_ELSE>
+                                      <input name="set" type="button" id="set" value="プレビュー" onClick="preview('diary');">
+                                      </TMPL_IF>
+                                      <br>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+
+                          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td>&nbsp;</td>
+                            </tr>
+                          </table>
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                            <tr>
+                              <td align="center" style="padding:10px 10px 10px 10px "><input name="set1" type="button" onClick="regist1();" id="set" value="設定を保存する">
+                              </td>
+
+                            </tr>
+                          </table></td>
+                    </tr>
+<input type="hidden" name="mode" value="">
+<input type="hidden" name="entry_id" value="<TMPL_VAR NAME=entry_id>">
+<input type="hidden" name="do_select" value="<TMPL_VAR NAME=do_select>">
+<input type="hidden" name="do_title" value="<TMPL_VAR NAME=do_title>">
+<input type="hidden" name="search_title" value="<TMPL_VAR NAME=search_title>">
+<input type="hidden" name="search_catid" value="<TMPL_VAR NAME=search_catid>">
+</form>

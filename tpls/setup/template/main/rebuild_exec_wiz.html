@@ -1,0 +1,75 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+	<tr>
+		<td width="12">
+			<table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0f4071">
+				<tr>
+					<td><img src="../imgs/spc.gif"></td>
+				</tr>
+			</table>
+		</td>
+
+		<td align="left" class="midashi">お店を開店しました</td>
+	</tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+	<tr>
+		<td align="left" class="main-table">
+			<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td>
+						<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+							<tr>
+								<td>
+									<table width="100%">
+										<tr>
+											<td><img src="../imgs/complete00.gif"></td>
+											<td>
+
+												<div id="wi-rebuild">
+													<div class="shop-name">
+														<h2><TMPL_VAR NAME=STORE_NAME></h2>
+														<p>を開店しました。<span>&gt;&gt;</span>
+														<a href="../func00/myhomepage.cgi" target="omise">お店ページをみる</a></p>
+													</div>
+                                                                                                     <TMPL_IF IsTrialCourseShop>
+													<div class="guide-info">
+														<p><span>&gt;&gt;</span>
+														<a href="../func00/">管理画面のトップへ</a></p>
+													</div>
+                                                                                                     <TMPL_ELSE>
+                                                                                                        <div class="next-step">
+                                                                                                                <p>次は、以下の２つの基本的な手続きを行います。</p>
+                                                                                                                <div>
+                                                                                                                        <a href="../func00/pmapply_sps.cgi" target="info"><img src="imgs/wi_rebuild_payment.png" width="266" height="66" alt="決済代行サービスを申し込む"></a>
+                                                                                                                        <a href="../func00/pop-domain.cgi" target="info"><img src="imgs/wi_rebuild_domain.png" width="266" height="66" alt="独自ドメインを取得する"></a>
+                                                                                                                </div>
+                                                                                                        </div>
+
+                                                                                                        <div class="guide-info">
+                                                                                                                <div class="clearfix">
+                                                                                                                        <img src="imgs/wi_rebuild_guide3.png" width="112" height="155" alt="ガイドブック３ 集客・店づくり基本
+編">
+                                                                                                                        <h3>ガイドブック３</h3>
+                                                                                                                        <p>そのほかの売れるお店に必須の設定は、「ガイドブック３ 集客・店づくり基本編」にそって効率的に進めて>
+いきましょう。</p>
+                                                                                                                </div>
+                                                                                                                <p><span>&gt;&gt;</span>
+                                                                                                                <a href="../func00/">管理画面のトップへ</a></p>
+                                                                                                        </div>
+                                                                                                     </TMPL_IF>
+												</div>
+
+
+											</td>
+										</tr>
+									</table>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>

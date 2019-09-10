@@ -1,0 +1,296 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Ｅストアーショップサーブ　決済代行申し込み</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<link href="default00.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function openScat(id) {
+		ele = document.getElementById(id+"1");
+		ele.style.display = "block";
+}
+
+function openClose(id,pt,i) {
+		prop = document.getElementById(id).style.display;
+
+//		alert(id+" "+pt+" "+i);
+
+		if(i==0) prop = "none";
+
+		if(prop=="none"){
+				if(pt=="div") document.getElementById(id).style.display="block";
+//						alert("div "+document.getElementById(id).style.display);
+				if(pt=="tr") {
+						if(document.all)	document.getElementById(id).style.display="block";
+						else
+						document.getElementById(id).style.display="table-row";
+//						alert("tr "+document.getElementById(id).style.display);
+				}
+		} else {
+				document.getElementById(id).style.display="none";
+		}
+//		alert(document.getElementById(id).style.display);
+}
+
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
+//-->
+</script>
+</head>
+<link href="default00.css" rel="stylesheet" type="text/css">
+<a name="top"></a>
+<div style="font-size:80%" align="center">
+<form name="PMAPPLY07" method="POST" action="pmapply07.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="NEXT">
+  <table width="600"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center"><img src="imgs/payment_navi06.gif" width="590" height="52"></td>
+    </tr>
+    <tr>
+      <td align="left" height="15"><img src="../imgs/spc.gif" width="5" height="5"></td>
+    </tr>
+  </table>
+  <table width="600"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="left" class="outbox"><div class="midashi">担当者情報入力</div>
+        <br>
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td class="comment_box">担当者情報を入力して[次へ]ボタンをクリックしてください。<BR>
+              ご記入いただく担当者様へ、お申込確認、および審査結果の連絡をお送りさせていただきます。<BR>
+              Ｅストアーショップサーブを個人で契約　：　ご契約者様の情報を入力してください。<BR>
+            Ｅストアーショップサーブを法人で契約　：　契約法人と同じ法人の担当者様を入力してください。</td>
+          </tr>
+        </table>
+        <br>        
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+<TMPL_IF ERR_MSG>
+<TR>
+<TD class=j12 align=left>
+<TMPL_LOOP ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+</TD>
+</TR>
+</TMPL_IF>
+          <tr>
+            <td>決済担当者情報</td>
+          </tr>
+        </table>
+        <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td bgcolor="#333333"><table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
+                <tr align="left">
+                  <td colspan="2" valign="top" class="box_title_side">ご契約者</td>
+                  <td colspan="2" class="box_txt"><TMPL_VAR NAME=CUSTNAME></td>
+                </tr>
+                <tr align="left">
+                  <td colspan="2" valign="top" class="box_title_side">部署名</td>
+                  <td colspan="2" class="box_txt"><input type="text" name="TantoSection" value="<TMPL_VAR NAME=TANTOSECTION>" style="width:200px ">
+                      <br>
+                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                        <tr class="example_box">
+                          <td width="5%" nowrap>例）</td>
+                          <td>経理部</td>
+                        </tr>
+                    </table></td>
+                </tr>
+                <tr align="left">
+                  <td colspan="2" valign="top" class="box_title_side">役職名</td>
+                  <td colspan="2" class="box_txt"><input type="text" name="TantoPosition" value="<TMPL_VAR NAME=TANTOPOSITION>" style="width:200px ">
+                      <br>
+                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                        <tr class="example_box">
+                          <td width="5%" nowrap>例）</td>
+                          <td>部長</td>
+                        </tr>
+                    </table></td>
+                </tr>
+                <tr align="left">
+                  <td colspan="2" valign="top" class="box_title_side">担当者名</td>
+                  <td class="box_txt"><input type="text" name="TantoSei" value="<TMPL_VAR NAME=TANTOSEI>" style="width:80px ">
+                      <br>
+                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                        <tr class="example_box">
+                          <td width="5%" nowrap>例）</td>
+                          <td>鈴木</td>
+                        </tr>
+                    </table></td>
+                  <td class="box_txt"><input type="text" name="TantoMei" value="<TMPL_VAR NAME=TANTOMEI>" style="width:80px "><br>
+                    <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                      <tr class="example_box">
+                        <td width="5%" nowrap>例）</td>
+                        <td>一郎</td>
+                      </tr>
+                    </table></td>
+                </tr>
+                <tr align="left">
+                  <td colspan="2" valign="top" class="box_title_side">担当者名（かな）</td>
+                  <td class="box_txt"><input type="text" name="TantoSeiKana" value="<TMPL_VAR NAME=TANTOSEIKANA>" style="width:80px ">
+                      <br>
+                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                        <tr class="example_box">
+                          <td width="5%" nowrap>例）</td>
+                          <td>すずき</td>
+                        </tr>
+                    </table></td>
+                  <td class="box_txt"><input type="text" name="TantoMeiKana" value="<TMPL_VAR NAME=TANTOMEIKANA>" style="width:80px "><br>
+                    <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                      <tr class="example_box">
+                        <td width="5%" nowrap>例）</td>
+                        <td>いちろう</td>
+                      </tr>
+                    </table></td>
+                </tr>
+                <tr align="left">
+                  <td width="40" rowspan="6" valign="top" class="box_title_side_sub">住所</td>
+                  <td align="right" valign="top" class="box_title_side_sub">郵便番号</td>
+                  <td colspan="2" class="box_txt"><input type="text" name="TantoZip1" value="<TMPL_VAR NAME=TANTOZIP1>" style="width:30px "> - <input type="text" name="TantoZip2" value="<TMPL_VAR NAME=TANTOZIP2>" style="width:50px ">
+                    <br>
+                    <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                      <tr class="example_box">
+                        <td width="5%" nowrap>例）</td>
+                        <td>160-0000</td>
+                      </tr>
+                    </table></td>
+                </tr>
+                <tr align="left">
+                  <td align="right" valign="top" class="box_title_side_sub">都道府県</td>
+                  <td colspan="2" class="box_txt">
+						<select name="TantoPref">
+						<option value="">選択してください</option>
+						<TMPL_LOOP PREFLIST>
+						<option value="<TMPL_VAR NAME=PREF>"<TMPL_IF SEL>selected</TMPL_IF>><TMPL_VAR NAME=PREF></option>
+						</TMPL_LOOP>
+						</select>
+				  </td>
+                </tr>
+                <tr align="left">
+                  <td align="right" valign="top" class="box_title_side_sub">市区郡</td>
+                  <td colspan="2" class="box_txt"><input type="text" name="TantoAddr1" value="<TMPL_VAR NAME=TANTOADDR1>" style="width:200px ">
+                    <br>
+                    <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                      <tr class="example_box">
+                        <td width="5%" nowrap>例）</td>
+                        <td>新宿区</td>
+                      </tr>
+                    </table></td>
+                </tr>
+                <tr align="left">
+                  <td align="right" valign="top" class="box_title_side_sub">町村字</td>
+                  <td colspan="2" class="box_txt"><input type="text" name="TantoAddr2" value="<TMPL_VAR NAME=TANTOADDR2>" style="width:200px ">
+                    <br>
+                    <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                      <tr class="example_box">
+                        <td width="5%" nowrap>例）</td>
+                        <td>新宿</td>
+                      </tr>
+                    </table></td>
+                </tr>
+                <tr align="left">
+                  <td align="right" valign="top" class="box_title_side_sub">丁番地</td>
+                  <td colspan="2" class="box_txt"><input type="text" name="TantoAddr3" value="<TMPL_VAR NAME=TANTOADDR3>" style="width:200px ">
+                    <br>
+                    <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                      <tr class="example_box">
+                        <td width="5%" nowrap>例）</td>
+                        <td>1-1-1</td>
+                      </tr>
+                    </table></td>
+                </tr>
+                <tr align="left">
+                  <td align="right" valign="top" class="box_title_side_sub">建物名</td>
+                  <td colspan="2" class="box_txt"><input type="text" name="TantoAddr4" value="<TMPL_VAR NAME=TANTOADDR4>" style="width:200px ">
+                    <br>
+                    <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                      <tr class="example_box">
+                        <td width="5%" nowrap>例）</td>
+                        <td>新宿ビル　202</td>
+                      </tr>
+                    </table></td>
+                </tr>
+                <tr align="left">
+                  <td colspan="2" valign="top" class="box_title_side">ＴＥＬ</td>
+                  <td colspan="2" class="box_txt">
+			<input type="text" name="TantoTel1" value="<TMPL_VAR NAME=TANTOTEL1>" style="width:50px">-
+			<input type="text" name="TantoTel2" value="<TMPL_VAR NAME=TANTOTEL2>" style="width:50px">-
+			<input type="text" name="TantoTel3" value="<TMPL_VAR NAME=TANTOTEL3>" style="width:50px">
+                      <br>
+                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                        <tr class="example_box">
+                          <td width="5%" nowrap>例）</td>
+                          <td>03-3333-1111</td>
+                        </tr>
+                    </table></td>
+                </tr>
+                <tr align="left">
+                  <td colspan="2" valign="top" class="box_title_side">ＦＡＸ</td>
+                  <td colspan="2" class="box_txt">
+			<input type="text" name="TantoFax1" value="<TMPL_VAR NAME=TANTOFAX1>" style="width:50px">-
+			<input type="text" name="TantoFax2" value="<TMPL_VAR NAME=TANTOFAX2>" style="width:50px">-
+			<input type="text" name="TantoFax3" value="<TMPL_VAR NAME=TANTOFAX3>" style="width:50px">
+                      <br>
+                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                        <tr class="example_box">
+                          <td width="5%" nowrap>例）</td>
+                          <td>03-3333-1111</td>
+                        </tr>
+                    </table></td>
+                </tr>
+                <tr align="left">
+                  <td colspan="2" valign="top" class="box_title_side">メールアドレス</td>
+                  <td colspan="2" class="box_txt"><input type="text" name="TantoMail" value="<TMPL_VAR NAME=TANTOMAIL>" style="width:200px ">
+                      <br>
+                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                        <tr class="example_box">
+                          <td width="5%" nowrap>例）</td>
+                          <td>sample@sample.ss.shopserve.jp</td>
+                        </tr>
+                    </table></td>
+                </tr>
+                <tr align="left">
+                  <td colspan="2" align="right" valign="top" class="box_title_side">確認</td>
+                  <td colspan="2" class="box_txt"><input type="text" name="TantoMail2" value="<TMPL_VAR NAME=TANTOMAIL2>" style="width:200px ">
+                      <br>
+                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                        <tr class="example_box">
+                          <td width="5%" nowrap>例）</td>
+                          <td>sample@sample.ss.shopserve.jp</td>
+                        </tr>
+                    </table></td>
+                </tr>
+            </table></td>
+          </tr>
+        </table>
+        <br>
+        <br>
+        <div align="center">
+          <input type="button" value="戻る" onClick="document.PMAPPLY06.submit();">　
+          <input type="button" onClick="document.PMAPPLY07.submit();" value="次へ">
+        </div>
+        <br>
+				
+          <hr size="1" noshade>
+          <br>
+      </td>
+    </tr>
+  </table>
+</form>
+<form name="PMAPPLY06" method="POST" action="pmapply06.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+</form>
+</div>
+</body>
+</html>

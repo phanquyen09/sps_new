@@ -1,0 +1,296 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<title>ショップ開店ウィザード -STEP1 お店の情報を入力しよう-</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link rel="stylesheet" href="../css/wizard.css" type="text/css" />
+<script type="text/javascript" src="../js/base.js"></script>
+<TMPL_VAR NAME=GANALY>
+</head>
+<BODY>
+<form name="form1" method="post" action="wizard02.cgi">
+<A name=01></A>
+
+  <div id="top-header">
+    <div class="logo-header-wrap">
+      <div class="logo-area">
+        <img src="../imgs/top_img0.gif" alt="Ｅストアーショップサーブ">
+      </div>
+    </div>
+  </div>
+
+  <table class="steps-table-1" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td><img src="../imgs/wi_top_on_001.gif"></td>
+      <td><img src="../imgs/wi_top_off_002.gif"></td>
+      <td><img src="../imgs/wi_top_off_003.gif"></td>
+      <td><img src="../imgs/wi_top_off_004.gif"></td>
+      <td><img src="../imgs/wi_top_off_005.gif"></td>
+      <td><img src="../imgs/wi_top_off_006.gif"></td>
+      <td><img src="../imgs/wi_top_off_007.gif"></td>
+    </tr>
+  </table>
+
+<BR>
+<TABLE cellSpacing=0 cellPadding=0 width=800 align=center border=0>
+  <TBODY>
+    <TR vAlign=top>
+      <TD colSpan=3>
+        <img src="../imgs/we001_top_sps.gif" width="801" height="47">
+      </TD>
+    </TR>
+    <TR>
+      <TD align=middle bgColor=#f26200><IMG src="../imgs/spc.gif" width=3></TD>
+      <TD align=middle><TABLE cellSpacing=10 cellPadding=0 width=791 bgColor=#ffffff border=0>
+
+          <TBODY>
+            <TR>
+              <TD><IMG height=34 src="../imgs/we001_01.gif" width=766><br>
+                <BR>
+                <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                  <tbody><tr>
+                    <td><img src="../imgs/com-tl.gif" height="5" width="5"></td>
+                    <td background="../imgs/com-tc.gif"><img src="../imgs/com-tc.gif" height="5" width="5"></td>
+                    <td><img src="../imgs/com-tr.gif" height="5" width="5"></td>
+                  </tr>
+                  <tr>
+                    <td background="../imgs/com-cl.gif"><img src="../imgs/com-cl.gif" height="5" width="5"></td>
+                    <td class="coment" align="left"><ul class="coment01" type="circle">
+                      <li class="coment03">入力した内容は、ヘッダー部（お店の看板）に反映されます。</li>
+                      </ul>
+                      </td>
+                    <td background="../imgs/com-cr.gif"><img src="../imgs/com-cr.gif" height="5" width="5"></td>
+                  </tr>
+                  <tr>
+                    <td><img src="../imgs/com-bl.gif" height="5" width="5"></td>
+                    <td background="../imgs/com-bc.gif"><img src="../imgs/com-bc.gif" height="5" width="5"></td>
+                    <td><img src="../imgs/com-br.gif" height="5" width="5"></td>
+                  </tr>
+                </tbody></table>
+                <div style="margin:0.5em 0.5em 1em;color:#222;text-align:left;">
+                  <img src="../imgs/attention.png">&nbsp;機種依存文字や半角カタカナなどは使用しないでください。
+                  <a href="https://help.shopserve.jp/ctrlpnl_sup/func03/business/ngword.html" target="_blank">⇒ 使用できない文字一覧</a>
+                </div>
+        <TMPL_IF NAME=err_msg>
+                <br>
+                <table>
+                        <tr>
+                        <TMPL_LOOP NAME=err_msg>
+                        <td style="text-align:left;"><font size="2" color="#ff0000"><TMPL_VAR NAME=MSG></font></td>
+			</tr><tr>
+                        </TMPL_LOOP>
+                        </tr>
+                </table>
+        </TMPL_IF>
+
+                <br>
+                <TABLE cellSpacing=2 cellPadding=5 width="100%" bgColor=#999999 border=0>
+                  <TBODY>
+                    <TR>
+<!--0612デフォルト化用ここから-->
+					<TD class="td01" width="25%" colspan="2">
+						お店の名前　（必須）
+						<div class="limit_txt">全角64文字以内</div>
+					</TD>
+<!--0612デフォルト化用ここまで-->
+                  <TD align="left" bgColor="#ffffff">トップページに表示するお店の名前を入力します。<BR>
+                        <INPUT size=70 name="h_name" value="<TMPL_VAR NAME=h_name>">
+                        <br>
+                        <table width="100%"  border="0" cellspacing="3" cellpadding="0">
+                          <tr>
+                            <td class="hint01">例）新鮮無農薬野菜、果物の産直ショップ　フォーシーズン </td>
+                          </tr>
+                        </table></TD>
+                    </TR>
+
+                    <TR>
+                      <TD class="td01" colspan="2">お店のキャッチコピー <br>
+                        （必須）<br>
+                      <TD align="left" bgColor="#ffffff">トップページに表示するお店のキャッチコピーを入力します。<BR>
+                        <INPUT size=70 name="h_catch" value="<TMPL_VAR NAME=h_catch>">
+                        <table width="100%"  border="0" cellspacing="3" cellpadding="0">
+                          <tr>
+                            <td class="hint01">例）新鮮な無農薬野菜、果物をお届けします！食生活が豊かになる通販サイトです。</td>
+                          </tr>
+                        </table></TD>
+                    </TR>
+                    <TR>
+                      <TD class="td01" colspan="2">お店のロゴ</TD>
+                      <TD align=left bgColor=#ffffff><TABLE cellSpacing=5 cellPadding=0 width="100%" border=0>
+                        <TR align=middle>
+                          <TD height="30" colSpan="2" width="200" style="background-color:#9f4000; color:#FFFFFF; font-weight:bold; padding-left:5px; text-align:left;">お店のロゴを登録する</TD>
+                        </TR>
+                        <tr>
+                          <TD colSpan=2 height=56 widht="200">
+
+						<p style="margin-top: 0.5em;">ロゴ画像をお持ちの方は、下記手順より登録を行ってください。<br>
+						お持ちでない方は、あとから登録できますので登録せずに進んでください。</p>
+<div class="desc">
+						<strong>≪推奨サイズ≫</strong><br>
+						高さ：70px以内
+						／
+						横幅：200px
+						（お店ページの横幅の1/4程度の大きさになります）<br><br>
+
+						<strong>≪設定手順≫</strong><br>
+						（１）【画像登録画面へ】ボタンをクリックし、画像挿入画面を開きます。<br>
+						（２）画像挿入画面の「画像ファイル」から【参照】ボタンをクリックし、パソコンにある画像ファイルを選択します。<br>
+						（３）画像挿入画面の「代替テキスト」にお店の名前を入力し、【挿入する】ボタンをクリックします。<br>
+						（４）以下の「イメージ」欄に登録した画像が表示されます。
+</div>
+                          </TD>
+                        </TR>
+                        <TR align=middle>
+                          <TD bgColor="#FECC63" width="20%">画像</TD>
+                          <TD align="middle" bgColor="#cccccc" style="padding:3px; "><INPUT onclick="window.open('../func100/selsize.cgi','画像登録画面','scrollbars=yes,resizable=yes,width=800,height=800')" type=button value=画像登録画面へ></TD>
+                        </TR>
+                        <TR align=middle>
+                          <TD bgColor="#FECC63" width="200">イメージ</TD>
+                          <TD align="middle" bgColor="#cccccc" height="56"><TABLE width="34%" border=0>
+                                    <TR>
+                                      <TD height=89 align="center" valign="middle" bgColor=#ffffff style="padding:5px 5px 5px 5px;">
+					<a href="javascript:;">
+					<IMG src="<TMPL_VAR NAME=durl>" border=0 name="PICSRC" onClick="window.open(document.form1.ImageURL.value, '', '');"></a>
+					<input type="hidden" name="ImageURL" value="<TMPL_VAR NAME=url>">
+					<input type="hidden" name="ImageID" value="<TMPL_VAR NAME=IMAGEID>">
+					<input type="hidden" name="url" value="<TMPL_VAR NAME=url>">
+				      </TD>
+                                    </TR>
+
+                                </TABLE>※この画像は縮小して表示しています</TD>
+                            </TR>
+                        </TABLE></TD>
+                    </TR>
+
+                </TABLE>
+                <BR>
+                <IMG height="34" src="../imgs/we001_03.gif" width="766" style="margin-bottom:20px; ">
+                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td><img src="../imgs/com-tl.gif" width="5" height="5"></td>
+                    <td background="../imgs/com-tc.gif"><img src="../imgs/com-tc.gif" width="5" height="5"></td>
+                    <td><img src="../imgs/com-tr.gif" width="5" height="5"></td>
+                  </tr>
+                  <tr>
+                    <td background="../imgs/com-cl.gif"><img src="../imgs/com-cl.gif" width="5" height="5"></td>
+                    <td class="coment" align="left"><ul class="coment01" type="circle">
+                      <li class="coment03">集客の基本である、検索エンジン対策（SEO）に必要な項目の設定をします。</li>
+                      <li class="coment04">例を参考に、お店の名前や取扱う商品から連想するキーワードを元に入力していきましょう。</li>
+                      </ul></td>
+                    <td background="../imgs/com-cr.gif"><img src="../imgs/com-cr.gif" width="5" height="5"></td>
+                  </tr>
+                  <tr>
+                    <td><img src="../imgs/com-bl.gif" width="5" height="5"></td>
+                    <td background="../imgs/com-bc.gif"><img src="../imgs/com-bc.gif" width="5" height="5"></td>
+                    <td><img src="../imgs/com-br.gif" width="5" height="5"></td>
+
+                  </tr>
+                </table>
+                <BR>
+                <TABLE cellSpacing=2 cellPadding=5 width="100%" bgColor=#999999 border=0>
+                  <tr>
+                    <TD width="25%" class="td01">トップページのページタイトル</TD>
+                    <TD width="75%" align="left" bgColor="#ffffff">
+                    <div class="desc">
+                    商品ページタイトルには、お店の名前や取扱商品を表したタイトルを入力しましょう。<br>
+                    ブラウザのタイトルバーと検索エンジンの検索結果に表示されます。
+                    </div>
+                        <INPUT size=70 name="h_title" value="<TMPL_VAR NAME=h_title>">
+                      <table width="100%"  border="0" cellspacing="3" cellpadding="0">
+                        <tr>
+                          <td class="hint01"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td width="20" valign="top">例）</td>
+
+                              <td>新鮮無農薬野菜、果物の産直ショップ　フォーシーズン</td>
+                            </tr>
+                          </table></td>
+                        </tr>
+                      </table></TD>
+                    </TR>
+                <tr>
+                  <TD class="td01">検索キーワード </TD>
+
+                  <TD width="75%" align="left" bgColor="#ffffff">
+                  <div class="desc">
+                  お店や取扱商品に関連する<span class="red">キーワードを半角カンマ(&nbsp;,&nbsp;)</span>で区切って入力します。<br>
+                    検索エンジンで検索されやすいキーワードを1〜5個程度入力しましょう。
+                    </div>
+                    <TEXTAREA name="h_key" rows=5 cols=50><TMPL_VAR NAME=h_key></TEXTAREA>
+                    <BR>
+
+                    <table width="100%"  border="0" cellspacing="3" cellpadding="0">
+                      <tr>
+                        <td class="hint01"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td width="20" valign="top">例）</td>
+                              <td>無農薬野菜,有機栽培果物,フルーツ,通販,産地直送</td>
+                            </tr>
+                          </table></td>
+                      </tr>
+                    </table></TD>
+                </TR>
+                <tr>
+                  <TD class="td01">検索紹介文 </TD>
+                  <TD align="left" bgColor="#ffffff">検索エンジンの検索結果画面で表示されるお店の紹介文を入力します。※80〜100文字程度<BR>
+                    お店の内容が一目でわかる重要な文言を文頭に書くと効果的です。<BR>
+                    <TEXTAREA name="h_desc" rows=5 cols=50><TMPL_VAR NAME=h_desc></TEXTAREA>
+                    <BR>
+                    <table width="100%"  border="0" cellspacing="3" cellpadding="0">
+                      <tr>
+                        <td class="hint01"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td width="20" valign="top">例）</td>
+                              <td>新鮮な無農薬野菜、旬の有機栽培フルーツ（果物）などの安全食材ネット通販なら『産直ショップ　フォーシーズン』独自契約の農家・農園から、旬の食材をご家庭までお届けいたします。</td>
+                            </tr>
+                          </table></td>
+                      </tr>
+                    </table></TD>
+                </TR>
+              </TABLE></TD>
+          </TR>
+          <TR>
+            <TD align=center><hr size=1>
+              <BR>
+              　
+              <INPUT onClick="document.form1.submit();" type=button value=保存して決済・送料の設定へ進む>
+
+				<p style="text-align:center;" class="red">※作業を中断する場合はこのボタンをクリックし次のステップに進んでから画面を閉じてください。<br>
+				次のステップに進むことにより設定が保存されます。</p>
+
+            </TD>
+            </TR>
+        </TABLE></TD>
+      <TD align=middle bgColor=#f26200><IMG src="../imgs/spc.gif"
+  width=3></TD>
+    </TR>
+    <TR>
+      <TD width=801 background=../imgs/we001_bottom.gif colSpan=3 height=79><TABLE width="100%" border=0>
+          <TBODY>
+
+            <TR>
+              <TD width=20><IMG height=25 src="../imgs/spc.gif" width=20></TD>
+              <TD vAlign=bottom><A href="#01"><IMG height=20 src="../imgs/we001_to_top.gif" width=129 border=0></A></TD>
+            </TR>
+
+        </TABLE></TD>
+    </TR>
+
+</TABLE>
+
+<div id="copyright">
+<script type="text/javascript">
+<!--
+var date = new Date();
+var year = date.getYear();
+if(year < 2000) { year += 1900; }
+document.write('Copyright &copy; '+year+' Estore Corporation. All Rights Reserved.');
+//-->
+</script>
+</div>
+
+</form>
+</BODY>
+</HTML>

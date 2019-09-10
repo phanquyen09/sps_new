@@ -1,0 +1,110 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Ｅストアーショップサーブ　ドメイン取得</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="default00.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function openScat(id) {
+		ele = document.getElementById(id+"1");
+		ele.style.display = "block";
+}
+
+function openClose(id,pt,i) {
+		prop = document.getElementById(id).style.display;
+
+//		alert(id+" "+pt+" "+i);
+
+		if(i==0) prop = "none";
+
+		if(prop=="none"){
+				if(pt=="div") document.getElementById(id).style.display="block";
+//						alert("div "+document.getElementById(id).style.display);
+				if(pt=="tr") {
+						if(document.all)	document.getElementById(id).style.display="block";
+						else
+						document.getElementById(id).style.display="table-row";
+//						alert("tr "+document.getElementById(id).style.display);
+				}
+		} else {
+				document.getElementById(id).style.display="none";
+		}
+//		alert(document.getElementById(id).style.display);
+}
+
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+.outbox {
+	padding:5px;
+}
+
+.inbox {
+	padding:3px;
+}
+.inbox1 {	padding:3px;
+}
+.outbox1 {	padding:5px;
+}
+-->
+</style>
+</head>
+<body>
+<a name="top"></a>
+<div style="font-size:80%" align="center">
+  <table width="600"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center"><img src="imgs/domain_navi05.gif" width="590" height="52"></td>
+    </tr>
+    <tr>
+      <td align="left" height="15"><img src="../imgs/spc.gif" width="5" height="5"></td>
+    </tr>
+  </table>
+  <table width="600"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="left" class="outbox"><div class="midashi">申し込み完了</div>
+        <br>
+        <table width="95%" border="0" cellspacing="1" cellpadding="1" align="center">
+                <tr align="left">
+                  <td class="comment_box">ドメイン移転を申し込みいただき、誠にありがとうございます。<br>
+                    以上をもちまして、下記ドメインの移転申し込みは完了しました。<br>
+                    移転完了いたしましたら、メールにてお知らせいたします。<br>
+<TMPL_IF name="IS_COJP">
+                    <font color="#FF0000">※すでに別のco.jpドメインを取得されている場合は取得できません。</font></td>
+</TMPL_IF>
+                    <img src="click_logger.php?type=APLY_DOM" alt="" />
+                </tr>
+        </table>
+        <br>
+		<table width="95%" border="0" cellspacing="1" cellpadding="1" align="center">
+                <tr align="left">
+                  <td align="center" class="domain_box"><strong>ドメイン名　<TMPL_VAR name="DOMAIN"></strong></td>
+                </tr>
+        </table><br>
+
+        <br>
+        <div align="center">
+          <input type="button" value="閉じる" onClick="window.close()">
+        </div>
+        <br>
+        <hr size="1" noshade>          
+        <br>
+      </td>
+    </tr>
+  </table>
+</div>
+</body>
+</html>
