@@ -1,0 +1,655 @@
+<!-- navigation -->
+<div id="navigation">
+  <ul class="navbar">
+    <li class="navbar-01">
+      <a class="text-green" href="../func01/orderlist.php">お店運営</a>
+      <div class="navbar-sub navbar-sub-01">
+        <div class="navbar-box">
+          <div class="navbar-td">
+            <div class="navbar-td-menu">受注処理</div>
+            <div class="navbar-td-text">受注台帳</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-green" href="../func01/orderlist.php"><i class="fa fa-caret-right" aria-hidden="true"></i>受注台帳をみる</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/orderlist.php?check=0"><i class="fa fa-caret-right" aria-hidden="true"></i>未確認をみる</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/orderlist.php?recvst=0"><i class="fa fa-caret-right" aria-hidden="true"></i>未入金をみる</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/orderlist.php?ship0st=1"><i class="fa fa-caret-right" aria-hidden="true"></i>未発送をみる</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/orderlist.php?ship1st=1"><i class="fa fa-caret-right" aria-hidden="true"></i>発送予約をみる</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/orderlist.php?recvst=1"><i class="fa fa-caret-right" aria-hidden="true"></i>入金済をみる</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/orderlist.php?ship2st=1"><i class="fa fa-caret-right" aria-hidden="true"></i>発送済をみる</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-text mt-20">代理注文</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-green" href="../func01/import_order_screen.php" target="_blank"><i class="fa fa-caret-right" aria-hidden="true"></i>注文個別登録</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/import_order_csv.php"><i class="fa fa-caret-right" aria-hidden="true"></i>注文一括登録</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-text mt-20">保存フォルダ</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-green" href="../func01/orderlist.php?folder=1"><i class="fa fa-caret-right" aria-hidden="true"></i>取引完了</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/orderlist.php?folder=2"><i class="fa fa-caret-right" aria-hidden="true"></i>受注キャンセル</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/orderlist.php?folder=3"><i class="fa fa-caret-right" aria-hidden="true"></i>ごみ箱</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-text mt-20 pl-0">
+              <a class="hover:text-green" href="../func01/orderpnt.cgi"><i class="fa fa-caret-right ml-5 mr-5" aria-hidden="true"></i>承認台帳</a>
+            </div>
+          </div>
+          <div class="navbar-td">
+            <div class="navbar-td-menu">申込処理</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-green" {if $isTrialCourseShop == 1}{$trialCourseTagHeader}{else}href="../func01/rp_order_list.php"{/if}><i class="fa fa-caret-right" aria-hidden="true"></i>申込台帳をみる</a>
+              </li>
+              <li>
+                <a class="hover:text-green" {if $isTrialCourseShop == 1}{$trialCourseTagHeader}{else}href="../func01/rp_order_list.php?folder=1"{/if}><i class="fa fa-caret-right" aria-hidden="true"></i>保存フォルダ</a>
+              </li>
+              <li>
+                <a class="hover:text-green" {if $isTrialCourseShop == 1}{$trialCourseTagHeader}{else}href="../func01/rp_order_list.php?folder=3"{/if}><i class="fa fa-caret-right" aria-hidden="true"></i>ごみ箱</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">受注台帳の設定</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-green" href="../func01/orderset.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>受注台帳設定</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/blacklist.php"><i class="fa fa-caret-right" aria-hidden="true"></i>ブラックリスト設定</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/odrmail.php"><i class="fa fa-caret-right" aria-hidden="true"></i>メールのテンプレート</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/odrprint.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>印刷書類のテンプレート</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/odrdata.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>受注データのダウンロード</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/e_receipt_template.php"><i class="fa fa-caret-right" aria-hidden="true"></i>電子領収書のテンプレート</a>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-td">
+            <div class="navbar-td-menu">顧客管理</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-green" href="../func01/clientlist.php"><i class="fa fa-caret-right" aria-hidden="true"></i>顧客台帳</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/reviewlist.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>評価コメント台帳</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/clidata.php"><i class="fa fa-caret-right" aria-hidden="true"></i>顧客データのダウンロード</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">商品管理</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-green" href="../func01/itemlist.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>商品台帳</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/stocklist.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>在庫管理</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/iteminfo.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>商品の新規登録</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/category.php"><i class="fa fa-caret-right" aria-hidden="true"></i>商品カテゴリの管理</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/itemgroup.php"><i class="fa fa-caret-right" aria-hidden="true"></i>商品グループの管理</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/secret_sale_group.php"><i class="fa fa-caret-right" aria-hidden="true"></i>シークレットグループの管理</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/itemoption.php"><i class="fa fa-caret-right" aria-hidden="true"></i>オプションの管理</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/recom_list.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>関連商品設定</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/bundle_list.php"><i class="fa fa-caret-right" aria-hidden="true"></i>まとめ割引設定</a>
+              </li>
+              {if $canRegular == 1}
+              <li>
+                <a class="hover:text-green" href="../func01/regular_combine.php"><i class="fa fa-caret-right" aria-hidden="true"></i>同梱物の設定</a>
+              </li>
+              {/if}
+              <li>
+                <a class="hover:text-green" href="../func01/upcross-sell_list.php"><i class="fa fa-caret-right" aria-hidden="true"></i>アップセル・クロスセル設定</a>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-td">
+            <div class="navbar-td-menu">画像管理</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-green" href="../func01/imagelist.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>画像台帳</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/imageupload.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>画像一括登録</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/imagecategory.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>画像カテゴリの管理</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">一括処理</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-green" href="../func01/gross_processing.php"><i class="fa fa-caret-right" aria-hidden="true"></i>各種一括処理</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">レポート</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-green" href="../func01/acc_report.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>アクセスレポート</a>
+              </li>
+              <li>
+                <a class="hover:text-green" href="../func01/sales_report.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>売上レポート</a>
+              </li>
+              <li>
+                <a class="hover:text-green" {if $isTrialCourseShop == 1}{$trialCourseTagHeader}{else}href="../func01/bil_report_sps.cgi"{/if}><i class="fa fa-caret-right" aria-hidden="true"></i>代金回収レポート</a>
+              </li>
+              <li>
+                <a class="hover:text-green" {if $isTrialCourseShop == 1}{$trialCourseTagHeader}{else}href="../func01/charge_report.cgi"{/if}><i class="fa fa-caret-right" aria-hidden="true"></i>ご利用料金レポート</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">ご利用料金の請求明細</div>
+            <ul class="navbar-td-sub">
+              {if $isTrialCourseShop == 1}
+                <li>
+                  <a class="hover:text-green" {$trialCourseTagHeader}><i class="fa fa-caret-right" aria-hidden="true"></i>請求金額と支払状況の確認</a>
+                </li>
+              {else}
+                <li>
+                  <a class="hover:text-green" onclick="MM_openBrWindow('../func01/acf_report.cgi','acf','scrollbars=yes,resizable=yes,width=800,height=480'); return false;" href="../func01/acf_report.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>請求金額と支払状況の確認</a>
+                </li>
+              {/if}
+            </ul>
+
+            <div class="navbar-td-menu">メール管理</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-green" href="../func01/shopmail.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>メールをみる</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="navbar-02">
+      <a class="text-orange" href="../func02/newitem.php">ページ編集</a>
+      <div class="navbar-sub navbar-sub-02">
+        <div class="navbar-box">
+          <div class="navbar-td">
+            <div class="navbar-td-menu">トップページの編集</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-orange" href="../func02/newitem.php"><i class="fa fa-caret-right" aria-hidden="true"></i>新着商品の入替</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/pickupitem.php"><i class="fa fa-caret-right" aria-hidden="true"></i>おすすめ商品の入替</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/popitem.php"><i class="fa fa-caret-right" aria-hidden="true"></i>人気ランキングの変更</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/infolist.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>お知らせの更新</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/topimg.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>トップイメージの入替</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/keyword_link.php"><i class="fa fa-caret-right" aria-hidden="true"></i>キーワードリンクの設定</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/masterinfo.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>店長紹介の更新</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/calendar.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>定休日カレンダーの更新</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/linklist.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>リンク集の更新</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/freelink.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>リンクの設定</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/freetop.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>センター用フリーエリア</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/freeside.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>サイドバー用フリーエリア</a>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-td">
+            <div class="navbar-td-menu">その他ページの編集</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-orange" href="../func02/itemlist_order.php"><i class="fa fa-caret-right" aria-hidden="true"></i>商品一覧ページの並び順</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">コンテンツの編集</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-orange" href="../func02/htmleditor.php"><i class="fa fa-caret-right" aria-hidden="true"></i>HTMLエディタの設定</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/diary.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>店長日記を書く</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/entry.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>フリーページ作成</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/entry_select.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>フリーページ管理</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/cateblog.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>フリーページのカテゴリ管理</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/comment.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>コメント・トラックバック管理</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/prohibition.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>禁止IP管理</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/enqu_select.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>アンケートフォームの設定</a>
+              </li>
+              <li>
+                <a class="hover:text-orange" href="../func02/rating.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>評価ページの設定</a>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-td">
+            <div class="navbar-td-menu">オプションサービス</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-orange" {if $isTrialCourseShop == 1}{$trialCourseTagHeader}{else}href="../func02/wordpress_conf.php"{/if}><i class="fa fa-caret-right" aria-hidden="true"></i>WordPressの設定</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="navbar-03">
+      <a class="text-blue" href="../func03/payment.cgi">お店設定</a>
+      <div class="navbar-sub navbar-sub-03">
+        <div class="navbar-box">
+          <div class="navbar-td">
+            <div class="navbar-td-menu">お店運用</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-blue" href="../func03/payment.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>決済方法の設定</a>
+              </li>
+              <li>
+                <a class="hover:text-blue" href="../func03/scharge.php"><i class="fa fa-caret-right" aria-hidden="true"></i>送料の設定</a>
+              </li>
+              <li>
+                <a class="hover:text-blue" {if $isTrialCourseShop == 1}{$trialCourseTagHeader}{else}href="../func03/domsw.cgi"{/if}><i class="fa fa-caret-right" aria-hidden="true"></i>URLの設定</a>
+              </li>
+              <li>
+                <a class="hover:text-blue" href="../func03/config_tax.php"><i class="fa fa-caret-right" aria-hidden="true"></i>消費税の設定</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">お店情報</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-blue" href="../func03/m_guidance.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>お店案内の編集</a>
+              </li>
+              <li>
+                <a class="hover:text-blue" href="../func03/s_guidance.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>ご利用案内の編集</a>
+              </li>
+              <li>
+                <a class="hover:text-blue" href="../func03/mailregist.php"><i class="fa fa-caret-right" aria-hidden="true"></i>差出人と署名の一括編集</a>
+              </li>
+              <li>
+                <a class="hover:text-blue" href="../func03/business.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>特定商取引法の表示編集</a>
+              </li>
+              <li>
+                <a class="hover:text-blue" href="../func03/policy.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>個人情報の取り扱いの編集</a>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-td">
+            <div class="navbar-td-menu">ショッピングカート</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-blue" href="../func03/kago-param.php"><i class="fa fa-caret-right" aria-hidden="true"></i>基本設定</a>
+              </li>
+              <li>
+                <a class="hover:text-blue" href="../func03/shop-message.php"><i class="fa fa-caret-right" aria-hidden="true"></i>メッセージの編集</a>
+              </li>
+              <li>
+                <a class="hover:text-blue" href="../func03/deliv_desc.php"><i class="fa fa-caret-right" aria-hidden="true"></i>お届け先設定</a>
+              </li>
+              <li>
+                <a class="hover:text-blue" href="../func03/shop_param.php"><i class="fa fa-caret-right" aria-hidden="true"></i>入力項目設定</a>
+              </li>
+              <li>
+                <a class="hover:text-blue" href="../func03/ordmail-conf.php"><i class="fa fa-caret-right" aria-hidden="true"></i>注文確認メールの設定</a>
+              </li>
+              <li>
+                <a class="hover:text-blue" href="../func03/volume_discount.php"><i class="fa fa-caret-right" aria-hidden="true"></i>高額購入割引の設定</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">会員機能</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-blue" href="../func03/memsystem.php"><i class="fa fa-caret-right" aria-hidden="true"></i>会員機能の設定</a>
+              </li>
+              <li>
+                <a class="hover:text-blue" href="../func03/pointsystem.php"><i class="fa fa-caret-right" aria-hidden="true"></i>ポイント運用設定</a>
+              </li>
+              <li>
+                <a class="hover:text-blue" href="../func03/mypage.php"><i class="fa fa-caret-right" aria-hidden="true"></i>マイページの設定</a>
+              </li>
+              <li>
+                <a class="hover:text-blue" href="../func03/membermail.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>会員への自動送信メール設定</a>
+              </li>
+              <li>
+                <a class="hover:text-blue" href="../func03/rank-info-set.php"><i class="fa fa-caret-right" aria-hidden="true"></i>会員ランクの設定</a>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-td">
+            <div class="navbar-td-menu">Ｅストアーリピート</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-blue" {if $isTrialCourseShop == 1}{$trialCourseTagHeader}{else}href="../func03/regular_setting.php"{/if}><i class="fa fa-caret-right" aria-hidden="true"></i>定期購入・頒布会の設定</a>
+              </li>
+              <li>
+                <a class="hover:text-blue" {if $isTrialCourseShop == 1}{$trialCourseTagHeader}{else}href="../func03/regular_cycle.php"{/if}><i class="fa fa-caret-right" aria-hidden="true"></i>お届けサイクルの設定</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">海外販売</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-blue" href="../func03/overseas_sale.php"><i class="fa fa-caret-right" aria-hidden="true"></i>海外販売の設定</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">コメント設定</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-blue" href="../func03/bcontrol.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>初期設定</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">開店・閉店</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-blue" href="../func03/shop-status.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>開店・閉店の切替</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">ＥストアーＬＰカート</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-blue" {if $isTrialCourseShop == 1}{$trialCourseTagHeader}{else}href="../func03/lp_top.php"{/if}><i class="fa fa-caret-right" aria-hidden="true"></i>ＥストアーＬＰカートの設定</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="navbar-04">
+      <a class="text-purple" href="../func04/theme_sps.cgi">デザイン設定</a>
+      <div class="navbar-sub navbar-sub-04">
+        <div class="navbar-box">
+          <div class="navbar-td">
+            <div class="navbar-td-menu">テーマ</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-purple" href="../func04/theme_sps.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>テーマの選択</a>
+              </li>
+              <li>
+                <a class="hover:text-purple" href="../func04/theme_button_sps.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>ボタンのカスタマイズ</a>
+              </li>
+              <li>
+                <a class="hover:text-purple" href="../func04/theme_custom_sps.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>CSSのカスタマイズ</a>
+              </li>
+              <li>
+                <a class="hover:text-purple" href="../func04/theme_import_sps.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>CSSのインポート</a>
+              </li>
+              <li>
+                <a class="hover:text-purple" href="../func04/newtheme_htmlcustomize.php"><i class="fa fa-caret-right" aria-hidden="true"></i>HTMLのカスタマイズ</a>
+              </li>
+              <li>
+                <a class="hover:text-purple" href="../func04/cart_custom_sps.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>カート専用CSS</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">トップページ</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-purple" href="../func04/topdesign_sps.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>全体のレイアウト</a>
+              </li>
+              <li>
+                <a class="hover:text-purple" href="../func04/headfooter.php"><i class="fa fa-caret-right" aria-hidden="true"></i>ヘッダとＳＥＯの設定</a>
+              </li>
+              <li>
+                <a class="hover:text-purple" href="../func04/newitem_design.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>新着商品のレイアウト</a>
+              </li>
+              <li>
+                <a class="hover:text-purple" href="../func04/recitem_design.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>おすすめ商品のレイアウト</a>
+              </li>
+              <li>
+                <a class="hover:text-purple" href="../func04/popitem_design.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>人気ランキングのレイアウト</a>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-td">
+            <div class="navbar-td-menu">商品一覧・詳細ページ</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-purple" href="../func04/stock_conf.php"><i class="fa fa-caret-right" aria-hidden="true"></i>在庫表示設定</a>
+              </li>
+              <li>
+                <a class="hover:text-purple" href="../func04/itemform_list.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>商品一覧ページ</a>
+              </li>
+              <li>
+                <a class="hover:text-purple" href="../func04/itemform.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>商品詳細ページ</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">その他</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-purple" href="../func04/breadcrumbs.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>パーツ設定</a>
+              </li>
+              <li>
+                <a class="hover:text-purple" href="../func04/formmail.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>問い合わせフォームの設定</a>
+              </li>
+              <li>
+                <a class="hover:text-purple" href="../func04/mailmagpage.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>メルマガ紹介ページ</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="navbar-05">
+      <a class="text-red" href="../func05/mailmag.cgi">集客・運用</a>
+      <div class="navbar-sub navbar-sub-05">
+        <div class="navbar-box">
+          <div class="navbar-td">
+            <div class="navbar-td-menu">メールマガジン</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-red" href="../func05/mailmag.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>メルマガ発行</a>
+              </li>
+              <li>
+                <a class="hover:text-red" href="../func05/mmreader.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>読者管理</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">販売促進</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-red" href="../func05/couponsystem.php"><i class="fa fa-caret-right" aria-hidden="true"></i>クーポン発行</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">Ｅストアーフレンドリンク</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-red" {if $isTrialCourseShop == 1}{$trialCourseTagHeader}{else}href="../func05/my-sales-report.cgi"{/if}><i class="fa fa-caret-right" aria-hidden="true"></i>売上レポート</a>
+              </li>
+              <li>
+                <a class="hover:text-red" {if $isTrialCourseShop == 1}{$trialCourseTagHeader}{else}href="../func05/my-sales-item.cgi"{/if}><i class="fa fa-caret-right" aria-hidden="true"></i>出品管理</a>
+              </li>
+              <li>
+                <a class="hover:text-red" {if $isTrialCourseShop == 1}{$trialCourseTagHeader}{else}href="../func05/my-sales-users.cgi"{/if}><i class="fa fa-caret-right" aria-hidden="true"></i>アフィリエイター管理</a>
+              </li>
+              <li>
+                <a class="hover:text-red" {if $isTrialCourseShop == 1}{$trialCourseTagHeader}{else}href="../func05/my-sales-mail.cgi"{/if}><i class="fa fa-caret-right" aria-hidden="true"></i>アフィリエイターへのメール</a>
+              </li>
+              <li>
+                <a class="hover:text-red" {if $isTrialCourseShop == 1}{$trialCourseTagHeader}{else}href="../func05/my-sales-basic.cgi"{/if}><i class="fa fa-caret-right" aria-hidden="true"></i>初期設定</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">外部アクセス解析ツール</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-red" href="../func05/analysis.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>アクセス集計タグ設定</a>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-td">
+            <div class="navbar-td-menu">PPC・アフィリエイト広告</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-red" href="../func05/conversion.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>コンバージョンタグ設定</a>
+              </li>
+              <li>
+                <a class="hover:text-red" href="../func05/googleps_feed_conf.php"><i class="fa fa-caret-right" aria-hidden="true"></i>広告用データフィードの作成</a>
+              </li>
+              <li>
+                <a class="hover:text-red" href="../func05/remarketing_tag.php"><i class="fa fa-caret-right" aria-hidden="true"></i>リマーケティングタグ設定</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">TradeSafeトラストマーク</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-red" href="../func05/tradesafe.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>TradeSafeトラストマーク設定</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">SNS連携</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-red" href="../func05/googleps_feed_conf.php#instagram"><i class="fa fa-caret-right" aria-hidden="true"></i>Instagram連携設定</a>
+              </li>
+              <li>
+                <a class="hover:text-red" href="../func05/twitter_conf.php"><i class="fa fa-caret-right" aria-hidden="true"></i>Twitter利用設定</a>
+              </li>
+              <li>
+                <a class="hover:text-red" href="../func05/facebook_conf.php"><i class="fa fa-caret-right" aria-hidden="true"></i>Facebook利用設定</a>
+              </li>
+              <li>
+                <a class="hover:text-red" href="../func05/line_conf.php"><i class="fa fa-caret-right" aria-hidden="true"></i>LINE利用設定</a>
+              </li>
+              <li>
+                <a class="hover:text-red" {if $isTrialCourseShop == 1}{$trialCourseTagHeader}{else}href="../func07/connect_statusview.php"{/if}><i class="fa fa-caret-right" aria-hidden="true"></i>Ｅストアーコネクト設定</a>
+              </li>
+            </ul>
+          </div>
+          <div class="navbar-td">
+            <div class="navbar-td-menu">XMLサイトマップ</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-red" href="../func05/sitemap.php"><i class="fa fa-caret-right" aria-hidden="true"></i>XMLサイトマップ設定</a>
+              </li>
+            </ul>
+
+            <div class="navbar-td-menu">有料サービス</div>
+            <div class="navbar-td-text">集客</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-red" href="http://tips.estore.jp/20063#03" target="_blank"><i class="fa fa-caret-right" aria-hidden="true"></i>SEO対策 Google設定代行</a>
+              </li>
+              <li>
+                <a class="hover:text-red" href="http://tips.estore.jp/20033#0" target="_blank"><i class="fa fa-caret-right" aria-hidden="true"></i>リスティング広告代行</a>
+              </li>
+              <li>
+                <a class="hover:text-red" href="https://sps.singlehand.jp/" target="_blank"><i class="fa fa-caret-right" aria-hidden="true"></i>シングルハンド</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </li>
+    <li class="navbar-06">
+      <a class="text-grey" href="../func06/ftp_account.php">サーバー</a>
+      <div class="navbar-sub navbar-sub-06">
+        <div class="navbar-box">
+          <div class="navbar-td">
+            <div class="navbar-td-menu">サーバー</div>
+            <ul class="navbar-td-sub">
+              <li>
+                <a class="hover:text-grey" href="../func06/ftp_account.php"><i class="fa fa-caret-right" aria-hidden="true"></i>FTPアカウント</a>
+              </li>
+              <li>
+                <a class="hover:text-grey" href="../func06/webacc.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>ユーザー認証</a>
+              </li>
+              <li>
+                <a class="hover:text-grey" href="../func06/urllist.php"><i class="fa fa-caret-right" aria-hidden="true"></i>URL一覧</a>
+              </li>
+              <li>
+                <a class="hover:text-grey" href="../func06/acc_logs.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>アクセスログ設定</a>
+              </li>
+              <li>
+                <a class="hover:text-grey" href="../func06/api_use_request.php"><i class="fa fa-caret-right" aria-hidden="true"></i>ショップサーブＡＰＩ</a>
+              </li>
+              <li>
+                <a class="hover:text-grey" href="../func00/applyssl.php?CMD=menu"><i class="fa fa-caret-right" aria-hidden="true"></i>常時SSL設定</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>
+<!-- navigation -->
+
+<span  style="display:none;" id="isVisibleLegacyMobilePage">{$isVisibleLegasyMobilePage}</span>
+<span  style="display:none;" id="isTrialCourseShop">{$isTrialCourseShop}</span>
+<span  style="display:none;" id="canRegular">{$canRegular}</span>
