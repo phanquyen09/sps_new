@@ -1,0 +1,22 @@
+Ｅストアー業務ご担当者様
+
+以下のクレジットカード決済依頼のキャンセルをお願いいたします。
+
+■店舗情報-------------------------------------------------
+キャンセル依頼日：<TMPL_VAR NAME=mail_day>
+ショップID      ：<TMPL_VAR NAME=store_name>
+お名前          ：<TMPL_VAR NAME=client_name>
+電話番号        ：<TMPL_VAR NAME=client_tel>
+メールアドレス  ：<TMPL_VAR NAME=client_mail>
+
+■注文情報-------------------------------------------------
+決済依頼日      ：<TMPL_VAR NAME=irai_date>
+注文日時        ：<TMPL_VAR NAME=order_date>
+注文番号        ：<TMPL_VAR NAME=pub_order_no>
+管理注文番号    ：<TMPL_VAR NAME=order_id>
+合計金額        ：<TMPL_VAR NAME=disp_total>円
+お名前          ：<TMPL_VAR NAME=p_name>
+
+■キャンセル理由-------------------------------------------
+<TMPL_VAR NAME=cancel_reason>
+-----------------------------------------------------------

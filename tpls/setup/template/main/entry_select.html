@@ -1,0 +1,139 @@
+<script language="JavaScript">
+<!--
+function del(f) {
+  if ( confirm("記事を削除します。よろしいですか？") ) {
+    f.submit();
+  } else {
+    return;
+  }
+}
+//-->
+</script>
+<form name="form1" method="post" action="entry_select.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#F39700">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">記事の管理を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/entry_select.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  作成済みのフリーページ、店長日記を編集・管理します。
+                                </div>
+                                <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td><table width="100%" class="item-box">
+                                        <tr align="center">
+                                          <td colspan="2" class="item-name02">記事検索</td>
+                                        </tr>
+
+                                        <tr>
+                                          <td bgcolor="#FFFFFF" class="item-name">タイトル</td>
+                                          <td bgcolor="#FFFFFF" class="list-txt"><input type="text" name="title" value="<TMPL_VAR NAME=title>">
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td bgcolor="#FFFFFF" class="item-name">カテゴリ</td>
+                                          <td bgcolor="#FFFFFF" class="list-txt">
+                                                <select name="category_id">
+                                                <option value="all">カテゴリを選択</option>
+                                                <TMPL_LOOP name=category_list>
+                                                <option value="<TMPL_VAR NAME=category_id>" <TMPL_IF NAME=seltmp>selected</TMPL_IF>><TMPL_VAR NAME=label></option>
+                                                </TMPL_LOOP>
+                                                </select>
+                                          </td>
+                                        </tr>
+                                        <tr align="center" bgcolor="#FFFFFF">
+                                          <td colspan="2"><input type="button" value="以上の条件で検索" onClick="document.form1.submit();">
+                                          </td>
+
+                                        </tr>
+                                      </table>
+                                      <div id="Itemlist" style="display:block"> <br>
+                                          <table width="100%" class="item-box table-padding-default">
+                                            <tr align="center" bgcolor="#FFFFFF">
+                                              <td width="4%">&nbsp;</td>
+<!--
+                                              <td width="4%">モード選択</td>
+-->
+                                              <td width="30%">タイトル</td>
+                                              <td width="16%">カテゴリ</td>
+                                              <td width="10%">表示</td>
+                                              <td width="40%">操作</td>
+                                            </tr>
+
+                                            <TMPL_LOOP NAME=entry_list>
+                                              <tr bgcolor="#FFFFFF">
+                                                <td>
+                                                  <input type="button" onClick="document.form1.mode.value='mod';document.form1.entry_id.value='<TMPL_VAR NAME=entry_id>';document.form1.submit();" value="編集">
+<!--
+                                                  <input type="button" onClick="document.form1.mode.value='mod';document.form1.entry_id.value='<TMPL_VAR NAME=entry_id>';document.form1.editmode.value=document.form1.Edit_<TMPL_VAR NAME=entry_id>[document.form1.Edit_<TMPL_VAR NAME=entry_id>.selectedIndex].value;document.form1.submit();" value="編集">
+-->
+                                                </td>
+<!--
+                                                <td>
+                          <select name="Edit_<TMPL_VAR NAME=entry_id>">
+                            <option value="html">HTML</option>
+                            <option value="text">テキスト</option>
+                          </select>
+                                                </td>
+-->
+                                                <td><TMPL_VAR NAME=entry_title></td>
+                                                <td><TMPL_VAR NAME=category></td>
+                                                <td>
+                                                        <select name="status_<TMPL_VAR name=entry_id>">
+                                                        <TMPL_IF NAME=status>
+                                                        <option value="1" selected>表示</option>
+                                                        <option value="0">非表示</option>
+                                                        <TMPL_ELSE>
+                                                        <option value="1">表示</option>
+                                                        <option value="0" selected>非表示</option>
+                                                        </TMPL_IF>
+                                                        </select>
+                            <input type="button" onClick="document.form1.mode.value='status';document.form1.entry_id.value='<TMPL_VAR NAME=entry_id>';document.form1.submit();" value="変更">
+                                                </td>
+                                                <td>
+                                                <TMPL_IF NAME=tmp_select>
+                                                  <TMPL_IF NAME=top>
+                                                  <input type="button" onClick="document.form1.mode.value='top';document.form1.entry_id.value='<TMPL_VAR name=entry_id>';document.form1.submit();" value="一番上">
+                                                  </TMPL_IF>
+                                                  <input type="button" onClick="document.form1.mode.value='up';document.form1.entry_id.value='<TMPL_VAR name=entry_id>';document.form1.submit();" value="上へ">
+                                                  <input type="button" onClick="document.form1.mode.value='down';document.form1.entry_id.value='<TMPL_VAR name=entry_id>';document.form1.submit();" value="下へ">
+                                                  <TMPL_IF NAME=bottom>
+                                                  <input type="button" onClick="document.form1.mode.value='bottom';document.form1.entry_id.value='<TMPL_VAR name=entry_id>';document.form1.submit();" value="一番下">
+                                                  </TMPL_IF>
+                                                  <br>
+                                                </TMPL_IF>
+                                                  <input type="button" onClick="document.form1.mode.value='del';document.form1.entry_id.value='<TMPL_VAR name=entry_id>';del(document.form1);" value="削除">
+                                                </td>
+                                              </tr>
+                                            </TMPL_LOOP>
+
+                                          </table>
+                                      
+                                      <br>
+                                  </td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+                      </td>
+                    </tr>
+<input type="hidden" name="entry_id">
+<input type="hidden" name="mode" value="">
+<input type="hidden" name="tmp_select" value="<TMPL_VAR NAME=tmp_select>">
+<input type="hidden" name="search_title" value="<TMPL_VAR NAME=search_title>">
+<input type="hidden" name="search_catid" value="<TMPL_VAR NAME=search_catid>">
+<input type="hidden" name="first" value="1">
+<input type="hidden" name="editmode">
+</form>

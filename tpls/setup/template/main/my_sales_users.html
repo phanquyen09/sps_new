@@ -1,0 +1,277 @@
+<script language="javascript">
+<!--
+function changeListnum() {
+        var num = document.ITEMLIST.ListNum.value;
+        document.ITEMLIST.reset();
+        document.ITEMLIST.ListNum.value = num;
+        document.ITEMLIST.PAGE.value='1';
+        document.ITEMLIST.CMD.value = 'SEEK';
+        document.ITEMLIST.submit();
+        document.ITEMLIST.sort.value = '';
+}
+function allreset() {
+        document.ITEMLIST.search_year1.value        = '';
+        document.ITEMLIST.search_month1.value       = '';
+        document.ITEMLIST.search_day1.value         = '';
+        document.ITEMLIST.search_year2.value        = '';
+        document.ITEMLIST.search_month2.value       = '';
+        document.ITEMLIST.search_day2.value         = '';
+        document.ITEMLIST.search_af_user_id.value   = '';
+        document.ITEMLIST.search_sitename.value     = '';
+        document.ITEMLIST.search_af_user_name.value = '';
+        document.ITEMLIST.search_status_n.checked   = false;
+        document.ITEMLIST.search_status_y.checked   = false;
+        document.ITEMLIST.search_status_d.checked   = false;
+}
+function pwdreset() {
+	var i;
+	var flag = new Boolean(document.ITEMLIST.pwd);
+	if (flag == false) return;
+
+	var flag = new Boolean(document.ITEMLIST.pwd[0]);
+
+	if (flag == true) {
+		for(i=0; i<document.ITEMLIST.pwd.length; i++) {
+			document.ITEMLIST.pwd[i].checked = false;
+		}
+	} else {
+		document.ITEMLIST.pwd.checked = false;
+	}
+	return false;
+}
+function sortAffiDate() {
+        document.ITEMLIST.sort.value='affi_date';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+        document.ITEMLIST.submit();
+}
+function sortAffiliate() {
+        document.ITEMLIST.sort.value='affiliate';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+        document.ITEMLIST.submit();
+}
+function sortSiteName() {
+        document.ITEMLIST.sort.value='sitename';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+        document.ITEMLIST.submit();
+}
+function sortAfName() {
+        document.ITEMLIST.sort.value='afname';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+        document.ITEMLIST.submit();
+}
+function sortOrderNum() {
+        document.ITEMLIST.sort.value='order_num';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+        document.ITEMLIST.submit();
+}
+function sortCancelNum() {
+        document.ITEMLIST.sort.value='cancel_num';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+        document.ITEMLIST.submit();
+}
+function sortStatus() {
+        document.ITEMLIST.sort.value='status';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+        document.ITEMLIST.submit();
+}
+// -->
+</script>
+<FORM NAME=ITEMLIST ACTION="my-sales-users.cgi" METHOD=POST>
+<INPUT TYPE=hidden NAME=PAGE value="<TMPL_VAR name=PAGE>">
+<INPUT TYPE=hidden NAME=CMD  value="SEEK">
+<INPUT TYPE=hidden NAME=SITEN_ID  value="<TMPL_VAR name=SITEN_ID>">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+        <tr>
+          <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">アフィリエイターの管理を行います</td>
+    <td align="right" class="midashi"><a href="https://help.shopserve.jp/help/my-sales-users.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+      <div class="infoArea table_bg">
+      登録しているアフィリエイターを管理します。<br>
+      各アフィリエイターの詳細確認、利用中・停止のステータス変更は、「アフィリエイターID」または[詳細]ボタンをクリックして表示される「アフィリエイター詳細画面」で行います。<br>
+      </div>
+
+      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td align = "right" >
+                <span class = "midashi" >
+                    <a href="https://help.shopserve.jp/ctrlpnl_sup/func01/clientlist/privacy_use.html"
+                        target="manual"
+                    >&lt;個人情報を適切に取り扱いましょう&gt;</a></span>
+                </td>
+              </tr>
+              <tr>
+                <td align="right">表示件数
+                  <select name="ListNum" onChange="changeListnum();">
+                    <option value="10" <TMPL_IF LISTNUM10>selected</TMPL_IF>>10</option>
+                    <option value="20" <TMPL_IF LISTNUM20>selected</TMPL_IF>>20</option>
+                    <option value="30" <TMPL_IF LISTNUM30>selected</TMPL_IF>>30</option>
+                    <option value="40" <TMPL_IF LISTNUM40>selected</TMPL_IF>>40</option>
+                    <option value="50" <TMPL_IF LISTNUM50>selected</TMPL_IF>>50</option>
+                  </select>
+<br>
+                  <TMPL_IF NAME=TOTAL_NUM>
+                  <TMPL_VAR name=START_NUM>&nbsp;-&nbsp;<TMPL_VAR name=END_NUM>&nbsp;&nbsp;（&nbsp;全&nbsp;<TMPL_VAR name=TOTAL_NUM>件&nbsp;）
+                  &nbsp;
+                  <TMPL_LOOP name=PAGE_LIST>
+                  <TMPL_VAR name=LINK>
+                  </TMPL_LOOP>
+                  </TMPL_IF>
+                </td>
+              </tr>
+            </table>
+            <table width="100%" cellpadding="3" class="item-box">
+              <tr align="center" bgcolor="#CCCCCC">
+                <td class="odr-midashi">最新注文日&nbsp;<a href="javascript:;sortAffiDate();">▼</a></td>
+                <td class="odr-midashi">アフィリエイターID&nbsp;<a href="javascript:;sortAffiliate();">▼</a></td>
+                <td class="odr-midashi">サイト名&nbsp;<a href="javascript:;sortSiteName();">▼</a></td>
+                <td class="odr-midashi">アフィリエイター名&nbsp;<a href="javascript:;sortAfName();">▼</a></td>
+                <td class="odr-midashi">注文回数&nbsp;<a href="javascript:;sortOrderNum();">▼</a></td>
+                <td class="odr-midashi">取消回数&nbsp;<a href="javascript:;sortCancelNum();">▼</a></td>
+                <td class="odr-midashi">状態&nbsp;<a href="javascript:;sortStatus();">▼</a></td>
+                <td class="odr-midashi">ＩＤ/ＰＷ送信<br>
+
+                  <input type="button" value="クリア" onClick="pwdreset();" style="font-size:10px;width:50px;">
+<input type="button" value="送信" onClick="document.ITEMLIST.submit();" style="font-size:10px;width:50px;"></td>
+                <td class="odr-midashi">詳細</td>
+              </tr>
+
+            <TMPL_LOOP NAME=users>
+              <tr bgcolor="#FFFFFF">
+
+                <td height="30" align="center" class="odr-txt"><TMPL_VAR NAME=last_order></td>
+<td align="center" class="odr-txt"><a href="javascript:;" onClick="MM_openBrWindow('my-sales-detail.cgi?ID=<TMPL_VAR NAME=ID>','detail','scrollbars=yes,resizable=yes,width=800,height=700');"><TMPL_VAR NAME=USER_ID></a></td>
+                <td align="center" class="odr-txt"><a href="<TMPL_VAR NAME=AF_USER_SITE_URL>" target="_blank"><TMPL_VAR NAME=AF_USER_SITE_NAME></a></td>
+                <td align="center" class="odr-txt"><TMPL_VAR NAME=NAME></td>
+                <td align="center" class="odr-txt"><TMPL_VAR NAME=all_count></td>
+                <td align="center" class="odr-txt"><TMPL_VAR NAME=ng_count></td>
+                <td align="center" class="odr-txt"><TMPL_VAR NAME=status></td>
+                <td align="center" class="odr-txt"><span class="item">
+                  <input type="checkbox" name="pwd" value="<TMPL_VAR NAME=ID>">
+                </span></td>
+                <td align="center" class="odr-txt">
+<input type="button" onClick="MM_openBrWindow('my-sales-detail.cgi?ID=<TMPL_VAR NAME=ID>','detail','scrollbars=yes,resizable=yes,width=800,height=700')" value="詳細"></td>
+              </tr>
+            </TMPL_LOOP>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td align="right">
+                <TMPL_IF NAME=TOTAL_NUM>
+                <TMPL_VAR name=START_NUM>&nbsp;-&nbsp;<TMPL_VAR name=END_NUM>&nbsp;&nbsp;（&nbsp;全&nbsp;<TMPL_VAR name=TOTAL_NUM>件&nbsp;）
+                &nbsp;
+                <TMPL_LOOP name=PAGE_LIST>
+                <TMPL_VAR name=LINK>
+                </TMPL_LOOP>
+                </TMPL_IF>
+                </td>
+              </tr>
+            </table>
+<br>
+            <table width="100%" cellpadding="3" class="item-box">
+              <tr align="center">
+                <td colspan="2" class="item-name02">アフィリエイター検索</td>
+              </tr>
+              <tr>
+                <td class="item-name">最新注文日</td>
+                <td bgcolor="#FFFFFF" class="item">
+                  <input name="search_year1" type="text" size="5" value="<TMPL_VAR NAME=search_year1>" style="ime-mode:disabled">
+                  年
+                  <input name="search_month1" type="text" size="3" value="<TMPL_VAR NAME=search_month1>" style="ime-mode:disabled">
+                  月
+                  <input name="search_day1" type="text" size="3" value="<TMPL_VAR NAME=search_day1>" style="ime-mode:disabled">
+                  日 &nbsp;〜&nbsp;
+                  <input name="search_year2" type="text" size="5" value="<TMPL_VAR NAME=search_year2>" style="ime-mode:disabled">
+                  年
+                  <input name="search_month2" type="text" size="3" value="<TMPL_VAR NAME=search_month2>" style="ime-mode:disabled">
+                  月
+                  <input name="search_day2" type="text" size="3" value="<TMPL_VAR NAME=search_day2>" style="ime-mode:disabled">
+                  日
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">アフィリエイターＩＤ</td>
+                <td bgcolor="#FFFFFF" class="item"><input type="text" name="search_af_user_id" value="<TMPL_VAR NAME=search_af_user_id>" style="ime-mode:disabled">
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">サイト名</td>
+                <td bgcolor="#FFFFFF" class="item"><input type="text" name="search_sitename" value="<TMPL_VAR NAME=search_sitename>">
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">アフィリエイター名</td>
+                <td bgcolor="#FFFFFF" class="item"><input type="text" name="search_af_user_name" value="<TMPL_VAR NAME=search_af_user_name>">
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">状態</td>
+                <td bgcolor="#FFFFFF" class="item">
+<input type="checkbox" value="1" name="search_status_n" <TMPL_IF NAME=search_status_n>checked</TMPL_IF>>
+                  販売中　
+<input type="checkbox" value="1" name="search_status_y" <TMPL_IF NAME=search_status_y>checked</TMPL_IF>>
+                    停止中　
+<input type="checkbox" value="1" name="search_status_d" <TMPL_IF NAME=search_status_d>checked</TMPL_IF>>
+                    退会済</td>
+              </tr>
+              <tr align="center" bgcolor="#FFFFFF">
+                <td colspan="2" class="item">
+                  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+<td colspan="3" align="center"><input type="button" value="検索" onClick="document.ITEMLIST.PAGE.value='1';document.ITEMLIST.submit();">&nbsp;
+<input type="button" name="Submit" value="条件をクリア" onClick="allreset();">&nbsp;
+</td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+    </table>
+<br>
+    <table class="item-box">
+      <tr>
+        <td align="center" class="item-name02">CSVダウンロード</td>
+      </tr>
+      <tr>
+        <td align="center" class="item">
+<input type="button" name="Submit" value="ダウンロード" style="font-size:90%; padding-top:3px" onClick="document.ITEMLIST.action='my-sales-users.csv';document.ITEMLIST.submit();document.ITEMLIST.action='my-sales-users.cgi';"></td>
+        </td>
+      </tr>
+    </table>
+  </td>
+  </tr>
+</table>
+<input type="hidden" name="sort" value="<TMPL_VAR NAME=sort>">
+<input type="hidden" name="desc" value="<TMPL_VAR NAME=desc>">
+<input type="hidden" name="CHG" value="">
+</FORM>

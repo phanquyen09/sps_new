@@ -1,0 +1,189 @@
+<!-- 060719用 サブメニューを追加ここから -->
+<!-- 追加スタイルは default05.css に追加 -->
+<style type=text/css>
+<!--
+.m_menu_off {
+	padding:2px;
+	margin:3px;
+}
+.m_menu_on {
+	background-color:#FFCC66;
+	padding:2px;
+	margin:3px;
+}
+-->
+</style>
+
+<table width="100%">
+<tr>
+	<td>
+
+		<div style="padding:10px;background-color:#FFFFFF;text-align:left;line-height:160%">
+
+			<div>以下のメニューより、携帯カートの各種設定を行います。</div>
+			<div style="margin:10px 0">
+				<table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#999999">
+				<tr>
+					<td nowrap bgcolor="#FCC0B0"><span style="font-weight:bold">基本設定 [必須]</span></td>
+					<td bgcolor="#FFFFFF"><span class="m_menu_off"><a href="mob_toppage.cgi">全体の設定</a></span>|<span class="m_menu_off"><a href="mob_topdesign.cgi">トップページの設定</a></span>|<span class="m_menu_on"><a href="mob_shop_use.cgi">開店・閉店の切替</a></span></td>
+				</tr>
+				<tr>
+					<td nowrap bgcolor="#FCC0B0"><span style="font-weight:bold">カスタマイズ</span></td>
+					<td bgcolor="#FFFFFF"><span class="m_menu_off"><a href="mob_info.cgi">お知らせの更新</a></span>|<span class="m_menu_off"><a href="mob_freearea.cgi">フリーエリアの編集</a></span>|<span class="m_menu_off"><a href="mob_s_guidance.cgi">ご利用案内の編集</a></span>|<span class="m_menu_off"><a href="mob_policy.cgi">個人情報の取り扱いの編集</a></span><br>
+					<span class="m_menu_off"><a href="mob_cateblog.cgi">フリーページのカテゴリ管理</a></span>|<span class="m_menu_off"><a href="mob_entry.cgi">フリーページ作成</a></span>|<span class="m_menu_off"><a href="mob_entry_select.cgi">フリーページ管理</a></span>|<span class="m_menu_off"><a href="mob_conversion.php">コンバージョンタグ設定</a></span></td>
+				</tr>
+				<tr>
+					<td nowrap bgcolor="#FCC0B0"><span style="font-weight:bold">携帯用お店ページ</span></td>
+                	<td bgcolor="#FFFFFF"><span class="m_menu_off">http://<TMPL_VAR NAME=DOMAIN>/m/</span></td>
+				</tr>
+				</table>
+			</div>
+			<div style="font-weight:bold">※商品情報に携帯カート用の入力項目が追加されています。「商品台帳」で商品番号をクリックし、確認、編集してください。 <a href="../func01/itemlist.cgi">[ 商品台帳を開く ]</a></div>
+
+		</div>
+	</td>
+</tr>
+</table>
+<div style="border-bottom:1px solid #999;margin:10px 0 10px"></div>
+<!-- 060719用 サブメニューを追加ここまで -->
+
+<form name="form1" method="post" action="mob_shop_use.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+ <tr>
+  <td width="12">
+   <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+    <tr>
+     <td><img src="../imgs/spc.gif"></td>
+    </tr>
+   </table>
+  </td>
+
+  <td align="left" class="midashi">開店閉店の切替</td>
+  <td align="right" class="midashi"><a href="<TMPL_VAR NAME=Manual>func05/mob_shop_use.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+ </tr>
+</table>
+
+<img src="../imgs/spc.gif" width="5" height="5">
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+ <tr>
+  <td align="left" class="main-table">
+   <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+    <tr>
+     <TMPL_VAR NAME=err>
+     <td>
+
+                                  <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                    <tr align="center">
+                                      <td colspan="2" class="item-name02">開店・閉店設定</td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">モード設定</td>
+                                      <td class="item">
+<!--
+<table border="0" cellspacing="0" cellpadding="0">
+                                          <tr>
+                                            <td width="10%"><input name="shop_use" type="radio" value="O" id="use01"<TMPL_IF useO> checked</TMPL_IF>>
+                                            </td>
+                                            <td align="left"><label for="use01">開店にする</label></td>
+                                          </tr>
+                                          <tr>
+                                            <td><input name="shop_use" type="radio" value="C" id="use02"<TMPL_IF useC> checked</TMPL_IF>>
+                                            </td>
+                                            <td align="left"><label for="use02">一時閉店にする</label></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2"><label for="open01">パソコン用のお店ページを開店している場合に有効です。<br>
+※携帯カートを一時閉店にしている場合でも、月額利用料が発生します。</label></td>
+                                          </tr>
+                                      </table>
+-->
+                <div style="line-height:200%">
+                <input name="shop_use" type="radio" value="O" id="shop_use_O"<TMPL_IF useO> checked</TMPL_IF>>
+                <label for="shop_use_O">開店にする</label><br>
+                <input name="shop_use" type="radio" value="C" id="shop_use_C"<TMPL_IF useC> checked</TMPL_IF>>
+                <label for="shop_use_C">一時閉店にする</label>
+                <TMPL_IF updated><img src="../func00/click_logger.php?type=<TMPL_IF useO>OPEN_MOB<TMPL_ELSE>CLOS_MOB</TMPL_IF>" alt="" /></TMPL_IF>
+                </div>
+                <div style="line-height:140%;margin:5px 0 0 3px">
+                パソコン用お店ページを「開店」している場合に有効です。
+                </div>
+              </td>
+             </tr>
+            <tr>
+              <td class="item-name">アクセス制限</td>
+              <td class="item">
+                <div style="line-height:200%">
+                <input name="mob_access" type="radio" value="Y" id="mob_access_Y" <TMPL_IF useY> checked</TMPL_IF>>
+                <label for="mob_access_Y">パソコンからのアクセスを許可する</label><br>
+                <input name="mob_access" type="radio" value="N" id="mob_access_N" <TMPL_IF useN> checked</TMPL_IF>>
+                <label for="mob_access_N">パソコンからのアクセスを許可しない</label>
+                </div>
+                <div style="line-height:140%;margin:5px 0 0 3px">
+                「許可しない」設定にした場合、より正確な販売経路が測定できます。<br>
+                ※携帯カートの各種設定をブラウザで確認する場合は「許可する」設定にしてください。
+                </div>
+
+<!--
+<table border="0" cellspacing="0" cellpadding="0">
+                                          <tr>
+                                            <td width="10%"><input name="mob_access" type="radio" value="Y" id="use01" <TMPL_IF useY> checked</TMPL_IF>>
+                                            </td>
+                                            <td align="left"><label for="use01">パソコンからのアクセスを許可する</label></td>
+                                          </tr>
+                                          <tr>
+                                            <td><input name="mob_access" type="radio" value="N" id="use02" <TMPL_IF useN> checked</TMPL_IF>>
+                                            </td>
+                                            <td align="left"><label for="use02">パソコンからのアクセスを許可しない</label></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2"><label for="open01">「許可しない」設定にした場合、より正確な販売経路が計測できます。<br>
+※各設定画面の[プレビュー]機能を利用する場合は「許可する」設定にしてください。</label></td>
+                                          </tr>
+                                      </table>
+-->
+              </td>
+             </tr>
+
+          <TMPL_IF NAME=MOBILE_USE>
+          <!-- 直販のみ表示-->
+              <tr>
+                <td class="item-name">転送設定</td>
+                <td class="item">
+            <p style="margin:4px 0 5px 4px;">携帯電話からパソコン用お店ページにアクセスされた場合</p>
+            <div style="line-height:200%">
+              <label for="mob_transfer_old">
+                <input name="mob_transfer" type="radio" value="N" id="mob_transfer_old" <TMPL_IF useFree> checked</TMPL_IF>>
+                現在の携帯用お店ページへ転送する
+              </label>
+              <br>
+              <label for="mob_transfer_new">
+                <input name="mob_transfer" type="radio" value="Y" id="mob_transfer_new" <TMPL_IF usePaid> checked</TMPL_IF>>
+                新しい携帯用お店ページへ転送する
+              </label>
+            </div>
+               </td>
+              </tr>
+          </TMPL_IF>
+        </table>
+
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+
+        <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+         <tr>
+          <td align="center" style="padding:10px 10px 10px 10px "><input name="set" type="submit" id="set" value="設定を保存する"></td>
+         </tr>
+        </table>
+
+      </td>
+    </tr>
+  </table>
+  </td>
+ </tr>
+</table>
+<input type="hidden" name="mode" value="regist">
+</form>

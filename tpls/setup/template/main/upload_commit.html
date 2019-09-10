@@ -1,0 +1,60 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+                            <td align="left" class="midashi">アップロード完了</td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                      <td>
+                                        <div class="infoArea table_bg">
+                                              商品情報の変更が完了しました。<br><br>
+                                              <TMPL_IF HAVECOOLFLAGYITEM>
+                                              <font color="red">
+                                              商品データのアップロード中に送料設定が変更されたため、不整合が生じました。<br>
+                                              ショッピングカートでエラーになる可能性があります。<br>
+                                              商品台帳に「クール便」商品が登録されている場合、送料設定画面で「冷凍・冷蔵を区別する」の設定はできません。<br><br>
+
+                                              送料設定画面で「冷凍・冷蔵を区別する」の設定を変更するか<br>
+                                              以下の商品を、冷凍もしくは冷蔵便に更新してください。<br><br><br>
+                                              </font>
+                                            　---該当商品---<br><br>
+                                              <TMPL_LOOP NAME=COOLITEMLIST>
+                                            　・商品番号：<TMPL_VAR NAME=ITEMNO><br>
+                                              </TMPL_LOOP>
+                                            　---<br>
+                                              <br><br><br><br><br><br><br><br>
+                                              </TMPL_IF>
+                                              バリエーションの一括アップロードは、引き続き商品台帳で行います。<br>
+                                              在庫情報の登録は、在庫管理画面で行ってください。<br>
+                                              <a href="./stocklist.cgi">⇒在庫管理</a><br>
+                                        </div>
+                                    	</td></tr>
+                                  </table></td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+                          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td>&nbsp;</td>
+                            </tr>
+                          </table>
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                            <tr>
+                              <td align="center" style="padding:10px 10px 10px 10px ">
+                                <div align="center">
+                                 <input type="button" name="Submit" value="商品一覧へ戻る" onClick="location.href='itemlist.cgi?LastCGI=1'">
+                               </div>
+                              </td>
+                            </tr>
+                          </table>

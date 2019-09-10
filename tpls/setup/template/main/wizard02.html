@@ -1,0 +1,673 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<title>ショップ開店ウィザード -STEP2 お支払い方法・送料を設定しよう-</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link rel="stylesheet" href="../css/wizard.css" type="text/css" />
+<script type="text/javascript" src="../js/base.js"></script>
+<TMPL_VAR NAME=GANALY>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function exMenu(tName)
+{
+	tMenu = document.all[tName].style;
+	if (tMenu.display == 'block') tMenu.display = "none"; else tMenu.display = "block";
+}
+function exLoad() {
+	var tMenu;
+	if (document.form1.BankPmDisp.checked == false) {
+		tMenu = document.all['bank'].style;
+		tMenu.display = 'none';
+	}
+	if (document.form1.CodPmDisp.checked == false) {
+                tMenu = document.all['daibiki'].style;
+		tMenu.display = 'none';
+        }
+        if (document.form1.PostPmDisp.checked == false) {
+                tMenu = document.all['yuubin'].style;
+                tMenu.display = 'none';
+	}
+}
+//-->
+</script>
+</head>
+
+<body onLoad="exLoad();">
+<form name="form1" method="post" action="wizard03.cgi">
+  <a name="01"></a>
+
+  <div id="top-header">
+    <div class="logo-header-wrap">
+      <div class="logo-area">
+        <img src="../imgs/top_img0.gif" alt="Ｅストアーショップサーブ">
+      </div>
+    </div>
+  </div>
+
+  <table class="steps-table-1" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td><img src="../imgs/wi_top_off_001_already.gif"></td>
+      <td><img src="../imgs/wi_top_on_002.gif"></td>
+      <td><img src="../imgs/wi_top_off_003.gif"></td>
+      <td><img src="../imgs/wi_top_off_004.gif"></td>
+      <td><img src="../imgs/wi_top_off_005.gif"></td>
+      <td><img src="../imgs/wi_top_off_006.gif"></td>
+      <td><img src="../imgs/wi_top_off_007.gif"></td>
+    </tr>
+  </table>
+
+  <br>
+  <TABLE cellSpacing=0 cellPadding=0 width=800 align=center border=0>
+    <TR vAlign=top>
+      <TD colSpan=3>
+        <img src="../imgs/we002_top_sps.gif" width="801" height="47">
+      </TD>
+    </TR>
+    <TR>
+      <TD align="center" bgColor=#c1001b><IMG src="../imgs/spc.gif" 
+width=3></TD>
+      <TD align="center"><TABLE cellSpacing=10 cellPadding=0 width=791 bgColor=#ffffff border=0>
+          <TR>
+            <TD><IMG height=34 src="../imgs/we002_01.gif" width=766 style="margin-bottom:20px; ">
+              <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td><img src="../imgs/com-tl.gif" width="5" height="5"></td>
+                  <td background="../imgs/com-tc.gif"><img src="../imgs/com-tc.gif" width="5" height="5"></td>
+                  <td><img src="../imgs/com-tr.gif" width="5" height="5"></td>
+                </tr>
+                <tr>
+                  <td background="../imgs/com-cl.gif"><img src="../imgs/com-cl.gif" width="5" height="5"></td>
+                  <td align="left" class="coment">
+                    <ul class="coment01" type="circle">
+                    <li class="coment03">ショッピングカートに表示する「銀行振込」「代金引換」「郵便振替」の３つのお支払方法を設定します。</li>
+                    <li class="coment04">クレジットカード決済やコンビニ決済などは本ウィザードの完了後に、お申込みと設定ができます。</li>
+                    </ul>
+                  </td>
+                  <td background="../imgs/com-cr.gif"><img src="../imgs/com-cr.gif" width="5" height="5"></td>
+                </tr>
+                <tr>
+                  <td><img src="../imgs/com-bl.gif" width="5" height="5"></td>
+                  <td background="../imgs/com-bc.gif"><img src="../imgs/com-bc.gif" width="5" height="5"></td>
+                  <td><img src="../imgs/com-br.gif" width="5" height="5"></td>
+                </tr>
+              </table>
+              <div style="margin:0.5em 0.5em 1em;color:#222;text-align:left;">
+                  <img src="../imgs/attention.png">&nbsp;利用する決済方法のチェックボックスにチェックを入れてください。決済方法は多いほうが売れやすくなります。
+              </div>
+        <TMPL_IF NAME=err_msg>
+                <br>
+                <table>
+                        <tr>
+                        <TMPL_LOOP NAME=err_msg>
+                        <td  style="text-align:left;"><font size="2" color="#ff0000"><TMPL_VAR NAME=MSG></font></td>
+			</tr><tr>
+                        </TMPL_LOOP>
+                        </tr>
+                </table>
+        </TMPL_IF>
+
+        <TMPL_IF NAME=err_msg_b>
+                <br>
+                <table>
+                        <tr>
+                        <TMPL_LOOP NAME=err_msg_b>
+                        <td style="text-align:left;"><font size="2" color="#ff0000"><TMPL_VAR NAME=MSG></font></td>
+			</tr><tr>
+                        </TMPL_LOOP>
+                        </tr>
+                </table>
+        </TMPL_IF>
+
+              <BR>
+              <TABLE cellSpacing=2 cellPadding=5 width="100%" bgColor=#999999 
+            border=0>
+                <TR>
+                  <TD align=left bgColor=#ffb0bc>
+                    <INPUT onclick="javascript:exMenu('bank')" type=checkbox name="BankPmDisp" value="Y" <TMPL_IF NAME=bankpmdisp>checked</TMPL_IF> id="c1">
+                    <LABEL for="c1">　 <span style="color:#7d0013; font-weight:bold; ">銀行振込</span></LABEL>
+                  </TD>
+                </TR>
+                <TR>
+                  <TD align="right" bgColor=#ffffff><DIV id=bank style="DISPLAY: block">
+                      <TABLE width="95%" border=0 cellpadding="0" cellspacing="0">
+                        <TR align=left>
+                          <TD colSpan=2><STRONG>■金融機関情報</STRONG></TD>
+                        </TR>
+                        <tr>
+                         <td class="desc">購入者にお振込みいただく口座情報を入力します。 </td>
+                        </tr>
+                        <TR>
+                          <TD align="right" width="95%">
+                            <TABLE cellSpacing=0 cellPadding=0 width="95%" border=0>
+
+                              <TR align=left>
+                                <TD width="10%">銀行名</TD>
+                                <TD><INPUT size=50 name="BankName" value="<TMPL_VAR NAME=BankName>">
+                                </TD>
+                                <TD align="right" nowrap class="hint02" width="10">例）</TD>
+                                <TD align="right" class="hint02" width="150">三菱ＵＦＪ銀行</TD>
+                              </TR>
+                              <TR align=left>
+                                <TD>支店名</TD>
+                                <TD><INPUT size=50 name="BranchName" value="<TMPL_VAR NAME=BranchName>">
+                                </TD>
+                                <TD align="right" valign="top" class="hint02">&nbsp;</TD>
+                                <TD align="right" valign="top" class="hint02">新宿支店&nbsp;</TD>
+                              </TR>
+                              <TR align=left>
+                                <TD noWrap>科目</TD>
+                                <TD>
+                                    <input type="radio" name="BankType" value="1" <TMPL_IF BANKTYPE1>checked</TMPL_IF> id="r1"><LABEL for="r1">　 普通　</LABEL>
+                                    <input type="radio" name="BankType" value="2" <TMPL_IF BANKTYPE2>checked</TMPL_IF> id="r2"><LABEL for="r2">　 当座　</LABEL>
+                                </TD>
+                                <TD align="right" valign="top" class="hint02">&nbsp;</TD>
+                                <TD align="right" valign="top" class="hint02">普通</TD>
+                              </TR>
+                              <TR align=left>
+                                <TD noWrap>口座番号</TD>
+                                <TD><INPUT size=50 name="BankAccountNo" value="<TMPL_VAR NAME=BankAccountNo>" style="ime-mode:disabled;">
+                                </TD>
+                                <TD align="right" valign="top" class="hint02">&nbsp;</TD>
+                                <TD align="right" valign="top" class="hint02">0000000</TD>
+                              </TR>
+                              <TR align=left>
+                                <TD>口座名義</TD>
+                                <TD><INPUT size=50 name="BankAccountName" value="<TMPL_VAR NAME=BankAccountName>">
+                                </TD>
+                                <TD align="right" valign="top" class="hint02">&nbsp;</TD>
+                                <TD align="right" valign="top" class="hint02">カ）ヤマダコウギョウ</TD>
+                              </TR>
+                            </TABLE></TD>
+                        </TR>
+                        <TR align=left>
+                          <TD colSpan=2><STRONG>■手数料</STRONG></TD>
+                        </TR>
+                        <tr>
+                         <td class="desc">購入者が代金振込時に発生する振込手数料の、ショッピングカート内での見せ方を設定します。</td>
+                        </tr>
+                        <tr>
+                          <td align="right"><table border="0" cellpadding="0" cellspacing="0" width="95%">
+                              <tbody>
+                              <tr align="left">
+                                <td width="4%" style="height: 2em;">
+                                    <input name="BankPmFee" value="L" <TMPL_IF BankPmFeeL>checked</TMPL_IF> type="radio" id="r11">
+                                </td>
+                                <td width="96%">
+                                    <LABEL for="r11">手数料欄を表示しない</LABEL>
+                                </td>
+                              </tr>
+                              <tr align="left">
+                                <td width="4%" style="height: 2em;">
+                                    <input name="BankPmFee" value="S" type="radio" <TMPL_IF BankPmFeeS>checked</TMPL_IF> id="r22">
+                                </td>
+                                <td width="96%">
+                                    <LABEL for="r22">手数料欄に0円と表示する</LABEL>
+                                </td>
+                              </tr>
+                              <tr align="left">
+                                <td nowrap="nowrap" style="height: 2em;">
+                                    <input name="BankPmFee" value="N" type="radio" id="r33" <TMPL_IF BankPmFeeN>checked</TMPL_IF>>
+                                </td>
+                                <td>
+                                    <LABEL for="r33">手数料の欄に&nbsp;</LABEL><input name="BankPmStr" value="<TMPL_VAR NAME=BankPmStr>">&nbsp;と表示する (※日本語の入力欄です)
+                                </td>
+                              </tr>
+                              
+                            </tbody></table>
+                            </td>
+                        </tr>
+                        <tr>
+                        <TR>
+                          <TD align=left><STRONG>■ご案内</STRONG></TD>
+                        </TR>
+                        <TR>
+                          <TD align=left>ショッピングカートのお支払い方法選択画面に記載される案内文を入力します。 <BR>
+                            <BR>
+                            <TEXTAREA name="BankPmMsg" rows=5 cols=80><TMPL_VAR NAME=BankPmMsg></TEXTAREA>
+                            <table width="100%"  border="0" cellspacing="3" cellpadding="0" class="hint02">
+                              <tr>
+                                <td valign="top" style="padding:3px 3px 3px 3px ">例）</td>
+                                <td style="padding:3px 3px 3px 3px ">振込み確認後、2営業日以内に発送いたします。 おそれいりますが、振込手数料はご負担くださいますようお願いいたします。 </td>
+                              </tr>
+                            </table></TD>
+                        </TR>
+<!-- メール用案内文は、非表示。データを持たせているだけ -->
+                         <TR style="DISPLAY: none">
+                          <TD align=left>購入者様へ送信する各種メールに記載される案内文を入力します。 <BR>
+                            <BR>
+                            <TEXTAREA name="BankPmMsgMail" rows=5 cols=80><TMPL_VAR NAME=BankPmMsgMail></TEXTAREA>
+                            <table width="100%"  border="0" cellspacing="3" cellpadding="0" class="hint02">
+                              <tr>
+                                <td valign="top" style="padding:3px 3px 3px 3px ">例）</td>
+                                <td style="padding:3px 3px 3px 3px ">振込み確認後、2営業日以内に発送いたします。 おそれいりますが、振込手数料はご負担くだ
+さいますようお願いいたします。 </td>
+                              </tr>
+                            </table></TD>
+                        </TR>
+                      </TABLE>
+                    </DIV></TD>
+                </TR>
+              </TABLE>
+        <TMPL_IF NAME=err_msg_c>
+                <br>
+                <table>
+                        <tr>
+                        <TMPL_LOOP NAME=err_msg_c>
+                        <td style="text-align:left;"><font size="2" color="#ff0000"><TMPL_VAR NAME=MSG></font></td>
+			</tr><tr>
+                        </TMPL_LOOP>
+                        </tr>
+                </table>
+        </TMPL_IF>
+
+              <!-- --------------------------------------------------------------------------------------------------------- -->
+              <br>
+              <table bgcolor="#999999" border="0" cellpadding="5" cellspacing="2" width="100%">
+                <tbody><tr>
+                  <td align="left" bgcolor="#ffb0bc"><input onclick="javascript:exMenu('daibiki')" name="CodPmDisp" value="Y" checked="checked" type="checkbox"  id="c11">
+                    <LABEL for="c11">　 <span style="color: rgb(125, 0, 19); font-weight: bold;">代金引換</span></LABEL></td>
+                </tr>
+                <tr>
+                  <td align="right" bgcolor="#ffffff"><div id="daibiki" style="display: block;">
+                      <table border="0" cellpadding="0" cellspacing="0" width="95%" style="margin-top: 1em;">
+                        <tbody><tr align="left">
+                          <td colspan="2"><strong>■手数料</strong></td>
+                        </tr>
+                        <tr>
+                          <td class="desc">購入者が代金引換を利用した際の手数料を設定します。</td>
+                        </tr>
+                        <tr>
+                          <td align="right" width="95%"><table border="0" cellpadding="0" cellspacing="0" width="95%">
+                              <tbody>
+
+                              <tr align="left">
+                                <td nowrap="nowrap" style="height: 2em;">
+                                    <INPUT type=radio name="CodPmFee" value="A" <TMPL_IF NAME=CodPmFeeA>checked</TMPL_IF> id="r111">
+                                </td>
+                                <td colspan="2" style="height: 2em;">
+                                    <LABEL for="r111">手数料は一律&nbsp;<input name="CodPmUniform" type="thint02t" size="10" value="<TMPL_VAR NAME=CodPmUniform>" style="ime-mode:disabled">&nbsp;円で計算する</LABEL>
+                                </td>
+                              </tr>
+                              <tr align="left">
+                                <td nowrap="nowrap" style="height: 2em;">
+                                    <INPUT type=radio name="CodPmFee" value="N" <TMPL_IF NAME=CodPmFeeN>checked</TMPL_IF> id="r222">
+                                </td>
+                                <td colspan="2">
+                                    <LABEL for="r222">手数料の欄に&nbsp;</LABEL><INPUT name="CodPmStr" value="<TMPL_VAR NAME=CodPmStr>">&nbsp;と表示する (※日本語の入力欄です)
+                                </td>
+                              </tr>
+
+                              <tr align="left">
+                                <td nowrap="nowrap" style="height: 2em;">
+                                    <INPUT type=radio name="CodPmFee" value="C" <TMPL_IF NAME=CodPmFeeC>checked</TMPL_IF> id="r333">
+                                </td>
+                                <td colspan="2" style="height: 2em;">
+                                    <LABEL for="r333">手数料の表示設定を指定する</LABEL>
+                                </td>
+                              </tr>
+
+                              <tr align="left">
+                                <td nowrap="nowrap">&nbsp;</td>
+                                <td align="right"><table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                    <tbody><tr>
+                                      <td rowspan="5" style="padding-left: 3em;" align="left"><table border="0" cellpadding="0" cellspacing="0">
+				
+                                        <tbody><tr>
+                                          <td align="left" nowrap="nowrap">
+                                  <SELECT class=form1 name="CodPmFeeTarget">
+                                    <OPTION value="I" <TMPL_IF CodPmFeeTargetI>selected</TMPL_IF>>商品合計</OPTION>
+                                    <OPTION value="S" <TMPL_IF CodPmFeeTargetS>selected</TMPL_IF>>商品合計＋送料</OPTION>
+                                    <OPTION value="T" <TMPL_IF CodPmFeeTargetT>selected</TMPL_IF>>商品合計＋送料＋手数料</OPTION>
+                                  </SELECT>
+                                          </td>
+                                        </tr>
+                <TMPL_LOOP FEELIST>
+                                        <tr>
+                                          <td nowrap="nowrap">
+                                          <input name="CodPmFeePrc<TMPL_VAR NAME=NO>" size="15" value="<TMPL_VAR NAME=CodPmPrc>" style="ime-mode: disabled;" type="text">
+                                          円未満は
+                                          <input name="CodPmFeeFee<TMPL_VAR NAME=NO>" size="15" value="<TMPL_VAR NAME=CodPmFee>" style="ime-mode: disabled;" type="text">
+                                          円
+                                          </td>
+                                        </tr>
+                </TMPL_LOOP>
+                                        <tr>
+                                          <td align="right" nowrap="nowrap"> 上記金額以上は
+                                              <input name="CodPmMaxFee" type="text" size="15" value="<TMPL_VAR NAME=CodPmMaxFee>" style="ime-mode:disabled;">円と表示し、自動計算する。</td>
+                                        </tr>
+                                        <tr>
+                                          <td align="right" nowrap="nowrap" class="desc"> ※金額に半角カンマ( , )は不要 </td>
+                                        </tr>
+                                      </tbody></table> </td>
+                                      <td class="hint02" align="left" nowrap="nowrap" width="10">例）</td>
+                                      <td class="hint02" align="right" width="150">10000円までは200円 </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="hint02" align="right" nowrap="nowrap">&nbsp;</td>
+                                      <td class="hint02" align="right" nowrap="nowrap">20000円までは315円 </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="hint02" align="right">&nbsp;</td>
+                                      <td class="hint02" align="right">50000円までは690円 </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="hint02" align="right">&nbsp;</td>
+                                      <td class="hint02" align="right">上記金額以上は1050円 </td>
+                                    </tr>
+                                    <tr>
+                                      <td align="right" nowrap="nowrap">&nbsp;</td>
+                                      <td align="right" nowrap="nowrap">&nbsp;</td>
+                                    </tr>
+                                  </tbody></table>
+                                  </td>
+                                <td align="right" valign="top"></td>
+                              </tr>
+                            </tbody></table></td>
+                        </tr>
+                        <tr>
+                          <td align="left"><strong>■ご案内</strong></td>
+                        </tr>
+                        <tr>
+                          <td align="left" class="desc">ショッピングカートのお支払い方法選択画面に記載される案内文を入力します。</td>
+                          </tr>
+                          <tr>
+                          <td>
+                            <TEXTAREA name="CodPmMsg" rows=5 cols=80><TMPL_VAR NAME=CodPmMsg></TEXTAREA>
+                            <table class="hint02" border="0" cellpadding="0" cellspacing="3" width="100%">
+                              <tbody><tr>
+                                <td style="padding: 3px;" valign="top">例）</td>
+                                <td style="padding: 3px;">代金引換手数料は一律300円です。商品お届けの際に、運送会社のドライバーにお支払いください。</td>
+                              </tr>
+                            </tbody></table></td>
+                        </tr>
+<!-- メール用案内文は、非表示。データを持たせているだけ -->
+                        <tr style="display: none;">
+                          <td align="left">購入者様へ送信する各種メールに記載される案内文を入力します。<br>
+                            <br>
+                            <TEXTAREA name="CodPmMsgMail" rows=5 cols=80><TMPL_VAR NAME=CodPmMsgMail></TEXTAREA>
+                            <table class="hint02" border="0" cellpadding="0" cellspacing="3" width="100%">
+                              <tbody><tr>
+                                <td style="padding: 3px;" valign="top">例）</td>
+                                <td style="padding: 3px;">代金引換手数料は一律300円です。商品お届けの際に、運送会社のドライバーにお支払いください。</td>
+                              </tr>
+                            </tbody></table></td>
+                        </tr>
+                      </tbody></table>
+                    </div></td>
+                </tr>
+              </tbody></table>
+              <!-- --------------------------------------------------------------------------------------------------------- -->
+
+        <TMPL_IF NAME=err_msg_p>
+                <br>
+                <table>
+                        <tr>
+                        <TMPL_LOOP NAME=err_msg_p>
+                        <td style="text-align:left;"><font size="2" color="#ff0000"><TMPL_VAR NAME=MSG></font></td>
+			</tr><tr>
+                        </TMPL_LOOP>
+                        </tr>
+                </table>
+        </TMPL_IF>
+              <BR>
+              <TABLE cellSpacing=2 cellPadding=5 width="100%" bgColor=#999999 
+            border=0>
+                <TR>
+                  <TD align=left bgColor=#ffb0bc>
+                    <INPUT onclick="javascript:exMenu('yuubin')" type=checkbox name="PostPmDisp" value="Y" <TMPL_IF NAME=postpmdisp>checked</TMPL_IF> id="c3">
+                        <LABEL for="c3">　 <span style="color:#7d0013; font-weight:bold; ">郵便振替</span></LABEL>
+                  </TD>
+                </TR>
+                <TR>
+                  <TD align="right" bgColor=#ffffff><DIV id=yuubin style="DISPLAY: block">
+                      <TABLE width="95%" border=0 cellpadding="0" cellspacing="0">
+                        <TR align=left>
+                          <TD colSpan=2><STRONG>■金融機関情報</STRONG></TD>
+                        </TR>
+                        <tr>
+                        <td class="desc">購入者に払込みいただく口座情報を入力します。</td>
+                        </tr>
+                        <TR>
+                          <TD align="right" width="95%">
+                            <TABLE cellSpacing=0 cellPadding=0 width="95%" border=0>
+                              <TR align=left>
+                                <TD noWrap  width="10%">口座番号</TD>
+                                <TD><INPUT size=50 name="PostAccountNo" value="<TMPL_VAR NAME=PostAccountNo>" style="ime-mode:disabled;">
+                                </TD>
+                                <TD nowrap class="hint02" width="10">例）</TD>
+                                <TD align="right" class="hint02" width="150">00000-0-00000</TD>
+                              </TR>
+                              <TR align=left>
+                                <TD>口座名義</TD>
+                                <TD><INPUT size=50 name="PostAccountName" value="<TMPL_VAR NAME=PostAccountName>">
+                                </TD>
+                                <TD align="right" class="hint02">&nbsp;</TD>
+                                <TD align="right" class="hint02">カ）ヤマダコウギョウ</TD>
+                              </TR>
+                            </TABLE></TD></TR>
+                        <TR align=left>
+                          <TD colSpan=2><STRONG>■手数料</STRONG></TD>
+                        </TR>
+                        <tr>
+                        <td class="desc">購入者が払込み時に発生する払込み手数料の、ショッピングカート内での見せ方を設定します。</td>
+                        </tr>
+                        <TR>
+                          <TD align="right">
+                            <TABLE cellSpacing=0 cellPadding=0 width="95%" border=0>
+                              <TR align=left>
+                                <TD width="25">
+                                    <INPUT type=radio name="PostPmFee" value="S" <TMPL_IF NAME=PostPmFeeS>checked</TMPL_IF> id="r1111">
+                                </TD>
+                                <TD width="652">
+                                    <LABEL for="r1111">手数料は0円</LABEL>
+                                </TD>
+                              </TR>
+                              <TR align=left>
+                                <TD noWrap>
+                                    <INPUT type=radio name="PostPmFee" value="N" <TMPL_IF NAME=PostPmFeeN>checked</TMPL_IF> id="r2222">
+                                </TD>
+                                <TD>
+                                    <LABEL for="r2222">手数料の欄に&nbsp;</LABEL><INPUT name="PostPmStr" value="<TMPL_VAR NAME=PostPmStr>">&nbsp;と表示する
+                                </TD>
+                              </TR>
+                            </TABLE>
+                            <BR></TD>
+                        </TR>
+                        <TR>
+                          <TD align=left><STRONG>■ご案内</STRONG></TD>
+                        </TR>
+                        <TR>
+                          <TD align=left>ショッピングカートのお支払い方法選択画面に記載される案内文を入力します。<BR>
+                            <BR>
+                            <TEXTAREA name="PostPmMsg" rows=5 cols=80><TMPL_VAR NAME=PostPmMsg></TEXTAREA>
+                            <table width="100%"  border="0" cellspacing="3" cellpadding="0" class="hint02">
+                              <tr>
+                                <td valign="top" style="padding:3px 3px 3px 3px ">例）</td>
+                                <td style="padding:3px 3px 3px 3px ">振込み確認後、2営業日以内に発送いたします。 おそれいりますが、振り込み手数料はご負担くださいますようお願いいたします。</td>
+                              </tr>
+                            </table></TD>
+                        </TR>
+<!-- メール用案内文は、非表示。データを持たせているだけ -->
+                        <TR style="DISPLAY: none">
+                          <TD align=left>購入者様へ送信する各種メールに記載される案内文を入力します。<BR>
+                            <BR>
+                            <TEXTAREA name="PostPmMsgMail" rows=5 cols=80><TMPL_VAR NAME=PostPmMsgMail></TEXTAREA>
+                            <table width="100%"  border="0" cellspacing="3" cellpadding="0" class="hint02">
+                              <tr>
+                                <td valign="top" style="padding:3px 3px 3px 3px ">例）</td>
+                                <td style="padding:3px 3px 3px 3px ">振込み確認後、2営業日以内に発送いたします。 おそれいりますが、振り込み手数料はご負担くださいます
+ようお願いいたします。</td>
+                              </tr>
+                            </table></TD>
+                        </TR>
+                      </TABLE>
+                    </DIV></TD>
+                </TR>
+              </TABLE>
+              <BR>
+              <IMG 
+            height=34 src="../imgs/we002_02.gif" width=758 style="margin-bottom:20px; ">
+              <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td><img src="../imgs/com-tl.gif" width="5" height="5"></td>
+                  <td background="../imgs/com-tc.gif"><img src="../imgs/com-tc.gif" width="5" height="5"></td>
+                  <td><img src="../imgs/com-tr.gif" width="5" height="5"></td>
+                </tr>
+                <tr>
+                  <td background="../imgs/com-cl.gif"><img src="../imgs/com-cl.gif" width="5" height="5"></td>
+                  <td class="coment" align="left"><ul class="coment01" type="circle">
+                      <li class="coment03">商品ごとの個別送料、地域別、重量別の送料など、さらに細かい設定は、本ウィザード完了後に設定できます。</li>
+                    </ul></td>
+                  <td background="../imgs/com-cr.gif"><img src="../imgs/com-cr.gif" width="5" height="5"></td>
+                </tr>
+                <tr>
+                  <td><img src="../imgs/com-bl.gif" width="5" height="5"></td>
+                  <td background="../imgs/com-bc.gif"><img src="../imgs/com-bc.gif" width="5" height="5"></td>
+                  <td><img src="../imgs/com-br.gif" width="5" height="5"></td>
+                </tr>
+              </table>
+
+        <TMPL_IF NAME=err_msg_s>
+                <br>
+                <table>
+                        <tr>
+                        <TMPL_LOOP NAME=err_msg_s>
+                        <td style="text-align:left;"><font size="2" color="#ff0000"><TMPL_VAR NAME=MSG></font></td>
+			</tr><tr>
+                        </TMPL_LOOP>
+                        </tr>
+                </table>
+        </TMPL_IF>
+              <BR>
+              <TABLE cellSpacing=2 cellPadding=5 width="100%" bgColor=#999999 
+            border=0>
+                <TR>
+                  <TD align=left bgColor=#ffb0bc><!--<INPUT type=checkbox>-->
+                    　　 <span style="color:#7d0013; font-weight:bold; ">送料設定</span></TD>
+                </TR>
+                <TR>
+                  <TD align="right" bgColor=#ffffff><TABLE cellSpacing=0 cellPadding=0 width="95%" border=0>
+                      <TR align=left>
+                        <TD align="right"><TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                            <TR align=left>
+                              <TD width="5%">
+                                <INPUT type=radio name="ScCalc" value="F" <TMPL_IF NAME=ScCalcF>checked</TMPL_IF> onClick="document.form1.ScDiscount.checked=false;" id="r11111">
+                              </TD>
+                              <TD width="95%">
+                                <LABEL for="r11111">送料無料</LABEL>
+                              </TD>
+                            </TR>
+                            <TR align=left>
+                              <TD width="5%">
+                                <INPUT type=radio name="ScCalc" value="U" <TMPL_IF NAME=ScCalcU>checked</TMPL_IF> onClick="document.form1.ScDiscount.checked=false;" id="r22222">
+                              </TD>
+                              <TD width="95%">
+                                <LABEL for="r22222">全国一律&nbsp;</LABEL><INPUT size=15 name="ScUniform" value="<TMPL_VAR NAME=ScUniform>" style="ime-mode:disabled;">&nbsp;円
+                              </TD>
+                            </TR>
+                            <TR align=left>
+                              <TD width="5%">
+                                <INPUT type=radio name="ScDiscount" value="Y" <TMPL_IF NAME=ScDiscount>checked</TMPL_IF> onClick="document.form1.ScCalc[0].checked=false;document.form1.ScCalc[1].checked=false;" id="r33333">
+                              </TD>
+                              <TD width="95%">
+                                <LABEL for="r33333">商品合計ごとに設定する</LABEL>
+                              </TD>
+			      <input type="hidden" name="ScDiscountType" value="YEN">
+                            </TR>
+                            <TR align=left>
+                              <TD noWrap>&nbsp;</TD>
+                              <TD align="left"><TABLE width="50%" border=0>
+
+				<TMPL_LOOP SCDISCLIST>
+                                        <TR>
+                                          <TD noWrap align=right><FONT size=2>
+                                            <INPUT size=15 name="Prc<TMPL_VAR NAME=NO>" value="<TMPL_VAR NAME=PRC>" style="ime-mode:disabled;">
+                                            円以上は
+                                            <INPUT size=15 name="ScOff<TMPL_VAR NAME=NO>" value="<TMPL_VAR NAME=SCOFF>" style="ime-mode:disabled;">
+                                            円</FONT></TD>
+                                        </TR>
+				</TMPL_LOOP>
+                                  <TR>
+                                    <TD noWrap align=left> ※金額に半角カンマ( , )は不要 </TD>
+                                  </TR>
+
+
+                                        </TABLE></TD>
+                                      <TD align="right" valign="top"><TABLE border=0 width="180">
+                                        <TBODY>
+                                          <TR>
+                                            <TD align=left nowrap class="hint02">例）</TD>
+                                            <TD align=right class="hint02">1円以上は500円 </TD>
+                                          </TR>
+                                          <TR>
+                                            <TD noWrap align=right class="hint02">&nbsp;</TD>
+                                            <TD noWrap align=right class="hint02">10000円以上は0円 </TD>
+                                          </TR>
+                                                                            </TABLE></TD>
+                                    </TR>
+                                  
+                                  </TABLE></TD>
+                              </TR>
+                      <TR align=left>
+                        <TD noWrap colSpan=2 style="padding-top:10px "><STRONG>■ご案内</strong></TD>
+                      </TR>
+                      <TR align=left>
+                        <TD noWrap colSpan=2>お店ページのご利用案内に追加で記載される案内文を入力します。<BR>
+                          <BR>
+			  <textarea name="ScMsg" rows=5 cols=80><TMPL_VAR NAME=ScMsg></textarea>
+                          <table width="100%"  border="0" cellspacing="3" cellpadding="0" class="hint02">
+                            <tr>
+                              <td valign="top" style="padding:3px 3px 3px 3px ">例）</td>
+                              <td style="padding:3px 3px 3px 3px ">離島の場合、別途重量手数料がかかる場合がこざいます。あらかじめご了承ください。</td>
+                            </tr>
+                          </table></TD>
+                      </TR>
+                    </TABLE></TD>
+                </TR>
+              </TABLE></TD>
+          </TR>
+          <TR>
+            <TD align="center"><BR>
+              <HR SIZE=1>
+              <BR>
+              　
+              <INPUT onClick="document.form1.submit();" type="button" value="保存して注文確認メールの設定へ進む">
+
+				<p style="text-align:center;" class="red">※作業を中断する場合はこのボタンをクリックし次のステップに進んでから画面を閉じてください。<br>
+				次のステップに進むことにより設定が保存されます。</p>
+
+            </TD>
+          </TR>
+        </TABLE></TD>
+      <TD align="center" bgColor=#c1001b><IMG src="../imgs/spc.gif" 
+  width=3></TD>
+    </TR>
+    <TR>
+      <TD width=801 background=../imgs/we002_bottom.gif colSpan=3 height=79><TABLE width="100%" border=0>
+          <TR>
+            <TD width=20><IMG height=25 src="../imgs/spc.gif" width=20></TD>
+            <TD vAlign=bottom><A 
+            href="#01"><IMG height=20 
+            src="../imgs/we002_to_top.gif" width=129 
+        border=0></A></TD>
+          </TR>
+        </TABLE></TD>
+    </TR>
+  </TABLE>
+
+<div id="copyright">
+<script type="text/javascript">
+<!--
+var date = new Date();
+var year = date.getYear();
+if(year < 2000) { year += 1900; }
+document.write('Copyright &copy; '+year+' Estore Corporation. All Rights Reserved.');
+//-->
+</script>
+</div>
+
+</form>
+</body>
+</html>

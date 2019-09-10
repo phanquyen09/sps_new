@@ -1,0 +1,51 @@
+<table width="700"  border="0" cellspacing="0" cellpadding="0">
+    <tr>
+	<td>
+	    <div class="midashi">■顧客情報</div>
+	    <br>
+	    <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		    <td><img src="../imgs/com-tl.gif" width="5" height="5"></td>
+		    <td background="../imgs/com-tc.gif"><img src="../imgs/com-tc.gif" width="5" height="5"></td>
+		    <td><img src="../imgs/com-tr.gif" width="5" height="5"></td>
+		</tr>
+		<tr>
+		    <td background="../imgs/com-cl.gif"><img src="../imgs/com-cl.gif" width="5" height="5"></td>
+		    <td class="coment">
+			<ul type="circle" class="coment01">
+			<li class="coment02">新着商品の更新</li>
+			<li class="coment03">新着商品の更新</li>
+			<li class="coment04">新着商品の更新</li>
+			</ul>
+		    </td>
+		    <td background="../imgs/com-cr.gif"><img src="../imgs/com-cr.gif" width="5" height="5"></td>
+		</tr>
+		<tr>
+		    <td><img src="../imgs/com-bl.gif" width="5" height="5"></td>
+		    <td background="../imgs/com-bc.gif"><img src="../imgs/com-bc.gif" width="5" height="5"></td>
+		    <td><img src="../imgs/com-br.gif" width="5" height="5"></td>
+		</tr>
+	    </table>
+	    <br>
+	    <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+		<tr align="center">
+		    <td width="25%" <TMPL_IF SEL1>bgcolor="#FFFFFF"<TMPL_ELSE>class="item-name02"</TMPL_IF>>顧客台帳項目</td>
+		    <td width="25%" <TMPL_IF SEL4>bgcolor="#FFFFFF"<TMPL_ELSE>class="item-name02"</TMPL_IF>>購入履歴</td>
+		    <TMPL_IF MEMID>
+		    <td width="25%" <TMPL_IF SEL2>bgcolor="#FFFFFF"<TMPL_ELSE>class="item-name02"</TMPL_IF>>届け先</td>
+		    <td width="25%" <TMPL_IF SEL3>bgcolor="#FFFFFF"<TMPL_ELSE>class="item-name02"</TMPL_IF>>ポイント</td>
+		    <TMPL_ELSE>
+		    <td width="25%" bgcolor="#777777">届け先</td>
+		    <td width="25%" bgcolor="#777777">ポイント</td>
+		    </TMPL_IF>
+		</tr>
+		<tr>
+		    <td colspan=4 bgcolor="#FFFFFF">
+		    </td>
+		</tr>
+	    </table>
+	    <br>
+	    <a href="#top"><span class="return-top">[▲] トップへ戻る</span></a><br>
+	</td>
+    </tr>
+</table>

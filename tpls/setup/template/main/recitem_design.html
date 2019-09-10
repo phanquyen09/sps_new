@@ -1,0 +1,280 @@
+<form name="form1" method="post" action="recitem_design.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                      <tr>
+                                        <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#856791">
+                                            <tr>
+                                              <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+                                            </tr>
+                                        </table></td>
+
+<td align="left" class="midashi">おすすめ商品のレイアウトを設定します</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/recitem_design.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                                      </tr>
+                                    </table>
+                                      <img src="../imgs/spc.gif" width="5" height="5">
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                          <td align="left" class="main-table">
+                                            <div class="infoArea table_bg">
+                                            お店ページに表示する「おすすめ商品」欄での「見出し」、商品の表示レイアウトを設定します。<br>
+                                            設定後、[設定を保存する]ボタンをクリックし、管理画面左上の[お店ページの更新へ]ボタンをクリックします。<br>
+                                            ※お店ページのサイドバーで表示させる場合は「画像小」のレイアウトを選択してください。<br><br>
+                                            <a href="../func02/pickupitem.cgi">⇒商品の並び順、入れ替え</a><br>
+                                            <a href="./topdesign_sps.cgi">⇒お店ページでの「おすすめ商品」欄の表示位置、表示・非表示の設定</a><br>
+                                             </div>
+                                            <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+					<TMPL_VAR NAME=err>
+                                              <td>
+
+                                              <table class="item-box">
+                                                  <tr>
+                                                    <td align="center" class="item-name02">見出し</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item"><input name="title" type="text" class="def-line" value="<TMPL_VAR NAME=title>">
+                                                    </td>
+                                                  </tr>
+
+                                                </table>
+                                                <br>
+
+                                                <div class="customTemplateInfo1">
+                                                    <a href="http://help.shopserve.jp/ctrlpnl_sup/func04/recitem_design/custom.html" target="_blank">
+                                                        <img src="../imgs/func04_custTempInfo1.png" alt="カスタムテンプレートのご利用について">
+                                                    </a>
+                                                </div>
+
+                                                <table class="item-box">
+                                                  <tr>
+                                                    <td align="center" class="item-name02">レイアウト選択</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td bgcolor="#FFFFFF"><table width="100%" border="0" cellpadding="3" cellspacing="10">
+
+                                                          <tr bgcolor="#CCCCCC">
+                                                            <td colspan="5" class="item-name"><strong>画像の下に説明表示</strong></td>
+                                                          </tr>
+                                                          <tr align="center">
+                                                            <td width="20%" bgcolor="#EFEFEF" class="sub-item02"><label for="top01">画像中×1列<br>
+                                                                  <img src="../imgs/com_btm01.gif" width="110" height="50"><br>
+<input type="radio" name="design" value="1" <TMPL_IF NAME=design1>checked</TMPL_IF>>
+                                                              </label>
+                                                            </td>
+                                                            <td width="20%" bgcolor="#EFEFEF" class="sub-item02"><label for="top02">画像中×2列<br>
+                                                                  <img src="../imgs/com_btm02.gif" width="110" height="50"><br>
+<input type="radio" name="design" value="2" <TMPL_IF NAME=design2>checked</TMPL_IF>>
+                                                              </label>
+                                                            </td>
+                                                            <td width="20%" bgcolor="#EFEFEF" class="sub-item02"><label for="top03">画像中×3列<br>
+                                                                  <img src="../imgs/com_btm03.gif" width="110" height="50"><br>
+<input type="radio" name="design" value="3" <TMPL_IF NAME=design3>checked</TMPL_IF>>
+                                                              </label>
+                                                            </td>
+                                                            <td width="20%" bgcolor="#EFEFEF" class="sub-item02"><label for="top04">画像小×3列<br>
+                                                                  <img src="../imgs/com_btm04.gif" width="110" height="50"><br>
+<input type="radio" name="design" value="4" <TMPL_IF NAME=design4>checked</TMPL_IF>>
+                                                              </label>
+                                                            </td>
+
+                                                            <td width="20%" bgcolor="#EFEFEF" class="sub-item02"><label for="top05">画像小×4列<br>
+                                                                  <img src="../imgs/com_btm05.gif" width="110" height="50"><br>
+<input type="radio" name="design" value="5" <TMPL_IF NAME=design5>checked</TMPL_IF>>
+                                                              </label>
+                                                            </td>
+                                                          </tr>
+                                                        </table>
+                                                        <table width="100%" border="0" cellpadding="3" cellspacing="10">
+
+                                                          <tr bgcolor="#CCCCCC">
+                                                            <td colspan="5" class="item-name"><strong>画像の上に説明表示</strong></td>
+                                                          </tr>
+                                                          <tr align="center">
+                                                            <td width="20%" bgcolor="#EFEFEF" class="sub-item02"><label for="top01">画像中×1列<br>
+                                                                  <img src="../imgs/com_top01.gif" width="110" height="50"><br>
+<input type="radio" name="design" value="6" <TMPL_IF NAME=design6>checked</TMPL_IF>>
+                                                              </label>
+                                                            </td>
+                                                            <td width="20%" bgcolor="#EFEFEF" class="sub-item02"><label for="top02">画像中×2列<br>
+                                                                  <img src="../imgs/com_top02.gif" width="110" height="50"><br>
+<input type="radio" name="design" value="7" <TMPL_IF NAME=design7>checked</TMPL_IF>>
+                                                              </label>
+                                                            </td>
+                                                            <td width="20%" bgcolor="#EFEFEF" class="sub-item02"><label for="top03">画像中×3列<br>
+                                                                  <img src="../imgs/com_top03.gif" width="110" height="50"><br>
+<input type="radio" name="design" value="8" <TMPL_IF NAME=design8>checked</TMPL_IF>>
+                                                              </label>
+                                                            </td>
+                                                            <td width="20%" bgcolor="#EFEFEF" class="sub-item02"><label for="top04">画像小×3列<br>
+                                                                  <img src="../imgs/com_top04.gif" width="110" height="50"><br>
+<input type="radio" name="design" value="9" <TMPL_IF NAME=design9>checked</TMPL_IF>>
+                                                              </label>
+                                                            </td>
+                                                            <td width="20%" bgcolor="#EFEFEF" class="sub-item02"><label for="top05">画像小×4列<br>
+                                                                  <img src="../imgs/com_top05.gif" width="110" height="50"><br>
+<input type="radio" name="design" value="10" <TMPL_IF NAME=design10>checked</TMPL_IF>>
+                                                              </label>
+                                                            </td>
+                                                          </tr>
+                                                        </table>
+                                                        <table width="100%" border="0" cellpadding="3" cellspacing="10">
+                                                          <tr bgcolor="#CCCCCC">
+                                                            <td colspan="5" class="item-name"><strong>画像の左に説明表示</strong></td>
+                                                          </tr>
+                                                          <tr align="center">
+                                                            <td width="20%" bgcolor="#EFEFEF" class="sub-item02"><label for="lft01">画像中×1列<br>
+                                                                  <img src="../imgs/com_lft01.gif" width="110" height="50"><br>
+<input type="radio" name="design" value="11" <TMPL_IF NAME=design11>checked</TMPL_IF>>
+                                                              </label>
+                                                            </td>
+                                                            <td width="20%" bgcolor="#EFEFEF" class="sub-item02"><label for="lft02">画像中×2列<br>
+                                                                  <img src="../imgs/com_lft02.gif" width="110" height="50"><br>
+<input type="radio" name="design" value="12" <TMPL_IF NAME=design12>checked</TMPL_IF>>
+                                                              </label>
+                                                            </td>
+                                                            <td width="20%" bgcolor="#FFFFFF">&nbsp;</td>
+                                                            <td width="20%" bgcolor="#FFFFFF">&nbsp;</td>
+                                                            <td width="20%" bgcolor="#FFFFFF">&nbsp;</td>
+                                                          </tr>
+                                                        </table>
+                                                        <table width="100%" border="0" cellpadding="3" cellspacing="10">
+                                                          <tr bgcolor="#CCCCCC">
+                                                            <td colspan="5" class="item-name"><strong>画像の右に説明表示</strong></td>
+                                                          </tr>
+                                                          <tr align="center">
+
+                                                            <td width="20%" bgcolor="#EFEFEF" class="sub-item02"><label for="rgt01">画像中×1列<br>
+                                                                  <img src="../imgs/com_rgt01.gif" width="110" height="50"><br>
+<input type="radio" name="design" value="13" <TMPL_IF NAME=design13>checked</TMPL_IF>>
+                                                              </label>
+                                                            </td>
+                                                            <td width="20%" bgcolor="#EFEFEF" class="sub-item02"><label for="rgt02">画像中×2列<br>
+                                                                  <img src="../imgs/com_rgt02.gif" width="110" height="50"><br>
+<input type="radio" name="design" value="14" <TMPL_IF NAME=design14>checked</TMPL_IF>>
+                                                              </label>
+                                                            </td>
+                                                            <td width="20%" bgcolor="#FFFFFF">&nbsp;</td>
+                                                            <td width="20%" bgcolor="#FFFFFF">&nbsp;</td>
+                                                            <td width="20%" bgcolor="#FFFFFF">&nbsp;</td>
+                                                          </tr>
+                                                      </table></td>
+                                                  </tr>
+                                                </table>
+
+<!--
+                                                <br>
+                                                <table width="100" class="item-box">
+                                                  <tr>
+                                                    <td align="center" class="item-name02">行数設定</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item">
+                                                        <select name="seq">
+                                                                <option value="1" <TMPL_IF NAME=seq1>selected</TMPL_IF>>1</option>
+                                                                <option value="2" <TMPL_IF NAME=seq2>selected</TMPL_IF>>2</option>
+                                                                <option value="3" <TMPL_IF NAME=seq3>selected</TMPL_IF>>3</option>
+                                                                <option value="4" <TMPL_IF NAME=seq4>selected</TMPL_IF>>4</option>
+                                                                <option value="5" <TMPL_IF NAME=seq5>selected</TMPL_IF>>5</option>
+                                                                <option value="6" <TMPL_IF NAME=seq6>selected</TMPL_IF>>6</option>
+                                                                <option value="7" <TMPL_IF NAME=seq7>selected</TMPL_IF>>7</option>
+                                                                <option value="8" <TMPL_IF NAME=seq8>selected</TMPL_IF>>8</option>
+                                                                <option value="9" <TMPL_IF NAME=seq9>selected</TMPL_IF>>9</option>
+                                                                <option value="10" <TMPL_IF NAME=seq10>selected</TMPL_IF>>10</option>
+                                                        </select>
+      行表示 </td>
+                                                  </tr>
+                                                </table>
+-->
+
+                                                <br>
+
+                                                <table width="100" class="item-box">
+                                                  <tr>
+                                                    <td align="center" class="item-name02">表示項目設定</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item"><input type="checkbox" name="item" value="1" id="item01" <TMPL_IF NAME=item>checked</TMPL_IF>>
+                                                        <label for="item01">商品名</label>
+                                                        <input type="checkbox" name="price" value="1" id="item02" <TMPL_IF NAME=price>checked</TMPL_IF>>
+                                                        <label for="item02">販売価格</label>
+                                                        <input type="checkbox" name="description" value="1" id="item03" <TMPL_IF NAME=description>checked</TMPL_IF>>
+                                                        <label for="item03">商品説明（内部用キャッチコピー）</label>
+                                                    </td>
+                                                  </tr>
+                                                </table>
+                                                <br>
+
+                                                <div align="center">
+                                                  <TMPL_IF NAME=isnewlogic>
+                                                  <input name="pre" type="button" value="プレビュー" onClick="<TMPL_IF NAME=isResponsiveTheme>responsiveTplPreview();<TMPL_ELSE>newtpl_preview();</TMPL_IF>">
+                                                  <TMPL_ELSE>
+                                                  <input name="pre" type="button" value="プレビュー" onClick="document.form1.target='template_preview';document.form1.mode.value='preview';document.form1.submit();">
+                                                  </TMPL_IF>
+                                                  <input name="set" type="button" id="set" value="設定を保存する" onClick="document.form1.mode.value='regist';document.form1.target='_self';document.form1.submit();">
+                                                </div>
+                                              </td>
+                                            </tr>
+                                          </table></td>
+                                        </tr>
+                                      </table>
+<input type="hidden" name="mode" value="regist">
+</form>
+<script type="text/javascript">
+<!--
+function newtpl_preview() {
+  tplPreview('seo');
+}
+
+function responsiveTplPreview()
+{
+  tplPreview('responsive');
+}
+
+function tplPreview(type)
+{
+  // バックアップ
+  var tag = document.form1.target;
+  var act = document.form1.action;
+
+  if (type === 'responsive') {
+    var winOpenScreenHeight = window.innerHeight;
+    var winOpen = window.open("about:blank","template_preview","scrollbars=yes, resizable=yes, width=420, height=" + winOpenScreenHeight);
+  }
+
+  // 表示するテンプレート
+  var tpl = document.createElement('input');
+  tpl.name = 'tpl';
+  tpl.type = 'hidden';
+  tpl.value = 'index.tpl';
+
+  // データ参照先
+  var mode = document.createElement('input');
+  mode.name = 'preview_mode';
+  mode.type = 'hidden';
+  mode.value = 'edit';
+
+  // 呼び元
+  var kanri = document.createElement('input');
+  kanri.name = 'kanri';
+  kanri.type = 'hidden';
+  kanri.value = 'recitem_design';
+
+  document.form1.appendChild(tpl);
+  document.form1.appendChild(mode);
+  document.form1.appendChild(kanri);
+
+  // プレビュー表示
+  document.form1.target = "template_preview";
+  document.form1.method = "post";
+  document.form1.action= "../func100/newtplPreview.php";
+  document.form1.submit();
+
+  // 後始末
+  document.form1.target = tag;
+  document.form1.action = act;
+  document.form1.removeChild(tpl);
+  document.form1.removeChild(mode);
+  document.form1.removeChild(kanri);
+}
+//-->
+</script>

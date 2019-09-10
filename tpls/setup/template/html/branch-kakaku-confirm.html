@@ -1,0 +1,119 @@
+<tr>
+<td align="left" class="item-name">お取り扱いジャンル</td>
+<td align="left" class="item">
+   <TMPL_VAR name="DISP_KAKAKU_CAT">
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name">複数発送</td>
+<td align="left" class="item">
+   <TMPL_VAR name="DISP_MULTI_SEND">
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name">運送業者</td>
+<td align="left" class="item">
+   <TMPL_VAR name="DISP_DELIVERY">
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name">代引き決済の上限金額</td>
+<td align="left" class="item">
+   <TMPL_VAR name="FEEMAX">円以下
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name">ショップ名</td>
+<td align="left" class="item"> 
+<TMPL_VAR name=SITENAME>
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name">ショップ名　(短)
+</td>
+<td align="left" class="item">
+<TMPL_VAR name=SITENAME_SHORT>
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name">店頭販売の有無
+</td>
+<td align="left" class="item">
+<TMPL_IF name=TENTO_FLAG0>
+ネット販売のみ
+<TMPL_ELSE>
+店舗販売あり
+</TMPL_IF>
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name">送料明記URL</td>
+<td align="left" class="item">http://<TMPL_VAR name=SCHARGE_URL>
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name">保証規定URL</td>
+<td align="left" class="item">http://<TMPL_VAR name=HOSHOU_URL>
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name">返品規定URL</td>
+<td align="left" class="item">http://<TMPL_VAR name=HENPIN_URL>
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name">担当者名(フルネーム)</td>
+<td align="left" class="item">
+<TMPL_VAR name=TANTO_NAME>
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name">担当者名ふりがな(フルネーム)</td>
+<td align="left" class="item">
+<TMPL_VAR name=TANTO_NAMEKANA>
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name">担当者電話番号</td>
+<td align="left" class="item">
+<TMPL_VAR name=TEL1>
+-
+<TMPL_VAR name=TEL2>
+-
+<TMPL_VAR name=TEL3>
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name">担当者メールアドレス</td>
+<td align="left" class="item">
+<TMPL_VAR name=TANTO_MAIL>
+</td>
+</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

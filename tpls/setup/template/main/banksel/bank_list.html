@@ -1,0 +1,84 @@
+<link href="css/banksel.css" rel="stylesheet" type="text/css">
+<script language=JavaScript>
+<!--
+function bank(no) {
+  document.form1.CMD.value = 'branch_ini';
+  document.form1.BANK_CODE.value = no;
+  document.form1.submit();
+}
+function back(no) {
+  document.form1.CMD.value = '';
+  document.form1.BANK_CODE.value = '';
+  document.form1.submit();
+}
+//-->
+</script>
+<form name="form1" action="banksel.cgi" method="POST">
+<br>
+<br>
+<div align="center">                
+  <table cellSpacing=0 cellPadding=0 width=530 border=0>
+      <tr>
+        <td>
+        <table cellSpacing=0 cellPadding=0 border=0>
+          <tr>
+                <td width="550">
+                  <img align="left" height=22 src="./imgs/m_ticon.gif" width=14 vspace=7>
+                  <img align="left" height=21 alt="銀行名　選択" hspace=7 src="./imgs/at_041.gif" width=400  vspace=6></td>
+              </tr>
+              <tr>
+                <td>
+                  <img height=1 src="./imgs/m_b_hr.gif" width=550 vspace=2>
+                </td>
+              </tr>
+        </table>
+        </td>
+      </tr>
+  </table>
+  <br>
+<table width=550 border=0 cellPadding=0 cellSpacing=0>
+  <tr>
+    <td align="left" height="20" bgcolor="#ddecfb"><span>
+      <strong>　■銀行を選択してください。</strong></span>
+    </td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+  <td bgcolor="#999999">
+    <table width="100%" border="0">
+      <TMPL_LOOP NAME=BANK_LIST>
+      <TMPL_IF NAME=BANK_LIST_1>
+      <tr align="center" bgcolor="#DDECFB">
+        <td width="33%">
+          <a href="javascript:bank('<TMPL_VAR NAME=BANK_CODE>');"><TMPL_VAR NAME=BANK_NAME></a>
+        </td>
+      </TMPL_IF>
+      <TMPL_IF NAME=BANK_LIST_2>
+        <td width="33%">
+          <a href="javascript:bank('<TMPL_VAR NAME=BANK_CODE>');"><TMPL_VAR NAME=BANK_NAME></a>
+        </td>
+      </TMPL_IF>
+      <TMPL_IF NAME=BANK_LIST_0>
+          <td width="33%">
+          <a href="javascript:bank('<TMPL_VAR NAME=BANK_CODE>');"><TMPL_VAR NAME=BANK_NAME></a>
+          </td>
+      </tr>
+      </TMPL_IF>
+    </TMPL_LOOP>
+    </table>
+  </td>
+</tr>
+</table>
+<br>
+
+<img height=30 src="./imgs/spc.gif" width=5>
+<span>
+<input type="button" value="戻る" onClick="back('')">
+</span></div>
+<input type="hidden" name="CMD" value="">
+<input type="hidden" name="BANK_CODE" value="">
+<input type="hidden" name="BANK_INITIAL" value=<TMPL_VAR NAME=BANK_INITIAL>>
+</form>
+

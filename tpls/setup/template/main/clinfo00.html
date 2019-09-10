@@ -1,0 +1,136 @@
+<form name="CLINFO" method="POST" action="newmem.cgi">
+<input type="hidden" name="CMD" value="ADD">
+<table width="700"  border="0" cellspacing="0" cellpadding="0">
+    <tr>
+	<td>
+	    <div class="midashi">■顧客情報</div>
+	    <br>
+	    <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+		<tr>
+		    <td><img src="../imgs/com-tl.gif" width="5" height="5"></td>
+		    <td background="../imgs/com-tc.gif"><img src="../imgs/com-tc.gif" width="5" height="5"></td>
+		    <td><img src="../imgs/com-tr.gif" width="5" height="5"></td>
+		</tr>
+		<tr>
+		    <td background="../imgs/com-cl.gif"><img src="../imgs/com-cl.gif" width="5" height="5"></td>
+		    <td class="coment">
+			<ul type="circle" class="coment01">
+			<li class="coment02">顧客情報0</li>
+			<li class="coment03">顧客情報0</li>
+			<li class="coment04">顧客情報0</li>
+			</ul>
+		    </td>
+		    <td background="../imgs/com-cr.gif"><img src="../imgs/com-cr.gif" width="5" height="5"></td>
+		</tr>
+		<tr>
+		    <td><img src="../imgs/com-bl.gif" width="5" height="5"></td>
+		    <td background="../imgs/com-bc.gif"><img src="../imgs/com-bc.gif" width="5" height="5"></td>
+		    <td><img src="../imgs/com-br.gif" width="5" height="5"></td>
+		</tr>
+	    </table>
+	    <table border="0" cellpadding="0" cellspacing="0">
+              <tr align=left>
+                <td width="150">会員ID</td>
+                <td width="180"><input type="text" name="Account" value="<TMPL_VAR NAME=ACCOUNT>"></td>
+              </tr>
+              <tr align=left>
+                <td>パスワード</td>
+                <td><input type="text" name="Password" value="<TMPL_VAR NAME=PASSWORD>"></td>
+              </tr>
+              <tr align=left>
+                <td>メールアドレス</td>
+                <td><input type="text" name="Mail" value="<TMPL_VAR NAME=MAIL>"></td>
+              </tr>
+	      <tr align=left>
+		<td colspan=2><hr></td>
+	      </tr>
+              <tr align="left">
+                <td width="150">法人名・団体名</td>
+                <td width="180"><input type="text" name="Company" value="<TMPL_VAR NAME=COMPANY>"></td>
+              </tr>
+              <tr align="left">
+                <td>法人名・団体名（かな）</td>
+                <td><input type="text" name="CompanyK" value="<TMPL_VAR NAME=COMPANYK>"></td>
+              </tr>
+              <tr align="left">
+                <td>部署名</td>
+                <td><input type="text" name="Division" value="<TMPL_VAR NAME=DIVISION>"></td>
+              </tr>
+              <tr align="left">
+                <td>お名前</td>
+                <td><input type="text" name="FName" value="<TMPL_VAR NAME=F_NAME>">&nbsp;<input type="text" name="LName" value="<TMPL_VAR NAME=L_NAME>"></td>
+              </tr>
+              <tr align="left">
+                <td>お名前（かな）</td>
+                <td><input type="text" name="FNameK" value="<TMPL_VAR NAME=F_NAME_K>">&nbsp;<input type="text" name="LNameK" value="<TMPL_VAR NAME=L_NAME_K>"></td>
+              </tr>
+              <tr align="left">
+                <td>郵便番号</td>
+                <td><input type="text" name="Zip01" value="<TMPL_VAR NAME=ZIP01>">&nbsp;-&nbsp;<input type="text" name="Zip02" value="<TMPL_VAR NAME=ZIP02>"></td>
+              </tr>
+              <tr align="left">
+                <td>都道府県</td>
+                <td>
+		    <select name="Pref">
+			<TMPL_LOOP PREF>
+			<option value="<TMPL_VAR NAME=PREF>" <TMPL_IF SEL>selected</TMPL_IF>><TMPL_VAR NAME=PREF></option>
+			</TMPL_LOOP>
+		    </select>
+		</td>
+              </tr>
+              <tr align="left">
+                <td>市区郡</td>
+                <td><input type="text" name="Address01" value="<TMPL_VAR NAME=ADDR02>"></td>
+              </tr>
+              <tr align="left">
+                <td>町村字&nbsp;番地</td>
+                <td><input type="text" name="Address02" value="<TMPL_VAR NAME=ADDR03>"></td>
+              </tr>
+              <tr align="left">
+                <td>アパート名</td>
+                <td><input type="text" name="Address03" value="<TMPL_VAR NAME=ADDR04>"></td>
+              </tr>
+              <tr align="left">
+                <td>お電話番号</td>
+		<td><input type="text" name="Tel01" value="<TMPL_VAR NAME=TEL01>">&nbsp;-&nbsp;
+		    <input type="text" name="Tel02" value="<TMPL_VAR NAME=TEL02>">&nbsp;-&nbsp;
+		    <input type="text" name="Tel03" value="<TMPL_VAR NAME=TEL03>">
+		</td>
+              </tr>
+              <tr align="left">
+                <td>FAX番号</td>
+		<td><input type="text" name="Fax01" value="<TMPL_VAR NAME=FAX01>">&nbsp;-&nbsp;
+		    <input type="text" name="Fax02" value="<TMPL_VAR NAME=FAX02>">&nbsp;-&nbsp;
+		    <input type="text" name="Fax03" value="<TMPL_VAR NAME=FAX03>">
+		</td>
+              </tr>
+              <tr align="left">
+                <td>当店からのお知らせメール</td>
+                <td>
+		  <TMPL_IF NOTICEMAIL> 
+		  <input type="radio" name="NoticeMail" value="Y" checked>購読する
+		  <input type="radio" name="NoticeMail" value="N">購読しない
+		  <TMPL_ELSE>
+		  <input type="radio" name="NoticeMail" value="Y">購読する
+		  <input type="radio" name="NoticeMail" value="N" checked>購読しない
+		  </TMPL_IF>
+                </td>
+              </tr>
+	      <tr>
+		<td class="item-name">アンケート</td>
+		<td class="item">
+		  <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#666666">
+		    <tr>
+		      <td bgcolor="#EEEEEE">お届け希望日を入力してください</td>
+		    </tr>
+		  </table>
+		</td>
+	      </tr>	
+	    </table>
+	</td>
+    </tr>
+</table>
+<div align="center">
+<input type="button" name="NEW" value="追加" onClick="document.CLINFO.submit();">
+</div>
+</form>

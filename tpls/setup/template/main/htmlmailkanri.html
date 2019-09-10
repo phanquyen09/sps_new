@@ -1,0 +1,93 @@
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function cancelmaga(){
+	document.HTMLMAILKANRI.CMD.value="CANCEL";
+	document.HTMLMAILKANRI.submit();
+}
+//-->
+</script>
+<script type="text/javascript" src="/js/jquery/jquery-1.10.2.min.js"></script>
+<script>
+$(function() {
+  $('.outline').css('width', '100%');
+});
+</script>
+
+<form name="DELTEMPLATE" method="POST" action="mailmag.cgi">
+<input type="hidden" name="CMD" value="DELTEMPLATE" />
+<input type="hidden" name="ID" value="" />
+<input type="hidden" name="PAGE_TMPL" value="<TMPL_VAR NAME=CURRENT_PAGE_TMPL>" />
+<input type="hidden" name="ListNumTmpl" value="" />
+</form>
+
+<form name="EDITTEMPLATE" method="POST" action="makemailmag.cgi">
+<input type="hidden" name="MODE" value="TEMPLATE">
+<input type="hidden" name="TMPLID" value="">
+</form>
+
+<form name="VIEWMALMAG" method="POST" action="makemailmag.cgi">
+<input type="hidden" name="MODE" value="VIEW_HIST">
+<input type="hidden" name="ID" value="">
+</form>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+        <tr>
+          <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">HTMLメルマガのご利用状況が確認できます</td>
+    <td align="right" class="midashi"><a href="https://help.shopserve.jp/help/mailmag.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+      <div class="infoArea table_bg">
+      HTMLメルマガのご利用状況の確認および解約手続きが行えます。
+      <br>
+      </div>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td>
+            <form name="HTMLMAILKANRI" method="POST" action="./htmlmail.php">
+            <input type="hidden" name="CMD" value="">
+              <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                <tr>
+                  <td class="item-name">サービス名</td>
+                  <td class="item">HTMLメルマガ</td>
+                </tr>
+                <tr>
+                  <td class="item-name">ご利用状況</td>
+                  <td class="item">
+<TMPL_IF HTML_CANCEL>
+                    <strong><font color="#FF0000">解約予約中</font></strong> <input type="button" value="解約予約をキャンセルする" onclick="htmlCCLCCL();">
+<TMPL_ELSE>
+                    <strong><font color="#FF0000">利用中</font></strong> <input type="button" value="解約手続きへ進む" onclick="cancelmaga();">
+</TMPL_IF>
+                  </td>
+                </tr>
+              </table>
+            </form>
+          </td>
+        </tr>
+      </table>
+      <p style="margin:1.5em 0 0;">
+        <a href="./mailmag.cgi">← メルマガ発行画面へ戻る</a><br>
+      </p>
+    </td>
+  </tr>
+</table>
+<script type="text/javascript">
+<!--
+function htmlCCLCCL() {
+	if(window.confirm('解約予約をキャンセルします。\nよろしいですか？')){
+		location.href='./htmlmail.php?CMD=CANCEL_CANCEL';
+	}
+}
+-->
+</script>
+

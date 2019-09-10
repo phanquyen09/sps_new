@@ -1,0 +1,205 @@
+<script language="JavaScript" type="text/JavaScript">
+<!--
+
+function setTradeSafe() {
+    document.ts_set.submit();
+}
+//-->
+</script>
+
+<form name='ts_set' method='post'  action='tradesafe.cgi' >
+<input type='hidden' name='CMD' value='SEND' >
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<tr>
+<td width="12">
+<table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+<tr>
+<td><img src="../imgs/spc.gif" width="8" height="8"></td>
+</tr>
+</table>
+</td>
+
+<td align="left" class="midashi">TradeSafeトラストマークの設定を行います</td>
+
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/tradesafe.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+</tr>
+</table>
+
+
+<img src="../imgs/spc.gif" width="5" height="5">
+
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td align="left" class="main-table">
+
+<!-- start About TradeSafe -->
+<div class="infoArea table_bg">
+ショッピングサイトに「TradeSafeトラストマーク」を表示することで、信頼性を高めることができ、消費者に安心してご利用いただけます。<br>
+TradeSafeトラストマークの表示は「PC用」のみとなります。
+</div>
+<!-- end About TradeSafe -->
+
+<!-- start Error Message -->
+<TMPL_LOOP NAME=ERR_MSG>
+<font color="#ff0000"><TMPL_VAR NAME=MSG></font><br/>
+</TMPL_LOOP>
+<!-- end Error Message -->
+
+<!-- start Basic TradeSafe Set -->
+      <table class="item-box">
+        <tr>
+          <td colspan="2" align="center" class="item-name02">TradeSafeトラストマークの基本設定</td>
+        </tr>
+        <tr>
+          <td class="item-name" style="width:20%;">TradeSafe会員ID</td>
+          <td class="item"><input class="def-line" name="p_ts_id" type="text" value="<TMPL_VAR NAME=TS_ID>" maxlength="10" style="ime-mode:disabled"></td>
+        </tr>
+        <tr>
+          <td class="item-name" style="width:20%;">表示設定</td>
+          <td class="item">
+              <input name="p_ts_status" type="radio" value=1 id="t-on" <TMPL_IF TS_STATUS_Y>checked</TMPL_IF>>
+              <label for="t-on">表示する</label>
+              <input name="p_ts_status" type="radio" value=0 id="t-off"<TMPL_IF TS_STATUS_N>checked</TMPL_IF>>
+              <label for="t-off">表示しない</label>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" align="center" class="item"><input type="button" name="CMD" value="設定を保存する"  onClick="setTradeSafe()"></td>
+        </tr>
+      </table>
+<br>
+<!-- end Basic TradeSafe Set -->
+
+
+<!-- start TradeSafeURL Set -->
+      <table class="item-box">
+        <tr>
+          <td colspan="2" align="center" class="item-name02">TradeSafeトラストマーク表示用スクリプトタグ</td>
+        </tr>
+      <!-- color -->
+        <tr>
+          <td class="item-name" style="width:20%;">カラー（標準）</td>
+          <td class="item-sub">
+            <table width="100%">
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">SSサイズ</span><br>（80x42）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=COLOR_SS></code></td>
+              </tr>
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">Sサイズ</span><br>（100x52）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=COLOR_S></code></td>
+              </tr>
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">Mサイズ</span><br>（120x62）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=COLOR_M></code></td>
+              </tr>
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">Lサイズ</span><br>（150x78）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=COLOR_L></code></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      <!-- color (framed white line) -->
+        <tr>
+          <td class="item-name" style="width:20%;">カラー（白枠あり）</td>
+          <td class="item-sub">
+            <table width="100%">
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">SSサイズ</span><br>（80x42）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=WCOLOR_SS></code></td>
+              </tr>
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">Sサイズ</span><br>（100x52）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=WCOLOR_S></code></td>
+              </tr>
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">Mサイズ</span><br>（120x62）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=WCOLOR_M></code></td>
+              </tr>
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">Lサイズ</span><br>（150x78）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=WCOLOR_L></code></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      <!-- monotone -->
+        <tr>
+          <td class="item-name" style="width:20%;">モノクロ</td>
+          <td class="item-sub">
+            <table width="100%">
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">SSサイズ</span><br>（80x42）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=MCOLOR_SS></code></td>
+              </tr>
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">Sサイズ</span><br>（100x52）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=MCOLOR_S></code></td>
+              </tr>
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">Mサイズ</span><br>（120x62）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=MCOLOR_M></code></td>
+              </tr>
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">Lサイズ</span><br>（150x78）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=MCOLOR_L></code></td>
+              </tr>
+            </table>
+        </td>
+        </tr>
+      <!-- shadow -->
+        <tr>
+          <td class="item-name" style="width:20%;">影付き</td>
+          <td class="item-sub">
+            <table width="100%">
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">SSサイズ</span><br>（80x42）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=SCOLOR_SS></code></td>
+              </tr>
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">Sサイズ</span><br>（100x52）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=SCOLOR_S></code></td>
+              </tr>
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">Mサイズ</span><br>（120x62）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=SCOLOR_M></code></td>
+              </tr>
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">Lサイズ</span><br>（150x78）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=SCOLOR_L></code></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      <!-- shading -->
+        <tr>
+          <td class="item-name" style="width:20%;">白ぼかし</td>
+          <td class="item-sub">
+            <table width="100%">
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">SSサイズ</span><br>（80x42）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=SDCOLOR_SS></code></td>
+              </tr>
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">Sサイズ</span><br>（100x52）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=SDCOLOR_S></code></td>
+              </tr>
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">Mサイズ</span><br>（120x62）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=SDCOLOR_M></code></td>
+              </tr>
+              <tr>
+                <td class="sub-item-name" style="width:15%;"><span style="font-weight:bold;">Lサイズ</span><br>（150x78）</td>
+                <td class="sub-item" style="width:85%;"><code style="font-size:95%;"><TMPL_VAR NAME=SDCOLOR_L></code></td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+</form>
+<!-- end TradeSafeURL Set -->

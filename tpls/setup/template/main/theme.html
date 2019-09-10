@@ -1,0 +1,1776 @@
+<link href="theme.css" rel="stylesheet" type="text/css"><!-- 2010.08.06 -->
+<!-- Main Contents(START) -->
+<script type="text/javascript">
+<!--
+window.onload=function() {
+  seltab('box', 'tn', 3, <TMPL_VAR NAME=cur_tab>);
+}
+//-->
+</script>
+
+<script type="text/javascript">
+<!--
+function change_tab(type) {
+    document.form1.theme_type.value = type;
+    // タブ移動の時はmodeを空にする
+    document.form1.mode.value = '';
+    document.form1.submit();
+}
+
+function do_download() {
+    document.form1.mode.value = 'download';
+    document.form1.submit();
+}
+//-->
+</script>
+
+    <form name="form1" method="post" action="theme_sps.cgi" id="themes">
+    <input type="hidden" name="mode" value="">
+    <input type="hidden" name="category_code" value="">
+    <input type="hidden" name="theme_code" value="">
+    <input type="hidden" name="layout" value="">
+    <input type="hidden" name="cur_layout" id="cur_layout" value="<TMPL_IF NAME=l>1<TMPL_ELSE>2</TMPL_IF>">
+    <input type="hidden" name="theme_type" value="">
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#fff;border:1px solid #856791;">
+    <tr>
+      <td width="12">
+        <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#856791">
+        <tr>
+          <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+        </tr>
+        </table>
+      </td>
+      <td align="left" class="midashi">お店ページに適用するテーマを選択します</td>
+
+      <td align="right" class="midashi"><a href="https://help.shopserve.jp/help/theme_sps.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+    </tr>
+    </table>
+   <font color="red"><TMPL_VAR NAME=ERR></font>
+
+
+    <TMPL_IF NAME=cart_theme_no_use>
+    <div id="theme_status" class="theme_status04">
+      <table class="shop item-box">
+        <tr>
+          <td class="item-name">お店ページで利用中のテーマ</td>
+          <td class="item"><TMPL_VAR NAME=shop_theme_label></td>
+        </tr>
+      </table>
+      <TMPL_IF NAME=diff_theme>
+      <table class="kanri item-box">
+       <tr>
+         <td class="item-name">管理画面で編集中のテーマ</td>
+         <td class="item"><TMPL_IF NAME=user_category_type><TMPL_VAR NAME=user_category_type> &gt; </TMPL_IF><TMPL_IF NAME=user_category_name><TMPL_VAR NAME=user_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=theme_name></td>
+       </tr>
+      </table>
+      </TMPL_IF>
+   <TMPL_ELSE>
+   <div id="theme_status" class="theme_status04 cart_theme_status">
+        <table class="shop item-box">
+        <tbody><tr>
+            <td class="item-name" <TMPL_IF NAME=cart_theme_label>rowspan="2"</TMPL_IF>>お店ページで利用中の<br>テーマ</td>
+            <td class="item item-category">お店ページ</td>
+            <td class="item"><TMPL_VAR NAME=shop_theme_label></td>
+        </tr>
+        <TMPL_IF NAME=cart_theme_label>
+        <tr>
+            <td class="item item-category">カート</td>
+            <td class="item"><TMPL_VAR NAME=cart_theme_label></td>
+        </tr>
+        </TMPL_IF>
+        </tbody></table>
+    <TMPL_IF NAME=diff_show>
+        <table class="kanri item-box">
+        <tbody>
+        <tr>
+            <td class="item-name" rowspan="2">管理画面で編集中の<br>テーマ</td>
+        <TMPL_IF NAME=diff_theme>
+            <td class="item item-category">お店ページ</td>
+            <td class="item"><TMPL_IF NAME=user_category_type><TMPL_VAR NAME=user_category_type> &gt; </TMPL_IF><TMPL_IF NAME=user_category_name><TMPL_VAR NAME=user_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=theme_name></td>
+        </tr>
+        </TMPL_IF>
+        <TMPL_IF NAME=cart_diff_theme>
+        <tr>
+            <td class="item item-category">カート</td>
+            <td class="item"><TMPL_IF NAME=cart_category_type><TMPL_VAR NAME=cart_category_type> &gt; </TMPL_IF><TMPL_IF NAME=cart_category_name><TMPL_VAR NAME=cart_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=cart_theme_name></td>
+        </tr>
+        </TMPL_IF>
+        </tbody></table>
+    </TMPL_IF>
+    </TMPL_IF>
+    </div>
+
+    <div class="tab_container2">
+        <ul class="clearfix">
+            <li><a href="theme_sps.cgi" onClick="change_tab('seo');return false;">カスタムテンプレート</a></li>
+            <li class="sel"><a href="theme_sps.cgi" onClick="change_tab('normal');return false;">ベーシックテンプレート</a></li>
+        </ul>
+    </div>
+
+    <div class="template_info">
+        <ul>
+            <li>全ての機能が利用できる、デザインの種類が豊富なテンプレートです。</li>
+
+            <li>＜カスタムテンプレートから切り替える場合の注意＞<br>
+            ・HTMLやCSSの構造が異なるためレイアウトが崩れる可能性があります。<br>
+            ・カスタムテンプレートとは仕様や一部の機能が異なります。<br>
+            <a href="https://help.shopserve.jp/manual/198/" target="_blank">⇒ テンプレートの仕様と機能比較</a></li>
+
+            <li>必ず以下の手順をお読みいただいてから作業を行ってください。<br>
+            <a href="https://help.shopserve.jp/manual/192/" target="_blank">⇒ テンプレートの切り替え手順</a></li>
+        </ul>
+    </div>
+
+    <h3>テーマの変更方法</h3>
+    <ul class="step">
+        <li class="step1">下記のテーマ一覧から、お店に反映したいテーマをクリックしてください。</li>
+        <li class="arrow"></li>
+        <li class="step2">ウィンドウが開きますので、案内に従いテーマを選択してください。</li>
+        <li class="arrow"></li>
+        <li class="step3">「お店ページの更新へ」ボタンをクリックし、更新が完了するとお店ページに反映されます。</li>
+    </ul>
+
+    <div class="tab_container">
+      <ul>
+        <li id="tn1"><a href="javascript:seltab('box', 'tn', 10, 1)">標準</a></li>
+        <li id="tn2"><a href="javascript:seltab('box', 'tn', 10, 2)">こだわり</a></li>
+        <li id="tn3"><a href="javascript:seltab('box', 'tn', 10, 3)">その他</a></li>
+      </ul>
+    </div>
+
+    <div id="dialog">
+      <div id="dialog_alpha"></div>
+      <div id="dialog_main">
+        <a href="#close" class="close" onclick="return dlgClose()"></a>
+        <dl class="select">
+
+          <dt>選択したテーマ</dt>
+          <dd>
+            ベーシックテンプレート &gt; <span id="theme_category"></span>
+            &gt;
+            <span id="theme_name"></span>
+          </dd>
+        </dl>
+        <img src="../imgs/spc.gif" width="300" height="280" alt="">
+
+        <ol>
+          <li class="num1">
+            <h5>トップページのレイアウト設定</h5>
+            <input name="layout_code" value="lr" checked="checked" type="radio" id="c3" > <label for="c3">標準（3列）</label><br>
+            <input name="layout_code" value="l" type="radio" id="c2" > <label for="c2">右サイドバーなし（2列）</label><br>
+            <p>「右サイドバーなし」にチェックを入れるとトップページが右サイドバーなしになります。</p>
+          </li>
+          <li class="num2">
+            <a href="#preview" id="previewBtn" class="preview" onclick="return previewTheme(this)">プレビューを見る</a>
+          </li>
+          <li class="num3">
+              <p>全体のレイアウト画面の設定内容をファイルでダウンロードできます。<br>
+              テンプレート切り替え後に戻したい場合に必要となりますので名前を付けて保存してください。</p>
+              <a href="#download" class="download" onclick="return do_download(this)">ダウンロードする</a>
+          </li>
+          <li class="num4">
+            <a href="#select" class="select" onclick="return setTheme(this)">このデザインを選択する</a>
+          </li>
+          <li class="license">
+            テーマ内の画像・写真素材は<br>著作物につき、加工、転用、再配布不可
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <script src="./theme.js" ype="text/javascript"></script>
+
+    <div class="thumbnails" id="box1">
+      <!-- simple -->
+      <h4>シンプル</h4>
+
+      <ul class="thumbnails">
+
+        <li <TMPL_IF NAME=basic><TMPL_IF NAME=colors_white>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=basic  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+            カラー・ホワイト<br>
+            <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/colors_white.gif" width="150" height="140" alt="カラー・ホワイト">
+
+            <TMPL_IF NAME=basic><TMPL_IF NAME=colors_white>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=19simple_format01>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(シンプル)" html="old" onclick="return selectTheme(this)">
+            ホワイト×ピンク<br>
+            <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/19simple_format01.gif" width="150" height="140" alt="ホワイト×ピンク">
+            <TMPL_IF NAME=201012><TMPL_IF NAME=19simple_format01>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=basic><TMPL_IF NAME=basic_gray>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=basic  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          グレー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/basic_gray.gif" width="150" height="140" alt="グレー">
+            <TMPL_IF NAME=basic><TMPL_IF NAME=basic_gray>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=basic><TMPL_IF NAME=colors_gray>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=basic  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          カラー・グレー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/colors_gray.gif" width="150" height="140" alt="カラー・グレー">
+            <TMPL_IF NAME=basic><TMPL_IF NAME=colors_gray>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=26basic_pink>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          ベーシック・ピンク<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/26basic_pink.gif" width="150" height="140" alt="ベーシック・ピンク">
+            <TMPL_IF NAME=201012><TMPL_IF NAME=26basic_pink>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=basic><TMPL_IF NAME=basic_pink>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=basic  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          ピンク<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/basic_pink.gif" width="150" height="140" alt="ピンク">
+            <TMPL_IF NAME=basic><TMPL_IF NAME=basic_pink>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=24simple_format03>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          シンプル・ピンク<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/24simple_format03.gif" width="150" height="140" alt="シンプル・ピンク">
+            <TMPL_IF NAME=201012><TMPL_IF NAME=24simple_format03>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=basic><TMPL_IF NAME=colors_pink>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=basic  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          カラー・ピンク<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/colors_pink.gif" width="150" height="140" alt="カラー・ピンク">
+            <TMPL_IF NAME=basic><TMPL_IF NAME=colors_pink>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=basic><TMPL_IF NAME=basic_red>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=basic  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          レッド<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/basic_red.gif" width="150" height="140" alt="レッド">
+            <TMPL_IF NAME=basic><TMPL_IF NAME=basic_red>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=basic><TMPL_IF NAME=basic_violet>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=basic  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          バイオレット<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/basic_violet.gif" width="150" height="140" alt="バイオレット">
+            <TMPL_IF NAME=basic><TMPL_IF NAME=basic_violet>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=28basic_orange>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          ベーシック・オレンジ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/28basic_orange.gif" width="150" height="140" alt="ベーシック・オレンジ">
+            <TMPL_IF NAME=201012><TMPL_IF NAME=28basic_orange>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=basic><TMPL_IF NAME=basic_orange>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=basic  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          オレンジ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/basic_orange.gif" width="150" height="140" alt="オレンジ">
+            <TMPL_IF NAME=basic><TMPL_IF NAME=basic_orange>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=25basic_green>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          ベーシック・グリーン<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/25basic_green.gif" width="150" height="140" alt="ベーシック・グリーン">
+            <TMPL_IF NAME=201012><TMPL_IF NAME=25basic_green>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=basic><TMPL_IF NAME=basic_green>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=basic  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          グリーン<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/basic_green.gif" width="150" height="140" alt="グリーン">
+            <TMPL_IF NAME=basic><TMPL_IF NAME=basic_green>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=23simple_format02>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          シンプル・グリーン<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/23simple_format02.gif" width="150" height="140" alt="シンプル・グリーン">
+            <TMPL_IF NAME=201012><TMPL_IF NAME=23simple_format02>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=basic><TMPL_IF NAME=colors_beige>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=basic  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          カラー・ベージュ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/colors_beige.gif" width="150" height="140" alt="カラー・ベージュ">
+            <TMPL_IF NAME=basic><TMPL_IF NAME=colors_beige>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=27basic_blue>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          ベーシック・ブルー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/27basic_blue.gif" width="150" height="140" alt="ベーシック・ブルー">
+            <TMPL_IF NAME=201012><TMPL_IF NAME=27basic_blue>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=basic><TMPL_IF NAME=basic_blue>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=basic  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          ブルー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/basic_blue.gif" width="150" height="140" alt="ブルー">
+            <TMPL_IF NAME=basic><TMPL_IF NAME=basic_blue>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=basic><TMPL_IF NAME=colors_blue>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=basic  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          カラー・ブルー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/colors_blue.gif" width="150" height="140" alt="カラー・ブルー">
+            <TMPL_IF NAME=basic><TMPL_IF NAME=colors_blue>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=20simple_format04>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          グレー×ブルー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/20simple_format04.gif" width="150" height="140" alt="グレー×ブルー">
+            <TMPL_IF NAME=201012><TMPL_IF NAME=20simple_format04>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=basic><TMPL_IF NAME=basic_brown>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=basic  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          ブラウン<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/basic_brown.gif" width="150" height="140" alt="ブラウン">
+            <TMPL_IF NAME=basic><TMPL_IF NAME=basic_brown>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=basic><TMPL_IF NAME=colors_brown>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=basic  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          カラー・ブラウン<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/colors_brown.gif" width="150" height="140" alt="カラー・ブラウン">
+            <TMPL_IF NAME=basic><TMPL_IF NAME=colors_brown>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=22simple_format07>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          ブラック×ピンク<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/22simple_format07.gif" width="150" height="140" alt="ブラック×ピンク">
+             <TMPL_IF NAME=201012><TMPL_IF NAME=22simple_format07>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=basic><TMPL_IF NAME=colors_black>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=basic  category_name="標準(シンプル)" onclick="return selectTheme(this)">
+          カラー・ブラック<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/colors_black.gif" width="150" height="140" alt="カラー・ブラック">
+             <TMPL_IF NAME=basic><TMPL_IF NAME=colors_black>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+      </ul>
+
+    <!-- variety-->
+      <h4>バラエティ</h4>
+      <ul class="thumbnails">
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=01smart_colorful>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          カラフルライン<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/01smart_colorful.gif" width="150" height="140" alt="カラフルライン">
+             <TMPL_IF NAME=201012><TMPL_IF NAME=01smart_colorful>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=04pop_colorful>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          カラフルポップ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/04pop_colorful.gif" width="150" height="140" alt="カラフルポップ">
+             <TMPL_IF NAME=201012><TMPL_IF NAME=04pop_colorful>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=21simple_format06>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          レース・ホワイト<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/21simple_format06.gif" width="150" height="140" alt="レース・ホワイト">
+             <TMPL_IF NAME=201012><TMPL_IF NAME=21simple_format06>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=10elegant_mono>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          レース・ベージュ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/10elegant_mono.gif" width="150" height="140" alt="レース・ベージュ">
+             <TMPL_IF NAME=201012><TMPL_IF NAME=10elegant_mono>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=beauty><TMPL_IF NAME=10>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=beauty  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          ホワイトパール<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/10.gif" width="150" height="140" alt="ホワイトパール">
+             <TMPL_IF NAME=beauty><TMPL_IF NAME=10>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=07cute_warm>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          キュートピンク<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/07cute_warm.gif" width="150" height="140" alt="キュートピンク">
+             <TMPL_IF NAME=201012><TMPL_IF NAME=07cute_warm>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=02elegant_warm>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          エレガントピンク<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/02elegant_warm.gif" width="150" height="140" alt="エレガントピンク">
+             <TMPL_IF NAME=201012><TMPL_IF NAME=02elegant_warm>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=18simple_format05>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          ブラウン×ピンク<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/18simple_format05.gif" width="150" height="140" alt="ブラウン×ピンク">
+             <TMPL_IF NAME=201012><TMPL_IF NAME=18simple_format05>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=05chic_colorful>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          ボーダーレッド<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/05chic_colorful.gif" width="150" height="140" alt="ボーダーレッド">
+             <TMPL_IF NAME=201012><TMPL_IF NAME=05chic_colorful>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+
+        <li <TMPL_IF NAME=simple><TMPL_IF NAME=14>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=simple  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          ワインとチーズ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/14.gif" width="150" height="140" alt="ワインとチーズ">
+             <TMPL_IF NAME=simple><TMPL_IF NAME=14>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=beauty><TMPL_IF NAME=05>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=beauty  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          ヨーロピアン<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/05.gif" width="150" height="140" alt="ヨーロピアン">
+             <TMPL_IF NAME=beauty><TMPL_IF NAME=05>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=classic><TMPL_IF NAME=18>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=classic  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          セピア<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/18.gif" width="150" height="140" alt="セピア">
+             <TMPL_IF NAME=classic><TMPL_IF NAME=18>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=08smart_warm>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          ヘンプ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/08smart_warm.gif" width="150" height="140" alt="ヘンプ">
+             <TMPL_IF NAME=201012><TMPL_IF NAME=08smart_warm>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=animal><TMPL_IF NAME=03>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=animal  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          スプリング<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/03.gif" width="150" height="140" alt="スプリング">
+             <TMPL_IF NAME=animal><TMPL_IF NAME=03>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=life><TMPL_IF NAME=24>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=life  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          フルーツバスケット<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/24.gif" width="150" height="140" alt="フルーツバスケット">
+             <TMPL_IF NAME=life><TMPL_IF NAME=24>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=nature><TMPL_IF NAME=m_23>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=nature  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          花市場<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_23.gif" width="150" height="140" alt="花市場">
+             <TMPL_IF NAME=nature><TMPL_IF NAME=m_23>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=11natural_colorful>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          ボーダーイエロー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/11natural_colorful.gif" width="150" height="140" alt="ボーダーイエロー">
+             <TMPL_IF NAME=201012><TMPL_IF NAME=11natural_colorful>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=simple><TMPL_IF NAME=05simple>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=simple  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          暖かい風景<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/05simple.gif" width="150" height="140" alt="暖かい風景">
+             <TMPL_IF NAME=simple><TMPL_IF NAME=05simple>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=simple><TMPL_IF NAME=23>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=simple  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          ベージュ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/23.gif" width="150" height="140" alt="ベージュ">
+             <TMPL_IF NAME=simple><TMPL_IF NAME=23>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=favorite><TMPL_IF NAME=15>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=favorite  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          オータムガーデン<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/15.gif" width="150" height="140" alt="オータムガーデン">
+             <TMPL_IF NAME=favorite><TMPL_IF NAME=15>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=sports><TMPL_IF NAME=04>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=sports  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          スポーツ観戦<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/04.gif" width="150" height="140" alt="スポーツ観戦">
+             <TMPL_IF NAME=sports><TMPL_IF NAME=04>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=favorite><TMPL_IF NAME=01>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=favorite  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          粉挽き<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/01.gif" width="150" height="140" alt="粉挽き">
+             <TMPL_IF NAME=favorite><TMPL_IF NAME=01>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=life><TMPL_IF NAME=21>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=life  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          ほっこり<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/21.gif" width="150" height="140" alt="ほっこり">
+             <TMPL_IF NAME=life><TMPL_IF NAME=21>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=simple><TMPL_IF NAME=01simple>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=simple  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          こもれび<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/01simple.gif" width="150" height="140" alt="こもれび">
+             <TMPL_IF NAME=simple><TMPL_IF NAME=01simple>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+       <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=15natural_cold>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          キュートブルー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/15natural_cold.gif" width="150" height="140" alt="キュートブルー">
+             <TMPL_IF NAME=201012><TMPL_IF NAME=15natural_cold>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=pop><TMPL_IF NAME=06>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=pop  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          ロボット<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/06.gif" width="150" height="140" alt="ロボット">
+             <TMPL_IF NAME=pop><TMPL_IF NAME=06>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=season><TMPL_IF NAME=07>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=season  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          お正月<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/07.gif" width="150" height="140" alt="お正月">
+             <TMPL_IF NAME=season><TMPL_IF NAME=07>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=16chic_cold>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          シックブルー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/16chic_cold.gif" width="150" height="140" alt="シックブルー">
+             <TMPL_IF NAME=201012><TMPL_IF NAME=16chic_cold>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+       <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=favorite><TMPL_IF NAME=m_04>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=favorite  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          ハッピーカラー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_04.gif" width="150" height="140" alt="ハッピーカラー">
+             <TMPL_IF NAME=favorite><TMPL_IF NAME=m_04>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=06elegant_cold>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          エレガントブルー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/06elegant_cold.gif" width="150" height="140" alt="エレガントブルー">
+             <TMPL_IF NAME=201012><TMPL_IF NAME=06elegant_cold>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=13smart_cold>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          スカイブルー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/13smart_cold.gif" width="150" height="140" alt="スカイブルー">
+             <TMPL_IF NAME=201012><TMPL_IF NAME=13smart_cold>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=cool><TMPL_IF NAME=cool01>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=cool  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          リビングルーム<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/cool01.gif" width="150" height="140" alt="リビングルーム">
+             <TMPL_IF NAME=cool><TMPL_IF NAME=cool01>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+       <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=nature><TMPL_IF NAME=temp_05>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=nature  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          誰もいない海<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_05.gif" width="150" height="140" alt="誰もいない海">
+             <TMPL_IF NAME=nature><TMPL_IF NAME=temp_05>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=nature><TMPL_IF NAME=09>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=nature  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          アース<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/09.gif" width="150" height="140" alt="アース">
+             <TMPL_IF NAME=nature><TMPL_IF NAME=09>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=03chic_warm>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          クラシック<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/03chic_warm.gif" width="150" height="140" alt="クラシック">
+             <TMPL_IF NAME=201012><TMPL_IF NAME=03chic_warm>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=12natural_warm>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          ファブリック<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/12natural_warm.gif" width="150" height="140" alt="ファブリック">
+             <TMPL_IF NAME=201012><TMPL_IF NAME=12natural_warm>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+       <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=cool><TMPL_IF NAME=20>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=cool  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          パーティー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/20.gif" width="150" height="140" alt="パーティー">
+             <TMPL_IF NAME=cool><TMPL_IF NAME=current_theme>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=favorite><TMPL_IF NAME=25>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=favorite  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          楽器<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/25.gif" width="150" height="140" alt="楽器">
+             <TMPL_IF NAME=favorite><TMPL_IF NAME=25>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=season><TMPL_IF NAME=19>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=season  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          避暑<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/19.gif" width="150" height="140" alt="避暑">
+             <TMPL_IF NAME=season><TMPL_IF NAME=19>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=09cool_cold>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="標準(バラエティ)" onclick="return selectTheme(this)">
+          クールブラック<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/09cool_cold.gif" width="150" height="140" alt="クールブラック">
+             <TMPL_IF NAME=201012><TMPL_IF NAME=09cool_cold>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+       <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+      </ul>
+    </div>
+
+
+
+    <!-- kodawari-->
+    <div class="thumbnails" id="box2">
+     <ul class="thumbnails">
+        <li <TMPL_IF NAME=life><TMPL_IF NAME=22>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=life  category_name="こだわり" onclick="return selectTheme(this)">
+          朝の食卓<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/22.gif" width="150" height="140" alt="朝の食卓">
+            <TMPL_IF NAME=life><TMPL_IF NAME=22>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=nature><TMPL_IF NAME=m_19>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=nature  category_name="こだわり" onclick="return selectTheme(this)">
+          ナチュラルウォーター<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_19.gif" width="150" height="140" alt="ナチュラルウォーター">
+            <TMPL_IF NAME=nature><TMPL_IF NAME=m_19>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=life><TMPL_IF NAME=02life>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=life  category_name="こだわり" onclick="return selectTheme(this)">
+          冬の森<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/02life.gif" width="150" height="140" alt="冬の森">
+            <TMPL_IF NAME=life><TMPL_IF NAME=02life>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=beauty><TMPL_IF NAME=m_12>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=beauty  category_name="こだわり" onclick="return selectTheme(this)">
+          バスタイム<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_12.gif" width="150" height="140" alt="バスタイム">
+            <TMPL_IF NAME=beauty><TMPL_IF NAME=m_12>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=season><TMPL_IF NAME=03season>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=season  category_name="こだわり" onclick="return selectTheme(this)">
+          桜<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/03season.gif" width="150" height="140" alt="桜">
+            <TMPL_IF NAME=season><TMPL_IF NAME=03season>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=beauty><TMPL_IF NAME=m_32>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=beauty  category_name="こだわり" onclick="return selectTheme(this)">
+          オーキッドルージュ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_32.gif" width="150" height="140" alt="オーキッドルージュ">
+            <TMPL_IF NAME=beauty><TMPL_IF NAME=m_32>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=season><TMPL_IF NAME=season01>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=season  category_name="こだわり" onclick="return selectTheme(this)">
+          春景色<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/season01.gif" width="150" height="140" alt="春景色">
+            <TMPL_IF NAME=season><TMPL_IF NAME=season01>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=life><TMPL_IF NAME=temp_15>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=life  category_name="こだわり" onclick="return selectTheme(this)">
+          シルエット<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_15.gif" width="150" height="140" alt="シルエット">
+            <TMPL_IF NAME=life><TMPL_IF NAME=temp_15>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=pop><TMPL_IF NAME=17>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=pop  category_name="こだわり" onclick="return selectTheme(this)">
+          ピンクハート<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/17.gif" width="150" height="140" alt="ピンクハート">
+            <TMPL_IF NAME=pop><TMPL_IF NAME=17>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=beauty><TMPL_IF NAME=beauty02>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=beauty  category_name="こだわり" onclick="return selectTheme(this)">
+          ビューティー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/beauty02.gif" width="150" height="140" alt="ビューティー">
+            <TMPL_IF NAME=beauty><TMPL_IF NAME=beauty02>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=beauty><TMPL_IF NAME=beauty01>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=beauty  category_name="こだわり" onclick="return selectTheme(this)">
+          ローズシフォン<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/beauty01.gif" width="150" height="140" alt="ローズシフォン">
+            <TMPL_IF NAME=beauty><TMPL_IF NAME=beauty01>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=pop><TMPL_IF NAME=temp_21>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=pop  category_name="こだわり" onclick="return selectTheme(this)">
+          キュート<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_21.gif" width="150" height="140" alt="キュート">
+            <TMPL_IF NAME=pop><TMPL_IF NAME=temp_21>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=pop><TMPL_IF NAME=temp_12>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=pop  category_name="こだわり" onclick="return selectTheme(this)">
+          りんご姉妹<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_12.gif" width="150" height="140" alt="りんご姉妹">
+            <TMPL_IF NAME=pop><TMPL_IF NAME=temp_12>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=pop><TMPL_IF NAME=pop01>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=pop  category_name="こだわり" onclick="return selectTheme(this)">
+          おもちゃ箱<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/pop01.gif" width="150" height="140" alt="おもちゃ箱">
+            <TMPL_IF NAME=pop><TMPL_IF NAME=pop01>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=pop><TMPL_IF NAME=16>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=pop  category_name="こだわり" onclick="return selectTheme(this)">
+          文房具<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/16.gif" width="150" height="140" alt="文房具">
+            <TMPL_IF NAME=pop><TMPL_IF NAME=16>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=season><TMPL_IF NAME=m_20>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=season  category_name="こだわり" onclick="return selectTheme(this)">
+          物思いの秋<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_20.gif" width="150" height="140" alt="物思いの秋">
+            <TMPL_IF NAME=season><TMPL_IF NAME=m_20>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=pop><TMPL_IF NAME=m_30>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=pop  category_name="こだわり" onclick="return selectTheme(this)">
+          カフェタイム<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_30.gif" width="150" height="140" alt="カフェタイム">
+            <TMPL_IF NAME=pop><TMPL_IF NAME=m_30>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=season><TMPL_IF NAME=temp_01>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=season  category_name="こだわり" onclick="return selectTheme(this)">
+          冬景色<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_01.gif" width="150" height="140" alt="冬景色">
+            <TMPL_IF NAME=season><TMPL_IF NAME=temp_01>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=life><TMPL_IF NAME=temp_06>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=life  category_name="こだわり" onclick="return selectTheme(this)">
+          バイオレット<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_06.gif" width="150" height="140" alt="バイオレット">
+            <TMPL_IF NAME=life><TMPL_IF NAME=temp_06>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=pop><TMPL_IF NAME=temp_22>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=pop  category_name="こだわり" onclick="return selectTheme(this)">
+          ベジタブル<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_22.gif" width="150" height="140" alt="ベジタブル">
+            <TMPL_IF NAME=pop><TMPL_IF NAME=temp_22>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=life><TMPL_IF NAME=m_05>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=life  category_name="こだわり" onclick="return selectTheme(this)">
+          オレンジ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_05.gif" width="150" height="140" alt="オレンジ">
+            <TMPL_IF NAME=life><TMPL_IF NAME=m_05>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=animal><TMPL_IF NAME=animal01>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=animal  category_name="こだわり" onclick="return selectTheme(this)">
+          思い出<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/animal01.gif" width="150" height="140" alt="思い出">
+            <TMPL_IF NAME=animal><TMPL_IF NAME=animal01>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=pop><TMPL_IF NAME=m_01>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=pop  category_name="こだわり" onclick="return selectTheme(this)">
+          色エンピツ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_01.gif" width="150" height="140" alt="色エンピツ">
+            <TMPL_IF NAME=pop><TMPL_IF NAME=m_01>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=pop><TMPL_IF NAME=m_03>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=pop  category_name="こだわり" onclick="return selectTheme(this)">
+          ブリック<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_03.gif" width="150" height="140" alt="ブリック">
+            <TMPL_IF NAME=pop><TMPL_IF NAME=m_03>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=animal><TMPL_IF NAME=11>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=animal  category_name="こだわり" onclick="return selectTheme(this)">
+          お茶目なワンコ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/11.gif" width="150" height="140" alt="お茶目なワンコ">
+            <TMPL_IF NAME=animal><TMPL_IF NAME=11>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=pop><TMPL_IF NAME=temp_13>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=pop  category_name="こだわり" onclick="return selectTheme(this)">
+          青りんごキッズ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_13.gif" width="150" height="140" alt="青りんごキッズ">
+            <TMPL_IF NAME=pop><TMPL_IF NAME=temp_13>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=beauty><TMPL_IF NAME=12>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=beauty  category_name="こだわり" onclick="return selectTheme(this)">
+          ハーブアロマ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/12.gif" width="150" height="140" alt="ハーブアロマ">
+            <TMPL_IF NAME=beauty><TMPL_IF NAME=12>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=animal><TMPL_IF NAME=m_25>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=animal  category_name="こだわり" onclick="return selectTheme(this)">
+          うれしい春<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_25.gif" width="150" height="140" alt="うれしい春">
+            <TMPL_IF NAME=animal><TMPL_IF NAME=m_25>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=sports><TMPL_IF NAME=sports01>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=sports  category_name="こだわり" onclick="return selectTheme(this)">
+          野球<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/sports01.gif" width="150" height="140" alt="野球">
+            <TMPL_IF NAME=sports><TMPL_IF NAME=sports01>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=sports><TMPL_IF NAME=sports02>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=sports  category_name="こだわり" onclick="return selectTheme(this)">
+          ゴルフ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/sports02.gif" width="150" height="140" alt="ゴルフ">
+            <TMPL_IF NAME=sports><TMPL_IF NAME=sports02>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=life><TMPL_IF NAME=life01>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=life  category_name="こだわり" onclick="return selectTheme(this)">
+          ナチュラルライフ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/life01.gif" width="150" height="140" alt="ナチュラルライフ">
+            <TMPL_IF NAME=life><TMPL_IF NAME=life01>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=nature><TMPL_IF NAME=nature01>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=nature  category_name="こだわり" onclick="return selectTheme(this)">
+          砂浜<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/nature01.gif" width="150" height="140" alt="砂浜">
+            <TMPL_IF NAME=nature><TMPL_IF NAME=nature01>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=season><TMPL_IF NAME=m_10>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=season  category_name="こだわり" onclick="return selectTheme(this)">
+          初夏<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_10.gif" width="150" height="140" alt="初夏">
+            <TMPL_IF NAME=season><TMPL_IF NAME=m_10>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+
+        <li <TMPL_IF NAME=cool><TMPL_IF NAME=m_29>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=cool  category_name="こだわり" onclick="return selectTheme(this)">
+          オフィス<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_29.gif" width="150" height="140" alt="オフィス">
+            <TMPL_IF NAME=cool><TMPL_IF NAME=m_29>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=simple><TMPL_IF NAME=m_28>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=simple  category_name="こだわり" onclick="return selectTheme(this)">
+          クールインテリア<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_28.gif" width="150" height="140" alt="クールインテリア">
+             <TMPL_IF NAME=simple><TMPL_IF NAME=m_28>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=pop><TMPL_IF NAME=m_02>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=pop  category_name="こだわり" onclick="return selectTheme(this)">
+          キッチン<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_02.gif" width="150" height="140" alt="キッチン">
+             <TMPL_IF NAME=pop><TMPL_IF NAME=m_02>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=simple><TMPL_IF NAME=m_18>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=simple  category_name="こだわり" onclick="return selectTheme(this)">
+          しゃぼん<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_18.gif" width="150" height="140" alt="しゃぼん">
+             <TMPL_IF NAME=simple><TMPL_IF NAME=m_18>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+       <li <TMPL_IF NAME=sports><TMPL_IF NAME=m_26>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=sports  category_name="こだわり" onclick="return selectTheme(this)">
+          ダイビング<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_26.gif" width="150" height="140" alt="ダイビング">
+             <TMPL_IF NAME=sports><TMPL_IF NAME=m_26>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=simple><TMPL_IF NAME=m_14>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=simple  category_name="こだわり" onclick="return selectTheme(this)">
+          アイランド<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_14.gif" width="150" height="140" alt="アイランド">
+            <TMPL_IF NAME=simple><TMPL_IF NAME=m_14>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=cool><TMPL_IF NAME=m_31>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=cool  category_name="こだわり" onclick="return selectTheme(this)">
+          フリーウェイ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_31.gif" width="150" height="140" alt="フリーウェイ">
+            <TMPL_IF NAME=cool><TMPL_IF NAME=m_31>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=season><TMPL_IF NAME=m_21>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=season  category_name="こだわり" onclick="return selectTheme(this)">
+          バカンス<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_21.gif" width="150" height="140" alt="バカンス">
+            <TMPL_IF NAME=season><TMPL_IF NAME=m_21>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=nature><TMPL_IF NAME=temp_02>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=nature  category_name="こだわり" onclick="return selectTheme(this)">
+          デイリリー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_02.gif" width="150" height="140" alt="デイリリー">
+            <TMPL_IF NAME=nature><TMPL_IF NAME=temp_02>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=life><TMPL_IF NAME=02>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=life  category_name="こだわり" onclick="return selectTheme(this)">
+          シンプル<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/02.gif" width="150" height="140" alt="シンプル">
+            <TMPL_IF NAME=life><TMPL_IF NAME=02>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=17pop_cold>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="こだわり" onclick="return selectTheme(this)">
+          コールドレッド<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/17pop_cold.gif" width="150" height="140" alt="コールドレッド">
+            <TMPL_IF NAME=201012><TMPL_IF NAME=17pop_cold>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=simple><TMPL_IF NAME=m_07>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=simple  category_name="こだわり" onclick="return selectTheme(this)">
+          マテリアル<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_07.gif" width="150" height="140" alt="マテリアル">
+            <TMPL_IF NAME=simple><TMPL_IF NAME=m_07>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=cool><TMPL_IF NAME=cool02>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=cool  category_name="こだわり" onclick="return selectTheme(this)">
+          ミッドナイト<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/cool02.gif" width="150" height="140" alt="ミッドナイト">
+            <TMPL_IF NAME=cool><TMPL_IF NAME=cool02>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=cool><TMPL_IF NAME=13>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=cool  category_name="こだわり" onclick="return selectTheme(this)">
+          スクエアトーン<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/13.gif" width="150" height="140" alt="スクエアトーン">
+            <TMPL_IF NAME=cool><TMPL_IF NAME=13>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=sports><TMPL_IF NAME=sports03>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=sports  category_name="こだわり" onclick="return selectTheme(this)">
+          サッカー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/sports03.gif" width="150" height="140" alt="サッカー">
+            <TMPL_IF NAME=sports><TMPL_IF NAME=sports03>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+
+        <li <TMPL_IF NAME=beauty><TMPL_IF NAME=m_13>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=beauty  category_name="こだわり" onclick="return selectTheme(this)">
+          エッセンシャル<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_13.gif" width="150" height="140" alt="エッセンシャル">
+            <TMPL_IF NAME=beauty><TMPL_IF NAME=m_13>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=beauty><TMPL_IF NAME=m_11>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=beauty  category_name="こだわり" onclick="return selectTheme(this)">
+          メイクキット<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_11.gif" width="150" height="140" alt="メイクキット">
+            <TMPL_IF NAME=beauty><TMPL_IF NAME=m_11>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=simple><TMPL_IF NAME=m_17>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=simple  category_name="こだわり" onclick="return selectTheme(this)">
+          メンズアパレル<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_17.gif" width="150" height="140" alt="メンズアパレル">
+            <TMPL_IF NAME=simple><TMPL_IF NAME=m_17>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=classic><TMPL_IF NAME=m_22>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=classic  category_name="こだわり" onclick="return selectTheme(this)">
+          ルネッサンス<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_22.gif" width="150" height="140" alt="ルネッサンス">
+            <TMPL_IF NAME=classic><TMPL_IF NAME=m_22>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=cool><TMPL_IF NAME=temp_10>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=cool  category_name="こだわり" onclick="return selectTheme(this)">
+          クリスタル<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_10.gif" width="150" height="140" alt="クリスタル">
+           <TMPL_IF NAME=cool><TMPL_IF NAME=temp_10>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+
+        <li <TMPL_IF NAME=cool><TMPL_IF NAME=temp_09>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=cool  category_name="こだわり" onclick="return selectTheme(this)">
+          ストリート<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_09.gif" width="150" height="140" alt="ストリート">
+           <TMPL_IF NAME=cool><TMPL_IF NAME=temp_09>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+
+        <li <TMPL_IF NAME=simple><TMPL_IF NAME=simple01>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=simple  category_name="こだわり" onclick="return selectTheme(this)">
+          モノトーン<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/simple01.gif" width="150" height="140" alt="モノトーン">
+           <TMPL_IF NAME=simple><TMPL_IF NAME=simple01>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=cool><TMPL_IF NAME=temp_03>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=cool  category_name="こだわり" onclick="return selectTheme(this)">
+          モノクロ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_03.gif" width="150" height="140" alt="モノクロ">
+           <TMPL_IF NAME=cool><TMPL_IF NAME=temp_03>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=life><TMPL_IF NAME=08>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=life  category_name="こだわり" onclick="return selectTheme(this)">
+          アーバンライフ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/08.gif" width="150" height="140" alt="アーバンライフ">
+           <TMPL_IF NAME=life><TMPL_IF NAME=08>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=life><TMPL_IF NAME=m_27>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=life  category_name="こだわり" onclick="return selectTheme(this)">
+          イタリアンレストラン<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_27.gif" width="150" height="140" alt="イタリアンレストラン">
+           <TMPL_IF NAME=life><TMPL_IF NAME=m_27>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=201012><TMPL_IF NAME=14elegant_colorful>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=201012  category_name="こだわり" onclick="return selectTheme(this)">
+          エレガント<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/14elegant_colorful.gif" width="150" height="140" alt="エレガント">
+           <TMPL_IF NAME=201012><TMPL_IF NAME=14elegant_colorful>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=pop><TMPL_IF NAME=pop02>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=pop  category_name="こだわり" onclick="return selectTheme(this)">
+          パッチワーク<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/pop02.gif" width="150" height="140" alt="パッチワーク">
+           <TMPL_IF NAME=pop><TMPL_IF NAME=pop02>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=nature><TMPL_IF NAME=m_09>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=nature  category_name="こだわり" onclick="return selectTheme(this)">
+          アイビー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_09.gif" width="150" height="140" alt="アイビー">
+           <TMPL_IF NAME=nature><TMPL_IF NAME=m_09>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=classic><TMPL_IF NAME=classic01>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=classic  category_name="こだわり" onclick="return selectTheme(this)">
+          ゴシックバレンタイン<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/classic01.gif" width="150" height="140" alt="ゴシックバレンタイン">
+           <TMPL_IF NAME=classic><TMPL_IF NAME=classic01>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=cool><TMPL_IF NAME=temp_04>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=cool  category_name="こだわり" onclick="return selectTheme(this)">
+          アンダーグラウンド<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_04.gif" width="150" height="140" alt="アンダーグラウンド">
+           <TMPL_IF NAME=cool><TMPL_IF NAME=temp_04>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=classic><TMPL_IF NAME=temp_14>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=classic  category_name="こだわり" onclick="return selectTheme(this)">
+          ダークブラウン<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_14.gif" width="150" height="140" alt="ダークブラウン">
+           <TMPL_IF NAME=classic><TMPL_IF NAME=temp_14>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+      </ul>
+    </div>
+
+
+
+    <!-- other-->
+    <div class="thumbnails" id="box3">
+    <ul class="thumbnails">
+
+        <li <TMPL_IF NAME=life><TMPL_IF NAME=m_15>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=life  category_name="その他" onclick="return selectTheme(this)">
+          はいはい赤ちゃん<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_15.gif" width="150" height="140" alt="はいはい赤ちゃん">
+           <TMPL_IF NAME=life><TMPL_IF NAME=m_15>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=life><TMPL_IF NAME=temp_24>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=life  category_name="その他" onclick="return selectTheme(this)">
+          ミルク<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_24.gif" width="150" height="140" alt="ミルク">
+           <TMPL_IF NAME=life><TMPL_IF NAME=temp_24>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=pop><TMPL_IF NAME=temp_20>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=pop  category_name="その他" onclick="return selectTheme(this)">
+          おもちゃの冒険<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_20.gif" width="150" height="140" alt="おもちゃの冒険">
+           <TMPL_IF NAME=pop><TMPL_IF NAME=temp_20>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=animal><TMPL_IF NAME=temp_25>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=animal  category_name="その他" onclick="return selectTheme(this)">
+          小さい友達<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_25.gif" width="150" height="140" alt="小さい友達">
+           <TMPL_IF NAME=animal><TMPL_IF NAME=temp_25>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=classic><TMPL_IF NAME=temp_11>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=classic  category_name="その他" onclick="return selectTheme(this)">
+          ノスタルジー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_11.gif" width="150" height="140" alt="ノスタルジー">
+           <TMPL_IF NAME=classic><TMPL_IF NAME=temp_11>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=classic><TMPL_IF NAME=temp_08>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=classic  category_name="その他" onclick="return selectTheme(this)">
+          マーブル<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_08.gif" width="150" height="140" alt="マーブル">
+           <TMPL_IF NAME=classic><TMPL_IF NAME=temp_08>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=season><TMPL_IF NAME=temp_23>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=season  category_name="その他" onclick="return selectTheme(this)">
+          ハロウィン<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_23.gif" width="150" height="140" alt="ハロウィン">
+           <TMPL_IF NAME=season><TMPL_IF NAME=temp_23>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=season><TMPL_IF NAME=m_24>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=season  category_name="その他" onclick="return selectTheme(this)">
+          クリスマス<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_24.gif" width="150" height="140" alt="クリスマス">
+           <TMPL_IF NAME=season><TMPL_IF NAME=m_24>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=life><TMPL_IF NAME=temp_17>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=life  category_name="その他" onclick="return selectTheme(this)">
+          サンタフェ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_17.gif" width="150" height="140" alt="サンタフェ">
+           <TMPL_IF NAME=life><TMPL_IF NAME=temp_17>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=nature><TMPL_IF NAME=nature02>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=nature  category_name="その他" onclick="return selectTheme(this)">
+          フォレスト<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/nature02.gif" width="150" height="140" alt="フォレスト">
+           <TMPL_IF NAME=nature><TMPL_IF NAME=nature02>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=classic><TMPL_IF NAME=temp_18>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=classic  category_name="その他" onclick="return selectTheme(this)">
+          黒松<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_18.gif" width="150" height="140" alt="黒松">
+           <TMPL_IF NAME=classic><TMPL_IF NAME=temp_18>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=nature><TMPL_IF NAME=m_08>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=nature  category_name="その他" onclick="return selectTheme(this)">
+          葉牡丹<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_08.gif" width="150" height="140" alt="葉牡丹">
+           <TMPL_IF NAME=nature><TMPL_IF NAME=m_08>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=nature><TMPL_IF NAME=04nature>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=nature  category_name="その他" onclick="return selectTheme(this)">
+          青空<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/04nature.gif" width="150" height="140" alt="青空">
+           <TMPL_IF NAME=nature><TMPL_IF NAME=04nature>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+
+        <li <TMPL_IF NAME=pop><TMPL_IF NAME=temp_16>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=pop  category_name="その他" onclick="return selectTheme(this)">
+          マーメイド<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_16.gif" width="150" height="140" alt="マーメイド">
+           <TMPL_IF NAME=pop><TMPL_IF NAME=temp_16>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=favorite><TMPL_IF NAME=temp_19>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=favorite  category_name="その他" onclick="return selectTheme(this)">
+          オートバイ<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_19.gif" width="150" height="140" alt="オートバイ">
+           <TMPL_IF NAME=favorite><TMPL_IF NAME=temp_19>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=nature><TMPL_IF NAME=temp_07>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=nature  category_name="その他" onclick="return selectTheme(this)">
+          結晶<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/temp_07.gif" width="150" height="140" alt="結晶">
+           <TMPL_IF NAME=nature><TMPL_IF NAME=temp_07>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+        <li <TMPL_IF NAME=simple><TMPL_IF NAME=m_16>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=simple  category_name="その他" onclick="return selectTheme(this)">
+          包装<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_16.gif" width="150" height="140" alt="包装">
+           <TMPL_IF NAME=simple><TMPL_IF NAME=m_16>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li <TMPL_IF NAME=life><TMPL_IF NAME=m_06>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=life  category_name="その他" onclick="return selectTheme(this)">
+          コーヒー<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/m_06.gif" width="150" height="140" alt="コーヒー">
+           <TMPL_IF NAME=life><TMPL_IF NAME=m_06>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+
+        <li <TMPL_IF NAME=favorite><TMPL_IF NAME=favorite01>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=favorite  category_name="その他" onclick="return selectTheme(this)">
+          ミュージシャン<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/favorite01.gif" width="150" height="140" alt="ミュージシャン">
+           <TMPL_IF NAME=favorite><TMPL_IF NAME=favorite01>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+
+        <li <TMPL_IF NAME=favorite><TMPL_IF NAME=favorite02>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id=favorite  category_name="その他" onclick="return selectTheme(this)">
+          ギタリスト<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s/favorite02.gif" width="150" height="140" alt="ギタリスト">
+           <TMPL_IF NAME=favorite><TMPL_IF NAME=favorite02>
+              <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+      </ul>
+
+    </div>
+
+    </form>
+<!-- Main Contents(END) -->

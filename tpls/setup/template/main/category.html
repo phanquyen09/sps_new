@@ -1,0 +1,347 @@
+<script language="JavaScript">
+<!--
+function del(f) {
+  if ( confirm("商品のカテゴリを削除します。よろしいですか？") ) {
+    f.submit();
+  } else {
+    return;
+  }
+}
+function preview(f) {
+  f.action = '../func100/preview.cgi';
+  f.target = '_preview';
+
+<TMPL_IF CMDSHOW>
+  if ( f.CATTYPE[0].checked == true ) {
+    f.m.value = f.ID.value;
+  } else {
+    f.s.value = f.ID.value;
+  }
+<TMPL_ELSE>
+  if ( f.CATTYPE[0].checked == true ) {
+    f.m.value = 1;
+  } else {
+    f.s.value = f.MASTERID.options[f.MASTERID.selectedIndex].value;
+  }
+</TMPL_IF>
+
+  f.submit();
+
+  f.action = 'category.cgi';
+  f.target = '_self';
+}
+function pop_pat() {
+
+    window.open('./selpat.cgi?TYPE=GRP','pat_box','width=800,height=700,scrollbars=yes,resizable =yes');
+}
+
+function del_pat(i) {
+  var chk_ok_f = 0;
+  var dis_f = 0;
+  var ncnt = 0;
+
+  if ( confirm("パターンを削除します。") ) {
+    document.getElementById( 'PAT_ID' + i ).value = '';
+    document.getElementById( 'PAT_NAME' + i ).value = '';
+    document.getElementById( 'PAT_TR' + i).style.display = 'none';
+    for(i = 1;i <= <TMPL_VAR NAME=PAT_JS_MAX>;i++){
+       if(document.getElementById('PAT_ID'+ i).value == '' ){
+         if( dis_f == 0){
+            document.getElementById( 'PAT_BUTTON' ).disabled = false;
+            dis_f = 1;
+         }
+         ncnt++;
+       }
+    }
+    if( ncnt >= <TMPL_VAR NAME=PAT_JS_MAX> ){
+      document.getElementById( 'PAT_TABLE' ).style.display = 'none';
+    }
+  } else {
+    return;
+  }
+
+}
+//-->
+</script>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">商品のカテゴリ管理を行います</td>
+<td align="right" class="midashi"><a href="<TMPL_VAR NAME=Manual>func01/category.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  商品が属するカテゴリの追加、編集をします。<br>
+                                  編集する場合は、画面下カテゴリ一覧の[編集]ボタンをクリックしてください。<br><br>
+                                  また、カテゴリごとに商品一覧ページの「ヘッダ、フッタ」、「まとめ買い」が設定できます。<br>
+                                </div>
+            <TMPL_LOOP NAME=ERR_MSG>
+            <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+            </TMPL_LOOP>
+				<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                      <td><table width="680"  border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                          <td>
+<table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+<form name="form1" method="POST" action="category.cgi">
+<input type="hidden" name="m">
+<input type="hidden" name="s">
+<input type="hidden" name="Page" value="itemcat">
+<TMPL_IF CMDSHOW>
+<input type="hidden" name="CMD" value="EDT">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<TMPL_ELSE>
+<input type="hidden" name="CMD" value="ADD">
+</TMPL_IF>
+                                                <tr align="center">
+                                                  <td colspan="3" class="item-name02">カテゴリ<TMPL_IF CMDSHOW>編集<TMPL_ELSE>追加</TMPL_IF></td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">カテゴリレベル</td>
+                                                  <td class="item" colspan="2"><input name="CATTYPE" type="radio" value="master" id="cat-top" <TMPL_VAR NAME=SELMASTER><TMPL_IF CMDSHOW> disabled</TMPL_IF>>
+                                                      大カテゴリ
+                                                      <br>
+                                                      <input name="CATTYPE" type="radio" value="sub" id="cat-sub" <TMPL_VAR NAME=SELSUB><TMPL_IF CMDSHOW> disabled</TMPL_IF>>
+                                                      小カテゴリ&nbsp;
+                                                      <select name="MASTERID"<TMPL_IF CMDSHOW> disabled</TMPL_IF>>
+<TMPL_LOOP NAME=CAT_LIST>
+<option value="<TMPL_VAR NAME=CATID>" <TMPL_VAR NAME=SELCAT>><TMPL_VAR NAME=CATNAME></option>
+</TMPL_LOOP>
+                                                      </select>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">カテゴリ名(必須)</td>
+                                                  <td class="item" colspan="2"><input name="CATNAME" type="text" class="def-line" value="<TMPL_VAR NAME=CATNAME>">
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">タイトル</td>
+                                                  <td class="item" colspan="2">
+                                                    <input name="Title" type="text" class="def-line" value="<TMPL_VAR NAME=TITLE>"><br>
+                                                    ※入力しない場合は、「カテゴリ名 お店の名前」がタイトルバーに表示されます。
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">キーワード</td>
+                                                  <td class="item" colspan="2">
+                                                    <input name="Keyword" type="text" class="def-line" value="<TMPL_VAR NAME=KEYWORD>">
+                                                    <br>※「,」半角カンマ区切りで入力してください。
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">ディスクリプション</td>
+                                                  <td class="item" colspan="2">
+                                                    <textarea class="def-line" rows="2" name="Description"><TMPL_VAR NAME=DESCRIPTION></textarea>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name" rowspan="4">まとめ買い機能
+						    <!--20070111追記200702更追記--><br><br><div>商品一覧ページで複数の商品をまとめてカートに入れる場合に設定します。<br><br>
+                                                    なお、バリエーション登録、会員限定として登録している商品は、まとめてカートに入れることができませんので、商品詳細ページからカートに入れていただくようご案内ください。
+                                                    </div><!--20070111追記ここまで-->
+						  </td>
+                                                  <td class="item02">表示方法</td>
+                                                  <td class="item02">
+                                                  <select name="MatomeShowfg">
+                                                    <option value="N"<TMPL_IF MatomeShowfg_N> selected</TMPL_IF>>まとめ買い機能を使用しない</option>
+                                                    <option value="P"<TMPL_IF MatomeShowfg_P> selected</TMPL_IF>>個数選択（プルダウン）</option>
+                                                    <option value="T"<TMPL_IF MatomeShowfg_T> selected</TMPL_IF>>個数入力（テキストボックス）</option>
+                                                  </select>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item02">「まとめてカートへ」ボタン設置場所</td>
+                                                  <td class="item02">
+                                                    <input type="checkbox" name="MatomeKagoUe" value="Y" <TMPL_IF MatomeKagoUe_N><TMPL_ELSE> checked</TMPL_IF>>一覧ページ上部<br>
+                                                    <input type="checkbox" name="MatomeKagoNaka" value="Y" <TMPL_IF MatomeKagoNaka_N><TMPL_ELSE> checked</TMPL_IF>>一覧ページ中央部<br>
+                                                    &nbsp;&nbsp;&nbsp;※商品が4行以上の場合だけ表示します。<br>
+                                                    <input type="checkbox" name="MatomeKagoSita" value="Y" <TMPL_IF MatomeKagoSita_N><TMPL_ELSE> checked</TMPL_IF>>一覧ページ下部<br>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item02">ボタン表示</td>
+                                                  <td class="item02">
+                                                    <input type="text" name="MatomeButton" class="def-line" value="<TMPL_VAR NAME=MATOMEBUTTON>">
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item02">案内文</td>
+                                                  <td class="item02">
+<input type="button" value="画像挿入..." onClick="window.open('../func100/selimg_tag.cgi?TARGET=document.form1.MatomeGuide','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')"><br>
+                                                    <textarea name="MatomeGuide" rows="5" cols="75"><TMPL_VAR NAME=MATOMEGUIDE></textarea><br>
+※HTMLタグ利用可
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">カテゴリ専用ヘッダ</td>
+                                                  <td class="item02" colspan="2">
+<input type="button" value="画像挿入..." onClick="window.open('../func100/selimg_tag.cgi?TARGET=document.form1.Header','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')"><br>
+                                                    <textarea name="Header" rows="5" cols="75"><TMPL_VAR NAME=HEADER></textarea><br>
+※HTMLタグ利用可
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">カテゴリ専用フッタ</td>
+                                                  <td class="item02" colspan="2">
+<input type="button" value="画像挿入..." onClick="window.open('../func100/selimg_tag.cgi?TARGET=document.form1.Footer','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')"><br>
+                                                    <textarea name="Footer" rows="5" cols="75"><TMPL_VAR NAME=FOOTER></textarea><br>
+※HTMLタグ利用可
+                                                  </td>
+                                                </tr>
+                                                <!--20061220リコメンデーション追加ここから-->
+                                                <tr>
+	                                          <td class="item-name">関連商品</td>
+	                                          <td class="item02" colspan="2">
+                                                    <input type="button" id="PAT_BUTTON" value="パターンを追加" onclick="pop_pat();" <TMPL_VAR NAME=PAT_BUTTON>>
+
+                                                    <table id="PAT_TABLE" width="100%" class="item-box" style="<TMPL_VAR NAME=PAT_TABLE_STYLE>">
+                                                    <TMPL_LOOP PATTERN>
+                                                      <tr id ="PAT_TR<TMPL_VAR NAME=PAT_CNT>" name="PAT_TR<TMPL_VAR NAME=PAT_CNT>" style="<TMPL_VAR NAME=PAT_NONE>">
+                                                        <td bgcolor="#FFFFFF" class="item">
+                                                          <input style="border:1px solid #ffffff;width:99%" readonly type="text" id ="PAT_NAME<TMPL_VAR NAME=PAT_CNT>" name="PAT_NAME<TMPL_VAR NAME=PAT_CNT>" value="<TMPL_VAR NAME=PAT_NAME>">
+                                                          <input type="hidden" id ="PAT_ID<TMPL_VAR NAME=PAT_CNT>" name="PAT_ID<TMPL_VAR NAME=PAT_CNT>" value="<TMPL_VAR NAME=PAT_ID>">
+                                                        </td>
+                                                        <td align="center" bgcolor="#FFFFFF">
+                                                          <input type="button" value="削除" onClick="JavaScript:del_pat(<TMPL_VAR NAME=PAT_CNT>)">
+                                                        </td>
+                                                      </tr>
+                                                      </TMPL_LOOP>
+                                                    </table>
+	                                          </td>
+                                                </tr>
+                                                <!--20061220リコメンデーション追加ここまで-->
+                                                <tr align="center">
+                                                  <td colspan="3" class="item02"><span class="item">
+                                                    <input type="button" name="CANCEL" value="キャンセル" onClick="location.href='category.cgi'">
+                                                    <input type="button" name="ADD" value="<TMPL_IF CMDSHOW>編集を保存する<TMPL_ELSE>カテゴリを追加する</TMPL_IF>" onClick="document.form1.submit();">
+                                                  </span></td>
+                                                </tr>
+<TMPL_IF CMDSHOW><input type="hidden" name="MASTERID2" value="<TMPL_VAR NAME=MASTERID2>"></TMPL_IF>
+</form>
+                                              </table>
+                                              <br>
+                                              <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                                <tr align="center">
+                                                  <td nowrap class="item-name02">&nbsp;</td>
+                                                  <td nowrap class="item-name02" colspan="2">カテゴリ名</td>
+                                                  <td nowrap class="item-name02">タイトル</td>
+                                                  <td nowrap class="item-name02">表示</td>
+                                                  <td nowrap class="item-name02">操作</td>
+                                                </tr>
+<TMPL_LOOP NAME=MASTERS>
+<tr>
+<TMPL_IF MASTER_FLAG>
+  <TMPL_IF SUBCAT>
+    <td align="center" nowrap class="item02"><a href="category.cgi">▲</a></td>
+  <TMPL_ELSE>
+    <td align="center" nowrap class="item02"><a href="category.cgi?MASTERID=<TMPL_VAR NAME=CATID>">▼</a></td>
+  </TMPL_IF>
+<TMPL_ELSE>
+  <td align="center" nowrap class="item02"></td>
+</TMPL_IF>
+  <form name="MEDT<TMPL_VAR NAME=CATID>" method="POST" action="category.cgi">
+  <input type="hidden" name="CMD" value="EDT">
+  <input type="hidden" name="ID" value="<TMPL_VAR NAME=CATID>">
+  <td class="item02"><input type="button" name="MEDT<TMPL_VAR NAME=CATID>" value="編集" onClick='document.MEDT<TMPL_VAR NAME=CATID>.CMD.value="SHOW";document.MEDT<TMPL_VAR NAME=CATID>.submit();'></td>
+  <td nowrap class="item02">
+    <TMPL_VAR NAME=CATNAME>&nbsp;
+  </td>
+  <td class="item02">
+    <TMPL_VAR NAME=TITLE>&nbsp;
+  </td>
+  <td class="item02" nowrap>
+    <select name="DISP">
+    <TMPL_IF DISP>
+        <option value="Y" selected>表示</option>
+        <option value="N">非表示</option>
+    <TMPL_ELSE>
+        <option value="Y">表示</option>
+        <option value="N" selected>非表示</option>
+    </TMPL_IF>
+
+    </select>
+    <input type="button" name="Submit" value="変更" onClick='document.MEDT<TMPL_VAR NAME=CATID>.CMD.value="DISP";document.MEDT<TMPL_VAR NAME=CATID>.submit();'>
+  </td>
+  <td nowrap class="item02">
+    <input type="button" name="Submit" value="上へ" onClick='document.MEDT<TMPL_VAR NAME=CATID>.CMD.value="UP";document.MEDT<TMPL_VAR NAME=CATID>.submit();'>
+    <input type="button" name="Submit" value="下へ" onClick='document.MEDT<TMPL_VAR NAME=CATID>.CMD.value="DOWN";document.MEDT<TMPL_VAR NAME=CATID>.submit();'>
+    <input type="button" name="Submit" value="削除" onClick='document.MEDT<TMPL_VAR NAME=CATID>.CMD.value="DEL";del(document.MEDT<TMPL_VAR NAME=CATID>);'>
+  </td>
+  </form>
+</tr>
+
+<TMPL_IF SUBCAT>
+<tr id="scat01">
+  <td colspan="6" style="padding:2px 2px 2px 20px">
+    <table width="100%" border="0" cellpadding="2" cellspacing="1" bgcolor="#333333" >
+      <tr align="center" bgcolor="#EEEEEE">
+	<td bgcolor="#EEEEEE" colspan="2">小カテゴリ名</td>
+	<td bgcolor="#EEEEEE">タイトル</td>
+	<td bgcolor="#EEEEEE">表示</td>
+	<td>操作</td>
+      </tr>
+      <TMPL_LOOP NAME=SUBS>
+      <tr bgcolor="#FFFFFF">
+	<form name="SEDT<TMPL_VAR NAME=CATID>" method="POST" action="category.cgi">
+	<input type="hidden" name="CMD" value="EDT">
+	<input type="hidden" name="ID" value="<TMPL_VAR NAME=CATID>">
+	<input type="hidden" name="MASTERID" value="<TMPL_VAR NAME=MASTERID>">
+        <td class="item02"><input type="button" name="SHOW<TMPL_VAR NAME=CATID>" value="編集" onClick='document.SEDT<TMPL_VAR NAME=CATID>.CMD.value="SHOW";document.SEDT<TMPL_VAR NAME=CATID>.submit();' ></td>
+        <td bgcolor="#FFFFFF" nowrap>
+	  <TMPL_VAR NAME=CATNAME>&nbsp;
+        </td>
+        <td>
+          <TMPL_VAR NAME=TITLE>
+        </td>
+        <td nowrap>
+	  <select name="DISP">
+	    <TMPL_IF DISP>
+	      <option value="Y" selected>表示</option>
+	      <option value="N">非表示</option>
+	    <TMPL_ELSE>
+	      <option value="Y">表示</option>
+	      <option value="N" selected>非表示</option>
+	    </TMPL_IF>
+	  </select>
+          <input type="button" name="Submit" value="変更" onClick='document.SEDT<TMPL_VAR NAME=CATID>.CMD.value="DISP";document.SEDT<TMPL_VAR NAME=CATID>.submit();'>
+	</td>
+        <td nowrap>
+          <input type="button" name="Submit" value="上へ" onClick='document.SEDT<TMPL_VAR NAME=CATID>.CMD.value="UP";document.SEDT<TMPL_VAR NAME=CATID>.submit();'>
+          <input type="button" name="Submit" value="下へ" onClick='document.SEDT<TMPL_VAR NAME=CATID>.CMD.value="DOWN";document.SEDT<TMPL_VAR NAME=CATID>.submit();'>
+          <input type="button" name="Submit" value="削除" onClick='document.SEDT<TMPL_VAR NAME=CATID>.CMD.value="DEL";del(document.SEDT<TMPL_VAR NAME=CATID>);'>
+         </td>
+         </form>
+      </tr>
+      </TMPL_LOOP>
+    </table>
+  </td>
+</tr>
+</TMPL_IF>
+
+
+
+
+
+</TMPL_LOOP>
+
+                                              </table>
+                                        </tr>
+                                      </table>
+                                        <br>
+                                        </td>
+                                    </tr>
+                                  </table></td>
+                                </tr>
+                              </table>

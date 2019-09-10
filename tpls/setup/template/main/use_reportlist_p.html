@@ -1,0 +1,165 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+<head>
+<title><TMPL_VAR NAME=Title></title>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-jp">
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link rel="stylesheet" href="../css/use_print.css" type="text/css">
+</head>
+<body text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="print();">
+
+  <table width="600" border="0" align="center">
+    <tr>
+      <td>
+        <br>
+        <!-- ご契約者情報 -->
+        <div class="float_left def">
+          〒 <TMPL_VAR NAME=Zip><br>
+          <TMPL_VAR NAME=FADD><br>
+          <TMPL_VAR NAME=LADD><br>
+          <br>
+          <TMPL_VAR NAME=MCOM><br>
+          <TMPL_VAR NAME=DIV><br>
+          <TMPL_VAR NAME=Name>&nbsp;様
+        </div>
+        <!-- ロゴ画像 -->
+        <div class="float_right def">
+          <img src="../imgs/logo/estore-logo.jpg" hspace="2" vspace="2" width="188" height="54"><br>
+          <br>
+          〒 105-0003<br>
+          東京都港区西新橋1-10-2<br>
+          住友生命西新橋ビル<br>
+          TEL:03-3595-1251&nbsp;FAX:011-218-2321<br>
+          Eメール:sp@Estore.co.jp
+        </div>
+        <div class="clear_both"></div>
+        <br>
+        <!-- 書類見出し -->
+        <div class="midashi center"><TMPL_VAR NAME=Title></div>
+        <br>
+        <br>
+        <!-- 前文 -->
+        <div class="def">
+          <TMPL_VAR NAME=MessInfo>
+        </div>
+        <br>
+        <!-- 請求金額 -->
+        <div class="float_right" id="total">金額&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<TMPL_VAR NAME=TotalCom>円</div>
+        <!-- 概要 -->
+        <div class="float_left odr-con">
+          <table border="1" cellpadding="3" cellspacing="0" width="90%">
+            <tr>
+              <td class="odr-midashi">ご契約者名</td>
+              <td class="odr-txt"><TMPL_VAR NAME=MCOM></td>
+            </tr>
+            <tr>
+              <td class="odr-midashi">ショップID</td>
+              <td class="odr-txt"><TMPL_VAR NAME=ShopID></td>
+            </tr>
+            <tr>
+              <td class="odr-midashi">集計期間</td>
+              <td class="odr-txt"><TMPL_VAR NAME=Start>〜<TMPL_VAR NAME=End>確定分</td>
+            </tr>
+          </table>
+        </div>
+        <div class="clear_both"></div>
+        <br>
+        <!-- 媒体別集計 -->
+        <div class="odr-con">
+          <table border="1" cellpadding="1" cellspacing="0" width="100%">
+            <tr>
+              <td width="40%" class="odr-midashi"><TMPL_VAR NAME=DETAIL></td>
+              <td width="10%" class="odr-midashi">料率</td>
+              <td width="10%" class="odr-midashi">件数</td>
+              <td width="20%" class="odr-midashi">課金対象金額</td>
+              <td width="20%" class="odr-midashi">利用料</td>
+            </tr>
+
+            <!--媒体別集計ループここから-->
+<TMPL_IF HEADLIST>
+<TMPL_LOOP HEADLIST>
+            <tr>
+              <td width="40%" class="odr-txt left"><TMPL_VAR NAME=SitenName></td>
+              <td width="10%" class="odr-txt center"><TMPL_VAR NAME=SitenRate>%</td>
+              <td width="10%" class="odr-txt center"><TMPL_VAR NAME=Count>件</td>
+              <td width="20%" class="odr-txt right"><TMPL_VAR NAME=TargetPrc>円</td>
+              <td width="20%" class="odr-txt right"><TMPL_VAR NAME=Commission>円</td>
+            </tr>
+</TMPL_LOOP>
+</TMPL_IF>
+
+            <!--媒体別集計小計ここから-->
+            <tr>
+              <td width="40%" class="odr-txt left">小計</td>
+              <td width="10%" class="odr-txt center">-</td>
+              <td width="10%" class="odr-txt center"><TMPL_VAR NAME=TotalCnt>件</td>
+              <td width="20%" class="odr-txt right"><TMPL_VAR NAME=TotalPrc>円</td>
+              <td width="20%" class="odr-txt right"><TMPL_VAR NAME=TotalCom>円</td>
+            </tr>
+          </table>
+        </div>
+
+<br>
+        <!-- 金額の注意書き -->
+        <div align="right" class="info-txt">（表示金額は全て税込みです）</div>
+
+        <!-- 売上明細 -->
+        <table width="100%" border="1" cellpadding="3" cellspacing="0">
+
+          <tr>
+            <td width="10%" class="odr-midashi02">確定日</td>
+            <td width="14%" class="odr-midashi02">注文番号</td>
+            <td width="10%" class="odr-midashi02">注文日</td>
+            <td width="20%" class="odr-midashi02">商品名／商品番号</td>
+            <td width="15%" class="odr-midashi02">注文経路</td>
+            <td width="8%" class="odr-midashi02">料率</td>
+            <td width="15%" class="odr-midashi02">課金対象金額</td>
+            <td width="8%" class="odr-midashi02">利用料</td>
+          </tr>
+
+          <!--売上明細ループここから-->
+<TMPL_IF DETAILLIST>
+<TMPL_IF SERVICENAME>
+<TMPL_LOOP DETAILLIST>
+          <tr>
+            <td width="10%" class="odr-txt02 center"><TMPL_VAR NAME=SitenDate></td>
+            <td width="14%" class="odr-txt02 center"><TMPL_VAR NAME=PubOrderNo></td>
+            <td width="10%" class="odr-txt02 center"><TMPL_VAR NAME=OrderDate></td>
+            <td width="20%" class="odr-txt02"><TMPL_VAR NAME=ItemName><br><TMPL_VAR NAME=ItemNo></td>
+            <td width="15%" class="odr-txt02"><TMPL_VAR NAME=SitenName></td>
+            <td width="8%" class="odr-txt02 center"><TMPL_VAR NAME=SitenRate>%</td>
+            <td width="15%" class="odr-txt02 right"><TMPL_VAR NAME=SumTotalPrc>円</td>
+            <td width="8%" class="odr-txt02 right"><TMPL_VAR NAME=Commission>円</td>
+          </tr>
+</TMPL_LOOP>
+<TMPL_ELSE SERVICENAME>
+<TMPL_LOOP DETAILLIST>
+          <tr>
+            <td width="10%" class="odr-txt02 center"><TMPL_VAR NAME=SitenDate></td>
+            <td width="14%" class="odr-txt02 center"><TMPL_VAR NAME=PubOrderNo></td>
+            <td width="10%" class="odr-txt02 center"><TMPL_VAR NAME=OrderDate></td>
+            <td width="20%" class="odr-txt02"><TMPL_VAR NAME=ItemName><br><TMPL_VAR NAME=ItemNo></td>
+            <td width="15%" class="odr-txt02"><TMPL_VAR NAME=SitenName></td>
+            <td width="8%" class="odr-txt02 center"><TMPL_VAR NAME=SitenRate>%</td>
+            <td width="15%" class="odr-txt02 right"><TMPL_VAR NAME=TargetPrc>円</td>
+            <td width="8%" class="odr-txt02 right"><TMPL_VAR NAME=Commission>円</td>
+          </tr>
+</TMPL_LOOP>
+</TMPL_IF>
+</TMPL_IF>
+          <!--売上明細ループここまで-->
+
+        </table>
+        <br>
+        <br>
+      </td>
+    </tr>
+  </table>
+  <!-- 改ページ -->
+
+
+</body>
+</html>
+
+
+

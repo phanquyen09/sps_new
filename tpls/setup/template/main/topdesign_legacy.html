@@ -1,0 +1,607 @@
+<script language="JavaScript">
+<!--
+function clear_radio(pl, pc, pr)
+{
+    if (pl.checked == true) pl.checked = false;
+    if (pc.checked == true) pc.checked = false;
+    if (pr.checked == true) pr.checked = false;
+}
+function chg_view(obj, po) {
+    var i;
+    var cnt = obj.length;
+    var tmp;
+    var tmp2;
+    var cnt2;
+    var cnt3;
+    var flag;
+
+    if (cnt <= 0) {
+	return;
+    }
+
+    if (po == 'left') tmp = document.form1.left_view.value;
+    if (po == 'left') document.form1.left_view.value = '';
+
+    if (po == 'center') tmp = document.form1.center_view.value;
+    if (po == 'center') document.form1.center_view.value = '';
+
+    if (po == 'right') tmp = document.form1.right_view.value;
+    if (po == 'right') document.form1.right_view.value = '';
+
+    for (i=0;i<cnt;i++) {
+	if (po == 'left') {
+	    document.form1.left_view.value += obj.options[i].value + ',';
+	} else if (po == 'center') {
+	    document.form1.center_view.value += obj.options[i].value + ',';
+	} else if (po == 'right') {
+	    document.form1.right_view.value += obj.options[i].value + ',';
+	}
+    }
+
+    if (po == 'left') tmp2 = document.form1.left_view.value;
+    if (po == 'center') tmp2 = document.form1.center_view.value;
+    if (po == 'right') tmp2 = document.form1.right_view.value;
+
+    var aaa = tmp.split(",");
+    var bbb = tmp2.split(",");
+
+    for(cnt2=0;aaa[cnt2]!='';cnt2++){
+	flag = 0;
+	for(cnt3=0;bbb[cnt3]!='';cnt3++){
+	    if (aaa[cnt2] == bbb[cnt3]) flag = 1;
+	}
+	if (flag == 1) continue;
+	if (po == 'left') document.form1.left_view.value += aaa[cnt2] + ',';
+	if (po == 'center') document.form1.center_view.value += aaa[cnt2] + ',';
+	if (po == 'right') document.form1.right_view.value += aaa[cnt2] + ',';
+    }
+}
+function done() {
+    var cnt;
+    var left = 0;
+    var center = 0;
+    var right = 0;
+    var label = new Array(100);
+    <TMPL_LOOP NAME=toppage_list_js>
+    label['<TMPL_VAR NAME=mlabel>'] = '<TMPL_VAR NAME=mname>';
+    </TMPL_LOOP>
+
+    var str = new Array(
+	<TMPL_LOOP NAME=toppage_list_js_label>
+	document.form1.left_<TMPL_VAR NAME=mlabel>, document.form1.center_<TMPL_VAR NAME=mlabel>, document.form1.right_<TMPL_VAR NAME=mlabel>,
+	</TMPL_LOOP>
+	'end');
+
+    var str_status = new Array(
+        <TMPL_LOOP NAME=toppage_list_js_label>
+        document.form1.status_<TMPL_VAR NAME=mlabel>,
+        </TMPL_LOOP>
+	'end');
+
+    var str_label = new Array(
+	<TMPL_LOOP NAME=toppage_list_js_label>
+	'left_<TMPL_VAR NAME=mlabel>',  'center_<TMPL_VAR NAME=mlabel>', 'right_<TMPL_VAR NAME=mlabel>',
+	</TMPL_LOOP>
+	'end');
+
+    var str_check = new Array(100);
+    var non_check = new Array(100);
+
+    var i;
+    var moto_left = new Array;
+    var moto_right = new Array;
+    var moto_center = new Array;
+
+    var len;
+    len = document.form1.left.length;
+    for(i=0;i<len;i++) {
+	moto_left[i] = document.form1.left.options[i].value;
+    }
+    len = document.form1.center.length;
+    for(i=0;i<len;i++) {
+	moto_center[i] = document.form1.center.options[i].value;
+    }
+    len = document.form1.right.length;
+    for(i=0;i<len;i++) {
+	moto_right[i] = document.form1.right.options[i].value;
+    }
+
+    for(i=0;i<document.form1.left.length;i++) document.form1.left.options[i] = null;
+    for(i=0;i<document.form1.center.length;i++) document.form1.center.options[i] = null;
+    for(i=0;i<document.form1.right.length;i++) document.form1.right.options[i] = null;
+
+    document.form1.left.length = 0;
+    document.form1.center.length = 0;
+    document.form1.right.length = 0;
+
+    document.form1.left_view.value = '';
+    document.form1.center_view.value = '';
+    document.form1.right_view.value = '';
+    document.form1.non_view.value = '';
+
+    var label_s;
+    var label_t;
+    var t = 0;
+    var k = 0;
+    var n = 0;
+
+    for(k=0;moto_left[k]!=null;k++) {
+	var aaa = "document.form1.left_" + moto_left[k];
+	var bbb = "document.form1.status_" + moto_left[k];
+        var flg = new Boolean( eval( aaa ) );
+        if ( flg == false ) continue;
+	if ( eval( aaa ).checked == true ) {
+	    if ( eval( bbb ).value == 1) {
+		document.form1.left.options[left] = new Option(label[moto_left[k]], moto_left[k], false, false);
+		left ++;
+
+		document.form1.left_view.value += moto_left[k] + ',';
+		str_check[moto_left[k]] = 1;
+	    }
+	}
+    }
+    for(k=0;moto_right[k]!=null;k++) {
+        var aaa = "document.form1.right_" + moto_right[k];
+        var bbb = "document.form1.status_" + moto_right[k];
+        var flg = new Boolean( eval( aaa ) );
+        if ( flg == false ) continue;
+        if ( eval( aaa ).checked == true ) {
+            if ( eval( bbb ).value == 1) {
+                document.form1.right.options[right] = new Option(label[moto_right[k]], moto_right[k], false, false);
+                right ++;
+
+                document.form1.right_view.value += moto_right[k] + ',';
+                str_check[moto_right[k]] = 1;
+            }
+        }
+    }
+    for(k=0;moto_center[k]!=null;k++) {
+        var aaa = "document.form1.center_" + moto_center[k];
+        var bbb = "document.form1.status_" + moto_center[k];
+	var flg = new Boolean( eval( aaa ) );
+	if ( flg == false ) continue;
+        if ( eval( aaa ).checked == true ) {
+            if ( eval( bbb ).value == 1) {
+                document.form1.center.options[center] = new Option(label[moto_center[k]], moto_center[k], false, false);
+                center ++;
+
+                document.form1.center_view.value += moto_center[k] + ',';
+                str_check[moto_center[k]] = 1;
+            }
+        }
+    }
+
+    var check = 0;
+    for(cnt=0;str[cnt]!='end';cnt++){
+    if (cnt != 0 && cnt % 3 == 0) t ++;
+    if (!str[cnt]) continue;
+
+    if ((cnt % 3) == 0) {
+        if (str[cnt].checked == true ) {
+        label_s = str_label[cnt].split("_");
+        label_t = label_s[1];
+
+        if (str_status[t][str_status[t].selectedIndex].value == 1) {
+
+            check = 0;
+            for(n=0;n<document.form1.left.length;n++) {
+            if (label_t == document.form1.left.options[n].value) {
+                check = 1;
+            }
+            }
+            if ( check == 1 ) continue;
+
+            document.form1.left.options[left] = new Option(label[label_t], label_t, false, false);
+            left ++;
+
+            document.form1.left_view.value += label_t + ',';
+            str_check[label_t] = 1;
+        //} else {
+        //    document.form1.left_view.value += label_t + ',';
+        //    str_check[label_t] = 1;
+        }
+        }
+    } else if (cnt == 2 || (cnt % 3) == 2) {
+        if (str[cnt].checked == true ) {
+        label_s = str_label[cnt].split("_");
+        label_t = label_s[1];
+
+        if (str_status[t][str_status[t].selectedIndex].value == 1) {
+
+                    check = 0;
+                    for(n=0;n<document.form1.right.length;n++) {
+                        if (label_t == document.form1.right.options[n].value) {
+                            check = 1;
+                        }
+                    }
+                    if ( check == 1 ) continue;
+
+		    document.form1.right.options[right] = new Option(label[label_t], label_t, false, false);
+		    right ++;
+
+		    document.form1.right_view.value += label_t + ',';
+		    str_check[label_t] = 1;
+		//} else {
+		//    document.form1.right_view.value += label_t + ',';
+		//    str_check[label_t] = 1;
+		}
+	    }
+	} else if (cnt == 1 || (cnt % 3) == 1) {
+	    if (str[cnt].checked == true ) {
+		label_s = str_label[cnt].split("_");
+		label_t = label_s[1];
+
+		if (str_status[t][str_status[t].selectedIndex].value == 1) {
+
+                    check = 0;
+                    for(n=0;n<document.form1.center.length;n++) {
+                        if (label_t == document.form1.center.options[n].value) {
+                            check = 1;
+                        }
+                    }
+                    if ( check == 1 ) continue;
+
+		    document.form1.center.options[center] = new Option(label[label_t], label_t, false, false);
+		    center ++;
+
+		    document.form1.center_view.value += label_t + ',';
+		    str_check[label_t] = 1;
+		//} else {
+		//    document.form1.center_view.value += label_t + ',';
+		//    str_check[label_t] = 1;
+		}
+	    }
+	}
+    }
+    for(cnt=0;str[cnt]!='end';cnt++){
+	if (!str[cnt]) continue;
+	label_s = str_label[cnt].split("_");
+	label_t = label_s[1];
+
+	if (str_check[label_t] == 1) continue;
+	if (non_check[label_t] == 1) continue;
+
+        non_check[label_t] = 1;
+	document.form1.non_view.value += label_t + ',';
+    }
+}
+function preview() {
+    var len, right_val, center_val, left_val;
+    var right_val  = [];
+    var center_val = [];
+    var left_val   = [];
+
+    len = window.document.form1.right.length;
+    for (i=0; i<len; i++){
+       right_val[i] = window.document.form1.right.options[i].value;
+    }
+    window.document.form1.right_val.value=right_val;
+
+    len = window.document.form1.center.length;
+    for (i=0; i<len; i++){
+       center_val[i] = window.document.form1.center.options[i].value;
+    }
+    window.document.form1.center_val.value=center_val;
+
+    len = window.document.form1.left.length;
+    for (i=0; i<len; i++){
+       left_val[i] = window.document.form1.left.options[i].value;
+    }
+    window.document.form1.left_val.value=left_val;
+
+    // 表示するテンプレート
+    var tpl = window.document.createElement('input');
+    tpl.name = 'tpl';
+    tpl.type = 'hidden';
+    tpl.value = 'index.tpl';
+
+    // データ参照先
+    var mode = window.document.createElement('input');
+    mode.name = 'preview_mode';
+    mode.type = 'hidden';
+    mode.value = 'edit';
+
+    // 編集ページパラメータ
+    var kanri = window.document.createElement('input');
+    kanri.name = 'kanri';
+    kanri.type = 'hidden';
+    kanri.value = 'page_design';
+
+    window.document.form1.appendChild(tpl);
+    window.document.form1.appendChild(mode);
+    window.document.form1.appendChild(kanri);
+
+    window.document.form1.action='../func100/newtplPreview.php';
+    window.document.form1.method='POST';
+    window.document.form1.submit();
+
+    // 後始末
+    window.document.form1.removeChild(tpl);
+    window.document.form1.removeChild(mode);
+    window.document.form1.removeChild(kanri);
+}
+//-->
+</script>
+<SCRIPT src="js/select_list.js" type=text/javascript></SCRIPT>
+<form name="form1" method="post" action="newthemem_topdesign_sps.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                      <tr>
+                                        <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#856791">
+                                            <tr>
+                                              <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+                                            </tr>
+                                        </table></td>
+<td align="left" class="midashi">お店ページ全体のレイアウトを設定します</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/topdesign.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                                      </tr>
+                                    </table>
+
+                                      <img src="../imgs/spc.gif" width="5" height="5">
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                          <td align="left" class="main-table">
+                                            <div class="infoArea table_bg">
+                                              お店ページの各コンテンツの表示・非表示、配置場所を設定します。<br><br>
+                                              1.「表示コンテンツ設定」で各コンテンツの「表示・非表示」、「表示箇所」を選択<br>
+                                              2.[表示レイアウト設定へ反映]ボタンをクリックして、「表示レイアウト設定」に表示するコンテンツを反映<br>
+                                              3.「表示レイアウト設定」で各コンテンツの表示順を設定<br>
+                                              4.[設定を保存する]をクリック<br>
+                                              5.管理画面左上の[お店ページの更新へ]ボタンをクリック<br>
+                                            </div>
+                                            
+                                            <TMPL_IF NAME=cart_theme_no_use>
+                                            <div id="theme_status" class="theme_status04">
+                                              <table class="shop item-box">
+                                                <tr>
+                                                  <td class="item-name">お店ページで利用中のテーマ</td>
+                                                  <td class="item"><TMPL_VAR NAME=shop_theme_label></td>
+                                                </tr>
+                                              </table>
+                                              <TMPL_IF NAME=diff_theme>
+                                              <table class="kanri item-box">
+                                               <tr>
+                                                 <td class="item-name">管理画面で編集中のテーマ</td>
+                                                 <td class="item"><TMPL_IF NAME=user_category_type><TMPL_VAR NAME=user_category_type> &gt; </TMPL_IF><TMPL_IF NAME=user_category_name><TMPL_VAR NAME=user_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=theme_name></td>
+                                               </tr>
+                                              </table>
+                                              </TMPL_IF>
+                                           <TMPL_ELSE>
+                                           <div id="theme_status" class="theme_status04 cart_theme_status">
+                                                <table class="shop item-box">
+                                                <tbody><tr>
+                                                    <td class="item-name" <TMPL_IF NAME=cart_theme_label>rowspan="2"</TMPL_IF>>お店ページで利用中の<br>テーマ</td>
+                                                    <td class="item item-category">お店ページ</td>
+                                                    <td class="item"><TMPL_VAR NAME=shop_theme_label></td>
+                                                </tr>
+                                                <TMPL_IF NAME=cart_theme_label>
+                                                <tr>
+                                                    <td class="item item-category">カート</td>
+                                                    <td class="item"><TMPL_VAR NAME=cart_theme_label></td>
+                                                </tr>
+                                                </TMPL_IF>
+                                                </tbody></table>
+                                            <TMPL_IF NAME=diff_show>
+                                                <table class="kanri item-box">
+                                                <tbody>
+                                                <tr>
+                                                    <td class="item-name" rowspan="2">管理画面で編集中の<br>テーマ</td>
+                                                <TMPL_IF NAME=diff_theme>
+                                                    <td class="item item-category">お店ページ</td>
+                                                    <td class="item"><TMPL_IF NAME=user_category_type><TMPL_VAR NAME=user_category_type> &gt; </TMPL_IF><TMPL_IF NAME=user_category_name><TMPL_VAR NAME=user_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=theme_name></td>
+                                                </tr>
+                                                </TMPL_IF>
+                                                <TMPL_IF NAME=cart_diff_theme>
+                                                <tr>
+                                                    <td class="item item-category">カート</td>
+                                                    <td class="item"><TMPL_IF NAME=cart_category_type><TMPL_VAR NAME=cart_category_type> &gt; </TMPL_IF><TMPL_IF NAME=cart_category_name><TMPL_VAR NAME=cart_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=cart_theme_name></td>
+                                                </tr>
+                                                </TMPL_IF>
+                                                </tbody></table>
+                                            </TMPL_IF>
+                                            </TMPL_IF>
+                                            </div>
+
+                                            <TMPL_IF NAME=error_wishlist ><div style="color: red; margin-left: 5px; float: left;">・お気に入り機能を「利用する」に変更してから、お気に入りコンテンツを表示にしてください。
+                                            <br>管理画面＞お店設定＞会員機能＞会員機能の設定</div></TMPL_IF>
+                                            <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+
+                                              <td><table width="100%" class="item-box table-padding-default">
+                                                <tr>
+                                                  <td colspan="5" align="center" class="item-name02">表示コンテンツ設定</td>
+                                                </tr>
+                                                <tr align="center" class="item-name-sub">
+                                                  <td width="15%" rowspan="2">表示設定</td>
+                                                  <td width="55%" rowspan="2">コンテンツ</td>
+
+                                                  <td colspan="3">表示箇所</td>
+                                                </tr>
+                                                <tr bgcolor="#FFFFFF">
+                                                  <td width="10%" align="center" class="item-name-sub">左</td>
+                                                  <td width="10%" align="center" class="item-name-sub">中央</td>
+                                                  <td width="10%" align="center" class="item-name-sub">右</td>
+                                                </tr>
+
+					<TMPL_LOOP NAME=toppage_list>
+                                                <tr bgcolor="<TMPL_VAR NAME=trbg>">
+                                                  <td align="center">
+						    <select name="status_<TMPL_VAR NAME=mlabel>" onchange="chg_status(this);">
+						    <TMPL_IF NAME=status>
+                                                      <option value="1" selected>表示</option>
+                                                      <option value="0">非表示</option>
+						    <TMPL_ELSE>
+						      <option value="1">表示</option>
+					  	      <option value="0" selected>非表示</option>
+						    </TMPL_IF>
+                                                    </select>
+                                                  </td>
+                                                  <td><TMPL_VAR NAME=mname><TMPL_IF NAME=qrcode>&nbsp;&nbsp;<span style="font-size: 80%;">※QRコードは(株)デンソーウェーブの登録商標です</span></TMPL_IF></td>
+
+                                                  <td align="center">
+							<TMPL_IF NAME=left_radio>
+                                                        <input type="radio" onClick="
+                                                                if(document.form1.center_<TMPL_VAR NAME=mlabel>)
+                                                                        document.form1.center_<TMPL_VAR NAME=mlabel>.checked=false;
+                                                                if(document.form1.right_<TMPL_VAR NAME=mlabel>)
+                                                                        document.form1.right_<TMPL_VAR NAME=mlabel>.checked=false;"
+                                                                name="left_<TMPL_VAR NAME=mlabel>" <TMPL_VAR NAME=lc>>
+	                                                <TMPL_ELSE>
+								-
+							</TMPL_IF></td>
+
+	                                          <td align="center">
+							<TMPL_IF NAME=center_radio>
+                                                        <input type="radio" onClick="
+                                                                if(document.form1.left_<TMPL_VAR NAME=mlabel>)
+                                                                        document.form1.left_<TMPL_VAR NAME=mlabel>.checked=false;
+                                                                if(document.form1.right_<TMPL_VAR NAME=mlabel>)
+                                                                        document.form1.right_<TMPL_VAR NAME=mlabel>.checked=false;"
+                                                                name="center_<TMPL_VAR NAME=mlabel>" <TMPL_VAR NAME=cc>>
+	                                                <TMPL_ELSE>
+	                                                        -
+	                                                </TMPL_IF>
+                                                  </td>
+                                                  <td align="center">
+							<TMPL_IF NAME=right_radio>
+                                                        <input type="radio" onClick="
+                                                                if(document.form1.left_<TMPL_VAR NAME=mlabel>)
+                                                                        document.form1.left_<TMPL_VAR NAME=mlabel>.checked=false;
+                                                                if(document.form1.center_<TMPL_VAR NAME=mlabel>)
+                                                                        document.form1.center_<TMPL_VAR NAME=mlabel>.checked=false;"
+                                                                name="right_<TMPL_VAR NAME=mlabel>" <TMPL_VAR NAME=rc>>
+	                                                <TMPL_ELSE>
+	                                                        -
+	                                                </TMPL_IF>
+						  </td>
+                                                </tr>
+					</TMPL_LOOP>
+
+                                                <tr bgcolor="#FFFFFF">
+                                                  <td colspan="5" align="center"><input type="button" value="↓表示レイアウト設定へ反映" style="width:180px" onClick="done();location.href='#save'">
+
+                                                  </td>
+                                                </tr>
+                                              </table>
+                                                <br>
+                                                <br>
+                                                <table width="100%" class="item-box">
+                                                  <tr align="center" bgcolor="#CCCCCC">
+                                                    <td colspan="3" class="item-name02"><a name="save"></a>表示レイアウト設定</td>
+
+                                                  </tr>
+                                                  <tr bgcolor="#FFFFFF">
+                                                    <td colspan="3">お店の名前</td>
+                                                  </tr>
+                                                  <tr align="right" bgcolor="#FFFFFF">
+                                                    <td colspan="3">カートをみる ｜ マイページへログイン ｜ ご利用案内 ｜ お問い合わせ ｜ サイトマップ</td>
+                                                  </tr>
+                                                  <tr bgcolor="#FFFFFF">
+
+                                                    <td width="30%" align="center"><br>
+	                                                <select name="left" size="20" style="width:180px" multiple onChange="chg_view(document.form1.left, 'left');">
+	                                                        <TMPL_LOOP NAME=left_option>
+	                                                        <TMPL_VAR NAME=left>
+	                                                        </TMPL_LOOP>
+	                                                </select>
+
+	                                                <div style="margin:10px 0px 15px 0px">
+	                                                        <input type="button" value="上へ" onClick="moveUpDn_ORG(document.form1.left, 1, 1);chg_view(document.form1.left, 'left');">
+							&nbsp;
+	                                                        <input type="button" value="下へ" onClick="moveUpDn_ORG(document.form1.left, 2, 1);chg_view(document.form1.left, 'left');">
+	                                                </div>
+                                                      </td>
+                                                    <td width="30%" align="center"><br>
+	                                                <select name="center" size="20" style="width:180px" multiple onChange="chg_view(document.form1.center, 'center');">
+	                                                        <TMPL_LOOP NAME=center_option>
+	                                                        <TMPL_VAR NAME=center>
+	                                                        </TMPL_LOOP>
+	                                                </select>
+	                                                <div style="margin:10px 0px 15px 0px">
+	                                                        <input type="button" value="上へ" onClick="moveUpDn_ORG(document.form1.center, 1, 1);chg_view(document.form1.center, 'center');">
+								&nbsp;
+	                                                        <input type="button" value="下へ" onClick="moveUpDn_ORG(document.form1.center, 2, 1);chg_view(document.form1.center, 'center');">
+	                                                </div>
+                                                      </td>
+                                                    <td width="30%" align="center"><br>
+	                                                <select name="right" size="20" style="width:180px" multiple onChange="chg_view(document.form1.right, 'right');">
+                                                        <TMPL_LOOP NAME=right_option>
+                                                        <TMPL_VAR NAME=right>
+                                                        </TMPL_LOOP>
+	                                                </select>
+	                                                <div style="margin:10px 0px 15px 0px">
+	                                                        <input type="button" value="上へ" onClick="moveUpDn_ORG(document.form1.right, 1, 1);chg_view(document.form1.right, 'right');">
+								&nbsp;
+	                                                        <input type="button" value="下へ" onClick="moveUpDn_ORG(document.form1.right, 2, 1);chg_view(document.form1.right, 'right');">
+	                                                </div>
+                                                    </td>
+                                                  </tr>
+                                                  <tr align="center" bgcolor="#FFFFFF">
+                                                    <td colspan="3">プライバシーポリシー | 特定商取引に関する法律に基づく表示 | お店案内</td>
+
+                                                  </tr>
+                                                </table>
+                                                <br>
+                                                <div align="center">
+                                                  <input name="pre" type="button" value="プレビュー" onClick="document.form1.mode.value='top_design';document.form1.target='template_preview';preview();">
+                                                  <input name="set" type="button" id="set" value="設定を保存する" onClick="document.form1.action='newtheme_topdesign_sps.cgi';document.form1.mode.value='regist';document.form1.target='_self';document.form1.submit();">
+                                                </div>
+                                              </td>
+                                            </tr>
+                                          </table></td>
+
+                                        </tr>
+                                      </table>
+<input type="hidden" name="left_view" value="<TMPL_VAR NAME=left_view>">
+<input type="hidden" name="right_view" value="<TMPL_VAR NAME=right_view>">
+<input type="hidden" name="center_view" value="<TMPL_VAR NAME=center_view>">
+<input type="hidden" name="non_view" value="<TMPL_VAR NAME=non_view>">
+<input type="hidden" name="mode" value="regist">
+<input type="hidden" name="right_val" value="">
+<input type="hidden" name="center_val" value="">
+<input type="hidden" name="left_val" value="">
+<input type="hidden" name="db_list" value="<TMPL_VAR NAME=db_list>">
+</form>
+<script language="JavaScript">
+<!--
+if (window.document.form1.status_itemcat.selectedIndex == 0){
+  window.document.form1.status_freearea17.selectedIndex  = 1;
+  window.document.form1.status_itemcatonly.selectedIndex = 1;
+  window.document.form1.status_freearea17.disabled = true;
+  window.document.form1.status_itemcatonly.disabled = true;
+}
+if (window.document.form1.status_freearea17.selectedIndex == 0 || window.document.form1.status_itemcatonly.selectedIndex == 0){
+  window.document.form1.status_itemcat.selectedIndex = 1;
+  window.document.form1.status_itemcat.disabled = true;
+}
+function chg_status(obj){
+//alert(obj.name);
+
+if ( obj.name == 'status_itemcat' || obj.name == 'status_freearea17' || obj.name == 'status_itemcatonly' ){
+  if ( obj.name == 'status_itemcat' ){
+    if (obj.selectedIndex == 0){
+      window.document.form1.status_freearea17.selectedIndex  = 1;
+      window.document.form1.status_itemcatonly.selectedIndex = 1;
+      window.document.form1.status_freearea17.disabled  = true;
+      window.document.form1.status_itemcatonly.disabled = true;
+    }else{
+      window.document.form1.status_freearea17.disabled  = false;
+      window.document.form1.status_itemcatonly.disabled = false;
+    }
+  }else{
+    if (obj.selectedIndex == 0){
+      window.document.form1.status_itemcat.selectedIndex  = 1;
+      window.document.form1.status_itemcat.disabled = true;
+    }else{
+      if ( obj.name == 'status_freearea17' &&  window.document.form1.status_itemcatonly.selectedIndex == 1 ){
+        window.document.form1.status_itemcat.disabled = false;
+      }
+      if ( obj.name == 'status_itemcatonly' &&  window.document.form1.status_freearea17.selectedIndex == 1 ){
+        window.document.form1.status_itemcat.disabled = false;
+      }
+    }
+  }
+}
+
+}
+//-->
+</script>

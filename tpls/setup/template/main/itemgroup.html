@@ -1,0 +1,320 @@
+<script language="JavaScript">
+<!--
+function del(f) {
+  if ( confirm("商品のグループを削除します。よろしいですか？") ) {
+    f.submit();
+  } else {
+    return;
+  }
+}
+function pop_pat() {
+
+    window.open('./selpat.cgi?TYPE=CAT','pat_box','width=800,height=700,scrollbars=yes,resizable=yes');
+}
+
+function del_pat(i) {
+  var chk_ok_f = 0;
+  var ncnt = 0;
+  var dis_f = 0;
+
+  if ( confirm("パターンを削除します。") ) {
+    document.getElementById( 'PAT_ID' + i ).value = '';
+    document.getElementById( 'PAT_NAME' + i ).value = '';
+    document.getElementById( 'PAT_TR' + i).style.display = 'none';
+    for(i = 1;i <= <TMPL_VAR NAME=PAT_JS_MAX>;i++){
+       if(document.getElementById('PAT_ID'+ i).value == '' ){
+         if( dis_f == 0){
+           document.getElementById( 'PAT_BUTTON' ).disabled = false;
+           dis_f = 1;
+         }
+         ncnt++;
+       }
+    }
+    if( ncnt >= <TMPL_VAR NAME=PAT_JS_MAX> ){
+      document.getElementById( 'PAT_TABLE' ).style.display = 'none';
+    }
+  }else{
+     return;
+  }
+
+}
+//-->
+</script>
+<form name="form1" method="post" action="itemgroup.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+                            <td align="left" class="midashi">商品のグループ管理を行います</td>
+<!-- 060329オンラインマニュアルのリンク追加 -->
+<td class="midashi" align="right"><a href="<TMPL_VAR NAME=Manual>func01/itemgroup.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td>
+                                    <div class="infoArea table_bg">
+                                      カテゴリとは別に商品が属するグループの追加、編集をします。<br>
+                                      編集する場合は、画面下グループ一覧の[編集]ボタンをクリックしてください。<br><br>
+                                      また、グループごとに商品一覧ページの「ヘッダ、フッタ」、「まとめ買い」が設定できます。<br>
+                                    </div>
+            <TMPL_LOOP NAME=ERR_MSG>
+            <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+            </TMPL_LOOP>
+<table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                    <tr>
+                                      <td class="item-name">見出し</td>
+                                      <td class="item"><input name="Title" type="text" class="def-line" value="<TMPL_VAR NAME=TITLE>">
+
+                                      </td>
+                                    </tr> <tr align="center">
+
+                                        <td colspan="2" class="item"><input type="button" name="Submit" value="設定を保存する" onClick="document.form1.CMD.value='TITLE';document.form1.submit();"></td>
+                                      </tr>
+                                  </table>
+				    <br>
+                                      <table class="item-box" border="0" cellpadding="0" cellspacing="2" width="100%">
+                                        <tbody>
+                                          <tr align="center">
+                                            <td colspan="3" class="item-name02">商品グループ</td>
+                                          </tr>
+
+                                          <tr>
+                                            <td class="item-name">グループ名(必須)</td>
+                                            <td class="item" colspan="2">
+						<input name="GroupName" type="text" class="def-line" value="<TMPL_VAR NAME=GROUPNAME>">
+					    </td>
+					  </tr>
+                                                <tr>
+                                                  <td class="item-name">タイトル</td>
+                                                  <td class="item" colspan="2">
+                                                    <input name="GroupTitle" type="text" class="def-line" value="<TMPL_VAR NAME=GROUPTITLE>"><br>
+                                                    ※入力しない場合は、「グループ名 お店の名前」がタイトルバーに表示されます。
+                                                  </td>
+                                                </tr>
+
+                                                <tr>
+                                                  <td class="item-name">キーワード</td>
+                                                  <td class="item" colspan="2">
+                                                    <input name="Keyword" type="text" class="def-line" value="<TMPL_VAR NAME=KEYWORD>">
+                                                    <br>※「,」半角カンマ区切りで入力してください。
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">ディスクリプション</td>
+                                                  <td class="item" colspan="2">
+                                                    <textarea class="def-line" rows="2" name="Description"><TMPL_VAR NAME=DESCRIPTION></textarea>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name" rowspan="4">まとめ買い機能
+						    <!--20070111追記20070227追記--><br><br><div>商品一覧ページで複数の商品をまとめてカートに入れる場合に設定します。<br><br>
+                                                    なお、バリエーション登録、会員限定として登録している商品は、まとめてカートに入れることができませんので、商品詳細ページからカートに入れていただくようご案内ください。
+                                                    </div><!--20070111追記ここまで-->
+						  </td>
+                                                  <td class="item02">表示方法</td>
+                                                  <td class="item02">
+                                                  <select name="MatomeShowFg">
+                                                    <option value="N"<TMPL_IF MatomeShowfg_N> selected</TMPL_IF>>まとめ買い機能を使用しない</option>
+                                                    <option value="P"<TMPL_IF MatomeShowfg_P> selected</TMPL_IF>>個数選択（プルダウン）</option>
+                                                    <option value="T"<TMPL_IF MatomeShowfg_T> selected</TMPL_IF>>個数入力（テキストボックス）</option>
+                                                  </select>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item02">「まとめてカートへ」ボタン設置場所</td>
+                                                  <td class="item02">
+<TMPL_IF NAME=EDITBUTTON>
+                                                    <input type="checkbox" name="MatomeKagoUe" value="Y" <TMPL_IF MatomeKagoUe_Y> checked</TMPL_IF>>一覧ページ上部<br>
+<TMPL_ELSE>
+                                                    <input type="checkbox" name="MatomeKagoUe" value="Y" checked>一覧ページ上部<br>
+</TMPL_IF>
+
+<TMPL_IF NAME=EDITBUTTON>
+                                                    <input type="checkbox" name="MatomeKagoNaka" value="Y" <TMPL_IF MatomeKagoNaka_Y> checked</TMPL_IF>>一覧ページ中央部<br>
+<TMPL_ELSE>
+                                                    <input type="checkbox" name="MatomeKagoNaka" value="Y" checked>一覧ページ中央部<br>
+</TMPL_IF>
+                                                    &nbsp;&nbsp;&nbsp;※商品が4行以上の場合だけ表示します。<br>
+<TMPL_IF NAME=EDITBUTTON>
+                                                    <input type="checkbox" name="MatomeKagoSita" value="Y" <TMPL_IF MatomeKagoSita_Y> checked</TMPL_IF>>一覧ページ下部<br>
+<TMPL_ELSE>
+                                                    <input type="checkbox" name="MatomeKagoSita" value="Y" checked>一覧ページ下部<br>
+</TMPL_IF>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item02">ボタン表示</td>
+                                                  <td class="item02">
+<TMPL_IF NAME=EDITBUTTON>
+                                                    <input type="text" name="MatomeButton" class="def-line" value="<TMPL_VAR NAME=MATOMEBUTTON>">
+<TMPL_ELSE>
+	<TMPL_IF NAME=ERR_MSG>
+		<TMPL_IF NAME=DELERR>
+                                                    <input type="text" name="MatomeButton" class="def-line" value="まとめてカートへ">
+		<TMPL_ELSE>
+                                                    <input type="text" name="MatomeButton" class="def-line" value="<TMPL_VAR NAME=MATOMEBUTTON>">
+		</TMPL_IF>
+	<TMPL_ELSE>
+                                                    <input type="text" name="MatomeButton" class="def-line" value="まとめてカートへ">
+	</TMPL_IF>
+</TMPL_IF>
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item02">案内文</td>
+                                                  <td class="item02">
+<input type="button" value="画像挿入..." onClick="window.open('../func100/selimg_tag.cgi?TARGET=document.form1.MatomeGuide','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')"><br>
+<TMPL_IF NAME=EDITBUTTON>
+                                                    <textarea name="MatomeGuide" rows="5" cols="65"><TMPL_VAR NAME=MATOMEGUIDE></textarea>
+<TMPL_ELSE>
+	<TMPL_IF NAME=ERR_MSG>
+		<TMPL_IF NAME=DELERR>
+                                                    <textarea name="MatomeGuide" rows="5" cols="65">このページからまとめてカートに入れることができます。<br>ご希望の個数を指定して「まとめてカートへ」ボタンをクリックしてください（※購入決定ではありませんので、数量は後で変更できます）。</textarea>
+		<TMPL_ELSE>
+                                                    <textarea name="MatomeGuide" rows="5" cols="65"><TMPL_VAR NAME=MATOMEGUIDE></textarea>
+		</TMPL_IF>
+	<TMPL_ELSE>
+                                                    <textarea name="MatomeGuide" rows="5" cols="65">このページからまとめてカートに入れることができます。<br>ご希望の個数を指定して「まとめてカートへ」ボタンをクリックしてください（※購入決定ではありませんので、数量は後で変更できます）。</textarea>
+	</TMPL_IF>
+</TMPL_IF>
+<br>※HTMLタグ利用可
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">グループ専用ヘッダ</td>
+                                                  <td class="item02" colspan="2">
+<input type="button" value="画像挿入..." onClick="window.open('../func100/selimg_tag.cgi?TARGET=document.form1.Header','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')"><br>
+                                                    <textarea name="Header" rows="5" cols="75"><TMPL_VAR NAME=HEADER></textarea><br>
+※HTMLタグ利用可
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">グループ専用フッタ</td>
+                                                  <td class="item02" colspan="2">
+<input type="button" value="画像挿入..." onClick="window.open('../func100/selimg_tag.cgi?TARGET=document.form1.Footer','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')"><br>
+                                                    <textarea name="Footer" rows="5" cols="75"><TMPL_VAR NAME=FOOTER></textarea><br>
+※HTMLタグ利用可
+                                                  </td>
+                                                </tr>
+                                               <!--20061220リコメンデーション追加ここから -->
+                                                <tr>
+                                                  <td class="item-name">関連商品</td>
+                                                  <td class="item02" colspan="2">
+                                                    <input type="button" id="PAT_BUTTON" value="パターンを追加" onclick="pop_pat();" <TMPL_VAR NAME=PAT_BUTTON>>
+
+                                                    <table id="PAT_TABLE" width="100%" class="item-box" style="<TMPL_VAR NAME=PAT_TABLE_STYLE>">
+                                                    <TMPL_LOOP PATTERN>
+                                                      <tr id ="PAT_TR<TMPL_VAR NAME=PAT_CNT>" name="PAT_TR<TMPL_VAR NAME=PAT_CNT>" style="<TMPL_VAR NAME=PAT_NONE>">
+                                                        <td bgcolor="#FFFFFF" class="item"><input style="border:1px solid #ffffff;width:99%" readonly type="text" id ="PAT_NAME<TMPL_VAR NAME=PAT_CNT>" name="PAT_NAME<TMPL_VAR NAME=PAT_CNT>" value="<TMPL_VAR NAME=PAT_NAME>"><input type="hidden" id ="PAT_ID<TMPL_VAR NAME=PAT_CNT>" name="PAT_ID<TMPL_VAR NAME=PAT_CNT>" value="<TMPL_VAR NAME=PAT_ID>"></td>
+                                                        <td align="center" bgcolor="#FFFFFF"><input type="button" value="削除" onClick="JavaScript:del_pat(<TMPL_VAR NAME=PAT_CNT>)">
+</td>
+                                                      </tr>
+                                                      </TMPL_LOOP>
+                                                    </table>
+                                                  </td>
+                                                </tr>
+                                                <!--20061220リコメンデーション追加ここまで -->
+                                                <tr align="center">
+                                                  <td colspan="3" class="item02">
+                                                    <span class="item">
+                                                    <input type="button" name="" value="キャンセル" onClick='location.href="itemgroup.cgi";'>
+<!--
+                                                    <input type="button" name="" value="プレビュー" onClick=''>
+-->
+<TMPL_IF NAME=EDITBUTTON>
+                                                    <input type="button" name="ADD" value="編集を保存する" onClick="
+<TMPL_IF NAME=ID>
+document.form1.ID.value=<TMPL_VAR NAME=ID>;
+</TMPL_IF>
+document.form1.CMD.value='EDT';document.form1.submit();">
+<TMPL_ELSE>
+                                                    <input type="button" name="ADD" value="グループを追加する" onClick="
+<TMPL_IF NAME=ID>
+document.form1.ID.value=<TMPL_VAR NAME=ID>;
+</TMPL_IF>
+document.form1.CMD.value='ADD';document.form1.submit();">
+</TMPL_IF>
+                                                    </span>
+                                                  </td>
+                                                </tr>
+                                              </tbody>
+                                            </table>
+<br>
+
+                                        <table class="item-box" border="0" cellpadding="0" cellspacing="2" width="100%">
+                                          <tbody>
+                                            <tr align="center">
+                                              <td class="item-name02" nowrap="nowrap" colspan="2">グループ名</td>
+                                              <td class="item-name02" nowrap="nowrap">タイトル</td>
+                                              <td nowrap class="item-name02">表示</td>
+                                              <td class="item-name02" nowrap="nowrap">操作</td>
+                                            </tr>
+
+                                          <TMPL_LOOP NAME=grouplist>
+                                            <tr>
+                                              <td class="item02" nowrap="nowrap">
+                                            <TMPL_IF NAME=noset>
+                                                <TMPL_VAR NAME=Name>
+                                                </td>
+                                                <td nowrap class="item02"></td>
+                                                <td nowrap class="item02"></td>
+                                                <td nowrap class="item02"></td>
+                                                <td nowrap class="item02"></td>
+                                            <TMPL_ELSE>
+                                                <input type="button" value="編集" onclick="
+document.form1.CMD.value='REEDT';document.form1.ID.value=<TMPL_VAR NAME=id>;
+document.form1.submit();">
+                                              </td>
+                                              <td class="item02" nowrap="nowrap">
+                                                <TMPL_VAR NAME=Name>
+                                                </td>
+                                                <td class="item02">
+                                                <TMPL_VAR NAME=Title>
+                                                </td>
+                                                <td class="item02" nowrap="nowrap">
+                                                <select name="Status<TMPL_VAR NAME=id>">
+                                                  <option value="1" <TMPL_IF NAME=status1>selected</TMPL_IF>>表示</option>
+                                                  <option value="0" <TMPL_IF NAME=status0>selected</TMPL_IF>>非表示</option>
+                                                </select>
+<input onclick="document.form1.CMD.value='SEDT';
+document.form1.ID.value=<TMPL_VAR NAME=id>;
+document.form1.Position.value=<TMPL_VAR NAME=position>;
+document.form1.submit();" value="変更" type="button">
+                                                </td>
+                                                <td class="item02" nowrap="nowrap">
+<input onclick="document.form1.CMD.value='UP';
+document.form1.ID.value=<TMPL_VAR NAME=id>;
+document.form1.Position.value=<TMPL_VAR NAME=position>;
+document.form1.submit();" value="上へ" type="button">
+<input onclick="document.form1.CMD.value='DOWN';
+document.form1.ID.value=<TMPL_VAR NAME=id>;
+document.form1.Position.value=<TMPL_VAR NAME=position>;
+document.form1.submit();" value="下へ" type="button">
+<input onclick="document.form1.CMD.value='DEL';
+document.form1.ID.value=<TMPL_VAR NAME=id>;
+document.form1.Position.value=<TMPL_VAR NAME=position>;
+del(document.form1);" value="削除" type="button">
+                                              </td>
+					    </TMPL_IF>
+                                            </tr>
+                                          </TMPL_LOOP>
+
+                                        </table>
+                                  </td>
+                                </tr>
+                              </table></td>
+
+                            </tr></table>
+<input type="hidden" name="CMD">
+<input type="hidden" name="ID">
+<input type="hidden" name="Position">
+</form>

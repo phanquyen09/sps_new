@@ -1,0 +1,224 @@
+<SCRIPT language="javascript">
+<!--
+
+   function selcat() {
+
+       selid = '';
+
+       var flag = new Boolean(document.FORM1.SEL[0]);
+       if (flag == true) {
+           for(i=0; i<document.FORM1.SEL.length; i++){
+               if( document.FORM1.SEL[i].checked){
+                   selid = document.FORM1.SEL[i].value;
+               }
+           }
+       } else {
+           selid = document.FORM1.SEL.value;
+       }
+       if( selid  == ''){
+           alert("型番を選択してください");
+           return;
+       }
+
+       od = opener.document;
+       od.ITEMINFO.Hinban.value = selid;
+       window.close();
+   }
+
+//-->
+</SCRIPT>
+
+<style type="text/css">
+#box {
+    width:  720px;
+/*    height: 700px;*/
+}
+#box li {
+    list-style: none outside none;
+    float: left;
+    height: 14px;
+    margin: 3px 0 3px 0;
+    padding: 1px 1px 0 0 ;
+    text-align:left;
+    width: 330px;
+}
+#box img {
+    padding: 0px 15px 0px 0px;
+    margin: 0;
+}
+</style>
+
+<body style="font-size:80%">
+
+<form name=FORM1>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="1" height="15"></td>
+  </tr>
+  <tr>
+    <td>
+       <TMPL_IF name=LEVEL1>
+       カテゴリを選択してください。
+       </TMPL_IF>
+       <TMPL_IF name=LEVEL2>
+           <TMPL_IF name=CATLIST>
+               分類を選択してください。
+           <TMPL_ELSE>
+               分類の登録はありませんでした。
+           </TMPL_IF>
+       </TMPL_IF>
+       <TMPL_IF name=LEVEL3>
+       メーカーを選択してください。
+       </TMPL_IF>
+       <TMPL_IF name=LEVEL4>
+        <TMPL_IF name=APPL>
+       製品・型番を確認してください。
+        <TMPL_ELSE>
+       製品・型番を選択してください。
+       </TMPL_IF>
+
+       </TMPL_IF>
+    </td>
+  </tr>
+</table>
+
+<TMPL_IF name=TOP>
+
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="1" height="10"></td>
+  </tr>
+</table>
+<TMPL_IF name=TOPCATE>
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="1">
+<tr><td>
+<div id="box">
+<ul>
+<TMPL_LOOP name=TOPCATE>
+<li><img src="../imgs/arrow01.gif" width="7" height="8">
+<a href="input_hinban.cgi?LEVEL=2&CTG1=<TMPL_VAR name=CATNAME>&APPL=<TMPL_VAR name=APPL>"><TMPL_VAR name=NAME></a></li>
+</TMPL_LOOP>
+</ul>
+</div>
+</td></tr>
+</table>
+</TMPL_IF>
+
+
+</TMPL_IF>
+
+
+<TMPL_IF name=CATLIST>
+
+<TMPL_IF name=OYANAME>
+<TMPL_VAR name=OYANAME>
+</TMPL_IF>
+
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="1" height="10"></td>
+  </tr>
+</table>
+
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="1">
+<TMPL_LOOP name=CATLIST>
+<tr>
+ <td>
+    <img src="../imgs/arrow01.gif" width="7" height="8">
+ </td>
+ <td align="left">
+    <a href="input_hinban.cgi?LEVEL=<TMPL_VAR name=LEVEL_1>&CTG1=<TMPL_VAR name=CAT1_1>&CTG2=<TMPL_VAR name=CAT2_1>&CTG3=<TMPL_VAR name=CAT3_1>&CTG4=<TMPL_VAR name=CAT4_1>&CTG5=<TMPL_VAR name=CAT5_1>&APPL=<TMPL_VAR name=APPL>"><TMPL_VAR name=CATNAME_1></a>
+ </td>
+ <td>
+    <TMPL_IF name=CATNAME_2>
+        <img src="../imgs/arrow01.gif" width="7" height="8">
+    <TMPL_ELSE>
+        &nbsp;
+    </TMPL_IF>
+ </td>
+ <td align="left">
+    <TMPL_IF name=CATNAME_2>
+        <a href="input_hinban.cgi?LEVEL=<TMPL_VAR name=LEVEL_2>&CTG1=<TMPL_VAR name=CAT1_2>&CTG2=<TMPL_VAR name=CAT2_2>&CTG3=<TMPL_VAR name=CAT3_2>&CTG4=<TMPL_VAR name=CAT4_2>&CTG5=<TMPL_VAR name=CAT5_2>&APPL=<TMPL_VAR name=APPL>"><TMPL_VAR name=CATNAME_2></a>
+    <TMPL_ELSE>
+        &nbsp;
+    </TMPL_IF>
+ </td>
+</tr>
+</TMPL_LOOP>
+</table>
+
+</TMPL_IF>
+
+
+<TMPL_IF name=HINBANLIST>
+
+<TMPL_IF name=OYANAME>
+<TMPL_VAR name=OYANAME>
+</TMPL_IF>
+
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="1" height="10"></td>
+  </tr>
+</table>
+
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="1" bgcolor="#BDE3BD">
+<tr>
+    <TMPL_UNLESS name=APPL>
+      <td bgcolor="#BDE3BD">&nbsp;</td>
+    </TMPL_UNLESS>
+  <td bgcolor="#BDE3BD">メーカー</td>
+  <td bgcolor="#BDE3BD">製品名・型番</td>
+</tr>
+<TMPL_LOOP name=HINBANLIST>
+<tr>
+    <TMPL_UNLESS name=APPL>
+ <td bgcolor="#FFFFFF">
+    <input type="radio" NAME="SEL" value="<TMPL_VAR name=HINBAN>">
+ </td>
+    </TMPL_UNLESS>
+ <td bgcolor="#FFFFFF">
+    <TMPL_VAR name=MAKER>
+ </td>
+ <td align="left" bgcolor="#FFFFFF">
+    &nbsp;<TMPL_VAR name=HINBAN>
+ </td>
+</tr>
+</TMPL_LOOP>
+</table>
+
+</TMPL_IF>
+
+
+
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="1" height="10"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#666666"><img src="../imgs/spc.gif" width="1" height="1"></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="../imgs/spc.gif" width="1" height="15"></td>
+  </tr>
+  <tr>
+    <td align="center">
+
+      <TMPL_IF name=DECIDE_BTN>
+        <TMPL_UNLESS name=APPL>
+          <input type="button" value="決定" onClick="selcat();">
+        </TMPL_UNLESS>
+      <TMPL_ELSE>
+          <input name="set" type="button" id="set" value="閉じる" onClick="self.close();">
+      </TMPL_IF>
+      <TMPL_IF name=TOP>
+      <TMPL_ELSE>
+          <img src="../imgs/spc.gif" width="5" height="1">
+          <input name="set" type="button" id="set" value="戻る" onClick="history.back();">
+      </TMPL_IF>
+    </td>
+  </tr>
+</table>
+
+</form>
+

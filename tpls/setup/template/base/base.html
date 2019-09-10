@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+  <title>Ｅストアーショップサーブ管理画面</title>
+  <link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+  <link rel="stylesheet" href="../css/default.css?20190821" type="text/css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link href="<TMPL_VAR NAME=DEFAULT_CSS_FILE>?20190821" rel="stylesheet" type="text/css">
+  <script type="text/javascript" src="/js/kanri.js?20190821"></script>
+  <script type="text/javascript" src="../js/base.js?20190821"></script>
+</head>
+
+<body id="top">
+  <!-- StyleSheet & JavaScript(START) -->
+  <TMPL_VAR NAME="COM_HEAD">
+  <!-- StyleSheet & JavaScript(END) -->
+
+  <!-- MenuHeader(START) -->
+  <TMPL_VAR NAME="HEAD_MENU">
+  <!-- MenuHeader(END) -->
+
+  <!-- main content -->
+  <TMPL_IF NAME="isTopPage">
+    <div class="main-content-wrap">
+      <div class="main-content">
+        <!-- Main Contents(START) -->
+        <TMPL_VAR NAME="MAIN">
+        <!-- Main Contents(END) -->
+      </div>
+    </div>
+  <TMPL_ELSE>
+    <!-- Main Contents(START) -->
+    <table class="outline <TMPL_IF NAME="pageCustomClass"><TMPL_VAR NAME="pageCustomClass"></TMPL_IF>" border="0" cellpadding="0" cellspacing="0">
+      <tbody>
+        <tr>
+          <td valign="bottom" align="center">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+              <tbody>
+              <tr valign="top" align="center">
+                <td colspan="2" align="left">
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0" style="background-repeat:repeat-x ">
+                    <tr align="right" valign="middle">
+                      <td align="right" class="navi">
+                        <TMPL_VAR NAME="CAPTION">
+                      </td>
+                    </tr>
+                  </table>
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td valign="top" width="100%" height="5">
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <TMPL_IF NAME="SIDE_MENU">
+                              <td width="210" valign="top" bgcolor="#FAFAFA">
+                              <!-- #BeginLibraryItem "/Library/funcside01.lbi" -->
+
+                                <!-- SIDE-MENU(START) -->
+                                <TMPL_VAR NAME="SIDE_MENU">
+                                <!-- SIDE-MENU(END) -->
+
+                                <!-- #EndLibraryItem -->
+                              </td>
+                            </TMPL_IF>
+                            <td valign="top" class="table_bg">
+                              <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td>
+                                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                      <tr>
+                                        <td id="main-contents">
+                                          <!-- Main Contents(START) -->
+                                          <TMPL_VAR NAME="MAIN">
+                                          <!-- Main Contents(END) -->
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+                  <br>
+                  <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td align="right" style="padding-right:10px ">
+                        <a href="#top">
+                          <span class="return-top">▲ このページのトップへ</span>
+                        </a>
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+              </tbody>
+            </table>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <!-- Main Contents(END) -->
+  </TMPL_IF>
+  <!-- main content -->
+
+  <!-- footer -->
+  <div class="footer">
+    <div class="footer-info">
+      <a class="hover-has-icon" href="../func100/sitemap.cgi"><i class="fa fa-caret-right" aria-hidden="true"></i>サイトマップ</a>
+    </div>
+  </div>
+  <!-- footer -->
+
+</body>
+</html>

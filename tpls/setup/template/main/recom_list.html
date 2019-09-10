@@ -1,0 +1,240 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+          <tr>
+            <td><img src="../imgs/spc.gif"></td>
+          </tr>
+      </table>
+    </td>
+
+    <td align="left" class="midashi">関連商品設定を行います</td>
+    <td align="right" class="midashi"><a href="https://help.shopserve.jp/help/recom_list.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table>
+<img src="imgs/spc.gif" width="5" height="5" />
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+<tr>
+  <td align="left" class="main-table">
+
+<!-- 関連商品設定用ここから -->
+<script language="javascript">
+<!--
+function all_disable(){
+  document.getElementById("CREATE").disabled = true;
+  document.getElementById("SAVE").disabled = true;
+  document.getElementById("SEARCH").disabled = true;
+  return;
+}
+
+function all_able(){
+  document.getElementById("CREATE").disabled = false;
+  document.getElementById("SAVE").disabled = false;
+  document.getElementById("SEARCH").disabled = false;
+  return;
+}
+
+function add_title(){
+
+    pv = document.PATLIST.Title.value;
+    ip = pv;
+    for( i=0; i<ip.length; i++){
+        spv = pv.replace(' ','');
+        spv = pv.replace('　','');
+        pv = spv;
+    }
+
+    document.PATLIST.submit();
+}
+
+function del_conf(n){
+  var i = n;
+  if( confirm("パターンを削除します。\n使用しているパターンを削除すると商品詳細ページに表示されなくなります。") ){ 
+    document.PATLIST.CMD.value='del';
+    document.PATLIST.PTNO.value=i;
+    document.PATLIST.submit();
+  }else{
+    return;
+  }
+}
+
+function pken(){
+  document.PATLIST.CMD.value='pken';
+
+}
+
+function kensaku(n){
+  if( n ){
+  }else{
+    n = 1;
+  }
+  document.PATLIST.PAGE.value= n;
+  document.PATLIST.CMD.value='kensaku';
+  document.PATLIST.submit();
+}
+
+function edit(n){
+  i = n;
+  document.PATLIST.CMD.value='';
+  document.PATLIST.PTNO.value=i;
+  document.PATLIST.action='recom_edit.cgi';
+  document.PATLIST.submit();
+}
+
+
+function wopen(n){
+  i = new String(n);    
+  document.PATLIST.CMD.value='wopen';
+  document.PATLIST.PTNO.value=i;
+  o = ('pop_recom.cgi?PTNO='+i+'' );
+  w = window.open((o),'preview');
+}
+
+
+
+//-->
+</script>
+<form name="PATLIST" method="POST" action="recom_list.cgi">
+<input type="hidden" name="PAGE" />
+<input type="hidden" name="CMD" />
+<input type="hidden" name="PTNO" />
+
+
+
+<div class="infoArea table_bg" style="line-height:1.6;">
+商品詳細ページやカゴ画面に関連商品（ついでに閲覧して欲しい商品）を表示できます。<br>
+  閲覧ページ数の増加や、商品ページのＳＥＯ対策に効果的です。<br>
+<a href="https://help.shopserve.jp/manual/059/" target="manual">⇒
+はじめにお読みください</a>
+</div>
+
+<font color=red><TMPL_VAR ERR></font>
+<table class="item-box">
+<tr align="center">
+  <td class="item-name02">パターン新規作成</td>
+</tr>
+<tr align="center">
+  <td class="item"><input id="CREATE" type="button" <TMPL_VAR DISAB> value="パターン作成" onClick="all_disable();location.href='recom_add.cgi'"></td>
+</tr>
+
+</table>
+<br>
+<table cellspacing="0" cellpadding="0" width="100%" border="0">
+<tr>
+  <td>
+    <!--<input type="button" value="パターン作成" onClick="location.href='recom_add.cgi'">-->
+  </td>
+  <td align="right"><TMPL_VAR NAME=LIST_START> - <TMPL_VAR NAME=LIST_END>&nbsp; （ 全 <TMPL_VAR NAME=LIST_TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP></td>
+</tr>
+</table>
+
+<table class="item-box">
+<tr align="center">
+  <td class="item-name02">&nbsp;</td>
+  <td class="item-name02">パターン名</td>
+  <td class="item-name02">操作</td>
+</tr>
+
+
+<TMPL_LOOP ILIST>
+<tr>
+  <td class="item02" style="text-align:center"><input type="button" value="編集" onClick="edit('<TMPL_VAR NAME=PTNO>')"></td>
+  <td class="item02"><TMPL_VAR NAME=PTNAME></td>
+  <td class="item02" style="text-align:center">
+    <input type="button" value="商品確認" onClick="wopen('<TMPL_VAR NAME=PTNO>');">
+    <input type="button" value="削除" onClick="del_conf(<TMPL_VAR NAME=PTNO>)">
+  </td>
+</tr>
+</TMPL_LOOP>
+
+</table>
+
+<table cellspacing="0" cellpadding="0" width="100%" border="0">
+<tr>
+  <td align="right"><TMPL_VAR ZKEN> <TMPL_VAR LINO></td>
+</tr>
+</table>
+<br>
+
+<div class="infoArea table_bg">
+作成したパターンを、パターン名、商品名、商品番号で検索できます。
+</div>
+<table class="item-box">
+<tr>
+  <td colspan="2" class="item-name02" align="center">パターン検索</td>
+</tr>
+<tr>
+  <td class="item-name">パターン名</td>
+  <td class="item"><input type="text" name="ptname" value="<TMPL_VAR PTNAME>" maxlength="255" class="def-line"></td>
+</tr>
+<tr>
+  <td class="item-name">商品名</td>
+  <td class="item">
+    <input type="text" name="itname" value="<TMPL_VAR ITNAME>" maxlength="255" class="def-line">
+  </td>
+</tr>
+<tr>
+  <td class="item-name">商品番号</td>
+  <td class="item">
+    <input type="text" name="itno" value="<TMPL_VAR ITNO>" maxlength="64" class="def-line">
+  </td>
+</tr>
+<tr align="center">
+  <td colspan="2" bgcolor="#FFFFFF"><input id="SEARCH" type="button" name="Submit" value="検索する" onClick="all_disable(); pken(); document.PATLIST.submit();"></td>
+</tr>
+</table>
+<br>
+
+<div class="infoArea table_bg">
+関連商品の見出しや表示形式、カゴ画面に表示するかなどの基本設定を行います。
+</div>
+
+<div class="customTemplateInfo1"><a href="http://help.shopserve.jp/ctrlpnl_sup/func01/recom_list/custom.html" target="_blank"><img src="../imgs/func01_custTempInfo1.png" alt="カスタムテンプレートのご利用について"></a></div>
+
+<a name="init">
+<table class="item-box">
+<tr align="center">
+  <td class="item-name02" colspan="2">基本設定</td>
+<tr>
+  <td class="item-name">見出し</td>
+  <td class="item"><input name="Title" type="text" maxlength="255" class="def-line" value="<TMPL_VAR TITLE>"></td>
+</tr>
+<tr>
+  <td class="item-name">表示形式</td>
+  <td class="item">
+    <input name="ListView" type="radio" value="1" id="coment01" <TMPL_VAR CHK1> /><label for="coment01">説明あり</label>
+    <input name="ListView" type="radio" value="2" id="coment02" <TMPL_VAR CHK2> /><label for="coment02">写真のみ</label>
+  </td>
+</tr>
+
+<tr>
+  <td class="item-name">カゴ画面への表示</td>
+  <td class="item">
+    <input name="chkDispKago" type="radio" value="1" id="chkDispKago1" <TMPL_VAR CHKDISPKAGO1> /><label for="chkDispKago1">表示する</label>
+    <input name="chkDispKago" type="radio" value="0" id="chkDispKago0" <TMPL_VAR CHKDISPKAGO0> /><label for="chkDispKago0">表示しない</label>
+  </td>
+</tr>
+
+<tr>
+  <td class="item-name">あわせ買い</td>
+  <td class="item">
+    <select name="MatomeShowfg">
+      <TMPL_LOOP PAT_MATOME_F>
+        <option value="<TMPL_VAR NAME=VAL>" <TMPL_VAR NAME=SEL>><TMPL_VAR NAME=NAM></option>
+      </TMPL_LOOP>
+    </select>
+  </td>
+</tr>
+<tr align="center">
+    <td colspan="2" class="item"><input id="SAVE" type="button" name="Submit" value="設定を保存する" onClick="all_disable(); document.PATLIST.CMD.value='title';  add_title() "></td>
+</tr>
+</table>
+<br>
+
+<!-- リコメンデーション設定用ここまで -->
+
+
+</td>
+                            </tr>
+                        </table>
+</form>

@@ -1,0 +1,121 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title><TMPL_VAR NAME=ServName>管理画面</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="default03.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+-->
+</script>
+</head>
+<body style="font-size:80%">
+<table width="700"  border="0" cellspacing="0" cellpadding="0">
+<form name="SCWSET" method="POST" action="sc_weight.cgi">
+<input type="hidden" name="CMD" value="EDT">
+<input type="hidden" name="COL" value="<TMPL_VAR NAME=COL>">
+<input type="hidden" name="ROW" value="<TMPL_VAR NAME=ROW>">
+	<tr>
+		<td align="left">
+			<div class="midashi02">■重量別送料の設定</div>
+			<br>
+<!--
+			<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td><img src="../imgs/com-tl.gif" width="5" height="5"></td>
+					<td background="../imgs/com-tc.gif"><img src="../imgs/com-tc.gif" width="5" height="5"></td>
+					<td><img src="../imgs/com-tr.gif" width="5" height="5"></td>
+				</tr>
+				<tr>
+					<td background="../imgs/com-cl.gif"><img src="../imgs/com-cl.gif" width="5" height="5"></td>
+					<td class="coment">
+						<ul type="circle" class="coment01">
+							<li class="coment03"><strong>「重量別送料」</strong>の設定を行います。<br>
+								各項目を入力後、<strong>［設定内容を保存］</strong>ボタンをクリックしてください。</li>
+						</ul>
+					</td>
+					<td background="../imgs/com-cr.gif"><img src="../imgs/com-cr.gif" width="5" height="5"></td>
+				</tr>
+				<tr>
+					<td><img src="../imgs/com-bl.gif" width="5" height="5"></td>
+					<td background="../imgs/com-bc.gif"><img src="../imgs/com-bc.gif" width="5" height="5"></td>
+					<td><img src="../imgs/com-br.gif" width="5" height="5"></td>
+				</tr>
+			</table>
+			<br>
+-->
+<TMPL_LOOP NAME=ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+			<table width="100%"  border="0" cellpadding="3" cellspacing="2" class="item-box">
+				<tr class="item-name02">
+					<td align="center"><strong>重量別</strong></td>
+					<td align="center"><strong>0g〜</strong></td>
+					<td align="center">
+						<input name="ScPrc_02" type="text" size="10" value="<TMPL_VAR NAME=SCPRC02>" style="ime-mode:disabled">
+      <strong>g〜</strong></td>
+					<td align="center">
+						<input name="ScPrc_03" type="text" size="10" value="<TMPL_VAR NAME=SCPRC03>" style="ime-mode:disabled">
+      <strong>g〜</strong></td>
+				</tr>
+				<tr class="item-name">
+					<td width="25%" align="center">
+						<strong><label for="deli02">都道府県</label></strong></td>
+					<td width="25%" align="center"><a href="Javascript:document.SCWSET.CMD.value='COLROW';document.SCWSET.ROW.value='0';document.SCWSET.COL.value='';document.SCWSET.submit();">[列編集↓]</a></td>
+					<td width="25%" align="center"><a href="Javascript:document.SCWSET.CMD.value='COLROW';document.SCWSET.ROW.value='1';document.SCWSET.COL.value='';document.SCWSET.submit();">[列編集↓]</a></td>
+					<td width="25%" align="center"><a href="Javascript:document.SCWSET.CMD.value='COLROW';document.SCWSET.ROW.value='2';document.SCWSET.COL.value='';document.SCWSET.submit();">[列編集↓]</a></td>
+				</tr>
+
+
+<TMPL_LOOP NAME=PREFS>
+				<tr bgcolor="#FFFFFF">
+					<td valign="top" class="sub-item-name"> <TMPL_VAR NAME=PREF><span style="margin-left:2em"><a href="Javascript:document.SCWSET.CMD.value='COLROW';document.SCWSET.COL.value='<TMPL_VAR NAME=NO>';document.SCWSET.submit();">[行編集→]</a></span> </td>
+					<td align="right">
+					    <TMPL_IF TEXT01>
+					    <input name="Sc<TMPL_VAR NAME=NO>_01" type="text" size="10" value="<TMPL_VAR NAME=SC_01>" style="ime-mode:disabled">円
+					    <TMPL_ELSE>
+					    <input name="Sc<TMPL_VAR NAME=NO>_01" type="hidden" size="10" value="<TMPL_VAR NAME=SC_01>"><TMPL_VAR NAME=SC_01>円
+					    </TMPL_IF>
+					</td>
+					<td align="right">
+					    <TMPL_IF TEXT02>
+					    <input name="Sc<TMPL_VAR NAME=NO>_02" type="text" size="10" value="<TMPL_VAR NAME=SC_02>" style="ime-mode:disabled">円
+					    <TMPL_ELSE>
+					    <input name="Sc<TMPL_VAR NAME=NO>_02" type="hidden" size="10" value="<TMPL_VAR NAME=SC_02>"><TMPL_VAR NAME=SC_02>円
+					    </TMPL_IF>
+					</td>
+					<td align="right">
+					    <TMPL_IF TEXT03>
+					    <input name="Sc<TMPL_VAR NAME=NO>_03" type="text" size="10" value="<TMPL_VAR NAME=SC_03>" style="ime-mode:disabled">円
+					    <TMPL_ELSE>
+					    <input name="Sc<TMPL_VAR NAME=NO>_03" type="hidden" size="10" value="<TMPL_VAR NAME=SC_03>"><TMPL_VAR NAME=SC_03>円
+					    </TMPL_IF>
+					</td>
+				</tr>
+</TMPL_LOOP>
+
+
+
+			</table>
+					<div align="center">
+					<br>
+					<hr size="1" noshade>
+					<br>
+					<input name="set" type="button" id="set" value="設定を保存する" onClick="document.SCWSET.submit();">
+					&nbsp;
+					<input name="set" type="button" id="set" value="保存せずに閉じる" onClick="window.close()">
+					</div>
+	  </td>
+	</tr>
+</table>
+<br>
+<br>
+</form>
+</body>
+</html>

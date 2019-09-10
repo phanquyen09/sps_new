@@ -1,0 +1,334 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>決済代行サービスのお申し込みからサービス開始までの流れ</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<!--1215-->
+<!--meta http-equiv="Content-Type" content="text/html;charset=Shift_JIS"-->
+<!--1215-->
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<link href="default00.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="pmapply_web.css" media="all">
+<link rel="stylesheet" type="text/css" href="pmapply_print.css" media="print"> 
+</head>
+<body>
+
+<form name="PMAPPLY01" method="POST" action="pmapply.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="NEXT">
+
+<div id="topImage"><img src="imgs/payment_navi01.gif" height="52" width="590"></div>
+
+<!--1215-->
+<!--div id="mainBox" style="font-size:80%" align="center"-->
+<div id="mainBox" style="font-size:80%">
+
+<!-- 20091218 Yahoo!ウォレット決済対応ここから -->
+<div class="stepBox">
+  <span style="font-weight:bold">クレジットカード決済・コンビニ決済・電子決済をお申込みの場合は下記のボタンをクリックし、申込みページへお進みください。</span>
+  <br>
+  <center>
+      <input type="button" value="申込みページへ進む" onClick="location.href='#m_start'">
+  </center>
+</div>
+
+<br>
+
+<div class="stepBox">
+  <span style="font-weight:bold">Yahoo!ウォレット決済をお申込の場合は下記のボタンをクリックし、申込みページへお進みください。</span>
+  <br>
+    <center>
+        <input type="button" value="申込みページへ進む" onClick="location.href='download_yw_pdf.cgi'">
+    </center>
+</div>
+
+<div class="stepBox">
+	<p><b>コンビニ決済（番号端末式）をお申込の場合は下記のボタンをクリックし、仮申込みページへお進みください。</b>
+	<span style="color:#c00;">※株式会社ペイジェントの仮申込みページが表示されます。</span></p>
+
+	<div style="margin-top:1em;padding:2px 5px 5px;border:1px solid #7f9db9;background:#efefef">
+
+		<p><b style="color:#444;">≪個人情報及び決済取引に関する情報について≫</b></p>
+		<p style="margin-top:0.4em;">コンビニ決済（番号端末式）サービス（以下「本サービス」という）の利用に際して、以下の条項にご同意の上、本サービスをお申し込み下さい。</p>
+		<p style="margin-top:0.8em;padding-left:1em;text-indent:-0.75em;">1.株式会社Ｅストアーがお客様と株式会社ペイジェントとの決済取引に関する情報を株式会社ペイジェントから提供を受けることがあることに同意するものとします。</p>
+		<p style="margin-top:0.8em;padding-left:1em;text-indent:-0.75em;">2.株式会社Ｅストアーがお客様に関する情報及びお客様の本サービスを利用した取引に関する情報を本サービスに必要であると合理的に認められる範囲で株式会社ペイジェントに提供することがあることに同意するものとします。</p>
+	</div>
+
+	<div style="margin-top:1em;text-align:center;">
+
+		<input type="button" value="仮申込みページへ進む" onClick="window.open('https://mdev.paygent.co.jp/cgi-bin/regist_entry.cgi?cid_11=estore&shop_id=<TMPL_VAR NAME=STORENAME>','paygent','');">
+	</div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<!-- 20091218 Yahoo!ウォレット決済対応ここまで -->
+
+<a name="m_start"></a>
+	<h1>決済代行サービスのお申し込みからサービス開始までの流れ</h1>
+
+<!--1215-->
+<TMPL_IF ERR_MSG>
+<div class="fRed" style="margin:0.3em 0 0 0.8em;font-weight:bold">
+<TMPL_LOOP ERR_MSG>
+&nbsp;・<TMPL_VAR NAME=MSG><br>
+</TMPL_LOOP>
+</div>
+手続きの流れをご確認のうえ、[お申込条項へ進む]ボタンをクリックして、次の画面へお進みください。 <br><br>
+</TMPL_IF>
+
+	<div class="fRed" style="font-weight:bold;margin:0 0 0.9em">
+	開店していなくても、お店の情報や商品の情報が用意されていれば、お申し込みいただけます。<br>
+	審査の対象はお店のデザインやページ制作の完成度でなく、お店の情報と商品の情報です。
+	</div>
+
+	<p class="pText">お申し込みは専用フォームから必要事項を入力して印刷、捺印し、必要書類を添付してＥストアー宛に郵送するだけです。</p>
+	<p class="pText" style="font-weight:bold">サービス開始までの期間は、申込書類がＥストアーに到着後、クレジットカード決済はおおむね4週間後、その他の決済（コンビニ、電子決済）は1〜3営業日後です。</p>
+	<p>※書類の不備や記載内容の相違などがあった場合、開始日が大幅に遅れることもあります。<br>
+	<span class="fRed">特に、以下の名義人が同一でない場合は審査が受けられませんので十分ご留意ください。</span></p>
+
+	<div class="fRed" style="margin:0.3em 0 0 0.8em;font-weight:bold">
+		・&nbsp;Ｅストアーショップサーブのご契約者様<br>
+		・&nbsp;「特定商取引に関する法律に基づく表示」の販売業者
+	</div>
+
+	<div class="stepBox">
+		<div class="stepMidashi">１．お申し込み条項を確認、同意いただきます。</div>
+		<span style="font-weight:bold">この画面を下まで読んでいただき、【お申込条項へ進む】ボタンを押すと、お申込み条項の画面に進みます。</span>特に禁止事項、免責事項をよくお読みください。
+	</div>
+
+
+	<div class="stepBox">
+		<div class="stepMidashi">２．あらかじめ必要書類をご用意いただきます。</div>
+			<p style="font-weight:bold">&nbsp;以下のどちらの状態かによって、必要書類が異なります。</p>
+
+		<div class="sText">
+                        <p style="font-weight:bold;line-height:100%;margin:0 0 0.9em">
+                            ■&nbsp;開店ウィザードを終了している場合（準備中の状態でも可）<br>
+                            ■&nbsp;開店ウィザードを終了していない場合（Ｅストアーショップサーブで作ったお店ページがない）
+                        </p>
+                                                    
+			<table border="0" cellpadding="0" cellspacing="0" class="sTable">
+			<tr>
+				<th colspan="2" class="sTh01">■&nbsp;開店ウィザードを終了している場合（準備中の状態でも可）</th>
+			</tr>
+                        <tr>
+                                <th class="sTh02">必要な条件</th>
+                                <td class="sTd">
+                                         <span style="font-weight:bold">1.開店ウィザードを完了している</span>（自動的に次のページができています）<br>
+                                         <div class="sTd">
+                                            ・&nbsp;商品ページ（メインに販売する商品を3点程度ご用意ください）<br>
+                                            ・&nbsp;特定商取引法の表記<br>
+                                         </div>
+                                         <span style="font-weight:bold">2.お店が準備中（非公開）の場合でも、Ｅストアーがページを閲覧することに了承する</span>
+                                </td>
+                        </tr>
+			<tr>
+				<th class="sTh02">法人の場合</th>
+				<td class="sTd">
+					・&nbsp;Ｅストアーショップサーブご契約法人名の印鑑証明書（発行後3ヶ月以内の原本）<br>
+					・&nbsp;販売許可証あるいは販売免許証のコピー<br>
+					  &nbsp;&nbsp;（例）一般酒類小売業の免許、古物商許可証など 
+				</td>
+			</tr>
+			<tr>
+				<th class="sTh02">個人の場合<br>（個人事業主）</th>
+				<td class="sTd">
+					・&nbsp;Ｅストアーショップサーブご契約者様の印鑑証明書（発行後3ヶ月以内の原本）<br>
+                                          または有効期限が確認できる「運転免許証」「パスポート」「外国人登録証」<br>いずれかのコピー<br>
+					・&nbsp;販売許可証あるいは販売免許証のコピー<br>
+                                          &nbsp;&nbsp;（例）一般酒類小売業の免許、古物商許可証など
+				</td>
+			</tr>
+			</table>
+			<br>
+
+			<table border="0" cellpadding="0" cellspacing="0" class="sTable">
+			<tr>
+				<th colspan="2" class="sTh01">■&nbsp;開店ウィザードを終了していない場合（Ｅストアーショップサーブで作ったお店ページがない）</th>
+			</tr>
+                        <tr>
+                                <th class="sTh02">必要な条件</th>
+                                <td class="sTd">
+                                         <span style="font-weight:bold">1.次のどちらかの方法で販売予定の商品が確認できる</span>
+                                         <div class="sTd">
+                                            ・&nbsp;商品の画像、価格、内容がわかるカタログ（メイン商品を3点程度ご用意ください）<br>
+                                            ・&nbsp;既に他のサーバーで運営中のお店のURL<br>
+                                         </div>
+                                         <span style="font-weight:bold">2.特定商取引法の表記を印刷したものが用意できる</span>
+                                </td>
+                        </tr>
+			<tr>
+				<th class="sTh02">法人の場合</th>
+				<td class="sTd">
+					・&nbsp;Ｅストアーショップサーブご契約法人名の印鑑証明書（発行後3ヶ月以内の原本）<br>
+					・&nbsp;特定商取引法の表記を印刷したもの<br>
+					・&nbsp;商品の画像、価格、内容がわかるカタログなど<br>
+                                          &nbsp;&nbsp;※すでに他のサーバーでお店がある場合は、そのお店のURLでもOKです。<br>
+					・&nbsp;販売許可証あるいは販売免許証のコピー<br>
+					  &nbsp;&nbsp;（例）一般酒類小売業の免許、古物商許可証など 
+				</td>
+			</tr>
+			<tr>
+				<th class="sTh02">個人の場合<br>（個人事業主）</th>
+				<td class="sTd">
+					・&nbsp;Ｅストアーショップサーブご契約者様の印鑑証明書（発行後3ヶ月以内の原本）<br>
+                                          または有効期限が確認できる「運転免許証」「パスポート」「外国人登録証」<br>いずれかのコピー<br>
+					・&nbsp;特定商取引法の表記を印刷したもの<br>
+					・&nbsp;商品の画像、価格、内容がわかるカタログなど<br>
+                                          &nbsp;&nbsp;※すでに他のサーバーでお店がある場合は、そのお店のURLでもOKです。<br>
+					・&nbsp;販売許可証あるいは販売免許証のコピー<br>
+                                          &nbsp;&nbsp;（例）一般酒類小売業の免許、古物商許可証など
+				</td>
+			</tr>
+			</table>
+
+			<div class="subMidashi fRed">販売許可書、販売免許証のコピーについて</div>
+				<div style="margin:0.1em 0 0 0.8em">
+			        販売に許認可が必要な商品を取り扱っている場合は、法人、個人（個人事業主）を問わず必要となります。<br>
+			            <span style="font-size:0.9em">
+                                    例&gt;&nbsp;食品衛生責任者の免許、一般酒類小売業の免許、古物商許可証<br><br>
+                                    ※インターネット上にて古物を取り扱う際は、管轄の公安委員会ホームページ上に、お客様の商号・認可番号を掲載する必要がございます。お申込前に必ず手続きをお済ませください。
+                                    </span>
+                                </div>
+
+			<div class="subMidashi fRed">商品の画像、価格、内容がわかるカタログ・お店のURLについて</div>
+                            <div style="font-size:0.9em">
+                                必要な情報がまとまっていれば、エクセルやワードなどで自作したものを印刷してもＯＫです。<br>
+                                もちろん商品のメーカーが提供するパンフレットやカタログなどでもＯＫ。<br><br>
+                                すでに他のサーバーにお店がある場合は、そのお店のURLを申込書に記載していただければ、そのお店で審査を行います。URLの記入はお申込み書の余白をご利用ください。
+                           </div>
+		</div>
+	</div>
+
+	<div class="stepBox">
+		<div class="stepMidashi">３．申込画面に必要事項を入力します。</div>
+		<div class="sText">
+			全ての決済代行サービスを同時にお申し込みいただけます。<br>
+			個別のお申し込みも可能ですが、その都度手続きが必要ですので、全て選択されることをお奨めいたします。
+		</div>
+	</div>
+
+	<div class="stepBox">
+		<div class="stepMidashi">４．最終画面から申込書を印刷します。</div>
+		<div class="sText">
+			申込書をA4用紙で印刷してください。<br>
+			複数の決済を同時にお申し込みの場合は、各決済ごとに申込書を印刷します。
+		</div>
+	</div>
+
+	<div class="stepBox">
+		<div class="stepMidashi">５．指定の印鑑で申込書に捺印します。</div>
+		<div class="sText">
+			【注意事項】必ず印鑑証明書と同じ印鑑でご捺印ください。<br>
+		        個人・個人事業主の場合で「運転免許証」「パスポート」「外国人登録証」を本人確認書類としてお申込み頂く場合は、「ご契約者様の印鑑」でご捺印ください。
+		</div>
+	</div>
+
+	<div class="stepBox">
+		<div class="stepMidashi">６．申込書と必要書類をＥストアーに郵送します。</div>
+		<div class="sText">
+                        <span style="font-weight:bold">
+			印刷した「申込書」に捺印のうえ、先に用意した「必要書類」と共にＥストアーまで送付してください。<br>
+                        重要書類につき、「宅配便」など配達記録の残る配送方法で送付頂くことをお勧めします。
+                        </span>
+
+			<div class="sAddr">
+<!--1215-->
+<TMPL_VAR NAME=ESTOREADDR>
+
+			<!--	〒105-0003<br>
+				東京都港区西新橋1-10-2 住友生命西新橋ビル<br>
+				株式会社Ｅストアー「Ｅストアー決済代行サービス受付係」行-->
+			</div>
+
+		</div>
+	</div>
+
+	<div class="stepBox">
+		<div class="stepMidashi">７．審査が行われます。</div>
+		<div class="sText">
+			申込書がＥストアーに到着後、Ｅストアーおよび各決済の会社で審査を行います。<br>
+			クレジットカード決済の場合2〜3週間で審査結果を決済担当者メールアドレス宛にご連絡いたします。
+			書類の不備や記載内容に相違があった場合は電話もしくはメールでご連絡いたします。
+		</div>
+	</div>
+
+	<div class="stepBox">
+		<div class="stepMidashi">８．ご利用開始のご連絡をいたします。</div>
+		<div class="sText">
+			決済担当者メールアドレス宛に、ご利用開始のご連絡をいたします。<br>
+			ご利用開始の目安は以下のとおりです。（申込書がＥストアーに到着してからの期間）<br>
+			<div class="fRed" style="font-weight:bold;margin:0.5em 0 0 0.8em">
+				・&nbsp;クレジットカード決済&nbsp;：&nbsp;約4週間<br>
+				・&nbsp;コンビニ決済&nbsp;：&nbsp;約2〜3営業日<br>
+				・&nbsp;電子決済&nbsp;：&nbsp;約1〜2営業日
+			</div>
+		</div>
+	</div>
+
+
+</div>
+
+<div id="appBox">
+	<table border="0" cellpadding="0" cellspacing="2" class="chkTable">
+	<tr>
+		<td colspan="3" class="sTd" style="background-color:#ffeae1">
+			<span style="font-weight:bold">お申し込みを希望される決済をチェックして［&nbsp;お申込条項へ進む&nbsp;］ボタンをクリックしてください。
+			複数チェックしての同時申込も可能です。</span><br>
+			※本ページを印刷し、読みながらお手続きされることをお奨めいたします。&nbsp;<input type="button" value="印刷する" onClick="window.print()" style="font-size:0.7em">
+		</td>
+	</tr>
+	<tr>
+<TMPL_IF NOUSECARD>
+<td width="<TMPL_VAR NAME=WIDTH>%" class="sTd"><input type="checkbox" name="CARD" value="Y" <TMPL_IF CARDY>checked</TMPL_IF>>&nbsp;クレジットカード決済</td>
+</TMPL_IF>
+<TMPL_IF NOUSECVS>
+<td width="<TMPL_VAR NAME=WIDTH>%" class="sTd"><input type="checkbox" name="CVS" value="Y" <TMPL_IF CVSY>checked</TMPL_IF>>&nbsp;コンビニ決済</td>
+</TMPL_IF>
+<TMPL_IF NOUSEESTL>
+<td width="<TMPL_VAR NAME=WIDTH>%" class="sTd"><input type="checkbox" name="ESTL" value="Y" <TMPL_IF ESTLY>checked</TMPL_IF>>&nbsp;電子決済</td>
+</TMPL_IF>
+<TMPL_IF NONE>
+                        <td  class="sTd" width="100%">
+すべての決済をご利用中です                        </td>
+</TMPL_IF>
+	</tr>
+	</table>
+
+<!-- 20080416 -->
+
+	<input type="button" onClick="document.PMAPPLY01.submit();" value="お申込条項へ進む">
+</div>
+
+</form>
+
+</body>
+</html>

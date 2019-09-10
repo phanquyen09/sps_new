@@ -1,0 +1,71 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title><TMPL_VAR NAME=ServName>管理画面</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="default01.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+.style3 {color: #0B8C36}
+.style2 {color: #9F4000}
+.style4 {color: #1B8951}
+-->
+</style>
+</head>
+<TMPL_IF OPENERRELOAD>
+<body onLoad='window.opener.location.reload();window.close();'>
+<TMPL_ELSE>
+<body>
+</TMPL_IF>
+<form name="MAILCHG" method="POST" action="chg_shopmaster_top.cgi">
+<input type="hidden" name="MID" value="<TMPL_VAR NAME=MID>">
+<input type="hidden" name="CMD" value="EDT">
+<a name="top"></a>
+<div style="font-size:80%">
+	<table width="680"  border="0" cellpadding="0" cellspacing="0" align="center">
+		<tr>
+			<td align="left">
+				<div class="midashi02">■メールアドレス変更</div>
+				<br>
+<TMPL_LOOP ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+				<table class="item-box">
+					<tr align="center">
+					  <td align="left" class="item-name">メールアドレス</td>
+				      <td align="left" bgcolor="#FFFFFF" class="item">
+					<input type="text" name="ACC" value="<TMPL_VAR NAME=ACC>" style="ime-mode:disabled">
+			      	@<TMPL_VAR NAME=DOMAIN></td>
+				  </tr>
+			  </table>
+				<br>
+				<hr size="1">
+				<br>
+				<div align="center">
+     <input type="button" name="Submit" value="設定" onClick="document.MAILCHG.submit();">
+&nbsp;
+<input type="button" name="Submit" value="閉じる" onClick="window.close()">
+</div><br>
+	  </td>
+		</tr>
+	</table>
+	<br>
+	<br>
+</div>
+</form>
+</body>
+</html>

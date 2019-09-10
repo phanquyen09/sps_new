@@ -1,0 +1,156 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>決済代行サービスお申し込み</title>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="css/pmapply.css" rel="stylesheet" type="text/css">
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function input_check() {
+    var i = 0;
+    if ( !document.PMAPPLY01.PRINTER.checked ){
+        alert("プリンターを準備して、「プリンター準備完了」にチェックをしてください");
+        return;
+    }
+    document.PMAPPLY01.REQ_START.disabled = true;
+    document.PMAPPLY01.submit();
+}
+function btn_chg() {
+    if ( document.PMAPPLY01.PRINTER.checked ){
+        document.PMAPPLY01.REQ_START.disabled = false;
+        document.PMAPPLY01.REQ_START.src = "images/pmapply/application_bt_on.png";
+    } else {
+        document.PMAPPLY01.REQ_START.disabled = true;
+        document.PMAPPLY01.REQ_START.src = "images/pmapply/application_bt_off.png";
+    }
+}
+//-->
+</script>
+
+</head>
+<body>
+<!--▼wrapper▼-->
+<TMPL_IF NONE><!-- 全て申込完了 -->
+<form name="PMAPPLY01" method="POST" action="pmapply_sps.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="NEXT">
+<input type="hidden" name="CARD" value="Y">
+<input type="hidden" name="WN" value="Y">
+<input type="hidden" name="ESTL" value="Y">
+<input type="hidden" name="CVS" value="Y">
+<input type="hidden" name="YWALLET" value="N">
+<input type="hidden" name="RAKUTEN" value="N">
+<input type="hidden" name="ATOBARAI" value="Y">
+<TMPL_ELSE>
+    <TMPL_IF YONLY><!-- y!のみ残っている -->
+<form name="PMAPPLY01" method="POST" action="pmapply_sps.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="NEXT">
+<input type="hidden" name="CARD" value="N">
+<input type="hidden" name="WN" value="N">
+<input type="hidden" name="ESTL" value="N">
+<input type="hidden" name="CVS" value="N">
+<input type="hidden" name="YWALLET" value="Y">
+<input type="hidden" name="RAKUTEN" value="N">
+<input type="hidden" name="ATOBARAI" value="N">
+    <TMPL_ELSE>
+      <TMPL_IF RAKUONLY><!-- 楽天のみ残っている -->
+<form name="PMAPPLY01" method="POST" action="pmapply_sps.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="NEXT">
+<input type="hidden" name="CARD" value="N">
+<input type="hidden" name="WN" value="N">
+<input type="hidden" name="ESTL" value="N">
+<input type="hidden" name="CVS" value="N">
+<input type="hidden" name="YWALLET" value="N">
+<input type="hidden" name="RAKUTEN" value="Y">
+<input type="hidden" name="ATOBARAI" value="N">
+      <TMPL_ELSE>
+        <TMPL_IF TORAKU><!-- 楽天とy!のみ残っている -->
+<form name="PMAPPLY01" method="POST" action="pmapply_sps.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="NEXT">
+<input type="hidden" name="CARD" value="N">
+<input type="hidden" name="WN" value="N">
+<input type="hidden" name="ESTL" value="N">
+<input type="hidden" name="CVS" value="N">
+<input type="hidden" name="YWALLET" value="Y">
+<input type="hidden" name="RAKUTEN" value="Y">
+<input type="hidden" name="ATOBARAI" value="N">
+        <TMPL_ELSE>
+    <!-- 申込残っている -->
+<form name="PMAPPLY01" method="POST" action="pmapply_sps.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="NEXT">
+<input type="hidden" name="CARD" value="Y">
+<input type="hidden" name="WN" value="Y">
+<input type="hidden" name="ESTL" value="Y">
+<input type="hidden" name="CVS" value="Y">
+<input type="hidden" name="YWALLET" value="N">
+<input type="hidden" name="RAKUTEN" value="N">
+<input type="hidden" name="ATOBARAI" value="Y">
+        </TMPL_IF>
+      </TMPL_IF>
+    </TMPL_IF>
+</TMPL_IF>
+
+ <div id="head">
+  <h1><img src="images/pmapply/main-img.png" alt="決済代行申し込み"></h1>
+  <p>※Amazon Payは別途お申し込みが必要です。<br>
+  <a href="http://help.shopserve.jp/support/build/amazon_payments/" target="_blank">⇒ Amazon Payのお申し込み方法はこちら</a></p>
+  </div>
+ <div id="cont">
+   <h2 class="midashi01">お申し込みは簡単！</h2>
+   <img src="images/pmapply/flow01.png">
+
+<TMPL_IF ERR_MSG>
+<div style="margin:0.3em 0 0 0.8em;font-weight:bold;color:#f20000;">
+<TMPL_LOOP ERR_MSG>
+&nbsp;・<TMPL_VAR NAME=MSG><br>
+</TMPL_LOOP>
+</div>
+</TMPL_IF>
+
+<TMPL_IF NONE>
+   <div class="btn01">全ての決済をお申し込み済みです</div>
+<TMPL_ELSE>
+   <h2 class="midashi01">お申し込みはこちらから</h2>
+   <p>最後に申込書を印刷します。<br>
+   申し込み手続きに進む前にプリンターを準備し、A4の用紙をセットしてください。<br><br>
+   </p>
+
+   <div class="checkbox01">
+     <label><input type="checkbox" name="PRINTER" value="Y" onClick="btn_chg();">プリンター準備完了</label>
+   </div>
+   <div class="btn01">
+     <a>
+            <img src="images/pmapply/application_bt_off.png" name="REQ_START" alt="決済代行サービス申し込み" onCLick="input_check();"></a>
+
+   </div>
+    <div class="page-top">
+       <a href="#head">▲このページのトップへ</a>
+    </div>
+</TMPL_IF>
+ </div>
+</form>
+
+<!--▼footer▼-->
+<div id="footer">
+  <script type="text/javascript">
+  <!--
+         var date = new Date();
+         var year = date.getYear();
+         if(year < 2000) { year += 1900; }
+         document.write('Copyright &copy; 1999-'+year+' Estore Corporation. All Rights Reserved.');
+  //-->
+  </script>
+</div>
+<!--▲footer▲-->
+</body>
+</html>
+
+

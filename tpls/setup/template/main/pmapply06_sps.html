@@ -1,0 +1,792 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>入力内容確認</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<link href="css/pmapply.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+ <div id="head">
+  <h1><img src="images/pmapply/title_confirm.png" alt="入力内容確認"></h1>
+ </div>
+ <div id="gNavi">
+   <div id="tab-area">
+     <ul>
+        <li><img src="images/pmapply/menu01.png" alt="申し込み条項確認" class="menu01"></li>
+        <li><img src="images/pmapply/menu02.png" alt="担当者・振込先入力" class="menu02"></li>
+        <li><img src="images/pmapply/menu03.png" alt="各決済情報入力" class="menu03"></li>
+        <li><img src="images/pmapply/menu_rakuten.png" alt="楽天ペイ申し込み" class="menurakuten"></li>
+        <li><img src="images/pmapply/menu04.png" alt="Y!ウォレット申し込み" class="menu04"></li>
+        <li><img src="images/pmapply/menu05_o.png" alt="入力内容確認" class="menu05"></li>
+        <li><img src="images/pmapply/menu06.png" alt="申込書印刷" class="menu06"></li>
+     </ul>
+    </div>
+  </div>
+
+<form name="PMAPPLY06" method="POST" action="pmapplyfax_sps.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="NEXT">
+<input type="hidden" name="ATOBARAIPLAN" value="<TMPL_VAR NAME=ATOBARAIPLAN>">
+</form>
+ <div id="cont">
+   <div class="main06">
+     入力内容を確認のうえ、「印刷画面へ進む」をクリックしてください。<br>
+     内容の修正は「変更」ボタンからできます。
+   </div>
+<TMPL_IF HOUJIN>
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">法人情報</h2>
+   <input type="button" id="bank_search" value="変更" class="changebtn" OnClick="document.PMAPPLY03.submit();">
+   <div style="clear:both;"></div>
+   <table class="input_table03">
+     <tr>
+       <td class="input_td06-01">法人番号</td>
+       <td class="input_td06-02">
+       <TMPL_VAR NAME=corporation_num>
+     </td>
+     </tr>
+   </table>
+</TMPL_IF>
+<TMPL_IF YONLY>
+<TMPL_ELSE>
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">決済担当者情報</h2>
+   <input type="button" id="bank_search" value="変更" class="changebtn" OnClick="document.PMAPPLY03.submit();">
+   <div style="clear:both;"></div>
+   <table class="input_table03">
+<TMPL_UNLESS KOJIN>
+     <tr>
+       <td class="input_td06-01">
+         部署名
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=TANTOSECTION>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         役職名
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=TANTOPOSITION>
+       </td>
+     </tr>
+</TMPL_UNLESS>
+     <tr>
+       <td class="input_td06-01">
+         担当者の氏名
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=TANTOSEI>　<TMPL_VAR NAME=TANTOMEI>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         担当者の氏名 ふりがな
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=TANTOSEIKANA>　<TMPL_VAR NAME=TANTOMEIKANA>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         担当者の住所
+       </td>
+       <td class="input_td06-02">
+         〒<TMPL_VAR NAME=TANTOZIP1>-<TMPL_VAR NAME=TANTOZIP2><br>
+         <TMPL_VAR NAME=TANTOPREF><TMPL_VAR NAME=TANTOADDR1><TMPL_VAR NAME=TANTOADDR2><TMPL_VAR NAME=TANTOADDR3><TMPL_VAR NAME=TANTOADDR4>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         担当者の電話番号
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=TANTOTEL>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         担当者のＦＡＸ番号
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=TANTOFAX>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         担当者のメールアドレス
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=TANTOMAIL>
+       </td>
+     </tr>
+   </table>
+</TMPL_IF>
+<TMPL_IF YONLY>
+<TMPL_ELSE>
+<TMPL_IF furidisp>
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">回収代金の振込先口座</h2>
+   <input type="button" id="bank_search" value="変更" class="changebtn" OnClick="document.PMAPPLY03.submit();">
+   <div style="clear:both;"></div>
+   <table class="input_table03">
+     <tr>
+       <td class="input_td06-01">
+         金融機関名
+       </td>
+       <td class="input_td06-02">
+<TMPL_IF BANKEBANK>
+         <TMPL_VAR NAME=BANK>
+<TMPL_ELSE>
+         <TMPL_VAR NAME=BANK>
+</TMPL_IF>
+       </td>
+     </tr>
+<TMPL_IF BANKEBANK>
+<TMPL_ELSE>
+     <tr>
+       <td class="input_td06-01">
+         金融機関コード
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=BANKCODE>
+       </td>
+     </tr>
+</TMPL_IF>
+
+     <tr>
+       <td class="input_td06-01">
+<TMPL_IF BANKEBANK>
+         支店番号
+<TMPL_ELSE>
+         支店名
+</TMPL_IF>
+       </td>
+       <td class="input_td06-02">
+<TMPL_IF BANKEBANK>
+         <TMPL_VAR NAME=BRANCHCODE>
+<TMPL_ELSE>
+         <TMPL_VAR NAME=BRANCH>
+</TMPL_IF>
+       </td>
+     </tr>
+<TMPL_IF BANKEBANK>
+<TMPL_ELSE>
+     <tr>
+       <td class="input_td06-01">
+         支店コード
+       </td>
+       <td class="input_td06-02">
+          <TMPL_VAR NAME=BRANCHCODE>
+       </td>
+     </tr>
+</TMPL_IF>
+<TMPL_IF BANKEBANK>
+<TMPL_ELSE>
+     <tr>
+       <td class="input_td06-01">
+         科目
+       </td>
+       <td class="input_td06-02">
+         <TMPL_IF TYPE1>普通<TMPL_ELSE>当座</TMPL_IF>
+       </td>
+     </tr>
+</TMPL_IF>
+     <tr>
+       <td class="input_td06-01">
+         口座番号
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=ACCOUNTNO>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         口座名義人 フリガナ
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=ACCOUNTNAME>
+       </td>
+     </tr>
+   </table>
+   </TMPL_IF>
+</TMPL_IF>
+
+<TMPL_IF YONLY>
+<TMPL_ELSE>
+<TMPL_IF carddisp>
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">クレジットカード決済の加盟情報</h2>
+   <input type="button" id="bank_search" value="変更" class="changebtn" OnClick="document.PMAPPLY04.submit();">
+   <div style="clear:both;"></div>
+   <table class="input_table03">
+     <tr>
+       <td class="input_td06-01">
+         代表者（ローマ字）
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=ROMASEI> <TMPL_VAR NAME=ROMAMEI>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         代表者の性別
+       </td>
+       <td class="input_td06-02">
+         <TMPL_IF SEXM>男性<TMPL_ELSE>女性</TMPL_IF>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         代表者の生年月日
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=BIRTHYYYY>年<TMPL_VAR NAME=BIRTHMM>月<TMPL_VAR NAME=BIRTHDD>日
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         利用明細書の表記名
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=YAGO><br>
+         <TMPL_VAR NAME=YAGOKANA><br>
+         <TMPL_VAR NAME=YAGOROMA>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         取り扱い商品
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=PRODUCTTYPE>
+       </td>
+     </tr>
+   </table>
+   <table class="input_table03">
+     <tr>
+       <td class="input_td06-01">
+         訪問販売
+       </td>
+       <td class="input_td06-02">
+         <TMPL_IF NAME=DtoDSale>有<TMPL_ELSE>無</TMPL_IF>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         電話勧誘販売
+       </td>
+       <td class="input_td06-02">
+         <TMPL_IF NAME=TelSale>有<TMPL_ELSE>無</TMPL_IF>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         連鎖販売取引
+       </td>
+       <td class="input_td06-02">
+         <TMPL_IF NAME=MultiSale>有<TMPL_ELSE>無</TMPL_IF>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         業務提供誘引販売
+       </td>
+       <td class="input_td06-02">
+         <TMPL_IF NAME=SubJobSale>有<TMPL_ELSE>無</TMPL_IF>
+       </td>
+     </tr>
+   </table>
+   </TMPL_IF>
+</TMPL_IF>
+
+<TMPL_IF YONLY>
+<TMPL_ELSE>
+<TMPL_IF cvsdisp>
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">コンビニ決済（払込票）の必要情報</h2>
+   <input type="button" id="bank_search" value="変更" class="changebtn" OnClick="document.PMAPPLY04.submit();">
+   <div style="clear:both;"></div>
+   <table class="input_table03">
+     <tr>
+       <td class="input_td06-01">
+         Ａ　お支払期限日
+       </td>
+       <td class="input_td06-02">
+         決済依頼日から&nbsp;&nbsp;<TMPL_VAR NAME=CVSDUEDATE>&nbsp;&nbsp;日
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         Ｂ　通信欄
+       </td>
+       <td class="input_td06-02">
+         <div>
+           <div class="boxtitle2">
+             １行目：
+           </div>
+           <div class="boxlong2">
+             <TMPL_VAR NAME=CVSCOLUMN1>
+           </div>
+           <div style="clear:both;"></div>
+         </div>
+         <div>
+           <div class="boxtitle2">
+             ２行目：
+           </div>
+           <div class="boxlong2">
+             <TMPL_VAR NAME=CVSCOLUMN2>
+           </div>
+           <div style="clear:both;"></div>
+         </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         Ｃ　差出人
+       </td>
+       <td class="input_td06-02">
+         <div>
+           <div class="boxtitle2">
+             差出人：
+           </div>
+           <div class="boxlong2">
+             <TMPL_VAR NAME=CVSNAME>
+           </div>
+           <div style="clear:both;"></div>
+         </div>
+         <div>
+           <div class="boxtitle2">
+             郵便番号：
+           </div>
+           <div class="boxlong2">
+             <TMPL_VAR NAME=CVSZIP1>-<TMPL_VAR NAME=CVSZIP2>
+           </div>
+           <div style="clear:both;"></div>
+         </div>
+         <div>
+           <div class="boxtitle2">
+             住所１：
+           </div>
+           <div class="boxlong2">
+             <TMPL_VAR NAME=CVSADDR1>
+           </div>
+           <div style="clear:both;"></div>
+         </div>
+         <div>
+           <div class="boxtitle2">
+             住所２：
+           </div>
+           <div class="boxlong2">
+             <TMPL_VAR NAME=CVSADDR2>
+           </div>
+           <div style="clear:both;"></div>
+         </div>
+         <div>
+           <div class="boxtitle2">
+             電話番号：
+           </div>
+           <div class="boxlong2">
+             <TMPL_VAR NAME=CVSTEL>
+           </div>
+           <div style="clear:both;"></div>
+         </div>
+         <div>
+           <div class="boxtitle2">
+             ＦＡＸ番号：
+           </div>
+           <div class="boxlong2">
+             <TMPL_VAR NAME=CVSFAX>
+           </div>
+           <div style="clear:both;"></div>
+         </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         Ｄ　コメント欄
+       </td>
+       <td class="input_td06-02">
+         <div>
+           <div class="boxtitle2">
+             １行目：
+           </div>
+           <div class="boxlong2">
+             <TMPL_VAR NAME=CVSCOMMENT1>
+           </div>
+           <div style="clear:both;"></div>
+         </div>
+         <div>
+           <div class="boxtitle2">
+             ２行目：
+           </div>
+           <div class="boxlong2">
+             <TMPL_VAR NAME=CVSCOMMENT2>
+           </div>
+           <div style="clear:both;"></div>
+         </div>
+         <div>
+           <div class="boxtitle2">
+             ３行目：
+           </div>
+           <div class="boxlong2">
+             <TMPL_VAR NAME=CVSCOMMENT3>
+           </div>
+           <div style="clear:both;"></div>
+         </div>
+         <div>
+           <div class="boxtitle2">
+             ４行目：
+           </div>
+           <div class="boxlong2">
+             <TMPL_VAR NAME=CVSCOMMENT4>
+           </div>
+           <div style="clear:both;"></div>
+         </div>
+       </td>
+     </tr>
+   </table>
+</TMPL_IF>
+
+<TMPL_IF atobaraidisp>
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">後払い（コンビニ、郵便局、銀行）決済の必要情報</h2>
+   <input type="button" id="bank_search" value="変更" class="changebtn" OnClick="document.PMAPPLY04.submit();">
+   <div style="clear:both;"></div>
+   <table class="input_table03">
+     <tr>
+       <td class="input_td06-01">
+        プラン名
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=ATOBARAIPLAN>
+         <p class='atobarai_info'>※月額料金は、後払い決済の利用開始月より発生します。</p>
+       </td>
+     </tr>
+   </table>
+</TMPL_IF>
+
+</TMPL_IF>
+
+<TMPL_IF RAKUTENFLAG>
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">楽天ペイ（オンライン決済）の加盟情報</h2>
+   <input type="button" id="bank_search" value="変更" class="changebtn" OnClick="document.PMAPPLYRAKUTEN.submit();">
+   <div style="clear:both;"></div>
+   <table class="input_table03">
+     <tr>
+       <td class="input_td06-01">
+         契約名義
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=RINAME>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         代表者氏名
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=RIBOSS>（<TMPL_VAR NAME=RIBOSSKANA>）
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         代表者生年月日
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=RIBOSSBIRTH>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         代表者住所
+       </td>
+       <td class="input_td06-02">
+         〒<TMPL_VAR NAME=RIZIP1>-<TMPL_VAR NAME=RIZIP2>&nbsp;<TMPL_VAR NAME=RIPREF><br />
+         <TMPL_VAR NAME=RIADDR1><TMPL_VAR NAME=RIADDR2><TMPL_VAR NAME=RIADDR3><br />
+         <TMPL_VAR NAME=RIADDR4>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         登記上の会社住所
+       </td>
+       <td class="input_td06-02">
+         〒<TMPL_VAR NAME=RIKEIYAKUZIP>&nbsp;<TMPL_VAR NAME=RIKEIYAKUPREF><br />
+         <TMPL_VAR NAME=RIKEIYAKUADDR1><TMPL_VAR NAME=RIKEIYAKUADDR2><TMPL_VAR NAME=RIKEIYAKUADDR3><br />
+         (<TMPL_VAR NAME=RIKEIYAKUADDR1KANA><TMPL_VAR NAME=RIKEIYAKUADDR2KANA>)<br />
+         <TMPL_VAR NAME=RIKEIYAKUADDR4>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         楽天からの連絡先
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=RITANTOSECTION><br />
+         <TMPL_VAR NAME=RITANTONAME>（<TMPL_VAR NAME=RITANTONAMEKANA>）<br />
+         電話：<TMPL_VAR NAME=RITANTOTEL><br />
+         FAX：<TMPL_VAR NAME=RITANTOFAX><br />
+         〒<TMPL_VAR NAME=RITANTOZIP>&nbsp;<TMPL_VAR NAME=RITANTOPREF><br />
+         <TMPL_VAR NAME=RITANTOADDR1><TMPL_VAR NAME=RITANTOADDR2><TMPL_VAR NAME=RITANTOADDR3><br />
+         (<TMPL_VAR NAME=RITANTOADDR1KANA><TMPL_VAR NAME=RITANTOADDR2KANA>)<br />
+         <TMPL_VAR NAME=RITANTOADDR4>
+      </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         会社設立年月日
+       </td>
+       <td class="input_td06-02">
+       <TMPL_IF SETSURITSU_SHOW>
+         <TMPL_VAR NAME=RAKUTENYYYY>年<TMPL_VAR NAME=RAKUTENMM>月<TMPL_VAR NAME=RAKUTENDD>日
+         </TMPL_IF>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         社員数
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=RIEMP> 人
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         資本金
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=RICAPITAL> 百万円
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         年商
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=RIYEARSELL> 百万円
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         インターネット販売実績
+       </td>
+       <td class="input_td06-02">
+         <TMPL_IF RINETSELLN>無し</TMPL_IF>
+         <TMPL_IF RINETSELLY>有り<br />
+         インターネット年間取扱高：<TMPL_VAR NAME=RINETYEARSELL>百万円
+         </TMPL_IF>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         販売商品単価
+       </td>
+       <td class="input_td06-02">
+         最低<TMPL_VAR NAME=RIPRICELOW>円&nbsp;／&nbsp;最高<TMPL_VAR NAME=RIPRICEHIGH>円
+       </td>
+     </tr>
+<TMPL_IF YAGOSHOW>
+     <tr>
+       <td class="input_td06-01">
+         販売店の屋号
+       </td>
+       <td class="input_td06-02">
+         通常表記：<TMPL_VAR NAME=RIYAGO><br />
+         カタカナ：<TMPL_VAR NAME=RIYAGOKANA><br />
+         ローマ字：<TMPL_VAR NAME=RIYAGOROMA>
+       </td>
+     </tr>
+</TMPL_IF>
+     <tr>
+       <td class="input_td06-01">
+         お客様問い合わせ先<br />メールアドレス
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=RIQUESTIONMAIL>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         代表連絡先<br />メールアドレス
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=RIBOSSMAIL>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         担当者連絡先<br />メールアドレス
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=RICONTACTMAIL>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         セキュリティコード
+       </td>
+       <td class="input_td06-02">
+         <TMPL_IF RISECCODEN>利用しない</TMPL_IF><TMPL_IF RISECCODEY>利用する</TMPL_IF>
+       </td>
+     </tr>
+   </table>
+   <div class="main06" style="padding-left:50px;">
+   <font style="color:red;">
+    ※楽天ペイ（オンライン決済）では、手書きの訂正は受付けできません。<br />
+    変更がある場合は、印刷画面に進む前に、再度入力画面からお手続きください。
+    </font>
+   </div>
+</TMPL_IF>
+
+<TMPL_IF YWALLETFLAG>
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">Yahoo!ウォレット決済の加盟情報</h2>
+   <input type="button" id="bank_search" value="変更" class="changebtn" OnClick="document.PMAPPLY05.submit();">
+   <div style="clear:both;"></div>
+   <table class="input_table03">
+     <tr>
+       <td class="input_td06-01">
+         企業登記・住民票住所
+       </td>
+       <td class="input_td06-02">
+         〒<TMPL_VAR NAME=YWZIP1>-<TMPL_VAR NAME=YWZIP2><br>
+         <TMPL_VAR NAME=YWPREF><TMPL_VAR NAME=YWADDR1><TMPL_VAR NAME=YWADDR2><TMPL_VAR NAME=YWADDR3><TMPL_VAR NAME=YWADDR4>
+       </td>
+     </tr>
+     <TMPL_IF ywalletBirthDisp>
+     <tr>
+       <td class="input_td06-01">
+         代表者の生年月日
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=BIRTHYYYY>年<TMPL_VAR NAME=BIRTHMM>月<TMPL_VAR NAME=BIRTHDD>日
+       </td>
+     </tr>
+     </TMPL_IF>
+     <tr>
+       <td class="input_td06-01">
+         代表者の自宅住所
+       </td>
+       <td class="input_td06-02">
+         〒<TMPL_VAR NAME=YWDAIHYOZIP1>-<TMPL_VAR NAME=YWDAIHYOZIP2><br>
+         <TMPL_VAR NAME=YWDAIHYOPREF><TMPL_VAR NAME=YWDAIHYOADDR1><TMPL_VAR NAME=YWDAIHYOADDR2><TMPL_VAR NAME=YWDAIHYOADDR3><TMPL_VAR NAME=YWDAIHYOADDR4>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         代表者の自宅電話番号
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=YWDAIHYOTEL1>-<TMPL_VAR NAME=YWDAIHYOTEL2>-<TMPL_VAR NAME=YWDAIHYOTEL3>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         利用明細書の表記名
+       </td>
+       <td class="input_td06-02">
+         <div>
+           <div class="boxtitle2">
+             通常表記：
+           </div>
+           <div class="boxlong2">
+             <TMPL_VAR NAME=YWSHOPNAME>
+           </div>
+           <div style="clear:both;"></div>
+         </div>
+         <div>
+           <div class="boxtitle2">
+             カタカナ：
+           </div>
+           <div class="boxlong2">
+             <TMPL_VAR NAME=YWSHOPNAMEKANA>
+           </div>
+           <div style="clear:both;"></div>
+         </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         他の運営ホームページの<br>
+         ＵＲＬ
+       </td>
+       <td class="input_td06-02">
+         <TMPL_VAR NAME=YWOTHERSITEURL>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">
+         予約販売
+       </td>
+       <td class="input_td06-02">
+         <TMPL_IF YWYOYAKUY>有り</TMPL_IF><TMPL_IF YWYOYAKUN>無し</TMPL_IF>
+       </td>
+     </tr>
+   </table>
+</TMPL_IF>
+
+<TMPL_IF bitcoindisp>
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">ビットコイン決済の確認事項</h2>
+   <div style="clear:both;"></div>
+   <table class="input_table03" style="margin-bottom:10px;">
+     <tr>
+       <td class="input_td06-01">月額利用料</td>
+       <td class="input_td06-02">無料</td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">決済手数料</td>
+       <td class="input_td06-02">無料</td>
+     </tr>
+   </table>
+   <p style="color:blue; margin-left:15px;">※Ｅストアーショップサーブ契約情報が最新の状態であることをご確認ください。</p>
+</TMPL_IF>
+
+   <div class="btn02-1">
+     <div class="btn02-5"></div>
+     <div class="btn02-3"><img src="images/pmapply/back.png" alt="もどる" <TMPL_IF INC_YAHOO>OnClick="document.PMAPPLY05.submit();"<TMPL_ELSE><TMPL_IF INC_RAKUTEN>OnClick="document.PMAPPLYRAKUTEN.submit();"<TMPL_ELSE><TMPL_IF step4skip>OnClick="document.PMAPPLY03.submit();"<TMPL_ELSE>OnClick="document.PMAPPLY04.submit();"</TMPL_IF></TMPL_IF></TMPL_IF>></div>
+     <div class="btn02-4"><img src="images/pmapply/print_next_on.png" OnClick="document.PMAPPLY06.submit();"></div>
+     <div style="clear:both;"></div>
+   </div>
+
+
+   <div class="page-top">
+      <a href="#head">▲このページのトップへ</a>
+   </div>
+ </div>
+</form>
+<form name="PMAPPLY05" method="POST" action="pmapply05_sps.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="BACK">
+<TMPL_IF YSTATUS>
+<input type="hidden" name="YSTATUS" value="N">
+</TMPL_IF>
+<input type="hidden" name="confirmBack" value="1">
+</form>
+<form name="PMAPPLY04" method="POST" action="pmapply04_sps.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="confirmBack" value="1">
+</form>
+<form name="PMAPPLY03" method="POST" action="pmapply03_sps.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="confirmBack" value="1">
+</form>
+<form name="PMAPPLYRAKUTEN" method="POST" action="pmapply_rakuten_sps.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="BACK">
+</form>
+
+
+<!--▼footer▼-->
+<div id="footer">
+  <script type="text/javascript">
+  <!--
+         var date = new Date();
+         var year = date.getYear();
+         if(year < 2000) { year += 1900; }
+         document.write('Copyright &copy; 1999-'+year+' Estore Corporation. All Rights Reserved.');
+  //-->
+  </script>
+</div>
+<!--▲footer▲-->
+</body>
+</html>
+
+

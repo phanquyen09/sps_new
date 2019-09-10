@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<title>スピード入金（月6回）サービスのキャンセル</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link rel="stylesheet" type="text/css" href="moushikomi.css" media="all">
+
+</head>
+<body>
+
+<form name="EXPRESS04" method="POST" action="express04.cgi">
+<input type="hidden" name="CMD" value="NEXT">
+<input type="hidden" name="express_flg" value="<TMPL_VAR NAME=EXPRESS_FLG>">
+
+<div id="mainBox">
+
+<h1>スピード入金（月6回）サービスのキャンセル</h1>
+
+<p class="pText">スピード入金のキャンセルを行います。</p>
+<p class="pText">下記の内容を確認し、【「スピード入金｣をキャンセルする】ボタンをクリックしてください。</p>
+
+<div class="stepBox">
+<div class="stepMidashi">キャンセル時の注意事項</div>
+<div class="sText">
+・月6回入金　⇒　月<TMPL_VAR NAME=EXP_CNT>回入金　へと変更となります。<br><br>
+・変更後の入金スケジュールは翌1日以降の確定受注から適用となります。<br><br>
+・月2回、もしくは月1回入金に変更した場合、決済の確定から入金までに時間を要します。<br>
+　　月2回スケジュール⇒最大1ヶ月以上<br>
+　　月1回スケジュール⇒最大2ヶ月弱<br><br>
+・再度、「スピード入金（月6回）サービスをご利用になる場合は、改めてもう一度お申込みいただき、<br>
+　審査を受けていただく必要があります。その際、4週間以上お待ちいただく可能性があります。<br><br>
+</div>
+</div>
+
+<br>
+<p class="pText">上記の内容に同意の上、【「スピード入金｣をキャンセルする】ボタンをクリックしてください。</p>
+
+</div>
+<br>
+<div class="footbutton">
+<input type="button" onClick="document.EXPRESS04.submit();" value="「スピード入金｣をキャンセルする">
+<input value="閉じる" type="button" type="button" onClick="window.close();">
+</div>
+
+</form>
+
+</body>
+</html>

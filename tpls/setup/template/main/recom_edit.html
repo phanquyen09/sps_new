@@ -1,0 +1,575 @@
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<style>
+#selectCategoryLayer div{
+    display: inline;
+}
+#selectCategoryLayer label{
+    display: none;
+}
+#selectCategoryLayer.hidable div{
+    display: block;
+}
+#selectCategoryLayer.hidable label{
+    display: inline;
+}
+.outline{
+  width:100%;
+}
+</style>
+<script language="JavaScript">
+<!--
+window.onload = function(){
+  var obj = document.getElementsByTagName('table')
+  for(var i=0; i<obj.length; i++){
+    if(obj[i].clientWidth == 946){
+      obj[i].width = '100%';
+      var td = obj[i].getElementsByTagName('tr')[0].getElementsByTagName('td');
+      for(var j=0; j<td.length; j++){
+          if(td[j].width) continue;
+          if(j==td.length-1){
+              td[j].removeAttribute('width', td[j].width);
+          }else{
+              td[j].width = 157;
+          }
+      }
+      //return;
+    }
+  }
+}
+
+function all_disable(){
+    document.getElementById("TOP1").disabled = true;
+    document.getElementById("UP").disabled = true;
+    document.getElementById("DOWN").disabled = true;
+    document.getElementById("BOTTOM").disabled = true;
+    document.getElementById("DELETE").disabled = true;
+    document.getElementById("SAVE").disabled = true;
+    document.getElementById("CANCEL").disabled = true;
+    document.getElementById("SEARCH").disabled = true;
+    document.getElementById("ADD").disabled = true;
+    return;
+}
+
+function all_able(){
+    document.getElementById("TOP1").disabled = false;
+    document.getElementById("UP").disabled = false;
+    document.getElementById("DOWN").disabled = false;
+    document.getElementById("BOTTOM").disabled = false;
+    document.getElementById("DELETE").disabled = false;
+    document.getElementById("SAVE").disabled = false;
+    document.getElementById("CANCEL").disabled = false;
+    document.getElementById("SEARCH").disabled = false;
+    document.getElementById("ADD").disabled = false;
+    return;
+}
+
+function kensu(){
+	document.PATLIST.ZKEN.value ='<TMPL_VAR NAME=ZKEN>';
+	document.PATLIST.LINO.value ="<TMPL_VAR NAME=LINO>";
+}
+
+
+
+function adlist(){
+  if(document.PATLIST.cbox1){
+    var w = document.PATLIST.rlist.options.length;
+    var c = 0;
+    for (i=0;i<document.PATLIST.cbox1.length;i++){
+      if (document.PATLIST.cbox1[i].checked){
+        c ++; 
+      }
+    }
+    if ( c == 0 && (document.PATLIST.cbox1.checked)){
+      c = 1;	
+    }
+    k = w + c;
+    if ( k > 40 ){
+      alert ('関連商品として表示できるのは40件までです。');
+      all_able();
+      return;
+    }
+
+	kensu();
+	document.PATLIST.i_id;
+	document.PATLIST.i_up;
+	document.PATLIST.i_io;
+	document.PATLIST.i_ca;
+	document.PATLIST.i_in;
+	document.PATLIST.m_id;
+	document.PATLIST.m_up;
+	document.PATLIST.m_io;
+	document.PATLIST.m_ca;
+	document.PATLIST.m_in;
+	sendall();
+	ilist();
+	mlist();
+	document.PATLIST.CMD.value='LIST';
+	document.PATLIST.submit();
+  }else{
+    all_able();
+    return;
+  }
+}
+
+function kensaku(n){
+        sendall();
+	if ( n ){
+	}else{ 
+		n = 1; 
+	}
+        document.PATLIST.PAGE.value= n;
+        document.PATLIST.CMD.value='kensaku';
+	document.PATLIST.submit();
+}
+
+
+function ilist(){
+
+i_id = new Array();
+i_up = new Array();
+i_io = new Array();
+i_ca = new Array();
+i_in = new Array();
+
+<TMPL_LOOP ILIST2>
+
+i_id.push("<TMPL_VAR NAME=ID>");
+i_up.push("<TMPL_VAR NAME=UPTIME>");
+i_io.push("<TMPL_VAR NAME=ITEM_NO>");
+i_ca.push("<TMPL_VAR NAME=CATE_DS ESCAPE=JS>");
+i_in.push("<TMPL_VAR NAME=ITEM_NAME>");
+
+</TMPL_LOOP>
+
+document.PATLIST.i_id.value = i_id;
+document.PATLIST.i_up.value = i_up;
+document.PATLIST.i_io.value = i_io;
+document.PATLIST.i_ca.value = i_ca;
+document.PATLIST.i_in.value = i_in;
+
+
+}
+
+function mlist(){
+
+m_id = new Array();
+m_up = new Array();
+m_io = new Array();
+m_ca = new Array();
+m_in = new Array();
+
+<TMPL_LOOP MLIST>
+
+m_id.push("<TMPL_VAR NAME=MID>");
+m_up.push("<TMPL_VAR NAME=MUPTIME>");
+m_io.push("<TMPL_VAR NAME=MITEM_NO>");
+m_ca.push("<TMPL_VAR NAME=MCATE_DS ESCAPE=JS>");
+m_in.push("<TMPL_VAR NAME=MITEM_NAME>");
+
+</TMPL_LOOP>
+
+document.PATLIST.m_id.value = m_id;
+document.PATLIST.m_up.value = m_up;
+document.PATLIST.m_io.value = m_io;
+document.PATLIST.m_ca.value = m_ca;
+document.PATLIST.m_in.value = m_in;
+
+}
+
+function moveUpDn_ORG( n ){
+    
+	var n = n;
+	var w = document.PATLIST.rlist.options.length;
+        sin = new Array();
+        toa = new Array();
+        voa = new Array();
+	for ( i=0;i<w;i++){
+		   td = document.PATLIST.rlist.options[i].text;   
+		   vd = document.PATLIST.rlist.options[i].value;   
+	    if (vd){ 	
+                  toa.push(td);
+                  voa.push(vd);
+            }
+	    if (document.PATLIST.rlist[i].selected ){
+		sin.push(i); 
+	    }   
+        }	
+
+        if ( n == 11 ){
+                for (p=0;p<=w;p++){
+                        moveUpDn_ORG( 1 );
+                }
+        }
+
+        if ( n == 22 ){
+                for (p=0;p<=w;p++){
+                        moveUpDn_ORG( 2 );
+                }
+        }
+
+	if ( n == 1){
+            for ( i=0;i<voa.length;i++ ){ 
+	           for (s=0;s<sin.length;s++){
+		        if ( 0 == sin[s]){
+			   return; 	
+			}
+			if ( i == sin[s]){
+
+	           u = i - 1;		
+		   document.PATLIST.rlist.options[i].text = toa[u];;   
+		   document.PATLIST.rlist.options[i].value = voa[u];   
+		   document.PATLIST.rlist.options[u].text = toa[i];;   
+		   document.PATLIST.rlist.options[u].value = voa[i];   
+	           document.PATLIST.rlist[i].selected = false;
+	           document.PATLIST.rlist[u].selected = true;
+	           tu = toa[u];  		
+	           ti = toa[i];  		
+	           vu = voa[u];  		
+	           vi = voa[i];  		
+	           toa[i] = tu;		
+	           toa[u] = ti;		
+	           voa[i] = vu;		
+	           voa[u] = vi;		
+			}
+	         } 
+	    }
+        }
+
+	if ( n == 2){
+            ii = voa.length - 1;        
+            for ( i=voa.length;i>=0;i-- ){ 
+	           for (s=0;s<sin.length;s++){
+		        if ( ii == sin[s]){
+			   return; 	
+			}
+			if ( i == sin[s]){
+
+	           u = i + 1;		
+		   document.PATLIST.rlist.options[i].text = toa[u];;   
+		   document.PATLIST.rlist.options[i].value = voa[u];   
+		   document.PATLIST.rlist.options[u].text = toa[i];;   
+		   document.PATLIST.rlist.options[u].value = voa[i];   
+	           document.PATLIST.rlist[i].selected = false;
+	           document.PATLIST.rlist[u].selected = true;
+	           tu = toa[u];  		
+	           ti = toa[i];  		
+	           vu = voa[u];  		
+	           vi = voa[i];  		
+	           toa[i] = tu;		
+	           toa[u] = ti;		
+	           voa[i] = vu;		
+	           voa[u] = vi;		
+			}
+	       } 
+	    }
+
+	}
+
+	if ( n == 0){
+            bkt = new Array();
+            bkv = new Array();
+
+            for ( i=0;i<voa.length;i++ ){ 
+	           for (s=0;s<sin.length;s++){
+		        if ( i == sin[s]){
+		        bkt.push( document.PATLIST.rlist.options[i].text );   
+		        bkv.push( document.PATLIST.rlist.options[i].value );   
+		
+		        document.PATLIST.rlist.options[i].text = '';   
+		        document.PATLIST.rlist.options[i].value = '';   
+			toa[i] = '';
+			voa[i] = '';
+			}
+	          }	
+	   }
+
+           toai = new Array();
+           voai = new Array();
+            for ( i=0;i<voa.length;i++ ){ 
+	        if ( voa[i] ){		
+		   toai.push( toa[i]);   
+		   voai.push( voa[i]);   
+	        } 
+		document.PATLIST.rlist.options[i].text = '';   
+	        document.PATLIST.rlist.options[i].value = '';   
+	   }
+           toa=toai;		
+           voa=voai;		
+           for ( i=0;i<voa.length;i++ ){ 
+		   document.PATLIST.rlist.options[i].text = toa[i];   
+		   document.PATLIST.rlist.options[i].value = voa[i];   
+	   }
+           document.PATLIST.o_id.value= bkv;
+           document.PATLIST.o_in.value= bkt;
+	   if (document.PATLIST.cbox1){
+	      for (i=0;i<document.PATLIST.cbox1.length;i++){
+          	document.PATLIST.cbox1[i].checked = false; 
+              }
+	   }
+           ilist();	
+           kensu(); 		
+	   sendall();
+	}
+} 
+
+function addchk(){
+
+	document.PATLIST.submit();
+}
+
+function sendall(){
+
+	var w = document.PATLIST.rlist.options.length;
+
+        if ( w ){
+        vm = new Array();
+	v = "";
+	var i;
+	for ( i=0;i<w;i++){
+	    document.PATLIST.rlist[i].selected = false;   
+	    if ( document.PATLIST.rlist.options[i].text ){
+	        v = document.PATLIST.rlist.options[i].value;
+		vm.push( v );
+		k = document.PATLIST.rlist.options[i].text;
+                vm.push( k );
+   	    }  
+	}
+	document.PATLIST.rlist[0].value = vm;
+        document.PATLIST.rlist[0].selected = true;
+	} else { 
+	}
+}
+
+(function($){
+$(function(){
+    $('#selectCategoryLayer').find('select.category_layer').change(function(){
+        var self = $(this);
+        var sub = self.parent().next().children('.category_layer');
+        if(!sub.length) return;
+
+        var id = self.val();
+        var sub_id = sub.val();
+        var sub_categories = sub.children('option')
+            .hide().attr('selected', false)
+            .eq(0).show().end()
+            .filter('[rel=' + id + ']').show();
+
+        if(sub_categories.length > 0){
+            if($('#selectCategoryLayer').is('.hidable'))
+                sub.parent().show();
+            if(sub_id)
+                sub_categories
+                    .eq(0).attr('selected', false).end()
+                    .filter('[value=' + sub_id + ']').attr('selected', true);
+        }else{
+            if($('#selectCategoryLayer').is('.hidable'))
+                sub.parent().hide();
+            sub_categories.eq(0).attr('selected', false)
+        }
+
+        sub.trigger('change');
+    })
+    .filter('select.layer1').trigger('change');
+});
+})(jQuery);
+
+//-->
+</script>
+<form name="PATLIST" method="POST" action="recom_edit.cgi">
+<input type="hidden" name="PAGE" value="<TMPL_VAR NAME=PAGE>" >
+<input type="hidden" name="CMD" value="SEEK">
+<input type="hidden" name="TID">
+<input type="hidden" name="ID">
+<input type="hidden" name="INA">
+
+<input type="hidden" name="i_id">
+<input type="hidden" name="i_up">
+<input type="hidden" name="i_io">
+<input type="hidden" name="i_ca">
+<input type="hidden" name="i_in">
+<input type="hidden" name="m_id">
+<input type="hidden" name="m_up">
+<input type="hidden" name="m_io">
+<input type="hidden" name="m_ca">
+<input type="hidden" name="m_in">
+<input type="hidden" name="o_id">
+<input type="hidden" name="o_in">
+<input type="hidden" name="SNUM">
+<input type="hidden" name="ENUM">
+<input type="hidden" name="ZKEN">
+<input type="hidden" name="LINO">
+<input type="hidden" name="PTNO" value="<TMPL_VAR PTNO>">
+
+
+                              <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                <tr>
+                                  <td width="12">
+                                    <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+                                      <tr>
+                                        <td><img src="../imgs/spc.gif"></td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                  <td align="left" class="midashi">パターンの設定を行います</td>
+                                  <td align="right" class="midashi"><a href="https://help.shopserve.jp/help/recom_list.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                                </tr>
+                              </table>
+                              <img src="imgs/spc.gif" width="5" height="5">
+                              <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                              <tr>
+                                <td align="left" class="main-table">
+                                  <!-- パターン作成・編集用ここから -->
+
+
+
+<div class="infoArea table_bg" style="line-height:1.6;">
+＜設定手順＞<br>
+1.
+管理しやすいパターン名を入力します。<br>
+2.
+表示リストに追加する商品を「商品検索」から検索します。<br>
+3.
+検索結果から商品をチェックし、【選択した商品を表示リストへ】をクリックして表示リストに追加します。（最大40商品）<br>
+4.
+表示順は商品を選択して【最上段へ】【1つ上へ】【1つ下へ】【最下段へ】で変更します。<br>
+5.
+【設定を保存する】をクリックしてパターン設定を保存します。（最大3,000パターン）<br>
+6.
+作成したパターンを、<a href="./category.php">「商品カテゴリの管理」</a>、<a href="./itemgroup.cgi">「商品グループの管理」</a>、<a href="./itemlist.cgi">「商品台帳」</a>から関連付けます。<br>
+※非公開商品は表示リストに含まれていても実際は表示されません。
+                                  </div>
+                                  <font color=red> <TMPL_VAR ERR></font>
+                                  <table class="item-box">
+                                    <tr>
+                                      <td class="item-name02" align="center">パターン設定</td>
+                                    </tr>
+                                    <tr>
+                                    <td class="item-sub">
+                                      <table width="100%">
+                                        <tr>
+			                  <td class="sub-item-name" style="width:10em">パターン名（必須）</td>
+			                  <td class="sub-item"><input type="text" name="patname" value="<TMPL_VAR PATNAME>" class="def-line">
+					    <br>
+                                            ※関連商品の内容がよくわかるパターン名をつけると、管理が楽になります。<br>
+                                            例）秋冬メンズストリート系アウターVol.1<br>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name02" align="center">表示リスト（最大40件）</td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-sub">
+                                        <table width="100%">
+                                          <tr>
+                                            <td width="75%" class="sub-item-name" >
+                                              <span style="margin:0 0 0 0.5em">表示順</span>
+                                              <span style="margin:0 0 0 9em">商品名</span>
+                                            </td>
+                                            <td align="center" width="25%" class="sub-item-name">操作</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="sub-item">
+                                              <select name="rlist" size="40" style="min-width:100%;width:auto;" multiple="multiple" >
+                                              <TMPL_LOOP RLIST>
+					<option value="<TMPL_VAR RITEM_ID>"><TMPL_VAR RNUM><TMPL_VAR RITEM_NAME></option>
+                                              </TMPL_LOOP>
+                                              </select>
+
+                                            </td>
+                                            <td valign="top" class="sub-item">
+				      <input id="TOP1" value="最上段へ" onClick="moveUpDn_ORG(11);" type="button" style="margin:0.5em 0.5em 0"><br>
+				      <input id="UP"  value="1つ上へ" onClick="moveUpDn_ORG(1);" type="button" style="margin:0.5em 0.5em 0"><br>
+				      <input id="DOWN"  value="1つ下へ" onClick="moveUpDn_ORG(2);" type="button" style="margin:0.5em 0.5em 0"><br>
+				      <input id="BOTTOM" value="最下段へ" onClick="moveUpDn_ORG(22);" type="button" style="margin:0.5em 0.5em 0"><br>
+				      <input id="DELETE" value="表示リストから削除" onClick="all_disable(); moveUpDn_ORG(0); mlist(); document.PATLIST.CMD.value='LIST'; document.PATLIST.submit();" " type="button" style="width:10em ;margin:0.5em"> 
+
+
+
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td align="center" class="item">
+					<input id="SAVE" type="button" value="設定を保存する" name="Recoin" onClick="all_disable(); document.PATLIST.CMD.value='ADD'; sendall(); addchk(); ">
+				   <input id="CANCEL" type="button" value="キャンセル" onClick="all_disable(); location.href ='recom_list.cgi'" </td> </tr>
+                                  </table>
+                                  <br>
+                                  <br>
+                                  <table class="item-box">
+                                    <tr>
+                                      <td colspan="2" class="item-name02" align="center">商品検索</td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">商品名</td>
+                                      <td class="item"><input type="text" name="ItemName" class="def-line" value="<TMPL_VAR ItemName>" maxlength="255"></td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name" >カテゴリ</td>
+                                      <td class="item">
+                                          <link rel="stylesheet" type="text/css" href="../css/custom_ui/multiCategorySearchApiCss.css" media="all" />
+                                          <script type="text/javascript" src="../js/custom_ui/jsloader.js"></script>
+                                          <script type="text/javascript" src="../js/custom_ui/jquery-multi-category-search-api.js"></script>
+                                          <div id="_multi_category_search_part">
+                                              <select name="Layer1Category"></select>
+                                              <select name="Layer2Category"></select>
+                                              <select name="Layer3Category"></select>
+                                              <select name="Layer4Category"></select>
+                                              <select name="Layer5Category"></select>
+                                              <input type="hidden" id="multi_category_recently_search_id" name="MultiCategory" value="<TMPL_VAR NAME=MULTICATEGORY>" />
+                                          </div>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td width="20%" class="item-name">グループ</td>
+                                      <td width="80%" class="item">
+                                        <select name="g_id">
+                                        <TMPL_LOOP NAME=GROUPS>
+                                        <option value="<TMPL_VAR NAME=ID>" <TMPL_VAR NAME=SEL>><TMPL_VAR NAME=NAME></option>
+                                        </TMPL_LOOP>
+                                        </select>
+                                      </td>
+                                    </tr>
+                                    <tr align="center">
+                                      <td colspan="2" bgcolor="#FFFFFF">
+					<input id="SEARCH" type="button" name="Submit" value="以上の条件で検索" ; onClick="all_disable(); kensaku(); ">
+                                      </td>
+                                    </tr>
+                                  </table>
+                                  <br>
+                                  <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                      <td align="right" class="paginate"><TMPL_VAR ZKEN> <TMPL_VAR LINO></td> </tr>
+                                  </table>
+  				  <table class="item-box table-padding-default">
+                                    <tr align="center">
+                                      <td width="3%" bgcolor="#FFFFFF" class="item-name02"></td>
+                                      <td width="10%" bgcolor="#FFFFFF" class="item-name02">登録日</td>
+                                      <td width="17%" bgcolor="#FFFFFF" class="item-name02">商品番号</td>
+                                      <td width="35%" bgcolor="#FFFFFF" class="item-name02">カテゴリ</td>
+                                      <td width="35%" bgcolor="#FFFFFF" class="item-name02">商品名</td>
+                                    </tr>
+                                    <TMPL_LOOP ILIST>
+                                    <tr>
+                  <td align="center" bgcolor="#FFFFFF"><input type='checkbox' name='cbox1' value="<TMPL_VAR NAME=ID>,<TMPL_VAR NAME=ITEM_NAME>" /></td>
+			      <td bgcolor="#FFFFFF"><TMPL_VAR NAME=UPTIME></td>
+			      <td bgcolor="#FFFFFF"><TMPL_VAR NAME=ITEM_NO></td>
+			      <td bgcolor="#FFFFFF"><TMPL_VAR NAME=CATE_DS></td>
+			      <td bgcolor="#FFFFFF"><a href="<TMPL_VAR NAME=ITEM_URL>" target="_blank"><TMPL_VAR NAME=ITEM_NAME></a></td>
+			      </tr>
+                                   </TMPL_LOOP>
+
+
+                             <tr><td bgcolor="#FFFFFF" align="center" colspan=5 > 
+			    <input id="ADD" type="button" name="Submit" value="選択した商品を表示リストへ" onClick="all_disable(); adlist(); ">
+
+                                 </td></tr> </table>
+
+            </td>
+        </tr>
+     </table>
+</form>

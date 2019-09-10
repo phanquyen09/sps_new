@@ -1,0 +1,73 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<TMPL_IF NEWITEM>
+                            <td align="left" class="midashi">商品登録完了</td>
+<TMPL_ELSE>
+                <td align="left" class="midashi">商品情報の変更完了</td>
+</TMPL_IF>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                      <td>
+                                          <table width="100%" class="item-box">
+                                           <tr>
+<TMPL_IF NEWITEM>
+                                            <td bgcolor="#FFFFFF" class="item">
+                                            <TMPL_IF CP>
+                                               商品の登録が完了しました。
+                                            <TMPL_ELSE>
+                                               商品の登録が完了しました。<BR>
+            引き続き商品登録を行う場合は「商品登録 」ボタンをクリックしてください。
+                                            </TMPL_IF>
+                                            </td>
+<TMPL_ELSE>
+                                               <td bgcolor="#FFFFFF" class="item">商品情報の変更が完了しました。<BR>
+            「商品一覧へ戻る 」ボタンをクリックしてください。</td> 
+</TMPL_IF>
+                                              </tr>
+                                           </table>
+                                          <BR>
+                                        </td></tr>
+                                  </table></td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+                          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td>&nbsp;</td>
+                            </tr>
+                          </table>
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                            <tr>
+                              <td align="center" style="padding:10px 10px 10px 10px ">
+                                <div align="center">
+<TMPL_IF NEWITEM>
+                                <TMPL_IF CP>
+                                <input type="button" name="Submit" value="続けてコピーをする" onClick="javascript:;document.ITEMINFO.submit();"  >
+                                <input type="button" name="Submit" value="商品一覧へ戻る"  onClick="location.href='itemlist.cgi?LastCGI=1'">
+                                <form name="ITEMINFO" method="POST" action="iteminfo.cgi">
+                                  <input type="hidden" name="ID" value="<TMPL_VAR NAME=IDITEMOLD>">
+                                  <input type="hidden" name="CP" value="1">
+                                </form>
+                                <TMPL_ELSE>
+                                  <input type="button" name="Submit" value="商品登録" onClick="location.href='iteminfo.cgi'">
+                                </TMPL_IF>
+<TMPL_ELSE>
+                                 <input type="button" name="Submit" value="商品一覧へ戻る" onClick="location.href='itemlist.cgi?LastCGI=1'">
+</TMPL_IF>
+                               </div>
+                              </td>
+                            </tr>
+                          </table>

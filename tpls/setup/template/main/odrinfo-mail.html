@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title><TMPL_VAR NAME=ServName>管理画面</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="default01.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_openBrWindow(theURL,winName,features) { //v2.0
+  window.open(theURL,winName,features);
+}
+
+function mailSendSubmit(){
+  if(document.mailsend.to.value){
+    document.mailsend.set.disabled='true';
+    document.mailsend.submit();
+  }else{
+    alert('メール送信に失敗しました。時間をおいて再度実行してください。');
+    window.close();
+  }
+}
+
+//-->
+</script>
+</head>
+<body <TMPL_IF send>onload=window.opener.location.href="<TMPL_VAR NAME=ORDINFO_URL>";self.close()</TMPL_IF>>
+<a name="top"></a>
+<div style="font-size:80%" class="odrinfo-mail">
+<form name="mailsend" method="post" action="odrinfo-send.cgi" onsubmit="return false;">
+	<table width="680"  border="0" cellpadding="0" cellspacing="0">
+		<tr>
+			<td align="left">
+        <div class="midashi02">■注文詳細</div>
+				<br>
+                <TMPL_LOOP ERR_MSG>
+                    <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+                </TMPL_LOOP>
+				<table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+    	<tr align="center">
+            <TMPL_IF regular_k>
+              <td colspan="2" class="item-name02"><TMPL_VAR NAME=title>メール（英語）の送信</td>
+            <TMPL_ELSE>
+    		  <td colspan="2" class="item-name02"><TMPL_VAR NAME=title>の送信（<TMPL_IF ktai>モバイル<TMPL_ELSE>パソコン</TMPL_IF>用）</td>
+            </TMPL_IF>
+   		</tr>
+    	<tr>
+    		<td class="item-name">件名</td>
+    		<td class="item">
+    			<input name="subject" type="text" class="def-line" value="<TMPL_VAR NAME=subject>">
+   			</td>
+   		</tr>
+    	<tr>
+    		<td class="item-name">本文</td>
+    		<td class="item">
+    			<textarea name="mailbody" cols="85" rows="20" wrap="VIRTUAL" style="font-size:90%"><TMPL_VAR NAME=mailbody></textarea>
+   			</td>
+   		</tr>
+   	</table>
+				<br>
+				<hr size="1">
+				<br>
+				<div align="center">
+					<input name="close" type="button" value="閉じる" onClick="<TMPL_IF send>window.opener.location.reload();self.close()<TMPL_ELSE>window.close()</TMPL_IF>">
+				&nbsp;
+				<input name="set" type="button" value="送信" onClick="mailSendSubmit();">
+				</div>
+				<br>
+				<a href="#top"><span class="return-top">[▲] トップへ戻る</span></a> </td>
+		</tr>
+	</table>
+	<br>
+<input type="hidden" name="to" value="<TMPL_VAR NAME=p_mail>">
+<input type="hidden" name="ORDERID" value="<TMPL_VAR NAME=order_id>">
+<input type="hidden" name="seq" value="<TMPL_VAR NAME=seq>">
+<input type="hidden" name="title" value="<TMPL_VAR NAME=title>">
+<input type="hidden" name="ktai" value="<TMPL_VAR NAME=ktai>">
+<input type="hidden" name="errcd" value="<TMPL_VAR NAME=ERR_CODE>">
+</form>
+</div>
+</body>
+</html>
+

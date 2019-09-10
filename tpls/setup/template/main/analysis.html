@@ -1,0 +1,287 @@
+<script language="JavaScript">
+<!--
+function setAnalysis() {
+  var analysis_value   = document.form1.analysis.value;
+  var g_analysis_value = document.form1.g_analysis.value;
+  g_analysis = g_analysis_value.replace(/^\s+|\s+$/g, "");
+  var g_analysis_str = 'google-analytics';
+  var alert_message = "GoogleAnalyticsタグが重複している可能性があります。\nその場合、正しく解析できないことがありますが、続行しますか？";
+
+  if (g_analysis.length > 0) {
+    if (analysis_value.match(g_analysis_str)) {
+      if (! window.confirm(alert_message)) {
+        return false;
+      }
+    }
+  }
+
+  document.form1.mode.value="regist";
+  document.form1.submit();
+
+  return;
+}
+//-->
+</script>
+<script type="text/javascript">
+<!--
+var IE7 = (typeof document.documentElement.style.msInterpolationMode !== "undefined") ? true : false;
+var dlg = "";
+var flag = "";
+var fadeNum = 0;
+var fadeInc = 0;
+var close_f = 0;
+var dialog_height = "";
+var filter_id = "";
+
+function popUp(flag,click_cnt) {
+    // clickのcountを足し算する
+    close_f += click_cnt;
+
+    // 重複でポップアップ防止 
+    if(close_f >= 2){
+        // 非表示
+        dlg.style.display = 'none';
+    }
+
+    switch(flag){
+    case 'ua_info':
+        dlg     = document.getElementById('ua_info');
+        overlay = document.getElementById('ua_info_overlay');
+        break;
+    }
+
+    dlg.style.display = 'block';
+    overlay.style.display = 'block';
+    setAlpha(0);
+
+    dlg.style.top='300px';
+
+    fadeNum = 0;
+    fadeInc = 20;
+    fade();
+    return false;
+}
+
+function dlgClose(){
+    fadeNum = 100;
+    fadeInc = -20;
+    fade();
+    overlay.style.display = 'none';
+}
+
+function fade(){
+    fadeNum += fadeInc;
+    setAlpha(fadeNum);
+    if(fadeNum < 100 && fadeNum > 0){
+        setTimeout(fade, 30);
+    }else if(fadeNum <= 0){
+        dlg.style.display = 'none';
+    }
+}
+
+function setAlpha(n){
+    if(!IE7){
+        dlg.style.opacity = (n/100);
+    }else{
+        filter_id = dlg.id + '_f';
+        document.getElementById(filter_id).style.filter='alpha(opacity=)' + n + ')';
+    }
+}
+
+function setAnalyticsFlg(g_flg){
+    document.form1.mode.value="regist";
+    document.form1.g_type.value=g_flg;
+    document.form1.submit();
+    return;
+}
+
+//-->
+</script>
+<style type="text/css">
+@charset "euc-jp";
+.dialog_disp {
+     display: none;
+     position: fixed !important;
+     position: absolute;
+     z-index:1;
+}
+
+.dialog_main {
+    position: absolute;
+    width: 635px;
+    border-width:12px;
+    border-style:solid;
+    border-color:#5D5D5D;
+}
+
+.dialog_main a.close {
+    position: relative;
+    display: block;
+    width: 34px;
+    height: 34px;
+    margin: -17px -19px -17px auto;
+    background: url(../imgs/close.png) no-repeat !important;
+    background: none;
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src="../../imgs/close.png", sizingMethod="scale");
+    cursor: pointer;
+}
+
+.dialog_main dl.content {
+    overflow: hidden;
+    zoom: 1;
+    margin: 0 0 0px;
+    padding: 5px;
+    line-height: 110%;
+    text-align: left;
+    background: #FFFFFF;
+}
+
+.ua_info_overlay {
+    display  : none;
+    position : fixed;
+    top      : 0;
+    left     : 0;
+    width    : 100%;
+    height   : 100%;
+    background-color : #747474;
+    filter           : alpha(opacity=40);
+    -moz-opacity     : 0.4;
+    opacity          : .40;
+}
+</style>
+<table bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tbody><tr>
+    <td width="12"><table align="right" bgcolor="#cd3e1c" border="0" cellpadding="0" cellspacing="0" height="20" width="50%">
+        <tbody><tr>
+          <td style="background-color:#cd3e1c;">&nbsp;</td>
+        </tr>
+    </tbody></table></td>
+<td class="midashi" align="left">アクセス集計タグの設定を行います</td>
+<td class="midashi" align="right"><a href="http://help.shopserve.jp/help/analysis.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+  </tbody>
+</table>
+
+<img src="../imgs/spc.gif" height="5" width="5">
+<input name="CVID" value="1" type="hidden">
+<input value="ADD" name="CMD" type="hidden">
+<form name="form1" method="post" action="analysis.cgi">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+
+  <input type="hidden" name="mode">
+  <tbody>
+    <tr>
+      <td class="main-table" align="left">
+
+        <table border="0" cellpadding="0" cellspacing="0" width="100%">
+          <tbody>
+            <tr>
+              <td>
+                          <!-- 060911ここから -->
+
+                <div class="infoArea table_bg">
+          GoogleAnalyticsのウェブプロパティIDを設定し、お店ページを更新するだけで、必要なタグが自動的にお店ページに挿入され、ｅコマースウェブサイトとしての解析が可能になります。<br>
+          <br>
+          ※ウェブプロパティIDは、GoogleAnalytics設定画面で取得したものを入力してください。<br>
+           Ｅストアーショップサーブと連動させるためにGoogleAnalytics側にも、設定が必要となります。
+                </div>
+          <!--br-->
+          <TMPL_IF NAME=ERR><font color="red">・<TMPL_VAR NAME=ERR></font></TMPL_IF>
+                <table class="item-box" border="0" cellpadding="0" cellspacing="2" width="100%">
+                  <tbody>
+                    <tr>
+                      <td class="item-name02" align="center" colspan="2">Google AnalyticsウェブプロパティIDの設定</td>
+                    </tr>
+                    <tr>
+                      <td class="item-name" align="left">
+                        ウェブプロパティID
+                      </td>
+                      <td class="item02" align="reft">
+                        <input type="text" name="g_analysis" maxlength="255" class="def-line" value="<TMPL_VAR NAME=g_analysis>">
+                        <br>例：UA-101010-1（数字の桁数はIDにより異なります）
+                      </td>
+                    </tr>
+                    <!-- GAからUAへアップグレードした場合-->
+                    <TMPL_IF NAME="g_type_ua">
+                    <tr>
+                        <td class="item-name" align="left">ユニバーサルアナリティクスへのアップグレード</td>
+                        <td class="item02">
+                            Google Analytics管理ページで、ユニバーサルアナリティクスにプロパティの移行が完了したことを確認してから、トラッキングコードを更新してください。<br><br>
+                                <input type="button" value="トラッキングコードを更新する" disabled="">
+                                <span style="font-size:85%;">&nbsp;<TMPL_VAR NAME = "g_created_on">&nbsp;更新済み<br><br></span>
+                                トラッキングコードの更新後は、お店ページの更新をしてください。
+                        </td>
+                    </tr>
+                    </TMPL_IF>
+                    <!-- GA利用中の場合 -->
+                    <TMPL_IF NAME="g_type_ga">
+                    <tr>
+                        <td class="item-name" align="left">ユニバーサルアナリティクスへのアップグレード</td>
+                        <td class="item02">
+                            Google Analytics管理ページで、ユニバーサルアナリティクスにプロパティの移行が完了したことを確認してから、トラッキングコードを更新してください。<br><br>
+                            <input type="button" value="トラッキングコードを更新する" onClick="popUp('ua_info',1);">
+                            <span style="font-size:80%;">※一度、トラッキングコードを更新すると元に戻せません。<br><br></span>
+                            トラッキングコードの更新後は、お店ページの更新をしてください。
+                        </td>
+                    </tr>
+                    </TMPL_IF>
+                    <div id="ua_info_overlay" class="ua_info_overlay"></div>
+                        <div id="ua_info" class="dialog_disp">
+                        <div id="ua_info_f" class="dialog_main">
+                            <a href="#close" class="close" onclick="return dlgClose()"></a>
+                            <dl class="content">
+                            <p>以下、ご確認のうえ、更新手続きをしてください。</p>
+                            <p>・Google Analytics管理ページで、ユニバーサルアナリティクスへの移行が完了してから、トラッキングコードの更新をしてください。<br>
+                            ※アップグレードを開始してから完了するまで最大48時間かかります。</p>
+                            <p>・トラッキングコードの更新直後に、必ずお店ページの更新をしてください。</p>
+                            <p>・一度、トラッキングコードを更新すると元に戻せません。</p>
+                            <div align="center">
+                                <input type="hidden" value="" name="g_type">
+                                <input type="button" value="上記確認したのでトラッキングコードを更新する" onClick="setAnalyticsFlg(1);">
+                            </div>
+                            </dl>
+                       </div>
+                       </div>
+                  </tbody>
+                </table>
+
+                <br>
+
+                <div class="infoArea table_bg">
+
+          他社で提供されているアクセス集計用のタグをお店ページに埋め込むことができます。<br>
+          静的リマーケティングタグの設置も可能です。<br>
+          動的リマーケティングタグは<a href="../func05/remarketing_tag.php">「リマーケティングタグ設定」</a>で設定します。<br><br>
+          ※GoogleAnalyticsを使用する場合は、[アクセス集計タグの設定]にAnalyticsの集計タグを入力しないで下さい。<br>
+          上記［GoogleAnalytic ウェブプロパティIDの設定］へ、ウェブプロパティIDのみをご入力ください。<br>
+          <br>
+          ※SSL対応の集計タグ（https://）を入力してください。<br>
+          SSL対応の集計タグでない場合は、SSLで保護されたショッピングカート、アンケートフォームページなどを表示した際に、ブラウザ上に警告メッセージが表示されます。SSL対応の集計タグについては、アクセス解析サービス提供元までご確認ください。
+                </div>
+          <!--br-->
+                <table class="item-box" border="0" cellpadding="0" cellspacing="2" width="100%">
+                  <tbody>
+                    <tr>
+                      <td class="item-name02" align="center">アクセス集計タグの設定</td>
+                    </tr>
+                    <tr>
+                      <td class="item02" align="center">
+                        <textarea name="analysis" rows="5" wrap="VIRTUAL" class="long-line"><TMPL_VAR NAME=analysis></textarea>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </td>
+            </tr>
+            <tr>
+              <td style="padding-top: 10px; text-align: center;">
+                <input name="SET" value="設定を保存する" onclick='javascript:setAnalysis();' type="button">
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </td>
+    </tr>
+  </tbody>
+</table>
+</form>

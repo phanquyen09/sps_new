@@ -1,0 +1,909 @@
+<!-- 新携帯対応  -->
+<TMPL_IF NAME=displayHtmlEditor>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../js/tiny_mce/jquery.tinymce.js"></script>
+<script type="text/javascript" src="../js/default.js"></script>
+<script type="text/javascript" src="../js/default_smp.js"></script>
+<script type="text/javascript">
+ _editor_url = "../blog/js";
+ _editor_lang = "ja";
+</script>
+<script type="text/javascript" src="../blog/js/htmlarea_img_mbp.js"></script>
+</TMPL_IF>
+<!-- 新携帯対応 -->
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<form name="ITEMFORM" method="POST" action="itemform.cgi">
+<input type="hidden" name="CMD" value="EDT">
+                                      <tr>
+                                        <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#856791">
+                                            <tr>
+                                              <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+                                            </tr>
+                                        </table></td>
+<td align="left" class="midashi">商品詳細ページの商品価格や各種フォームの設定を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/itemform.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                                      </tr>
+                                    </table>
+                                      <img src="../imgs/spc.gif" width="5" height="5">
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+<tr>
+    <td align="left" class="main-table">
+        <div align="right" >
+            <a href="https://help.shopserve.jp/ctrlpnl_sup/func01/clientlist/privacy_use.html" target="manual">&lt;個人情報を適切に取り扱いましょう&gt;</a>
+        </div>
+
+        <div class="infoArea table_bg">
+            商品価格の設定は、設定を保存すると商品詳細ページと商品一覧ページに即時反映されます。<br>
+            お店のトップページはお店ページを更新すると反映されます。<br><br>
+			JavaScriptを使用する場合は、HTMLエディタをOFFにしてご利用ください。<br>
+            <a href="../func02/htmleditor.php">⇒HTMLエディタ OFF/ON 切替</a><br>
+        </div>
+            <TMPL_LOOP NAME=ERR_MSG>
+            <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+            </TMPL_LOOP>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+<tr>
+    <td>
+<script type="text/javascript" src="../blog/js/submitonce.js"></script>
+<script type="text/javascript">
+  _editor_url = "js";
+  _editor_lang = "ja";
+</script>
+<script type="text/javascript" src="../blog/js/htmlarea.js"></script>
+<script type="text/javascript" src="../blog/js/dialog.js"></script>
+<script type="text/javascript">
+<!--
+/***** 初期表示チェック *****/
+var priceSale    = new Number(2500);
+var priceProduct = new Number(0);
+var priceTax     = new Number(0);
+var taxRate, roundingMode, withoutTaxLayout;
+window.onload=function() {
+    /*** 取り消し線表示チェック ***/
+    lineDispCheck();
+
+    /*** 割引率表示チェック ***/
+    discDispCheck();
+    
+    /*** デザインチェック ***/
+    /* 価格の文字サイズ */
+    p_cnt=document.ITEMFORM.DblPrcFnt.length;
+    for(i=0;i<p_cnt;i++){
+        if(document.ITEMFORM.DblPrcFnt[i].checked==true){
+            designSize(document.ITEMFORM.DblPrcFnt[i]);
+            break;
+        }
+    }
+
+    /* 割引率の文字サイズ */
+    d_cnt=document.ITEMFORM.DscntRtFnt.length;
+    for(j=0;j<d_cnt;j++){
+        if(document.ITEMFORM.DscntRtFnt[j].checked==true){
+            designSize(document.ITEMFORM.DscntRtFnt[j]);
+            break;
+        }
+    }
+    
+    t_cnt=document.ITEMFORM.WithoutTaxFnt.length;
+    for(j=0;j<t_cnt;j++){
+        if(document.ITEMFORM.WithoutTaxFnt[j].checked==true){
+            designSize(document.ITEMFORM.WithoutTaxFnt[j]);
+            break;
+        }
+    }
+    
+    /* 色 */
+    designColor(document.ITEMFORM.DblPrcFntC);
+    designColor(document.ITEMFORM.DscntRtFntC);
+    designColor(document.ITEMFORM.WithoutTaxFntC);
+
+    /* 太字 */
+    designBold(document.ITEMFORM.DblPrcFntB);
+    designBold(document.ITEMFORM.DscntRtFntB);
+    designBold(document.ITEMFORM.WithoutTaxFntB);
+    
+    /* Init Tax */
+    taxLayoutInit();
+}
+
+/***** 取り消し線表示チェック *****/
+function lineDispCheck(){
+    if(!document.ITEMFORM.DblPrcStrkthrgh.checked){
+        document.getElementById('DblPrcStrkthrghImg').style.textDecoration='none';
+    }else{
+        document.getElementById('DblPrcStrkthrghImg').style.textDecoration='line-through';
+    }
+}
+
+/***** 割引率の表示チェック *****/
+function discDispCheck(){
+    if(!document.ITEMFORM.DscntRtDsp.checked){
+        document.getElementById('DscntRtImg').style.display='none';
+        discDesignInit();
+    }else{
+        document.getElementById('DscntRtImg').style.display='inline';
+        discDesignInit();
+    }
+}
+
+/***** 割引率が非表示の場合はデザイン設定不可 *****/
+function discDesignInit(){
+    if(!document.ITEMFORM.DscntRtDsp.checked){
+        flg=true;
+    }else{
+        flg=false;
+    }
+
+    cnt=document.ITEMFORM.DscntRtFnt.length;
+    for(i=0;i<cnt;i++){
+        document.ITEMFORM.DscntRtFnt[i].disabled=flg;
+    }
+    document.ITEMFORM.DscntRtFntC.disabled=flg;
+
+    if(document.ITEMFORM.DscntRtFntC.disabled==true){
+        document.getElementById('DscntRtFntC_Dummy').style.border='1px solid #bbb';
+    }else{
+        document.getElementById('DscntRtFntC_Dummy').style.border='1px solid #333';
+    }
+
+    document.ITEMFORM.DscntRtFntB.disabled=flg;
+}
+
+/***** デザイン（文字サイズ） *****/
+function designSize(chk){
+    if(chk.name=='DblPrcFnt'){
+        id='DblPrcImg';
+    }else if(chk.name=='WithoutTaxFnt'){
+        id='WithoutTaxImg';
+    }else{
+        id='DscntRtImg';
+    }
+    document.getElementById(id).style.fontSize=chk.value;
+}
+
+/***** デザイン（太字） *****/
+function designBold(chk){
+    if(chk.name=='DblPrcFntB'){
+        id='DblPrcImg';
+    }else if(chk.name=='WithoutTaxFntB'){
+        id='WithoutTaxImg';
+    }else{
+        id='DscntRtImg';
+    }
+
+    if(!chk.checked){
+        document.getElementById(id).style.fontWeight='normal';
+    }else{
+        document.getElementById(id).style.fontWeight='bold';
+    }
+}
+
+/***** デザイン（色） *****/
+function designColor(chk){
+    if(chk.name=='DblPrcFntC'){
+        id='DblPrcImg';
+        id2='DblPrcFntC_Dummy';
+        color=document.ITEMFORM.DblPrcFntC.value;
+    }else if(chk.name=='WithoutTaxFntC'){
+        id='WithoutTaxImg';
+        id2='WithoutTaxFntC_Dummy';
+        color=document.ITEMFORM.WithoutTaxFntC.value;
+    }else{
+        id='DscntRtImg';
+        id2='DscntRtFntC_Dummy';
+        color=document.ITEMFORM.DscntRtFntC.value;
+    }
+
+    if(color.length==7||color.length==4){ /*色指定が7文字もしくは4文字の場合は反映*/
+        if ( color.charAt( 0 ) == '#' ) {
+            document.getElementById(id).style.color=color;
+            document.getElementById(id2).style.color=color;
+        }
+    }
+}
+
+/***** layout tax init *****/
+function taxLayoutInit(){
+    /*** tax_rate ***/
+    var taxRateDb = '<TMPL_VAR NAME=FLGTAXRATE>';
+    taxRate = new Number(taxRateDb);
+    /*** rounding_mode ***/
+    var roundingModeDb = '<TMPL_VAR NAME=FLGROUNDINGMODE>';
+    roundingMode = new Number(roundingModeDb);
+    /*** without_tax_layout ***/
+    var WithoutTaxLayout = '<TMPL_VAR NAME=FLGWITHOUTTAXLAYOUT>';
+    setWithoutTaxLayout(document.ITEMFORM.WithoutTaxLayout[WithoutTaxLayout]);
+}
+
+/***** setting when use without_tax_layout *****/
+function setWithoutTaxLayout(chk){
+    if(chk.checked){
+        cnt  = document.ITEMFORM.WithoutTaxLayout.length;
+        for(i=0;i<cnt;i++){
+            if(document.ITEMFORM.WithoutTaxLayout[i].value == chk.value){
+                withoutTaxLayout = chk.value;
+                calculatorPriceAndTax();
+                displayWithoutTaxImg();
+                break;
+            }
+        }
+        /* Font Size */
+        t_cnt=document.ITEMFORM.WithoutTaxFnt.length;
+        for(j=0;j<t_cnt;j++){
+            if(document.ITEMFORM.WithoutTaxFnt[j].checked==true){
+                designSize(document.ITEMFORM.WithoutTaxFnt[j]);
+                break;
+            }
+        }
+        /* 色 */
+        designColor(document.ITEMFORM.WithoutTaxFntC);
+        /* 太字 */
+        designBold(document.ITEMFORM.WithoutTaxFntB);
+    }
+}
+
+/***** displayWithoutTaxImg *****/
+function displayWithoutTaxImg(){
+    if(withoutTaxLayout != null){
+        priceProductFormat = numberFormat(priceProduct);
+        priceSaleFormat    = numberFormat(priceSale);
+        priceTaxFormat     = numberFormat(priceTax);
+        switch (withoutTaxLayout){
+            case "1" :
+                document.getElementById('DblPrcImg').innerHTML = priceSaleFormat + '円';
+                document.getElementById('WithoutTaxImg').innerHTML = '（税抜' + priceProductFormat + '円）';
+                break;
+            case "2" :
+                document.getElementById('DblPrcImg').innerHTML = priceSaleFormat + '円';
+                document.getElementById('WithoutTaxImg').innerHTML = '（税抜' + priceProductFormat + '円、税' + priceTaxFormat + '円）';
+                break;
+            case "3" :
+                document.getElementById('DblPrcImg').innerHTML = priceSaleFormat + '円';
+                document.getElementById('WithoutTaxImg').innerHTML = '（本体' + priceProductFormat + '円）';
+                break;
+            case "4" :
+                document.getElementById('DblPrcImg').innerHTML = priceSaleFormat + '円';
+                document.getElementById('WithoutTaxImg').innerHTML = '（本体' + priceProductFormat + '円、税' + priceTaxFormat + '円）';
+                break;
+            case "5" :
+                document.getElementById('DblPrcImg').innerHTML = priceSaleFormat + '円';
+                document.getElementById('WithoutTaxImg').innerHTML = '（うち税' + priceTaxFormat + '円）';
+                break;
+            case "6" :
+                document.getElementById('DblPrcImg').innerHTML = priceProductFormat + '円';
+                document.getElementById('WithoutTaxImg').innerHTML = '（税込' + priceSaleFormat + '円）';
+                break;
+            default :
+                document.getElementById('DblPrcImg').innerHTML = priceSaleFormat + '円';
+                document.getElementById('WithoutTaxImg').innerHTML = '（税込）';
+                break;
+        }
+    }
+}
+
+/***** calculator price and tax *****/
+function calculatorPriceAndTax(){
+    if(taxRate == 0) {
+        taxRate = 0.08;
+    }
+    if(roundingMode != null && priceSale != null && taxRate != null){
+        priceProduct =  priceSale / (1 + taxRate);
+        if(roundingMode == 1){
+            priceProduct = Math.ceil(priceProduct);
+        }else if(roundingMode == 2){
+            priceProduct = Math.floor(priceProduct);
+        }else{
+            priceProduct = Math.round(priceProduct);
+        }
+        priceTax = priceSale - priceProduct;
+    }
+}
+
+/***** number format *****/
+function numberFormat(number) {
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+/***** 色選択 *****/
+function openPalet(name, element){
+    if( name!='PublishPoint' ) {
+        if(name=='DscntRt' && document.ITEMFORM.DscntRtFntC.disabled==true)return false; //割引率が非表示の場合はパレット不可
+
+        Dialog("../blog/js/popups/select_bgcolor.html", function(color) {
+            if (color) { // selection not canceled
+                var id  = name + 'Img';
+                var id2 = name + 'FntC';
+                var id3 = name + 'FntC_Dummy';
+                var old = document.getElementById(id).style.color;
+                document.getElementById(id).style.color  = '#' + color;
+                document.getElementById(id2).value       = '#' + color;
+                document.getElementById(id3).style.color = '#' + color;
+            }
+        },
+        "toolbar=no,menubar=no,personalbar=no,width=10,height=10,scrollbars=no,resizable=yes,modal"
+        );
+
+        return true;
+    }//End if
+
+    Dialog("../blog/js/popups/select_bgcolor.html", function(color) {
+        if (color) { // selection not canceled
+            var id = name + 'FntC';
+            element.style.color  = '#' + color;
+            document.getElementById(id).value = '#' + color;
+        }
+    },
+    "toolbar=no,menubar=no,personalbar=no,width=10,height=10,scrollbars=no,resizable=yes,modal"
+    );
+}
+
+/***** 設定保存ボタン *****/
+function onSubmit(name){
+    // 押下されたボタンによってコマンドを変更する
+    document.ITEMFORM.CMD.value = 'EDT_' + name;
+    document.ITEMFORM.submit();
+}
+
+//-->
+</script>
+
+        <div class="customTemplateInfo1">
+            <a href="http://help.shopserve.jp/ctrlpnl_sup/func04/itemform/custom.html" target="_blank">
+                <img src="../imgs/func04_custTempInfo1.png" alt="カスタムテンプレートのご利用について">
+            </a>
+        </div>
+
+        <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+        <tr align="center">
+            <td colspan="2" class="item-name02">商品価格の設定</td>
+        </tr>
+        <tr>
+            <td colspan="2" class="item" style="color:#c00;">
+            ※デザインが初期値（文字サイズ：左／色：空欄／太字：チェックなし）の場合はテーマのデザインが反映されます。<br>
+            ※デザインの「文字サイズ」以外は商品一覧ページにも反映されます。<br>
+            ※「販売価格の表示パターン」はお店のトップページにも反映されます。
+            </td>
+        </tr>
+        <tr>
+            <td class="item-name">各設定の反映イメージ</td>
+            <td class="item-sub" style="padding:2px;">
+              <div style="padding:2px 5px;background:#eadfe0;">各設定を行うと金額にデザインが反映されます。</div>
+              <div style="margin-top:2px;padding:5px 10px;min-height: 80px">
+                定価：<span id="DblPrcStrkthrghImg">5,000円（税込）</span><br>
+                価格：<span id="DblPrcImg">2500円</span><span id="WithoutTaxImg">（税込）</span><span id="DscntRtImg" style="display:none;">&lt;50%OFF&gt;</span>
+              </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="item-name">販売価格の表示パターン</td>
+            <td class="item">
+                <table style="width:100%;">
+                    <tr>
+                        <td style="width:10px"><input type="radio" name="WithoutTaxLayout" id="WithoutTaxLayout0" value="0" onclick="setWithoutTaxLayout(this);"<TMPL_IF NAME=WITHOUTTAXLAYOUT0> checked</TMPL_IF>/></td>
+                        <td><label for="WithoutTaxLayout0">税込価格のみ</label></td>
+                    </tr>
+                    <tr>
+                        <td style="width:10px"><input type="radio" name="WithoutTaxLayout" id="WithoutTaxLayout1" value="1" onclick="setWithoutTaxLayout(this);"<TMPL_IF NAME=WITHOUTTAXLAYOUT1> checked</TMPL_IF>/></td>
+                        <td><label for="WithoutTaxLayout1">税込価格 （税抜価格）</label></td>
+                    </tr>
+                    <tr>
+                        <td style="width:10px"><input type="radio" name="WithoutTaxLayout" id="WithoutTaxLayout2" value="2" onclick="setWithoutTaxLayout(this);"<TMPL_IF NAME=WITHOUTTAXLAYOUT2> checked</TMPL_IF>/></td>
+                        <td><label for="WithoutTaxLayout2">税込価格 （税抜価格、税額）</label></td>
+                    </tr>
+                    <tr>
+                        <td style="width:10px"><input type="radio" name="WithoutTaxLayout" id="WithoutTaxLayout3" value="3" onclick="setWithoutTaxLayout(this);"<TMPL_IF NAME=WITHOUTTAXLAYOUT3> checked</TMPL_IF>/></td>
+                        <td><label for="WithoutTaxLayout3">税込価格 （本体価格）</label></td>
+                    </tr>
+                    <tr>
+                        <td style="width:10px"><input type="radio" name="WithoutTaxLayout" id="WithoutTaxLayout4" value="4" onclick="setWithoutTaxLayout(this);"<TMPL_IF NAME=WITHOUTTAXLAYOUT4> checked</TMPL_IF>/></td>
+                        <td><label for="WithoutTaxLayout4">税込価格 （本体価格、税額）</label></td>
+                    </tr>
+                    <tr>
+                        <td style="width:10px"><input type="radio" name="WithoutTaxLayout" id="WithoutTaxLayout5" value="5" onclick="setWithoutTaxLayout(this);"<TMPL_IF NAME=WITHOUTTAXLAYOUT5> checked</TMPL_IF>/></td>
+                        <td><label for="WithoutTaxLayout5">税込価格 （うち税額）</label></td>
+                    </tr>
+                    <tr>
+                        <td style="width:10px"><input type="radio" name="WithoutTaxLayout" id="WithoutTaxLayout6" value="6" onclick="setWithoutTaxLayout(this);"<TMPL_IF NAME=WITHOUTTAXLAYOUT6> checked</TMPL_IF>/></td>
+                        <td><label for="WithoutTaxLayout6">税抜価格 （税込価格）</label></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2">
+                          ※価格表示時の端数の処理の設定は「<a href ="../func03/config_tax.php">消費税の設定</a>」で行います。 <br />
+                          ※非課税商品の場合は、固定で下記の様に表示されます。 <br />
+                          <span style="padding-left:30px">定価：5,000円（非課税） </span><br />
+                          <span style="padding-left:30px">価格：2,500円（非課税） </span>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="item-name">取り消し線の表示</td>
+            <td class="item">
+                <input type="checkbox" name="DblPrcStrkthrgh" id="DblPrcStrkthrgh" onclick="lineDispCheck();"<TMPL_IF NAME=DBLPRCSTRKTHRGH> checked</TMPL_IF>>
+                <label for="DblPrcStrkthrgh">定価の金額に取り消し線を付ける（「オープン価格」選択時は除く）</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="item-name">割引率の表示</td>
+            <td class="item">
+                <input type="checkbox" name="DscntRtDsp" id="DscntRtDsp" onclick="discDispCheck();"<TMPL_IF NAME=DSCNTRTDSP> checked</TMPL_IF>>
+                <label for="DscntRtDsp">定価と価格の割引率を表示する</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="item-name">価格のデザイン</td>
+            <td class="item-sub">
+                <table style="width:100%;">
+                <tr style="text-align:center;">
+                    <td colspan="5" class="sub-item-name" style="width:60%;">文字サイズ</td>
+                    <td class="sub-item-name" style="width:20%;">色</td>
+                    <td class="sub-item-name" style="width:20%;">太字</td>
+                </tr>
+                <tr style="text-align:center;">
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <label for="DblPrcFnt0" style="font-size:small;">あ</label>
+                    </td>
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <label for="DblPrcFnt1" style="font-size:medium;">あ</label>
+                    </td>
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <label for="DblPrcFnt2" style="font-size:large;">あ</label>
+                    </td>
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <label for="DblPrcFnt3" style="font-size:x-large;">あ</label>
+                    </td>
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <label for="DblPrcFnt4" style="font-size:xx-large;">あ</label>
+                    </td>
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <a href="javascript:void(0);" id="DblPrcFntC_Dummy" style="padding:3px 5px;border:1px solid #333;color:#333;font-size:small;" onclick="openPalet('DblPrc');">あ</a>
+                    </td>
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <label for="DblPrcFntB" style="font-size:small;font-weight:bold;">あ</label>
+                    </td>
+                </tr>
+                <tr style="text-align:center;">
+                    <td>
+                        <input type="radio" name="DblPrcFnt" value="small" id="DblPrcFnt0" onclick="designSize(this);"<TMPL_IF NAME=DBLPRCFNT0> checked</TMPL_IF>>
+                    </td>
+                    <td>
+                        <input type="radio" name="DblPrcFnt" value="medium" id="DblPrcFnt1" onclick="designSize(this);"<TMPL_IF NAME=DBLPRCFNT1> checked</TMPL_IF>>
+                    </td>
+                    <td>
+                        <input type="radio" name="DblPrcFnt" value="large" id="DblPrcFnt2" onclick="designSize(this);"<TMPL_IF NAME=DBLPRCFNT2> checked</TMPL_IF>>
+                    </td>
+                    <td>
+                        <input type="radio" name="DblPrcFnt" value="x-large" id="DblPrcFnt3" onclick="designSize(this);"<TMPL_IF NAME=DBLPRCFNT3> checked</TMPL_IF>>
+                    </td>
+                    <td>
+                        <input type="radio" name="DblPrcFnt" value="xx-large" id="DblPrcFnt4" onclick="designSize(this);"<TMPL_IF NAME=DBLPRCFNT4> checked</TMPL_IF>>
+                    </td>
+                    <td>
+                        <input type="text" name="DblPrcFntC" id="DblPrcFntC" value="<TMPL_VAR NAME=DBLPRCFNTC>" size="10" onkeyup="designColor(this);">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="DblPrcFntB" id="DblPrcFntB" onclick="designBold(this);"<TMPL_IF NAME=DBLPRCFNTB> checked</TMPL_IF>>
+                    </td>
+                </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="item-name">カッコ内のデザイン</td>
+            <td class="item-sub">
+                <table style="width:100%;">
+                <tr style="text-align:center;">
+                    <td colspan="5" class="sub-item-name" style="width:60%;">文字サイズ</td>
+                    <td class="sub-item-name" style="width:20%;">色</td>
+                    <td class="sub-item-name" style="width:20%;">太字</td>
+                </tr>
+                <tr style="text-align:center;">
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <label for="WithoutTaxFnt0" style="display:block; font-size:small;">あ</label>
+                    </td>
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <label for="WithoutTaxFnt1" style="display:block; font-size:medium;">あ</label>
+                    </td>
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <label for="WithoutTaxFnt2" style="display:block; font-size:large;">あ</label>
+                    </td>
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <label for="WithoutTaxFnt3" style="display:block; font-size:x-large;">あ</label>
+                    </td>
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <label for="WithoutTaxFnt4" style="display:block; font-size:xx-large;">あ</label>
+                    </td>
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <a href="javascript:void(0);" id="WithoutTaxFntC_Dummy" style="padding:3px 5px;border:1px solid #333;color:#333;font-size:small;" onclick="openPalet('WithoutTax');">あ</a>
+                    </td>
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <label for="WithoutTaxFntB" style="display:block;font-size:small;font-weight:bold;">あ</label>
+                    </td>
+                </tr>
+                <tr style="text-align:center;">
+                    <td>
+                        <input type="radio" name="WithoutTaxFnt" id="WithoutTaxFnt0" value="small" onclick="designSize(this);"<TMPL_IF NAME=WITHOUTTAXFNT0> checked</TMPL_IF>/>
+                    </td>
+                    <td>
+                        <input type="radio" name="WithoutTaxFnt" id="WithoutTaxFnt1" value="medium" onclick="designSize(this);"<TMPL_IF NAME=WITHOUTTAXFNT1> checked</TMPL_IF>/>
+                    </td>
+                    <td>
+                        <input type="radio" name="WithoutTaxFnt" id="WithoutTaxFnt2" value="large" onclick="designSize(this);"<TMPL_IF NAME=WITHOUTTAXFNT2> checked</TMPL_IF>/>
+                    </td>
+                    <td>
+                        <input type="radio" name="WithoutTaxFnt" id="WithoutTaxFnt3" value="x-large" onclick="designSize(this);"<TMPL_IF NAME=WITHOUTTAXFNT3> checked</TMPL_IF>/>
+                    </td>
+                    <td>
+                        <input type="radio" name="WithoutTaxFnt" id="WithoutTaxFnt4" value="xx-large" onclick="designSize(this);"<TMPL_IF NAME=WITHOUTTAXFNT4> checked</TMPL_IF>/>
+                    </td>
+                    <td>
+                        <input type="text" name="WithoutTaxFntC" id="WithoutTaxFntC" value="<TMPL_VAR NAME=WITHOUTTAXFNTC>" size="10" onkeyup="designColor(this);">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="WithoutTaxFntB" id="WithoutTaxFntB" onclick="designBold(this);"<TMPL_IF NAME=WITHOUTTAXFNTB> checked</TMPL_IF>/>
+                    </td>
+                </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="item-name">割引率のデザイン</td>
+            <td class="item-sub">
+                <table style="width:100%;">
+                <tr style="text-align:center;">
+                    <td colspan="5" class="sub-item-name" style="width:60%;">文字サイズ</td>
+                    <td class="sub-item-name" style="width:20%;">色</td>
+                    <td class="sub-item-name" style="width:20%;">太字</td>
+                </tr>
+                <tr style="text-align:center;">
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <label for="DscntRtFnt0" style="display:block; font-size:small;">あ</label>
+                    </td>
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <label for="DscntRtFnt1" style="display:block; font-size:medium;">あ</label>
+                    </td>
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <label for="DscntRtFnt2" style="display:block; font-size:large;">あ</label>
+                    </td>
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <label for="DscntRtFnt3" style="display:block; font-size:x-large;">あ</label>
+                    </td>
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <label for="DscntRtFnt4" style="display:block; font-size:xx-large;">あ</label>
+                    </td>
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <a href="javascript:void(0);" id="DscntRtFntC_Dummy" style="padding:3px 5px;border:1px solid #333;color:#333;font-size:small;" onclick="openPalet('DscntRt');">あ</a>
+                    </td>
+                    <td style="vertical-align:middle;padding:5px 0 0;">
+                        <label for="DscntRtFntB" style="display:block;font-size:small;font-weight:bold;">あ</label>
+                    </td>
+                </tr>
+                <tr style="text-align:center;">
+                    <td>
+                        <input type="radio" name="DscntRtFnt" id="DscntRtFnt0" value="small" onclick="designSize(this);"<TMPL_IF NAME=DSCNTRTFNT0> checked</TMPL_IF>>
+                    </td>
+                    <td>
+                        <input type="radio" name="DscntRtFnt" id="DscntRtFnt1" value="medium" onclick="designSize(this);"<TMPL_IF NAME=DSCNTRTFNT1> checked</TMPL_IF>>
+                    </td>
+                    <td>
+                        <input type="radio" name="DscntRtFnt" id="DscntRtFnt2" value="large" onclick="designSize(this);"<TMPL_IF NAME=DSCNTRTFNT2> checked</TMPL_IF>>
+                    </td>
+                    <td>
+                        <input type="radio" name="DscntRtFnt" id="DscntRtFnt3" value="x-large" onclick="designSize(this);"<TMPL_IF NAME=DSCNTRTFNT3> checked</TMPL_IF>>
+                    </td>
+                    <td>
+                        <input type="radio" name="DscntRtFnt" id="DscntRtFnt4" value="xx-large" onclick="designSize(this);"<TMPL_IF NAME=DSCNTRTFNT4> checked</TMPL_IF>>
+                    </td>
+                    <td>
+                        <input type="text" name="DscntRtFntC" id="DscntRtFntC" value="<TMPL_VAR NAME=DSCNTRTFNTC>" size="10" onkeyup="designColor(this);">
+                    </td>
+                    <td>
+                        <input type="checkbox" name="DscntRtFntB" id="DscntRtFntB" onclick="designBold(this);"<TMPL_IF NAME=DSCNTRTFNTB> checked</TMPL_IF>>
+                    </td>
+                </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="item" style="border:2px solid #999;">
+            <td colspan="2" style="padding:5px;text-align:center;"><input name="set" type="button" id="set" value="設定を保存する" onClick="javascript:onSubmit('PRICE');">
+        </tr>
+        </table>
+        <br>
+
+
+        <!-- publishPoint area -->
+        <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+          <tr align="center">
+            <td colspan="2" class="item-name02">ポイント表示の設定</td>
+          </tr>
+
+          <tr>
+            <td class="item-name">ポイントの表示</td>
+
+            <td class="item">
+              <input type="checkbox" name="PublishPointDisp" id="PublishPointDisp" value="1" <TMPL_IF NAME=PublishPointDisp> checked</TMPL_IF>>
+              <label for="PublishPointDisp">獲得予定ポイントを表示する</label>
+            </td>
+          </tr>
+
+          <tr>
+            <td class="item-name">ポイントのデザイン</td>
+
+            <td class="item-sub">
+              <!-- publishPoint style area -->
+              <table style="width:100%;">
+                <tr style="text-align:center;">
+                  <td colspan="5" class="sub-item-name" style="width:60%;">文字サイズ</td>
+                  <td class="sub-item-name" style="width:20%;">色</td>
+                  <td class="sub-item-name" style="width:20%;">太字</td>
+                </tr>
+
+                <tr style="text-align:center;">
+                  <td style="vertical-align:middle;padding:5px 0 0;">
+                    <label for="PublishPointFont0" style="display:block; font-size:small;">あ</label>
+                  </td>
+
+                  <td style="vertical-align:middle;padding:5px 0 0;">
+                    <label for="PublishPointFont1" style="display:block; font-size:medium;">あ</label>
+                  </td>
+
+                  <td style="vertical-align:middle;padding:5px 0 0;">
+                    <label for="PublishPointFont2" style="display:block; font-size:large;">あ</label>
+                  </td>
+
+                  <td style="vertical-align:middle;padding:5px 0 0;">
+                    <label for="PublishPointFont3" style="display:block; font-size:x-large;">あ</label>
+                  </td>
+
+                  <td style="vertical-align:middle;padding:5px 0 0;">
+                    <label for="PublishPointFont4" style="display:block; font-size:xx-large;">あ</label>
+                  </td>
+
+                  <td style="vertical-align:middle;padding:5px 0 0;">
+                    <a href="javascript:void(0);" style="padding:3px 5px;border:1px solid #333;color:<TMPL_IF NAME=IsValidColorPoint><TMPL_IF NAME=PublishPointFontC><TMPL_VAR NAME=PublishPointFontC><TMPL_ELSE>#333</TMPL_IF><TMPL_ELSE>#000000</TMPL_IF>;font-size:small;" onclick="openPalet('PublishPoint', this);">あ</a>
+                  </td>
+
+                  <td style="vertical-align:middle;padding:5px 0 0;">
+                    <label for="PublishPointFontB" style="display:block;font-size:small;font-weight:bold;">あ</label>
+                  </td>
+                </tr>
+
+                <tr style="text-align:center;">
+                  <td>
+                      <input type="radio" name="PublishPointFont" id="PublishPointFont0" value="small" <TMPL_IF NAME=PublishPointFont0> checked</TMPL_IF>>
+                  </td>
+                  <td>
+                      <input type="radio" name="PublishPointFont" id="PublishPointFont1" value="medium" <TMPL_IF NAME=PublishPointFont1> checked</TMPL_IF>>
+                  </td>
+                  <td>
+                      <input type="radio" name="PublishPointFont" id="PublishPointFont2" value="large" <TMPL_IF NAME=PublishPointFont2> checked</TMPL_IF>>
+                  </td>
+                  <td>
+                      <input type="radio" name="PublishPointFont" id="PublishPointFont3" value="x-large" <TMPL_IF NAME=PublishPointFont3> checked</TMPL_IF>>
+                  </td>
+                  <td>
+                      <input type="radio" name="PublishPointFont" id="PublishPointFont4" value="xx-large" <TMPL_IF NAME=PublishPointFont4> checked</TMPL_IF>>
+                  </td>
+                  <td>
+                      <input type="text" name="PublishPointFontC" id="PublishPointFntC" value="<TMPL_VAR NAME=PublishPointFontC>" size="10">
+                  </td>
+                  <td>
+                      <input type="checkbox" name="PublishPointFontB" id="PublishPointFontB" value="1" <TMPL_IF NAME=PublishPointFontB> checked</TMPL_IF>>
+                  </td>
+                </tr>
+                </table>
+                <!-- /publishPoint style area -->
+            </td>
+          </tr>
+
+          <tr class="item" style="border:2px solid #999;">
+              <td colspan="2" style="padding:5px;text-align:center;"><input name="set" type="button" id="set" value="設定を保存する" onClick="javascript:onSubmit('PUBPOINT');">
+          </tr>
+        </table>
+        <br>
+        <!-- /publishPoint area -->
+
+
+        <a id="product-inquiry-form" class="anchor-fix"></a>
+        <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+        <tr align="center">
+            <td colspan="2" class="item-name02">商品のお問い合せフォームの設定</td>
+        </tr>
+        <tr>
+            <td class="item-name">差出人名</td>
+            <td class="item"><input name="ItemFromStr" type="text" class="def-line" value="<TMPL_VAR NAME=ITEMFROMSTR>"></td>
+        </tr>
+        <tr>
+            <td class="item-name">差出人メールアドレス</td>
+            <td class="item">
+                <input name="ItemFromAddr" type="text" class="def-line" value="<TMPL_VAR NAME=ITEMFROMADDR>" style="ime-mode:disabled">
+                <br>
+                ※メールアドレスを必ずご確認ください。
+            </td>
+        </tr>
+        <tr>
+            <td class="item-name" rowspan="5">お問い合わせ内容</td>
+            <td class="item">お問い合わせ</td>
+        </tr>
+        <TMPL_LOOP NAME=INQ_LIST>
+        <tr>
+            <td class="item"><input name="ItemInq<TMPL_VAR NAME=id>" type="text" class="def-line" value="<TMPL_VAR NAME=INQ>"></td>
+        </tr>
+        </TMPL_LOOP>
+
+        <tr>
+            <td class="item-name">自動返信メールの内容</td>
+            <td class="item">
+            <textarea name="ItemNaiyo" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=ITEMNAIYO></textarea>
+            </td>
+        </tr>
+        <tr class="item" style="border:2px solid #999;">
+            <td colspan="2" style="padding:5px;text-align:center;"><input name="set" type="button" id="set" value="設定を保存する" onClick="javascript:onSubmit('INQUIRY');">
+        </tr>
+        </table>
+        <br>
+
+        <a id="friend-form" class="anchor-fix"></a>
+        <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+        <tr align="center">
+            <td colspan="2" class="item-name02">友達に教えるフォームの設定</td>
+        </tr>
+        <tr>
+            <td class="item-name">差出人名</td>
+            <td class="item"><input name="FriendFromStr" type="text" class="def-line" value="<TMPL_VAR NAME=FRIENDFROMSTR>"></td>
+        </tr>
+        <tr>
+            <td class="item-name">差出人メールアドレス</td>
+            <td class="item"><input name="FriendFromAddr" type="text" class="def-line" value="<TMPL_VAR NAME=FRIENDFROMADDR>" style="ime-mode:disabled"></td>
+        </tr>
+        <tr class="item" style="border:2px solid #999;">
+            <td colspan="2" style="padding:5px;text-align:center;"><input name="set" type="button" id="set" value="設定を保存する" onClick="javascript:onSubmit('FRIEND');">
+        </tr>
+        </table>
+        <br>
+
+<!-- 新携帯対応 start -->
+<a id="restock-form" class="anchor-fix"></a>
+<table class="item-box" width="100%">
+<tr>
+  <td colspan="2" align="center" class="item-name02">入荷連絡フォームの設定</td>
+</tr>
+<tr>
+  <td class="item-name">入荷連絡フォームの案内文</td>
+  <td class="item">
+
+    <div class="restock_info_midashi clearfix">
+      <h4>PC用</h4>
+      <input type="button" value="-" onclick="if(this.value=='+'){this.value='-';document.getElementById('restock_input_pc').style.display='block';}else{this.value='+';document.getElementById('restock_input_pc').style.display='none';}">
+    </div>
+
+    <div id="restock_input_pc" class="restock_info_box">
+      <table width="100%">
+      <tr>
+        <td class="sub-item">
+        <textarea name="AnnounceInfo" id="ta1" rows="10" class="def-line"><TMPL_VAR NAME=ANNOUNCEINFO></textarea><br>
+          ※HTMLタグ利用可
+        </td>
+      </tr>
+      </table>
+    </div>
+
+     <TMPL_IF NAME=MOBILE_USE>
+    <div class="restock_info_midashi clearfix">
+      <h4>スマートフォン用</h4>
+      <h5 style='position:relative; margin:auto;'><span class="icon_for_estoremb">Ｅストアーモバイル専用</span></h5>
+      <input type="button" value="-" onclick="if(this.value=='+'){this.value='-';document.getElementById('restock_input_smt').style.display='block';}else{this.value='+';document.getElementById('restock_input_smt').style.display='none';}">
+    </div>
+
+    <div id="restock_input_smt" class="restock_info_box">
+      <table width="100%">
+      <tr>
+        <td class="sub-item">
+         <div class='settable parts_box'>
+         <textarea name="AnnounceInfoSmt" class="tm_wswg_emj_smp" ><TMPL_VAR escape=html NAME=ANNOUNCEINFOSMT></textarea><br>
+         </div>  
+          ※HTML5タグ利用可
+        </td>
+      </tr>
+      </table>
+    </div>
+    </TMPL_IF> 
+  </td>
+</tr>
+
+<!-- 新携帯対応 -->
+        
+        <tr>
+            <td class="item-name">メルマガ登録</td>
+            <td class="item">
+                <input type="radio" name="AnnounceMailmag" id="AnnounceMailmag1" value="1"<TMPL_IF NAME=ANNOUNCEMAILMAG1> checked</TMPL_IF>><label for="AnnounceMailmag1">表示する</label>
+                <input type="radio" name="AnnounceMailmag" id="AnnounceMailmag2" value="0"<TMPL_IF NAME=ANNOUNCEMAILMAG0> checked</TMPL_IF>><label for="AnnounceMailmag2">表示しない</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="item-name">差出人名</td>
+            <td class="item"><input name="AnnounceFromname" type="text" class="def-line" value="<TMPL_VAR NAME=ANNOUNCEFROMNAME>"></td>
+        </tr>
+        <tr>
+            <td class="item-name">差出人メールアドレス</td>
+            <td class="item">
+                <input name="AnnounceFromaddr" type="text" class="def-line" value="<TMPL_VAR NAME=ANNOUNCEFROMADDR>" style="ime-mode:disabled">
+                <br>
+                ※メールアドレスを必ずご確認ください。
+                <br>
+                入荷連絡の登録がされた時、このメールアドレスにコピーを送信
+                <input type="radio" name="AnnounceBccSw" id="BccSw1" value="1" <TMPL_IF NAME=ANNOUNCEBCCSW1>checked</TMPL_IF>><label for="BccSw1">する</label>
+                <input type="radio" name="AnnounceBccSw" id="BccSw2" value="0" <TMPL_IF NAME=ANNOUNCEBCCSW0>checked</TMPL_IF>><label for="BccSw2">しない</label>
+            </td>
+        </tr>
+        <tr>
+            <td class="item-name">登録完了メールの件名</td>
+            <td class="item"><input name="AnnounceSubjectRegist" type="text" class="def-line" value="<TMPL_VAR NAME=ANNOUNCESUBJECTREGIST>"></td>
+        </tr>
+        <tr>
+            <td class="item-name">登録完了メールの内容</td>
+            <td class="item">
+            <textarea name="AnnounceBodyRegist" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=ANNOUNCEBODYREGIST></textarea>
+            </td>
+        </tr>
+        <tr align="center">
+            <td colspan="2" class="item-name02">入荷連絡メールの設定</td>
+        </tr>
+        <tr>
+            <td class="item-name">差出人名</td>
+            <td class="item">入荷連絡フォームの設定の「差出人名」と共通</td>
+        </tr>
+        <tr>
+            <td class="item-name">差出人メールアドレス</td>
+            <td class="item">入荷連絡フォームの設定の「差出人メールアドレス」と共通</td>
+        </tr>
+        <tr>
+            <td class="item-name">入荷連絡メールの件名</td>
+            <td class="item-sub">
+                <table>
+                <tr>
+                    <td class="sub-item-name">PC用</td>
+                    <td class="sub-item"><input name="AnnounceSubject" type="text" class="def-line" value="<TMPL_VAR NAME=ANNOUNCESUBJECT>"></td>
+                </tr>
+                <tr>
+                    <td class="sub-item-name">モバイル用</td>
+                    <td class="sub-item"><input name="AnnounceSubject_k" type="text" class="def-line" value="<TMPL_VAR NAME=ANNOUNCESUBJECT_K>"></td>
+                </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="item-name">入荷連絡メールの内容</td>
+            <td class="item-sub">
+                <table>
+                <tr>
+                    <td class="sub-item-name">PC用</td>
+                    <td class="sub-item">
+                    <textarea name="AnnounceBody" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=ANNOUNCEBODY></textarea>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="sub-item-name">モバイル用</td>
+                    <td class="sub-item">
+                    <textarea name="AnnounceBody_k" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=ANNOUNCEBODY_K></textarea>
+                    </td>
+                </tr>
+                </table>
+            </td>
+        </tr>
+        <tr class="item" style="border:2px solid #999;">
+            <td colspan="2" style="padding:5px;text-align:center;"><input name="set" type="button" id="set" value="設定を保存する" onClick="javascript:onSubmit('ANNOUNCE');">
+        </tr>
+        </table>
+
+    </td>
+</tr>
+</table>
+
+    </td>
+</tr>
+</table>

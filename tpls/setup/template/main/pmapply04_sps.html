@@ -1,0 +1,597 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>各決済情報入力</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<link href="css/pmapply.css" rel="stylesheet" type="text/css">
+<link href="../css/custom_ui/popupmanager.css" rel="stylesheet" type="text/css">
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<link href="css/newsetup.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="js/newsetup.js"></script>
+<script type="text/javascript" src="../js/custom_ui/popupmanager.js"></script>
+<script language="JavaScript" type="text/JavaScript">
+
+function seekpczip(type) {
+    var zip1;
+    var zip2;
+    if ( type == 'CVS' ){
+        if(document.PMAPPLY04.CvsZip1.className.match(/noModify/)){
+           document.PMAPPLY04.CvsZip1.value = "";
+        }
+        if(document.PMAPPLY04.CvsZip2.className.match(/noModify/)){
+           document.PMAPPLY04.CvsZip2.value = "";
+        }
+        zip1 = document.PMAPPLY04.CvsZip1.value;
+        zip2 = document.PMAPPLY04.CvsZip2.value;
+    }else if ( type == 'YW' ){
+        if(document.PMAPPLY04.YwZip1.className.match(/noModify/)){
+           document.PMAPPLY04.YwZip1.value = "";
+        }
+        if(document.PMAPPLY04.YwZip2.className.match(/noModify/)){
+           document.PMAPPLY04.YwZip2.value = "";
+        }
+        zip1 = document.PMAPPLY04.YwZip1.value;
+        zip2 = document.PMAPPLY04.YwZip2.value;
+    }else if ( type == 'YWD' ){
+        if(document.PMAPPLY04.YwDaihyoZip1.className.match(/noModify/)){
+           document.PMAPPLY04.YwDaihyoZip1.value = "";
+        }
+        if(document.PMAPPLY04.YwDaihyoZip2.className.match(/noModify/)){
+           document.PMAPPLY04.YwDaihyoZip2.value = "";
+        }
+        zip1 = document.PMAPPLY04.YwDaihyoZip1.value;
+        zip2 = document.PMAPPLY04.YwDaihyoZip2.value;
+    }
+
+    window.open("./seekzip-pmapply.cgi?TARGET=PMAPPLY04&TYPE="+type+"&ZIP1="
+                 +zip1+"&ZIP2="+zip2, "zip","resizable=yes,scrollbars=yes,menubar=yes,width=400,height=250");
+}
+
+
+//--></script>
+</head>
+<body>
+ <div id="head">
+  <h1><img src="images/pmapply/title_input_payment.png" alt="各決済情報入力"></h1>
+ </div>
+ <div id="gNavi">
+   <div id="tab-area">
+     <ul>
+        <li><img src="images/pmapply/menu01.png" alt="申し込み条項確認" class="menu01"></li>
+        <li><img src="images/pmapply/menu02.png" alt="担当者・振込先入力" class="menu02"></li>
+        <li><img src="images/pmapply/menu03_o.png" alt="各決済情報入力" class="menu03"></li>
+        <li><img src="images/pmapply/menu_rakuten.png" alt="楽天ペイ申し込み" class="menurakuten"></li>
+        <li><img src="images/pmapply/menu04.png" alt="Y!ウォレット申し込み" class="menu04"></li>
+        <li><img src="images/pmapply/menu05.png" alt="入力内容確認" class="menu05"></li>
+        <li><img src="images/pmapply/menu06.png" alt="申込書印刷" class="menu06"></li>
+     </ul>
+    </div>
+  </div>
+
+<form name="PMAPPLY04" method="POST" action="pmapply04_sps.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="NEXT">
+<input type="hidden" name="confirmBack" value="<TMPL_VAR NAME=CONFIRM_BACK>">
+
+  <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+    <TMPL_IF ERR_MSG>
+    <TR>
+      <TD class=j12 align=left>
+      <div id="cont">
+      <TMPL_LOOP ERR_MSG>
+        <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+      </TMPL_LOOP>
+      </div>
+      </TD>
+    </TR>
+    </TMPL_IF>
+  </table>
+
+ <div id="cont">
+ <TMPL_IF disp_card>
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">クレジットカード決済の加盟情報</h2>
+   <div style="clear:both;"></div>
+   <table class="input_table03">
+     <tr>
+       <td class="input_td03-01">
+         代表者（ローマ字）
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase" style="height:26px;">
+           <div class="boxtitle1" style="line-height:20px;">&nbsp;</div>
+           <div class="boxlong1" style="color:#888;line-height:20px;"><TMPL_VAR NAME=CUSTDAIHYO></div>
+         </div>
+         <div class="boxbase" style="margin-top:0px;">
+           <div class="boxtitle1">SEI：</div>
+           <div class="boxhalf1">
+             <input type="text" name="RomaSei" id="RomeSei" class="textExample form_text02" value="<TMPL_VAR NAME=ROMASEI>" title="例）　TANAKA" >
+           </div>
+           <div class="boxtitle1" style="width:35px;">MEI：</div>
+           <div class="boxhalf1">
+             <input type="text" name="RomaMei" id="RomaMei" class="textExample form_text02" value="<TMPL_VAR NAME=ROMAMEI>" title="例）　TARO">
+           </div>
+         </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td03-01">
+         代表者の性別
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">&nbsp;</div>
+           <div class="boxlong1">
+             <label><input type="radio" name="Sex" value="M" <TMPL_IF SEXM>checked</TMPL_IF>>男性</label>&nbsp;&nbsp;&nbsp;&nbsp;
+             <label><input type="radio" name="Sex" value="F" <TMPL_IF SEXF>checked</TMPL_IF>>女性</label>
+           </div>
+         </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td03-01">
+         代表者の生年月日
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">&nbsp;</div>
+           <div class="boxlong1">
+             <input type="text" name="BirthYYYY"  id="BirthYYYY" class="textExample form_text03" value="<TMPL_VAR NAME=BIRTHYYYY>" title="例) 1960"  maxlength="4" size="8">
+             <div class="haifun01">年　</div>
+             <input type="text" name="BirthMM" id="BirthMM" class="textExample form_text03" value="<TMPL_VAR NAME=BIRTHMM>" title="例) 11" maxlength="2" size="6">
+             <div class="haifun01">月　</div>
+             <input type="text" name="BirthDD" id="BirthDD" class="textExample form_text03" value="<TMPL_VAR NAME=BIRTHDD>" title="例) 9" maxlength="2" size="6">
+             <div class="haifun01">日</div>
+           </div>
+         </div>
+        <div id="pmapply_cc_markname" class="dialog_disp">
+          <div id="pmapply_cc_markname_f" class="dialog_main">
+            <a href="#close" class="close" onclick="return dlgClose()"></a>
+              <dl class="content">
+                 これは購入者のカード利用明細書に使用店舗として表記される名前です。<BR/>
+                 カード会社によってはカタカナ、ローマ字で表記される場合もありますので、<BR/>すべて入力してください。
+             </dl>
+          </div>
+        </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td03-01">
+         利用明細書の表記名<img src="images/pmapply/newSetup_QuestionG.gif" onClick="popUp('pmapply_cc_markname',1);" style="cursor:pointer;">
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">&nbsp;</div>
+           <div class="boxlong1 f80">お店の名前を入力してください。略称でかまいません。</div>
+         </div>
+         <div class="boxbase">
+           <div class="boxtitle1">通常表記：</div>
+           <div class="boxlong1">
+             <input type="text" name="Yago"  id="Yago" class="textCount textExample form_text01" value="<TMPL_VAR NAME=YAGO>" title="例）　茶通販の虎龍茶販　　　　　　　　　　　  ※記号不可" >
+             <span id="Yago" class="textCount"></span>
+           </div>
+         </div>
+         <div class="boxbase">
+           <div class="boxtitle1">カタカナ：</div>
+           <div class="boxlong1">
+             <input type="text" name="YagoKana" id="YagoKana" class="textCount textExample form_text01" value="<TMPL_VAR NAME=YAGOKANA>"  title="例）　チャツウハンノコリュウチャハン　　　　　※記号不可" >
+             <span id="YagoKana" class="textCount"></span>
+           </div>
+         </div>
+         <div class="boxbase">
+           <div class="boxtitle1">ローマ字：</div>
+           <div class="boxlong1">
+             <input type="text" name="YagoRoma" id="YagoRoma" class="textCount textExample form_text01" value="<TMPL_VAR NAME=YAGOROMA>" title="例）　CHATSUHANNOKORYUCHAHAN　　※スペース、記号不可" >
+             <span id="YagoRoma" class="textCount"></span>
+           </div>
+         </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td03-01">取り扱い商品</td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">&nbsp;</div>
+           <div class="boxlong1">
+             <input type="text" name="ProductType" id="ProductType" class="textCount textExample form_text01"  value="<TMPL_VAR NAME=PRODUCTTYPE>" title="例）　茶・茶器" >
+             <span id="ProductType" class="textCount"></span>
+           </div>
+         </div>
+       </td>
+     </tr>
+   </table>
+   <p>　特定商取引法に基づき、販売形態についてご回答ください。</p>
+   <table class="input_table03" style="margin-bottom:10px;">
+     <tbody>
+     <tr>
+       <td class="input_td06-01">訪問販売</td>
+       <td class="input_td06-02">
+         <label><input type="radio" name="DtoDSale" value="0" <TMPL_UNLESS NAME="DtoDSale">checked</TMPL_UNLESS> >無</label>&nbsp;&nbsp;&nbsp;/&nbsp;
+         <label><input type="radio" name="DtoDSale" value="1" <TMPL_IF NAME="DtoDSale">checked</TMPL_IF> >有</label>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">電話勧誘販売</td>
+       <td class="input_td06-02">
+         <label><input type="radio" name="TelSale" value="0" <TMPL_UNLESS NAME="TelSale">checked</TMPL_UNLESS> >無</label>&nbsp;&nbsp;&nbsp;/&nbsp;
+         <label><input type="radio" name="TelSale" value="1" <TMPL_IF NAME="TelSale">checked</TMPL_IF> >有</label>
+        </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">連鎖販売取引</td>
+       <td class="input_td06-02">
+         <label><input type="radio" name="MultiSale" value="0" <TMPL_UNLESS NAME="MultiSale">checked</TMPL_UNLESS> >無</label>&nbsp;&nbsp;&nbsp;/&nbsp;
+         <label><input type="radio" name="MultiSale" value="1" <TMPL_IF NAME="MultiSale">checked</TMPL_IF> >有</label>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">業務提供誘引販売</td>
+       <td class="input_td06-02">
+         <label><input type="radio" name="SubJobSale" value="0" <TMPL_UNLESS NAME="SubJobSale">checked</TMPL_UNLESS> >無</label>&nbsp;&nbsp;&nbsp;/&nbsp;
+         <label><input type="radio" name="SubJobSale" value="1" <TMPL_IF NAME="SubJobSale">checked</TMPL_IF> >有</label>
+       </td>
+     </tr>
+   </tbody></table>
+</br>
+</TMPL_IF>
+<TMPL_IF disp_cvs>
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">コンビニ決済（払込票）の必要情報</h2>
+   <div style="clear:both;"></div>
+   <div class="cv-sample01">
+     入力箇所のサンプル
+     <img src="images/pmapply/cv_bcard.png">
+   </div>
+     <p class="f80">&nbsp;&nbsp;&nbsp;&nbsp;*利用開始後に変更することもできます</p>
+   <table class="input_table03">
+     <tr>
+       <td class="input_td03-01">
+         A　お支払期限日
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="haifun01">決済依頼日から</div>
+           <div class="haifun01"><input type="text" name="CvsDueDate" id="CvsDueDate" class="textExample form_text03" value="<TMPL_VAR NAME=CVSDUEDATE>" title="例） 7" maxlength="3" size="5"></div>
+           <div class="haifun01">日以内</div>
+
+         </div>
+       </td>
+     </tr>
+     <tr>
+     <tr>
+       <td class="input_td03-01">
+         B　通信欄（任意）
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">１行目：&nbsp;</div>
+           <div class="boxlong1">
+             <input type="text" name="CvsColumn1" id="CvsColumn1" class="textCount textExample form_text01"  value="<TMPL_VAR NAME=CVSCOLUMN1>" title="例）　4/10から特別セールを行います。" >
+             <span id="CvsColumn1" class="textCount"></span>
+           </div>
+         </div>
+         <div class="boxbase">
+           <div class="boxtitle1">２行目：&nbsp;</div>
+           <div class="boxlong1">
+             <input type="text" name="CvsColumn2" id="CvsColumn2" class="textCount textExample form_text01" value="<TMPL_VAR NAME=CVSCOLUMN2>" title="例）　ぜひご来店ください。">
+             <span id="CvsColumn2" class="textCount"></span>
+           </div>
+         </div>
+       </td>
+     </tr>
+     <tr>
+     <tr>
+       <td class="input_td03-01">
+         C　差出人
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">差出人：</div>
+           <div class="boxlong1">
+             <input type="text" name="CvsName" id="CvsName" class="textCount textExample form_text01"  value="<TMPL_VAR NAME=CVSNAME>" title="例）　茶通販の虎龍茶販" >
+             <span id="CvsName" class="textCount"></span>
+           </div>
+         </div>
+         <div class="boxbase">
+           <div class="boxtitle1">郵便番号：</div>
+           <div class="boxlong1">
+             <input type="text" name="CvsZip1" id="CvsZip1" class="textExample form_text03"  value="<TMPL_VAR NAME=CVSZIP1>" title="例) 105" maxlength="3" size="7">
+             <div class="haifun01">-</div>
+             <input type="text" name="CvsZip2" id="CvsZip2" class="textExample form_text03" value="<TMPL_VAR NAME=CVSZIP2>" title="例) 0003" maxlength="4" size="10">
+             &nbsp;&nbsp; <input type="button" value="郵便検索" onClick="seekpczip('CVS');">
+           </div>
+         </div>
+         <div class="boxbase">
+           <div class="boxtitle1">住所1：</div>
+           <div class="boxlong1">
+             <input type="text" name="CvsAddr1" id="CvsAddr1" class="textCount textExample form_text01" value="<TMPL_VAR NAME=CVSADDR1>" title="例）　東京都港区" >
+             <span id="CvsAddr1" class="textCount"></span>
+           </div>
+         </div>
+         <div class="boxbase">
+           <div class="boxtitle1">住所2：</div>
+           <div class="boxlong1">
+             <input type="text" name="CvsAddr2" id="CvsAddr2" class="textCount textExample form_text01" value="<TMPL_VAR NAME=CVSADDR2>" title="例）　西新橋１ー１０ー２ 住友生命西新橋ビル" >
+             <span id="CvsAddr2" class="textCount"></span>
+           </div>
+         </div>
+         <div class="boxbase">
+           <div class="boxtitle1">電話番号：</div>
+           <div class="boxlong1">
+             <input type="text" name="CvsTel1" id="CvsTel1" class="textExample form_text03" value="<TMPL_VAR NAME=CVSTEL1>" title="例) 03" maxlength="5" size="7">
+             <div class="haifun01">-</div>
+             <input type="text" name="CvsTel2" id="CvsTel2" class="textExample form_text03" value="<TMPL_VAR NAME=CVSTEL2>" title="例) 0000" maxlength="4" size="10">
+             <div class="haifun01">-</div>
+             <input type="text" name="CvsTel3" id="CvsTel3" class="textExample form_text03" value="<TMPL_VAR NAME=CVSTEL3>" title="例) 0000"  maxlength="4" size="10">
+           </div>
+         </div>
+         <div class="boxbase">
+           <div class="boxtitle1">ＦＡＸ番号：</div>
+           <div class="boxlong1">
+             <input type="text" name="CvsFax1" id="CvsFax1" class="textExample form_text03" value="<TMPL_VAR NAME=CVSFAX1>" title="例) 03" maxlength="5" size="7">
+             <div class="haifun01">-</div>
+             <input type="text" name="CvsFax2" id="CvsFax2" class="textExample form_text03" value="<TMPL_VAR NAME=CVSFAX2>" title="例) 0000" maxlength="4" size="10">
+             <div class="haifun01">-</div>
+             <input type="text" name="CvsFax3" id="CvsFax3" class="textExample form_text03" value="<TMPL_VAR NAME=CVSFAX3>" title="例) 0000" maxlength="4" size="10">
+           </div>
+         </div>
+       </td>
+     </tr>
+     <tr>
+       <td class="input_td03-01">
+         D　コメント欄（任意）
+       </td>
+       <td class="input_td03-02">
+         <div class="boxbase">
+           <div class="boxtitle1">1行目：</div>
+           <div class="boxlong1">
+             <input type="text" name="CvsComment1" id="CvsComment1" class="textCount textExample form_text01" value="<TMPL_VAR NAME=CVSCOMMENT1>" title="例）　ご注文いただき、ありがとうございます。" >
+             <span id="CvsComment1" class="textCount"></span>
+           </div>
+         </div>
+         <div class="boxbase">
+           <div class="boxtitle1">2行目：</div>
+           <div class="boxlong1">
+             <input type="text" name="CvsComment2" id="CvsComment2" class="textCount textExample form_text01" value="<TMPL_VAR NAME=CVSCOMMENT2>" title="例）　支払い金額を確認のうえ、お近くのコンビニエンスストアにて" >
+             <span id="CvsComment2" class="textCount"></span>
+           </div>
+         </div>
+         <div class="boxbase">
+           <div class="boxtitle1">3行目：</div>
+           <div class="boxlong1">
+             <input type="text" name="CvsComment3" id="CvsComment3" class="textCount textExample form_text01" value="<TMPL_VAR NAME=CVSCOMMENT3>" title="例）　お支払いください。" >
+             <span id="CvsComment3" class="textCount"></span>
+           </div>
+         </div>
+         <div class="boxbase">
+           <div class="boxtitle1">4行目：</div>
+           <div class="boxlong1">
+             <input type="text" name="CvsComment4" id="CvsComment4" class="textCount textExample form_text01" value="<TMPL_VAR NAME=CVSCOMMENT4>" >
+             <span id="CvsComment4" class="textCount"></span>
+           </div>
+         </div>
+       </td>
+     </tr>
+
+
+   </table>
+</TMPL_IF>
+<TMPL_IF disp_atobarai>
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">後払い（コンビニ、郵便局、銀行）決済の必要情報</h2>
+   <div style="clear:both;"></div>
+   <table class="input_table03">
+     <tr>
+       <td class="input_td03-01">
+         プラン名
+       </td>
+       <td class="input_td03-02">
+
+          <div class="boxbase">
+           <div class="boxtitle1">&nbsp;</div>
+           <div class="boxlong1">
+             <p class="atobarai_info">※月額料金は、後払い決済の利用開始月より発生します。</p>
+             <select name="AtobaraiPlan" class="form_text01">
+             <option value="">選択してください</option>
+              <TMPL_LOOP NAME=atobaraiplanlist>
+                <option value="<TMPL_VAR NAME=ID>" <TMPL_VAR NAME=SEL>>
+                <TMPL_VAR NAME=NAME>
+                </option>
+              </TMPL_LOOP>
+           </select>
+          </div>
+         </div>
+       </td>
+     </tr>
+   </table>
+</TMPL_IF>
+
+<TMPL_IF disp_bitcoin>
+   <h2 class="midashi03"><img src="images/pmapply/arrow.png">ビットコイン決済の確認事項</h2>
+   <div style="clear:both;"></div>
+   <table class="input_table03" style="margin-bottom:10px;">
+     <tr>
+       <td class="input_td06-01">月額利用料</td>
+       <td class="input_td06-02">無料</td>
+     </tr>
+     <tr>
+       <td class="input_td06-01">決済手数料</td>
+       <td class="input_td06-02">無料</td>
+     </tr>
+   </table>
+   <p style="color:blue; margin-left:15px;">※Ｅストアーショップサーブ契約情報が最新の状態であることをご確認ください。</p>
+</TMPL_IF>
+
+   <div class="btn02-1">
+     <div class="btn02-5"></div>
+     <div class="btn02-3"><img src="images/pmapply/back.png" alt="もどる" onClick="PMAPPLY03Click();"></div>
+     <div class="btn02-4"><img src="images/pmapply/next_on.png" onClick="PMAPPLY04Click();"></div>
+     <div style="clear:both;"></div>
+   </div>
+
+
+
+
+
+   <div class="page-top">
+      <a href="#head">▲このページのトップへ</a>
+   </div>
+ </div>
+<!-- for WN data-->
+<input type="hidden" id="WnShopName" name="WnShopName" value="">
+<input type="hidden" id="WnGyoshu" name="WnGyoshu"   value="販売業">
+<input type="hidden" id="WnNensho" name="WnNensho"   value="1">
+<input type="hidden" id="WnSihonkin" name="WnSihonkin" value="10">
+<input type="hidden" id="WnOutvol" name="WnOutvol"   value="500">
+<input type="hidden" id="WnAveTanka" name="WnAveTanka" value="11">
+<input type="hidden" id="WnMaxTanka" name="WnMaxTanka" value="11">
+</form>
+<form name="PMAPPLY03" method="POST" action="pmapply03_sps.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+</form>
+
+<!--▼footer▼-->
+<div id="footer">
+  <script type="text/javascript">
+  <!--
+         var date = new Date();
+         var year = date.getYear();
+         if(year < 2000) { year += 1900; }
+         document.write('Copyright &copy; 1999-'+year+' Estore Corporation. All Rights Reserved.');
+  //-->
+  </script>
+</div>
+<!--▲footer▲-->
+
+
+
+<!-- 20130604 -->
+<style>
+input.noModify{ color: #888888; }
+span.textCount{
+    font-size: 80%;
+    color:#008000;
+    margin-left: -85px;
+}
+span.countError{ color:#ff0000;}
+input.textExample{ font-size:90%; }
+</style>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    // イベント
+    $("input.textExample").focus(function(){
+        if( $(this).hasClass("noModify") ){ $(this).removeClass("noModify").val(""); }
+    }).blur(function(){
+        if($(this).val() == "" ){ $(this).addClass("noModify").val( $(this).attr("title") ); }
+    });
+    $("input.textCount").change(function(){
+        ret = chkValidate( $(this), $(this).val());
+        if(ret != 1 ){
+            textCount( $(this), $(this).val().length );
+        }
+    }).keyup(function(){
+        ret = chkValidate( $(this), $(this).val());
+        if(ret != 1 ){
+            textCount( $(this), $(this).val().length );
+        }
+    });
+    // 初期値
+    $("input.textExample").each( function(){
+        if( $(this).val() == "" || $(this).val() == $(this).attr("title") ){
+            $(this).addClass("noModify").val( $(this).attr("title") );
+        }
+    });
+    $("span.textCount").each( function(){
+        $("input.textCount").each(function(){
+            textCount( $(this), $(this).val().length );
+    });
+    });
+
+});
+
+var textCountTbl = {
+    "Yago"               : "15",
+    "YagoKana"           : "45",
+    "YagoRoma"           : "90",
+    "ProductType"        : "50",
+    "CvsColumn1"         : "24",
+    "CvsColumn2"         : "24",
+    "CvsName"            : "30",
+    "CvsAddr1"           : "25",
+    "CvsAddr2"           : "25",
+    "CvsComment1"        : "29",
+    "CvsComment2"        : "29",
+    "CvsComment3"        : "29",
+    "CvsComment4"        : "29"
+}
+
+function chkValidate( obj, v ){
+    var id,errStr;
+    id = obj.attr("id");
+    errStr = "入力不可！"
+
+    if( id == "YagoRoma" ){
+        if(v.match( /[^a-zA-Z]+/ )){
+            $("span#" + id).text(errStr).addClass("countError");
+            return 1;
+        }
+    }
+    if( id == "YagoKana"){
+        if(v.match( /[^ァ-ン　０-９Ａ-Ｚ，．ー／（）「」−]+/) ){
+            $("span#" + id).text(errStr).addClass("countError");
+            return 1;
+        }
+    }
+}
+
+function textCount( obj, len ){
+    var id, nokori, str, errStr;
+    id = obj.attr("id");
+    if( obj.hasClass("noModify") ){ len = 0; }
+    nokori = textCountTbl[id] - len;
+    str = " 残り : " + nokori + "文字";
+    errStr = "オーバー！";
+    if( nokori < 0 ){
+         $("span#" + id).text(errStr).addClass("countError");
+    }
+    else{
+          $("span#" + id).text(str).removeClass("countError");
+     }
+}
+
+function zipSeachCount( bid, char ){
+    var id, len,nokori, str, errStr;
+    id = bid;
+    len = char.length;
+
+    nokori = textCountTbl[id] - len;
+    str = " 残り : " + nokori + "文字";
+    errStr = "オーバー！";
+
+    if( nokori < 0 ){
+         $("span#" + id).text(errStr).addClass("countError");
+    }
+    else{
+          $("span#" + id).text(str).removeClass("countError");
+     }
+
+}
+function PMAPPLY03Click(){
+    $("input.textExample").each( function(){
+        if( $(this).hasClass("noModify") ){ $(this).val(""); }
+    });
+    document.PMAPPLY03.submit();
+}
+function PMAPPLY04Click(){
+    $("input.textExample").each( function(){
+        if( $(this).hasClass("noModify") ){ $(this).val(""); }
+    });
+    $("#WnShopName").val( $("#Yago").val());
+    document.PMAPPLY04.submit();
+}
+</script>
+</body>
+</html>

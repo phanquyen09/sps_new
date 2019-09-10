@@ -1,0 +1,55 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+ <tr>
+  <td width="12">
+   <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#677C87">
+    <tr>
+     <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+    </tr>
+   </table>
+  </td>
+  <td align="left" class="midashi">迷惑メールフィルタの設定を行います</td>
+  <td align="right" class="midashi">&nbsp;</td>
+ </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+ <tr>
+  <td align="left" class="main-table">
+   <div class="infoArea table_bg">
+    申し訳ございません。<br />
+    <br />
+    システムに何かしらのエラーが発生いたしました。<br />
+    お手数ですが、しばらくたってから、改めてご設定いただくか、
+    下記の情報をヘルプデスクまでお知らせください。<br />
+    <table>
+     <tr>
+      <th>エラーコード</th>
+      <td><TMPL_VAR name="errorCode"></td>
+     </tr>
+    </table>
+   </div>
+   <div id="group-mail" style="display:block">
+    <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+     <tr align="center">
+      <td colspan="2" class="item-name02">迷惑メールフィルタのレベル設定</td>
+     </tr>
+     <tr>
+      <td colspan="2" class="item" style="text-align: center;">
+       システムに何かしらのエラーが発生いたしました。
+      </td>
+     </tr>
+    </table>
+   </div>
+  </td>
+ </tr>
+</table>
+<TMPL_IF name="SPAM_FILTER_SUPPORTED">
+<script type="text/javascript">
+<!--
+ var obj = document.getElementById('SPAM_FILTER_SUPPORTED');
+ obj.style.visibility = 'visible';
+ obj.style.display = 'block';
+// -->
+</script>
+</TMPL_IF>
+

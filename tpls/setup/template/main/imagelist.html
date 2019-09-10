@@ -1,0 +1,436 @@
+<link href="../css/imagelist.css" rel="stylesheet" type="text/css">
+<script language="JavaScript">
+<!--
+urllist = [
+  <TMPL_LOOP NAME=URLLIST>[ <TMPL_VAR NAME=URLINFO> ],
+  </TMPL_LOOP>
+];
+
+function preview(f,n)
+{
+  var info = urllist[n][f.SIZE.selectedIndex];
+  var SPinfo = info.split(",");
+  var width  = eval(SPinfo[1]) + 6;
+  var height = eval(SPinfo[2]) + 50;
+
+  var w = window.open('', 'popup', 'toolbar=no,location=no,resizable=yes,directories=no,status=no,menubar=no,width=' + width +  ',height=' + height);
+  w.document.open();
+  w.document.writeln('<html><head>',
+  '<title>画像</title>',
+  '<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">',
+  '</head><body bgcolor="#eeeeee" style="margin: 3px;">',
+  '<div align="center">',
+  '<img name="img" hspace="0" vspace="0" border="0" ',
+  'src="'+SPinfo[0]+'" width="'+SPinfo[1]+'" height="'+SPinfo[2]+'">',
+  '</div>',
+  '<div align="center" style="margin-top: 10px;">',
+  '<button style="line-height: 1.3em;" onclick="javascript:window.close()">閉じる</button>',
+  '</div></body></html>'
+ );
+ w.document.close();
+ w.window.focus();
+}
+function imageadd(f) {
+  var tmp = f.READY_CATEGORY.options[f.READY_CATEGORY.selectedIndex].value;
+  if (tmp != '') f.Category_Id.value = tmp;
+  f.submit();
+}
+function seek(f) {
+  checkValueSeek();
+  document.IMAGELIST.FILENAME.value = f.FILENAME.value;
+  document.IMAGELIST.ALTNAME.value = f.ALTNAME.value;
+  document.IMAGELIST.PAGE.value = 1;
+  var tmp = f.CATEGORY.options[f.CATEGORY.selectedIndex].value;
+  document.IMAGELIST.Category_Id.value = tmp;
+  document.IMAGELIST.CMD.value = 'SEEK';
+  document.IMAGELIST.submit();
+  
+}
+function del(f) {
+  var tmp = document.SEEK.CATEGORY.options[document.SEEK.CATEGORY.selectedIndex].value;
+  f.Category_Id.value = tmp;
+  f.CMD.value='DEL';
+  var chk = 0;
+  for( i = 0; i < <TMPL_VAR NAME=MAXNUM>; i++){
+    if(document.getElementById("DEL_" + i)){
+      if(document.getElementById("DEL_" + i).checked == true ){
+        chk = 1;
+      }
+    }
+  }
+  if( chk == 1 ){
+    if ( confirm("選択した画像を削除します。よろしいですか？") ) {
+      checkValueSeek();
+      if(document.SEEK.FILENAME){
+          f.FILENAME.value = document.SEEK.FILENAME.value;
+      }
+      if(document.SEEK.ALTNAME){
+          f.ALTNAME.value = document.SEEK.ALTNAME.value;
+      }
+      disable_all();
+      f.submit();
+    } else {
+      return;
+    }
+  }else{
+    alert("削除する画像を指定してください。");
+  }
+}
+
+function edt(f) {
+  disable_all();
+  checkValueSeek();
+  if(document.SEEK.FILENAME){
+    f.FILENAME.value = document.SEEK.FILENAME.value;
+  }
+  if(document.SEEK.ALTNAME){
+    f.ALTNAME.value = document.SEEK.ALTNAME.value;
+  }
+  var tmp = document.SEEK.CATEGORY.options[document.SEEK.CATEGORY.selectedIndex].value;
+  f.Category_Id.value = tmp;
+
+  f.CMD.value='EDT';
+  f.submit();
+}
+
+function check_del_all() {
+  for( i = 0; i < <TMPL_VAR NAME=MAXNUM>; i++){
+    if(document.getElementById("DEL_" + i)){
+      document.getElementById("DEL_" + i).checked = true;
+    }
+  }
+}
+function rem_del_all() {
+  for( i = 0; i < <TMPL_VAR NAME=MAXNUM>; i++){
+    if(document.getElementById("DEL_" + i)){
+      document.getElementById("DEL_" + i).checked = false;
+    }
+  }
+}
+function disable_all() {
+  document.getElementById("ADD_BT").disabled = true;
+  document.getElementById("DEL_BT1").disabled = true;
+  document.getElementById("DEL_BT2").disabled = true;
+  document.getElementById("SAVE_BT1").disabled = true;
+  document.getElementById("SAVE_BT2").disabled = true;
+  document.getElementById("SRCH_BT").disabled = true;
+  document.getElementById("DownLoad").disabled = true;
+}
+
+function changeListnum() {
+        checkValueSeek();
+        var num = document.SEEK.ListNum.value;
+        document.SEEK.reset();
+        document.SEEK.ListNum.value = num;
+        document.SEEK.PAGE.value='1';
+        document.SEEK.action="imagelist.cgi";
+        document.SEEK.submit();
+}
+function clearPlaceHolder (e) {
+    if ( e.value == 'ファイル名を入力' ) {
+        e.value       = "";
+        e.style.color = '#333';
+    }
+}
+function setPlaceHolder (e) {
+    if ( !e.value ) {
+        e.value       = 'ファイル名を入力' ;
+        e.style.color = '#999';
+    }
+}
+function clearPlaceHolderAltName (e) {
+    if ( e.value == '代替テキストを入力' ) {
+        e.value       = "";
+        e.style.color = '#333';
+    }
+}
+function setPlaceHolderAltName (e) {
+    if ( !e.value ) {
+        e.value       = '代替テキストを入力' ;
+        e.style.color = '#999';
+    }
+}
+function checkSeek() {
+      if ( document.SEEK.FILENAME.value == '' ) {
+          document.SEEK.FILENAME.value = 'ファイル名を入力';
+      } else {
+          document.SEEK.FILENAME.style.color = '#333';
+      }
+      if ( document.SEEK.ALTNAME.value == '' ){
+          document.SEEK.ALTNAME.value = '代替テキストを入力' ;
+      } else {
+          document.SEEK.ALTNAME.style.color = '#333';
+      }
+}
+function checkValueSeek(){
+  if ( document.SEEK.FILENAME.value == 'ファイル名を入力' ) {
+     document.SEEK.FILENAME.value = '';
+     document.SEEK.FILENAME.style.color = '#333';
+  }
+  if ( document.SEEK.ALTNAME.value == '代替テキストを入力' ){
+     document.SEEK.ALTNAME.value = '';
+     document.SEEK.ALTNAME.style.color = '#333';
+  }
+}
+window.onload=checkSeek;
+
+//-->
+
+</script>
+<form name="IMAGELIST" method="POST" action="imagelist.cgi"  >
+<input type="hidden" name="CMD" value="SEEK">
+<input type="hidden" name="ListNum" value="<TMPL_VAR NAME=listnum>">
+<input type="hidden" name="PAGE" value="<TMPL_VAR NAME=PAGE>">
+<input type="hidden" name="FILENAME" value="<TMPL_VAR NAME=FILENAME>">
+<input type="hidden" name="ALTNAME" value="<TMPL_VAR NAME=ALTNAME>">
+<input type="hidden" name="CATEGORY">
+<input type="hidden" name="Category_Id" value="<TMPL_VAR NAME=CATEGORY_ID>">
+</form>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">画像の管理を行います</td>
+    <td align="right" class="midashi">
+      <a href="https://help.shopserve.jp/help/imagelist.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>
+            <TABLE cellSpacing=0 cellPadding=0 width=100% border=0>
+              <TR>
+                <TD>
+                  <div id="imgList">
+                    <div class="infoArea table_bg" style="margin:0 0 1em">
+                      お店ページで使う画像を管理します。<br>
+                      商品画像だけでなく、各コンテンツで使用する画像は全て登録してください。
+                      <a href="https://help.shopserve.jp/manual/058/" target="_blank">⇒画像登録の詳しい案内</a><br><br>
+                      なお、画像を商品画像用、お店ページのコンテンツ用などの用途に分けて管理したい場合は、画像用のカテゴリを先に作成してください。
+                      <a href="./imagecategory.cgi">⇒画像用のカテゴリ作成・管理</a><br><br>
+                      登録済みの画像を、新しい画像で上書きしたい場合は、「ファイル名」に登録している画像と同じ名前を入力し、代替テキスト、画像カテゴリを設定して［追加する］ボタンをクリックしてください。
+                    </div>
+                    <TMPL_LOOP NAME=ERR_MSG>
+                    <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+                    </TMPL_LOOP>
+                    <FORM name="IMAGEADD" action="imagelist.cgi" method=post encType=multipart/form-data>
+                    <INPUT type="hidden" name="Category_Id">
+                    <INPUT type="hidden" value="ADD" name="CMD">
+                    <input type="hidden" name="ListNum" value="<TMPL_VAR NAME=listnum>">  
+                    <TMPL_IF NAME=OVERWRITE>
+                        <INPUT type="hidden" name="OVERWRITE">
+                        <INPUT type="hidden" name="OVERWRITE_FILENAME" value="<TMPL_VAR NAME=OVERFNAME>">
+                        <INPUT type="hidden" name="OVERWRITE_TMPNAME" value="<TMPL_VAR NAME=TMPFILE>">
+                        <img src="../imgs/spc.gif" onload="window.open('./img_overwrite.cgi?ID=<TMPL_VAR NAME=OLD_ID>&TMPFILE=<TMPL_VAR NAME=TMPFILE>&FILENAME=<TMPL_VAR NAME=OVERFNAME>','img_overwrite','scrollbars=yes,resizable=yes,width=650,height=480');">
+                    </TMPL_IF>
+                    <div align="right"><a href="http://tips.estore.jp/10091" target="_blank">&gt;&gt;&nbsp;「売れる商品画像」の撮り方のコツはこちら</a></div>
+                    <TABLE class="imgBox">
+                      <TR align=middle>
+                        <TH class="dGreen" colspan="2">画像追加</TH>
+                      </TR>
+                      <TR>
+                        <TD width="20%" class="mGreen">画像ファイル</TD>
+                        <TD width="80%">
+                          <INPUT id=cat-top type="file" name="UPFILE" size="90" style="padding:2px 0px 5px 2px"><br>
+                          登録可能なファイル（<span class="fRed">2MB以内</span>） ： jpeg / jpg / gif / png
+                        </TD>
+                      </TR>
+                      <TR>
+                        <TD class="mGreen">ファイル名</TD>
+                        <TD>
+                          <INPUT name="ImageName" type="text" value="<TMPL_VAR NAME=IMAGENAME>" style="ime-mode:disabled"><br>
+                          ※画像ファイル名が日本語の場合は、拡張子も含め<span class="fRed">半角英数</span>で入力してください。<br>
+                          例）ショップタイトル.gif ⇒ <span class="fRed">shop_title.gif</span>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <TD class="mGreen">代替テキスト</TD>
+                        <TD>
+                          <INPUT class=def-line name="ImageAlt" type="text" value="<TMPL_VAR NAME=IMAGEALT>">
+                        </TD>
+                      </TR>
+                      <TR>
+                        <TD class="mGreen">画像カテゴリ</TD>
+                        <TD>
+                          <select name="READY_CATEGORY">
+                            <option value="">既存カテゴリから選択</option>
+                            <TMPL_LOOP NAME=CateList>
+                            <option value="<TMPL_VAR NAME=ID>" <TMPL_IF NAME=ADD_SELECT>selected</TMPL_IF>><TMPL_VAR NAME=CATEGORY></option>
+                            </TMPL_LOOP>
+                          </select>
+                          <br>
+                          新規作成
+                          <INPUT class=def-line style="width:160px;" name="Category" type="text" value="<TMPL_VAR NAME=CATEGORY>" <TMPL_IF NAME=CATMAX>disabled</TMPL_IF>>
+                          <TMPL_IF NAME=CATMAX>
+                          <br><font color="#FF0000">※画像カテゴリが最大数（<TMPL_VAR NAME=MAXCATEGORY>個）まで登録されています。</font>
+                          </TMPL_IF>
+                        </TD>
+                      </TR>
+                      <TR>
+                        <TD colspan="2" class="center">
+                          <INPUT id="ADD_BT" onClick="disable_all();imageadd(document.IMAGEADD);" type="button" value="追加する" name="ADD">
+                        </TD>
+                      </TR>
+                    </TABLE>
+                    </FORM>
+                    <style type="text/css">
+                        <!--
+                        /********** 以下を default01.css の「共通」の上に追加 **********/
+                        /************************************************/
+                        /*画像台帳*/
+                        /************************************************/
+                        /* 画像検索用 */
+                        #imgSearchBox {margin:2em 0 1em;padding:5px;border:1px solid #999;background:#eee;}
+                        #imgSearchBox span {padding:0 5px;}
+                        #imgSearchBox input[type=text] {color:#999;width:10em;}
+                        //-->
+                        </style>
+                    <form name="SEEK" method="POST" action="imagelist.cgi" >
+                    <input type="hidden" name="Category_Id" value="<TMPL_VAR NAME=CATEGORY_ID>">
+                    <div class="infoArea table_bg" style="margin:2em 0 0">
+                      ※画像を削除する際のご注意<br>
+                      <div style="width:1em;text-align:center">・</div>
+                      <div style="margin:-1.4em 0 0 1.2em">商品画像または外部連携データとして利用している場合は削除できません。</div>
+                      <div style="width:1em;text-align:center">・</div>
+                      <div style="margin:-1.4em 0 0 1.2em">お店ページで利用している画像を削除した場合、<span class="fRed">画像が表示されなくなります</span>ので、利用していないことをご確認のうえ削除してください。</div>
+                    </div>
+                    <div id="imgSearchBox">
+                        <span>画像検索</span>
+                        <input name="FILENAME" id="FILENAME" style="width:160px;" type="text"  value="<TMPL_VAR NAME=FILENAME>" style="ime-mode:disabled" onfocus="clearPlaceHolder(this);" onblur="setPlaceHolder(this);">
+                        <input name="ALTNAME"  id="ALTNAME" style="width:160px;" type="text"  value="<TMPL_VAR NAME=ALTNAME>" onfocus="clearPlaceHolderAltName(this);" onblur="setPlaceHolderAltName(this);">
+                          <select name="CATEGORY">
+                          <option value="">既存カテゴリから選択</option>
+                          <TMPL_LOOP NAME=CateList>
+                          <option value="<TMPL_VAR NAME=ID>" <TMPL_IF NAME=SRCH_SELECT>selected</TMPL_IF>><TMPL_VAR NAME=CATEGORY></option>
+                          </TMPL_LOOP>
+                          </select>
+                          <input type="button" id="SRCH_BT" name="Submit" value="検索する" onClick="document.IMAGELIST.CMD.value='SEEK';document.IMAGELIST.action='imagelist.cgi';disable_all();seek(document.SEEK)">
+                        
+                    </div>
+                    <table class="pagenavi" border="0" cellpadding="0" cellspacing="0" width="100%">
+                      <tr>
+                        <input type="hidden" name="CMD" value="SEEK">
+                        <input type="hidden" name="PAGE" value="<TMPL_VAR NAME=PAGE>">
+                        <td align="right" class="odr-txt">表示件数
+                          <select name="ListNum" onChange="changeListnum();">
+                            <option value="10" <TMPL_IF LISTNUM10>selected</TMPL_IF>>10</option>
+                            <option value="20" <TMPL_IF LISTNUM20>selected</TMPL_IF>>20</option>
+                            <option value="30" <TMPL_IF LISTNUM30>selected</TMPL_IF>>30</option>
+                            <option value="40" <TMPL_IF LISTNUM40>selected</TMPL_IF>>40</option>
+                            <option value="50" <TMPL_IF LISTNUM50>selected</TMPL_IF>>50</option>
+                            <option value="100" <TMPL_IF LISTNUM100>selected</TMPL_IF>>100</option>
+                            <option value="200" <TMPL_IF LISTNUM200>selected</TMPL_IF>>200</option>
+                            <option value="300" <TMPL_IF LISTNUM300>selected</TMPL_IF>>300</option>
+                          </select>
+                          <br>
+                          <TMPL_IF TOTAL>
+                          <TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+                          </TMPL_IF>
+                        </td>
+                      </tr>
+                    </table>
+                  </form>
+                  <form name="IMG" method="POST" action="imagelist.cgi">
+                  <TABLE class="imgBox">
+                  <input type="hidden" name="FILENAME" value="">
+                  <input type="hidden" name="ALTNAME" value="">
+                  <input type="hidden" name="Category_Id" value="">
+                  <input type="hidden" name="ListNum" value="<TMPL_VAR NAME=listnum>">  
+                    <TR>
+                      <TD colspan="3">
+                        <input type="hidden" name="CMD" value="">
+                        <input type="hidden" name="PAGE" value="<TMPL_VAR NAME=PAGE>">
+                        <input type="button" value="全選択" onClick="check_del_all();">
+                        <input type="button" value="全解除" onClick="rem_del_all();">
+                        <input type="button" id="DEL_BT1" name="DEL" value="選択した画像を削除する" style="width:13em" onClick="del(document.IMG);">
+                      </td>
+                      <td class="center">
+                        <input type="button" id="SAVE_BT1" name="IMEDT" value="変更を保存する" onClick="edt(document.IMG);">
+                      </td>
+                    </tr>
+                    <tr>
+                      <th class="dGreen" style="width:10%">削除</th>
+                      <th class="dGreen" style="width:13%">画像</th>
+                      <th class="dGreen" style="width:40%">ファイル名 [登録日]</th>
+                      <th class="dGreen" style="width:37%">代替テキスト/画像カテゴリ</th>
+                    </tr>
+                    <TMPL_LOOP NAME=ORIGINALS>
+                    <tr>
+                      <td class="check">
+                        <input type="hidden" name="ID_<TMPL_VAR NAME=NO>" value="<TMPL_VAR NAME=ID>">
+                        <TMPL_IF NAME=ITEM_USE>
+                        <a href="img_urllist.cgi?ID=<TMPL_VAR NAME=ID>" target="_blank">商品画像<br>利用中</a>
+                        <TMPL_ELSE>
+                        <input id="DEL_<TMPL_VAR NAME=NO>" type="checkbox" name="DEL_<TMPL_VAR NAME=NO>" value="<TMPL_VAR NAME=ID>">
+                        </TMPL_IF>
+                      </td>
+                      <td class="center">
+                        <a href="#" onClick="window.open('img_preview.cgi?ID=<TMPL_VAR NAME=ID>','popup','');return false;"><img src="<TMPL_VAR NAME=USERWEB>/docs/pic-labo/timg/<TMPL_VAR NAME=FILENAME><TMPL_IF NAME=TIME>?<TMPL_VAR NAME=TIME></TMPL_IF>" width="<TMPL_VAR NAME=TWIDTH>" height="<TMPL_VAR NAME=THEIGHT>" border="0"></a><br>
+                        <input class="prev" onClick="window.open('img_preview.cgi?ID=<TMPL_VAR NAME=ID>','popup','')" type="button" value="プレビュー" name="PREV">
+                      </td>
+                      <td>
+                        <TMPL_VAR NAME=FILENAME><span class="date">[<TMPL_VAR NAME=SETDATE>]</span>
+                      </td>
+                      <td>
+                        <input name="ImageAlt_<TMPL_VAR NAME=NO>" value="<TMPL_VAR NAME=ALT>" type="text" class="alt"><br>
+                        <select name="IMAGE_CATEGORY_<TMPL_VAR NAME=NO>">
+                          <option value="0">未選択</option>
+                          <TMPL_LOOP NAME=IMAGE_CATELIST>
+                          <option value="<TMPL_VAR NAME=ID>" <TMPL_IF NAME=SELECT>selected</TMPL_IF>><TMPL_VAR NAME=CATEGORY></option>
+                          </TMPL_LOOP>
+                        </select>
+                      </td>
+                    </tr>
+                    </TMPL_LOOP>
+                    <tr>
+                      <td colspan="3">
+                        <input type="button" value="全選択" onClick="check_del_all();">
+                        <input type="button" value="全解除" onClick="rem_del_all();">
+                        <input type="button" id="DEL_BT2" name="DEL" value="選択した画像を削除する" style="width:13em" onClick="del(document.IMG);">
+                      </td>
+                      <td class="center">
+                        <input type="button" id="SAVE_BT2" name="IMEDT" value="変更を保存する" onClick="edt(document.IMG);">
+                      </td>
+                    </tr>
+                    </TABLE>
+                    </form>
+                    <div class="page" style="margin:0 0 2em">
+                      <TMPL_IF TOTAL>
+                      <TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+                      </TMPL_IF>
+                    </div>
+                  <h3>検索結果のダウンロード</h3>
+                  <div class="infoArea table_bg">
+                    上記検索結果の登録情報をダウンロードします。<br>
+                    画像登録情報を利用して、画像情報の一括変更や一括削除にご利用いただけます。
+                  </div>
+                  <form name="DownLoad" method="POST" action="imagelist.cgi">  
+                    <table width="100%" class="item-box">
+                      <tr>
+                        <td class="mGreen">画像登録データ<span class="fnt80">（ＣＳＶファイル）</span></td>
+                        <td class="item">
+                        <input id ="DownLoad" type="button" name="Submit" value="ダウンロード" onClick="document.IMAGELIST.CMD.value='DownLoad';document.IMAGELIST.action='imagelistdl.cgi';document.IMAGELIST.submit();return false;">
+                        ※検索結果に表示されている画像情報をダウンロードします。
+                        </td>
+                      </tr>
+                    </table>
+                  </form>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

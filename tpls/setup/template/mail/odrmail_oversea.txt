@@ -1,0 +1,45 @@
+<TMPL_VAR NAME=greeting>
+<TMPL_IF orderdisp_y>
+¢£Order contents
+Order Number: <TMPL_VAR NAME=pub_order_no>
+Date: <TMPL_VAR NAME=order_date>
+Payment Method: <TMPL_VAR NAME=pm_str>
+Total: <TMPL_VAR NAME=disp_total> JPY
+----<TMPL_LOOP NAME=item_line>
+<TMPL_VAR NAME=item_name><TMPL_VAR NAME=item_pric></TMPL_LOOP>
+----
+<TMPL_VAR NAME=common_discount_line>
+<TMPL_VAR NAME=subtotal_line>
+<TMPL_IF schargeon><TMPL_VAR NAME=scharge_line>
+</TMPL_IF><TMPL_IF wrapon><TMPL_VAR NAME=wrap_line>
+</TMPL_IF><TMPL_IF feeon><TMPL_VAR NAME=fee_line>
+</TMPL_IF><TMPL_IF adjuston><TMPL_VAR NAME=adjust_line>
+</TMPL_IF><TMPL_VAR NAME=total_line>
+</TMPL_IF><TMPL_IF purdisp_y>
+
+¢£Billing Address
+Email Address: <TMPL_VAR NAME=p_mail>
+Name: <TMPL_VAR NAME=p_fname> <TMPL_VAR NAME=p_lname><TMPL_IF p_company>
+    <TMPL_VAR NAME=p_company> </TMPL_IF><TMPL_IF p_division><TMPL_VAR NAME=p_division></TMPL_IF>
+<TMPL_IF p_ord_tel_disp>Phone Number: <TMPL_VAR NAME=p_tel1>
+</TMPL_IF><TMPL_IF p_fax1>Fax Number: <TMPL_VAR NAME=p_fax1>
+</TMPL_IF><TMPL_IF p_ord_addr_disp>Billing Address: <TMPL_VAR NAME=p_addr2>, <TMPL_IF p_addr3><TMPL_VAR NAME=p_addr3>, </TMPL_IF><TMPL_VAR NAME=p_addr1>, <TMPL_VAR NAME=p_zip1>
+</TMPL_IF></TMPL_IF><TMPL_IF tsn_conf_disp>
+<TMPL_VAR NAME=free_title>:
+<TMPL_VAR NAME=free_comment></TMPL_IF>
+<TMPL_IF delivzentai_y>
+¢£Shipping Address
+<TMPL_LOOP dlvloop><TMPL_IF multi>¢¡Shipping Address<TMPL_VAR dlvnum></TMPL_IF><TMPL_IF delivdisp_y>Name: <TMPL_VAR NAME=d_fname> <TMPL_VAR NAME=d_lname><TMPL_IF d_company>
+    <TMPL_VAR NAME=d_company> </TMPL_IF><TMPL_IF d_division><TMPL_VAR NAME=d_division></TMPL_IF>
+<TMPL_IF d_ord_tel_disp>Phone Number: <TMPL_VAR NAME=d_tel1>
+</TMPL_IF><TMPL_IF d_fax1>Fax Number: <TMPL_VAR NAME=d_fax1>
+</TMPL_IF>Shipping Address: <TMPL_VAR NAME=d_addr2>, <TMPL_IF d_addr3><TMPL_VAR NAME=d_addr3>, </TMPL_IF><TMPL_VAR NAME=d_addr1>, <TMPL_VAR NAME=d_zip1>
+</TMPL_IF></TMPL_LOOP></TMPL_IF>
+<TMPL_IF paydisp_y>
+¢£Payment Method<TMPL_LOOP NAME=pay_list>
+<TMPL_VAR NAME=pay_line></TMPL_LOOP>
+</TMPL_IF><TMPL_IF pinfodisp_y>
+<TMPL_LOOP NAME=pinfo_list><TMPL_VAR NAME=pay_info></TMPL_LOOP>
+</TMPL_IF>
+<TMPL_VAR NAME=contact>
+

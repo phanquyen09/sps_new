@@ -1,0 +1,168 @@
+<script language="JavaScript">
+<!--
+function insPat(id,name)
+{
+  var position = 0;
+  var chk_ng = 0;
+  var pat_blank_cnt = 0;
+  var pattern_arr = window.opener.document.getElementsByClassName('pattern-id');
+
+  for ( var j = 0 ; j < pattern_arr.length ; j++ ) {
+      if (pattern_arr[j].value == id) {
+          alert("同一パターンが存在します");
+          return false;
+      }
+  }
+  for(i = 1;i <= <TMPL_VAR NAME=PAT_JS_MAX>;i++){
+    var patstr = document.getElementById(name).innerHTML;
+    var patname = patstr.replace(/&amp;|&gt;|&lt;|&quot;|&apos;/g, sunny);
+    
+    if(window.opener.document.getElementById( 'PAT_ID' + i ).value == ''){
+      if( position == 0){
+        position = i;
+        window.opener.document.getElementById( 'PAT_ID' + i ).value = id;
+        window.opener.document.getElementById( 'PAT_NAME' + i ).value = patname;
+        window.opener.document.getElementById( 'PAT_TR' + i).style.display = '';
+      }
+      pat_blank_cnt++;
+    }
+  }
+  if(position == 0){
+    alert('登録できるパターンは<TMPL_VAR NAME=PAT_JS_MAX>件までです');
+  }else{
+    window.opener.document.getElementById( 'PAT_TABLE' ).style.display = '';
+    if( pat_blank_cnt == 1 ){
+      window.opener.document.getElementById( 'PAT_BUTTON' ).disabled = true;
+    }
+    <TMPL_IF NAME=WIN_CLOSE>
+    window.close();
+    </TMPL_IF>
+  }
+}
+
+function sunny(a) {
+    var str = null;
+    if ( a == "&amp;" ) { str = "&"; }
+    else if ( a == "&gt;" ) { str = ">"; }
+    else if ( a == "&lt;" ) { str = "<"; }
+    else if ( a == "&quot;" ) { str = '"'; }
+    else if ( a == "&apos;" ) { str = "'"; }
+    else { str = ""; } 
+    return str;
+}
+
+
+function wopen(n){
+  i = new String(n);		
+  document.PATLIST.CMD.value='wopen';
+  document.PATLIST.PTNO.value=i;
+  o = ('pop_recom.cgi?PTNO='+i+'' );
+  w = window.open((o),'preview');
+}
+
+//-->
+</script>
+<style type="text/css">
+<!--
+#patternBox {
+	width:680px;
+	font-size:0.8em;
+	text-align:left;
+	margin:0 auto;
+}
+
+#patternErr {
+	font-weight:bold;
+	color:#ff0000;
+	line-height:1.2em;
+}
+
+#patternCls {
+	text-align:center;
+	margin:2em 0 5em;
+	padding:2em 0 0;
+	border-top:1px solid #666666;
+}
+-->
+</style>
+<link href="./default01.css" rel="stylesheet" type="text/css">
+<div id="patternBox">
+
+<div class="midashi02">■パターン挿入</div>
+<br>
+<form name="PATLIST" method="POST" action="selpat.cgi">
+<input type="hidden" name="CMD" value="SEEK">
+<input type="hidden" name="TYPE" value="<TMPL_VAR NAME=TYPE>">
+<input type="hidden" name="PAGE" value="1">
+<input type="hidden" name="PTNO" value="">
+<table class="item-box">
+<tr>
+	<td colspan="2" class="item-name02" align="center">パターン検索</td>
+</tr>
+<tr>
+  <td class="item-name">パターン名</td>
+  <td class="item"><input type="text" name="PatName" value="<TMPL_VAR NAME=PAT_NAME>" maxlength="255" class="def-line"></td>
+</tr>
+<tr>
+  <td class="item-name">商品名</td>
+  <td class="item">
+    <input type="text" name="ItemName" value="<TMPL_VAR NAME=ITEM_NAME>" maxlength="255" class="def-line">
+  </td>
+</tr>
+<tr>
+  <td class="item-name">商品番号</td>
+  <td class="item">
+    <input type="text" name="ItemNo" value="<TMPL_VAR NAME=ITEM_NO>" maxlength="64" class="def-line">
+  </td>
+</tr>
+<tr align="center">
+  <td colspan="2" bgcolor="#FFFFFF"><input type="button" name="Submit" value="検索する" onClick="document.PATLIST.CMD.value='SEEK';document.PATLIST.submit();"></td>
+</tr>
+</table>
+<br>
+<div class="infoArea table_bg">
+  <p style="margin:0 0 0.8em">関連商品設定で作成したパターンを、商品ページ、グループ、各カテゴリに関連付けます。</p>
+
+  <strong>＜設定手順＞</strong><br>
+  <strong>1.</strong>&nbsp;「パターン検索」で、パターン名やパターンに使用した商品名、商品番号から検索します。<br>
+  <strong>2.</strong>&nbsp;パターンの内容を確認したい場合は「パターン名」をクリックします。<br>
+  <strong>3.</strong>&nbsp;関連付けたいパターンの「挿入する」ボタンを押すと、管理画面上にパターン名が反映します。<br>
+  <strong>4.</strong>&nbsp;パターン挿入画面を閉じて、管理画面に反映されたパターン名を確認し、設定を保存します。
+
+  <p style="margin:0.8em 0 0">※非公開の商品は、パターンに含まれていても実際には表示されません。</p>
+</div>
+<table cellspacing="0" cellpadding="0" width="100%" border="0">
+<tr>
+  <td align="right">
+    <TMPL_VAR NAME=LIST_START> - <TMPL_VAR NAME=LIST_END>&nbsp; （ 全 <TMPL_VAR NAME=LIST_TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+  </td>
+</tr>
+</table>
+
+<table class="item-box">
+<tr align="center">
+	<td class="item-name02">パターン名</td>
+	<td class="item-name02">操作</td>
+</tr>
+<TMPL_LOOP PAT_LIST>
+<tr>
+  <td class="item02"><a href="#" onClick="wopen(<TMPL_VAR NAME=PAT_ID>)"><span id="PAT_NAME<TMPL_VAR NAME=PAT_CNT>"><TMPL_VAR NAME=PAT_NAME></span></a></td>
+  <td class="item02" style="width:10em;text-align:center"><input type="button" value="挿入する" onClick="insPat(<TMPL_VAR NAME=PAT_ID>,'PAT_NAME<TMPL_VAR NAME=PAT_CNT>')"></td>
+</tr>
+</TMPL_LOOP>
+</table>
+
+<table cellspacing="0" cellpadding="0" width="100%" border="0">
+<tr>
+  <td align="right">
+    <TMPL_VAR NAME=LIST_START> - <TMPL_VAR NAME=LIST_END>&nbsp; （ 全 <TMPL_VAR NAME=LIST_TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+  </td>
+</tr>
+</table>
+</form>
+<div id="patternCls">
+<input type="button" name="Submit" value="閉じる" onClick="window.close()">
+</div>
+
+</div>
+

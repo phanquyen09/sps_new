@@ -1,0 +1,65 @@
+<form method="POST" action="acc_logs.cgi">
+<input type="hidden" name="CMD" value="EDT">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                      <tr>
+                                        <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#677C87">
+                                            <tr>
+                                              <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+
+                                            </tr>
+                                        </table></td>
+<td align="left" class="midashi">アクセスログ（サーバー生ログ）の保存設定を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/acc_logs.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                                      </tr>
+                                    </table>
+                                      <img src="../imgs/spc.gif" width="5" height="5">
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+
+                                          <td align="left" class="main-table">
+
+<div class="infoArea table_bg">
+アクセス解析ソフトなどに取込んで使うCombine形式の生ログを、サーバーに保存する・保存しないの設定をします。<br>
+不要な場合は「保存しない」を選択してください。
+</div>
+
+                                            <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                              <tr align="center">
+                                                <td colspan="2" class="item-name02">アクセスログ保存設定</td>
+                                              </tr>
+                                              <tr>
+                                                <td class="item-name">アクセスログ保存</td>
+                                                <td class="item">
+
+                                                    アクセスログは14日間保存されます。<br>
+						    <input type="radio" name="LogCsv" id="acc01" value="1" <TMPL_IF LOGCSV1>checked</TMPL_IF>>
+                                                    <label for="acc01">
+                                                    保存する
+                                                    </label>
+                                                    <br>
+						    <input type="radio" name="LogCsv" id="acc02" value="0" <TMPL_IF LOGCSV0>checked</TMPL_IF>>
+                                                    <label for="acc02">
+                                                    保存しない
+                                                    </label>
+
+                                                    <br>
+                                                    <span style="padding-left:10px ">※保存先のディレクトリ&nbsp;⇒&nbsp;/docs/Report/logs</span>
+                                                </td>
+                                              </tr>
+                                              <tr align="center">
+                                                <td colspan="2" class="item02"><span class="item">
+                                                  <input type="submit" value="設定を保存する" <TMPL_IF NAME=DIS>disabled</TMPL_IF>>
+
+                                                </span></td>
+                                              </tr>
+                                            </table>
+                                            <br>
+                                            <br>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                  </td>
+</form>
+                                </tr>
+
+

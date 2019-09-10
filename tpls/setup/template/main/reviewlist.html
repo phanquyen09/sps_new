@@ -1,0 +1,453 @@
+<!-- Main Contents(START) -->
+<script language="JavaScript" type="text/JavaScript">
+<!--
+var freeGroupOnload = function()
+{
+    if(document.CMLIST.Group.value) {
+        disableFreeGroup(document.CMLIST.Group.value);
+    }
+}
+window.onload = freeGroupOnload;
+
+function disableFreeGroup( n )
+{
+    if ( n == 0 ) {
+        document.CMLIST.FreeGrp.disabled              = false;
+        document.CMLIST.FreeGrp.style.backgroundColor = '#ffffff';
+        document.CMLIST.FreeGrp.style.borderTop       = '1px solid #abadb3';
+        document.CMLIST.FreeGrp.style.borderRight     = '1px solid #dbdfe6';
+        document.CMLIST.FreeGrp.style.borderBottom    = '1px solid #e3e9ef';
+        document.CMLIST.FreeGrp.style.borderLeft      = '1px solid #e2e3ea';
+        document.CMLIST.FreeGrp.style.padding         = '2px';
+    } else {
+        document.CMLIST.FreeGrp.disabled              = true;
+        document.CMLIST.FreeGrp.style.backgroundColor = '#b0b0b0';
+        document.CMLIST.FreeGrp.value                 = '';
+    }
+}
+
+function changeListnum() {
+    if (document.HDFORM.CMD.value != '') {
+        document.HDFORM.Page.value=1;
+        document.HDFORM.CMD.value = 'SEARCH';
+        document.HDFORM.action='reviewlist.cgi';
+        document.HDFORM.submit();
+    }
+} 
+function resetsearch() {
+    document.CMLIST.CommentID.value = '';
+    document.CMLIST.PubOrderNo.value = '';
+    document.CMLIST.CommentSel[0].checked = true;
+    document.CMLIST.PeriodSel.value = '1';
+    document.CMLIST.PeriodStY.value = '';
+    document.CMLIST.PeriodStM.value = '';
+    document.CMLIST.PeriodStD.value = '';
+    document.CMLIST.PeriodEnY.value = '';
+    document.CMLIST.PeriodEnM.value = '';
+    document.CMLIST.PeriodEnD.value = '';
+    document.CMLIST.ItemNo.value = '';
+    document.CMLIST.FreeMultiCat.value = '';
+    document.CMLIST.Group.value = '';
+    document.CMLIST.FreeGrp.value = '';
+    document.CMLIST.YamiGroup.value = '';
+    disableFreeGroup(0);
+
+}
+function SetCheck() {
+    var cnt = <TMPL_VAR name=CommentCount>;
+    if ( cnt > 1 ) {
+    for (i=0;i<cnt;i++){
+            document.HDFORM.SelID[i].checked=true;
+    }
+    }
+    if ( cnt == 1 ) {
+    document.HDFORM.SelID.checked=true;
+    }
+}
+function UnSetCheck() {
+    var cnt = <TMPL_VAR name=CommentCount>;
+    if ( cnt > 1 ) {
+    for (i=0;i<cnt;i++){
+            document.HDFORM.SelID[i].checked=false;
+    }
+    }
+    if ( cnt == 1 ) {
+    document.HDFORM.SelID.checked=false;
+    }
+}
+function CommentOpenWindow(tkn, itm) {
+    window.open("../func100/review_comment.cgi?TKN=" + tkn + "&ITM=" + itm, "comment", "");
+}
+function CheckSelect( val ) {
+    var sel = 0;
+    var cnt = <TMPL_VAR NAME=CommentCount>;
+    if ( cnt > 1 ) {
+        for (i=0;i<cnt;i++) {
+            if ( document.HDFORM.SelID[i].checked==true ) {
+                sel = 1;
+                break;
+            }
+        }
+    }
+    if ( cnt == 1 ) {
+        if ( document.HDFORM.SelID.checked==true ) {
+            sel = 1
+        }
+    }
+    if ( sel == 0  ) {
+        switch (val){
+            case 0:mes =   "表示";break;
+            case 1:mes = "非表示";break;
+            case 2:mes =   "削除";break;
+            case 3:mes =   "送信";break;
+            case 4:mes = "非送信";break;
+        }
+        alert(mes+"にするコメントを選択して下さい");
+        return;
+    } else {
+        switch (val){
+            case 0:document.HDFORM.CMD.value='DISPON';break;
+            case 1:document.HDFORM.CMD.value='DISPOFF';break;
+            case 2:
+            if ( !confirm("選択したコメントを削除します。よろしいですか？") ) {
+                return;
+            }
+            document.HDFORM.CMD.value='DEL';
+                ;break;
+            case 3:document.HDFORM.CMD.value='FEEDON' ;break;
+            case 4:document.HDFORM.CMD.value='FEEDOFF';break;
+        }
+    }
+    document.HDFORM.action='reviewlist.cgi';
+    document.HDFORM.submit();
+}
+
+function downLoadRun() {
+    document.CMLIST.CMD.value = 'DOWNLOAD';
+    document.CMLIST.action='reviewlist_download.php';
+    document.CMLIST.submit();
+}
+//-->
+</script>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">評価コメント（お客様の声）を管理します</td>
+    <td align="right" class="midashi">
+       <a href="https://help.shopserve.jp/help/reviewlist.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a>
+    </td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+      <div align="right">
+        <a href="https://help.shopserve.jp/ctrlpnl_sup/func01/clientlist/privacy_use.html" target="manual">&lt;個人情報を適切に取り扱いましょう&gt;</a>
+      </div>
+      <div class="infoArea table_bg">
+        任意のコメントを「お客様の声」ページで表示／非表示されるように設定することや、削除することができます。<br>
+      </div>
+<!--検索フィールドここから-->
+                               <table class="item-box">
+                               <form name="CMLIST" method="post" action="reviewlist.cgi">
+                                 <input type="hidden" name="CMD" value="SEARCH"> 
+                                              <tr>
+                                                <td colspan="2" align="center" class="item-name02">コメント検索</td>
+                                              </tr>
+                                              <tr>
+                                                <td width="20%" class="item-name">コメントID</td>
+                                                <td width="80%" class="item">
+                                                  <input type="text" class="def-line" name="CommentID" value="<TMPL_VAR NAME=CommentID>" style="ime-mode:disabled" maxlength="1000">
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td width="20%" class="item-name">注文番号</td>
+                                                <td width="80%" class="item">
+                                                  <input type="text" class="def-line" name="PubOrderNo" value="<TMPL_VAR NAME=PubOrderNo>" style="ime-mode:disabled" maxlength="1000">
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td class="item-name">お店コメント</td>
+                                                <td class="item">
+                                                  <input type="radio" id="shop_comment00" name="CommentSel" value="all" <TMPL_IF NAME=CommentSelall>checked</TMPL_IF>><label for="shop_comment00">全て</label>
+                                                  &nbsp;&nbsp;&nbsp;
+                                                  <input type="radio" id="shop_comment01" name="CommentSel" value="yes" <TMPL_IF NAME=CommentSelyes>checked</TMPL_IF>><label for="shop_comment01">あり</label>
+                                                  &nbsp;&nbsp;&nbsp;
+                                                  <input type="radio" id="shop_comment02" name="CommentSel" value="no" <TMPL_IF NAME=CommentSelno>checked</TMPL_IF>><label for="shop_comment02">なし</label>
+                                                </td>
+                                              </tr>
+                                              <tr>
+                                                <td class="item-name">期間</td>
+                                                <td class="item">
+                                                  <select name="PeriodSel">
+                                                    <option value="1" <TMPL_IF NAME=PeriodSel1>selected</TMPL_IF>>投稿日</option>
+                                                    <option value="2" <TMPL_IF NAME=PeriodSel2>selected</TMPL_IF>>注文日</option>
+                                                  </select>
+&nbsp;
+                                                  <br>
+                                                  <input name="PeriodStY" type="text" size="5" value="<TMPL_VAR NAME=PeriodStY>" style="ime-mode:disabled" maxlength="4">年
+                                                  <input name="PeriodStM" type="text" size="3" value="<TMPL_VAR NAME=PeriodStM>" style="ime-mode:disabled" maxlength="2">月
+                                                  <input name="PeriodStD" type="text" size="3" value="<TMPL_VAR NAME=PeriodStD>" style="ime-mode:disabled" maxlength="2">日 &nbsp;〜&nbsp;
+                                                  <input name="PeriodEnY" type="text" size="5" value="<TMPL_VAR NAME=PeriodEnY>" style="ime-mode:disabled" maxlength="4">年
+                                                  <input name="PeriodEnM" type="text" size="3" value="<TMPL_VAR NAME=PeriodEnM>" style="ime-mode:disabled" maxlength="2">月
+                                                  <input name="PeriodEnD" type="text" size="3" value="<TMPL_VAR NAME=PeriodEnD>" style="ime-mode:disabled" maxlength="2">日
+                                              </td>
+                                            </tr>
+                                              <tr>
+                                                <td colspan="2" align="center" class="item-name02">注文商品検索</td>
+                                              </tr>
+                                              <tr>
+                                                <td class="item-name">商品番号</td>
+                                                <td class="item"><input name="ItemNo" type="text" value="<TMPL_VAR NAME=ItemNo>" maxlength="64" style="ime-mode:disabled" maxlength='1000'>
+                                                </td>
+                                              </tr>
+                                            <tr>
+                                              <td class="item-name">カテゴリ</td>
+                                              <td class="item">
+                                                <link rel="stylesheet" type="text/css" href="../css/custom_ui/multiCategorySearchApiCss.css" media="all">
+                                                <script type="text/javascript" src="/js/custom_ui/jsloader.js"></script>
+                                                <script type="text/javascript" src="/js/custom_ui/jquery-multi-category-search-api.js"></script>
+                                                <div id="_multi_category_search_part">
+                                                  <select name="MasterCategory"></select>
+                                                  <select name="SubCategory"></select>
+                                                  <select name="Layer3Category"></select>
+                                                  <select name="Layer4Category"></select>
+                                                  <select name="Layer5Category"></select>
+                                                  <input type="hidden" id="multi_category_recently_search_id" name="MultiCategory" value="<TMPL_VAR NAME=MultiCategoryID>">
+                                                </div>
+                                                  カテゴリ名<input name="FreeMultiCat" type="text" value="<TMPL_VAR NAME=FreeMultiCat>" maxlength="1000">&nbsp;※部分一致
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td class="item-name">グループ</td>
+                                              <td class="item">
+                                                  <select name="Group"
+                                                      onChange="disableFreeGroup(this.selectedIndex);">
+                                                  <TMPL_LOOP NAME=Groups>
+                                                    <option value="<TMPL_VAR NAME=ID>" <TMPL_VAR NAME=SEL>>
+                                                      <TMPL_VAR NAME=NAME>
+                                                    </option>
+                                                  </TMPL_LOOP>
+                                                  </select>
+                                                  <br>
+                                                  グループ<input name="FreeGrp" type="text" value="<TMPL_VAR NAME=FreeGrp>" maxlength="1000">
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td class="item-name">シークレットグループ</td>
+                                              <td class="item">
+                                                  <select name="YamiGroup">
+                                                  <TMPL_LOOP NAME=YamiGroups>
+                                                    <option value="<TMPL_VAR NAME=ID>" <TMPL_VAR NAME=SEL>>
+                                                      <TMPL_VAR NAME=NAME>
+                                                    </option>
+                                                  </TMPL_LOOP>
+                                                  </select>
+                                              </td>
+                                            </tr>
+                                              <tr>
+                                                <td colspan="2" align="center" class="item"><input type="button" name="SEARCH" value="検索" onClick="document.CMLIST.CMD.value = 'SEARCH';document.CMLIST.action='reviewlist.cgi';document.CMLIST.Range.value=document.HDFORM.Range.value;document.CMLIST.submit();">&nbsp;<input type="button" id="resetsearch_param" onClick="resetsearch();" value="条件をクリア">
+                                                </td>
+                                              </tr>
+                                            </table>
+                                            <input type="hidden" name="Range" value="">
+                                            </form>
+<!--検索フィールドここまで-->
+<!--ページングここから-->
+    <form name="HDFORM" method="POST" action="reviewlist.cgi">
+    <input type="hidden" name="CommentID" value="<TMPL_VAR NAME=CommentID>">
+    <input type="hidden" name="PubOrderNo" value="<TMPL_VAR NAME=PubOrderNo>">
+    <input type="hidden" name="CommentSel" value="<TMPL_VAR NAME=CommentSel>">
+    <input type="hidden" name="PeriodSel" value="<TMPL_VAR NAME=PeriodSel>">
+    <input type="hidden" name="PeriodStY" value="<TMPL_VAR NAME=PeriodStY>">
+    <input type="hidden" name="PeriodStM" value="<TMPL_VAR NAME=PeriodStM>">
+    <input type="hidden" name="PeriodStD" value="<TMPL_VAR NAME=PeriodStD>">
+    <input type="hidden" name="PeriodEnY" value="<TMPL_VAR NAME=PeriodEnY>">
+    <input type="hidden" name="PeriodEnM" value="<TMPL_VAR NAME=PeriodEnM>">
+    <input type="hidden" name="PeriodEnD" value="<TMPL_VAR NAME=PeriodEnD>">
+    <input type="hidden" name="ItemNo" value="<TMPL_VAR NAME=ItemNo>">
+    <input type="hidden" name="MultiCategory" value="<TMPL_VAR NAME=MultiCategoryID>">
+    <input type="hidden" name="FreeMultiCat" value="<TMPL_VAR NAME=FreeMultiCat>">
+    <input type="hidden" name="Group" value="<TMPL_VAR NAME=Group>">
+    <input type="hidden" name="FreeGrp" value="<TMPL_VAR NAME=FreeGrp>">
+    <input type="hidden" name="YamiGroup" value="<TMPL_VAR NAME=YamiGroup>">
+    <input type="hidden" name="CMD" value="<TMPL_VAR NAME=CMD>">
+    <input type="hidden" name="Page" value="<TMPL_VAR NAME=Page>">
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                              <tr>
+<td valign="bottom">
+<input type="button" name="Submit" value="全選択" style="font-size:90%; padding-top:3px" onClick="SetCheck()">
+<input type="button" name="Submit" value="全解除" style="font-size:90%; padding-top:3px" onClick="UnSetCheck()">
+</td>
+                                                <td align="right" class="odr-txt paginate">表示件数
+                                                    <select name="Range" onChange="changeListnum();">
+                                                        <option value="10" <TMPL_IF Range10>selected</TMPL_IF>>10</option>
+                                                        <option value="20" <TMPL_IF Range20>selected</TMPL_IF>>20</option>
+                                                        <option value="30" <TMPL_IF Range30>selected</TMPL_IF>>30</option>
+                                                        <option value="40" <TMPL_IF Range40>selected</TMPL_IF>>40</option>
+                                                        <option value="50" <TMPL_IF Range50>selected</TMPL_IF>>50</option>
+                                                        <option value="100" <TMPL_IF Range100>selected</TMPL_IF>>100</option>
+                                                        <option value="200" <TMPL_IF Range200>selected</TMPL_IF>>200</option>
+                                                        <option value="300" <TMPL_IF Range300>selected</TMPL_IF>>300</option>
+                                                    </select>
+                                                    <br>
+
+<TMPL_IF TotalCnt>
+<TMPL_VAR NAME=DispStart> - <TMPL_VAR NAME=DispEnd>&nbsp; （ 全 <TMPL_VAR NAME=TotalCnt>件 ）&nbsp;<TMPL_LOOP NAME=PageList><TMPL_VAR NAME=Link></TMPL_LOOP>
+</TMPL_IF>
+                            </td>
+                                              </tr>
+                                            </table>
+<!--ページングここまで-->
+                <div id="tabsF">
+
+                </div>
+                                            <table class="item-box">
+                                              <tr align="center">
+                                                <td class="odr-midashi">&nbsp;</td>
+                                                <td class="odr-midashi">コメントID</td>
+                                                <td class="odr-midashi">投稿日</td>
+                                                <td class="odr-midashi">注文番号</td>
+                                                <td class="odr-midashi">商品名</td>
+                                                <td class="odr-midashi">おすすめ度</td>
+                                                <td class="odr-midashi">お店コメント</td>
+                                                <td class="odr-midashi">表示/非表示</td>
+<!--変数によって出す出さない入れるで-->
+<TMPL_IF NAME=FeedFlag>
+                                                <td class="odr-midashi">データ<br>フィード</td>
+</TMPL_IF>
+                                              </tr>
+<TMPL_IF NAME=CMD>
+  <TMPL_IF NAME=CommentCount><!--検索結果有る場合　ここから-->
+
+    <TMPL_LOOP NAME=CommentList>
+                                      <tr>
+                                        <td align="center" class="odr-txt02">
+                                          <input type="checkbox" name="SelID" value="<TMPL_VAR NAME=TenpoMessID>">
+                                        </td>
+                                        <td align="left" class="odr-txt02">
+      <TMPL_IF NAME=CommentID>
+                                          <TMPL_VAR NAME=CommentID></td>
+      <TMPL_ELSE>
+                                          ----</td>
+      </TMPL_IF>
+                                        <td align="center" class="odr-txt02">
+                                          <TMPL_IF NAME=TokenTenpo>
+                                          <a href="javascript:CommentOpenWindow('<TMPL_VAR NAME=TokenTenpo>', '<TMPL_VAR NAME=CommentID>');"><TMPL_VAR NAME=WriteDate></a>
+                                          <TMPL_ELSE>
+                                          <TMPL_VAR NAME=WriteDate>
+                                          </TMPL_IF>
+                                        </td>
+                                        <td align="center" class="odr-txt02">
+      <TMPL_IF NAME=PubOrderNo>
+                                          <a href="./rv_odrinfo.cgi?ORDERID=<TMPL_VAR NAME=OrderID>"><TMPL_VAR NAME=PubOrderNo></a></td>
+      <TMPL_ELSE>
+                                          ----</td>
+      </TMPL_IF>
+                                        <td class="odr-txt02">
+      <TMPL_IF NAME=ItemNo>
+                                          <a href="./itemlist.cgi?CMD=SEEK&PIC=ON&ItemNoKan=<TMPL_VAR NAME=ItemNo>"><TMPL_VAR NAME=ItemName></a></td>
+      <TMPL_ELSE>
+                                          ----</td>
+      </TMPL_IF>
+                                        <td align="left" class="odr-txt02">
+                                          <TMPL_VAR NAME=Point>
+                                        </td>
+                                        <td align="center" class="odr-txt02"><TMPL_VAR NAME=Comment></td>
+                                        <td align="center" class="odr-txt02"><TMPL_VAR NAME=Status></td>
+        <TMPL_IF NAME=FeedFlag>
+                                        <td align="center" class="odr-txt02"><TMPL_VAR NAME=FeedStatus></td>
+      </TMPL_IF>
+                                      </tr>
+    </TMPL_LOOP>
+  <TMPL_ELSE><!--検索結果有る場合　ここまで--><!--検索結果無い場合　ここから-->
+                                      <tr>
+        <TMPL_IF NAME=FeedFlag>
+                                        <td align="center" class="odr-txt02" colspan="9">該当するコメントはありません</td>
+        <TMPL_ELSE>
+                                        <td align="center" class="odr-txt02" colspan="8">該当するコメントはありません</td>
+  </TMPL_IF>
+
+                                      </tr>
+  </TMPL_IF><!--検索結果無い場合　ここまで-->
+
+<TMPL_ELSE>
+                                      <tr>
+<!--変数によって出す出さない入れるで-->
+<!--８か９の選択方式よろー-->
+  <TMPL_IF NAME=FeedFlag>
+                                        <td align="center" class="odr-txt02" colspan="9">検索してください</td>
+  <TMPL_ELSE>
+                                        <td align="center" class="odr-txt02" colspan="8">検索してください</td>
+  </TMPL_IF>
+
+                                      </tr>
+</TMPL_IF>
+
+                                            </table>
+
+<!--ページングここから-->
+                                            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                              <tr>
+<td valign="bottom">
+<input type="button" name="Submit" value="全選択" style="font-size:90%; padding-top:3px" onClick="SetCheck()">
+<input type="button" name="Submit" value="全解除" style="font-size:90%; padding-top:3px" onClick="UnSetCheck()">
+</td>
+                                                <td align="right" class="odr-txt paginate">
+
+<TMPL_IF TotalCnt>
+<TMPL_VAR NAME=DispStart> - <TMPL_VAR NAME=DispEnd>&nbsp; （ 全 <TMPL_VAR NAME=TotalCnt>件 ）&nbsp;<TMPL_LOOP NAME=PageList><TMPL_VAR NAME=Link></TMPL_LOOP>
+</TMPL_IF>
+                        </td>
+                                              </tr>
+                                            </table>
+<!--ページングここまで-->
+<br>
+                                            <table class="item-box">
+                                              <tr>
+                                                <td class="item-name02" colspan="2" align="center">選択処理</td>
+                                              </tr>
+                                              <tr>
+                                                    <td width="20%" class="item-name">お店ページ</td>
+                                                    <td width="80%" class="item">
+                                                  &nbsp;&nbsp;&nbsp;
+                                                  <input type="button" name="disp" value="表示にする" onClick="CheckSelect(0);">
+                                                  &nbsp;&nbsp;&nbsp;
+                                                  <input type="button" name="no_disp" value="非表示にする" onClick="CheckSelect(1);">
+                                                  &nbsp;&nbsp;&nbsp;
+                                                  <input type="button" name="delete" value="削除する" onClick="CheckSelect(2);">
+                                                </td>
+                                              </tr>
+        <TMPL_IF NAME=FeedFlag>
+                                              <tr>
+                                                    <td width="20%" class="item-name">Google データフィード</td>
+                                                    <td width="80%" class="item">
+                                                  &nbsp;&nbsp;&nbsp;
+                                                  <input type="button" name="disp" value="送信にする" onClick="CheckSelect(3);">
+                                                  &nbsp;&nbsp;&nbsp;
+                                                  <input type="button" name="no_disp" value="非送信にする" onClick="CheckSelect(4);">
+                                                </td>
+                                              </tr>
+         </TMPL_IF>
+                                            </table>
+<br>
+<h3>検索結果のダウンロード</h3>
+<table class="item-box">
+  <tr>
+    <td colspan="2" align="center" class="item">
+      <input type="button" name="DOWNLOAD" value="ダウンロード(ＣＳＶファイル)" onClick="downLoadRun();">
+    </td>
+  </tr>
+</table>
+</form>
+                                          </td>
+                                        </tr>
+                              </table>
+<!-- Main Contents(END) -->

@@ -1,0 +1,84 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+        <tr>
+          <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">
+      コンバージョンタグの設定を行います
+    </td>
+    <td align="right" class="midashi">
+      <a href="https://help.shopserve.jp/help/conversion.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a>
+    </td>
+  </tr>
+</table>
+
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+      <div class="infoArea table_bg">
+        「Google広告」や「Yahoo!プロモーション広告」のPPC(キーワード)広告、<br />
+        「A8.net」や「バリューコマース」、「トラフィックゲート」などのアフィリエイト広告のタグをショッピングカートに埋め込むことができます。<br><br>
+        スマートフォンサイトで計測する場合は別途設定が必要です。<br>
+        <h5>
+          <span class="icon_for_estoremb" style='position: relative; left: -8px;'>Ｅストアーモバイル専用</span>
+        </h5><br>
+        <a href="../func07/smp_setting_conversion.php" target="_blank">⇒スマートフォンサイト設定＞各種設定＞コンバージョンタグ設定</a><br><br>
+        ※タグについては、各サービス提供元でご確認ください。
+      </div>
+<!--
+    </td>
+  </tr>
+</table>
+-->
+
+<form name="CV" method="POST" action="conversion.cgi">
+<input type="hidden" name="CMD" value="EDT">
+<!--
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+-->
+
+<TMPL_IF NAME=ERRS>
+<TMPL_LOOP ERRS>
+      <font color="red">&nbsp;・<TMPL_VAR NAME=ERR></font><br>
+</TMPL_LOOP>
+</TMPL_IF>
+
+<TMPL_LOOP CONVERSIONS>
+<TMPL_IF ID><input type="hidden" name="ID<TMPL_VAR NAME=CVID>" value="<TMPL_VAR NAME=ID>"></TMPL_IF>
+      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>
+            <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+              <tr>
+                <td align="center" class="item-name02"><TMPL_VAR NAME=CVNAME>の設定</td>
+              </tr>
+              <tr>
+                <td class="item02">
+                  <textarea name="ConversionTag<TMPL_VAR NAME=CVID>" rows="5" wrap="VIRTUAL" style="box-sizing:border-box;width:99%;"><TMPL_VAR NAME=CVTAG></textarea>
+                  <TMPL_IF NAME=CVNOTE><div><TMPL_VAR NAME=CVNOTE></div></TMPL_IF>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table><br>
+</TMPL_LOOP>
+      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td style="text-align: center;">
+            <input type="button" name="SET" value="設定を保存する" onClick='document.CV.CMD.value="EDT";document.CV.submit();'>&nbsp;
+          </td>
+        </tr>
+      </table>
+</form>
+    </td>
+  </tr>
+</table>
+

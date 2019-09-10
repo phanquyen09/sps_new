@@ -1,0 +1,6 @@
+<p><a href="#ss">○並べ替え</a></p><p><TMPL_IF NEWY><img src="<TMPL_VAR NAME=VOLPASS>/hpgen/HPB/theme/img/icon_new.gif"></TMPL_IF><TMPL_IF PICKUPY><img src="<TMPL_VAR NAME=VOLPASS>/hpgen/HPB/theme/img/icon_pickup.gif"></TMPL_IF><TMPL_IF RANK><img src="<TMPL_VAR NAME=VOLPASS>/hpgen/HPB/theme/img/rank<TMPL_VAR NAME=RANK>.gif" alt="ランキング<TMPL_VAR NAME=RANK>"></TMPL_IF></p><p><a href="#"><TMPL_VAR NAME=ITEMNAME><img src="<TMPL_IF NAME=ITEMIMG><TMPL_VAR NAME=VOLPASS>/pic-labo/timg/<TMPL_VAR NAME=ITEMIMG><TMPL_ELSE><TMPL_VAR NAME=NOIMAGE></TMPL_IF>" alt="<TMPL_VAR NAME=ITEMALT>" align="left"><TMPL_VAR NAME=ItemPrice>円(税込)
+⇒見る</a>
+<TMPL_VAR NAME=MobCatchCopy></p>
+<hr><p><a name="ss">▼並べ替え</a></p>
+<select name="SortKey"><option value="">おすすめ商品順</option><option value="">新着商品順</option><option value="">値段の安い順</option><option value="">値段の高い順</option><option value="">名前：　昇順</option><option value="">名前：　降順</option></select>
+<input type="button" name="Submit" value="並べ替え">

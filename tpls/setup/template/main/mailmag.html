@@ -1,0 +1,322 @@
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MakeMagazine(id) {
+  document.MAKEMALMAG.ID.value =id;
+  document.MAKEMALMAG.submit();
+}
+function EditMailmagTmpl(id) {
+        document.EDITTEMPLATE.TMPLID.value =id;
+        document.EDITTEMPLATE.submit();
+}
+function DelMagazine(id) {
+    if ( confirm("メールマガジンを削除します。よろしいですか？") ) {
+  document.DELMALMAG.ID.value =id;
+  document.DELMALMAG.submit();
+    } else  {
+  return;
+    }
+}
+function changeListnum() {
+        var num = document.SENDLIST.ListNum.value;
+        document.SENDLIST.reset();
+        document.SENDLIST.ListNum.value = num;
+        document.SENDLIST.PAGE.value='1';
+        document.SENDLIST.submit();
+}
+
+function changeListnum_TMPL() {
+        var num = document.TMPLMAILMAGLIST.ListNumTmpl.value;
+        document.TMPLMAILMAGLIST.reset();
+        document.TMPLMAILMAGLIST.ListNumTmpl.value = num;
+        document.TMPLMAILMAGLIST.PAGE_TMPL.value='1';
+        document.TMPLMAILMAGLIST.submit();
+}
+
+function delMailmagTmpl(id) {
+    if ( confirm("テンプレートを削除します。よろしいですか？") ) {
+        document.DELTEMPLATE.ID.value =id;
+
+        var num = document.TMPLMAILMAGLIST.ListNumTmpl.value;
+        document.DELTEMPLATE.ListNumTmpl.value = num;
+        document.DELTEMPLATE.submit();
+    } else  {
+        return;
+    }
+}
+
+function downloadCSV(id,val) {
+        document.DOWNLOADCSV.ID.value=id;
+        document.DOWNLOADCSV.VAL.value=val;
+        document.DOWNLOADCSV.submit();
+}
+function viewMakeMagazine(id) {
+  document.VIEWMALMAG.ID.value =id;
+  document.VIEWMALMAG.submit();
+}
+//-->
+</script>
+<script type="text/javascript" src="/js/jquery/jquery-1.10.2.min.js"></script>
+<script>
+$(function() {
+  $('.outline').css('width', '100%');
+});
+</script>
+
+<form name="DELTEMPLATE" method="POST" action="mailmag.cgi">
+<input type="hidden" name="CMD" value="DELTEMPLATE" />
+<input type="hidden" name="ID" value="" />
+<input type="hidden" name="PAGE_TMPL" value="<TMPL_VAR NAME=CURRENT_PAGE_TMPL>" />
+<input type="hidden" name="ListNumTmpl" value="" />
+</form>
+
+<form name="EDITTEMPLATE" method="POST" action="makemailmag.cgi">
+<input type="hidden" name="MODE" value="TEMPLATE">
+<input type="hidden" name="TMPLID" value="">
+</form>
+
+<form name="VIEWMALMAG" method="POST" action="makemailmag.cgi">
+<input type="hidden" name="MODE" value="VIEW_HIST">
+<input type="hidden" name="ID" value="">
+</form>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+        <tr>
+          <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">メールマガジンを発行します</td>
+    <td align="right" class="midashi"><a href="https://help.shopserve.jp/help/mailmag.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+      <div class="infoArea table_bg">
+      お店ページの「メルマガ登録」で登録された方へメールマガジンを送信します。<br>
+      [メルマガ作成]ボタンをクリックして、メールマガジンを作成してください。<br>
+<TMPL_IF HTML_LINK>
+         <br>
+        ＨＴＭＬメルマガの送信機能は、有料オプションサービスとなります。<br>
+        ご利用される場合は、以下の画面よりお申し込みください。<br>
+    <a href="./htmlmail.php?CMD=REGIST" target="_self">⇒ HTMLメルマガを申し込む</a><br>
+</TMPL_IF>
+      </div>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+        <tr>
+          <td>
+            <form name="TMPLMAILMAGLIST" method="POST" action="mailmag.cgi">
+            <input type="hidden" name="PAGE_TMPL" value="1">
+              <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                <tr>
+                  <td class="item-name">今月の送信数</td>
+                  <td align="center" class="item">
+                    <strong><font color="#FF0000"><TMPL_VAR NAME=TOTALSEND>通</font></strong>
+<TMPL_IF SEND_MAX_DISPLAY>
+                    &nbsp;（上限&nbsp;<TMPL_VAR NAME=MAXMAGAZINE>通）
+</TMPL_IF>
+<TMPL_IF LIMIT_LINK>
+                    &nbsp;<a href="../func00/customer.cgi#custadd">⇒メルマガ送信数の上限アップを申し込む</a>
+</TMPL_IF>
+                  </td>
+                </tr>
+                <tr align="center">
+                  <td colspan="2" class="item"><input name="set" type="button" id="set" value="メルマガ作成" onClick="MakeMagazine('')" >
+                  </td>
+                </tr>
+              </table>
+            <div style="margin: 5px; color: #FF0000;">
+               <TMPL_IF MAX_TEMPL>
+               ・テンプレートはこれ以上保存できません。新しくテンプレートを作成するには不要なテンプレートを削除してください。<br>
+               </TMPL_IF>
+               <TMPL_IF MAKEMAGAZINE10>
+               ・メルマガはこれ以上送信予約できません。新しくメルマガを予約するには予約を削除するか、送信が完了するまでお待ちください。<br>
+               </TMPL_IF>
+            </div>
+            <br>
+        <!-- 新規追加保存テンプレートリストここから -->
+              <table width="100%" border="0" cellpadding="0" cellspacing="2">
+                <tr>
+                  <td align="right"><font size="2"> 表示件数
+                      <select name="ListNumTmpl" style="font-size:90%; margin-top:2px" onChange="changeListnum_TMPL();">
+                          <option value="5" <TMPL_IF LISTNUM5_TMPL>selected</TMPL_IF>>5</option>
+                      <option value="10" <TMPL_IF LISTNUM10_TMPL>selected</TMPL_IF>>10</option>
+                      <option value="20" <TMPL_IF LISTNUM20_TMPL>selected</TMPL_IF>>20</option>
+                      <option value="30" <TMPL_IF LISTNUM30_TMPL>selected</TMPL_IF>>30</option>
+                      <option value="40" <TMPL_IF LISTNUM40_TMPL>selected</TMPL_IF>>40</option>
+                      <option value="50" <TMPL_IF LISTNUM50_TMPL>selected</TMPL_IF>>50</option>
+                      </select>
+                      <br>
+              <TMPL_IF TOTAL_TMPL>
+              <TMPL_VAR NAME=LISTSTART_TMPL> - <TMPL_VAR NAME=LISTEND_TMPL>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL_TMPL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST_TMPL><TMPL_VAR NAME=LINK></TMPL_LOOP>
+              </TMPL_IF>
+                  </td>
+                </tr>
+              </table>
+            </form>
+
+            <form name="MAKEMALMAG" method="POST" action="makemailmag.cgi">
+            <input type="hidden" name="ID" value="">
+              <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box" >
+                <tr align="center">
+                  <td colspan="4" class="item-name02">保存テンプレートリスト（最大<TMPL_VAR MAX_TEMP_CNT>件）</td>
+                </tr>
+                <tr align="center">
+                  <td bgcolor="#FFFFFF" class="item-small-col" ><strong>HTML</strong></td>
+                  <td bgcolor="#FFFFFF" class="item-small-col"><strong>テキスト</strong></td>
+                  <td bgcolor="#FFFFFF" class="item-flex-col"><strong>メルマガタイトル</strong></td>
+                  <td bgcolor="#FFFFFF" class="item-medium-col"><strong>操作</strong></td>
+                </tr>
+              <!-- テンプレートリスト ループここから -->
+              <TMPL_LOOP name=TEMPLMAG_LIST>
+                <tr align="center" bgcolor="#FFFFFF">
+                  <td><TMPL_IF MAILTYPEH>○</TMPL_IF></td>
+                  <td><TMPL_IF MAILTYPET>○</TMPL_IF></td>
+                  <td align="left">&nbsp;<TMPL_VAR name=SUBJECT></td>
+                  <td>
+                      <table  style="width: 120px;vertical-align: central; text-align:center">
+                          <tr>
+                              <td><input type="button" name="" id="" value="編集" onClick="EditMailmagTmpl(<TMPL_VAR name=ID>);"></td>
+                              <td><input type="button" name="" id="" value="削除" onClick="delMailmagTmpl(<TMPL_VAR name=ID>);"></td>
+                          </tr>
+                      </table>
+                  </td>
+                </tr>
+              </TMPL_LOOP>
+              <!-- テンプレートリスト ループここまで -->
+              </table>
+          <br>
+        <!-- 新規追加保存テンプレートリストここまで -->
+              <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                <tr align="center">
+                  <td colspan="6" class="item-name02">予約リスト（最大10件）</td>
+                </tr>
+                <tr align="center" bgcolor="#FFFFFF">
+                  <td bgcolor="#FFFFFF" class="item-small-col"><strong>HTML</strong></td>
+                  <td bgcolor="#FFFFFF" class="item-small-col"><strong>テキスト</strong></td>
+                  <td  class="item-bigger-col"><strong>送信予定日</strong></td>
+                  <td  class="item-bigger-col"><strong>送信予定数</strong></td>
+                  <td  class="item-flex-col" ><strong>メルマガタイトル</strong></td>
+                  <td  class="item-medium-col"><strong>操作</strong></td>
+                </tr>
+                  <TMPL_LOOP WAITLIST >
+                <tr bgcolor="#FFFFFF">
+                  <td align="center"><TMPL_IF MAILTYPEH>○</TMPL_IF></td>
+                  <td align="center"><TMPL_IF MAILTYPET>○</TMPL_IF></td>
+                  <td align="center">&nbsp;<TMPL_VAR NAME=SCHED><TMPL_IF STATUS><br><TMPL_VAR NAME=STATUS></TMPL_IF></td>
+                  <td align="center">&nbsp;<TMPL_IF STATUS> - <TMPL_ELSE><TMPL_VAR NAME=SENDCNT></TMPL_IF></td>
+                  <td align="left">&nbsp;<TMPL_VAR NAME=SUBJECT></td>
+                  <td align="center" style="vertical-align: central">
+                      <TMPL_IF WAIT>
+                          <table border="0" cellpadding="0" cellspacing="2" style="width: 120px;vertical-align: central; text-align:center">
+                              <tr>
+                                <td>&nbsp;<input type="button" name="EDT" value="編集" onClick="MakeMagazine('<TMPL_VAR NAME=ID>');"></td>
+                                <td>&nbsp;<input type="button" name="DEL" value="削除" onClick="DelMagazine('<TMPL_VAR NAME=ID>');"></td>
+                              </tr>
+                          </table>
+                        <TMPL_ELSE>
+                        &nbsp;-&nbsp;
+                        </TMPL_IF>
+                    </td>
+                  </tr>
+                    </TMPL_LOOP>
+                </table>
+            </form>
+            <form name="DELMALMAG" method="POST" action="mailmag.cgi">
+            <input type="hidden" name="CMD" value="DEL">
+            <input type="hidden" name="ID" value="">
+            </form>
+            <form name="DOWNLOADCSV" method="POST" action="mailmag.cgi">
+            <input type="hidden" name="CMD" value="DOWNLOAD">
+            <input type="hidden" name="VAL" value="">
+            <input type="hidden" name="ID" value="">
+            </form>
+      <br>
+            <form name="SENDLIST" method="POST" action="mailmag.cgi">
+            <input type="hidden" name="PAGE" value="1">
+            <input type="hidden" name="CMD" value="SEEK">
+            <input type="hidden" name="ID" value="">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td align="right"><font size="2"> 表示件数
+                    <select name="ListNum" style="font-size:90%; margin-top:2px" onChange="changeListnum();">
+                    <option value="10" <TMPL_IF LISTNUM10>selected</TMPL_IF>>10</option>
+                    <option value="20" <TMPL_IF LISTNUM20>selected</TMPL_IF>>20</option>
+                    <option value="30" <TMPL_IF LISTNUM30>selected</TMPL_IF>>30</option>
+                    <option value="40" <TMPL_IF LISTNUM40>selected</TMPL_IF>>40</option>
+                    <option value="50" <TMPL_IF LISTNUM50>selected</TMPL_IF>>50</option>
+                    </select>
+                    <br>
+          <TMPL_IF TOTAL>
+          <TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+          </TMPL_IF>
+                </td>
+              </tr>
+            </table>
+
+            <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+              <tr align="center">
+                <td colspan="6" class="item-name02">送信履歴</td>
+              </tr>
+              <tr align="center" bgcolor="#FFFFFF">
+                <td class="item-bigger-col"><strong>送信日</strong></td>
+                <td><strong>メルマガタイトル</strong></td>
+                <td class="item-very-small-col"><strong>送信数</strong></td>
+                <td class="item-very-small-col"><strong>除外数</strong></td>
+                <td class="item-very-small-col"><strong>エラー</strong></td>
+                <td class="item-medium-col"><strong>ステータス</strong></td>
+              </tr>
+                <TMPL_LOOP RIREKI>
+              <tr bgcolor="#FFFFFF" >
+                <td align="center">&nbsp;<TMPL_VAR NAME=SCHED></td>
+                <td align="left">
+                    &nbsp;<a href="#" onClick="viewMakeMagazine('<TMPL_VAR NAME=ID>');return false;"><TMPL_VAR NAME=SUBJECT></A>
+
+                </td>
+                <td align="center">&nbsp;<TMPL_VAR NAME=SENDCNT></td>
+
+                <td  align="center">
+                  <TMPL_VAR NAME=EXCNUM>
+                  <TMPL_IF SHOWDOWNLOAD>
+                  <input type="button" name="" value="ダウンロード" onClick="downloadCSV(<TMPL_VAR NAME=ID>,'EXC')">
+                  </TMPL_IF>
+                </td>
+                <td  align="center">
+                  <TMPL_VAR NAME=ERRCNT>
+                  <TMPL_IF ERRDOWNLOAD>
+                  <input type="button" name="" value="ダウンロード" onClick="downloadCSV(<TMPL_VAR NAME=ID>,'ERR')">
+                  </TMPL_IF>
+                </td>
+
+                <td align="center">&nbsp;<TMPL_VAR NAME=STATUS></td>
+              </tr>
+                </TMPL_LOOP>
+            </table>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td align="right">
+                <TMPL_IF TOTAL>
+                <TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+                </TMPL_IF>
+                </td>
+              </tr>
+            </table>
+            </form>
+          </td>
+        </tr>
+      </table>
+      <p style="margin:1.5em 0 0;">
+<TMPL_IF HTML_KANRI>
+      <a href="./htmlmailkanri.cgi">⇒ HTMLメルマガのご利用状況を確認する</a><br>
+</TMPL_IF>
+<TMPL_IF LIMIT_KANRI>
+      <a href="../func00/customer.cgi#custadd">⇒ メルマガ送信数上限アップのご利用状況を確認する</a>
+</TMPL_IF>
+      </p>
+    </td>
+  </tr>
+</table>
+

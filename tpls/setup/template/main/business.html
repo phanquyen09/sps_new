@@ -1,0 +1,686 @@
+<script language="JavaScript">
+<!--
+var last = null;
+function preview() {
+    var now = new Date();
+    if ( last != null && (now-last) < 5000  ) {
+      return;
+    }
+    last = now;
+    document.form1.mode.value="preview";
+    document.form1.target="template_preview";
+    document.form1.submit();
+}
+function newtpl_preview() {
+    tplPreview('seo');
+}
+
+function responsiveTplPreview() {
+    tplPreview('responsive');
+}
+
+function tplPreview(type) {
+  var now = new Date();
+  if ( last != null && (now-last) < 5000  ) {
+    return;
+  }
+  last = now;
+
+  if (type === 'responsive') {
+    var winOpenScreenHeight = window.innerHeight;
+    var winOpen = window.open("about:blank","template_preview","scrollbars=yes, resizable=yes, width=420, height=" + winOpenScreenHeight);
+  }
+
+  // バックアップ
+  var tag = document.form1.target;
+  var act = document.form1.action;
+
+  // 表示するテンプレート
+  var tpl = document.createElement('input');
+  tpl.name = 'tpl';
+  tpl.type = 'hidden';
+  tpl.value = 'business.tpl';
+
+  // データ参照先
+  var mode = document.createElement('input');
+  mode.name = 'preview_mode';
+  mode.type = 'hidden';
+  mode.value = 'current';
+
+  // 呼び元
+  var kanri = document.createElement('input');
+  kanri.name = 'kanri';
+  kanri.type = 'hidden';
+  kanri.value = 'business';
+
+  document.form1.appendChild(tpl);
+  document.form1.appendChild(mode);
+  document.form1.appendChild(kanri);
+
+  // プレビュー表示
+  document.form1.target = "template_preview";
+  document.form1.method = "post";
+  document.form1.action= "../func100/newtplPreview.php";
+  document.form1.submit();
+
+  // 後始末
+  document.form1.target = tag;
+  document.form1.action = act;
+  document.form1.removeChild(tpl);
+  document.form1.removeChild(mode);
+  document.form1.removeChild(kanri);
+}
+
+function seekpczip() {
+    var zip1 = document.form1.zip1.value;
+    var zip2 = document.form1.zip2.value;
+
+    window.open("../func100/seekzip-blog.cgi?TARGET=form1&TYPE=BLOG&ZIP1="
+                 +zip1+"&ZIP2="+zip2, "zip","resizable=yes,scrollbars=yes,menubar=yes,width=400,height=250");
+}
+
+function closewaitwin() {
+    waitwin = window.open('', "waitwin", '');
+    waitwin.close();
+    return;
+}
+//-->
+</script>
+
+<!--0612デフォルト化ここから-->
+<style type="text/css">
+<!--
+.mustOpen {
+        color:#ff0000;
+        font-size:0.8em;
+        font-weight:normal;
+        margin:0 0 0 0.2em;
+}
+.limit_txt {
+  font-weight: normal;
+}
+-->
+</style>
+
+<form name="form1" method="post" action="business.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0093C9">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+                            <td align="left" class="midashi">特定商取引に関する法律に基づく表示ページの設定を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/business.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  お店ページのフッタ「特定商取引法の表示」からリンクするページを編集します。<br>
+                                  設定後、[設定を保存する]ボタンをクリックし、管理画面左上の[お店ページの更新へ]ボタンをクリックします。<br>
+                                  ※自作ページご利用の場合でも、必ず入力してください。<br>
+                                </div>
+<a href="https://help.shopserve.jp/ctrlpnl_sup/func03/business/ngword.html" target="manual">[&nbsp;使用できない文字一覧&nbsp;]</a>
+<table width="100%" border="0" cellspacing="0" cellpadding="0" class="table-padding-textarea-default">
+                                <tr>
+                                  <td>
+
+        <TMPL_IF NAME=err_msg>
+                <table>
+                        <tr>
+                        <TMPL_LOOP NAME=err_msg>
+                        <td><font size="2" color="#ff0000"><TMPL_VAR NAME=MSG></font></td>
+                        </tr><tr>
+                        </TMPL_LOOP>
+                        </tr>
+                </table>
+        </TMPL_IF>
+<table width="100%"  border="0" cellpadding="0" cellspacing="2" bgcolor="#333333" class="item-box">
+<tr>
+	<td class="item-name">
+<!-- 0710変更ここから -->
+		お店の名前
+<!-- 0710変更ここまで -->
+		<span class="mustOpen">（必須／公開）</span>
+	</td>
+	<td class="item">
+		<input name="shop_name" maxlength="128" type="text" class="def-line" value="<TMPL_VAR NAME=shop_name>">
+<!-- 0710変更ここから -->
+		<div class="func03Exa">例）
+			<div class="exampleTxt">新鮮無農薬野菜　果物の産直ショップ　フォーシーズン</div>
+		</div>
+<!-- 0710変更ここまで -->
+	</td>
+</tr>
+<tr>
+	<td class="item-name">
+<!-- 0710変更ここから -->
+		お店の名前（かな）
+<!-- 0710変更ここまで -->
+		<span class="mustOpen">（必須）</span>
+	</td>
+	<td class="item">
+		<input name="shop_name_kana" maxlength="128" type="text" class="def-line" value="<TMPL_VAR NAME=shop_name_kana>">
+<!-- 0710変更ここから -->
+		<div class="func03Exa">例）
+			<div class="exampleTxt">しんせんむのうやくやさい　くだもののさんちょくしょっぷ　ふぉーしーずん<br>
+			※「お店の名前」と同一の内容となるようにご記入ください。</div>
+		</div>
+<!-- 0710変更ここまで -->
+	</td>
+</tr>
+<tr>
+	<td class="item-name">
+		販売業者
+		<span class="mustOpen">（必須／公開）</span>
+	</td>
+	<td class="item">
+		<input name="company" type="text" class="def-line" value="<TMPL_VAR NAME=company>">
+	        <div style="line-height:1.2em;margin:2px 0 1px;font-size: 90%;">
+	            <span style="color:#ff0000;font-weight:bold;">※  お店の名前・ショップ名・屋号のみは不可</span><br>
+	            &nbsp;&nbsp;&nbsp;個人・個人事業主契約 ⇒ <span style="font-weight:bold;">代表者名</span>　例） 山田 博<br>
+	            &nbsp;&nbsp;&nbsp;法人契約 ⇒ <span style="font-weight:bold;">法人名</span>　例） 株式会社虎龍茶販<br>
+	        </div>
+	</td>
+</tr>
+<tr>
+	<td class="item-name">
+		販売責任者
+		<span class="mustOpen">（必須／公開）</span>
+	</td>
+	<td class="item">
+		<input name="lname" type="text" style="width:60px" value="<TMPL_VAR NAME=lname>">
+		<input name="fname" type="text" style="width:60px;margin:0 0 0 0.5em" value="<TMPL_VAR NAME=fname>">
+<!-- 0701追加ここから -->
+		<div class="func03Exa">例）
+			<div class="exampleTxt">山田　博</div>
+		</div>
+<!-- 0701追加ここまで -->
+	</td>
+</tr>
+<tr>
+	<td class="item-name">
+		所在地
+		<span class="mustOpen">（必須／公開）</span>
+	</td>
+	<td class="item-sub">
+		<table width="100%">
+		<tr>
+			<td class="sub-item-name">郵便番号</td>
+			<td class="sub-item">
+				<span style="font-size:90%;color:#ff0000;font-weight:bold;">※  実際に運営されている住所</span><br>
+				<INPUT maxLength=3 size=5 name=zip1 value="<TMPL_VAR NAME=zip1>" style="ime-mode:disabled">
+				-
+				<INPUT maxLength=4 size=6 name=zip2 value="<TMPL_VAR NAME=zip2>" style="ime-mode:disabled">
+				<INPUT type=button value="郵便番号から住所を検索" style="width:160px" onClick="seekpczip();">
+			</td>
+		</tr>
+		<tr>
+			<td class="sub-item-name">都道府県</td>
+			<td class="sub-item">
+				<select name="pref_id">
+					<option value="all">お選び下さい</option>
+                                        <TMPL_LOOP name=pref_list>
+                                        <option value="<TMPL_VAR NAME=pref_id>" <TMPL_IF NAME=seltmp>selected</TMPL_IF>><TMPL_VAR NAME=pref_name></option>
+                                        </TMPL_LOOP>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="sub-item-name">市区郡</td>
+			<td class="sub-item"><input name="city" type="text" class="sub-line" value="<TMPL_VAR NAME=city>"></td>
+		</tr>
+		<tr>
+			<td class="sub-item-name">町村字</td>
+			<td class="sub-item"><input name="town" type="text" class="sub-line" value="<TMPL_VAR NAME=town>"></td>
+		</tr>
+		<tr>
+			<td class="sub-item-name">番地</td>
+			<td class="sub-item"><input name="street" type="text" class="sub-line" value="<TMPL_VAR NAME=street>"></td>
+		</tr>
+		<tr>
+			<td class="sub-item-name">建物名</td>
+			<td class="sub-item"><input name="build" type="text" class="sub-line" value="<TMPL_VAR NAME=build>"></td>
+		</tr>
+		</table>
+	</td>
+</tr>
+<tr>
+	<td class="item-name">
+		電話番号
+		<span class="mustOpen">（必須／公開）</span>
+	</td>
+	<td class="item">
+		<input name="tel1" type="text" maxlength="5" size="5" value="<TMPL_VAR NAME=tel1>" style="ime-mode:disabled">
+		-
+		<input name="tel2" type="text" maxlength="4" size="5" value="<TMPL_VAR NAME=tel2>" style="ime-mode:disabled">
+		-
+		<input name="tel3" type="text" maxlength="4" size="5" value="<TMPL_VAR NAME=tel3>" style="ime-mode:disabled">
+		<span style="font-size:90%;color:#ff0000;font-weight:bold;">※  購入者の問合せ窓口番号</span>
+		<div class="func03Exa">例）
+			<div class="exampleTxt">03-3333-1111</div>
+		</div>
+	</td>
+</tr>
+<tr>
+	<td class="item-name">
+		FAX番号
+		<span class="mustOpen">（公開）</span>
+	</td>
+	<td class="item">
+		<input name="fax1" type="text" maxlength="5" size="5" value="<TMPL_VAR NAME=fax1>" style="ime-mode:disabled">
+		-
+		<input name="fax2" type="text" maxlength="4" size="5" value="<TMPL_VAR NAME=fax2>" style="ime-mode:disabled">
+		-
+		<input name="fax3" type="text" maxlength="4" size="5" value="<TMPL_VAR NAME=fax3>" style="ime-mode:disabled">
+<!-- 0701追加ここから -->
+		<div class="func03Exa">例）
+			<div class="exampleTxt">03-3333-1111　※FAXがない場合は入力不要</div>
+		</div>
+<!-- 0701追加ここまで -->
+	</td>
+</tr>
+<tr>
+	<td class="item-name">
+		メールアドレス
+		<span class="mustOpen">（必須／公開）</span>
+	</td>
+	<td class="item">
+		<input name="mail" type="text" class="def-line" maxlength="128" value="<TMPL_VAR NAME=mail>" style="ime-mode:disabled">
+<!-- 0701追加ここから -->
+		<div class="func03Exa">例）
+			<div class="exampleTxt">info@webshop-sample.com</div>
+
+		</div>
+<!-- 0701追加ここまで -->
+	</td>
+</tr>
+<tr>
+	<td class="item-name">
+		ホームページのＵＲＬ<br>
+		<span class="mustOpen">（必須／公開）</span>
+	</td>
+	<td class="item">
+		<input name="homepage" type="text" class="def-line"  maxlength="128" value="<TMPL_VAR NAME=homepage>">
+<!-- 0701追加ここから -->
+		<div class="func03Exa">例）
+			<div class="exampleTxt">http://www.webshop-sample.com/</div>
+		</div>
+<!-- 0701追加ここまで -->
+	</td>
+</tr>
+<tr>
+	<td class="item-name">
+		取扱商品ジャンル
+		<span class="mustOpen">（必須）</span>
+	</td>
+	<td class="item">
+<TMPL_IF 0>
+	        <SELECT NAME="cat1">
+	                <option value="">選択してください</option>
+                        <TMPL_LOOP NAME=CAT1S>
+                        <option value="<TMPL_VAR NAME=CID>" <TMPL_IF NAME=SEL>selected</TMPL_IF>><TMPL_VAR NAME=NAME></option>
+                        </TMPL_LOOP>
+                </SELECT>
+<!-- 0701追加ここから -->
+		<div class="func03Exa">例）
+			<div class="exampleTxt">ファッション・アクセサリー</div>
+		</div>
+<!-- 0701追加ここまで -->
+<TMPL_ELSE>
+<style>
+.sfdcatblock {
+    float : left;
+    width : 33.3%;
+}
+.sfdcattitle {
+    width : 100%;
+    font-size : 11px;
+    font-weight : bold;
+    padding : 0px;
+    margin-right : 100px;
+    margin : 0px 20px 0px 0px;
+}
+.sfdcatlist {
+    list-style:none;
+    padding : 0px;
+    margin : 0px;
+}
+.sfdcatlist li {
+    padding-right : 5px;
+}
+.sfdcat {
+    padding-right : 0px;
+    width : 100%;
+    font-size : 10px;
+}
+</style>
+<div class="sfdcatblock">
+    <h3 class="sfdcattitle">ファッション</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" id="cat1_F19" value="F19" <TMPL_IF NAME=F19ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F19">レディースファッション</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F17" value="F17" <TMPL_IF NAME=F17ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F17">メンズファッション</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F18" value="F18" <TMPL_IF NAME=F18ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F18">ユニセックスファッション</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F16" value="F16" <TMPL_IF NAME=F16ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F16">バッグ・小物・ブランド雑貨</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F15" value="F15" <TMPL_IF NAME=F15ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F15">ジュエリー・アクセサリー</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F20" value="F20" <TMPL_IF NAME=F20ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F20">靴</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F14" value="F14" <TMPL_IF NAME=F14ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F14">インナー・下着・ナイトウエア</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F21" value="F21" <TMPL_IF NAME=F21ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F21">腕時計</label></span></li>
+    </ul>
+    <h3 class="sfdcattitle">グルメ・ドリンク</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" id="cat1_F10" value="F10" <TMPL_IF NAME=F10ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F10">食品</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F08" value="F08" <TMPL_IF NAME=F08ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F08">スイーツ</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F11" value="F11" <TMPL_IF NAME=F11ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F11">水・ソフトドリンク</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F09" value="F09" <TMPL_IF NAME=F09ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F09">ビール・洋酒・ワイン</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F12" value="F12" <TMPL_IF NAME=F12ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F12">日本酒・焼酎</label></span></li>
+    </ul>
+</div>
+<div class="sfdcatblock">
+    <h3 class="sfdcattitle">生活・インテリア</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" id="cat1_F26" value="F26" <TMPL_IF NAME=F26ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F26">インテリア・寝具・収納</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F27" value="F27" <TMPL_IF NAME=F27ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F27">キッチン用品・食器・調理器具</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F28" value="F28" <TMPL_IF NAME=F28ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F28">日用品雑貨・文房具・手芸</label></span></li>
+    </ul>
+    <h3 class="sfdcattitle">美容・健康</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" id="cat1_F32" value="F32" <TMPL_IF NAME=F32ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F32">ダイエット・健康</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F34" value="F34" <TMPL_IF NAME=F34ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F34">美容・コスメ・香水</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F33" value="F33" <TMPL_IF NAME=F33ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F33">医薬品・コンタクト・介護</label></span></li>
+    </ul>
+    <h3 class="sfdcattitle">エンターテインメント・家電</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" id="cat1_F03" value="F03" <TMPL_IF NAME=F03ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F03">パソコン・周辺機器</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F04" value="F04" <TMPL_IF NAME=F04ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F04">家電・AV・カメラ</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F05" value="F05" <TMPL_IF NAME=F05ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F05">楽器</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F06" value="F06" <TMPL_IF NAME=F06ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F06">本・雑誌・コミック</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F01" value="F01" <TMPL_IF NAME=F01ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F01">CD・DVD</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F02" value="F02" <TMPL_IF NAME=F02ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F02">おもちゃ・ホビー・ゲーム</label></span></li>
+    </ul>
+</div>
+<div class="sfdcatblock">
+    <h3 class="sfdcattitle">キッズ・ベビー・マタニティ</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" id="cat1_F07" value="F07" <TMPL_IF NAME=F07ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F07">キッズ・ベビー・マタニティ</label></span></li>
+    </ul>
+    <h3 class="sfdcattitle">スポーツ・アウトドア</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" id="cat1_F13" value="F13" <TMPL_IF NAME=F13ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F13">スポーツ・アウトドア</label></span></li>
+    </ul>
+    <h3 class="sfdcattitle">ペット・花・DIY</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" id="cat1_F22" value="F22" <TMPL_IF NAME=F22ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F22">ペット・ペットグッズ</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F23" value="F23" <TMPL_IF NAME=F23ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F23">花・ガーデン・DIY</label></span></li>
+    </ul>
+    <h3 class="sfdcattitle">車・バイク</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" id="cat1_F24" value="F24" <TMPL_IF NAME=F24ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F24">車・バイク</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F25" value="F25" <TMPL_IF NAME=F25ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F25">車用品・バイク用品</label></span></li>
+    </ul>
+    <h3 class="sfdcattitle">店舗・文具・オフィス</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" id="cat1_F29" value="F29" <TMPL_IF NAME=F29ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F29">事務・作業服・ユニフォーム</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F30" value="F30" <TMPL_IF NAME=F30ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F30">店舗用品</label></span></li>
+    <li><input type="checkbox" name="cat1" id="cat1_F31" value="F31" <TMPL_IF NAME=F31ON>checked</TMPL_IF>><span class="sfdcat"><label for="cat1_F31">文房具・オフィス用品</label></span></li>
+    </ul>
+</div>
+</TMPL_IF>
+	</td>
+</tr>
+<tr>
+	<td class=item-name>
+		取扱商品
+		<span class="mustOpen">（必須／公開）</span><br>
+<!-- 0710変更ここから -->
+		<span class="limit_txt">全角2500文字以内<br>
+		※HTMLタグ利用不可</span>
+<!-- 0710変更ここまで -->
+	</td>
+	<td class="item">
+		<textarea name="info10" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=info10></textarea>
+<!-- 0701追加ここから -->
+		<div class="func03Exa">例）
+			<div class="exampleTxt">無農薬野菜、果物</div>
+
+		</div>
+<!-- 0701追加ここまで -->
+	</td>
+</tr>
+<tr>
+    <td class=item-name>
+	店舗説明
+	<span class="mustOpen">（必須）</span><br>
+	<span class="limit_txt">全角250文字以内<br>
+	※HTMLタグ利用不可</span>
+    </td>
+    <td class="item">
+	<textarea name="sitedesc" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=sitedesc></textarea>
+	<div class="func03Exa">例）
+		<div class="exampleTxt">新鮮、無農薬にこだわって厳選した野菜・果物を、産地から直接お客様にお届けしています。</div>
+	</div>
+    </td>
+</tr>
+<tr>
+    <td class=item-name>
+	許認可・資格
+	<span class="mustOpen">（公開）</span><br>
+	<span class="limit_txt">全角2500文字以内<br>
+	※HTMLタグ利用不可</span>
+    </td>
+    <td class="item">
+	<textarea name="info11" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=info11></textarea>
+	<div class="func03Exa">例）
+		<div class="exampleTxt">東京都公安委員会　古物商許可　第○○○○○○○○○○○○○○号</div>
+	</div>
+    </td>
+</tr>
+<tr>
+    <td class=item-name>
+	販売数量
+	<span class="mustOpen">（必須／公開）</span><br>
+	<span class="limit_txt">全角2500文字以内<br>
+	※HTMLタグ利用不可</span>
+    </td>
+    <td class="item">
+	<textarea name="info04" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=info04></textarea>
+	<div class="func03Exa">例）
+		<div class="exampleTxt">商品は在庫限りとさせていただきます。ご注文いただきました商品が在庫切れの場合は、TEL、またはメールでご連絡差し上げます。</div>
+	</div>
+    </td>
+</tr>
+<tr>
+    <td class="item-name">
+	商品代金以外の必要料金<br>
+	<span class="mustOpen">（必須／公開）</span><br>
+	<span class="limit_txt">全角2500文字以内<br>
+	※HTMLタグ利用不可</span>
+    </td>
+    <td class="item">
+	<textarea name="info01" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=info01></textarea>
+	<div class="func03Exa">例）
+		<div class="exampleTxt">送料(全国一律600円)、代金引換手数料(300円)、銀行振込手数料は原則としてお客様負担にてお願いいたします。<br>
+		消費税は全て商品代金(税込価格)に含んで表示しています。</div>
+	</div>
+    </td>
+</tr>
+<tr>
+    <td class="item-name">
+	申込の有効期限
+	<span class="mustOpen">（必須／公開）</span><br>
+	<span class="limit_txt">全角2500文字以内<br>
+	※HTMLタグ利用不可</span>
+    </td>
+    <td class="item">
+	<textarea name="info02" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=info02></textarea>
+	<div class="func03Exa">例）
+		<div class="exampleTxt">ご注文後7日以内にお支払下さい。なお、ご注文から7日以内にご入金が確認できない場合は、ご注文をキャンセル扱いとさせていただきます。</div>
+	</div>
+    </td>
+</tr>
+<tr>
+<td class=item-name>
+	引き渡し時期
+	<span class="mustOpen">（必須／公開）</span><br>
+	<span class="limit_txt">全角2500文字以内<br>
+	※HTMLタグ利用不可</span>
+</td>
+
+<td class="item">
+  <textarea name="info05" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=info05></textarea>
+    <div style="line-height:1.2;margin:2px 0 1px;">いつから○日以内（以降）に発送する。 を明記してください。</div>
+    <div class="func03Exa">例）
+      <div class="exampleTxt">
+        <span style="border-bottom:1px solid #444;">注文日</span>より<span style="border-bottom:1px solid #444;">2営業日以内</span>に<span style="border-bottom:1px solid #444;">発送</span>いたします。
+      </div>
+    </div>
+</td>
+
+</tr>
+</table>
+<br>
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="2" bgcolor="#333333" class="item-box">
+<tr>
+    <td class=item-name>
+	返品期限・条件
+	<span class="mustOpen">（必須／公開）</span><br>
+    </td>
+    <td class="item-sub">
+	<table width="100%">
+	<tr>
+	    <td class="sub-item-name">期限・条件</td>
+	    <td class="sub-item">
+		<textarea name="info08" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=info08></textarea>
+	        <div style="line-height:1.3;">全角2500文字以内<br>
+	        ※HTMLタグ利用不可</div>
+	    </td>
+	</tr>
+	<tr>
+	    <td class="sub-item-name">表示設定</td>
+	    <td class="sub-item">
+	        <select name="return_flg">
+      	            <option value="N" <TMPL_VAR name=return_flg_n>>非表示</option>
+      	            <option value="Y" <TMPL_VAR name=return_flg_y>>表示</option>
+	        </select>
+	        <div style="line-height:1.3;">「表示」にした場合、お店ページの「商品詳細」に返品期限・条件リンクが表示されます。</div>
+	    </td>
+	</tr>
+	<tr>
+	    <td class="sub-item-name">表示名</td>
+	    <td class="sub-item">
+                <input name="return_title" type="text" class="def-line"  maxlength="128" value="<TMPL_VAR name=return_title>">
+            </td>
+	</tr>
+	<tr>
+	    <td class="sub-item-name">返品についてのリンク先URL</td>
+	    <td class="sub-item">
+	        <input name="return_url" type="text" class="def-line"  maxlength="128" value="<TMPL_VAR name=return_url>">
+	        <div style="line-height:1.3;">自作ページをご利用の場合はURLを入力してください。<br>
+	        未入力の場合はお店ページの「特定商取引法に関する表示」ページにリンクします。</div>
+	    </td>
+	</tr>
+	</table>
+    </td>
+</tr>
+<tr>
+    <td class=item-name>
+	返品送料
+	<span class="mustOpen">（必須／公開）</span><br>
+	<span class="limit_txt">全角2500文字以内<br>
+	※HTMLタグ利用不可</span>
+    </td>
+    <td class="item">
+	<textarea name="info09" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=info09></textarea>
+	<div class="func03Exa">例）
+	<div class="exampleTxt">お客様都合の場合はご容赦ください。ただし、不良品交換、誤品配送交換は当社負担とさせていただきます。</div>
+	</div>
+    </td>
+</tr>
+
+<tr>
+    <td class=item-name>
+	不良品
+	<span class="mustOpen">（必須／公開）</span><br>
+	<span class="limit_txt">全角2500文字以内<br>
+	※HTMLタグ利用不可</span>
+    </td>
+    <td class="item">
+	<textarea name="info03" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=info03></textarea>
+	<div class="func03Exa">例）
+	<div class="exampleTxt">
+	万一不良品等がございましたら、当店の在庫状況を確認のうえ、新品、または同等品と交換させていただきます。<br>
+	商品到着後7日以内にメールまたは電話でご連絡ください。それを過ぎますと返品交換のご要望はお受けできなくなりますので、ご了承ください。</div>
+	</div>
+    </td>
+</tr>
+</table>
+<br>
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="2" bgcolor="#333333" class="item-box">
+<tr>
+	<td class=item-name>
+		お支払方法
+		<span class="mustOpen">（必須／公開）</span><br>
+<!-- 0710変更ここから -->
+		<span class="limit_txt">全角2500文字以内<br>
+		※HTMLタグ利用不可</span>
+<!-- 0710変更ここまで -->
+	</td>
+	<td class="item">
+		<textarea name="info06" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=info06></textarea>
+<!-- 0701追加ここから -->
+		<div class="func03Exa">例）
+			<div class="exampleTxt">代引き、銀行振込、郵便振替、クレジットカード払、コンビニ払を用意してございます。ご希望にあわせて、各種ご利用ください。</div>
+		</div>
+<!-- 0701追加ここまで -->
+	</td>
+</tr>
+<tr>
+	<td class=item-name>
+		お支払期限
+		<span class="mustOpen">（必須／公開）</span><br>
+<!-- 0710変更ここから -->
+		<span class="limit_txt">全角2500文字以内<br>
+		※HTMLタグ利用不可</span>
+<!-- 0710変更ここまで -->
+	</td>
+	<td class="item">
+		<textarea name="info07" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=info07></textarea>
+<!-- 0701追加ここから -->
+		<div class="func03Exa">例）
+			<div class="exampleTxt">
+				代引き：商品引渡時<br>
+				銀行振込と郵便振替：ご注文確定後7日以内<br>
+				コンビニ（番号端末式）・銀行ATM・ネットバンキング決済：ご注文確定後7日以内
+			</div>
+		</div>
+<!-- 0701追加ここまで -->
+	</td>
+</tr>
+</table>
+<br>
+<!--0612デフォルト化ここまで-->
+
+                                    <div align="center">
+                                      <TMPL_IF NAME=isnewlogic>
+                                      <input name="pre" type="button" id="pre" value="プレビュー" onClick="<TMPL_IF NAME=isResponsiveTheme>responsiveTplPreview();<TMPL_ELSE>newtpl_preview();</TMPL_IF>">
+                                      <TMPL_ELSE>
+                                      <input name="pre" type="button" id="pre" value="プレビュー" onClick="preview();">
+                                      </TMPL_IF>
+                                      <input name="set" type="button" id="set" value="設定を保存する" onClick="document.form1.target='_self';document.form1.mode.value='regist';document.form1.submit();" name="set">
+                                    </div></td>
+                                </tr>
+                              </table></td>
+                            </tr>
+
+                        </table>
+                      </td>
+                    </tr>
+<input type="hidden" name="mode" value="regist">
+</form>

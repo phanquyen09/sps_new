@@ -1,0 +1,479 @@
+
+<script language="JavaScript">
+<!--
+function ka_next() {
+	flag=0;
+
+	if(document.form01.check01.checked) flag=1;
+
+	if(flag){
+        window.opener.document.location = './branch-open.cgi?SITEN_ID=14';
+        window.close();
+	} else {
+		alert("「『価格.com』支店へのお申し込み準備は完了しています。」をチェックしてください。");
+	}
+}
+//-->
+</script>
+
+<style type="text/css">
+<!--
+* {
+	padding:0;
+	margin:0;
+}
+
+body {
+        text-align:left;
+	width:800px;
+	color:#333;
+	font-size:0.84em;
+	line-height:1.5em;
+	background-color:#fff;
+	border-left:2px solid #666;
+	border-right:2px solid #666;
+	margin:0 auto 0 auto;
+}
+
+h1 {
+	color:#C11717;
+	font-size:1.5em;
+	line-height:1.5em;
+	padding:0.1em 0.1em 0 0.1em;
+}
+
+h2 {
+	color:#FFF;
+	font-size:1em;
+	line-height:1em;
+	background-color:#C11717;
+	padding:0.4em 0.4em 0.3em;
+	border-top:2px solid #999;
+	border-left:2px solid #999;
+	border-right:2px solid #999;
+}
+
+h3 {
+	width:97%;
+	color:#444;
+	font-size:1em;
+	line-height:1em;
+	font-weight:bold;
+	padding:0.4em 0.2em 0.3em 0.5em;
+	margin:1.5em auto 0 auto;
+	border-left:5px solid #C11717;
+	border-bottom:1px solid #444;
+}
+
+p {
+	margin:1em 0 1em;
+}
+
+ul {
+	margin:1em 0 0;
+}
+
+li {
+	margin:0 0 0 2.5em;
+	color:#444;
+	font-weight:bold;
+	line-height:2em;
+}
+
+textarea {
+	font-size:1em;
+	line-height:1.2em;
+}
+
+
+
+.con_chk {
+	border:2px solid #999999;
+	padding:0 0.8em 0.5em;
+	margin:0 0 2.5em 0;
+}
+
+.con_step {
+	margin:1.8em 0 0 1em;
+}
+
+.step {
+	color:#fff;
+	background-color:#ff9900;
+	padding:0.1em 0.2em 0 0.4em;
+	text-align:center;
+}
+
+.step_msg {
+	width:97%;
+	margin:0 0 1.5em 0.8em;
+	border-bottom:1px dotted #000;
+}
+
+.step_msgin {
+	color:#fff;
+	background-color:#ff9900;
+	padding:0.1em 0.1em 0.1em 0.2em;
+	margin:0 0.2em 0 0;
+}
+
+.step_img {
+	padding:1.5em 0 1.5em;
+}
+
+.step_msgend {
+	margin:0 0 1.5em 1em;
+}
+
+.chk_msgin {
+	color:#fff;
+	font-weight:bold;
+	background-color:#c11717;
+	padding:0.1em 0.1em 0.1em 0.2em;
+	margin:0 0.2em 0 0;
+}
+
+.font_red {
+	color:#ff0000;
+	font-weight:bold;
+}
+
+
+
+#con_head {
+	border-top:0.8em solid #C11717;
+	background-color:#fdd0c0;
+	padding:0 0 0 0.2em;
+	border-bottom:3px double #C11717;
+}
+
+#con_main {
+	padding:0 1em 1em;
+	border-bottom:1.5em solid #C11717;
+}
+
+#con_chkbox {
+	background-color:#fff0e8;
+	border:1px solid #c11717;
+	margin:1.8em 0 0;
+	padding:0.3em;
+}
+
+#con_sbtbtn {
+	text-align:center;
+	margin:2.5em 0 3em;
+}
+-->
+</style>
+
+
+</head>
+<body>
+
+<div id="con_head"><h1>『価格.com』支店　お申し込み前の準備</h1></div>
+
+<div id="con_main">
+    <p>『価格.com』支店にお申し込みいただけるのは、事業形態が法人の場合のみとなります。<br>
+    事業形態が個人、個人事業主の場合はお申し込みいただけません。</p>
+
+    <p>また、お申し込みの前に準備していただく項目がございます。<br>
+	<span class="font_red">商品を出品するための必須項目となり、以下の条件を満たしていない場合は出品できませんので必ずご確認ください。</span></p>
+
+	<p>各項目の準備が整いましたら、本ページ下部の「『価格.com』支店へのお申し込み準備は完了しています。」をチェックし、「出店手続きへ進む」ボタンをクリックしてください。</p>
+
+
+	<h2>【チェック１】 出品予定の商品が『価格.com』へ出品可能であることを確認</h2>
+	<div class="con_chk">
+		<p>『価格.com』では、基本的に純メーカー製の商品を出品対象としておりますので、オリジナル商品などを出品することはできかねます。<br>
+		出品可能な商品につきましては、Ｅストアーショップサーブ管理画面より確認できます。</p>
+
+		<h3>出品可能商品の確認方法</h3>
+		<div class="con_step">
+			<table>
+			<tbody><tr>
+				<td valign="top"><div class="step">STEP1</div></td>
+				<td width="100%"><div class="step_msg">下記「型番参照」ボタンをクリックします。</div>
+				<div style="margin-left:20px;padding-bottom:20px;">
+                <input type="button" name="Submit" value="型番参照" onclick="window.open('../func01/input_hinban.cgi?APPL=Y','hinban_inst','width=800,height=700,scrollbars=yes,resizable=yes')" style="padding: 8px 20px;">
+				</div>
+				</td>
+			</tr>
+			
+			
+			<tr>
+				<td valign="top"><div class="step">STEP2</div></td>
+				<td><div class="step_msgend">出品したい商品の「製品名・型番」があるか確認します。
+				<div class="step_img"><img src="../imgs/chk01_04.gif" alt="出品する商品に該当する「製品・型番」があるか確認" height="399" width="596"></div>
+				</div>
+				</td>
+			</tr>
+			</tbody></table>
+		</div>
+	</div>
+
+
+
+	<h2>【チェック２】 代金引換の設定と代引手数料の案内を確認</h2>
+	<div class="con_chk">
+		<p>『価格.com』への出店には「代金引換」に関する規定がございます。<br>
+		お申し込みの前に、規定を満たしているか代金引換の設定を確認してください。</p>
+
+		<h3>代金引換の規定</h3>
+		<ul>
+			<li>決済方法として「代金引換」が利用できること</li>
+			<li>「代金引換」の手数料を設定していること</li>
+			<li>代引手数料の案内をお店のホームページに掲載していること</li>
+		</ul>
+
+		<h3>代金引換の確認方法</h3>
+		<div class="con_step">
+			<table>
+			<tbody><tr>
+				<td valign="top"><div class="step">STEP1</div></td>
+				<td width="100%"><div class="step_msg">「お店設定」をクリックします。
+				<div class="step_img"><img src="../imgs/chk02_01.gif" alt="「お店設定」をクリック" height="144" width="594"></div>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top"><div class="step">STEP2</div></td>
+				<td><div class="step_msg">「代金引換」が「表示」になっていることを確認します。<br>
+				「非表示」の場合は、「表示」を選択して「変更」ボタンをクリックします。
+				<div class="step_img"><img src="../imgs/chk02_02.gif" alt="「代金引換」が「表示」になっていることを確認" height="150" width="594"></div>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top"><div class="step">STEP3</div></td>
+				<td><div class="step_msg">「詳細設定」ボタンをクリックします。
+				<div class="step_img"><img src="../imgs/chk02_03.gif" alt="「詳細設定」ボタンをクリック" height="150" width="594"></div>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top"><div class="step">STEP4</div></td>
+				<td><div class="step_msg">「手数料欄」が設定されていることを確認します。<br>
+				設定していない場合は、各項目を入力して「保存する」ボタンをクリックします。<br>
+				<span class="font_red">※「別途と表示する」を選択している場合は利用できません。</span>
+				<div class="step_img"><img src="../imgs/chk02_04.gif" alt="「手数料欄」が設定されていることを確認" height="359" width="594"></div>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top"><div class="step">STEP5</div></td>
+				<td><div class="step_msg">代引手数料を案内しているページのURLを確認します。<br>
+				案内ページを用意している場合は、<span class="chk_msgin">【チェック３】</span>へ進んでください。<br>
+				案内ページがない場合は、<span class="step_msgin">STEP6</span>へ進んでください。
+				<div class="step_img"><img src="../imgs/chk02_05.gif" alt="代引手数料を案内しているページのURLを確認" height="323" width="594"></div>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top"><div class="step">STEP6</div></td>
+				<td><div class="step_msg">左メニューから「ご利用案内の編集」を選択します。
+				<div class="step_img"><img src="../imgs/chk02_06.gif" alt="左メニューから「ご利用案内の編集」を選択" height="140" width="594"></div>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top"><div class="step">STEP7</div></td>
+				<td><div class="step_msg">「お支払方法」の「説明」に代引手数料の案内を入力します。
+				<div class="step_img"><img src="../imgs/chk02_07.gif" alt="「お支払方法」の「説明」に代引手数料の案内を入力" height="193" width="594"></div>
+				<p>
+				[入力例]<br>
+<textarea name="no" rows="5" cols="50">【代引手数料について】&lt;BR&gt;
+商品合計金額　：　手数料&lt;BR&gt;
+10,000円未満　：　315円&lt;BR&gt;
+30,000円未満　：　420円&lt;BR&gt;
+100,000円未満　：　630円&lt;BR&gt;
+100,000円以上　：　1,050円&lt;BR&gt;
+&lt;BR&gt;
+</textarea>
+				</p>
+<!--
+<pre>
+[入力例]
+
+【代引手数料について】<BR>
+  商品合計金額　：　手数料<BR>
+  10,000円未満　：　315円<BR>
+  30,000円未満　：　420円<BR>
+  100,000円未満　：　630円<BR>
+  100,000円以上　：　1,050円<BR>
+  <BR>
+
+ ●代金引換：代引手数料は以下のとおりです。
+   ┌───────┬────┐
+   │ 商品合計金額 │ 手数料 │
+   ├───────┼────┤
+   │ 10,000円未満 │  000円 │
+   │ 30,000円未満 │  000円 │
+   │100,000円未満 │  000円 │
+   │100,000円以上 │  000円 │
+   └───────┴────┘
+</pre>
+-->
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top"><div class="step">STEP8</div></td>
+				<td><div class="step_msg">「表示切替」から「表示」を選択し、「見出し」を入力して、ページ下部の「設定を保存する」ボタンをクリックします。
+				<div class="step_img"><img src="../imgs/chk02_08.gif" alt="「表示切替」から「表示」を選択し、「見出し」を入力して、ページ下部の「設定を保存する」ボタンをクリック" height="193" width="594"><br>
+				<img src="../imgs/chk02_08b.gif" alt="「表示切替」から「表示」を選択し、「見出し」を入力して、ページ下部の「設定を保存する」ボタンをクリック" height="125" width="594"></div>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top"><div class="step">STEP9</div></td>
+				<td><div class="step_msgend">「お店ページの更新へ」をクリックします。
+				<div class="step_img"><img src="../imgs/chk02_09.gif" alt="「お店ページの更新へ」をクリック" height="168" width="594"></div>
+				※更新が完了したら、「サーバー」をクリックし、左メニューから「URL一覧」を選択して、代引手数料の案内を記載した<br><span class="font_red">「ご利用案内」</span>のURLを確認します。
+				<div class="step_img"><img src="../imgs/chk02_09b.gif" alt="「サーバー」をクリックし、左メニューの「URL一覧」から確認" height="115" width="594"></div>
+				</div>
+				</td>
+			</tr>
+			</tbody></table>
+		</div>
+	</div>
+
+
+	<h2>【チェック３】 送料の設定と案内を確認</h2>
+	<div class="con_chk">
+		<p>『価格.com』への出店には「送料」に関する規定がございます。<br>
+		お申し込みの前に、規定を満たしているか送料の設定を確認してください。</p>
+
+		<h3>送料の規定</h3>
+		<ul>
+			<li>「送料」の設定をしていること</li>
+			<li>送料の案内をお店のホームページに掲載していること</li>
+		</ul>
+
+		<h3>料金設定の確認方法</h3>
+		<div class="con_step">
+			<table>
+			<tbody><tr>
+				<td valign="top"><div class="step">STEP1</div></td>
+				<td width="100%"><div class="step_msg">「お店設定」をクリックし、左メニューから「送料の設定」を選択します。
+				<div class="step_img"><img src="../imgs/chk03_01.gif" alt="「お店設定」をクリックし、左メニューから「送料の設定」を選択" height="118" width="594"></div>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top"><div class="step">STEP2</div></td>
+				<td><div class="step_msg">送料の設定を確認します。<br>
+				設定を変更した場合は「設定を保存する」ボタンをクリックします。<br>
+				<span class="font_red">※「別途連絡」を選択している場合は利用できません。</span>
+				<div class="step_img"><img src="../imgs/chk03_02.gif" alt="送料の設定を確認" height="184" width="599">
+				<!--<br><img src="../imgs/chk03_02b.gif" alt="送料の設定を確認" height="125" width="594">-->
+				</div>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top"><div class="step">STEP3</div></td>
+				<td><div class="step_msg">送料を案内しているページのURLを確認します。<br>
+				案内ページを用意している場合は、<span class="chk_msgin">【お申し込みについて】</span>へ進んでください。<br>
+				案内ページがない場合は、<span class="step_msgin">STEP4</span>へ進んでください。
+				<div class="step_img"><img src="../imgs/chk03_03.gif" alt="送料を案内しているページのURLを確認" height="310" width="594"><br></div>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top"><div class="step">STEP4</div></td>
+				<td><div class="step_msg">左メニューから「ご利用案内の編集」を選択します。
+				<div class="step_img"><img src="../imgs/chk03_04.gif" alt="左メニューから「ご利用案内の編集」を選択" height="140" width="594"></div>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top"><div class="step">STEP5</div></td>
+				<td><div class="step_msg">「送料について」の「説明」に送料の案内を入力します。
+				<div class="step_img"><img src="../imgs/chk03_05.gif" alt="「送料について」の「説明」に送料の案内を入力" height="191" width="594"></div>
+
+				<p>
+				[入力例]<br>
+<textarea name="no" rows="5" cols="50">地域や重量により送料が異なります。詳しくは下記をご覧下さい。&lt;BR&gt;
+また、1万円以上のお買い上げの方には送料を無料とさせていただきます。&lt;BR&gt;
+&lt;BR&gt;
+600円&lt;BR&gt;
+関東（東京・神奈川・埼玉・千葉・茨城・栃木・群馬・山梨）信越（新潟・長野）&lt;BR&gt;
+南東北（宮城・山形・福島）北陸（富山・石川・福井）中部（静岡・愛知・三重・岐阜）&lt;BR&gt;
+700円&lt;BR&gt;
+北東北（青森・秋田・岩手）&lt;BR&gt;
+関西（大阪・京都・滋賀・兵庫・和歌山・奈良）&lt;BR&gt;
+800円&lt;BR&gt;
+中国（岡山・広島・山口・鳥取・島根）&lt;BR&gt;
+900円&lt;BR&gt;
+四国（香川・徳島・愛媛・高知）&lt;BR&gt;
+1,000円&lt;BR&gt;
+北海道全域&lt;BR&gt;
+九州(福岡・佐賀・長崎・大分・熊本・宮崎・鹿児島）&lt;BR&gt;
+1,100円&lt;BR&gt;
+沖縄&lt;BR&gt;
+&lt;BR&gt;
+</textarea>
+				</p>
+<!--
+<pre>
+[ 入力例 ]
+
+ ●送料は以下のとおりです。
+   ┌──────────────┬────┐
+   │ 北海道   沖縄              │  000円 │
+   │ 東北地方 九州地方          │  000円 │
+   │ 関東地方 中部地方          │  000円 │
+   │ 近畿地方 中国地方 四国地方 │  000円 │
+   └──────────────┴────┘
+    ※10,000円以上お買い上げの場合は送料無料です。
+    ※離島の場合、別途料金を頂く場合がございます。
+      あらかじめご了承ください。
+
+</pre>
+-->
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top"><div class="step">STEP6</div></td>
+				<td><div class="step_msg">「表示切替」から「表示」を選択し、「見出し」を入力して、ページ下部の「設定を保存する」ボタンをクリックします。
+				<div class="step_img">
+				<img src="../imgs/chk03_06.gif" alt="「表示切替」から「表示」を選択し、「見出し」を入力して、ページ下部の「設定を保存する」ボタンをクリック" height="191" width="594"><br>
+				<img src="../imgs/chk03_06b.gif" alt="「表示切替」から「表示」を選択し、「見出し」を入力して、ページ下部の「設定を保存する」ボタンをクリック" height="125" width="594">
+				</div>
+				</div>
+				</td>
+			</tr>
+			<tr>
+				<td valign="top"><div class="step">STEP7</div></td>
+				<td><div class="step_msgend">「お店ページの更新へ」をクリックします。
+				<div class="step_img"><img src="../imgs/chk03_07.gif" alt="「お店ページの更新へ」をクリック" height="168" width="594"></div>
+				※更新が完了したら、「サーバー」をクリックし、左メニューから「URL一覧」を選択して、送料の案内を記載した<br><span class="font_red">「ご利用案内」</span>のURLを確認します。
+				<div class="step_img"><img src="../imgs/chk03_07b.gif" alt="「サーバー」をクリックし、左メニューの「URL一覧」から確認" height="115" width="594"></div>
+				</div>
+				</td>
+			</tr>
+			</tbody></table>
+
+		</div>
+	</div>
+
+
+	<h2>【お申し込みについて】</h2>
+	<div class="con_chk">
+		<p>お申し込みから出店までは、約1カ月〜3カ月のお時間をいただいております。<br>
+		審査終了後、出店のご案内をメールにてお知らせいたします。</p>
+
+		<p>お申し込みについての注意点や掲載基準につきましては <a href="http://kakaku.com/shopentry/e_store.htm" target="_top">[ 『価格.com』出店のご案内 ]</a> をご覧ください。</p>
+	</div>
+
+	<p>上記の準備が整いましたら、以下の「『価格.com』支店へのお申し込み準備は完了しています。」をチェックし、「出店手続きへ進む」ボタンをクリックしてください。</p>
+
+	<form action="" method="POST" name="form01">
+	<div id="con_chkbox"><input type="checkbox" name="check01" >『価格.com』支店へのお申し込み準備は完了しています。</div>
+	<div id="con_sbtbtn">
+		<input value="出店手続きへ進む" onclick="ka_next()" type="button" style="padding: 8px 10px;">
+	</div>
+	</form>
+
+</div>

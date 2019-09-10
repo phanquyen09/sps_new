@@ -1,0 +1,163 @@
+<script language="JavaScript">
+<!--
+function del(f) {
+  if ( confirm("記事を削除します。よろしいですか？") ) {
+    f.submit();
+  } else {
+    return;
+  }
+}
+//-->
+</script>
+
+<!-- 060719用 サブメニューを追加ここから -->
+<!-- 追加スタイルは default05.css に追加 -->
+<style type=text/css>
+<!--
+.m_menu_off {
+	padding:2px;
+	margin:3px;
+}
+.m_menu_on {
+	background-color:#FFCC66;
+	padding:2px;
+	margin:3px;
+}
+-->
+</style>
+
+<table width="100%">
+<tr>
+	<td>
+
+		<div style="padding:10px;background-color:#FFFFFF;text-align:left;line-height:160%">
+
+			
+			<div>以下のメニューより、携帯カートの各種設定を行います。</div>
+			<div style="margin:10px 0">
+				<table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#999999">
+				<tr>
+					<td nowrap bgcolor="#FCC0B0"><span style="font-weight:bold">基本設定 [必須]</span></td>
+					<td bgcolor="#FFFFFF"><span class="m_menu_off"><a href="mob_toppage.cgi">全体の設定</a></span>|<span class="m_menu_off"><a href="mob_topdesign.cgi">トップページの設定</a></span>|<span class="m_menu_off"><a href="mob_shop_use.cgi">開店・閉店の切替</a></span></td>
+				</tr>
+				<tr>
+					<td nowrap bgcolor="#FCC0B0"><span style="font-weight:bold">カスタマイズ</span></td>
+					<td bgcolor="#FFFFFF"><span class="m_menu_off"><a href="mob_info.cgi">お知らせの更新</a></span>|<span class="m_menu_off"><a href="mob_freearea.cgi">フリーエリアの編集</a></span>|<span class="m_menu_off"><a href="mob_s_guidance.cgi">ご利用案内の編集</a></span>|<span class="m_menu_off"><a href="mob_policy.cgi">個人情報の取り扱いの編集</a></span><br>
+					<span class="m_menu_off"><a href="mob_cateblog.cgi">フリーページのカテゴリ管理</a></span>|<span class="m_menu_off"><a href="mob_entry.cgi">フリーページ作成</a></span>|<span class="m_menu_on"><a href="mob_entry_select.cgi">フリーページ管理</a></span>|<span class="m_menu_off"><a href="mob_conversion.php">コンバージョンタグ設定</a></span></td>
+				</tr>
+				<tr>
+                	<td nowrap bgcolor="#FCC0B0"><span style="font-weight:bold">携帯用お店ページ</span></td>
+                	<td bgcolor="#FFFFFF"><span class="m_menu_off">http://<TMPL_VAR NAME=DOMAIN>/m/</span></td>
+				</tr>
+				</table>
+			</div>
+			<div style="font-weight:bold">※商品情報に携帯カート用の入力項目が追加されています。「商品台帳」で商品番号をクリックし、確認、編集してください。 <a href="../func01/itemlist.cgi">[ 商品台帳を開く ]</a></div>
+
+		</div>
+	</td>
+</tr>
+</table>
+<div style="border-bottom:1px solid #999;margin:10px 0 10px"></div>
+<!-- 060719用 サブメニューを追加ここまで -->
+
+<form name="form1" method="post" action="mob_entry_select.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">フリーページ管理</td>
+<td align="right" class="midashi"><a href="<TMPL_VAR NAME=Manual>func05/mob_entry_select.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td><table width="100%" class="item-box">
+                                        <tr align="center">
+                                          <td colspan="2" class="item-name02">記事検索</td>
+                                        </tr>
+
+                                        <tr>
+                                          <td bgcolor="#FFFFFF" class="item-name">タイトル</td>
+                                          <td bgcolor="#FFFFFF" class="list-txt"><input type="text" name="title" value="<TMPL_VAR NAME=title>">
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td bgcolor="#FFFFFF" class="item-name">カテゴリ</td>
+                                          <td bgcolor="#FFFFFF" class="list-txt">
+                                                <select name="category_id">
+                                                <option value="all">カテゴリを選択</option>
+                                                <TMPL_LOOP name=category_list>
+                                                <option value="<TMPL_VAR NAME=category_id>" <TMPL_IF NAME=seltmp>selected</TMPL_IF>><TMPL_VAR NAME=label></option>
+                                                </TMPL_LOOP>
+                                                </select>
+                                          </td>
+                                        </tr>
+                                        <tr align="center" bgcolor="#FFFFFF">
+                                          <td colspan="2"><input type="button" value="以上の条件で検索" onClick="document.form1.submit();">
+                                          </td>
+
+                                        </tr>
+                                      </table>
+                                      <div id="Itemlist" style="display:block"> <br>
+                                          <table width="100%" class="item-box">
+                                            <tr align="center" bgcolor="#FFFFFF">
+                                              <td width="7%">&nbsp;</td>
+                                              <td width="40%">タイトル</td>
+                                              <td width="17%">カテゴリ</td>
+                                              <td width="18%">表示</td>
+                                              <td width="18%">操作</td>
+                                            </tr>
+
+                       	                    <TMPL_LOOP NAME=entry_list>
+                                              <tr bgcolor="#FFFFFF">
+                                                <td>
+                                                  <input type="button" onClick="document.form1.mode.value='mod';document.form1.entry_id.value='<TMPL_VAR NAME=entry_id>';document.form1.submit();" value="編集">
+                                                </td>
+                                                <td><TMPL_VAR NAME=entry_title></td>
+                                                <td><TMPL_VAR NAME=category></td>
+                                                <td>
+                                                        <select name="status_<TMPL_VAR name=entry_id>">
+                                                        <TMPL_IF NAME=status>
+                                                        <option value="1" selected>表示</option>
+                                                        <option value="0">非表示</option>
+                                                        <TMPL_ELSE>
+                                                        <option value="1">表示</option>
+                                                        <option value="0" selected>非表示</option>
+                                                        </TMPL_IF>
+                                                        </select>
+							<input type="button" onClick="document.form1.mode.value='status';document.form1.entry_id.value='<TMPL_VAR NAME=entry_id>';document.form1.submit();" value="変更">
+                                                </td>
+                                                <td>
+                                                <TMPL_IF NAME=tmp_select>
+                                                  <input type="button" onClick="document.form1.mode.value='up';document.form1.entry_id.value='<TMPL_VAR name=entry_id>';document.form1.submit();" value="上へ">
+                                                  <input type="button" onClick="document.form1.mode.value='down';document.form1.entry_id.value='<TMPL_VAR name=entry_id>';document.form1.submit();" value="下へ">
+                                                </TMPL_IF>
+                                                  <input type="button" onClick="document.form1.mode.value='del';document.form1.entry_id.value='<TMPL_VAR name=entry_id>';del(document.form1);" value="削除">
+                                                </td>
+                                              </tr>
+                                            </TMPL_LOOP>
+
+                                          </table>
+                                      
+                                      <br>
+                                  </td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+                      </td>
+                    </tr>
+<input type="hidden" name="entry_id">
+<input type="hidden" name="mode" value="">
+<input type="hidden" name="tmp_select" value="<TMPL_VAR NAME=tmp_select>">
+<input type="hidden" name="search_title" value="<TMPL_VAR NAME=search_title>">
+<input type="hidden" name="search_catid" value="<TMPL_VAR NAME=search_catid>">
+<input type="hidden" name="first" value="1">
+</form>

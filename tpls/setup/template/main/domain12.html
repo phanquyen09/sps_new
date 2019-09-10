@@ -1,0 +1,277 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Ｅストアーショップサーブ　ドメイン取得</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="default00.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function openScat(id) {
+		ele = document.getElementById(id+"1");
+		ele.style.display = "block";
+}
+
+function openClose(id,pt,i) {
+		prop = document.getElementById(id).style.display;
+
+//		alert(id+" "+pt+" "+i);
+
+		if(i==0) prop = "none";
+
+		if(prop=="none"){
+				if(pt=="div") document.getElementById(id).style.display="block";
+//						alert("div "+document.getElementById(id).style.display);
+				if(pt=="tr") {
+						if(document.all)	document.getElementById(id).style.display="block";
+						else
+						document.getElementById(id).style.display="table-row";
+//						alert("tr "+document.getElementById(id).style.display);
+				}
+		} else {
+				document.getElementById(id).style.display="none";
+		}
+//		alert(document.getElementById(id).style.display);
+}
+
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
+
+function openType2(id) {
+  if(id=="adminEstore"){
+    document.getElementById("adminEstoreRow").style.display="block";
+    document.getElementById("adminUserRow").style.display="none";
+  }
+  if(id=="adminUser"){
+    document.getElementById("adminEstoreRow").style.display="none";
+    document.getElementById("adminUserRow").style.display="block";
+  }
+}
+
+//-->
+</script>
+<style type="text/css">
+<!--
+.outbox {
+	padding:5px;
+}
+
+.inbox {
+	padding:3px;
+}
+.inbox1 {	padding:3px;
+}
+.outbox1 {	padding:5px;
+}
+-->
+</style>
+</head>
+<body>
+<form name="next" method="POST">
+  <input type="hidden" name="ID" value="<TMPL_VAR name="ID">">
+  <input type="hidden" name="CMD" value="MCNT">
+<a name="top"></a>
+<div style="font-size:80%" align="center">
+  <table width="600"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center">&nbsp;</td>
+    </tr>
+    <tr>
+      <td height="15"><img src="../imgs/spc.gif" width="5" height="5"></td>
+    </tr>
+  </table>
+  <img src="imgs/domain_navi02.gif" width="590" height="52">
+  <table width="600" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td class="outbox"><div class="midashi" align="left">検索結果</div>
+        <br>
+        <table width="95%" border="0" cellspacing="1" cellpadding="1" align="center">
+                <tr>
+                  <td class="comment_box" align="left">ご入力されたドメイン名の検索結果は以下のとおりです。<br>
+ご確認のうえ、次に進んでください。<a href="#"></a><br>
+<br>
+</td>
+                </tr>
+        </table>
+        <br>
+        <table width="95%" border="1" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td style="padding:10px " align="left"><pre><TMPL_VAR name="WHOIS"></pre></td>
+          </tr>
+
+<br>
+<table width="95%" border="0" cellspacing="1" cellpadding="1" align="center">
+<tr>
+	<td class="in_box" align="left">
+	<br>
+	お客様が所有しているドメインに間違いなければ、以下のドメイン移転情報をご指定のうえ、「次へ」ボタンをクリックしてください。<br>
+	<br>
+        <TMPL_IF name="ERR_MSG">
+            <div class="contErr" align="left">
+        <TMPL_LOOP NAME=ERR_MSG>
+            <p><font color="red">● <TMPL_VAR NAME=MSG></font></p>
+        </TMPL_LOOP>
+            </div>
+        </TMPL_IF>
+ 
+	<table width="100%" bgcolor="#333333" border="0" cellspacing="1" cellpadding="1">
+	<tr align="left">
+		<td colspan="2" valign="top" class="box_title"><strong>
+		<div style="margin:0.2em 0 0"><input type="radio" name="KANRI" value="0" onClick="openType2(id)" id="adminEstore" <TMPL_IF name="KANRI">checked</TMPL_IF>>Ｅストアーへドメイン管理を委託する</div>
+                </strong></td>
+	</tr>
+<!--
+	<tr id="adminEstoreRow" <TMPL_IF name="KANRI">style="display:block"<TMPL_ELSE> style="display:none"</TMPL_IF> align="left">
+		<td colspan="2" valign="top" class="box_txt">
+-->
+	<tr id="adminEstoreRow"  valign="top" class="box_txt"<TMPL_IF name="KANRI">style="display:block"<TMPL_ELSE> style="display:none"</TMPL_IF> align="left">
+		<td colspan="2">
+
+	<table width="100%" bgcolor="" border="0" cellspacing="1" cellpadding="1">
+	<tr align="left">
+		<td colspan="2" class="box_txt">
+		<!-- JPドメイン／国際ドメイン（MITでＥストアー管理）の場合はAuthCodeやレジキーのような入力エリア＆説明なし -->
+
+		<!-- 国際ドメイン(MIT以外)の場合 -->
+<TMPL_IF name="AUTHCODE">
+		<div style="margin:0.3em 0 0;padding:0 0.3em 0 1.6em">
+			<span style="margin:0 0.5em 0 0;padding:0.4em 0.2em 0.1em 0.4em;background-color:#ff9999;">オースコード</span><input type="text" name="PASS" value="<TMPL_VAR name="PASS">"> （必須）
+			<div style="margin:0.5em 0 0 0">Ｅストアーに委託する場合、［オースコード （Auth-Code）］が必要となりますので、ドメインを取得したサーバー業者様もしくはドメイン管理者様より取得してください。</div>
+		</div>
+</TMPL_IF>
+
+		<div style="margin:0.3em 0 0;padding:0 0.3em 0 1.6em">
+		<table width="99%" border="0" cellspacing="1" cellpadding="1">
+			<tr>
+				<td valign="top">※</td>
+				<td>Eストアーに委託する場合、ドメインの更新料が無料になり、更新の手続きもEストアーが代行いたします。</td>
+			</tr>
+			<tr>
+				<td valign="top">※</td>
+				<td>ドメイン所有者ご本人しかお申し込みできません。<br>
+				申込者の情報が下記と異なる場合は、確認に「<a href="http://estore.co.jp/kiyaku/sps_confirmation.pdf" target="_blank">確認書(PDF形式：84.8KB)</a>」をご提出いただく必要がございます。<br>
+				上記より確認書をダウンロードし、署名、ご捺印のうえ弊社までお送り下さい。
+				</td>
+			</tr>
+		</table>
+		</div>
+	</td>
+	</tr>
+	<tr>
+		<td valign="top" class="box_title_side">移転希望日</td>
+		<td class="box_txt">
+
+		<div style="margin:0.3em 0 0">
+                  <select name="ITEN">
+                    <TMPL_VAR name="ITEN">
+                  </select>
+		</div>
+
+		<div style="margin:0.5em 0.2em 0.1em 0">
+		希望日の指定は、12営業日以降〜2ヶ月以内の火曜から金曜（祝日および祝日の翌日は除く）となります。
+		なお、ご希望に添えない場合もございますので、あらかじめご了承ください。
+		</div>
+
+		</td>
+	</tr>
+	</table>
+</div>
+</td>
+</tr>
+</table>
+<br>
+	<table width="100%" bgcolor="#333333" border="0" cellspacing="1" cellpadding="1">
+	<tr align="left">
+		<td colspan="2" valign="top" class="box_title"><strong>
+		<div style="margin:0.2em 0 0"><input type="radio" name="KANRI" value="1" onClick="openType2(id)" id="adminUser" <TMPL_IF name="KANRI_C">checked</TMPL_IF>>お客様ご自身でドメイン管理を行う</div>
+               </strong></td>
+	</tr>
+	<tr  align="left" class="box_txt" id="adminUserRow" <TMPL_IF name="KANRI_C">style="display:block"<TMPL_ELSE>style="display:none" </TMPL_IF>>
+		<td  colspan="2">
+		<table width="100%" bgcolor="" border="0" cellspacing="1" cellpadding="1">
+			<tr  align="left">
+				<td  class="box_txt" colspan="2">
+				<div style="margin:1.5em 0.5em 0.5em 0.2em;padding:0.2em;border:1px dotted #333333">
+				<table width="98%"  border="0">
+					<tr  align="left">
+						<td>※　お客様で管理する場合、ネームサーバの変更や更新料のお支払いなどは、お客様にてお手続きください。</td>
+					</tr>
+					<tr  align="left">
+						<td>※　Ｅストアーショップサーブドメインお申込みに際し、ドメイン所有者は本ドメイン名を使用することに同意しており、問題点、紛争などが発生した場合は、当事者間で解決を図るものとします。</td>
+					</tr>
+					<tr  align="left">
+						<td vallign="top" bgcolor="#cccccc"><input type="checkbox" value="1" name="DOUI" <TMPL_IF name="DOUI">checked </TMPL_IF>>同意する</td>
+					</tr>
+				</table>
+				</div>
+				</td>
+			</tr>
+			<tr border="#333333" class="box_txt"  align="left">
+				<td valign="top" class="box_title_side">移転希望日</td>
+				<td class="box_txt">
+				<div style="margin:0.3em 0 0">
+				<select name="ITEN_C">
+				<TMPL_VAR name="ITEN_C">
+				</select>
+				</div>
+				<div style="margin:0.5em 0.2em 0.1em 0">
+				希望日の指定は、3営業日以降〜2ヶ月以内の火曜から金曜（祝日および祝日の翌日は除く）となります。
+				なお、ご希望に添えない場合もございますので、あらかじめご了承ください。
+				</div>
+				</td>
+			</tr>
+		</table>
+		</tr></td></table>
+</div>
+</td></tr>
+		</td>
+	</tr>
+	</table>
+	</div>
+	</td>
+</tr>
+</table>
+
+<!--
+        </table>
+        <br><table width="95%" border="0" cellspacing="1" cellpadding="1" align="center">
+                <tr>
+                  <td class="in_box">お客様のお持ちのドメインが上記で間違いなければ、「次へ」ボタンをクリックしてください。</td>
+                </tr>
+        </table>
+-->
+                <br>
+                <div align="center">
+          <input type="button" onClick="document.back.submit();" value="戻る">
+<TMPL_IF name="UNNECESSARY">
+          <input type="button" onClick="if( document.next.DOUI.checked ==false && document.next.KANRI[1].checked==true ){alert('同意する にチェックしてください。');}else{document.next.submit();}" value="次へ" <TMPL_VAR name="ERROR_DIS">>
+</TMPL_IF>
+<TMPL_IF name="AUTHCODE">
+          <input type="button" onClick="if( document.next.PASS.value=='' && document.next.KANRI[0].checked==true ){alert('オースコード（Auth-Code） を入力してください');}else if( document.next.DOUI.checked ==false && document.next.KANRI[1].checked==true ){alert('同意する にチェックしてください。');}else{document.next.submit();}" value="次へ" <TMPL_VAR name="ERROR_DIS">>
+</TMPL_IF>
+
+        </div>
+        <br>
+<div align="center">        </div>
+<hr size="1" noshade>          
+        <br>
+      </td>
+    </tr>
+  </table>
+</div>
+</form>
+<form name="back" method="post">
+  <input type="hidden" name="ID" value="<TMPL_VAR name="ID">">
+  <input type="hidden" name="CMD" value="DOM">
+</form>
+</body>
+</html>
+

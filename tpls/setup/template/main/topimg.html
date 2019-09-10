@@ -1,0 +1,84 @@
+<script language="JavaScript">
+<!--
+function delImageID()
+{
+   document.form1.PICSRC.src = '../imgs/spc.gif';
+   document.form1.ImageURL.value = '';
+   document.form1.ImageID.value = '';
+}
+//-->
+</script>
+<form name="form1" method="post" action="topimg.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#F39700">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+                            <td align="left" class="midashi">トップイメージの入替を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/topimg.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  お店ページトップ中央に表示するイメージ画像、お店の説明文を設定します。<br>
+                                  設定後、[設定を保存する]ボタンをクリックし、管理画面左上の[お店ページの更新へ]ボタンをクリックします。<br><br>
+                                 <a href="../func04/topdesign_sps.cgi">⇒お店ページでの「トップイメージ」の表示位置、表示・非表示の設定</a><br>
+                                </div>
+                                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+				<TMPL_VAR NAME=err>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                    <tr>
+                                      <td class="item-name">説明</td>
+                                      <td class="item">
+                                          <textarea name="comment" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=comment></textarea>
+                                          <br>※HTMLタグ利用可
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">画像</td>
+                                      <td class="item"><input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selsize.cgi','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">
+                                          <input type="button" name="Submit" value="画像削除" onClick="delImageID();">
+<a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a>
+                                          <br>
+                                          <br>
+                                        <a href="javascript:;"><img src="<TMPL_VAR NAME=durl>" name="PICSRC" border="0" onClick="window.open(document.form1.ImageURL.value, '', '');"></a> <br>
+                                        <input type="hidden" name="ImageURL" value="<TMPL_VAR NAME=url>">
+                                        <input type="hidden" name="ImageID" value="<TMPL_VAR NAME=IMAGEID>">
+                                </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">画像の位置</td>
+                                      <td class="item">
+					  <input name="img_layout" type="radio" value="2" id="img02" <TMPL_VAR NAME=b_layout>>
+					  <label for="img02">左寄せ</label>
+					  <input name="img_layout" type="radio" id="img01" value="1" <TMPL_VAR NAME=a_layout>>
+                                          <label for="img01">右寄せ</label>
+                                          <input name="img_layout" type="radio" value="3" id="img03" <TMPL_VAR NAME=c_layout>>
+                                          <label for="img03">上寄せ</label>
+                                          <input name="img_layout" type="radio" value="4" id="img04" <TMPL_VAR NAME=d_layout>>
+                                          <label for="img04">下寄せ</label>
+                                      </td>
+
+                                    </tr>
+                                  </table><br>
+                                  
+                                  <div style="text-align:center"><input name="set" type="submit" id="set" value="設定を保存する"></div>
+</td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+                          
+                      </td>
+                    </tr>
+<input name="mode" type="hidden" value="regist">
+<input name="label" type="hidden" value="<TMPL_VAR NAME=label>">
+</form>

@@ -1,0 +1,199 @@
+<script language="JavaScript">
+<!--
+function delImageID_1()
+{
+   document.form1.PICSRC_1.src = '../imgs/spc.gif';
+   document.form1.ImageID_1.value = '';
+   document.form1.ImageURL_1.value = '';
+}
+function delImageID_2()
+{
+   document.form1.PICSRC_2.src = '../imgs/spc.gif';
+   document.form1.ImageID_2.value = '';
+   document.form1.ImageURL_2.value = '';
+}
+function delImageID_3()
+{
+   document.form1.PICSRC_3.src = '../imgs/spc.gif';
+   document.form1.ImageID_3.value = '';
+   document.form1.ImageURL_3.value = '';
+}
+var last = null;
+function preview() {
+    var now = new Date();
+    if ( last != null && (now-last) < 5000  ) {
+      return;
+    }
+    last = now;
+    document.form1.mode.value="preview";
+    document.form1.target="template_preview";
+    document.form1.submit();
+}
+
+function newtpl_preview() {
+  tplPreview('seo');
+}
+
+function responsiveTplPreview() {
+  tplPreview('responsive');
+}
+
+function tplPreview(type) {
+  var now = new Date();
+  if ( last != null && (now-last) < 5000  ) {
+    return;
+  }
+  last = now;
+
+  if (type === 'responsive') {
+    var winOpenScreenHeight = window.innerHeight;
+    var winOpen = window.open("about:blank","template_preview","scrollbars=yes, resizable=yes, width=420, height=" + winOpenScreenHeight);
+  }
+
+  // バックアップ
+  var tag = document.form1.target;
+  var act = document.form1.action;
+
+  // 表示するテンプレート
+  var tpl = document.createElement('input');
+  tpl.name = 'tpl';
+  tpl.type = 'hidden';
+  tpl.value = 'shopguide.tpl';
+
+  // データ参照先
+  var mode = document.createElement('input');
+  mode.name = 'preview_mode';
+  mode.type = 'hidden';
+  mode.value = 'current';
+
+  document.form1.appendChild(tpl);
+  document.form1.appendChild(mode);
+
+  // プレビュー表示
+  document.form1.target = "template_preview";
+  document.form1.method = "post";
+  document.form1.action= "../func100/newtplPreview.php";
+  document.form1.submit();
+
+  // 後始末
+  document.form1.target = tag;
+  document.form1.action = act;
+  document.form1.removeChild(tpl);
+  document.form1.removeChild(mode);
+}
+//-->
+</script>
+<form name="form1" method="post" action="m_guidance.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0093C9">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+                            <td align="left" class="midashi">お店案内ページの設定を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/m_guidance.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  お店ページのフッタ「お店案内」からリンクするページを編集します。<br>
+                                  設定後、[設定を保存する]ボタンをクリックし、管理画面左上の[お店ページの更新へ]ボタンをクリックします。<br>
+                                </div>
+                                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td><table width="100%" border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                      <tr align="center">
+                                        <td colspan="2" class="item-name02">お店案内</td>
+                                      </tr>
+
+				<TMPL_LOOP NAME=guidance>
+                                      <tr>
+                                        <td class="item-name">お店紹介<TMPL_VAR NAME=mid></td>
+                                        <td class="item-sub"><table width="100%" class="table-padding-textarea-default">
+                                            <tr>
+                                              <td class="sub-item-name">表示切替</td>
+                                              <td class="sub-item">
+
+						<select name="status_<TMPL_VAR NAME=mid>">
+						<TMPL_IF NAME=status>
+                                                  <option value="1" selected>表示</option>
+                                                  <option value="0">非表示</option>
+						<TMPL_ELSE>
+						  <option value="1">表示</option>
+						  <option value="0" selected>非表示</option>
+						</TMPL_IF>
+                                                </select>
+
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td class="sub-item-name">見出し</td>
+                                              <td class="sub-item"><input name="title_<TMPL_VAR NAME=mid>" type="text" class="sub-line" value="<TMPL_VAR NAME=title>">
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td class="sub-item-name">説明</td>
+                                              <td class="sub-item"><textarea name="comment_<TMPL_VAR NAME=mid>" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=comment></textarea>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td class="sub-item-name">画像</td>
+
+                                              <td class="sub-item"><input type="button" name="Submit" value="画像挿入..." onClick="document.form1.dimg.value=<TMPL_VAR NAME=mid>;window.open('../func100/selsize.cgi','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">
+                                                  <input type="button" name="Submit" value="画像削除" onClick="delImageID_<TMPL_VAR NAME=mid>();">
+<a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a>
+                                                  <br>
+                                                  <br>
+	                                        <a href="javascript:;"><img src="<TMPL_VAR NAME=durl>" name="PICSRC_<TMPL_VAR NAME=mid>" border="0" onClick="window.open(document.form1.ImageURL_<TMPL_VAR NAME=mid>.value, '', '');"></a> <br>
+	                                        <input type="hidden" name="ImageURL_<TMPL_VAR NAME=mid>" value="<TMPL_VAR NAME=url>">
+	                                        <input type="hidden" name="ImageID_<TMPL_VAR NAME=mid>" value="">
+	     	                                <input type="hidden" name="url" value="<TMPL_VAR NAME=url>">
+		                                <br>
+            					</td>
+                                            </tr>
+
+                                            <tr>
+                                              <td class="sub-item-name">画像の位置</td>
+                                              <td class="sub-item">
+					                      <input name="img_layout_<TMPL_VAR NAME=mid>" type="radio" id="img_layout_<TMPL_VAR NAME=mid>_2" value="2" <TMPL_IF NAME=layimg2>checked</TMPL_IF>>
+					                      <label for="img_layout_<TMPL_VAR NAME=mid>_2">左寄せ</label>
+					                      <input name="img_layout_<TMPL_VAR NAME=mid>" type="radio" id="img_layout_<TMPL_VAR NAME=mid>_1" value="1" <TMPL_IF NAME=layimg1>checked</TMPL_IF>>
+                                          <label for="img_layout_<TMPL_VAR NAME=mid>_1">右寄せ</label>
+                                          <input name="img_layout_<TMPL_VAR NAME=mid>" type="radio" id="img_layout_<TMPL_VAR NAME=mid>_3" value="3" <TMPL_IF NAME=layimg3>checked</TMPL_IF>>
+                                          <label for="img_layout_<TMPL_VAR NAME=mid>_3">上寄せ</label>
+                                          <input name="img_layout_<TMPL_VAR NAME=mid>" type="radio" id="img_layout_<TMPL_VAR NAME=mid>_4" value="4" <TMPL_IF NAME=layimg4>checked</TMPL_IF>>
+                                          <label for="img_layout_<TMPL_VAR NAME=mid>_4">下寄せ</label>
+                                              </td>
+                                            </tr>
+                                        </table></td>
+                                      </tr>
+				</TMPL_LOOP>
+
+                                    </table>
+                                    <BR>
+                                    <div align="center">
+                                      <TMPL_IF NAME=isnewlogic>
+                                      <input name="pre" type="button" id="pre" value="プレビュー" onClick="<TMPL_IF NAME=isResponsiveTheme>responsiveTplPreview();<TMPL_ELSE>newtpl_preview();</TMPL_IF>">
+                                      <TMPL_ELSE>
+                                      <input name="pre" type="button" id="pre" value="プレビュー" onClick="preview();">
+                                      </TMPL_IF>
+                                      <input onClick="document.form1.target='_self';document.form1.mode.value='regist';document.form1.submit();" name="set" type="button" id="set" value="設定を保存する">
+                                    </div>
+                                   </td>
+                                </tr>
+                              </table>
+                              </td>
+                            </tr>
+
+                        </table>
+                      </td>
+                    </tr>
+<input type="hidden" name="mode" value="regist">
+<input type="hidden" name="dimg" value="">
+</form>

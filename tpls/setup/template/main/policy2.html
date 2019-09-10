@@ -1,0 +1,82 @@
+<script type="text/javascript">
+<!--
+function regist1() {
+    window.document.form1.mode.value="regist";
+    window.document.form1.target="_self";
+    window.document.form1.submit();
+}
+var last = null;
+function preview() {
+    var now = new Date();
+    if ( last != null && (now-last) < 5000  ) {
+      return;
+    }
+    last = now;
+    document.form1.mode.value="preview";
+    document.form1.target="template_preview";
+    document.form1.submit();
+}
+function donate(ac) {
+    document.form1.mode.value="skip";
+    document.form1.target="_self";
+    document.form1.action=ac;
+    document.form1.submit();
+}
+//-->
+</script>
+
+<form name="form1" method="post" action="policy2.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0093C9">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+                            <td align="left" class="midashi">個人情報保護の取り扱いページの設定を行います</td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+<div align="right"><a href="policy.cgi">HTML版</a></div>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                    <tr>
+                                      <td align="center" class="item-name02">表示内容</td>
+                                    </tr>
+
+                                    <tr>
+                                      <td bgcolor="#FFFFFF">
+                                          <textarea name="policy" id="ta1" rows="20" wrap="VIRTUAL" style="width:660px"><TMPL_VAR escape=html NAME=policy></textarea>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                    <br>
+
+                <div align="center">
+                        <input name="pre" type="button" id="pre" value="プレビュー" onClick="preview();"></div>
+                        </td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+                          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+
+                              <td>&nbsp;</td>
+                            </tr>
+                          </table>
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                            <tr>
+                              <td align="center" style="padding:10px 10px 10px 10px "><input onClick="regist1();" name="set" type="button" id="set" value="設定を保存する">
+                              </td>
+                            </tr>
+                          </table></td>
+
+                    </tr>
+<input type="hidden" name="mode" value="regist">
+</form>

@@ -1,0 +1,97 @@
+<TMPL_IF NAME=WYSIWYG>
+<!--
+<script type="text/javascript" src="../blog/js/entry1.js"></script>
+<script type="text/javascript" src="../blog/js/entry2.js"></script>
+<script type="text/javascript" src="../blog/js/entry3.js"></script>
+-->
+</TMPL_IF>
+<script language="JavaScript" type="text/javascript">
+  window.resizeTo(360, 460);
+  var checkData = 0 ;
+  var n = 0;
+  function pos(){
+    if (!document.all) return;
+    var r = window.opener.document.<TMPL_VAR NAME=ID>.selection.createRange();
+    r.moveEnd("textedit");
+    n = r.text.length;
+  }
+
+  function insertImg(id) {
+<TMPL_IF NAME=WYSIWYG>
+    var m1 = '¡õ¡ô' + id + ';';
+    if (HTMLAreaSupported()) {
+      var ha = window.opener.editor<TMPL_VAR NAME=EID>;
+      ha.setMode('textmode');
+      var data = window.opener.document.<TMPL_VAR NAME=ID>.value;
+      if ( checkData == 0 ) {
+          data = data.replace(/^\s+|\s+$/g, '').replace(/\s{2,}/g, ' ').replace("&nbsp;","");
+          checkData = 1;
+      }
+      if ( ha._editMode == "textmode" ) {
+        window.opener.document.<TMPL_VAR NAME=ID>.value = data + m1;
+        return false;
+      }
+      ha.focusEditor();
+      ha.insertHTML(m1);
+    } else {
+      window.opener.document.<TMPL_VAR NAME=ID>.value += m1;
+    }
+<TMPL_ELSE>
+    var m1 = window.opener.document.<TMPL_VAR NAME=ID>.value;
+    m1 += '&#' + id + ';';
+    window.opener.document.<TMPL_VAR NAME=ID>.value = m1;
+</TMPL_IF>
+  }
+
+  function HTMLAreaSupported() {
+    var agent = navigator.userAgent.toLowerCase();
+    if (agent.indexOf("msie") != -1) {  // IE
+        if (agent.indexOf("mac") != -1) {       // Mac IE
+            return false;
+        }
+        if (agent.indexOf("opera") != -1) {
+            return false;
+        }
+        return true;
+    }
+    if ((navigator.product == "Gecko") && (navigator.productSub >= 20030210)) {
+        return true;
+    }
+    return false;
+  }
+</script>
+<form name="form1" method="post">
+<table border="0" cellpadding="0" cellspacing="0">
+<tr>
+    <td>
+        <input <TMPL_IF NAME=DOCOMO>disabled</TMPL_IF> type="button" value="docomo" style="width:70px;" onClick="document.form1.action='select_char<TMPL_VAR NAME=TOID>.cgi';document.form1.submit();">
+        <input <TMPL_IF NAME=AU>disabled</TMPL_IF> type="button" value="au" style="width:70px;" onClick="document.form1.action='au_select_char.cgi';document.form1.submit();">
+        <input <TMPL_IF NAME=VODA>disabled</TMPL_IF> type="button" value="softbank" style="width:70px;" onClick="document.form1.action='vodafone_select_char.cgi';document.form1.submit();">
+    </td>
+</tr>
+<tr>
+    <td>
+        <table border="1">
+          <tr>
+            <TMPL_LOOP NAME=SELECT>
+              <TMPL_IF NAME=IMG>
+                <td><a href="javascript:;" onClick="insertImg(<TMPL_VAR NAME=CLICK>);"><img width="14" height="14" src="../imgs/select_char/<TMPL_VAR NAME=IMG>" border="0"></a></td>
+              <TMPL_ELSE>
+                <td><img width="14" height="14" src="../imgs/spc.gif" border="0"></td>
+              </TMPL_IF>
+              <TMPL_IF NAME=TR>
+                </tr><tr>
+              </TMPL_IF>
+            </TMPL_LOOP>
+          </tr>
+        </table>
+    </td>
+</tr>
+<tr>
+    <td>
+    <input type="button" value="ÊÄ¤¸¤ë" onClick="window.close();">
+    <input type="hidden" value="<TMPL_VAR NAME=TOID>" name="toid">
+    </td>
+</tr>
+</table>
+</form>

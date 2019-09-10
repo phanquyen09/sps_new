@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<title>スピード入金（月6回）サービス　お申込み確認</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link rel="stylesheet" type="text/css" href="moushikomi.css" media="all">
+
+
+</head>
+<body>
+
+<script language="JavaScript">
+<!--
+function chkagree() {
+    if ( document.EXPRESS02.Agree.checked == true ) {
+      document.EXPRESS02.submit();
+    } else {
+      alert('規約に同意してください。');
+    }
+}
+//-->
+</script>
+
+<form name="EXPRESS02" method="POST" action="express02.cgi">
+<input type="hidden" name="CMD" value="NEXT">
+<input type="hidden" name="TONAME" value="<TMPL_VAR NAME=TANTONAME>">
+<input type="hidden" name="TOMAIL" value="<TMPL_VAR NAME=TANTOMAIL>">
+<input type="hidden" name="KEIYAKU" value="<TMPL_VAR NAME=CUSTNAME>">
+
+
+<div id="mainBox">
+ <h1>スピード入金（月6回）サービス　お申込み確認</h1>
+ <p>
+ 下記に記載された注意事項およびＥストアーショップサーブサービス規約に同意の上、お申込みください。<br>
+ 本画面の記載事項に同意し、最下部の【同意して申込む】ボタンをクリックすることにより、お申込みは完了となります。
+ </p>
+ 
+ <h2 class="midashi">
+ <span style="font-weight:bold;">スピード入金（月6回）サービスにおける注意事項</span>
+ </h2>
+ 
+ <div class="message-r">
+ 下記注意事項をお読みの上、同意してお進みください。
+ </div>
+ 
+ <div class="attention">
+  <ol>
+  <li>本サービスをご利用するにあたり、Ｅストアーによる審査があります。審査により、本サービスをご利用できなかった場合、理由および審査方法の開示は行っておりません。</li>
+  <li>月6回入金サービスを再度利用しようとする場合も利用開始時の審査があります。</li>
+  <li>月6回入金サービスを利用中は、Ｅストアーによる審査が随時行われます。審査によりご利用を停止する場合があります。</li>
+  <li>注文変更や注文キャンセルによって、入金額が減額となった場合において、すでにＥストアーが店舗さまに当該回収代金支払済みの場合、次回以降の入金において相殺致します。なお、相殺できる回収代金が無い場合は返還請求致します。</li>
+  <li>入金日が土日祝日の場合は、金融機関の翌営業日に振込まれます。</li>
+  <li>翌月払い（月1回、月2回）入金のご利用から、スピード入金（月6回）サービスに切替えた初月は、入金が前後もしくは重なる場合がございますので、ご留意ください。</li>
+  </ol>
+ </div>
+ 
+ 
+ 
+ <h2 class="midashi">
+ <span style="font-weight:bold;">決済担当者情報</span>
+ </h2>
+ 
+ <div class="message">
+ 審査の際に確認事項がありましたら、下記ご担当者さま宛にお電話、メールにてご連絡致します。<br>
+ 下記に記載された、ご担当者名やご連絡先が間違っている場合は、「管理画面＞契約情報・各種手続き＞ご住所・ご連絡先の変更」より修正を先に行ってください。<br>
+ </div>
+ 
+ 
+ <table class="tablemake">
+   <tbody>
+   <tr>
+     <th>申込者</th>
+     <td ><TMPL_VAR NAME=CUSTNAME></td>
+   </tr>
+   <tr>
+     <th>担当者</th>
+     <td><TMPL_VAR NAME=TANTONAME></td>
+   </tr>
+   <tr>
+ 
+     <th>担当者（かな）</th>
+     <td><TMPL_VAR NAME=TANTOKANA></td>
+   </tr>
+   <tr>
+     <th>住所</th>
+     <td><TMPL_VAR NAME=TANTOADDR></td>
+   </tr>
+   <tr>
+     <th>ＴＥＬ</th>
+     <td><TMPL_VAR NAME=TANTOTEL></td>
+   </tr>
+   <tr>
+     <th>ＦＡＸ</th>
+     <td><TMPL_VAR NAME=TANTOFAX></td>
+ 
+   </tr>
+   <tr>
+     <th>メールアドレス</th>
+     <td><TMPL_VAR NAME=TANTOMAIL></td>
+   </tr>
+   </tbody>
+ </table>
+ 
+ 
+ 
+ <div class="footmessage">
+  <a href="http://www.estore.co.jp/kiyaku/shopserve_agrement.html" target="_blank">Ｅストアーショップサーブ利用規約</a><br>
+  <input name="Agree" value="Y" type="checkbox">
+  上記内容に同意する
+ </div>
+</div>
+
+<div class="footbutton">
+ <input name="back" value="戻る" type="button" onClick="document.EXPRESS01.submit();">&nbsp;<input type="button" onclick="chkagree();" value="同意して申込む">
+</div>
+</form>
+
+<form name="EXPRESS01" method="POST" action="express01.cgi">
+</form>
+
+</body>
+</html>

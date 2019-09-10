@@ -1,0 +1,225 @@
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function StockSubmit(f) {
+    if ( document.STOCKINFO.ZaikoTbl[0].checked == true ) {
+  f.ZaikoTbl.value='V';
+    } else {
+  f.ZaikoTbl.value='M';
+    }
+    f.submit();
+}
+
+function StockSetting() {
+    if ( document.STOCKINFO.ZaikoTbl[0].checked == true ) {
+  document.STOCKINFO.action = 'var_stockinfo.cgi';
+    } else {
+  document.STOCKINFO.action = 'stockinfo.cgi';
+    }
+    document.STOCKINFO.submit();
+}
+
+function delALERT(fname, s) {
+    if ( confirm("バリエーションを削除します。よろしいですか？") ) {
+      disALL();
+      fname.CMD.value="DEL";
+      if ( s == 1 ) {
+        StockSubmit(fname);
+      } else {
+        fname.submit();
+      }
+    } else {
+      return false;
+    }
+}
+
+function disALL() {
+  var flg;
+<TMPL_LOOP VARIATIONS>
+  document.VNAME<TMPL_VAR NAME=NO>.Change.disabled=true;
+
+  flg = new Boolean(document.VADD<TMPL_VAR NAME=NO>);
+  if (flg == true) {
+    document.VADD<TMPL_VAR NAME=NO>.Add.disabled=true;
+  }
+  <TMPL_LOOP ANS>
+    document.ANS<TMPL_VAR NAME=ID>.Change.disabled=true;
+    document.ANS<TMPL_VAR NAME=ID>.DEL.disabled=true;
+  </TMPL_LOOP>
+</TMPL_LOOP>
+}
+//-->
+</script>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+                            <td align="left" class="midashi">バリエーションの編集を行います</td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+            <TMPL_LOOP NAME=ERR_MSG>
+            <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+            </TMPL_LOOP>
+
+                         <table width="100%" class="item-box">
+                            <tr>
+                              <td class="item-name">商品番号</td>
+                              <td class="item"><TMPL_VAR NAME=ITEM_NO></td>
+                            </tr>
+
+                            <tr>
+                              <td class="item-name">商品名</td>
+                              <td class="item"><TMPL_VAR NAME=ITEM_NAME></td>
+                            </tr>
+                          </table>
+<BR>
+
+        <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                     <td>
+                                      <table class="item-box">
+<TMPL_LOOP VARIATIONS>
+                                        <tr>
+  <TMPL_IF FIRST>
+                                          <td rowspan="<TMPL_VAR NAME=FIRST>" class="item-name">バリエーション</td>
+  </TMPL_IF>
+                                          <td class="item-sub">
+                                            <table width="100%" >
+                                              <tr>
+                                                <td class="odr-txt03" colspan="3"> バリエーション<TMPL_VAR NAME=NO></td>
+                                                </tr>
+<form name="VNAME<TMPL_VAR NAME=NO>" method="POST" action="variation.cgi">
+<input type="hidden" name="ITEMID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="VEDT">
+<input type="hidden" name="VarNo" value="<TMPL_VAR NAME=NO>">
+<TMPL_IF STOCKSET>
+<input type="hidden" name="StockSet" value="Y">
+<input type="hidden" name="ZaikoTbl" value="">
+</TMPL_IF>
+                                              <tr>
+                                                <td class="odr-txt03" width="20%">項目名</td>
+                                                <td colspan="2" class="odr-txt02">
+                                                  <input name="Name" type="text" value="<TMPL_VAR NAME=VNAME>">
+                                                  <span class="sub-item">
+<TMPL_IF STOCKSET>
+<input type="button" name="Change" value="変更" onClick='disALL();StockSubmit(document.VNAME<TMPL_VAR NAME=NO>);'>
+<TMPL_ELSE>
+<input type="button" name="Change" value="変更" onClick='disALL();document.VNAME<TMPL_VAR NAME=NO>.submit();'>
+</TMPL_IF>
+                                                  </span>
+                      </td>
+</form>
+                                                </tr>
+    <TMPL_LOOP ANS>
+                                              <tr>
+                        <TMPL_IF FIRST>
+                                                                        <td rowspan="<TMPL_VAR NAME=FIRST>" class="odr-txt03">選択肢</td>
+                        </TMPL_IF>
+                                                                        <td width="15%" class="odr-txt02">選択肢<TMPL_VAR NAME=ANO> </td>
+                                                                        <td width="70%" class="odr-txt02">
+<form name="ANS<TMPL_VAR NAME=ID>" method="POST" action="variation.cgi">
+<input type="hidden" name="ITEMID" value="<TMPL_VAR NAME=MASTERID>">
+<input type="hidden" name="VarNo" value="<TMPL_VAR NAME=NO>">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<TMPL_IF STOCKSET>
+<input type="hidden" name="StockSet" value="Y">
+<input type="hidden" name="ZaikoTbl" value="">
+</TMPL_IF>
+<input type="hidden" name="CMD" value="EDT">
+                                                  <input name="Name" type="text" value="<TMPL_VAR NAME=NAME>">
+                                                  <span class="sub-item">
+<TMPL_IF STOCKSET>
+<input type="button" name="Change" value="変更" onClick="disALL();StockSubmit(document.ANS<TMPL_VAR NAME=ID>);">
+<input type="button" name="DEL" value="削除" onClick='delALERT(document.ANS<TMPL_VAR NAME=ID>, 1);'>
+<TMPL_ELSE>
+<input type="button" name="Change" value="変更" onClick="disALL();document.ANS<TMPL_VAR NAME=ID>.submit();">
+<input type="button" name="DEL" value="削除" onClick='delALERT(document.ANS<TMPL_VAR NAME=ID>, 0);'>
+</TMPL_IF>
+                                                  </span>
+                  </td>
+</form>
+                                              </tr>
+    </TMPL_LOOP>
+  <TMPL_IF DISPADD> 
+                                              <tr>
+<form name="VADD<TMPL_VAR NAME=NO>" method="POST" action="variation.cgi">
+<input type="hidden" name="ITEMID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="VADD">
+<input type="hidden" name="VarNo" value="<TMPL_VAR NAME=NO>">
+<TMPL_IF STOCKSET>
+<input type="hidden" name="StockSet" value="Y">
+<input type="hidden" name="ZaikoTbl" value="">
+</TMPL_IF>
+                                                <td class="odr-txt02">&nbsp;</td>
+                                                <td class="odr-txt02">
+                                                  <input type="text" name="AddVar" value="<TMPL_VAR NAME=ADDVAR>">
+                                                  <span class="sub-item">
+<TMPL_IF STOCKSET>
+<input type="button" name="Add" value="選択肢を追加" onClick='disALL();StockSubmit(document.VADD<TMPL_VAR NAME=NO>);'>
+<TMPL_ELSE>
+<input type="button" name="Add" value="選択肢を追加" onClick='disALL();document.VADD<TMPL_VAR NAME=NO>.submit();'>
+</TMPL_IF>
+                                                  </span>
+                  </td>
+</form>
+                                                </tr>
+  </TMPL_IF>
+                                              </table>
+                                            </td>
+            </form>
+                                          </tr>
+</TMPL_LOOP>
+
+<TMPL_IF STOCKSET>
+                                        <tr>
+<form name="STOCKINFO" method="POST" action="stockinfo.cgi">
+                                          <td class="item-name">在庫設定</td>
+                                          <td class="item-sub">
+                                            <input name="ZaikoTbl" type="radio" value="V" id="vari01" <TMPL_IF ZAIKOTBLV>checked</TMPL_IF>>
+                                            バリエーションごとに在庫を設定
+                                            <br>
+                                            <input name="ZaikoTbl" type="radio" value="M" id="vari02" <TMPL_IF ZAIKOTBLM>checked</TMPL_IF> <TMPL_IF ZAIKOTBLZ>checked</TMPL_IF> <TMPL_IF ZAIKOTBLU>checked</TMPL_IF>>
+                                            まとめて在庫を設定
+                                            </td>
+                                        </tr>
+</TMPL_IF>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                  </table></td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+                          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td>&nbsp;</td>
+                            </tr>
+                          </table>
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                            <tr>
+                              <td align="center" style="padding:10px 10px 10px 10px ">
+                               <div align="center">
+<TMPL_IF STOCKSET>
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ITEMID>">
+<input type="hidden" name="CMD" value="ENTER">
+<TMPL_IF STOCKSET>
+<input type="hidden" name="StockSet" value="Y">
+</TMPL_IF>
+<input type="button" name="Submit" value="保存して次へ" onClick="StockSetting();">
+</form>
+</TMPL_IF>
+                                <input type="button" name="Submit" value="商品一覧へ戻る" onClick="location.href='itemlist.cgi?LastCGI=1'">
+</form>
+                               </div>
+                              </td>
+                            </tr>
+                          </table>

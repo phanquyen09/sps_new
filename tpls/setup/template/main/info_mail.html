@@ -1,0 +1,218 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" 
+"http://www.w3c.org/TR/1999/REC-html401-19991224/loose.dtd">
+<html>
+<head>
+<title>お知らせメール登録・解除</title>
+<meta http-equiv="Content-Type" content="text/html;charset=EUC-JP">
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<LINK href="info.css" type=text/css rel=stylesheet>
+</head>
+<body>
+
+<form name="form1" action="info_mail.cgi">
+
+<TMPL_IF NAME=DO>
+<div id="mailBox">
+
+	<h1 id="mailTitle">お知らせメール登録・解除</h1>
+
+	<p>メールアドレスを解除する場合は「解除する」を選択して［設 定］ボタンをクリックしてください。<br>
+	別のメールアドレスに変更する場合は「変更する」を選択し、新しいメールアドレスを入力して［設 定］ボタンをクリックしてください。</p>
+
+	<div id="mailErr">
+  <TMPL_IF NAME=ERR_MSG>
+    <TMPL_LOOP NAME=ERR_MSG>
+      <font color="red"><TMPL_VAR NAME=MSG></font><br>
+    </TMPL_LOOP>
+  </TMPL_IF>
+	</div>
+
+	<table border="0" cellpadding="0" cellspacing="1">
+	<tr>
+		<th class="sideTxt">メールアドレス</td>
+		<td>
+			<input type="radio" name="CMD" value="DEL" onClick="document.form1.Mail.disabled='true';">解除する<br>
+			<input type="radio" name="CMD" value="EDT" onClick="document.form1.Mail.disabled= false;" checked>変更する&nbsp;
+			<input type="text" name="Mail" value="<TMPL_VAR NAME=MAIL>" size="40" style="ime-mode:disabled">
+		</td>
+	</tr>
+  <tr>
+    <th class="sideTxt">メールの種類</td>
+    <td>
+      <input type="checkbox" name="Opt1" value="1" <TMPL_IF NAME=OPT1>checked</TMPL_IF>>メインテナンスや障害、機能追加、在庫切れ通知などの情報<br>
+      <input type="checkbox" name="Opt2" value="1" <TMPL_IF NAME=OPT2>checked</TMPL_IF>>新サービスやキャンペーン、セミナー、機能活用講座などの情報
+    </td>
+  </tr>
+	</table>
+
+	<div id="mailBtn">
+			<input type="button" value="戻 る" class="formBtn" onClick="document.form1.CMD2.value='ELSE';document.form1.InfoID.value='';document.form1.submit();">&nbsp;
+			<input type="submit" value="設 定" class="formBtn">
+	</div>
+
+</div>
+<input type="hidden" name="CMD2">
+<input type="hidden" name="InfoID" value="<TMPL_VAR NAME=INFOID>">
+<input type="hidden" name="Mail2" value="<TMPL_VAR NAME=MAIL>">
+</TMPL_IF>
+
+<TMPL_IF NAME=NEW>
+<div id="mailBox">
+
+	<h1 id="mailTitle">お知らせメール登録・解除</h1>
+
+	<p>お知らせを受信するメールアドレスを入力し、受信するメールの種類を選択してください。</p>
+
+	<div id="mailErr">
+  <TMPL_IF NAME=ERR_MSG>
+    <TMPL_LOOP NAME=ERR_MSG>
+      <font color="red"><TMPL_VAR NAME=MSG></font><br>
+    </TMPL_LOOP>
+  </TMPL_IF>
+	</div>
+
+	<table border="0" cellpadding="0" cellspacing="1">
+	<tr>
+		<th class="sideTxt">メールアドレス</td>
+		<td><input type="text" name="Mail" value="<TMPL_VAR NAME=MAIL>" size="40" style="ime-mode:disabled"></td>
+	</tr>
+  <tr>
+    <th class="sideTxt">メールの種類</td>
+    <td>
+      <input type="checkbox" name="Opt1" value="1" <TMPL_IF NAME=OPT1>checked</TMPL_IF>>メインテナンスや障害、機能追加、在庫切れ通知などの情報<br>
+      <input type="checkbox" name="Opt2" value="1" <TMPL_IF NAME=OPT1>checked</TMPL_IF>>新サービスやキャンペーン、セミナー、機能活用講座などの情報
+    </td>
+  </tr>
+	</table>
+
+	<div id="mailBtn">
+			<input type="button" value="戻 る" class="formBtn" onClick="document.form1.InfoID.value='';document.form1.EDIT.value='';document.form1.submit();">&nbsp;
+			<input type="submit" value="設 定" class="formBtn">
+	</div>
+
+</div>
+<input type="hidden" name="EDIT"   value="1">
+<input type="hidden" name="InfoID" value="<TMPL_VAR NAME=INFOID>">
+</TMPL_IF>
+
+<TMPL_IF NAME=INFO>
+<div id="mailBox">
+
+	<h1 id="mailTitle">お知らせメール登録・解除</h1>
+
+	<p>受信するメールの種類を選択してください。</p>
+	
+	<div id="mailErr">
+  <TMPL_IF NAME=ERR_MSG>
+    <TMPL_LOOP NAME=ERR_MSG>
+      <font color="red"><TMPL_VAR NAME=MSG></font><br>
+    </TMPL_LOOP>
+  </TMPL_IF>
+	</div>
+
+	<table border="0" cellpadding="0" cellspacing="1">
+	<tr>
+		<th class="sideTxt">メールアドレス</td>
+                <td><TMPL_VAR NAME=MAIL><strong style="padding-left:1em;">※変更不可</strong></td>
+	</tr>
+  <tr>
+    <th class="sideTxt">メールの種類</td>
+    <td>
+      <input type="checkbox" <TMPL_IF NAME=OPT1>checked</TMPL_IF> disabled>メインテナンスや障害、機能追加、在庫切れ通知などの情報<br>
+      <input type="checkbox" name="Opt2" <TMPL_IF NAME=OPT2>checked</TMPL_IF>>新サービスやキャンペーン、セミナー、機能活用講座などの情報
+    </td>
+  </tr>
+	</table>
+
+	<div id="mailBtn">
+			<input type="button" value="戻 る" class="formBtn" onClick="document.form1.EDIT.value='';document.form1.InfoID.value='';document.form1.Mail.value='';document.form1.submit();">&nbsp;
+			<input type="submit" value="設 定" class="formBtn">
+	</div>
+
+</div>
+<input type="hidden" name="EDIT"   value="1">
+<input type="hidden" name="Opt1"   value="1">
+<input type="hidden" name="Mail"   value="<TMPL_VAR NAME=MAIL>">
+<input type="hidden" name="InfoID" value="<TMPL_VAR NAME=INFOID>">
+</TMPL_IF>
+
+<TMPL_IF NAME=DEL>
+<div id="mailBox">
+
+	<h1 id="mailTitle">お知らせメール登録・解除</h1>
+
+	<p>以下のメールアドレスを解除します。<br>
+	解除すると、このメールアドレス宛に送信されているお知らせメールが受信できなくなります。<br>
+	よろしければ［解除する］ボタンをクリックしてください。</p>
+
+	<div id="mailErr">
+<!--
+	●エラーメッセージ
+-->
+	</div>
+
+	<table border="0" cellpadding="0" cellspacing="1">
+	<tr>
+		<th class="sideTxt">メールアドレス</td>
+		<td><TMPL_VAR NAME=MAIL></td>
+	</tr>
+  <tr>
+    <th class="sideTxt">メールの種類</td>
+    <td>
+<TMPL_IF NAME=OPT1>
+      ・メインテナンスや障害、機能追加、在庫切れ通知などの情報<br>
+</TMPL_IF>
+<TMPL_IF NAME=OPT2>
+      ・新サービスやキャンペーン、セミナー、機能活用講座などの情報
+</TMPL_IF>
+    </td>
+  </tr>
+	</table>
+
+	<div id="mailBtn">
+			<input type="button" value="戻 る" class="formBtn" onClick="history.back()">&nbsp;
+			<input type="submit" value="解除する" class="formBtn">
+	</div>
+
+</div>
+<input type="hidden" name="DONE"   value="1">
+<input type="hidden" name="Mail"   value="<TMPL_VAR NAME=MAIL>">
+<input type="hidden" name="InfoID" value="<TMPL_VAR NAME=INFOID>">
+<input type="hidden" name="Opt1"   value="<TMPL_VAR NAME=OPT1>">
+<input type="hidden" name="Opt2"   value="<TMPL_VAR NAME=OPT2>">
+</TMPL_IF>
+
+<TMPL_IF NAME=ELSE>
+<div id="mailBox">
+
+	<h1 id="mailTitle">お知らせメール登録・解除</h1>
+
+  <p>メインテナンスや機能追加、在庫切れ通知、在庫わずか通知、ＥＣアドバイザーからのお知らせなどの受信設定を行います。
+  お知らせを受信するメールアドレスは4つまで登録できます。</p>
+
+	<table border="0" cellpadding="0" cellspacing="1">
+	<tr>
+		<th colspan="2">■&nbsp;登録しているメールアドレス</td>
+	</tr>
+<TMPL_LOOP NAME=INFO_MAILS>
+	<tr>
+		<td class="mailEdit"><input type="button" value="編 集" class="formBtn" onClick="document.form1.InfoID.value='<TMPL_VAR NAME=INFO_ID>';document.form1.submit();"></td>
+		<td><TMPL_VAR NAME=MAIL></td>
+	</tr>
+</TMPL_LOOP>
+	</table>
+
+	<div id="mailBtn">
+		<input type="button" value="閉じる" class="formBtn" onClick="window.close()">
+	</div>
+
+</div>
+<input type="hidden" name="InfoID">
+<input type="hidden" name="DO" value="1">
+</TMPL_IF>
+
+</form>
+
+</body>
+</html>
+

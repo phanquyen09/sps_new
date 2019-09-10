@@ -1,0 +1,121 @@
+<script language="JavaScript">
+<!--
+function del(f) {
+  if ( confirm("フリーページのカテゴリを削除します。よろしいですか？") ) {
+    f.submit();
+  } else {
+    return;
+  }
+}
+//-->
+</script>
+<form name="form1" method="post" action="cateblog.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#F39700">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">フリーページのカテゴリ管理を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/cateblog.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  フリーページが属するカテゴリを管理します。<br>
+                                  お店ページにはここで追加した「カテゴリ名」が表示され、「カテゴリ名」をクリックするとフリーページで作成した記事へリンクします。<br>
+                                  また、カテゴリごとに「キーワード」、「ディスクリプション」のSEOに関する項目も入力できます。<br>
+                                </div>
+                                <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+      <TMPL_VAR NAME=err>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                          <tr align="center">
+                                            <td colspan="2" class="item-name02">カテゴリ追加</td>
+                                          </tr>
+
+                                          <tr>
+                                            <td class="item-name">カテゴリ名</td>
+                                            <td class="item"><input name="label" type="text" class="def-line">
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td class="item-name">キーワード</td>
+                                            <td class="item"><input name="key" type="text" class="def-line"><br>※「,」半角カンマ区切りで入力してください。
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td class="item-name">ディスクリプション</td>
+                                            <td class="item">
+<textarea rows="2" name="desc" class="def-line"></textarea>
+<!--
+<input name="desc" type="text" class="def-line">
+-->
+                                            </td>
+                                          </tr>
+                                          <tr align="center">
+                                            <td colspan="2" class="item02"><span class="item">
+                                              <input type="button" onClick="document.form1.mode.value='regist';document.form1.submit();" value="追加する">
+                                            </span></td>
+                                          </tr>
+                                        </table>
+                                        <br>
+                                        <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                          <tr align="center">
+                                            <td nowrap class="item-name02">カテゴリ</td>
+                                            <td nowrap class="item-name02">キーワード/ディスクリプション</td>
+<!--
+                                            <td nowrap class="item-name02">キーワード</td>
+-->
+                                            <td nowrap class="item-name02">記事数</td>
+                                            <td nowrap class="item-name02">操作</td>
+                                          </tr>
+
+                                          <TMPL_LOOP NAME=category_list>
+                                            <tr>
+                                              <td nowrap class="item02">
+                                                <input name="label<TMPL_VAR NAME=category_id>" type="text" value="<TMPL_VAR NAME=label>" size="20"><br/>
+                                                <select name="status<TMPL_VAR NAME=category_id>">
+                                                <TMPL_IF NAME=status>
+                                                <option selected value=1>表示</option>
+                                                <option value=0>非表示</option>
+                                                <TMPL_ELSE>
+                                                <option value=1>表示</option>
+                                                <option value=0 selected>非表示</option>
+                                                </TMPL_IF>
+                                                </select>
+                                                </td>
+<td nowrap class="item02"><input type="text" name="keyword<TMPL_VAR NAME=category_id>" size="40" value="<TMPL_VAR NAME=KEYWORD>"><br><textarea name="description<TMPL_VAR NAME=category_id>" rows="2" cols="40"><TMPL_VAR NAME=DESCRIPTION></textarea>
+</td>
+<!--
+<td nowrap class="item02"><input type="text" name="description<TMPL_VAR NAME=category_id>" size="20" value="<TMPL_VAR NAME=DESCRIPTION>"></td>
+<td nowrap class="item02"><input type="text" name="keyword<TMPL_VAR NAME=category_id>" size="20" value="<TMPL_VAR NAME=KEYWORD>"></td>
+-->
+                                                <td align="center" class="item02"><TMPL_VAR NAME=entnum></td>
+                                                <td nowrap class="item02">
+                                                <input type="button" onClick="document.form1.mode.value='mod';document.form1.category_id.value='<TMPL_VAR NAME=category_id>';document.form1.submit();" value="変更">
+                                                <input type="button" onClick="document.form1.vord.value='<TMPL_VAR NAME=vord>';document.form1.mode.value='up';document.form1.category_id.value='<TMPL_VAR NAME=category_id>';document.form1.submit();" value="上へ">
+                                                <input type="button" onClick="document.form1.vord.value='<TMPL_VAR NAME=vord>';document.form1.mode.value='down';document.form1.category_id.value='<TMPL_VAR NAME=category_id>';document.form1.submit();"value="下へ">
+                                                <input type="button" onClick="document.form1.vord.value='<TMPL_VAR NAME=vord>';document.form1.mode.value='del';document.form1.category_id.value='<TMPL_VAR NAME=category_id>';del(document.form1);" value="削除">
+                                              </td>
+                                            </tr>
+                                          </TMPL_LOOP>
+
+                                        </table>
+                                  </td>
+                                </tr>
+                              </table></td>
+
+                            </tr></table>
+<input type="hidden" name="mode" value="">
+<input type="hidden" name="vord" value="">
+<input type="hidden" name="parent" value="">
+<input type="hidden" name="category_id" value="">
+<input type="hidden" name="childon" value="">
+</form>

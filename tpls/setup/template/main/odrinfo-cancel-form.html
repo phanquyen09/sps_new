@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<title>クレジットカード決済依頼キャンセルフォーム</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="odrinfo_cancel.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+<!--
+function CheckForm(CForm) {
+  var flag=0,rdo=0;
+  if(CForm.client_name.value=="" || CForm.client_tel.value=="" || CForm.client_mail.value=="")flag=1;
+  var objRadios=document.getElementsByName("cancel_reason");
+  for(var i=0;i<objRadios.length;i++){
+    var objRadio=objRadios[i];
+    if(objRadio.checked==true)rdo=1;
+  }
+  if(!rdo)flag=1;
+  if(flag){
+    alert("全ての項目を入力してください。");
+    return false;
+  } else {
+    var rtn = confirm("最終確認となります。\n決済依頼キャンセルは取り消しできません。\n本当によろしいですか？");
+
+    if(rtn == true){
+        // 2重押下防止
+        document.getElementById("submit_irai").disabled = true;
+    }
+
+    return rtn;
+  }
+}
+//-->
+</script>
+</head>
+<body>
+<div id="container">
+<h1>クレジットカード決済依頼キャンセルフォーム</h1>
+<p>クレジットカード決済依頼のキャンセル依頼を行います。</p>
+<p>下記の内容を確認し、画面下部の必要事項を入力して［依頼］ボタンをクリックしてください。</p>
+<div id="info">
+  <h2>クレジットカード決済依頼のキャンセルについて</h2>
+  <ul>
+    <li>キャンセル依頼の受付は、決済依頼日を含む<span class="red">14日間</span>となります。<br>
+    この期間を過ぎた場合は、店舗様より購入者様へ直接ご返金いただくことになります。</li>
+    <li>キャンセル処理は、通常20分ほどで完了いたします。</li>
+    <li>キャンセル処理の状況につきましては、受注台帳の「決済依頼」欄、もしくは受注詳細の「決済ステータス」欄をご確認ください。<br>
+    <span class="red">※キャンセル処理完了後のメール連絡は行っておりません。</span><br>
+    <img src="../imgs/cancel_status.gif" width="580" height="362" alt="キャンセル処理状況" id="cancel_status"></li>
+    <li>クレジットカード会社の決済締日により、キャンセルできない場合がございます。<br>
+    この場合は、店舗様より購入者様へ直接ご返金いただくことになります。</li>
+    <li>クレジットカード会社により、キャンセル処理が完了しても、与信枠（限度額）の仮押さえしている商品代金分が、すぐに解除されない場合がございます。<br>
+    この場合は、購入者様よりクレジットカード会社へ与信枠についてご確認いただくことになります。</li>
+    <li class="end">クレジットカード決済のキャンセル処理が完了したら、必ず注文自体のキャンセル処理を行ってください。<br>
+    注文自体のキャンセル処理につきましては、以下の「注文キャンセルについて」をご覧ください。<br>
+    <a href="<TMPL_VAR NAME=Manual>func01/odrinfo.html#cancel" target="manual">⇒ 注文キャンセルについて</a>
+    </li>
+  </ul>
+</div>
+<div id="errormsg">
+<font color="red"><TMPL_LOOP NAME=ERR_MSG>・<TMPL_VAR NAME=ERR><br>
+</TMPL_LOOP></font>
+</div>
+<div id="form">
+  <form name="c_form" action="odrinfo-cancel-mail.cgi" method="post" onSubmit="return CheckForm(this);">
+    <input type="hidden" name="cmd" value="CancelSubmit">
+    <input type="hidden" name="store_id" value="<TMPL_VAR NAME=store_id>">
+    <input type="hidden" name="cards_id" value="<TMPL_VAR NAME=cards_id>">
+    <input type="hidden" name="store_name" value="<TMPL_VAR NAME=store_name>">
+    <input type="hidden" name="order_date" value="<TMPL_VAR NAME=order_date>">
+    <input type="hidden" name="irai_date" value="<TMPL_VAR NAME=irai_date>">
+    <input type="hidden" name="order_id" value="<TMPL_VAR NAME=order_id>">
+    <input type="hidden" name="pub_order_no" value="<TMPL_VAR NAME=pub_order_no>">
+    <input type="hidden" name="disp_total" value="<TMPL_VAR NAME=disp_total>">
+    <input type="hidden" name="p_name" value="<TMPL_VAR NAME=p_name>">
+    <input type="hidden" name="service" value="<TMPL_VAR NAME=service>">
+    <input type="hidden" name="recv_date" value="<TMPL_VAR NAME=settle_recv_date>">
+    <table>
+      <tr>
+        <th>ショップID</th>
+        <td><TMPL_VAR NAME=store_name></td>
+      </tr>
+      <tr>
+        <th>注文日時</th>
+        <td><TMPL_VAR NAME=order_date></td>
+      </tr>
+      <tr>
+        <th>注文番号</th>
+        <td><TMPL_VAR NAME=pub_order_no></td>
+      </tr>
+      <tr>
+        <th>合計金額</th>
+        <td><TMPL_VAR NAME=disp_total>円</td>
+      </tr>
+      <tr>
+        <th>注文者のお名前</th>
+        <td><TMPL_VAR NAME=p_name></td>
+      </tr>
+      <tr>
+	<th>店舗のご担当者様名<span class="red">（必須）</span></th>
+	<td class="input">
+          <input type="text" name="client_name" size="50" maxlength="255" value="<TMPL_VAR NAME=client_name>">
+       </td>
+      </tr>
+      <tr>
+	<th>店舗のご連絡先電話番号<span class="red">（必須）</span></th>
+	<td class="input">
+          <input type="text" name="client_tel" size="50" maxlength="15" value="<TMPL_VAR NAME=client_tel>" style="ime-mode: disabled;">
+        </td>
+      </tr>
+      <tr>
+	<th>店舗のご連絡先メールアドレス<span class="red">（必須）</span></th>
+	<td class="input">
+          <input type="text" name="client_mail" size="50" maxlength="80" value="<TMPL_VAR NAME=client_mail>" style="ime-mode: disabled;">
+        </td>
+      </tr>
+      <tr>
+        <th>キャンセル理由<span class="red">（必須）</span></th>
+        <td>
+          <input type="radio" name="cancel_reason" value="1" id="reason1" <TMPL_IF NAME=reason1>checked="checked"</TMPL_IF>>
+          <label for="reason1">購入者様都合</label>
+          <input type="radio" name="cancel_reason" value="2" id="reason2" <TMPL_IF NAME=reason2>checked="checked"</TMPL_IF>>
+          <label for="reason2">店舗様都合</label>
+          <input type="radio" name="cancel_reason" value="3" id="reason3" <TMPL_IF NAME=reason3>checked="checked"</TMPL_IF>>
+          <label for="reason3">その他</label>
+        </td>
+      </tr>
+    </table>
+    <div id="btn">
+      <input type="submit" value="依頼" id="submit_irai">
+      <input type="button" value="閉じる" onClick="window.close();">
+    </div>
+  </form>
+</div>
+
+</div>
+<TMPL_IF NAME=FOCUS>
+<script type="text/javascript">
+<!--//
+// フォーカスを店舗のご担当者様名に設定
+document.c_form.client_name.focus();
+//-->
+</script>
+</TMPL_IF>
+</body>
+</html>
+

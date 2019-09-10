@@ -1,0 +1,493 @@
+<!--
+<style type="text/css">
+input,select { font-size: 14px; line-height: 1.3em; margin: 4px 4px;
+                 vertical-align:middle; }
+</style>
+-->
+<script language="JavaScript">
+<!--
+var last = null;
+function preview() {
+    var now = new Date();
+    if ( last != null && (now-last) < 5000  ) {
+      return;
+    }
+    last = now;
+    showHideHeadTagArea();
+    document.form1.mode.value="preview";
+    document.form1.target="template_preview";
+    document.form1.submit();
+}
+//-->
+</script>
+<TMPL_IF NAME=displayHtmlEditor>
+<script language="JavaScript">
+<!--
+function barea(param)
+{
+    document.form1.mode.value="up";
+    document.form1.target="_self";
+    if (HTMLAreaSupported()) {
+        document.form1.ta1.form.onsubmit();
+    }
+    document.form1.button1.disabled='true';
+    document.form1.set1.disabled='true';
+    document.form1.submit();
+}
+function barea2(param)
+{
+    document.form1.mode.value="up";
+    document.form1.target="_self";
+    if (HTMLAreaSupported()) {
+        document.form1.ta2.form.onsubmit();
+    }
+    document.form1.set1.disabled='true';
+    document.form1.submit();
+}
+function regist1() {
+    document.form1.mode.value="regist";
+    document.form1.target="_self";
+    if (HTMLAreaSupported()) {
+        document.form1.ta1.form.onsubmit();
+    }
+    document.form1.button1.disabled='true';
+    document.form1.set1.disabled='true';
+    document.form1.submit();
+}
+function donate(ac) {
+    document.form1.mode.value="skip";
+    document.form1.target="_self";
+    if (HTMLAreaSupported()) {
+        document.form1.ta1.form.onsubmit();
+    }
+    document.form1.button1.disabled='true';
+    document.form1.set1.disabled='true';
+    document.form1.action=ac;
+    document.form1.submit();
+}
+//-->
+</script>
+<script type="text/javascript">
+  _editor_url = "../blog/js";
+  _editor_lang = "ja";
+</script>
+<!--
+<style type="text/css">
+.htmlarea table, td, div { padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px;  }
+.htmlarea table { border-style: none; }
+.htmlarea .toolbar td { background-color: ButtonFace; border-width: 0px; }
+</style>
+-->
+<script type="text/javascript" src="../blog/js/htmlarea.js"></script>
+<script type="text/javascript" src="../blog/js/entry.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript" src="../js/tiny_mce/jquery.tinymce.js"></script>
+<script type="text/javascript" src="../blog/js/initeditor.js"></script>
+<!--
+<img src="../imgs/spc.gif" onload="initEditor();">
+-->
+<TMPL_ELSE>
+<script language="JavaScript">
+<!--
+function barea(param)
+{
+    document.form1.mode.value="up";
+    document.form1.target="_self";
+    document.form1.button1.disabled='true';
+    document.form1.set1.disabled='true';
+    document.form1.submit();
+}
+function regist1() {
+    document.form1.mode.value="regist";
+    document.form1.target="_self";
+    document.form1.button1.disabled='true';
+    document.form1.set1.disabled='true';
+    document.form1.submit();
+}
+function donate(ac) {
+    document.form1.mode.value="skip";
+    document.form1.target="_self";
+    document.form1.button1.disabled='true';
+    document.form1.set1.disabled='true';
+    document.form1.action=ac;
+    document.form1.submit();
+}
+function newtpl_preview(type) {
+    // 元のアクションを保持
+    var backup = window.document.form1.action;
+
+    // 表示テンプレート指定
+    var tpl = document.createElement('input');
+    tpl.name = 'tpl';
+    tpl.id = 'tplid';
+    tpl.type = 'hidden';
+    tpl.value = 'freePage.tpl';
+
+    // 表示データ参照先指定
+    var mode = document.createElement('input');
+    mode.name = 'preview_mode';
+    mode.id = 'preview_mode_id';
+    mode.type = 'hidden';
+    mode.value = 'current';
+
+    // ページタイプ指定
+    var pageType = document.createElement('input');
+    pageType.name = 'type';
+    pageType.id = 'typeid';
+    pageType.type = 'hidden';
+    pageType.value = 'entry';
+
+    showHideHeadTagArea();
+
+    // パラメータをフォームに登録
+    window.document.form1.appendChild(tpl);
+    window.document.form1.appendChild(mode);
+    window.document.form1.appendChild(pageType);
+
+    // 別ウインドウでプレビュー表示
+    window.document.form1.target = "entry_preview";
+    window.document.form1.action = "../func100/newtplPreview.php";
+    
+    window.document.form1.submit();
+
+    // 後始末、元のアクションに戻して追加したパラメータを削除
+    window.document.form1.action = backup;
+    var tplid = document.getElementById("tplid");
+    var preview_mode_id = document.getElementById("preview_mode_id");
+    var typeid = document.getElementById("typeid");
+    tplid.parentNode.removeChild(tplid);
+    preview_mode_id.parentNode.removeChild(preview_mode_id);
+    typeid.parentNode.removeChild(typeid);
+}
+//-->
+</script>
+</TMPL_IF>
+<script type="text/javascript" src="../js/custom_ui/popupmanager.js"></script>
+<script type="text/javascript">
+<!--
+window.onload = function() {
+    var popupImg  = document.getElementsByClassName("near-popup");
+    if (popupImg.length != 0) {
+      for (var i = 0; i < popupImg.length; i++) {
+        popupImg.item(i).addEventListener("click", function(e) {
+          if (typeof dlg.style !== "undefined") {
+            if (e.clientY < dlg.scrollHeight + 40) {
+              dlg.style.top = (e.clientY + 20) + 'px';
+            } else {
+              dlg.style.top = (e.clientY - dlg.scrollHeight - 20) + 'px';
+            }
+          }
+        });
+      }
+      clickEvent = true;
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function(e) {
+    var switchSmpTxtView = function() {
+        var smpTxt = document.getElementById('smp_txt');
+        var categoryId = document.form1.category_id.value;
+        var diaryCategoryId = '<TMPL_VAR NAME=diary_category_id>';
+        smpTxt.style.display = categoryId && categoryId === diaryCategoryId ? 'none' : '';
+    };
+
+    document.form1.category_id.addEventListener('change', function(e) {
+        showHideHeadTagArea();
+        switchSmpTxtView();
+    });
+
+    showHideHeadTagArea();
+    switchSmpTxtView();
+});
+
+function showHideHeadTagArea() {
+    var headTagArea = document.getElementById('headTagArea');
+    var diaryCategoryId = '<TMPL_VAR NAME=diary_category_id>';
+    var display = '';
+    var isDiary = 'N';
+
+    var categorySelectElement = document.getElementById("category_id");
+    var selectedCategoryId = categorySelectElement.options[categorySelectElement.selectedIndex].value;
+
+    if (selectedCategoryId == diaryCategoryId && selectedCategoryId != '') {
+        display = 'none';
+        isDiary = 'Y';
+    }
+
+    document.form1.isDiary.value = isDiary;
+    headTagArea.style.display = display;
+}
+
+function increaseTextarea()
+{
+    document.form1.mode.value="up";
+    <TMPL_IF NAME=displayHtmlEditor>
+    if (HTMLAreaSupported()) {
+        document.form1.ta1.form.onsubmit();
+    }
+    </TMPL_IF>
+    document.form1.increaseTextareaHeight.value="increase";
+    document.form1.target="_self";
+    document.form1.submit();
+}
+
+function responsiveTplPreview()
+{
+  tplPreview('responsive');
+}
+
+function tplPreview(type)
+{
+  if (type === 'responsive') {
+    var winOpenScreenHeight = window.innerHeight;
+    var winOpen = window.open("about:blank", "entry_preview", "scrollbars=yes, resizable=yes, width=420, height=" + winOpenScreenHeight);
+  }
+  // 元のアクションを保持
+  var backup = window.document.form1.action;
+
+  // 表示テンプレート指定
+  var tpl = document.createElement('input');
+  tpl.name = 'tpl';
+  tpl.id = 'tplid';
+  tpl.type = 'hidden';
+  tpl.value = 'freePage.tpl';
+
+  // 表示データ参照先指定
+  var mode = document.createElement('input');
+  mode.name = 'preview_mode';
+  mode.id = 'preview_mode_id';
+  mode.type = 'hidden';
+  mode.value = 'current';
+
+  // ページタイプ指定
+  var pageType = document.createElement('input');
+  pageType.name = 'type';
+  pageType.id = 'typeid';
+  pageType.type = 'hidden';
+  pageType.value = 'entry';
+
+  // パラメータをフォームに登録
+  window.document.form1.appendChild(tpl);
+  window.document.form1.appendChild(mode);
+  window.document.form1.appendChild(pageType);
+
+  // 別ウインドウでプレビュー表示
+  window.document.form1.target = "entry_preview";
+  window.document.form1.action = "../func100/newtplPreview.php";
+  window.document.form1.submit();
+
+  // 後始末、元のアクションに戻して追加したパラメータを削除
+  window.document.form1.action = backup;
+  var tplid = document.getElementById("tplid");
+  var preview_mode_id = document.getElementById("preview_mode_id");
+  var typeid = document.getElementById("typeid");
+  tplid.parentNode.removeChild(tplid);
+  preview_mode_id.parentNode.removeChild(preview_mode_id);
+  typeid.parentNode.removeChild(typeid);
+}
+//-->
+</script>
+<link href="../css/custom_ui/popupmanager.css" rel="stylesheet" type="text/css">
+
+<form name="form1" method="post" action="entry.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#F39700">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">フリーページの作成を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/entry.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  自由に記事を作成できます。<br>
+                                  記事の作成前に「フリーページのカテゴリ管理」でカテゴリを新規作成してください。<br><br>
+                                  JavaScriptを使用する場合は、HTMLエディタをOFFにしてご利用ください。<br>
+                                  <a href="../func02/htmleditor.php">⇒HTMLエディタ OFF/ON 切替</a><br>
+                                </div>
+                                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+<TMPL_IF NAME=DIS>
+<TMPL_ELSE>
+<!--
+<div align="right"><a href="entry2.cgi">テキスト版</a></div>
+-->
+</TMPL_IF>
+                <TMPL_VAR NAME=err>
+                                  <td>
+<table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                        <tr>
+                                          <td class="item-name">カテゴリ</td>
+                                          <td class="item">
+
+                                        <select name="category_id" id="category_id">
+                                          <option value="">カテゴリを選択</option>
+                                          <TMPL_LOOP name=category_list>
+                                          <option value="<TMPL_VAR NAME=category_id>" <TMPL_IF NAME=seltmp>selected</TMPL_IF>><TMPL_VAR NAME=label></option>
+                                          </TMPL_LOOP>
+                                        </select>
+
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">タイトル</td>
+                                          <td class="item"><input name="title" type="text" class="def-line" value="<TMPL_VAR NAME=title>">
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">キーワード</td>
+                                          <td class="item"><input name="keyword" type="text" class="def-line" value="<TMPL_VAR NAME=keyword>">
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">ディスクリプション</td>
+                                          <td class="item"><input name="description" type="text" class="def-line" value="<TMPL_VAR NAME=description>">
+                                          </td>
+                                        </tr>
+                                        <tr id="headTagArea">
+                                          <td class="item-name">headタグ<img class="near-popup" src="./imgs/newSetup_QuestionOrange.gif" alt="?" onclick="popUp('popup_head_tag',1);" style="cursor:pointer;"></td>
+                                          <td class="item">
+                                            <textarea name="head_tag" style="width:455px" rows="<TMPL_VAR NAME=increaseTextareaHeight>" wrap="VIRTUAL" class="def-line"><TMPL_VAR escape=html NAME=headTag></textarea>
+                                            <br>
+                                            <input type="button" name="button1" value="入力エリアの拡大" style="width:130px" onClick="increaseTextarea()">
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">PC用<img class="near-popup" src="./imgs/newSetup_QuestionOrange.gif" alt="?" onclick="popUp('pc_body',1);" style="cursor:pointer;"></td>
+                                          <td class="item">
+                                            <textarea name="body" id="ta1" style="width:455px" rows="<TMPL_VAR NAME=ta1>" wrap="VIRTUAL" class="def-line"><TMPL_VAR escape=html NAME=body></textarea>
+                                            <br>
+                                            <input type="button" name="button1" value="入力エリアの拡大" style="width:130px" onClick="barea('up')">
+                                          </td>
+                                        </tr>
+                                        <tr id="smp_txt">
+                                          <td class="item-name">スマートフォン用<img class="near-popup" src="./imgs/newSetup_QuestionOrange.gif" alt="?" onclick="popUp('smp_body',1);" style="cursor:pointer;">
+                                            <h5 style='position: relative;'><span class="icon_for_estoremb">Ｅストアーモバイル専用</span></h5>
+                                          </td>
+                                          <td class="item">
+                                            <div class="infoArea table_bg">
+                                              現在の設定： PC用管理画面のフリーページを表示<TMPL_IF NAME=usePcFreepageFlg>する<TMPL_ELSE>しない</TMPL_IF>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                              <a href="http://help.shopserve.jp/ctrlpnl_sup/func07/smp.html#14" target="_blank">>>表示イメージ</a>
+                                            </div>
+                                            <textarea name="body_smp" id="ta_freepage" style="width:455px" rows="<TMPL_VAR NAME=ta1>" class="tm_wswg_emj_smp"><TMPL_VAR escape=html NAME=body_smp></textarea>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">記事の状態</td>
+                                          <td class="item">
+                                                <TMPL_IF NAME=status>
+                                                <input name="status" type="radio" value="1" id="open01" checked>
+                                                <TMPL_ELSE>
+                                                <input name="status" type="radio" value="1" id="open01">
+                                                </TMPL_IF>
+
+                                <label for="open01">公開する</label>
+                                                <TMPL_IF NAME=status>
+                                                <input name="status" type="radio" value="0" id="open02">
+                                                <TMPL_ELSE>
+                                                <input name="status" type="radio" value="0" id="open02" checked>
+                                                </TMPL_IF>
+                                                <label for="open02">下書き</label>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">日付の表示</td>
+                                          <td class="item">
+                                                <TMPL_IF NAME=is_display_date>
+                                                <input name="is_display_date" type="radio" value="1" id="date01" checked>
+                                                <TMPL_ELSE>
+                                                <input name="is_display_date" type="radio" value="1" id="date01">
+                                                </TMPL_IF>
+                                                <label for="date01">表示する</label>
+                                                <TMPL_IF NAME=is_display_date>
+                                                <input name="is_display_date" type="radio" value="0" id="date02">
+                                                <TMPL_ELSE>
+                                                <input name="is_display_date" type="radio" value="0" id="date02" checked>
+                                                </TMPL_IF>
+                                                <label for="date02">表示しない</label>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">コメント</td>
+                                          <td class="item">
+                                                <TMPL_IF NAME=comment_receive>
+                                                <input name="comment_receive" type="radio" value="1" id="coment01" checked>
+                                                <TMPL_ELSE>
+                                                <input name="comment_receive" type="radio" value="1" id="coment01">
+                                                </TMPL_IF>
+                                                <label for="coment01">受け付ける</label>
+                                                <TMPL_IF NAME=comment_receive>
+                                                <input name="comment_receive" type="radio" value="0" id="coment02">
+                                                <TMPL_ELSE>
+                                                <input name="comment_receive" type="radio" value="0" id="coment02" checked>
+                                                </TMPL_IF>
+                                                <label for="coment02">受け付けない</label>
+                                          </td>
+                                        </tr>
+
+                                      </table>
+                                      <br>
+                                      <div align="center">
+                                        <TMPL_IF NAME=isnewlogic>
+                                        <input name="set" type="button" id="set" value="プレビュー" onClick="<TMPL_IF NAME=isResponsiveTheme>responsiveTplPreview();<TMPL_ELSE>newtpl_preview();</TMPL_IF>">
+                                        <TMPL_ELSE>
+                                        <input name="set" type="button" id="set" value="プレビュー" onClick="preview();">
+                                        </TMPL_IF>
+                                        <input name="set1" type="button" onClick="regist1();" id="set" value="設定を保存する">
+                                        <br>
+                                      </div>
+                                    </td>
+                                </tr>
+                              </table></td>
+
+                            </tr>
+                        </table>
+                        <img src="../imgs/spc.gif" <TMPL_IF NAME=displayHtmlEditor>onload="initEditor();"</TMPL_IF>>
+                      </td>
+                    </tr>
+<input type="hidden" name="mode" value="">
+<input type="hidden" name="entry_id" value="<TMPL_VAR NAME=entry_id>">
+<input type="hidden" name="do_select" value="<TMPL_VAR NAME=do_select>">
+<input type="hidden" name="do_title" value="<TMPL_VAR NAME=do_title>">
+<input type="hidden" name="search_title" value="<TMPL_VAR NAME=search_title>">
+<input type="hidden" name="search_catid" value="<TMPL_VAR NAME=search_catid>">
+<input type="hidden" name="first" value="1">
+<input type="hidden" name="eid">
+<input type="hidden" name="increaseTextareaHeight" value="">
+<input type="hidden" name="isDiary" value="">
+</form>
+<div id="pc_body" class="dialog_disp">
+      <div id="pc_body_f" class="dialog_main">
+        <a href="#close" class="close" onclick="return dlgClose()"></a>
+        <dl class="content">
+          PCサイトのフリーページに表示したい内容を入力します。<br>
+          なお、スマートフォンサイト設定の「<a href="/<TMPL_VAR NAME=storeName>/func07/smp_use_pc_config.php?mode=smp" target="_blank">PCページ連動設定</a>」にて、フリーページを表示させる設定の場合、スマートフォンサイトにも反映されます。※店長日記は除く。
+        </dl>
+      </div>
+</div>
+<div id="smp_body" class="dialog_disp">
+      <div id="smp_body_f" class="dialog_main">
+        <a href="#close" class="close" onclick="return dlgClose()"></a>
+        <dl class="content">
+          ここで入力した内容をスマートフォンサイトに表示させることができます。<br>
+          表示させるには、スマートフォンサイト設定の「<a href="/<TMPL_VAR NAME=storeName>/func07/smp_use_pc_config.php?mode=smp" target="_blank">PCページ連動設定</a>」にて、フリーページを表示させる設定が必要です。
+        </dl>
+      </div>
+</div>
+<div id="popup_head_tag" class="dialog_disp">
+  <div id="popup_head_tag_f" class="dialog_main">
+    <a href="#close" class="close" onclick="return dlgClose()"></a>
+    <dl class="content">
+      フリーページのheadタグに出力したい内容を入力します。<br>
+      なお、未入力の場合は「<a href="/<TMPL_VAR NAME=storeName>/func05/remarketing_tag.php" target="_blank">リマーケティングタグ設定</a>」にて、その他ページの設定のheadタグに入力した内容が出力されます。
+    </dl>
+  </div>
+</div>

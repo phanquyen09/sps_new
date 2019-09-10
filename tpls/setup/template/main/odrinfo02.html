@@ -1,0 +1,611 @@
+<script type="text/javascript" src="../js/jquery/jquery-1.10.2.min.js"></script>
+
+<script type="text/javascript" src="../js/jquery/jquery-ui-1.10.4.min.js"></script>
+<script type="text/javascript" src="../js/jquery/datepicker-ja.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" >
+<script type="text/javascript" src="../js/kanri_datetimepicker.js"></script>
+
+<script>
+  jQuery.noConflict();
+  jQuery(function() {
+    jQuery('.datepicker').datepicker({
+      showOn:'button',
+      buttonText:'',
+      buttonImageOnly:true,
+      buttonImage:'./imgs/calendar_ic.gif',
+      dateFormat: 'yy-mm-dd',
+      yearRange: '1901:9999',
+      inline: true,
+      beforeShow: function() { setDateDatepicker(".datepicker","#ship_due_day","#ship_due_month","#ship_due_year"); },
+      onSelect: function(dateText, inst) { selectDateDatepicker(".datepicker","#ship_due_day","#ship_due_month","#ship_due_year");}
+    });
+  })
+
+</script>
+
+<a name="top"></a>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+<TMPL_UNLESS memoedit>
+function MemoSub(st) {
+    document.data.cmd.value=st;
+    document.data.target = '';
+    document.data.action='odrinfo.cgi';
+    document.data.submit();
+}
+</TMPL_UNLESS>
+
+<TMPL_UNLESS noedit>
+function ShipstSub(st) {
+    document.data.ST.value=st;
+    document.data.target = '';
+    document.data.action='odrinfo-shipst-save.cgi';
+    document.data.submit();
+}
+function TraderSet() {
+    document.data.cmd.value='dt';
+    document.data.target = '';
+    document.data.action='odrinfo.cgi';
+    document.data.submit();
+}
+function updateShipDueDate() {
+    document.data.cmd.value = 'sdd';
+    document.data.target = '';
+    document.data.action='odrinfo.cgi?ORDERID=<TMPL_VAR NAME=order_id>';
+    document.data.submit();
+}
+function setCurrentDate() {
+    var currentDate = new Date();
+    var day = ("0" + currentDate.getDate()).slice(-2);
+    var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
+    var year = currentDate.getFullYear();
+    document.getElementById("ship_due_year").value = year;
+    document.getElementById("ship_due_month").value = month;
+    document.getElementById("ship_due_day").value = day;
+}
+function Edit02Sub() {
+    document.data.target = '';
+    document.data.action='odrinfo-edit02.php';
+    document.data.submit();
+}
+function PrintSub(theURL,winName,features) {
+    var st = document.data.seq.value;
+    document.data.seq.value = st;
+    document.data.target = 'OdrPrint';
+    window.open(theURL,winName,features);
+    document.data.action='odrprint-print.cgi';
+    if ( st.match(/99/) ) {
+        document.data.action='odrprintinfo.cgi';
+    }
+    document.data.submit();
+}
+</TMPL_UNLESS>
+function ShowDeliv() {
+    document.data.target = '';
+    document.data.action='<TMPL_VAR NAME=back>odrinfo.cgi';
+    document.data.submit();
+}
+function ShowDeliv2() {
+    document.data.target = '';
+    var st = document.data.PAGE2.value;
+    document.data.PAGE.value = st;
+    document.data.action='<TMPL_VAR NAME=back>odrinfo.cgi';
+    document.data.submit();
+}
+//-->
+</script>
+<script type="text/javascript" src="../js/custom_ui/popupmanager.js"></script>
+<link href="../css/custom_ui/popupmanager.css" rel="stylesheet" type="text/css">
+<form name="data" method="post" action="dummy.cgi" target="" onSubmit="return false">
+  <input type="hidden" name="ORDERID" value="<TMPL_VAR NAME=order_id>">
+  <input type="hidden" name="DLVID" value="<TMPL_VAR NAME=deliv_oid>">
+  <input type="hidden" name="DLVTO" value="<TMPL_VAR NAME=deliverto>">
+  <input type="hidden" name="MULTI" value="<TMPL_VAR NAME=multi>">
+  <input type="hidden" name="ST" value="">
+  <input type="hidden" name="mail" value="">
+  <input type="hidden" name="cmd" value="">
+  <input type="hidden" name="num" value="<TMPL_VAR NAME=PAGE>">
+  <input type="hidden" name="back" value="<TMPL_VAR NAME=back>">
+<div style="font-size:100%">
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">注文データの詳細を確認します。</td>
+    <td align="right" class="midashi"><a href="https://help.shopserve.jp/help/orderlist.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>
+<!-- 届け先複数 -->
+<TMPL_IF multi>
+            <div class="odrinfoChange">
+            <select name="PAGE">
+              <option value="0" selected="selected">注文情報</option>
+  <TMPL_LOOP sellist>
+              <option value="<TMPL_VAR NAME=num>" <TMPL_IF sel>selected="selected"</TMPL_IF>>お届け先<TMPL_VAR NAME=num></option>
+  </TMPL_LOOP>
+            </select>
+            <input type="button" value="表示" onClick="ShowDeliv();">
+            &nbsp;（&nbsp;お届け先&nbsp;：&nbsp;<TMPL_VAR dlv_total>箇所&nbsp;）
+            </div>
+</TMPL_IF>
+<!-- 届け先複数 -->
+                  <table width="100%" border="0" cellpadding="0" cellspacing="2" bgcolor="#999999">
+                    <tr>
+                      <td colspan="2" class="item-name02">&nbsp;注文情報</td>
+                    </tr>
+                    <tr valign="top">
+                      <td width="50%" bgcolor="#FFFFFF" style="padding:5px"><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666">
+                          <tr>
+                            <td width="45%" class="item-name">&nbsp;注文日時</td>
+                            <td width="55%" bgcolor="#FFFFFF" class="item">&nbsp;<TMPL_VAR NAME=order_date></td>
+                          </tr>
+                          <tr>
+                            <td class="item-name">&nbsp;注文番号</td>
+                            <td bgcolor="#FFFFFF" class="item">&nbsp;<TMPL_VAR NAME=pub_order_no>
+<TMPL_VAR NAME=edy_str>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="item-name">&nbsp;フォルダ</td>
+                            <td bgcolor="#FFFFFF" class="item">&nbsp;<TMPL_VAR NAME=folder_str></td>
+                          </tr>
+                          <tr>
+                            <td class="item-name">&nbsp;購入ページ</td>
+                            <td bgcolor="#FFFFFF" class="item">&nbsp;<TMPL_VAR NAME=pur_way></td>
+                          </tr>
+                          <tr>
+                            <td class="item-name">&nbsp;注文経路</td>
+                            <td bgcolor="#FFFFFF" class="item">&nbsp;<TMPL_VAR NAME=siten_name></td>
+                          </tr>
+                          <tr>
+                            <td class="item-name">&nbsp;決済方法</td>
+                            <td bgcolor="#FFFFFF" class="item">
+                              <TMPL_IF NAME=pm_escape>
+                              &nbsp;<TMPL_VAR escape=HTML NAME=pm_str>
+                              <TMPL_ELSE>
+                              &nbsp;<TMPL_VAR NAME=pm_str></TMPL_IF>&nbsp;<TMPL_IF NAME=IS_GLOBAL_CARD>海外発行</TMPL_IF><TMPL_IF NAME=IS_DEBIT_CARD>デビット</TMPL_IF>
+                            </td>
+                          </tr>
+                          <TMPL_IF NAME=isRakutenId>
+                          <tr>
+                            <td class="item-name">
+                              &nbsp;楽天スーパー<br>
+                              &nbsp;ポイント利用<img alt="?" src="./imgs/newSetup_QuestionG.gif" onClick="popUp('odr_rakuten_used_point',1)" style="cursor:pointer;">
+                            </td>
+                            <td bgcolor="#FFFFFF" class="item">
+                              &nbsp;<TMPL_VAR NAME=dispRakutenUsedPoint>
+                            </td>
+                          </tr>
+                          </TMPL_IF>
+                          <TMPL_IF NAME=is_amazon_payments>
+                          <tr>
+                              <td class="item-name">
+                                  &nbsp;リファレンスID
+                              </td>
+                              <td bgcolor="#FFFFFF" class="item">
+                                  &nbsp;<a href="<TMPL_VAR NAME=amazon_order_detail_url>" target="_blank"><TMPL_VAR NAME=reference_id></a>
+                              </td>
+                          </tr>
+                          </TMPL_IF>
+                          <tr>
+                              <td class="item-name">
+                                  &nbsp;お届け方法
+                              </td>
+                              <td bgcolor="#FFFFFF" class="item">
+                                  &nbsp;<TMPL_VAR NAME=delivery_name ESCAPE=HTML>
+                              </td>
+                          </tr>
+                  </table>
+              </td>
+              <td width="50%" bgcolor="#FFFFFF" style="padding:5px">
+                  <p>
+                      <a href = "https://help.shopserve.jp/ctrlpnl_sup/func01/clientlist/privacy_use.html"
+                         target = "manual"
+                         >&lt;個人情報を適切に取り扱いましょう&gt;</a>
+                     </p>
+                  <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666">
+                      <table>
+                          <table width="100%" border="0" cellpadding="0" cellspacing="1"
+                              bgcolor="#666666" style="margin-top:5px">
+                              <tr>
+                            <td class="item-name">&nbsp;各種書類印刷</td>
+                            <td class="item">
+                              <select name="seq">
+                                <option value="99" selected>注文詳細</option>
+                                <option value="2">請求書</option>
+                                <option value="5">納品書（複数通常用）</option>
+                                <option value="4">納品書（複数贈答用）</option>
+                                <option value="3">領収書</option>
+                              </select>
+<TMPL_IF notedit>
+                              <input type="button" name="Submit" value="印刷" disabled>
+<TMPL_ELSE>
+                              <input type="button" name="Submit" value="印刷" onClick="PrintSub('','OdrPrint','');">
+</TMPL_IF>
+                            </td>
+                          </tr>
+                        </table>
+                        <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666" style="margin-top:5px">
+                          <tr>
+                            <td class="item-name">&nbsp;決済ステータス</td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=settle_st></td>
+                          </tr>
+                          <tr>
+                            <td class="item-name">&nbsp;入金ステータス</td>
+                            <td class="item">
+                              <TMPL_VAR NAME=recv_str></td>
+                          </tr>
+                      </table></td>
+                    </tr>
+                  </table>
+                  <br>
+                  <table class="cont_box">
+                    <tr>
+                      <td colspan="2" class="item-name02"><strong>&nbsp;お届け商品内容</strong>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2">
+                        <table class="odr_info">
+                          <tr>
+                            <th class="txt_c">商品番号</th>
+                            <th class="txt_c"><TMPL_VAR NAME=cart_itm_name></th>
+                            <th width="10%" class="txt_c"><TMPL_VAR NAME=cart_prc_name></th>
+                            <th class="txt_c"><TMPL_VAR NAME=cart_cnt_name></th>
+                            <th class="txt_c"><TMPL_VAR NAME=cart_subttl_name></th>
+                          </tr>
+  <TMPL_LOOP NAME=dlvitem>
+    <TMPL_IF opt_list>
+                          <tr bgcolor="#FFFFFF" class="item">
+                            <td rowspan="<TMPL_VAR NAME=opt_rowspan>" class="txt_l">&nbsp;<a href="./itemlist.cgi?CMD=SEEK&PIC=ON&ItemNoKan=<TMPL_VAR NAME=d_item_no>"><TMPL_VAR NAME=d_item_no><TMPL_IF existsBranchNo>（<TMPL_VAR NAME=d_branch_no>）</TMPL_IF></a></td>
+                            <td class="itm_nam border-none-bottom">&nbsp;<a href="./itemlist.cgi?CMD=SEEK&PIC=ON&ItemNoKan=<TMPL_VAR NAME=d_item_no>"><TMPL_VAR NAME=d_item_name></a>
+                              <TMPL_IF d_item_icon>
+                                <a target="_blank" href="<TMPL_VAR NAME=d_shop_domain><TMPL_VAR NAME=d_item_no>.html">
+                                  <img style="cursor:pointer;" alt="item_link" src="./imgs/icon14.png">
+                                </a>
+                              </TMPL_IF>
+                            </td>
+                            <td class="border-none-bottom"><TMPL_VAR NAME=d_item_prc>円</td>
+                            <td rowspan="<TMPL_VAR NAME=opt_rowspan>" align="right"><TMPL_VAR NAME=d_item_cnt></td>
+                            <td rowspan="<TMPL_VAR NAME=opt_rowspan>" align="right"><TMPL_VAR NAME=d_item_tal>円</td>
+                          </tr>
+                          <TMPL_LOOP NAME=opt_list><tr bgcolor="#FFFFFF" class="item">
+                            <td class="itm_nam border-none-v"><ul class="option_style"><li><TMPL_VAR NAME=option_display_name>:<TMPL_VAR NAME=option_choice_name></li></ul></td>
+                            <td class="border-none-v" align="right"><TMPL_VAR NAME=option_prc></td>
+                          </tr></TMPL_LOOP>
+    <TMPL_ELSE>
+                          <tr bgcolor="#FFFFFF" class="item">
+                            <td class="txt_l">&nbsp;<a href="./itemlist.cgi?CMD=SEEK&PIC=ON&ItemNoKan=<TMPL_VAR NAME=d_item_no>"><TMPL_VAR NAME=d_item_no><TMPL_IF existsBranchNo>（<TMPL_VAR NAME=d_branch_no>）</TMPL_IF></a></td>
+                            <td class="itm_nam">&nbsp;<a href="./itemlist.cgi?CMD=SEEK&PIC=ON&ItemNoKan=<TMPL_VAR NAME=d_item_no>"><TMPL_VAR NAME=d_item_name></a>
+                              <TMPL_IF d_item_icon>
+                                <a target="_blank" href="<TMPL_VAR NAME=d_shop_domain><TMPL_VAR NAME=d_item_no>.html">
+                                  <img style="cursor:pointer;" alt="item_link" src="./imgs/icon14.png">
+                                </a>
+                              </TMPL_IF>
+                            </td>
+                            <td align="right"><TMPL_VAR NAME=d_item_prc>円</td>
+                            <td align="right"><TMPL_VAR NAME=d_item_cnt></td>
+                            <td align="right"><TMPL_VAR NAME=d_item_tal>円</td>
+                          </tr>
+    </TMPL_IF>
+  </TMPL_LOOP>
+                          <tr align="center" bgcolor="#FFFFFF" class="item">
+                            <td colspan="4" align="right"><TMPL_VAR NAME=cart_itmttl_name></td>
+                            <td align="right"><TMPL_VAR NAME=d_disp_subtotal></td>
+                          </tr>
+<TMPL_IF schargeon>
+                          <tr align="center" bgcolor="#FFFFFF" class="item">
+                            <td colspan="4" align="right"><TMPL_VAR NAME=cart_scharge_name></td>
+                            <td align="right"><TMPL_VAR NAME=d_disp_scharge></td>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF wrapon>
+                          <tr align="center" bgcolor="#FFFFFF" class="item">
+                            <td colspan="4" align="right"><TMPL_VAR NAME=cart_wrap_name></td>
+                            <td align="right"><TMPL_VAR NAME=d_disp_wrap></td>
+                          </tr>
+</TMPL_IF>
+                          <tr align="center" bgcolor="#FFFFFF" class="item">
+                            <td colspan="4" align="right"><TMPL_VAR NAME=cart_total_name></td>
+                            <td align="right"><TMPL_VAR NAME=d_disp_total></td>
+                          </tr>
+                      </table></td>
+                    </tr>
+                  </table>
+                  <br>
+                  <br>
+<TMPL_LOOP NAME=ERR_MSGDT>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+                  <table width="100%" border="0" cellpadding="0" cellspacing="2" bgcolor="#999999">
+                    <tr bgcolor="#CCCCCC">
+                      <td colspan="2" class="item-name02">&nbsp;お届け情報</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" valign="top" bgcolor="#FFFFFF" style="padding:5px"><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666">
+<TMPL_IF recv_disp_disp>
+                          <tr>
+                            <td width="40%" class="item-name">お届け希望日</td>
+                            <td width="60%" class="item">&nbsp;<TMPL_IF recv_date_disp><TMPL_VAR NAME=recv_date_sw_disp><TMPL_VAR NAME=dlv_date>&nbsp;</TMPL_IF><TMPL_VAR NAME=recv_date_time>&nbsp;
+<TMPL_UNLESS notedit>
+                              <input type="button" name="Submit" value="変更" onClick="Edit02Sub();">
+</TMPL_UNLESS>
+                            </td>
+                          </tr>
+  <TMPL_IF recv_ngday_disp>
+                          <tr>
+                            <td class="item-name"><TMPL_VAR NAME=recv_other_name></td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=recv_ngday>&nbsp;
+<TMPL_UNLESS notedit>
+                              <input type="button" name="Submit" value="変更" onClick="Edit02Sub();">
+</TMPL_UNLESS>
+                            </td>
+                                      </tr>
+  </TMPL_IF>
+</TMPL_IF>
+                          <tr>
+                            <td width="40%" class="item-name"><TMPL_VAR NAME=err_ship_dd>発送予定日</td>
+                            <td width="60%" class="item">
+                              <input name ="ship_due_year" id="ship_due_year" type="text" maxlength="4" size="5" value="<TMPL_VAR NAME=ship_due_year>" style="ime-mode:disabled"/>
+                              <span class="right-spc">年</span>
+                              <input name="ship_due_month" id="ship_due_month" type="text"maxlength="2" size="3" value="<TMPL_VAR NAME=ship_due_month>" style="ime-mode:disabled"/>
+                              <span class="right-spc">月</span>
+                              <input name="ship_due_day" id="ship_due_day" type="text" maxlength="2" size="3" value="<TMPL_VAR NAME=ship_due_day>" style="ime-mode:disabled"/>
+                              <span class="right-spc">日</span>
+                              <TMPL_UNLESS notedit>
+                              <input type="hidden" class="datepicker">
+                              <input onclick="setCurrentDate();" value="今日" type="button">
+                              <input onclick="updateShipDueDate();" value="保存" type="button">
+                              </TMPL_UNLESS>
+                            </td>
+                          </tr>
+<TMPL_IF nosi_dispon>
+                          <tr>
+                            <td class="item-name"><TMPL_VAR NAME=wrap_nosi_name></td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=wrap_nosi_val></td>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF wrap_dispon>
+                            <tr>
+                              <td class="item-name"><TMPL_VAR NAME=wrap_wrap_name></td>
+                              <td class="item">&nbsp;<TMPL_VAR NAME=wrap_wrap_val></td>
+                            </tr>
+</TMPL_IF>
+                          <tr>
+                            <td class="item-name">発送ステータス</td>
+                            <td class="item">
+<TMPL_UNLESS notedit>
+                            <input type="button" name="Submit" value="未発送" onClick="ShipstSub(0);"<TMPL_IF NAME=ship_sel0> disabled</TMPL_IF>>
+                            <input type="button" name="Submit" value="発送予約" onClick="ShipstSub(1);"<TMPL_IF NAME=ship_sel1> disabled</TMPL_IF>>
+                            <input type="button" name="Submit" value="発送済" onClick="ShipstSub(2);"<TMPL_IF NAME=ship_sel2> disabled</TMPL_IF>>
+</TMPL_UNLESS>
+                            <br>
+                            &nbsp;<TMPL_VAR NAME=ship_str></td>
+                          </tr>
+                          <tr>
+                            <td class="item-name"><TMPL_VAR NAME=err_dt>お問い合わせ番号入力</td>
+                            <td class="item">
+<TMPL_IF NAME=is_atobarai>
+                            <div class="infoArea table_bg">※ご注意※<br>
+                            ＷＥＢ上で荷物の追跡・到着確認ができないメール便は、後払い決済の立替金保障対象外となります。荷物の発送前にご確認ください。</div>
+</TMPL_IF>
+                            <select name="deliv_trader_id">
+                              <option value="0">配送業者を選択</option>
+                            <TMPL_LOOP NAME=traders>
+                              <option value="<TMPL_VAR NAME=id>" <TMPL_IF NAME=selid>selected</TMPL_IF>><TMPL_VAR NAME=name></option>
+                            </TMPL_LOOP>
+                            </select>
+                            <input type="text" name="deliv_number" value="<TMPL_VAR NAME=deliv_number>">
+<TMPL_UNLESS notedit>
+                            <input type="button" name="Submit" value="保存" onClick="TraderSet();">
+</TMPL_UNLESS>
+                          </tr>
+                      </table></td>
+                    </tr>
+                  </table>
+                  <br>
+<TMPL_UNLESS memoedit>
+<TMPL_LOOP NAME=ERR_MSGD>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+</TMPL_UNLESS>
+                  <table width="100%" border="0" cellpadding="0" cellspacing="2" bgcolor="#999999">
+                    <tr>
+                      <td colspan="2" class="item-name02"><strong>&nbsp;お届け先情報</strong></td>
+                    </tr>
+                    <tr valign="top">
+                      <td width="50%" bgcolor="#FFFFFF" style="padding:5px">
+                        <div style="line-height:200%"><TMPL_VAR NAME=self_flg></div><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666">
+                          <tr>
+                            <td width="100%" colspan="2" class="item-name">&nbsp;<strong>お届け先</strong>&nbsp;
+                             <div id="odr_modify_atobarai" class="dialog_disp">
+                          <div id="odr_modify_atobarai_f" class="dialog_main">
+                              <a href="#close" class="close" onclick="return dlgClose()"></a>
+                              <dl class="content">
+                                  <p>
+                                  後払い決済では、注文受付時のお客さま情報を元に与信審査を行っているため、<br>
+                                  一度与信ＯＫになった注文は、注文者情報・お届け先情報の変更ができません。<br><br>
+                                  変更する場合は、与信の取り直しが必要となります。<br>
+                                  下記の１〜３の手順で変更を行ってください。<br><br><br>
+                                  １）決済ステータス欄にある「与信キャンセル」ボタンをクリックします。<br><br>
+                                  ２）注文者情報、お届け先情報の変更をします。<br><br>
+                                  ３）決済ステータス欄にある「与信の再実行」ボタンをクリックします。<br><br><br>
+                                  以上の操作で、再度、与信審査が行われます。<br>
+                                  決済ステータスが「与信ＯＫ」になることを確認後、<br>
+                                  「決済依頼」を行ってください。<br><br>
+                                  ※決済ステータス欄に、「購入者入金確認済」の表示がある場合、<br>
+                                  　注文者情報・お届け先情報の変更はできません。
+                                  </p>
+                              </dl>
+                          </div>
+                      </div>
+                            <TMPL_IF NAME=isRakutenId>
+                            <div id="odr_rakuten_used_point" class="dialog_disp">
+                              <div id="odr_rakuten_used_point_f" class="dialog_main">
+                                <a href="#close" class="close" onclick="return dlgClose()"></a>
+                                <dl class="content">
+                                  <p>
+                                  購入者が利用した楽天スーパーポイント数が表示されます。<br>
+                                  楽天スーパーポイントの利用が無い場合、「 --- 」と表示されます。<br>
+                                  </p>
+                                </dl>
+                              </div>
+                            </div>
+                            </TMPL_IF>
+<TMPL_UNLESS notedit>
+                              <input type="button" name="Submit" value="編集" style="font-size:8" onClick="Edit02Sub();"<TMPL_IF atobarai_modify_error> disabled</TMPL_IF>>
+                              <TMPL_IF atobarai_modify_error><img alt="?" src="./imgs/newSetup_QuestionG.gif" onClick="popUp('odr_modify_atobarai',1)" style="cursor:pointer;"></TMPL_IF>
+</TMPL_UNLESS>
+                            </td>
+                          </tr>
+<TMPL_IF d_ord_company_disp>
+                          <tr>
+                            <td width="45%" class="item-name">&nbsp;法人名・団体名</td>
+                            <td width="55%" class="item">&nbsp;<TMPL_VAR NAME=d_company></td>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_compkana_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;法人名・団体名（かな）</td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=d_company_kana></td>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_division_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;部署名</td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=d_division></td>
+                          </tr>
+</TMPL_IF>
+                          <tr>
+                            <td class="item-name">&nbsp;お名前</td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=d_lname><TMPL_VAR NAME=d_fname></td>
+                          </tr>
+<TMPL_IF d_ord_namekana_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;お名前（かな）</td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=d_lname_kana><TMPL_VAR NAME=d_fname_kana></td>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_zip_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;郵便番号</td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=d_zip1>-<TMPL_VAR NAME=d_zip2></td>
+                          </tr>
+</TMPL_IF>
+                          <tr>
+                            <td class="item-name">&nbsp;ご住所</td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=d_pref><TMPL_VAR NAME=d_addr1><TMPL_VAR NAME=d_addr2>　<TMPL_VAR NAME=d_addr3></td>
+                          </tr>
+<TMPL_IF d_ord_tel_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;電話番号</td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=d_tel1>-<TMPL_VAR NAME=d_tel2>-<TMPL_VAR NAME=d_tel3></td>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_fax_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;FAX番号</td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=d_fax1>-<TMPL_VAR NAME=d_fax2>-<TMPL_VAR NAME=d_fax3></td>
+                          </tr>
+</TMPL_IF>
+  <TMPL_IF this_d_bikou>
+                          <tr>
+                            <td class="item-name">&nbsp;<TMPL_VAR NAME=d_free_title></td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=d_free_comment>&nbsp;</td>
+                          </tr>
+  </TMPL_IF>
+                      </table></td>
+                      <td width="50%" bgcolor="#FFFFFF" style="padding:5px"><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666">
+                          <tr>
+                            <td colspan="2" class="item-name"><strong>&nbsp;備考</strong></td>
+                          </tr>
+<TMPL_LOOP NAME=d_enq>
+                          <tr>
+                            <td width="45%" class="item-name">&nbsp;<TMPL_VAR NAME=enq></td>
+                            <td width="55%" class="item">&nbsp;<TMPL_VAR NAME=ans></td>
+                          </tr>
+</TMPL_LOOP>
+                        </table>
+                        <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666" style="margin-top:5px">
+                          <tr>
+                            <td class="item-name"><TMPL_VAR NAME=err_dcomm><strong>&nbsp;メモ</strong>&nbsp;
+<TMPL_UNLESS memoedit>
+                            <input type="button" name="Submit" value="保存" onClick="MemoSub('dcomm');">
+</TMPL_UNLESS>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="item"><textarea name="DMEMO" rows="5" wrap="VIRTUAL" class="item" style="width:300px"><TMPL_VAR NAME=d_comment></textarea>
+                            </td>
+                          </tr>
+                      </table>                                                </td>
+                    </tr>
+                  </table>
+<!-- 届け先複数 -->
+<TMPL_IF multi>
+            <div class="odrinfoChange">
+            <select name="PAGE2">
+              <option value="0" selected="selected">注文情報</option>
+  <TMPL_LOOP sellist>
+              <option value="<TMPL_VAR NAME=num>" <TMPL_IF sel>selected="selected"</TMPL_IF>>お届け先<TMPL_VAR NAME=num></option>
+  </TMPL_LOOP>
+            </select>
+            <input type="button" value="表示" onClick="ShowDeliv2();">
+            &nbsp;（&nbsp;お届け先&nbsp;：&nbsp;<TMPL_VAR dlv_total>箇所&nbsp;）
+            </div>
+</TMPL_IF>
+<!-- 届け先複数 -->
+          </td>
+        </tr>
+      </table>
+      <br>
+      <hr size="1">
+      <br>
+      <div align="center">
+<TMPL_IF notedit>
+      <input type="button" name="Submit" value="戻る" onClick="location.href='odrinfo.cgi?ORDERID=<TMPL_VAR NAME=order_id>'">
+<TMPL_ELSE>
+  <TMPL_IF button_f>
+      <input type="button" name="Submit" value="<TMPL_VAR NAME=back_msg>戻る" onClick="history.back()">
+  <TMPL_ELSE>
+      <input type="button" name="Submit" value="受注一覧へ戻る" onClick="location.href='orderlist.php?LastCGI=1'">
+  </TMPL_IF>
+</TMPL_IF>
+  </tr>
+</table>
+<br>
+</div>
+</form>
+<input type="hidden" name="deliverto" value="<TMPL_VAR deliverto>">
+<TMPL_IF NAME=ERR_MSGDT>
+<TMPL_IF NAME=MSG>
+<img src="../imgs/spc.gif" onLoad="document.data.deliv_trader_id.focus();">
+<TMPL_ELSE>
+  <TMPL_IF NAME=ERR_SHIP_DD>
+  <img src="../imgs/spc.gif" onLoad="document.data.ship_due_year.focus();">
+  <TMPL_ELSE>
+  <img src="../imgs/spc.gif" onLoad="document.data.deliv_number.focus();">
+  </TMPL_IF>
+</TMPL_IF>
+</TMPL_IF>
+<TMPL_IF NAME=ERR_MSGP>
+<img src="../imgs/spc.gif" onLoad="document.data.PMEMO.focus();">
+</TMPL_IF>
+<TMPL_IF NAME=ERR_MSGD>
+<img src="../imgs/spc.gif" onLoad="document.data.DMEMO.focus();">
+</TMPL_IF>

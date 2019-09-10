@@ -1,0 +1,118 @@
+<style type="text/css">
+<!--
+* {
+  margin:0;
+  padding:0;
+}
+
+body {
+  color:#333;
+  background:#efefef;
+  margin:1em;
+}
+
+#main {
+  text-align:center;
+}
+
+#main p {
+  font-size:0.95em;
+}
+
+#main img {
+  margin:0 0 1.5em;
+}
+#main .url {
+    margin:0 0 1em;
+}
+
+#main .url p {
+    display:inline-block;padding:5px 10px;border:1px solid #ccc;background:#fff;line-height:1.1;
+}
+
+#main .url input[type=button] {
+    padding:2px 5px;font-size:0.8em;
+}
+
+#closeBtn {
+  text-align:center;
+  margin:0;
+  padding:0 0 1em;
+  font-size:0.95em;
+}
+
+#closeBtn input {
+  line-height: 1.3em;
+}
+-->
+</style>
+<script language="JavaScript">
+function copyClip(text)
+{
+     if (window.clipboardData) {
+         // the IE
+         window.clipboardData.setData("Text", text);
+     }
+}
+</script>
+<div id="main">
+  <p><strong>［サムネイル（<TMPL_VAR NAME=WIDTHT>ｘ<TMPL_VAR NAME=HEIGHTT>）］</strong><br>海外カートで利用します</p>
+  <img name="img" hspace="0" vspace="0" border="0" src="<TMPL_VAR NAME=FILET>" width="<TMPL_VAR NAME=WIDTHT>" height="<TMPL_VAR NAME=HEIGHTT>">
+  <div class="url">
+        <p id="imgUrl"><TMPL_VAR NAME=FILEIMGT></p>
+    <!--[if IE]>
+        <input type="button" name="imgUrl" value="クリップボードにコピー" onclick="copyClip('<TMPL_VAR NAME=FILEIMGT>');">
+    <![endif]-->
+   </div>
+  <p><strong>［小（<TMPL_VAR NAME=WIDTHS>ｘ<TMPL_VAR NAME=HEIGHTS>）］</strong><br>
+  海外カート以外のショッピングカートで利用します<br>
+  ベーシックテンプレート利用時：お店ページトップ（商品のレイアウトで画像小選択時）／商品一覧ページで利用します</p>
+  <img name="img" hspace="0" vspace="0" border="0" src="<TMPL_VAR NAME=FILES>" width="<TMPL_VAR NAME=WIDTHS>" height="<TMPL_VAR NAME=HEIGHTS>">
+  <div class="url">
+        <p id="imgUrl"><TMPL_VAR NAME=FILEIMGS></p>
+    <!--[if IE]>
+        <input type="button" name="imgUrl" value="クリップボードにコピー" onclick="copyClip('<TMPL_VAR NAME=FILEIMGS>');">
+    <![endif]-->
+   </div>
+  <p><strong>［中（<TMPL_VAR NAME=WIDTHM>ｘ<TMPL_VAR NAME=HEIGHTM>）］</strong><br>
+  ベーシックテンプレート利用時：お店ページトップ（商品のレイアウトで画像中選択時）で利用します</p>
+  <img name="img" hspace="0" vspace="0" border="0" src="<TMPL_VAR NAME=FILEM>" width="<TMPL_VAR NAME=WIDTHM>" height="<TMPL_VAR NAME=HEIGHTM>">
+  <div class="url">
+        <p id="imgUrl"><TMPL_VAR NAME=FILEIMGM></p>
+    <!--[if IE]>
+        <input type="button" name="imgUrl" value="クリップボードにコピー" onclick="copyClip('<TMPL_VAR NAME=FILEIMGM>');">
+    <![endif]-->
+   </div>
+  <p><strong>［大（<TMPL_VAR NAME=WIDTHL>ｘ<TMPL_VAR NAME=HEIGHTL>）］</strong><br>
+  ベーシックテンプレート利用時：商品詳細ページの商品画像で利用します</p>
+  <img name="img" hspace="0" vspace="0" border="0" src="<TMPL_VAR NAME=FILEL>" width="<TMPL_VAR NAME=WIDTHL>" height="<TMPL_VAR NAME=HEIGHTL>">
+  <div class="url">
+        <p id="imgUrl"><TMPL_VAR NAME=FILEIMGL></p>
+    <!--[if IE]>
+        <input type="button" name="imgUrl" value="クリップボードにコピー" onclick="copyClip('<TMPL_VAR NAME=FILEIMGL>');">
+    <![endif]-->
+   </div>
+  <p><strong>［特大（<TMPL_VAR NAME=WIDTHLL>ｘ<TMPL_VAR NAME=HEIGHTLL>）］</strong><br>
+  ベーシックテンプレート利用時：商品詳細ページの拡大表示で利用します<br>
+  カスタムテンプレート利用時：お店ページトップ／商品一覧ページ/商品詳細ページの商品画像（CSSによりサイズ指定）／拡大表示で利用します</p>
+  <img name="img" hspace="0" vspace="0" border="0" src="<TMPL_VAR NAME=FILELL>" width="<TMPL_VAR NAME=WIDTHLL>" height="<TMPL_VAR NAME=HEIGHTLL>">
+    <div class="url">
+        <p id="imgUrl"><TMPL_VAR NAME=FILEIMGLL></p>
+        <!--[if IE]>
+        <input type="button" name="imgUrl" value="クリップボードにコピー" onclick="copyClip('<TMPL_VAR NAME=FILEIMGLL>');">
+    <![endif]-->
+   </div>
+  <p><strong>［オリジナル（<TMPL_VAR NAME=WIDTH>ｘ<TMPL_VAR NAME=HEIGHT>）］</strong></p>
+  <img name="img" hspace="0" vspace="0" border="0" src="<TMPL_VAR NAME=FILE>" width="<TMPL_VAR NAME=WIDTH>" height="<TMPL_VAR NAME=HEIGHT>">
+    <div class="url">
+        <p id="imgUrl"><TMPL_VAR NAME=FILEIMG></p>
+    <!--[if IE]>
+        <input type="button" name="imgUrl" value="クリップボードにコピー" onclick="copyClip('<TMPL_VAR NAME=FILEIMG>');">
+    <![endif]-->
+   </div>
+</div>
+
+<div id="closeBtn">
+  <input type="submit" value="閉じる" onClick="window.close()">
+</div>
+

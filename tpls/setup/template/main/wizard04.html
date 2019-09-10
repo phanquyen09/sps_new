@@ -1,0 +1,806 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html lang="ja">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<title>ショップ開店ウィザード -STEP4 特定商取引法の表示を設定しよう-</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link rel="stylesheet" href="../css/wizard.css" type="text/css" />
+<script type="text/javascript" src="../js/base.js"></script>
+<TMPL_VAR NAME=GANALY>
+</head>
+
+<body>
+<form name="form1" method="post" action="wizard05.cgi">
+  <a name="01"></a>
+
+  <div id="top-header">
+    <div class="logo-header-wrap">
+      <div class="logo-area">
+        <img src="../imgs/top_img0.gif" alt="Ｅストアーショップサーブ">
+      </div>
+    </div>
+  </div>
+
+  <table class="steps-table-1" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td><img src="../imgs/wi_top_off_001_already.gif"></td>
+      <td><img src="../imgs/wi_top_off_002_already.gif"></td>
+      <td><img src="../imgs/wi_top_off_003_already.gif"></td>
+      <td><img src="../imgs/wi_top_on_004.gif"></td>
+      <td><img src="../imgs/wi_top_off_005.gif"></td>
+      <td><img src="../imgs/wi_top_off_006.gif"></td>
+      <td><img src="../imgs/wi_top_off_007.gif"></td>
+    </tr>
+  </table>
+
+  <br>
+  <table width="800"  border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr valign="top">
+      <td colspan="3">
+        <img src="../imgs/we004_top_sps.gif" width="801" height="47">
+      </td>
+    </tr>
+    <tr>
+      <td align="center" bgcolor="#A9775D"><img src="../imgs/spc.gif" width="3"></td>
+      <td align="center"><table width="791" border="0" cellpadding="0" cellspacing="10" bgcolor="#FFFFFF">
+          <tr>
+            <td><img src="../imgs/we004_01.gif" width="766" height="35" style="margin-bottom:20px; ">
+              <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td><img src="../imgs/com-tl.gif" width="5" height="5"></td>
+                  <td background="../imgs/com-tc.gif"><img src="../imgs/com-tc.gif" width="5" height="5"></td>
+                  <td><img src="../imgs/com-tr.gif" width="5" height="5"></td>
+                </tr>
+                <tr>
+                  <td background="../imgs/com-cl.gif"><img src="../imgs/com-cl.gif" width="5" height="5"></td>
+                  <td align="left" class="coment">
+                    <ul class="coment01" type="circle">
+                      <li class="coment03">法律で義務付けられている「特定商取引法」のページを完成させます。</li>
+                      <li class="coment04">購入者が安心してお買い物いただくために必要なページとなります。</li>
+                    </ul>
+                  </td>
+                  <td background="../imgs/com-cr.gif"><img src="../imgs/com-cr.gif" width="5" height="5"></td>
+                </tr>
+                <tr>
+                  <td><img src="../imgs/com-bl.gif" width="5" height="5"></td>
+                  <td background="../imgs/com-bc.gif"><img src="../imgs/com-bc.gif" width="5" height="5"></td>
+                  <td><img src="../imgs/com-br.gif" width="5" height="5"></td>
+                </tr>
+              </table>
+              <div style="margin:0.5em 0.5em 1em;color:#222;text-align:left;">
+                  <img src="../imgs/attention.png">&nbsp;機種依存文字や半角カタカナなどは使用しないでください。
+                  <a href="https://help.shopserve.jp/ctrlpnl_sup/func03/business/ngword.html" target="_blank">⇒ 使用できない文字一覧</a>
+              </div>
+        <TMPL_IF NAME=err_msg>
+                <br>
+                <table>
+                        <tr>
+                        <TMPL_LOOP NAME=err_msg>
+                        <td style="text-align:left;"><font size="2" color="#ff0000"><TMPL_VAR NAME=MSG></font></td>
+			</tr><tr>
+                        </TMPL_LOOP>
+                        </tr>
+                </table>
+        </TMPL_IF>
+
+              <br>
+              <TABLE cellSpacing=0 cellPadding=0 width=100% border=0>
+                <TBODY>
+                  <TR>
+                    <TD bgColor=#666666><TABLE cellSpacing=1 cellPadding=4 width="100%" border=0 style="text-align:left; ">
+                        <TBODY>
+						  <TR align="left">
+<!--0710変更ここから-->
+							<TD colspan="2" class="td04" width="25%">お店の名前（必須）<div class="limit_txt">全角64文字以内</div></TD>
+<!--0710変更ここまで-->
+                             <TD bgColor=#ffffff class=jtd12>
+                               <INPUT style="WIDTH: 350px" maxLength=128 name="shop_name" value="<TMPL_VAR NAME=shop_name>">
+                             </TD>
+                          </TR>
+<!--0612デフォルト化用ここから-->
+                                <TR>
+                                        <TD class="td04" width="25%" colspan="2">
+                                                お店の名前（かな）　（必須）
+                                                <div class="limit_txt">全角127文字以内</div>
+                                        </TD>
+                                        <TD align="left" bgColor="#ffffff">
+                                                入力したお店の名前のふりがなを入力します。<BR>
+                                                <INPUT size="70" name="shop_name_kana" value="<TMPL_VAR NAME=shop_name_kana>"><br>
+                                                <table width="100%"  border="0" cellspacing="3" cellpadding="0">
+                                                <tr class="hint04">
+<!-- 0710変更ここから -->
+                                                        <td>例）しんせんむのうやくやさい　くだもののさんちょくしょっぷ　ふぉーしーずん<br>
+                                                        ※「お店の名前」と同一の内容となるようにご記入ください。</td>
+<!-- 0710変更ここまで -->
+                                                </tr>
+                                                </table>
+                                        </TD>
+                                </TR>
+                    <TR>
+
+<!--0612デフォルト化ここから-->
+<!--0710変更ここから-->
+							<TD colspan="2" class="td04" width="25%">販売業者（必須）<div class="limit_txt">全角64文字以内</div></TD>
+<!--0710変更ここまで-->
+							<TD bgColor=#ffffff>
+                                                          ご契約が
+                                                          <div style="padding-left:1em;">
+                                                          法人契約 ⇒ <b>法人名</b><span style="padding-left:1em;">例）株式会社山田工業</span><br>
+                                                          個人・個人事業主契約 ⇒ <b>代表者名</b><span style="padding-left:1em;">例）山田 博</span>
+                                                          </div>
+                                                          <div class="red_b">※ショップ名・屋号は不可です。</div>
+								<INPUT style="WIDTH: 350px" maxLength=128 name="company" value="<TMPL_VAR NAME=company>"><br>
+							</TD>
+<!--0612デフォルト化ここまで-->
+                          </TR>
+                          <tr>
+<!--0710変更ここから-->
+                            <TD colspan="2" class="td04">販売責任者（必須）</TD>
+<!--0710変更ここまで-->
+                            <TD bgColor=#ffffff>
+<!--0612デフォルト化ここから-->
+								会社の代表者名を入れてください。<br>個人・個人事業主の場合は「販売業者」の欄と同じ氏名を入れてください。
+<!--0612デフォルト化ここまで-->
+			    <table width="200" border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td nowrap>姓 </td>
+                                  <td nowrap><INPUT style="WIDTH: 80px" maxLength=16 value="<TMPL_VAR NAME=lname>" name="lname"></td>
+                                  <td nowrap>名</td>
+                                  <td nowrap><INPUT style="WIDTH: 80px" maxLength=16 value="<TMPL_VAR NAME=fname>" name="fname">
+                                  </td>
+                                </tr>
+                              </table>
+                              <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+                                <tr>
+                                  <td bgcolor="#F4EEEA" style="padding:1px 1px 1px 1px ">
+                                    <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr class="hint04">
+                                        <td width="20" valign="top">例）</td>
+                                        <td>姓：山田　　　　　　 名：博</td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                              </table></TD>
+                          </TR>
+                          <TR bgcolor="#999999">
+<!--0710変更ここから-->
+                            <TD rowspan="6" align=left class="td04">お店の住所<br>（必須）</TD>
+<!--0710変更ここまで-->
+                            <TD vAlign=top class="td04">郵便番号</TD>
+                            <TD align=left vAlign=top bgColor=#ffffff><TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                                <TBODY>
+                                  <TR>
+                                    <TD width=70%><INPUT maxLength=3 size=5 name="zip1" value="<TMPL_VAR NAME=zip1>" style="ime-mode:disabled;">
+                                      -
+                                      <INPUT maxLength=4 size=6 name="zip2" value="<TMPL_VAR NAME=zip2>" style="ime-mode:disabled;">
+                                      <INPUT type=button value=郵便番号から住所を検索 onClick="seekpczip();"></TD>
+                                    <TD><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                        <tr class="hint04">
+                                          <td width="20" valign="top">例）</td>
+                                          <td>160-0000</td>
+                                        </tr>
+                                      </table></TD>
+                                  </TR>
+                              </TABLE></TD>
+                          </TR>
+                          <TR bgcolor="#999999">
+                            <TD align=right class="td04">都道府県</TD>
+                            <TD align=left vAlign=top bgColor=#ffffff><TABLE cellSpacing=0 cellPadding=0 width="100%" border=0>
+                                <TBODY>
+                                  <TR>
+                                    <TD width="70%">
+                                      <select name="pref_id">
+                                        <option value="all">▼選択</option>
+                                      <TMPL_LOOP name=pref_list>
+                                        <option value="<TMPL_VAR NAME=pref_id>" <TMPL_IF NAME=seltmp>selected</TMPL_IF>><TMPL_VAR NAME=pref_name></option>
+                                      </TMPL_LOOP>
+                                      </select>
+                                    </TD>
+                                    <TD><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                        <tr class="hint04">
+                                          <td width="20" valign="top"></td>
+                                          <td> 東京都</td>
+                                        </tr>
+                                      </table></TD>
+                                  </TR>
+                              </TABLE></TD>
+                          </TR>
+                          <TR bgcolor="#999999">
+                            <TD align=right class="td04">市区郡</TD>
+                            <TD align=left vAlign=top bgColor=#ffffff><TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                  border=0>
+                                <TBODY>
+                                  <TR>
+                                    <TD width="70%"><INPUT style="width:250px " name="city" value="<TMPL_VAR NAME=city>">
+                                    </TD>
+                                    <TD><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                        <tr class="hint04">
+                                          <td width="20" valign="top"></td>
+                                          <td>新宿区</td>
+                                        </tr>
+                                      </table></TD>
+                                  </TR>
+                              </TABLE></TD>
+                          </TR>
+                          <TR bgcolor="#999999">
+                            <TD align=right class="td04">町村字</TD>
+                            <TD align=left vAlign=top bgColor=#ffffff><TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                  border=0>
+                                <TBODY>
+                                  <TR>
+                                    <TD width="70%"><INPUT style="width:250px" name="town" value="<TMPL_VAR NAME=town>">
+                                    </TD>
+                                    <TD><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                        <tr class="hint04">
+                                          <td width="20" valign="top"></td>
+                                          <td>新宿</td>
+                                        </tr>
+                                      </table></TD>
+                                  </TR>
+                              </TABLE></TD>
+                          </TR>
+                          <TR bgcolor="#999999">
+                            <TD align=right class="td04">番地</TD>
+                            <TD align=left vAlign=top bgColor=#ffffff><TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                  border=0>
+                                <TBODY>
+                                  <TR>
+                                    <TD width="70%"><INPUT style="width:250px " name="street" value="<TMPL_VAR NAME=street>">
+                                    </TD>
+                                    <TD><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                        <tr class="hint04">
+                                          <td width="20" valign="top"></td>
+                                          <td>1-1-1</td>
+                                        </tr>
+                                      </table></TD>
+                                  </TR>
+                              </TABLE></TD>
+                          </TR>
+                          <TR bgcolor="#999999">
+                            <TD align=right class="td04">建物名</TD>
+                            <TD align=left vAlign=top bgColor=#ffffff><TABLE cellSpacing=0 cellPadding=0 width="100%" 
+                  border=0>
+                                <TBODY>
+                                  <TR>
+                                    <TD width="70%"><INPUT style="width:250px " name="build" value="<TMPL_VAR NAME=build>">
+                                    </TD>
+                                    <TD><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                        <tr class="hint04">
+                                          <td width="20" valign="top"></td>
+                                          <td>新宿ビル　202</td>
+                                        </tr>
+                                      </table></TD>
+                                  </TR>
+                              </TABLE></TD>
+                          </TR>
+                          <tr>
+<!--0710変更ここから-->
+                            <TD colspan="2" class="td04">電話番号（必須）</TD>
+<!--0710変更ここまで-->
+                            <TD bgColor=#ffffff>
+                              <INPUT maxLength=5 size=5 name="tel1" value="<TMPL_VAR NAME=tel1>" style="ime-mode:disabled;">
+                              -
+                              <INPUT maxLength=4 size=6 name="tel2" value="<TMPL_VAR NAME=tel2>" style="ime-mode:disabled;">
+                              -
+                              <INPUT maxLength=4 size=6 name="tel3" value="<TMPL_VAR NAME=tel3>" style="ime-mode:disabled;">
+                              <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+                                <tr>
+                                  <td bgcolor="#F4EEEA" style="padding:1px 1px 1px 1px "><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr class="hint04">
+                                        <td width="20" valign="top">例）</td>
+                                        <td>03-3333-1111</td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                              </table></TD>
+                          </TR>
+                          <tr>
+                            <TD colspan="2" class="td04">FAX番号</TD>
+                            <TD bgColor=#ffffff>
+                              <INPUT maxLength=5 size=5 name="fax1" value="<TMPL_VAR NAME=fax1>" style="ime-mode:disabled;">
+                              -
+                              <INPUT maxLength=4 size=6 name="fax2" value="<TMPL_VAR NAME=fax2>" style="ime-mode:disabled;">
+                              -
+                              <INPUT maxLength=4 size=6 name="fax3" value="<TMPL_VAR NAME=fax3>" style="ime-mode:disabled;">
+                              <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+                                <tr>
+                                  <td bgcolor="#F4EEEA" style="padding:1px 1px 1px 1px "><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr class="hint04">
+                                        <td width="20" valign="top">例）</td>
+                                        <td>03-3333-1111　※FAXがない場合は入力不要</td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                              </table></TD>
+                          </TR>
+                          <tr>
+<!--0710変更ここから-->
+                            <TD colspan="2" class="td04">メールアドレス（必須）</TD>
+<!--0710変更ここまで-->
+                            <TD bgColor=#ffffff>
+                              <INPUT style="WIDTH: 185px;ime-mode:disabled;" maxLength=128 name="mail" value="<TMPL_VAR NAME=mail>">
+                              <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+                                <tr>
+                                  <td bgcolor="#F4EEEA" style="padding:1px 1px 1px 1px ">
+                                    <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr class="hint04">
+                                        <td width="20" valign="top">例）</td>
+                                        <td>info@webshop-sample.com</td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                              </table></TD>
+                          </TR>
+<!--0710変更ここから-->
+                          <TR>
+                            <TD colspan="2" class="td04">ホームページのＵＲＬ（必須）</TD>
+                            <TD bgColor=#ffffff>
+                              <INPUT style="WIDTH: 185px;ime-mode:disabled;" maxLength=128 name="homepage" value="<TMPL_VAR NAME=homepage>">
+                              <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+                                <tr>
+                                  <td bgcolor="#F4EEEA" style="padding:1px 1px 1px 1px ">
+                                    <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr class="hint04">
+                                        <td width="20" valign="top">例）</td>
+                                        <td>http://www.webshop-sample.com/</td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                              </table></TD>
+                          </TR>
+
+<!--20130325 wizard改善 ここから-->
+                                <TR>
+<!-- 0710変更ここから -->
+                                        <TD class="td04" width="25%" colspan="2">取扱商品ジャンル　（必須）</TD>
+<!-- 0710変更ここまで -->
+                                        <TD align="left" bgColor="#ffffff">
+                                                お店にて取り扱う商品のジャンルを選択します。<BR>
+<TMPL_IF 0>
+                                                <SELECT NAME="cat1">
+                                                        <option value="">選択してください</option>
+                                                        <TMPL_LOOP NAME=CAT1S>
+                                                        <option value="<TMPL_VAR NAME=CID>" <TMPL_IF NAME=SEL>selected</TMPL_IF>><TMPL_VAR NAME=NAME></option>
+                                                        </TMPL_LOOP>
+                                                </SELECT>
+                                                <table width="100%"  border="0" cellspacing="3" cellpadding="0">
+                                                <tr>
+                                                        <td class="hint01">例）グルメ・ドリンク</td>
+                                                </tr>
+                                                </table>
+<TMPL_ELSE>
+
+<style>
+.sfdcatblock {
+    float : left;
+    width : 33.3%;
+}
+.sfdcattitle {
+    width : 100%;
+    font-size : 11px;
+    font-weight : bold;
+    padding : 0px;
+    margin-right : 100px;
+    margin : 0px 20px 0px 0px;
+}
+.sfdcatlist {
+    list-style:none;
+    padding : 0px;
+    margin : 0px;
+}
+.sfdcatlist li {
+    padding-right : 5px;
+}
+.sfdcat {
+    padding-right : 0px;
+    width : 100%;
+    font-size : 10px;
+}
+</style>
+<div class="sfdcatblock">
+    <h3 class="sfdcattitle">ファッション</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" value="F19" <TMPL_IF NAME=F19ON>checked</TMPL_IF>><span class="sfdcat">レディ
+ースファッション</span></li>
+    <li><input type="checkbox" name="cat1" value="F17" <TMPL_IF NAME=F17ON>checked</TMPL_IF>><span class="sfdcat">メンズ
+ファッション</span></li>
+    <li><input type="checkbox" name="cat1" value="F18" <TMPL_IF NAME=F18ON>checked</TMPL_IF>><span class="sfdcat">ユニセ
+ックスファッション</span></li>
+    <li><input type="checkbox" name="cat1" value="F16" <TMPL_IF NAME=F16ON>checked</TMPL_IF>><span class="sfdcat">バッグ
+・小物・ブランド雑貨</span></li>
+    <li><input type="checkbox" name="cat1" value="F15" <TMPL_IF NAME=F15ON>checked</TMPL_IF>><span class="sfdcat">ジュエ
+リー・アクセサリー</span></li>
+    <li><input type="checkbox" name="cat1" value="F20" <TMPL_IF NAME=F20ON>checked</TMPL_IF>><span class="sfdcat">靴</span></li>
+    <li><input type="checkbox" name="cat1" value="F14" <TMPL_IF NAME=F14ON>checked</TMPL_IF>><span class="sfdcat">インナ
+ー・下着・ナイトウエア</span></li>
+    <li><input type="checkbox" name="cat1" value="F21" <TMPL_IF NAME=F21ON>checked</TMPL_IF>><span class="sfdcat">腕時計
+</span></li>
+    </ul>
+    <h3 class="sfdcattitle">グルメ・ドリンク</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" value="F10" <TMPL_IF NAME=F10ON>checked</TMPL_IF>><span class="sfdcat">食品</span></li>
+    <li><input type="checkbox" name="cat1" value="F08" <TMPL_IF NAME=F08ON>checked</TMPL_IF>><span class="sfdcat">スイー
+ツ</span></li>
+    <li><input type="checkbox" name="cat1" value="F11" <TMPL_IF NAME=F11ON>checked</TMPL_IF>><span class="sfdcat">水・ソ
+フトドリンク</span></li>
+    <li><input type="checkbox" name="cat1" value="F09" <TMPL_IF NAME=F09ON>checked</TMPL_IF>><span class="sfdcat">ビール
+・洋酒・ワイン</span></li>
+    <li><input type="checkbox" name="cat1" value="F12" <TMPL_IF NAME=F12ON>checked</TMPL_IF>><span class="sfdcat">日本酒
+・焼酎</span></li>
+    </ul>
+</div>
+<div class="sfdcatblock">
+    <h3 class="sfdcattitle">生活・インテリア</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" value="F26" <TMPL_IF NAME=F26ON>checked</TMPL_IF>><span class="sfdcat">インテ
+リア・寝具・収納</span></li>
+    <li><input type="checkbox" name="cat1" value="F27" <TMPL_IF NAME=F27ON>checked</TMPL_IF>><span class="sfdcat">キッチ
+ン用品・食器・調理器具</span></li>
+    <li><input type="checkbox" name="cat1" value="F28" <TMPL_IF NAME=F28ON>checked</TMPL_IF>><span class="sfdcat">日用品
+雑貨・文房具・手芸</span></li>
+    </ul>
+    <h3 class="sfdcattitle">美容・健康</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" value="F32" <TMPL_IF NAME=F32ON>checked</TMPL_IF>><span class="sfdcat">ダイエ
+ット・健康</span></li>
+    <li><input type="checkbox" name="cat1" value="F34" <TMPL_IF NAME=F34ON>checked</TMPL_IF>><span class="sfdcat">美容・
+コスメ・香水</span></li>
+    <li><input type="checkbox" name="cat1" value="F33" <TMPL_IF NAME=F33ON>checked</TMPL_IF>><span class="sfdcat">医薬品
+・コンタクト・介護</span></li>
+    </ul>
+    <h3 class="sfdcattitle">エンターテインメント・家電</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" value="F03" <TMPL_IF NAME=F03ON>checked</TMPL_IF>><span class="sfdcat">パソコ
+ン・周辺機器</span></li>
+    <li><input type="checkbox" name="cat1" value="F04" <TMPL_IF NAME=F04ON>checked</TMPL_IF>><span class="sfdcat">家電・
+AV・カメラ</span></li>
+    <li><input type="checkbox" name="cat1" value="F05" <TMPL_IF NAME=F05ON>checked</TMPL_IF>><span class="sfdcat">楽器</span></li>
+    <li><input type="checkbox" name="cat1" value="F06" <TMPL_IF NAME=F06ON>checked</TMPL_IF>><span class="sfdcat">本・雑
+誌・コミック</span></li>
+    <li><input type="checkbox" name="cat1" value="F01" <TMPL_IF NAME=F01ON>checked</TMPL_IF>><span class="sfdcat">CD・DVD</span></li>
+    <li><input type="checkbox" name="cat1" value="F02" <TMPL_IF NAME=F02ON>checked</TMPL_IF>><span class="sfdcat">おもち
+ゃ・ホビー・ゲーム</span></li>
+    </ul>
+</div>
+<div class="sfdcatblock">
+    <h3 class="sfdcattitle">キッズ・ベビー・マタニティ</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" value="F07" <TMPL_IF NAME=F07ON>checked</TMPL_IF>><span class="sfdcat">キッズ
+・ベビー・マタニティ</span></li>
+    </ul>
+    <h3 class="sfdcattitle">スポーツ・アウトドア</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" value="F13" <TMPL_IF NAME=F13ON>checked</TMPL_IF>><span class="sfdcat">スポー
+ツ・アウトドア</span></li>
+    </ul>
+    <h3 class="sfdcattitle">ペット・花・DIY</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" value="F22" <TMPL_IF NAME=F22ON>checked</TMPL_IF>><span class="sfdcat">ペット
+・ペットグッズ</span></li>
+    <li><input type="checkbox" name="cat1" value="F23" <TMPL_IF NAME=F23ON>checked</TMPL_IF>><span class="sfdcat">花・ガ
+ーデン・DIY</span></li>
+    </ul>
+    <h3 class="sfdcattitle">車・バイク</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" value="F24" <TMPL_IF NAME=F24ON>checked</TMPL_IF>><span class="sfdcat">車・バ
+イク</span></li>
+    <li><input type="checkbox" name="cat1" value="F25" <TMPL_IF NAME=F25ON>checked</TMPL_IF>><span class="sfdcat">車用品
+・バイク用品</span></li>
+    </ul>
+    <h3 class="sfdcattitle">店舗・文具・オフィス</h3>
+    <ul class="sfdcatlist">
+    <li><input type="checkbox" name="cat1" value="F29" <TMPL_IF NAME=F29ON>checked</TMPL_IF>><span class="sfdcat">事務・
+作業服・ユニフォーム</span></li>
+    <li><input type="checkbox" name="cat1" value="F30" <TMPL_IF NAME=F30ON>checked</TMPL_IF>><span class="sfdcat">店舗用
+品</span></li>
+    <li><input type="checkbox" name="cat1" value="F31" <TMPL_IF NAME=F31ON>checked</TMPL_IF>><span class="sfdcat">文房具
+・オフィス用品</span></li>
+    </ul>
+</div>
+</TMPL_IF>
+                                        </TD>
+                                </TR>
+
+
+
+<!--20130325 wizard改善ここまで-->
+
+                          <tr>
+<!--0612デフォルト化ここから-->
+<!--0710変更ここから-->
+							<TD class="td04" colspan="2">取扱商品（必須）<div class="limit_txt">全角2500文字以内<br>※HTMLタグ利用不可</div></TD>
+<!--0710変更ここまで-->
+<!--0612デフォルト化ここまで-->
+                            <TD bgColor=#ffffff>お店の主な取扱商品を入力します。<BR>
+                              <TEXTAREA style="WIDTH: 380px" name="info10" rows=5><TMPL_VAR NAME=info10></TEXTAREA>
+                              <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+                                <tr>
+                                  <td bgcolor="#F4EEEA" style="padding:1px 1px 1px 1px "><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr class="hint04">
+                                        <td width="20" valign="top">例）</td>
+                                        <td>無農薬野菜、果物</td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                              </table></TD>
+                          </TR>
+
+
+
+                    <TR>
+<!--0612デフォルト化用ここから-->
+                                        <TD class="td04" colspan="2">
+<!-- 0710変更ここから -->
+                                                店舗説明　（必須）
+                                                <div class="limit_txt">全角250文字以内<br>※HTMLタグ利用不可</div>
+<!-- 0710変更ここまで -->
+                                        </TD>
+                                        <TD align="left" bgColor="#ffffff">
+                                                <div class="desc">
+                                                  お店紹介文をできるだけ簡潔に100文字程度で入力します。
+                                                </div>
+                                                <TEXTAREA name="sitedesc" rows=5 cols=50><TMPL_VAR NAME=sitedesc></TEXTAREA>
+                                                <table width="100%"  border="0" cellspacing="3" cellpadding="0">
+                                                <tr class="hint04">
+                                                        <td>例）新鮮、無農薬にこだわって厳選した野菜・果物を、産地から直接お客様にお届けしています。</td>
+                                                </tr>
+                                                </table>
+                                        </TD>
+<!--0612デフォルト化用ここまで-->
+                    </TR>
+                          <tr>
+<!--0612デフォルト化ここから-->
+<!--0710変更ここから-->
+							<TD colspan="2" class="td04">許認可・資格<div class="limit_txt">全角2500文字以内<br>※HTMLタグ利用不可</div></TD>
+<!--0710変更ここまで-->
+<!--0612デフォルト化ここまで-->
+                            <TD bgColor=#ffffff>特に許認可、資格が必要ない場合は、「必要なし」とご記入ください。<BR>
+                              <TEXTAREA style="WIDTH: 380px" name="info11" rows=5><TMPL_VAR NAME=info11></TEXTAREA>
+                              <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+                                <tr>
+                                  <td bgcolor="#F4EEEA" style="padding:1px 1px 1px 1px "><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr class="hint04">
+                                        <td width="20" valign="top">例）</td>
+                                        <td>東京都公安委員会　古物商許可　第○○○○○○○○○○○○○○号</td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                              </table></TD>
+                          </TR>
+
+                          <tr>
+<!--0612デフォルト化ここから-->
+<!--0710変更ここから-->
+							<TD colspan="2" class="td04">販売数量（必須）<div class="limit_txt">全角2500文字以内<br>※HTMLタグ利用不可</div></TD>
+<!--0710変更ここまで-->
+<!--0612デフォルト化ここまで-->
+                            <TD bgColor=#ffffff>
+                              <TEXTAREA style="WIDTH: 380px" name="info04" rows=5><TMPL_VAR NAME=info04></TEXTAREA>
+                              <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+                                <tr>
+                                  <td bgcolor="#F4EEEA" style="padding:1px 1px 1px 1px "><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr class="hint04">
+                                        <td width="20" valign="top">例）</td>
+                                        <td>商品は在庫限りとさせていただきます。ご注文いただきました商品が在庫切れの場合は、TEL、またはメールでご連絡差し上げます。</td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                              </table></TD>
+                          </TR>
+                          <tr>
+<!--0612デフォルト化ここから-->
+<!--0710変更ここから-->
+							<TD colspan="2" class="td04">商品代金以外の必要料金<br>（必須）<div class="limit_txt">全角2500文字以内<br>※HTMLタグ利用不可</div></TD>
+<!--0710変更ここまで-->
+<!--0612デフォルト化ここまで-->
+                            <TD bgColor=#ffffff> 送料、代金引換手数料、振込手数料など、商品代金以外に必要となる料金を入力します。<BR>
+                              <TEXTAREA style="WIDTH: 380px" name="info01" rows=5><TMPL_VAR NAME=info01></TEXTAREA>
+                              <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+                                <tr>
+                                  <td bgcolor="#F4EEEA" style="padding:1px 1px 1px 1px "><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr class="hint04">
+                                        <td width="20" valign="top">例）</td>
+                                        <td>送料(全国一律600円)、代金引換手数料(300円)、銀行振込手数料は原則としてお客様負担にてお願いいたします。<BR>
+                                          消費税は全て商品代金(税込価格)に含んで表示しています。</td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                              </table></TD>
+                          </TR>
+                          <tr>
+<!--0612デフォルト化ここから-->
+<!--0710変更ここから-->
+							<TD colspan="2" class="td04">申込の有効期限（必須）<div class="limit_txt">全角2500文字以内<br>※HTMLタグ利用不可</div></TD>
+<!--0710変更ここまで-->
+<!--0612デフォルト化ここまで-->
+                            <TD bgColor=#ffffff>
+                              <TEXTAREA style="WIDTH: 380px" name="info02" rows=5><TMPL_VAR NAME=info02></TEXTAREA>
+                              <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+                                <tr>
+                                  <td bgcolor="#F4EEEA" style="padding:1px 1px 1px 1px "><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr class="hint04">
+                                        <td width="20" valign="top">例）</td>
+                                        <td>ご注文後7日以内にお支払下さい。なお、ご注文から7日以内にご入金が確認できない場合は、ご注文をキャンセル扱いとさせていただきます。</td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                              </table></TD>
+                          </TR>
+                          <tr>
+<!--0612デフォルト化ここから-->
+<!--0710変更ここから-->
+							<TD colspan="2" class="td04">引渡し時期（必須）<div class="limit_txt">全角2500文字以内<br>※HTMLタグ利用不可</div></TD>
+<!--0710変更ここまで-->
+<!--0612デフォルト化ここまで-->
+                            <TD bgColor=#ffffff>
+                              <TEXTAREA style="WIDTH: 380px" name="info05" rows=5><TMPL_VAR NAME=info05></TEXTAREA>
+                              <div class="func03Exa">いつから○日以内（以降）に発送する。 を明記してください。<br>
+                              <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+                                <tr>
+                                  <td bgcolor="#F4EEEA" style="padding:1px 1px 1px 1px ">
+                                    <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr class="hint04">
+                                        <td width="20" valign="top">例）</td>
+                                        <td><span style="border-bottom:1px solid #563c2e;">注文日</span>より<span style="border-bottom:1px solid #563c2e;">2営業日以内</span>に<span style="border-bottom:1px solid #563c2e;">発送</span>いたします。</td>
+                                        </tr>
+                                    </table>
+
+                                  </td>
+                                </tr>
+                              </table></TD>
+                          </TR>
+                          <tr>
+<!--0612デフォルト化ここから-->
+<!--0710変更ここから-->
+							<TD colspan="2" class="td04">返品期限・条件（必須）<div class="limit_txt">全角2500文字以内<br>※HTMLタグ利用不可</div></TD>
+<!--0710変更ここまで-->
+<!--0612デフォルト化ここまで-->
+                            <TD bgColor=#ffffff>
+                              <TEXTAREA style="WIDTH: 380px" name="info08" rows=5><TMPL_VAR NAME=info08></TEXTAREA>
+                              <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+                                <tr>
+                                  <td bgcolor="#F4EEEA" style="padding:1px 1px 1px 1px "><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr class="hint04">
+                                        <td width="20" valign="top">例）</td>
+                                        <td>商品到着日より7日以内とさせていただきます。<BR>
+                                          それを過ぎますと、返品、交換のご要望はお受けできなくなりますので、ご了承ください。</td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                              </table></TD>
+                          </TR>
+                          <tr>
+<!--0612デフォルト化ここから-->
+<!--0710変更ここから-->
+							<TD colspan="2" class="td04">返品送料（必須）<div class="limit_txt">全角2500文字以内<br>※HTMLタグ利用不可</div></TD>
+<!--0710変更ここまで-->
+<!--0612デフォルト化ここまで-->
+                            <TD bgColor=#ffffff>
+                              <TEXTAREA style="WIDTH: 380px" name="info09" rows=5><TMPL_VAR NAME=info09></TEXTAREA>
+                              <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+                                <tr>
+                                  <td bgcolor="#F4EEEA" style="padding:1px 1px 1px 1px "><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr class="hint04">
+                                        <td width="20" valign="top">例）</td>
+                                        <td>お客様都合の場合はご容赦ください。ただし、不良品交換、誤品配送交換は当社負担とさせていただきます。</td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                              </table></TD>
+                          </TR>
+
+
+
+                          <tr>
+<!--0612デフォルト化ここから-->
+<!--0710変更ここから-->
+							<TD colspan="2" class="td04">不良品（必須）<div class="limit_txt">全角2500文字以内<br>※HTMLタグ利用不可</div></TD>
+<!--0710変更ここまで-->
+<!--0612デフォルト化ここまで-->
+                            <TD bgColor=#ffffff>
+                              <TEXTAREA style="WIDTH: 380px" name="info03" rows=5><TMPL_VAR NAME=info03></TEXTAREA>
+                              <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+                                <tr>
+                                  <td bgcolor="#F4EEEA" style="padding:1px 1px 1px 1px "><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr class="hint04">
+                                        <td width="20" valign="top">例）</td>
+                                        <td>万一不良品等がございましたら、当店の在庫状況を確認のうえ、新品、または同等品と交換させていただきます。<BR>
+                                          商品到着後7日以内にメールまたは電話でご連絡ください。それを過ぎますと返品交換のご要望はお受けできなくなりますので、ご了承ください。</td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                              </table></TD>
+                          </TR>
+
+
+                          <tr>
+<!--0612デフォルト化ここから-->
+<!--0710変更ここから-->
+							<TD colspan="2" class="td04">お支払方法（必須）<div class="limit_txt">全角2500文字以内<br>※HTMLタグ利用不可</div></TD>
+<!--0710変更ここまで-->
+<!--0612デフォルト化ここまで-->
+                            <TD bgColor=#ffffff>
+                              <TEXTAREA style="WIDTH: 380px" name="info06" rows=5><TMPL_VAR NAME=info06></TEXTAREA>
+                              <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+                                <tr>
+                                  <td bgcolor="#F4EEEA" style="padding:1px 1px 1px 1px "><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr class="hint04">
+                                        <td width="20" valign="top">例）</td>
+                                        <td>代引き、銀行振込、郵便振替、クレジットカード払、コンビニ払を用意してございます。ご希望にあわせて、各種ご利用ください。 </td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                              </table></TD>
+                          </TR>
+                          <tr>
+<!--0612デフォルト化ここから-->
+<!--0710変更ここから-->
+							<TD colspan="2" class="td04">お支払期限（必須）<div class="limit_txt">全角2500文字以内<br>※HTMLタグ利用不可</div></TD>
+<!--0710変更ここまで-->
+<!--0612デフォルト化ここまで-->
+                            <TD bgColor=#ffffff>
+                              <TEXTAREA style="WIDTH: 380px" name="info07" rows=5><TMPL_VAR NAME=info07></TEXTAREA>
+                              <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+                                <tr>
+                                  <td bgcolor="#F4EEEA" style="padding:1px 1px 1px 1px "><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                      <tr class="hint04">
+                                        <td width="20" valign="top">例）</td>
+                                        <td>代引き：商品引渡時 <BR>
+                                          銀行振込と郵便振替：ご注文確定後7日以内 <BR>
+                                          コンビニ（番号端末式）・銀行ATM・ネットバンキング決済：ご注文確定後7日以内</td>
+                                      </tr>
+                                    </table></td>
+                                </tr>
+                              </table></TD>
+                          </TR>
+
+<!-- 項目終わり-->
+                      </TABLE></TD>
+                  </TR>
+                  <TR>
+                    <TD align=middle><BR>
+                    </TD>
+                  </TR>
+              </TABLE></td>
+          </tr>
+          <tr>
+            <td align="center"><br>
+              <hr size="1">
+              <br>
+              　
+              <input type="button" onClick="document.form1.submit();" value="保存して商品の登録画面へ進む">
+
+              <p style="text-align:center;" class="red">※作業を中断する場合はこのボタンをクリックし次のステップに進んでから画面を閉じてください。<br>
+              次のステップに進むことにより設定が保存されます。</p>
+
+            </td>
+          </tr>
+        </table></td>
+      <td align="center" bgcolor="#A9775D"><img src="../imgs/spc.gif" width="3"></td>
+    </tr>
+    <tr>
+      <td colspan="3" width="801" height="79" background="../imgs/we004_bottom.gif"><table width="100%"  border="0">
+          <tr>
+            <td width="20"><img src="../imgs/spc.gif" width="20" height="25"></td>
+            <td valign="bottom"><a href="#01"><img src="../imgs/we004_to_top.gif" width="129" height="20" border="0"></a></td>
+          </tr>
+        </table></td>
+    </tr>
+  </table>
+
+<div id="copyright">
+<script type="text/javascript">
+<!--
+var date = new Date();
+var year = date.getYear();
+if(year < 2000) { year += 1900; }
+document.write('Copyright &copy; '+year+' Estore Corporation. All Rights Reserved.');
+//-->
+</script>
+</div>
+
+</form>
+</body>
+</html>

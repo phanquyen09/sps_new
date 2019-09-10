@@ -1,0 +1,10 @@
+<p><a href="#">前の商品</a>|<a href="#">次の商品</a></p><p><TMPL_VAR NAME=ITEMNAME></p><hr><TMPL_IF NAME=MEMBER><p>【会員専用】</p></TMPL_IF>
+<TMPL_IF NAME=MOBDESCRIPTION_1><p><TMPL_VAR NAME=MOBDESCRIPTION_1></p></TMPL_IF>
+<p><TMPL_IF NEW><img src="<TMPL_VAR NAME=VOLPASS>/hpgen/HPB/theme/img/icon_new.gif"></TMPL_IF><TMPL_IF PICKUP><img src="<TMPL_VAR NAME=VOLPASS>/hpgen/HPB/theme/img/icon_pickup.gif"></TMPL_IF><TMPL_IF NAME=RANK><img src="<TMPL_VAR NAME=VOLPASS>/hpgen/HPB/theme/img/rank<TMPL_VAR NAME=RANK>.gif" alt="ランキング<TMPL_VAR NAME=RANK>"></TMPL_IF></p>
+<p><a href="#"><img src="<TMPL_IF NAME=ITEMIMG><TMPL_VAR NAME=VOLPASS>/pic-labo/timg/<TMPL_VAR NAME=ITEMIMG><TMPL_ELSE><TMPL_VAR NAME=NOIMAGE></TMPL_IF>" alt="<TMPL_VAR NAME=ITEMALT>">
+<TMPL_IF COOL><img src="<TMPL_VAR NAME=VOLPASS>/hpgen/HPB/theme/img/icon_cool.gif" align="absmiddle"><br></TMPL_IF><TMPL_IF FIXEDPRICE><TMPL_VAR NAME=FPSTR>:<TMPL_VAR NAME=FIXEDPRICE>円(税込)<br></TMPL_IF> 価格:<TMPL_VAR NAME=ITEMPRICE>円(税込)<br></p>
+<TMPL_IF BTNCART><p><TMPL_IF NOSTOCK> [在庫なし] <TMPL_ELSE><a href="#">購入する</a></TMPL_IF></p></TMPL_IF>
+<TMPL_IF NAME=MOBDESCRIPTION_2><p><TMPL_VAR NAME=MOBDESCRIPTION_2></p></TMPL_IF>
+<TMPL_IF NAME=MOBDESCRIPTION_3><p><TMPL_VAR NAME=MOBDESCRIPTION_3></p></TMPL_IF>
+<TMPL_IF BTNFRIEND><p><a href="#">友達にメールですすめる</a></p></TMPL_IF>
+<TMPL_IF BTNFORM><TMPL_IF TOIAWASE><p><TMPL_LOOP TOIAWASE><a href="#"><TMPL_VAR name=TOIAWASE_TITLE></a><br></TMPL_LOOP></p></TMPL_IF></TMPL_IF>

@@ -1,0 +1,122 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">アクセスレポートの閲覧、設定を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/acc_report.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td><table  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                        <tr>
+                                          <td align="left" class="item-name">月間アクセス集計</td>
+                                          <td class="item-02"><table width="100%" border="0" cellpadding="0" cellspacing="0" >
+					    <TMPL_IF MREPORT>
+					      <TMPL_LOOP MREPORT>
+                                              <tr>
+                                                <td align="left">
+						    <a href="<TMPL_VAR NAME=LINK>" target="report">
+						    <TMPL_VAR NAME=FIL>　（<TMPL_VAR NAME=START>〜<TMPL_VAR NAME=END>）</a></td>
+                                              </tr>
+					      </TMPL_LOOP>
+					    <TMPL_ELSE>
+					      <tr>
+						<td align="left">レポートはありません</td>
+					      </tr>
+					    </TMPL_IF>
+                                          </table></td>
+                                        </tr>
+                                        <tr>
+                                          <td align="left" class="item-name">週間アクセス集計</td>
+                                          <td class="item-02"><table width="100%" border="0" cellpadding="0" cellspacing="0" >
+					    <TMPL_IF WREPORT>
+					      <TMPL_LOOP WREPORT>
+                                              <tr>
+                                                <td align="left"><a href="<TMPL_VAR NAME=LINK>" target="report">
+						    <TMPL_VAR NAME=START>〜<TMPL_VAR NAME=END></a></td>
+                                              </tr>
+					      </TMPL_LOOP>
+					    <TMPL_ELSE>
+					      <tr>
+						<td align="left">レポートはありません</td>
+					      </tr>
+					    </TMPL_IF>
+                                          </table></td>
+                                        </tr>
+                                        <tr>
+                                          <td align="left" class="item-name">日次アクセス集計</td>
+                                          <td class="item-02"><table width="100%" border="0" cellpadding="0" cellspacing="0" >
+					    <TMPL_IF DREPORT>
+					      <TMPL_LOOP DREPORT>
+                                              <tr>
+                                                <td align="left"><a href="<TMPL_VAR NAME=LINK>" target="report">
+						<TMPL_VAR NAME=START> [<TMPL_VAR NAME=END>]</a></td>
+                                              </tr>
+					      </TMPL_LOOP>
+					    <TMPL_ELSE>
+					      <tr>
+						<td align="left">レポートはありません</td>
+					      </tr>
+					    </TMPL_IF>
+                                          </table></td>
+                                        </tr>
+                                      </table>
+                                      <br>
+            <TMPL_LOOP NAME=ERR_MSG>
+            <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+            </TMPL_LOOP>
+<form name="LOGSET" method="POST" action="acc_report.cgi">
+<input type="hidden" name="CMD" value="EDT">
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                          <td><table class="item-box">
+                                              <tr align="center">
+                                                <td colspan="2" class="item-name02">アクセスレポート設定</td>
+                                              </tr>
+                                              <tr>
+                                                <td align="left" class="item-name">アクセスレポートの保存設定</td>
+                                                <td align="center" class="item-02"><table width="100%" border="0" cellpadding="0" cellspacing="0" >
+                                                    <tr>
+                                                      <td colspan="2" align="left"><input type="radio" name="LogRepSave" id="LogRepSave_1" value="1" <TMPL_IF LOGREPSAVE1>checked</TMPL_IF>>
+                        <label for="LogRepSave_1">保存する</label></td>
+                                                    </tr>
+                                                    <tr>
+                                                      <td colspan="2" align="left"><input type="radio" name="LogRepSave" id="LogRepSave_0" value="0" <TMPL_IF LOGREPSAVE0>checked</TMPL_IF>>
+                        <label for="LogRepSave_0">保存しない</label></td>
+                                                    </tr>
+                                                </table></td>
+                                              </tr>
+                                              <tr>
+                                                <td align="left" class="item-name">記録しないＵＲＬ</td>
+                                                <td align="center" class="item-02"><table width="100%" border="0" cellpadding="0" cellspacing="0" >
+<TMPL_LOOP NOBOJLIST>
+                                                    <tr>
+                                                      <td align="left">http://www.<TMPL_VAR NAME=DOMAIN>/
+                                                          <input type="text" name="Obj<TMPL_VAR NAME=NO>" value="<TMPL_VAR NAME=OBJ>" style="width:250px " style="ime-mode:disabled">
+                                                      </td>
+                                                    </tr>
+</TMPL_LOOP>
+                                                </table></td>
+                                              </tr>
+                                              <tr align="center">
+                                                <td colspan="2" class="item"><input type="button" value="設定" onClick="document.LOGSET.submit();">
+                                                </td>
+                                              </tr>
+                                            </table>
+<br>
+                                          </td>
+                                        </tr>
+                                    </table>
+</form>
+				  </td>
+                                </tr>
+                              </table>
+                            </tr>
+                        </table>

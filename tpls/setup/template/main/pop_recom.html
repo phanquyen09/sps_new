@@ -1,0 +1,64 @@
+<link href="./pop_reco.css" rel="stylesheet" type="text/css">
+<style>
+<!--
+.body{
+        text-algin: center;
+}
+#content-box{
+        margin: 5px auto;
+}
+
+//-->
+</style>
+<br>
+<table align="center" border="0" cellpadding="0" cellspacing="0" id="content-box">
+<tbody>
+ <tr>
+   <td valign="top">
+     <div style="width:650px;padding:0.2em 0.5em;background: #F6F4E8;">
+      ■以下のカテゴリに属するすべての商品に関連付けられています。<br>
+      <div class="layout1">
+      <TMPL_VAR NAME=MIXEDCAT>
+     </div>
+     ■以下のグループに属するすべての商品に関連付けられています。<br>
+     <div class="layout1">
+     <TMPL_VAR NAME=LGROU> 
+     </div>
+     ■以下の商品に関連付けられています。<br>
+     <div class="layout1">
+     <TMPL_VAR NAME=LSHO>
+     </div>
+     <p>複数の関連付けがされた場合は、以下の順で設定が優先されます。<br>
+      商品＞カテゴリ（第5階層）＞カテゴリ（第4階層）＞カテゴリ（第3階層）＞カテゴリ（第2階層）＞グループ＞カテゴリ（第1階層）
+     </p>
+     </div>
+     <br>
+   </td>
+ </tr>
+ <tr>
+   <td>
+     <table border="0" cellpadding="0" cellspacing="0" width="665px">
+     <tbody>
+         <tr>
+       <!-- メイン部分 -->
+           <td id="center3">
+             <!-- centerbox -->
+             <div class="centerbox">
+               <!-- リコメンデーションエリアここから -->
+               <div class="layoutFrame">
+               <!-- リコメンデーション見出し -->
+               <h3 class="title1">関連商品</h3>
+               <table class="auto" border="0" cellspacing="0" cellpadding="0">
+                 <TMPL_VAR NAME=HIMA>
+               </table>
+               </div><!-- //mainFrame -->
+             </div><!-- //centerbox -->
+           </td>
+         </tr>
+       </tbody></table>
+       <br>
+       <div style="text-align:center;padding:0 0 5em"><input type="button" value="閉じる" style="font-size:1.1em;padding:0.2em 0 0" onClick="window.close()"></div>
+   </td>
+ </tr>
+</tbody>
+</table>

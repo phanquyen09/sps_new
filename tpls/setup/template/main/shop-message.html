@@ -1,0 +1,144 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<form name="SHOPMSG" method="POST" action="shop-message.cgi">
+<input type="hidden" name="CMD" value="EDT">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0093C9">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">ショッピングカートのメッセージの設定を行います</td>
+<td align="right" class="midashi"><a href="<TMPL_VAR NAME=Manual>func03/cartmsg.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  ショッピングカートに表示される各メッセージを編集します。
+                                </div>
+                                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td>
+<TMPL_LOOP NAME=ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+				    <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                    <tr align="center">
+                                      <td colspan="2" class="item-name02">メッセージ設定</td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">カゴ画面</td>
+                                      <td class="sub-item">
+                                        <table width="100%">
+                                          <tr>
+                                            <td colspan="2" class="item-sub center"><img src="../imgs/cart_img.gif"></td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2" class="item-name">案内文1</td>
+
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2" class="sub-item">
+                                              <textarea name="CartTopUpperMsg" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=CARTTOPUPPERMSG></textarea><br>
+                                              ※HTMLタグ利用可
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2" class="item-name">案内文2</td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2" class="sub-item">
+                                              <textarea name="CartTopMsg" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=CARTTOPMSG></textarea><br>
+                                              ※HTMLタグ利用可
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2" class="item-name">買い物を続けるボタン</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="sub-item-name">テキスト</td>
+                                            <td class="sub-item">
+                                              <input type="text" name="CartPrevBtnMsg" value="<TMPL_VAR NAME=CARTPREVBTNMSG>">
+                                              ※HTMLタグ利用不可
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td class="sub-item-name">上ボタンの位置</td>
+                                            <td class="sub-item">
+                                              <input id="btn_top1" type="radio" name="CartPrevBtnPosUpper" value="1" <TMPL_IF NAME=CARTPREVBTNPOSUPPER1>checked</TMPL_IF>>
+                                                <label for="btn_top1">左寄せ</label>
+                                              <input id="btn_top3" type="radio" name="CartPrevBtnPosUpper" value="2" <TMPL_IF NAME=CARTPREVBTNPOSUPPER2>checked</TMPL_IF>>
+                                                <label for="btn_top3">右寄せ</label>
+                                              <input id="btn_top4" type="radio" name="CartPrevBtnPosUpper" value="0" <TMPL_IF NAME=CARTPREVBTNPOSUPPER0>checked</TMPL_IF>>
+                                                <label for="btn_top4">非表示</label>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td class="sub-item-name">下ボタンの位置</td>
+                                            <td class="sub-item">
+                                              <input id="btn_btm1" type="radio" name="CartPrevBtnPosBottom" value="1" <TMPL_IF NAME=CARTPREVBTNPOSBOTTOM1>checked</TMPL_IF>>
+                                                <label for="btn_btm1">左寄せ</label>
+                                              <input id="btn_btm3" type="radio" name="CartPrevBtnPosBottom" value="2" <TMPL_IF NAME=CARTPREVBTNPOSBOTTOM2>checked</TMPL_IF>>
+                                                <label for="btn_btm3">右寄せ</label>
+                                              <input id="btn_btm4" type="radio" name="CartPrevBtnPosBottom" value="0" <TMPL_IF NAME=CARTPREVBTNPOSBOTTOM0>checked</TMPL_IF>>
+                                                <label for="btn_btm4">非表示</label>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td colspan="2" class="item-name">購入手続きレイアウト（会員機能利用時に有効）</td>
+                                          </tr>
+                                          <tr>
+                                            <td class="sub-item-name">上下レイアウト</td>
+                                            <td class="sub-item">
+                                              <input id="mem_layout1" type="radio" name="CartMemberDialogLayout" value="1" <TMPL_IF NAME=CARTMEMBERDIALOGLAYOUT1>checked</TMPL_IF>>
+                                                <label for="mem_layout1">会員欄を上に表示する</label>
+                                              <input id="mem_layout2" type="radio" name="CartMemberDialogLayout" value="2" <TMPL_IF NAME=CARTMEMBERDIALOGLAYOUT2>checked</TMPL_IF>>
+                                                <label for="mem_layout2">会員欄を下に表示する</label>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td class="sub-item-name">左右レイアウト</td>
+                                            <td class="sub-item">
+                                              <input id="mem_layout3" type="radio" name="CartMemberDialogLayout" value="3" <TMPL_IF NAME=CARTMEMBERDIALOGLAYOUT3>checked</TMPL_IF>>
+                                                <label for="mem_layout3">会員欄を左に表示する</label>
+                                              <input id="mem_layout4" type="radio" name="CartMemberDialogLayout" value="4" <TMPL_IF NAME=CARTMEMBERDIALOGLAYOUT4>checked</TMPL_IF>>
+                                                <label for="mem_layout4">会員欄を右に表示する</label>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">お礼画面</td>
+                                      <td class="item">
+                                          <textarea name="CartEndMsg" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=CARTENDMSG></textarea>
+                                          <br>※HTMLタグ利用可
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">会員登録の案内画面</td>
+                                      <td class="item">
+                                          <textarea name="CartPntMsg" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=CARTPNTMSG></textarea>
+                                          <br>※HTMLタグ利用可
+                                      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">会員登録お礼の画面</td>
+                                      <td class="item">
+                                          <textarea name="CartPntEndMsg" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=CARTPNTENDMSG></textarea>
+                                          <br>※HTMLタグ利用可
+                                      </td>
+                                    </tr>
+                                  </table>
+                                    <br>
+                                    
+                                    <div align="center"><input name="set" type="button" id="set" value="設定を保存する" onClick="document.SHOPMSG.submit();"></div>
+                                    
+                                    </td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+</form>

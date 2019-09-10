@@ -1,0 +1,123 @@
+<form name="form1" method="post" action="theme.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+
+                                      <tr>
+                                        <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#856791">
+                                            <tr>
+                                              <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+                                            </tr>
+                                        </table></td>
+<td align="left" class="midashi">お店ページに適用するテーマを選択します</td>
+<td align="right" class="midashi"><a href="<TMPL_VAR NAME=Manual>func04/theme.html#02" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                                      </tr>
+
+                                    </table>
+                                      <img src="../imgs/spc.gif" width="3" height="3">
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                          <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+<!--
+                                            <tr>
+使用中のテーマ：<TMPL_VAR NAME=category_name> &gt; <TMPL_VAR NAME=theme_name>
+                                              <td><table width="100%" border="0" cellpadding="3" cellspacing="2" bgcolor="#999999">
+                                                      <tr align="center" bgcolor="#CCCCCC">
+                                                        <td bgcolor="#CCCCCC" class="item-name02">テーマ選択</td>
+
+                                                      </tr>
+                                                </table>
+-->
+<tr>
+<td><table bgcolor="#999999" border="0" cellpadding="3" cellspacing="2" width="100%">
+                                                      <tr align="center" bgcolor="#cccccc">
+
+                                                        <td class="item-name02" bgcolor="#cccccc">テーマ選択</td>
+
+                                                      </tr>
+                                                </table>
+                                                    <br>
+                                                    <table class="item-box">
+                                                      <tr>
+                                                        <td class="item-name">現在使用中のテーマ</td>
+
+                                                        <td class="item"><TMPL_VAR NAME=user_category_name> &gt; <TMPL_VAR NAME=theme_name></td>
+                                                      </tr>
+                                                    </table>
+                                                    <br>
+        
+        <table width="100%" border="0" cellpadding="3" cellspacing="2">
+          <tr align="center" bgcolor="#CCCCCC">
+            <td class="item-name"><TMPL_VAR NAME=category_name></td>
+          </tr>
+          <tr bgcolor="#FFFFFF">
+
+            <td><br>
+                <table width="100%" border="0">
+                  <tr align="center">
+
+		<TMPL_LOOP NAME=theme_list>
+                     <td><table width="98%" border="0" bgcolor="#DDBBCC">
+                        <tr align="center">
+                          <td height="20" class="chart-name"><TMPL_VAR NAME=theme_name></td>
+                        </tr>
+                        <tr align="center">
+                          <td width="25%" height="130" bgcolor="#FFFFFF"><table width="120" height="120" border="0" cellpadding="0" cellspacing="0">
+                              <tr>
+                                <td bgcolor="#CCCCCC"><a href="../blog/PreviewTheme/<TMPL_VAR NAME=theme_code>/html/index.html" target="_blank"><img src="../imgs/theme_thumb/<TMPL_VAR NAME=category_code>/<TMPL_VAR NAME=theme_code>.gif" width="120" height="120" border=0></a></td>
+                              </tr>
+                          </table></td>
+                        </tr>
+                        <tr align="center">
+                          <td class="radio_box"><input type="radio" <TMPL_IF NAME=cur>checked</TMPL_IF> name="theme_code" value="<TMPL_VAR NAME=theme_code>" onClick="document.form1.category_code.value='<TMPL_VAR NAME=category_code>';">
+                          </td>
+                        </tr>
+                    </table></td>
+
+		<TMPL_IF NAME=tr></tr><tr align="center"></TMPL_IF>
+		</TMPL_LOOP>
+		<TMPL_VAR NAME=tr>
+
+                </table>
+                            
+          </table>
+        <img src="../imgs/spc.gif" width="3" height="3">
+
+        <br><table class="item-box">
+                                                  <tr>
+                                                    <td align="center" class="item-name02">トップページ　レイアウト設定</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td valign="top"><select name="layout">
+		<option value="lr" <TMPL_IF NAME=lr>selected</TMPL_IF>>標準</option>
+		<option value="l" <TMPL_IF NAME=l>selected</TMPL_IF>>右サイドバーなし</option>
+            </select></td>
+            <td valign="top">※</td>
+            <td>「右サイドバーなし」を選択すると、トップページが右サイドバーのないデザインになります。 </td>
+          </tr>
+        </table>
+
+                                                    </td>
+                                                  </tr>
+                                                </table>
+      </td>
+                                            </tr>
+                                          </table></td>
+                                        </tr>
+                                      </table>
+                                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+
+                                        <tr>
+                                          <td>&nbsp;</td>
+                                        </tr>
+                                      </table>
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                        <tr>
+                                          <td align="center" style="padding:10px 10px 10px 10px "><input name="set" type="button" id="back" value="戻る" onclick="document.form1.mode.value=''; document.form1.submit();">　<input name="set" type="submit" id="set" value="テーマを設定する">
+                                          </td>
+
+                                        </tr>
+                                    </table></td>
+<input type="hidden" name="category_code" value="<TMPL_VAR NAME=category_code>">
+<input type="hidden" name="mode" value="regist">
+</form>

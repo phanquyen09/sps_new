@@ -1,0 +1,342 @@
+<SCRIPT language=JavaScript>
+<!--
+function sendtest(kind, f) {
+  if (document.form.fromaddr.value == ''){
+    alert('メールアドレスが設定されてません');
+    return;
+  }
+  if (confirm(document.form.fromaddr.value+"宛てにメールを送信します。\n設定内容は保存されませんのでご注意ください。") ){
+    f.fromstr.value = document.form.fromstr.value;
+    f.fromaddr.value = document.form.fromaddr.value;
+
+    f.test.value = 1;
+    f.submit();
+  } else {
+    return;
+  }
+}
+//-->
+</SCRIPT>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                      <tr>
+                                        <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+
+                                            <tr>
+                                              <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+                                            </tr>
+                                        </table></td>
+                                        <td align="left" class="midashi">自動的に送信されるメールの内容を編集します</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/my-sales-mail.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                                      </tr>
+                                    </table>
+                                      <img src="../imgs/spc.gif" width="5" height="5">
+
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                          <td align="left" class="main-table">
+
+<div class="infoArea table_bg">
+登録時、退会時などに、アフィリエイターへ自動で送信されるメールを設定します。
+</div>
+
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+                                              <td><table width="100%"  border="0" cellspacing="0" cellpadding="0" bgcolor="#FEF0ED">
+                                                <tr class="af_box">
+                                                  <td width="24%"><a href="#01">[　登録のお知らせ　]</a></td>
+                                                  <td width="76%">：　アフィリエイターの登録手続きが完了したときに送信</td>
+
+                                                </tr>
+                                                <tr class="af_box">
+                                                  <td><a href="#02">[　利用停止のお知らせ　]</a></td>
+                                                  <td>：　アフィリエイターの状態を「停止中」に変更したのときに送信</td>
+                                                </tr>
+                                                <tr class="af_box">
+                                                  <td><a href="#03">[　利用再開のお知らせ　]</a></td>
+
+                                                  <td>：　アフィリエイターの状態を「停止中」から「販売中」に変更したときに送信</td>
+                                                </tr>
+                                                <tr class="af_box">
+                                                  <td><a href="#04">[　退会完了のお知らせ　]</a></td>
+                                                  <td>：　アフィリエイターの退会手続きが完了したときに送信</td>
+                                                </tr>
+                                                <tr class="af_box">
+
+                                                  <td nowrap><a href="#05">[　ＩＤ／パスワード再発行のお知らせ　]</a></td>
+                                                  <td>：　アフィリエイター管理画面でＩＤ／パスワード送信の手続きをしたときに送信</td>
+                                                </tr>
+                                              </table>
+                                                <br>
+                                                <br>
+					<TMPL_VAR NAME=err>
+						<TMPL_VAR NAME=err_from>
+
+						<form name="form" method="post" action="my-sales-mail.cgi">
+                                                <table cellpadding="3" class="item-box">
+                                                  <tr align="center">
+
+                                                    <td colspan="2" class="item-name02">メール差出人設定</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">差出人名</td>
+                                                    <td bgcolor="#FFFFFF"><input name="fromstr" type="text" value="<TMPL_VAR NAME=fromstr>" style="width:300px "></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">差出人メールアドレス</td>
+
+                                                    <td bgcolor="#FFFFFF"><input name="fromaddr" type="text" value="<TMPL_VAR NAME=fromaddr>" style="width:300px " style="ime-mode:disabled"></td>
+                                                  </tr>
+<!--
+                                                  <tr>
+                                                    <td class="item-name">メールアドレス（確認）</td>
+                                                    <td bgcolor="#FFFFFF"><input name="fromaddr_con" type="text" value="" style="width:300px "></td>
+                                                  </tr>
+-->
+                                                </table>
+                                                <br>
+
+                                                <div align="center">
+                                                  <input type="button" value="設定" onClick="document.form.submit();"></div>
+						  <input type="hidden" name="kind" value="from">
+						</form>
+
+                                                <br>
+                                                <hr size="1" width="100%">
+                                               <br>
+
+						<TMPL_VAR NAME=err_ent>
+						<form name="form1" method="post" action="my-sales-mail.cgi">
+                                                <a name="01" class="anchor-fix"></a> <br>
+                                                <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                                  <tr align="center">
+
+                                                    <td colspan="2" class="item-name02">登録のお知らせ編集</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">差出人</td>
+                                                    <td class="item">「メール差出人」で設定した名前＜メールアドレス＞</td>
+                                                  </tr>
+                                                  <tr>
+
+                                                    <td class="item-name">件名</td>
+                                                    <td class="item"><input type="text" name="ent_mailsubj" style="width:400px " value="<TMPL_VAR NAME=ent_mailsubj>"></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">本文</td>
+                                                    <td class="item"><textarea name="ent_mailbody" rows="10" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=ent_mailbody></textarea>
+                                                    </td>
+                                                  </tr>
+                                                </table>
+
+                                                <br>
+                                                <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                                  <tr align="center">
+                                                    <td align="left" class="item"><input type="checkbox" name="ent_mail" value="1" <TMPL_IF NAME=ent_mail>checked</TMPL_IF>>
+
+                                                      このメールのコピーを差出人にも送信する。（チェックしないとアフィリエイターにのみ送信します）</td>
+                                                  </tr>
+                                                </table>
+                                                <br>
+                                                <div align="center">
+                                                  <input type="button" value="テスト送信" onClick="sendtest('ent', document.form1);">　
+                                                  <input type="button" value="設定" onClick="document.form1.submit();">
+						  <input type="hidden" name="kind" value="ent">
+						  <input type="hidden" name="test" value="">
+						  <input type="hidden" name="fromstr">
+						  <input type="hidden" name="fromaddr">
+                                                </div>
+						</form>
+
+                                                <br>
+                                                <hr size="1" width="100%">
+                                                <br>
+                                                
+						<TMPL_VAR NAME=err_stop>
+						<form name="form2" method="post" action="my-sales-mail.cgi">
+                                                <a name="02" class="anchor-fix"></a><br>
+                                                <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                                  <tr align="center">
+                                                    <td colspan="2" class="item-name02">利用停止のお知らせ編集</td>
+                                                  </tr>
+
+                                                  <tr>
+                                                    <td class="item-name">差出人</td>
+                                                    <td class="item">「メール差出人」で設定した名前＜メールアドレス＞</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">件名</td>
+                                                    <td class="item"><input type="text" name="stop_mailsubj" style="width:400px " value="<TMPL_VAR NAME=stop_mailsubj>"></td>
+
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">本文</td>
+                                                    <td class="item"><textarea name="stop_mailbody" rows="10" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=stop_mailbody></textarea>
+                                                    </td>
+                                                  </tr>
+                                                </table>
+                                                <br>
+
+                                                <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                                  <tr align="center">
+                                                    <td align="left" class="item"><input type="checkbox" name="stop_mail" value="1" <TMPL_IF NAME=stop_mail>checked</TMPL_IF>>
+      このメールのコピーを差出人にも送信する。（チェックしないとアフィリエイターにのみ送信します）</td>
+                                                  </tr>
+                                                </table>
+                                                <br>
+                                                <div align="center">
+
+                                                  <input type="button" value="テスト送信" onClick="sendtest('stop', document.form2);">　
+                                                  <input type="button" value="設定" onClick="document.form2.submit();">
+						  <input type="hidden" name="kind" value="stop">
+						  <input type="hidden" name="test" value="">
+                                                  <input type="hidden" name="fromstr">
+                                                  <input type="hidden" name="fromaddr">
+                                                </div>
+						</form>
+
+                                                <br>
+                                                <hr size="1" width="100%">
+                                                <br>
+                                                
+						<TMPL_VAR NAME=err_re>
+						<form name="form3" method="post" action="my-sales-mail.cgi">
+                                                <a name="03" class="anchor-fix"></a><br>
+                                                <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+
+                                                  <tr align="center">
+                                                    <td colspan="2" class="item-name02">利用再開のお知らせ編集</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">差出人</td>
+                                                    <td class="item">「メール差出人」で設定した名前＜メールアドレス＞</td>
+                                                  </tr>
+
+                                                  <tr>
+                                                    <td class="item-name">件名</td>
+                                                    <td class="item"><input type="text" name="re_mailsubj" style="width:400px " value="<TMPL_VAR NAME=re_mailsubj>"></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">本文</td>
+                                                    <td class="item"><textarea name="re_mailbody" rows="10" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=re_mailbody></textarea>
+                                                    </td>
+                                                  </tr>
+                                                </table>
+                                                <br>
+                                                <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                                  <tr align="center">
+
+                                                    <td align="left" class="item"><input type="checkbox" name="re_mail" value="1" <TMPL_IF NAME=re_mail>checked</TMPL_IF>>
+      このメールのコピーを差出人にも送信する。（チェックしないとアフィリエイターにのみ送信します）</td>
+                                                  </tr>
+                                                </table>
+                                                <br>
+                                                <div align="center">
+                                                  <input type="button" value="テスト送信" onClick="sendtest('re', document.form3);">　
+                                                  <input type="button" value="設定" onClick="document.form3.submit();">
+						  <input type="hidden" name="kind" value="re">
+						  <input type="hidden" name="test" value="">
+                                                  <input type="hidden" name="fromstr">
+                                                  <input type="hidden" name="fromaddr">
+                                                </div>
+						</form>
+
+                                                <br>
+                                                <hr size="1" width="100%">
+                                                <br>
+                                                
+						<TMPL_VAR NAME=err_sec>
+						<form name="form4" method="post" action="my-sales-mail.cgi">
+                                                <a name="04" class="anchor-fix"></a><br>
+                                                <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                                  <tr align="center">
+                                                    <td colspan="2" class="item-name02">退会完了のお知らせ編集</td>
+
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">差出人</td>
+                                                    <td class="item">「メール差出人」で設定した名前＜メールアドレス＞</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">件名</td>
+
+                                                    <td class="item"><input type="text" name="sec_mailsubj" value="<TMPL_VAR NAME=sec_mailsubj>" style="width:400px "></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">本文</td>
+                                                    <td class="item"><textarea name="sec_mailbody" rows="10" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=sec_mailbody></textarea>
+                                                    </td>
+                                                  </tr>
+
+                                                </table>
+                                                <br>
+                                                <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                                  <tr align="center">
+                                                    <td align="left" class="item"><input type="checkbox" name="sec_mail" value="1" <TMPL_IF NAME=sec_mail>checked</TMPL_IF>>
+      このメールのコピーを差出人にも送信する。（チェックしないとアフィリエイターにのみ送信します）</td>
+                                                  </tr>
+                                                </table>
+
+                                                <br>
+                                                <div align="center">
+                                                  <input type="button" value="テスト送信" onClick="sendtest('sec', document.form4);">
+                                                  　
+                                                  <input type="button" value="設定" onClick="document.form4.submit();">
+						  <input type="hidden" name="kind" value="sec">
+						  <input type="hidden" name="test" value="">
+                                                  <input type="hidden" name="fromstr">
+                                                  <input type="hidden" name="fromaddr">
+                                                </div>
+						</form>
+
+                                                <br>
+                                                <hr size="1" width="100%">
+                                                <br>
+
+                                                
+						<TMPL_VAR NAME=err_pwd>
+						<form name="form5" method="post" action="my-sales-mail.cgi">
+                                                <a name="05" class="anchor-fix"></a><br>
+                                                <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                                  <tr align="center">
+                                                    <td colspan="2" class="item-name02">ＩＤ／パスワード再発行のお知らせ編集</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">差出人</td>
+                                                    <td class="item">「メール差出人」で設定した名前＜メールアドレス＞</td>
+
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">件名</td>
+                                                    <td class="item"><input type="text" name="pwd_mailsubj" value="<TMPL_VAR NAME=pwd_mailsubj>" style="width:400px "></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">本文</td>
+                                                    <td class="item"><textarea name="pwd_mailbody" rows="10" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=pwd_mailbody></textarea></td>
+                                                  </tr>
+                                                </table>
+                                                <br>
+                                                <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                                  <tr align="center">
+                                                    <td align="left" class="item">※ＩＤ／パスワード再発行のお知らせは、プライバシー保護のためアフィリエイターにのみ送信します。</td>
+
+                                                  </tr>
+                                                </table>
+                                              <br>
+                                                <div align="center">
+                                                  <input type="button" value="テスト送信" onClick="sendtest('pwd', document.form5);">
+                                                  　
+                                                  <input type="button" value="設定" onClick="document.form5.submit();"></div>
+						  <input type="hidden" name="kind" value="pwd">
+						  <input type="hidden" name="test" value="">
+                                                  <input type="hidden" name="fromstr">
+                                                  <input type="hidden" name="fromaddr">
+                                                </td>
+                                            </tr>
+						</form>
+
+                                          </table></td>
+                                        </tr>
+                                      </table>
+                                  </td>
+                                </tr>

@@ -1,0 +1,133 @@
+<script language="JavaScript">
+<!--
+function cfm(f) {
+  if ( confirm("アンケートの内容を消去します。よろしいですか？") ) {
+    f.submit();
+  } else {
+    return;
+  }
+}
+function do_command(b,cmd,enqu_page_id,page_no) {
+    document.form1.CMD.value=cmd;
+    document.form1.EnquPageID.value=enqu_page_id;
+    document.form1.PageNo.value=page_no;
+    if(cmd == 'DEL'){
+        cfm(document.form1);
+    }else if(cmd == 'EDT'){
+        b.disabled=true;
+        document.form1.action='enquete_edit.cgi';
+        document.form1.submit();
+    }else if(cmd == 'DL'){
+        document.form1.submit();
+    }else if(cmd == 'SAVE'){
+        b.disabled=true;
+        document.form1.submit();
+    }
+
+}
+//-->
+</script>
+<table bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" width="100%">
+  <tr>
+    <td width="12">
+      <table align="right" bgcolor="#f39700" border="0" cellpadding="0" cellspacing="0" height="20" width="50%">
+        <tr>
+          <td>
+            <img src="../imgs/spc.gif">
+          </td>
+        </tr>
+      </table>
+    </td>
+    <td class="midashi" align="left">SSLに対応したアンケートフォームの設定を行います</td>
+    <td class="midashi" align="right"><a href="https://help.shopserve.jp/help/enqu_select.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<form name="form1" method="post" action="enqu_select.cgi" style="padding:0;margin:0">
+  <input type="hidden" name="PageNo" value="">
+  <input type="hidden" name="EnquPageID" value="">
+  <input type="hidden" name="CMD" value="">
+  <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="left" class="main-table">
+        <div style="line-height:150%;padding:0.2em 0.5em;margin:0 0 1.5em;background-color:#fef2d0">
+           基本設定の［フォーム編集］をクリックして、各アンケートフォームの設定を行います。<br>
+           その後、公開設定から「公開する」を選択し、［変更］をクリックしてアンケートフォームを公開します。<br>
+           アンケートフォームは「URL」に表示されているアドレスをコピーし、フリーエリア、フリーページからリンクしてご利用ください。
+        </div>
+        <TMPL_LOOP NAME=ERR_MSG>
+          <font color="red">&nbsp;<TMPL_VAR NAME=MSG></font><br>
+        </TMPL_LOOP>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+    <tr>
+        <td align="right" >
+                <a href="https://help.shopserve.jp/ctrlpnl_sup/func01/clientlist/privacy_use.html" target="manual"
+                    >&lt;個人情報を適切に取り扱いましょう&gt;</a>
+            </td>
+    </tr>
+</table>
+        <table class="item-box" border="0" cellpadding="0" cellspacing="2" width="100%">
+          <tr bgcolor="#FFFFFF">
+            <td align="center" class="item-name02">アンケートフォーム一覧</td>
+          </tr>
+          <TMPL_LOOP NAME=page>
+          <tr bgcolor="#FFFFFF">
+            <td>
+              <table width="100%">
+                <tr>
+                  <td class="sub-item-name">タイトル</td>
+                  <td class="sub-item">
+                    <TMPL_IF NAME=title>
+                      <TMPL_VAR NAME=title>
+                    <TMPL_ELSE>
+                      未設定
+                    </TMPL_IF>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="sub-item-name">URL</td>
+                  <td class="sub-item">
+                    <TMPL_IF NAME=url>
+                      <TMPL_VAR NAME=url><TMPL_VAR NAME=returl>
+                    <TMPL_ELSE>
+                      未設定
+                    </TMPL_IF>
+                  </td>
+                </tr>
+                <tr>
+                  <td class="sub-item-name">基本設定</td>
+                  <td class="sub-item">
+                    <input value="フォーム編集" onClick="do_command(this,'EDT','<TMPL_VAR NAME=EnquPageID>','<TMPL_VAR NAME=PageNo>');" type="button">
+                  </td>
+                </tr>
+                <tr>
+                  <td class="sub-item-name">公開設定</td>
+                  <td class="sub-item">
+                    <select name="Page<TMPL_VAR NAME=PageNo>_Disp">
+                      <option value="N">非公開</option>
+                      <option value="Y" <TMPL_IF NAME="disp">selected="selected"</TMPL_IF>>公開する</option>
+                    </select>&nbsp;
+                    <input type="button" value="変更" onClick="do_command(this,'SAVE','<TMPL_VAR NAME=EnquPageID>','<TMPL_VAR NAME=PageNo>')">
+                  </td>
+                </tr>
+	            <tr>
+                  <td class="sub-item-name">データ</td>
+                  <td class="sub-item">
+                    <TMPL_IF NAME="csvf">
+                      データ件数&nbsp;：&nbsp;<TMPL_VAR NAME=ANSCNT>件&nbsp;
+                      <input value=" ダウンロード " onClick="do_command(this,'DL','<TMPL_VAR NAME=EnquPageID>','<TMPL_VAR NAME=PageNo>');" type="button">&nbsp;
+                      <input value="削除" onClick="do_command(this,'DEL','<TMPL_VAR NAME=EnquPageID>','<TMPL_VAR NAME=PageNo>');" type="button">
+                    <TMPL_ELSE>
+                      ファイルに保存しない
+                    </TMPL_IF>
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+          </TMPL_LOOP>
+        </table>
+	  </td>
+    </tr>
+  </table>
+</form>

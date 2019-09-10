@@ -1,0 +1,299 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Ｅストアーショップサーブ　ドメイン取得</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="default00.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function openScat(id) {
+		ele = document.getElementById(id+"1");
+		ele.style.display = "block";
+}
+
+function openClose(id,pt,i) {
+		prop = document.getElementById(id).style.display;
+
+//		alert(id+" "+pt+" "+i);
+
+		if(i==0) prop = "none";
+
+		if(prop=="none"){
+				if(pt=="div") document.getElementById(id).style.display="block";
+//						alert("div "+document.getElementById(id).style.display);
+				if(pt=="tr") {
+						if(document.all)	document.getElementById(id).style.display="block";
+						else
+						document.getElementById(id).style.display="table-row";
+//						alert("tr "+document.getElementById(id).style.display);
+				}
+		} else {
+				document.getElementById(id).style.display="none";
+		}
+//		alert(document.getElementById(id).style.display);
+}
+
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
+//-->
+</script>
+<style type="text/css">
+<!--
+.outbox {
+	padding:5px;
+}
+
+.inbox {
+	padding:3px;
+}
+.inbox1 {	padding:3px;
+}
+.inbox2 {	padding:10px 3px 10px 5px; line-height:140%;
+}
+.outbox1 {	padding:5px;
+}
+.style2 {color: #FF0000}
+-->
+</style>
+</head>
+<body>
+<form name="next" method="POST">
+  <input type="hidden" name="ID" value="<TMPL_VAR name="ID">">
+  <input type="hidden" name="CMD" value="CNT">
+<a name="top"></a>
+<div style="font-size:80%" align="center">
+  <table width="600"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center">&nbsp;</td>
+    </tr>
+    <tr>
+      <td align="left" height="15"><img src="../imgs/spc.gif" width="5" height="5"></td>
+    </tr>
+  </table>
+  <img src="imgs/domain_navi02.gif" width="590" height="52">
+  <table width="600"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="left" class="outbox"><div class="midashi">検索結果</div>
+        <br>
+        <table width="95%" border="0" cellspacing="1" cellpadding="1" align="center">
+                <tr align="left">
+                  <td bgcolor="#EFFAFC" class="comment_box">ご希望のドメイン名の検索結果は以下のとおりです。<br>
+取得可能なドメイン名を選択して、「次へ」ボタンをクリックしてください。
+ドメインによっては、取得に必要な条件(個人不可など)があります。 <!--ドメインを取得できる法人・団体等についての詳細は、<a href="#">こちら</a>をご確認ください。 //--><br>
+<br>
+<div align="center"><a href="domain_signup.html" target="_blank">ドメインの種類と取得資格について</a></div></td>
+                </tr>
+        </table>
+        <br>
+<TMPL_IF name="hasErr">
+        <table width="95%" border="0" cellspacing="1" cellpadding="1" align="center">
+          <tr align="left">
+            <td class="comment_box"><font color="red"><b>ドメインを選択してください。</b></font></td>
+          </tr>
+        </table>
+</TMPL_IF>
+        <table width="95%"  border="0" cellspacing="0" cellpadding="0" align="center">
+<TMPL_IF name="IS_NOTHING">
+                          <tr>
+                            <td bgcolor="#666666"><table width="100%" border="0" cellspacing="1" cellpadding="0" align="center">
+                              <tr>
+                                <td align="left" class="box_title02">取得可能なドメインがありませんでした。</td>
+                              </tr>
+                              <tr>
+                                <td align="left" bgcolor="#FFFFFF" class="inbox" style="0px 10px 30px "><table border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                      <td class="inbox" width="5"></td>
+                                      <td class="inbox" style="padding-left:5px ">条件を変更して検索し直してください。</td>
+                                    </tr>
+                                </table></td>
+                              </tr>
+<TMPL_ELSE>
+                          <tr>
+                            <td bgcolor="#666666"><table width="100%" border="0" cellspacing="1" cellpadding="0" align="center">
+</TMPL_IF>
+<TMPL_IF name="IS_COM">
+                              <tr>
+                                <td align="left" class="box_title02">個人・法人に関係なく取得可</td>
+                              </tr>
+                              <tr>
+                                <td align="left" bgcolor="#FFFFFF" class="inbox" style="padding:10px 0px 10px 30px "><table width="40%"  border="0" cellspacing="0" cellpadding="0">
+<TMPL_LOOP name="DOMAINS">
+                                    <tr>
+                                      <td class="inbox" width="5px"><input type="radio" name="DOM_TYPE" value="<TMPL_VAR name="DOM_TYPE">"></td>
+                                      <td class="inbox" style="padding-left:5px "><strong><TMPL_VAR name="DOMAIN"></strong></td>
+                                    </tr>
+</TMPL_LOOP>
+                                </table></td>
+                              </tr>
+</TMPL_IF>
+<TMPL_IF name="IS_COJP">
+                              <tr>
+                                <td align="left" class="box_title02">※一般法人のみ（株式会社・有限会社・合名会社など。１法人１つのみ。）</td>
+                              </tr>
+                              <tr>
+                                <td align="left" bgcolor="#FFFFFF" class="inbox" style="padding:10px 0px 10px 30px "><table width="40%"  border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                      <td class="inbox" width="5"><input type="radio" name="DOM_TYPE" value="co.jp"></td>
+                                      <td class="inbox" style="padding-left:5px "><strong><TMPL_VAR name="DOM_NAME">.co.jp</strong>　※</td>
+                                    </tr>
+                                </table></td>
+                              </tr>
+</TMPL_IF>
+<TMPL_IF name="IS_ORJP">
+                              <tr>
+                                <td align="left" class="box_title02">※その他の法人（社会法人・医療法人・農業協同組合など。１法人１つのみ。）</td>
+                              </tr>
+                              <tr>
+                                <td align="left" bgcolor="#FFFFFF" class="inbox" style="padding:10px 0px 10px 30px "><table width="40%"  border="0" cellspacing="0" cellpadding="0">
+                                    <tr>
+                                      <td class="inbox" width="5"><input type="radio" name="DOM_TYPE" value="or.jp"></td>
+                                      <td class="inbox" style="padding-left:5px "><strong><TMPL_VAR name="DOM_NAME">.or.jp</strong> ※</td>
+                                    </tr>
+                                </table></td>
+                              </tr>
+</TMPL_IF>
+                              <tr>
+                                <td align="left" bgcolor="#FFFFFF" class="inbox">※　.co.jpならびに.or.jpは、個人では取得できません。</td>
+                              </tr>
+                            </table></td>
+                          </tr>
+                        </table>
+                        <br>
+        <div align="center">
+		            <input type="button" onClick="document.back.submit();" value="戻る">
+		            <input type="button" onClick="document.next.submit();" value="次へ" <TMPL_IF name="IS_NOTHING">disabled</TMPL_IF>>
+                    <br>
+                    <br>
+        </div>
+                <br>
+                <hr size="1" noshade style="border-style:dashed; color:#666666 ">
+                <br>
+
+				<table width="95%" border="0" cellspacing="1" cellpadding="1" align="center">
+                <tr align="left">
+                  <td class="comment_box">以下のドメインは別途、書類が必要、または教育関連、政府機関限定のドメインとなります。
+                  </td>
+                </tr>
+        </table><br>
+        <table width="95%"  border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td bgcolor="#666666"><table width="100%" border="0" cellspacing="1" cellpadding="0" align="center">
+<!--
+              <tr>
+                <td align="left" bgcolor="#E3F7FF" class="inbox"><span class="style2">要書類</span>　（郵送での受付となります。下記よりPDF形式の書類をダウンロードして、署名、ご捺印のうえ弊社Eストアーまでお送りください。） </td>
+              </tr>
+              <tr>
+                <td align="left" bgcolor="#FFFFFF" class="inbox2" style="padding-left:30px "><table width="40%"  border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td class="inbox" width="5"><img src="imgs/pdf.jpg" width="21" height="21"></td>
+                        <td class="inbox" style="padding-left:10px "><strong><a href="#"><TMPL_VAR name="DOM_NAME">.ne.jp</a></strong></td>
+                      </tr>
+                      <tr>
+                        <td class="inbox" width="5"><img src="imgs/pdf.jpg" width="21" height="21"></td>
+                        <td class="inbox" style="padding-left:10px "><strong><a href="#"><TMPL_VAR name="DOM_NAME">.gr.jp</a></strong></td>
+                      </tr>
+                                </table></td>
+              </tr>
+//-->
+              <tr>
+                <td align="left" class="box_title_side">下記につきましては、弊社<strong>Ｅストアー ストアーデスク</strong>までお問い合わせください。</td>
+              </tr>
+              <tr>
+                <td align="left" bgcolor="#FFFFFF" class="inbox" style="padding:10px 0px 10px 30px "><table width="40%"  border="0" cellspacing="0" cellpadding="0">
+                    <tr>
+                      <td class="inbox1" style="padding:7px 0px 7px 36px "><strong><TMPL_VAR name="DOM_NAME">.ne.jp</strong></td>
+                    </tr>
+                    <tr>
+                      <td class="inbox1" style="padding:7px 0px 7px 36px "><strong><TMPL_VAR name="DOM_NAME">.gr.jp</strong></td>
+                    </tr>
+                    <tr>
+                      <td class="inbox1" style="padding:7px 0px 7px 36px "><strong><TMPL_VAR name="DOM_NAME">.ac.jp</strong></td>
+                    </tr>
+                    <tr>
+                      <td class="inbox1" style="padding:7px 0px 7px 36px "><strong><TMPL_VAR name="DOM_NAME">.ed.jp</strong></td>
+                    </tr>
+                    <tr>
+                      <td class="inbox1" style="padding:7px 0px 7px 36px "><strong><TMPL_VAR name="DOM_NAME">.go.jp</strong></td>
+                    </tr>
+                </table></td>
+              </tr>
+			  <tr>
+                <td align="left" class="box_title_side">お問い合わせ先</td>
+              </tr>
+              
+			   <tr>
+                 <td align="center" bgcolor="#FFFFFF" class="inbox" style="padding:10px">
+				 <table width="90%"  border="0" cellspacing="0" cellpadding="0" align="center">
+    <tr>
+      <td bgcolor="#666666"><table width="100%"  border="0" align="center" cellpadding="0" cellspacing="1" bordercolor="#245FD7">
+        <tr>
+          <td align="left" class="box_title">受付</td>
+        </tr>
+        <tr>
+          <td align="left" bgcolor="#FFFFFF" class="inbox">株式会社Eストアー<br>
+      〒105-0003<br>
+      東京都港区西新橋1-10-2　住友生命ビル<br>
+      Ｅストアー ストアーデスク宛て</td>
+        </tr>
+		<tr>
+          <td align="left" class="box_title">Ｅストアー ストアーデスク</td>
+        </tr>
+        <tr>
+          <td align="left" bgcolor="#FFFFFF" class="inbox"><table width="100%"  border="0" cellspacing="0" cellpadding="0">
+              <tr>
+                <td>TEL </td>
+                <td>0570-05-1210</td>
+                <td>（全国共通3分8.5円）※携帯の場合20秒10.5円</td>
+              </tr>
+              <tr>
+                <td>&nbsp;</td>
+                <td>03-3595-1251</td>
+                <td>（IP電話からはこちらをご利用ください）</td>
+              </tr>
+              <tr>
+                <td>FAX</td>
+                <td> 011-218-2321</td>
+                <td>&nbsp;</td>
+              </tr>
+              <tr>
+                <td>Eメール</td>
+                <td>sp@Estore.co.jp</td>
+                <td>&nbsp;</td>
+              </tr>
+            </table></td>
+        </tr>
+      </table></td>
+    </tr>
+  </table>
+				 </td>
+			   </tr>
+            </table></td>
+          </tr>
+        </table>
+        <br>
+<div align="center">    </div>
+<hr size="1" noshade>
+          <br>
+		   <div align="center"><input name="set" type="button" id="set" value="キャンセル" onClick="window.close()"></div>
+      </td>
+    </tr>
+  </table>
+</div>
+</form>
+<form name="back" method="post">
+  <input type="hidden" name="ID" value="<TMPL_VAR name="ID">">
+  <input type="hidden" name="CMD" value="DOM">
+  <input type="hidden" name="BAK" value="YES">
+</form>
+</body>
+</html>
+

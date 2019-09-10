@@ -1,0 +1,354 @@
+<table width="100%" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right" border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">代金回収レポート</td>
+    <td align="right" class="midashi">
+      <a href="https://help.shopserve.jp/help/bil_report_sps.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table><img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%" border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+      <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <!--<td><strong><TMPL_VAR NAME=MONTH>&nbsp;（&nbsp;<TMPL_VAR NAME=START>&nbsp;〜&nbsp;<TMPL_VAR NAME=END>&nbsp;）</strong><br>-->
+                <td><strong>
+                  <TMPL_VAR NAME=TERM>
+                </strong><br> <br>
+                  <table class="item-box">
+                    <tr align="center">
+                      <td colspan="2" class="item-name02">振込情報</td>
+                    </tr>
+                    <tr>
+                      <td class="item-name">振込日</td>
+                      <td align="center" class="item">
+                        <TMPL_VAR NAME=FURIKOMI>
+                      </td>
+                    </tr>
+                    <TMPL_IF KAISHULIST_TITLE>
+                      <TMPL_IF FURIKOMI_DISP>
+                        <tr>
+                          <td width="50%" class="item-name">振込金額</td>
+                          <td width="50%" align="center" class="item">
+                            <TMPL_VAR NAME=T_FURIKOMI>円
+                          </td>
+                        </tr>
+                  </table>
+                  <table border="0" width="100%">
+                    <tr>
+                      <td align="right"><font size="-2">※振込手数料を差し引いた金額を表示しています。</font></td>
+                    </tr>
+                      </TMPL_IF>
+                    </TMPL_IF>
+                  </table>
+                  <br>
+
+                  <TMPL_IF KAISHULIST_MATOME_TBL_N>
+                    <table class="item-box">
+                      <tr align="center">
+                        <td colspan="2" class="item-name02">月1回入金分内訳</td>
+                      </tr>
+                      <tr>
+                        <td width="50%" class="item-name">決済金額</td>
+                        <td width="50%" align="center" class="item">
+                          <TMPL_VAR NAME=T_TOTAL_N>円
+                        </td>
+                      </tr>
+                      <tr>
+                        <td width="50%" class="item-name">代行手数料</td>
+                        <td width="50%" align="center" class="item">
+                          <TMPL_VAR NAME=T_COMTOTAL_N>円
+                        </td>
+                      </tr>
+                      <tr>
+                        <td width="50%" class="item-name">印紙代</td>
+                        <td width="50%" align="center" class="item">
+                          <TMPL_VAR NAME=T_REVENUE_N>円
+                        </td>
+                      </tr>
+                      <TMPL_IF T_KURIKOSHI_N>
+                        <tr>
+                          <td width="50%" class="item-name">繰越額</td>
+                          <td width="50%" align="center" class="item">
+                            <TMPL_VAR NAME=T_KURIKOSHI_N>円
+                          </td>
+                        </tr>
+                      </TMPL_IF>
+                      <TMPL_IF T_KESHIKOMI_N>
+                        <tr>
+                          <td width="50%" class="item-name">返還請求払込額</td>
+                          <td width="50%" align="center" class="item">
+                            <TMPL_VAR NAME=T_KESHIKOMI_N>円
+                          </td>
+                        </tr>
+                      </TMPL_IF>
+                      <tr>
+                        <td width="50%" class="item-name">回収金額</td>
+                        <td width="50%" align="center" class="item">
+                          <TMPL_VAR NAME=T_KAISHU_N>円
+                        </td>
+                      </tr>
+                      <TMPL_IF T_EXPRESS_N>
+                      <tr>
+                        <td width="50%" class="item-name">入金利用手数料</td>
+                        <td width="50%" align="center" class="item">
+                          <TMPL_VAR NAME=T_EXPRESS_N>円
+                        </td>
+                      </tr>
+                      </TMPL_IF>
+                    </table>
+                  </TMPL_IF>
+
+                  <TMPL_IF KAISHULIST_MATOME_TBL_Y>
+                    <table class="item-box">
+                      <tr align="center">
+                        <td colspan="2" class="item-name02">月2回入金分内訳</td>
+                      </tr>
+                      <tr>
+                        <td width="50%" class="item-name">決済金額</td>
+                        <td width="50%" align="center" class="item">
+                          <TMPL_VAR NAME=T_TOTAL_Y>円
+                        </td>
+                      </tr>
+                      <tr>
+                        <td width="50%" class="item-name">代行手数料</td>
+                        <td width="50%" align="center" class="item">
+                          <TMPL_VAR NAME=T_COMTOTAL_Y>円
+                        </td>
+                      </tr>
+                      <tr>
+                        <td width="50%" class="item-name">印紙代</td>
+                        <td width="50%" align="center" class="item">
+                          <TMPL_VAR NAME=T_REVENUE_Y>円
+                        </td>
+                      </tr>
+                      <TMPL_IF T_KURIKOSHI_Y>
+                        <tr>
+                          <td width="50%" class="item-name">繰越額</td>
+                          <td width="50%" align="center" class="item">
+                            <TMPL_VAR NAME=T_KURIKOSHI_Y>円
+                          </td>
+                        </tr>
+                      </TMPL_IF>
+                      <TMPL_IF T_KESHIKOMI_Y>
+                        <tr>
+                          <td width="50%" class="item-name">返還請求払込額</td>
+                          <td width="50%" align="center" class="item">
+                            <TMPL_VAR NAME=T_KESHIKOMI_Y>円
+                          </td>
+                        </tr>
+                      </TMPL_IF>
+                      <tr>
+                        <td width="50%" class="item-name">回収金額</td>
+                        <td width="50%" align="center" class="item">
+                          <TMPL_VAR NAME=T_KAISHU_Y>円
+                        </td>
+                      </tr>
+                      <TMPL_IF T_EXPRESS_Y>
+                      <tr>
+                        <td width="50%" class="item-name">入金利用手数料</td>
+                        <td width="50%" align="center" class="item">
+                          <TMPL_VAR NAME=T_EXPRESS_Y>円
+                        </td>
+                      </tr>
+                      </TMPL_IF>
+                    </table>
+                  </TMPL_IF>
+
+                  <TMPL_IF KAISHULIST_MATOME_EXP_TBL>
+                    <table class="item-box">
+                      <tr align="center">
+                        <td colspan="2" class="item-name02">スピード入金分内訳</td>
+                      </tr>
+                      <tr>
+                        <td width="50%" class="item-name">決済金額</td>
+                        <td width="50%" align="center" class="item">
+                          <TMPL_VAR NAME=T_TOTAL_EXP>円
+                        </td>
+                      </tr>
+                      <tr>
+                        <td width="50%" class="item-name">代行手数料</td>
+                        <td width="50%" align="center" class="item">
+                          <TMPL_VAR NAME=T_COMTOTAL_EXP>円
+                        </td>
+                      </tr>
+                      <tr>
+                        <td width="50%" class="item-name">印紙代</td>
+                        <td width="50%" align="center" class="item">
+                          <TMPL_VAR NAME=T_REVENUE_EXP>円
+                        </td>
+                      </tr>
+                      <TMPL_IF T_KURIKOSHI_EXP>
+                        <tr>
+                          <td width="50%" class="item-name">繰越額</td>
+                          <td width="50%" align="center" class="item">
+                            <TMPL_VAR NAME=T_KURIKOSHI_EXP>円
+                          </td>
+                        </tr>
+                      </TMPL_IF>
+                      <TMPL_IF T_KESHIKOMI_EXP>
+                        <tr>
+                          <td width="50%" class="item-name">返還請求払込額</td>
+                          <td width="50%" align="center" class="item">
+                            <TMPL_VAR NAME=T_KESHIKOMI_EXP>円
+                          </td>
+                        </tr>
+                      </TMPL_IF>
+                      <tr>
+                        <td width="50%" class="item-name">回収金額</td>
+                        <td width="50%" align="center" class="item">
+                          <TMPL_VAR NAME=T_KAISHU_EXP>円
+                        </td>
+                      </tr>
+                      <TMPL_IF T_EXPRESS_EXP>
+                      <tr>
+                        <td width="50%" class="item-name">入金利用手数料</td>
+                        <td width="50%" align="center" class="item">
+                          <TMPL_VAR NAME=T_EXPRESS_EXP>円
+                        </td>
+                      </tr>
+                      </TMPL_IF>
+                    </table>
+                  </TMPL_IF>
+
+                  <TMPL_IF DISPLAY_CHARGEBACK_TBL_FLG>
+                    <table class="item-box">
+                      <tr align="center">
+                        <td colspan="2" class="item-name02">調整額内訳</td>
+                      </tr>
+                      <TMPL_IF T_CHOUSHUKIN>
+                      <tr>
+                        <td width="50%" class="item-name">御社ご入金額</td>
+                        <td width="50%" align="center" class="item">
+                          <TMPL_VAR NAME=T_CHOUSHUKIN>円
+                        </td>
+                      </tr>
+                      </TMPL_IF>
+                      <TMPL_IF T_FURIKOMIHENKAN>
+                      <tr>
+                        <td width="50%" class="item-name">振込手数料返還額</td>
+                        <td width="50%" align="center" class="item">
+                          <TMPL_VAR NAME=T_FURIKOMIHENKAN>円
+                        </td>
+                      </tr>
+                      </TMPL_IF>
+                      <TMPL_IF T_MINUS_KURIKOSHI>
+                      <tr>
+                        <td width="50%" class="item-name">相殺額</td>
+                        <td width="50%" align="center" class="item">
+                          <TMPL_VAR NAME=T_MINUS_KURIKOSHI>円
+                        </td>
+                      </tr>
+                      </TMPL_IF>
+                    </table>
+                  </TMPL_IF>
+
+
+                  <br>
+                  <TMPL_IF KAISHULIST_N>
+                    月1回入金分詳細
+                    <table class="item-box">
+                      <tr align="center">
+                        <td class="odr-midashi">確定日</td>
+                        <td class="odr-midashi">注文番号</td>
+                        <td class="odr-midashi">決済方法</td>
+                        <td class="odr-midashi">決済金額</td>
+                        <td class="odr-midashi">手数料</td>
+                        <td class="odr-midashi">印紙代</td>
+                        <td class="odr-midashi">回収額</td>
+                      </tr>
+
+                      <TMPL_LOOP KAISHULIST_N>
+                        <tr class="item02">
+                          <td align="center" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><TMPL_VAR NAME=KAISHUDATE></td>
+                            <td align="center" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><a href="br_odrinfo.cgi?ORDERID=<TMPL_VAR NAME=ORDERID>"><TMPL_VAR NAME=PUBORDERNO></a></td>
+                            <td align="center" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><TMPL_VAR NAME=PMNAME><TMPL_IF CARDCOMP><br><TMPL_VAR NAME=CARDCOMP></TMPL_IF></td>
+                            <td align="right" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><TMPL_IF TOTAL><TMPL_VAR NAME=TOTAL>円<TMPL_ELSE>-</TMPL_IF></td><td align="right" class="odr-txt02"<TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><TMPL_IF COMTOTAL><TMPL_VAR NAME=COMTOTAL>円<TMPL_ELSE>-</TMPL_IF></td>
+                            <td align="right" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><TMPL_IF REVENUE><TMPL_VAR NAME=REVENUE>円<TMPL_ELSE>-</TMPL_IF></td>
+                            <td align="right" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><TMPL_VAR NAME=KAISHU>円</td>
+                        </tr>
+                      </TMPL_LOOP>
+                    </table>
+                    <BR>
+                  </TMPL_IF>
+
+                  <TMPL_IF KAISHULIST_Y>
+                    月2回入金分詳細
+                    <table class="item-box">
+                      <tr align="center">
+                        <td class="odr-midashi">確定日</td>
+                        <td class="odr-midashi">注文番号</td>
+                        <td class="odr-midashi">決済方法</td>
+                        <td class="odr-midashi">決済金額</td>
+                        <td class="odr-midashi">手数料</td>
+                        <td class="odr-midashi">印紙代</td>
+                        <td class="odr-midashi">回収額</td>
+                      </tr>
+
+                      <TMPL_LOOP KAISHULIST_Y>
+                        <tr class="item02">
+                          <td align="center" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><TMPL_VAR NAME=KAISHUDATE></td>
+                          <td align="center" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><a href="br_odrinfo.cgi?ORDERID=<TMPL_VAR NAME=ORDERID>"><TMPL_VAR NAME=PUBORDERNO></a></td>
+                          <td align="center" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><TMPL_VAR NAME=PMNAME><TMPL_IF CARDCOMP><br><TMPL_VAR NAME=CARDCOMP></TMPL_IF></td>
+                          <td align="right" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><TMPL_IF TOTAL><TMPL_VAR NAME=TOTAL>円<TMPL_ELSE>-</TMPL_IF></td>
+                          <td align="right" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><TMPL_IF COMTOTAL><TMPL_VAR NAME=COMTOTAL>円<TMPL_ELSE>-</TMPL_IF></td>
+                          <td align="right" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><TMPL_IF REVENUE><TMPL_VAR NAME=REVENUE>円<TMPL_ELSE>-</TMPL_IF></td>
+                          <td align="right" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><TMPL_VAR NAME=KAISHU>円</td>
+                        </tr>
+                      </TMPL_LOOP>
+                    </table>
+                    <BR>
+                  </TMPL_IF>
+
+                  <TMPL_IF KAISHULIST_EXP>
+                    スピード入金分詳細
+                    <table class="item-box">
+                      <tr align="center">
+                        <td class="odr-midashi">確定日</td>
+                        <td class="odr-midashi">注文番号</td>
+                        <td class="odr-midashi">決済方法</td>
+                        <td class="odr-midashi">決済金額</td>
+                        <td class="odr-midashi">手数料</td>
+                        <td class="odr-midashi">印紙代</td>
+                        <td class="odr-midashi">回収額</td>
+                      </tr>
+
+                      <TMPL_LOOP KAISHULIST_EXP>
+                        <tr class="item02">
+                          <td align="center" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><TMPL_VAR NAME=KAISHUDATE></td>
+                          <td align="center" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><a href="br_odrinfo.cgi?ORDERID=<TMPL_VAR NAME=ORDERID>"><TMPL_VAR NAME=PUBORDERNO></a></td>
+                          <td align="center" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><TMPL_VAR NAME=PMNAME><TMPL_IF CARDCOMP><br><TMPL_VAR NAME=CARDCOMP></TMPL_IF></td>
+                          <td align="right" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><TMPL_IF TOTAL><TMPL_VAR NAME=TOTAL>円<TMPL_ELSE>-</TMPL_IF></td>
+                          <td align="right" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><TMPL_IF COMTOTAL><TMPL_VAR NAME=COMTOTAL>円<TMPL_ELSE>-</TMPL_IF></td>
+                          <td align="right" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><TMPL_IF REVENUE><TMPL_VAR NAME=REVENUE>円<TMPL_ELSE>-</TMPL_IF></td>
+                          <td align="right" class="odr-txt02" <TMPL_IF CANCEL>style="background-color:#FF9999"</TMPL_IF>><TMPL_VAR NAME=KAISHU>円</td>
+                        </tr>
+                      </TMPL_LOOP>
+                    </table>
+                    <BR>
+                  </TMPL_IF>
+                  <BR>
+                </td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+      </table>
+      <hr size="1">
+      <br>
+      <div align="center">
+        <input type="button" name="Submit" value="一覧にもどる" onClick="location.href='bil_report_sps.cgi'">
+      </div>
+
+    </td>
+  </tr>
+</table></td>

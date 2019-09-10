@@ -1,0 +1,252 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<title><TMPL_VAR NAME=ServName>管理画面</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="default03.css" rel="stylesheet" type="text/css">
+<style>
+input.noModify{ color: #888888; }
+
+span.textCount{ 
+    font-size: 80%;
+    color:#008000;
+    margin-left: -70px;
+}
+span.countError{ color:#ff0000;}
+input.textExample{ font-size:90%; }
+</style>
+</head>
+<TMPL_IF OPENERRELOAD>
+<body onLoad='window.close();'>
+</body>
+<TMPL_ELSE>
+<body style="font-size:80% ">
+<table width="700" class="cv-paymentcard-table" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td align="left"><div class="midashi02">■コンビニ払込票の編集</div>
+      <br>
+      <!-- ここから下が入れ込む内容となります -->
+      <table  border="0" class="item-box">
+        <tr align="center" id="Free05">
+          <td width="100%" valign="top" class="item-name02">コンビニ払込票サンプル</td>
+        </tr>
+        <tr align="center" id="Free05">
+          <td nowrap class="item">
+            <img src="../imgs/cv_bcard.png" width="660" height="326" vspace="10">
+        </tr>
+      </table>
+      <br>
+<TMPL_LOOP ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+      <table  border="0" class="item-box">
+<form name="CVS1" method="POST" action="cv_paymentcard.cgi">
+<input type="hidden" name="CMD" value="EDT1">
+        <tr id="Free05">
+          <td width="20%" valign="top" class="item-name">Ａ．お支払期限日</td>
+          <td width="80%" class="item">決済依頼日から
+          <input type="text" size="3" name="DueDate" id="DueDate" class="textExample" value="<TMPL_VAR NAME=DUEDATE>" title="7" maxlength="2">
+            日以内</td>
+        </tr>
+        <tr id="Free05">
+          <td valign="top" class="item-name">Ｂ．通信欄</td>
+          <td class="item">
+            <input type="text" name="CRESCOLUMN_1" id="CRESCOLUMN_1" class="textCount textExample sizeColumn" value="<TMPL_VAR NAME=CRESCOLUMN_1>" title="例）4/10から特別セールを行います。" > <span id="CRESCOLUMN_1" class="textCount"></span><br>
+            <input type="text" name="CRESCOLUMN_2"  id="CRESCOLUMN_2" class="textCount textExample sizeColumn" value="<TMPL_VAR NAME=CRESCOLUMN_2>"  title="例）ぜひご来店ください"><span id="CRESCOLUMN_2" class="textCount"></span>
+          </td>
+        </tr>
+        <tr align="center" id="Free05">
+          <td colspan="2" class="item">
+            <input type="button" value="お支払期限日と通信欄を設定" onClick="cvs1Click();">
+          </td>
+        </tr>
+</form>
+      </table>
+      <br>
+      <table  border="0" class="item-box">
+<form name="CVS2" method="POST" action="cv_paymentcard.cgi">
+<input type="hidden" name="CMD" value="EDT2">
+        <tr id="Free05">
+          <td width="20%" valign="top" class="item-name">Ｃ．差出人</td>
+          <td width="80%" class="item-sub"><table width="100%">
+              <tr>
+                <td class="sub-item-name">差出人名</td>
+                <td class="sub-item">
+                  <input type="text" name="Name" id="Name" class="textCount textExample sizeName" value="<TMPL_VAR NAME=NAME>" title="例）茶通販の虎龍茶販"><span id="Name" class="textCount"></span>
+                </td>
+              </tr>
+              <tr>
+                <td width="20%" class="sub-item-name">郵便番号</td>
+                <td width="80%" class="sub-item">
+                   <input type="text" name="Zip1" id="Zip1" class="textExample" size="5" maxlength="3" value="<TMPL_VAR NAME=ZIP1>" title="105">
+                  -
+                   <input type="text" name="Zip2" id="Zip2" class="textExample" size="5" maxlength="4" value="<TMPL_VAR NAME=ZIP2>" title="0003">
+                &nbsp;&nbsp;
+                <input type=button value="郵便検索" onClick="seekzip();">
+                </td>
+              </tr>
+              <tr>
+                <td class="sub-item-name">住所1</td>
+                <td class="sub-item">
+                  <input type="text" name="Addr1" id="Addr1" class="textCount textExample sizeAddr" value="<TMPL_VAR NAME=ADDR1>" title="例）東京都港区"><span id="Addr1" class="textCount"></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="sub-item-name">住所2</td>
+                <td class="sub-item">
+                  <input type="text" name="Addr2" id="Addr2" class="textCount textExample sizeAddr" value="<TMPL_VAR NAME=ADDR2>" title="例）西新橋１−１０−２ 住友生命西新橋ビル"><span id="Addr2" class="textCount"></span>
+                </td>
+              </tr>
+              <tr>
+                <td class="sub-item-name">電話番号</td>
+                <td class="sub-item">
+                  <input type="text" size="5"  name="Tel1" id="Tel1" class="textExample" value="<TMPL_VAR NAME=TEL1>" title="03" maxlength="5"> &nbsp;-&nbsp;
+                  <input type="text" size="6"  name="Tel2" id="Tel2" class="textExample" value="<TMPL_VAR NAME=TEL2>" title="0000"  maxlength="4" > &nbsp;-&nbsp;
+                  <input type="text" size="6"  name="Tel3" id="Tel3" class="textExample"  value="<TMPL_VAR NAME=TEL3>" title="0000"  maxlength="4" >
+                </td>
+              </tr>
+              <tr>
+                <td class="sub-item-name">FAX番号</td>
+                <td class="sub-item">
+                  <input type="text" size="5"  name="Fax1" id="Fax1" class="textExample" value="<TMPL_VAR NAME=FAX1>" title="03"  maxlength="5"> &nbsp;-&nbsp;
+                  <input type="text" size="6"  name="Fax2" id="Fax2" class="textExample" value="<TMPL_VAR NAME=FAX2>" title="0000"  maxlength="4"> &nbsp;-&nbsp;
+                  <input type="text" size="6"  name="Fax3" id="Fax3" class="textExample" value="<TMPL_VAR NAME=FAX3>" title="0000"  maxlength="4">
+                </td>
+              </tr>
+            </table></td>
+        </tr>
+        <tr id="Free05">
+          <td valign="top" class="item-name">Ｄ．コメント欄</td>
+          <td class="item">
+            <input type="text" name="COMMENT_1" id="COMMENT_1" class="textCount textExample sizeComment" value="<TMPL_VAR NAME=COMMENT_1>" title="例) ご注文いただき、ありがとうございます。"><span id="COMMENT_1" class="textCount"></span>
+            <input type="text" name="COMMENT_2" id="COMMENT_2" class="textCount textExample sizeComment" value="<TMPL_VAR NAME=COMMENT_2>" title="例) 支払い金額を確認のうえ、お近くのコンビニエンスストアにて"><span id="COMMENT_2" class="textCount"></span>
+            <input type="text" name="COMMENT_3" id="COMMENT_3" class="textCount textExample sizeComment" value="<TMPL_VAR NAME=COMMENT_3>" title="例) お支払いください。"><span id="COMMENT_3" class="textCount"></span>
+
+            <input type="text"  name="COMMENT_4" id="COMMENT_4" class="textCount textExample sizeComment" value="<TMPL_VAR NAME=COMMENT_4>" title=""><span id="COMMENT_4" class="textCount"></span>
+          </td>
+        </tr>
+        <tr align="center" id="Free05">
+          <td colspan="2" class="item"><input type="button" value="差出人とコメント欄を設定" onClick="cvs2Click();">
+          </td>
+        </tr>
+      </table>
+      <!-- ここまで -->
+      <br>
+    </td>
+  </tr>
+</form>
+<tr>
+    <td align="center">
+        <input type="button" value="閉じる" onClick="window.close()">
+    </td>
+  </tr>
+</table>
+<br>
+<br>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    // イベント
+    $("input.textExample").focus(function(){
+        if( $(this).hasClass("noModify") ){ $(this).removeClass("noModify").val(""); }
+    }).blur(function(){
+        if($(this).val() == "" ){ $(this).addClass("noModify").val( $(this).attr("title") ); }
+    });
+    $("input.textCount").change(function(){
+        textCount( $(this), $(this).val().length );
+    }).keyup(function(){
+        textCount( $(this), $(this).val().length );
+    });
+    // 初期値
+    $("input.textExample").each( function(){
+        if( $(this).val() == "" ){
+            $(this).addClass("noModify").val( $(this).attr("title") );
+        }
+    });
+    
+    $("span.textCount").each( function(){
+        $("input.textCount").each(function(){
+            textCount( $(this), $(this).val().length );
+    });
+    });
+
+});
+
+var textCountTbl = {
+    "CRESCOLUMN_1" : "24",
+    "CRESCOLUMN_2" : "24",
+    "Name" : "30",
+    "Addr1" : "25",
+    "Addr2" : "25",
+    "COMMENT_1" : "29",
+    "COMMENT_2" : "29",
+    "COMMENT_3" : "29",
+    "COMMENT_4" : "29"
+}
+
+function textCount( obj, len ){
+    var id, nokori, str;
+    id = obj.attr("id");
+    if( obj.hasClass("noModify") ){ len = 0; }
+    nokori = textCountTbl[id] - len;
+    str = " 残り : " + nokori + "文字";
+    errStr = "オーバー！";
+    if( nokori < 0 ){ 
+         $("span#" + id).text(errStr).addClass("countError"); 
+    }
+    else{ 
+          $("span#" + id).text(str).removeClass("countError");
+     }
+}
+
+function zipSeachCount( bid, char ){
+    var id, len,nokori, str, errStr;
+    id = bid;
+    len = char.length;
+
+    nokori = textCountTbl[id] - len;
+    str = " 残り : " + nokori + "文字";
+    errStr = "オーバー！";
+
+    if( nokori < 0 ){
+         $("span#" + id).text(errStr).addClass("countError");
+    }
+    else{
+          $("span#" + id).text(str).removeClass("countError");     }
+
+}
+
+function cvs1Click(){
+    $("input.textExample").each( function(){
+        if( $(this).hasClass("noModify") ){ $(this).val(""); }
+    });
+    document.CVS1.submit();
+}
+function cvs2Click(){
+    $("input.textExample").each( function(){
+        if( $(this).hasClass("noModify") ){ $(this).val(""); }
+    });
+    document.CVS2.submit();
+}
+
+// 郵便番号検索
+function seekzip() {
+    if(document.CVS2.Zip1.className.match(/noModify/)){
+        document.CVS2.Zip1.value = "";
+    }
+    if(document.CVS2.Zip2.className.match(/noModify/)){
+        document.CVS2.Zip2.value = "";
+    }
+    var zip1 = document.CVS2.Zip1.value;
+    var zip2 = document.CVS2.Zip2.value;
+    var $tb = $(this);
+    window.open("../func100/seekzip-blog.cgi?TARGET=CVS2&TYPE=CVS&ZIP1="
+                 +zip1+"&ZIP2="+zip2, "zip","resizable=yes,scrollbars=yes,menubar=yes,width=400,height=250");
+}
+
+</script>
+</body>
+</TMPL_IF>
+</html>

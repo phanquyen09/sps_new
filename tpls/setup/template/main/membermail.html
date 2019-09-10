@@ -1,0 +1,117 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0093C9">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">自動送信メールの設定を行います</td>
+    <td align="right" class="midashi">
+    <a href="https://help.shopserve.jp/help/membermail.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a>
+    </td>
+  </tr>
+</table>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="right" >
+      <a href="https://help.shopserve.jp/ctrlpnl_sup/func01/clientlist/privacy_use.html" target="manual"
+                                        >&lt;個人情報を適切に取り扱いましょう&gt;</a>
+    </td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+      <div class="infoArea table_bg">
+        会員が、登録、退会、パスワード確認した場合に自動で送信するメールを設定します。<br>
+        &lt;MEM NAM&gt;、&lt;MEM ID&gt;などの特殊タグ表記箇所には、自動でそれぞれの会員の情報が記載されます。<br>
+      </div>
+      <TMPL_LOOP NAME=ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+      <table width="100%" border="0" cellspacing="0" cellpadding="0" class="table-padding-textarea-default">
+        <tr>
+          <td>
+            <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+              <form name="FROM" method="POST" action="membermail.cgi">
+              <input type="hidden" name="CMD"  value="FREDT">
+              <tr align="center">
+                <td colspan="2" class="item-name02">メール差出人設定</td>
+              </tr>
+              <tr>
+                <td class="item-name">差出人名</td>
+                <td class="item"><font color="#FF0000"><input name="FromStr" type="text" class="def-line" value="<TMPL_VAR NAME=FROMSTR>"></font>
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">差出人メールアドレス</td>
+                <td class="item">
+                <input name="FromAddr" type="text" class="def-line"
+                value="<TMPL_VAR NAME=FROMADDR>" style="ime-mode:disabled">
+
+<br />
+※メールアドレスを必ずご確認ください。
+                <br>
+<input name="CcFlag" type="checkbox" id="CcFlag" value="Y" <TMPL_IF CCFLAG>checked</TMPL_IF>>
+<label for="CcFlag">メールのコピーを受信する</label></td>
+              </tr>
+              <tr>
+                <td colspan="2" style="text-align: center; background-color:#FFFFFF;"><input name="set" type="button" id="set" value="設定を保存する" onClick='document.FROM.submit();'></td>
+              </tr>
+              </form>
+            </table>
+          <br>
+          <TMPL_LOOP MEMMAILS>
+            <a name="<TMPL_VAR NAME=CODE>"></a><br>
+            <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+              <form name="<TMPL_VAR NAME=CODE>" method="POST" action="membermail.cgi">
+              <input type="hidden" name="CMD"  value="EDT">
+              <input type="hidden" name="Code" value="<TMPL_VAR NAME=CODE>">
+              <tr align="center">
+                <td colspan="2" class="item-name02"><TMPL_VAR NAME=JNAME></td>
+              </tr>
+              <tr>
+                <td class="item-name">件名</td>
+                <td class="item">
+                  <font color="#FF0000">
+                    <input name="<TMPL_VAR NAME=SUBJECTTAG>" type="text" class="def-line" value="<TMPL_VAR NAME=SUBJECT>">
+                  </font>
+                </td>
+              </tr>
+              <tr>
+                <td class="item-name">本文</td>
+                <td class="item"><textarea name="<TMPL_VAR NAME=BODYTAG>" rows="10" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=BODY></textarea>
+                </td>
+              </tr>
+              <TMPL_IF exampleTitle>
+                <tr>
+                  <td class="item-name"><TMPL_VAR NAME=exampleTitle></td>
+                  <td class="item">
+                    <TMPL_VAR NAME=example>
+                  </td>
+                </tr>
+              </TMPL_IF>
+              <TMPL_IF guidtag>
+                <tr>
+                  <td class="item-name">ご案内</td>
+                  <td class="item">
+                    <textarea name="<TMPL_VAR NAME=guidtag>" rows="7" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=guide></textarea>
+                  </td>
+                </tr>
+              </TMPL_IF>
+              <tr>
+                <td colspan="2" style="text-align: center; background-color: #FFFFFF;"><input name="set" type="button" id="set" value="設定を保存する" onClick='document.<TMPL_VAR NAME=CODE>.submit();'></td>
+              </tr>
+              </form>
+            </table>
+            <br>
+          </TMPL_LOOP>
+          </td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>

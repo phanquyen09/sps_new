@@ -1,0 +1,384 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html lang="ja">
+<head>
+<title>振込先口座変更届</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<style type="text/css">
+<!--
+.page { page-break-before: always}
+.jtd14 { font-size:12pt }
+.small10 { font-size:8pt }
+.j12 { font-size:10pt}
+.jtd10{ font-size:8pt}
+.jtd12 { font-size:10pt}
+.small { font-size: 6pt}
+-->
+</style>
+
+<script language="JavaScript">
+<!--
+function openLoad() {
+	window.opener.location.href="bil_report_sps.cgi";
+	window.focus();
+}
+//-->
+</script>
+</head>
+<body text="#000000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" bgcolor="#FFFFFF" onLoad="openLoad()">
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+	<tr>
+		<td colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+	</tr>
+	<tr>
+		<td class="small10"> 株式会社Ｅストアー<br>
+			「決済代行サービス受付係」　行<br>
+			<br>
+		</td>
+		<td align="right" valign="top" class="small10">(変更届番号 <TMPL_VAR NAME=SERIALNO>)<br>
+			<TMPL_VAR NAME=TODAY></td>
+	</tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+	<tr>
+		<td align="center"><b class="jtd14">振込先口座変更届</b></td>
+	</tr>
+	<tr>
+		<td class="j12"><img src="../imgs/spc.gif" width="2" height="10"></td>
+	</tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+	<tr>
+		<td><span class="j12">振込先口座の変更を依頼します。</span><br>
+			<span class="small10">※振込先口座には、決済代行サービスの回収代金が振り込まれます。<br>
+			※本変更届のご捺印欄に押印のうえ、下記住所までご郵送ください。<br>
+			<TMPL_VAR NAME=ESTOREADDR1></span></td>
+	</tr>
+	<tr>
+		<td class="j12"><img src="../imgs/spc.gif" width="2" height="10"></td>
+	</tr>
+	<tr>
+		<td class="j12"><b>新しい振込先口座情報</b></td>
+	</tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+	<tr>
+		<td bgcolor="#333333">
+			<table width="100%" border="0" cellspacing="1" cellpadding="5">
+				<tr>
+					<td class="jtd12" valign="top" bgcolor="#F3F3F3" width="30%">回収代金振込先金融機関</td>
+					<td class="jtd12" bgcolor="#FFFFFF" width="70%">
+					<TMPL_VAR NAME=BANK>　
+					<TMPL_IF BANKEBANK>
+					    支店番号(<TMPL_VAR NAME=BRANCHCODE>)　
+					<TMPL_ELSE>
+					    <TMPL_VAR NAME=BRANCH>　<TMPL_IF TYPE1>普通<TMPL_ELSE>当座</TMPL_IF>　
+					</TMPL_IF>
+					<TMPL_VAR NAME=ACCOUNTNO>
+					</td>
+				</tr>
+				<tr>
+					<td class="jtd12" valign="top" bgcolor="#F3F3F3">口座名義人</td>
+					<td class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=ACCOUNTNAME></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+	<tr>
+		<td class="j12"><img src="../imgs/spc.gif" width="2" height="10"></td>
+	</tr>
+	<tr>
+		<td class="j12"><b>現在の振込先口座情報</b></td>
+	</tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+	<tr>
+		<td bgcolor="#333333">
+			<table width="100%" border="0" cellspacing="1" cellpadding="5">
+				<tr>
+					<td class="jtd12" valign="top" bgcolor="#F3F3F3" width="30%">回収代金振込先金融機関</td>
+					<td class="jtd12" bgcolor="#FFFFFF" width="70%">
+					<TMPL_VAR NAME=CURBANK>　
+					<TMPL_IF CURBANKEBANK>
+					    支店番号(<TMPL_VAR NAME=CURBRANCHCODE>)　
+					<TMPL_ELSE>
+					    <TMPL_VAR NAME=CURBRANCH>　<TMPL_IF CURTYPE1>普通<TMPL_ELSE>当座</TMPL_IF>　
+					</TMPL_IF>
+					<TMPL_VAR NAME=CURACCOUNTNO>
+					</td>
+				</tr>
+				<tr>
+					<td class="jtd12" valign="top" bgcolor="#F3F3F3">口座名義人</td>
+					<td class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CURACCOUNTNAME></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+	<tr>
+		<td><img src="../imgs/spc.gif" width="2" height="10"></td>
+	</tr>
+	<tr>
+		<td><b class="j12">決済代行サービスご担当者</b><span class="small10">&nbsp;&nbsp;&nbsp;&nbsp;※収納代金に関する貴社の連絡窓口となる方です。</span></td>
+	</tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+	<tr>
+		<td bgcolor="#333333">
+			<table width="100%" border="0" cellspacing="1" cellpadding="5">
+				<tr>
+					<td class="jtd12" nowrap width="25%" valign="top" bgcolor="#F3F3F3">ご担当者名（会社名）</td>
+					<td class="jtd12" colspan="3" bgcolor="#FFFFFF"><TMPL_VAR NAME=TANTOCOMP></td>
+				</tr>
+				<tr>
+					<td class="jtd12" valign="top" bgcolor="#F3F3F3">部署名</td>
+					<td class="jtd12" bgcolor="#FFFFFF" colspan="3"><TMPL_VAR NAME=TANTOSECTION></td>
+				</tr>
+				<tr>
+					<td class="jtd12" valign="top" bgcolor="#F3F3F3">ご住所</td>
+					<td class="jtd12" bgcolor="#FFFFFF" colspan="3"><TMPL_VAR NAME=TANTOZIP1>-<TMPL_VAR NAME=TANTOZIP2>  <TMPL_VAR NAME=TANTOPREF><TMPL_VAR NAME=TANTOADDR1><TMPL_VAR NAME=TANTOADDR2><TMPL_VAR NAME=TANTOADDR3><TMPL_VAR NAME=TANTOADDR4></td>
+				</tr>
+				<tr>
+					<td class="jtd12" valign="top" bgcolor="#F3F3F3" width="24%">ご担当者名</td>
+					<td class="jtd12" bgcolor="#FFFFFF" width="33%"><TMPL_VAR NAME=TANTOSEI>　<TMPL_VAR NAME=TANTOMEI></td>
+					<td class="jtd12" bgcolor="#F3F3F3" width="10%">TEL</td>
+					<td class="jtd12" bgcolor="#FFFFFF" width="33%"><TMPL_VAR NAME=TANTOTEL></td>
+				</tr>
+				<tr>
+					<td class="jtd12" valign="top" bgcolor="#F3F3F3">メールアドレス</td>
+					<td class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=TANTOMAIL></td>
+					<td class="jtd12" bgcolor="#F3F3F3">FAX</td>
+					<td class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=TANTOFAX></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+	<tr>
+		<td><img src="../imgs/spc.gif" width="2" height="10"></td>
+	</tr>
+	<tr>
+		<td class="j12"><b>Ｅストアーショップサーブご契約者</b></td>
+	</tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+	<tr>
+		<td bgcolor="#333333">
+			<table width="100%" border="0" cellspacing="1" cellpadding="5">
+				<tr>
+					<td width="25%" nowrap bgcolor="#F3F3F3" class="jtd12">ショップID</td>
+					<td colspan="3" class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=STORENAME></td>
+				</tr>
+				<tr>
+					<td class="jtd12" bgcolor="#F3F3F3">ご契約者名</td>
+					<td colspan="3" class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CUSTNAME></td>
+				</tr>
+				<tr>
+					<td class="jtd12" bgcolor="#F3F3F3">ご住所</td>
+					<td colspan="3" class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CUSTZIP> <TMPL_VAR NAME=CUSTADDR></td>
+				</tr>
+				<tr>
+					<td class="jtd12" bgcolor="#F3F3F3" width="20%">代表者名</td>
+					<td class="jtd12" bgcolor="#FFFFFF" width="33%"><TMPL_VAR NAME=CUSTDAIHYO></td>
+					<td class="jtd12" bgcolor="#F3F3F3" width="10%">TEL</td>
+					<td class="jtd12" bgcolor="#FFFFFF" width="33%"><TMPL_VAR NAME=CUSTTEL></td>
+				</tr>
+				<tr>
+					<td class="jtd12" bgcolor="#F3F3F3">役職名</td>
+					<td class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CUSTPOST></td>
+					<td nowrap class="jtd12" bgcolor="#F3F3F3">FAX</td>
+					<td class="jtd12" bgcolor="#FFFFFF"><TMPL_VAR NAME=CUSTFAX></td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+	<tr>
+		<td><img src="../imgs/spc.gif" width="2" height="10"></td>
+	</tr>
+	<tr>
+		<td>
+			<table border="0" cellspacing="0" cellpadding="2">
+				<tr>
+					<td class="jtd12" valign="top" colspan="2">[ご注意]</td>
+				</tr>
+				<tr>
+					<td class="small10" valign="top">1.</td>
+					<td class="small10">新しい口座への変更は、本変更届の到着からおよそ4営業日を要します。</td>
+				</tr>
+				<tr>
+					<td class="small10" valign="top">2.</td>
+					<td class="small10">ご捺印欄には、「決済代行サービス」の<u>お申し込み時にご捺印いただいた同じ印鑑で押印してください。</u>なお、印鑑が異なる場合、再度、振込先口座変更届をご郵送いただくことになります。</td>
+				</tr>
+				<tr>
+					<td class="small10" valign="top">3.</td>
+					<td class="small10">確認事項がある場合、弊社よりご連絡させていただきます。</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td class="j12"><img src="../imgs/spc.gif" width="2" height="10"></td>
+	</tr>
+</table>
+<table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+	<tr>
+		<td>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0" bgcolor="#000000">
+				<tr>
+					<td>
+						<table width="100%" border="0" cellspacing="1" cellpadding="3">
+							<tr>
+								<td bgcolor="#FFFFFF" class="j12">第三者が、貴社になりすます事などの事故を防止する為に、貴社代表の方の意思によって安全にお申し込みいただけるよう、お申し込み時と同じ印鑑でのご捺印をお願いしております。</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+		<td width="92"><img src="../imgs/bp_ya_bk.gif" width="42" height="49" hspace="25"></td>
+		<td align="right"><img src="../imgs/soufu_in.gif" width="74" height="78" border="1"></td>
+	</tr>
+</table>
+
+<br style="page-break-after:always">
+
+<hr align="center" noshade width="600" size="1">
+<table width="600" border="0" cellspacing="0" cellpadding="2" align="center">
+	<tr>
+		<td><img src="../imgs/spc.gif" width="2" height="10"></td>
+	</tr>
+	<tr>
+		<td class="j12" align="center"><b>振込先口座変更手続きについて</b></td>
+	</tr>
+	<tr>
+		<td><img src="../imgs/spc.gif" width="2" height="5"></td>
+	</tr>
+	<tr>
+		<td class="j12">振込先口座変更手続きにつきまして、以下の内容をご確認いただきますようお願い申し上げます。</td>
+	</tr>
+	<tr>
+		<td><img src="../imgs/spc.gif" width="2" height="10"></td>
+	</tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+	<tr>
+		<td valign="top" class="jtd12" width="1%">■</td>
+		<td class="jtd12" width="99%">振込先口座変更手続きについて</td>
+	</tr>
+	<tr>
+		<td valign="top" class="jtd12"><img src="../imgs/spc.gif" width="10" height="10"></td>
+		<td class="j12">おそれいりますが、以下の書類を下記住所までご郵送ください。</td>
+	</tr>
+	<tr>
+		<td valign="top" colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+	</tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+	<tr>
+		<td valign="top" class="jtd12" colspan="3">【送付書類】</td>
+	</tr>
+	<tr>
+		<td class="jtd12"><img src="../imgs/spc.gif" width="10" height="10"></td>
+		<td class="jtd12" valign="top">1.</td>
+		<td><span class="j12">振込先口座変更届<br>
+			管理画面の振込先口座変更最終画面を印刷してください。印刷した口座変更届のご捺印欄に「決済代行サービス」のお申し込み時にご捺印いただいた同じ印鑑で押印してください。</span>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td valign="top" class="small10" colspan="2"><img src="../imgs/spc.gif" width="2" height="5"></td>
+				</tr>
+				<tr>
+					<td valign="top" class="jtd10">※</td>
+					<td class="jtd10">振込先口座変更届が印刷できなかった場合、お手数ではございますが、振込先口座変更届画面より再度お手続きください。</td>
+				</tr>
+				<tr>
+					<td valign="top" class="jtd10">※</td>
+					<td class="jtd10">第三者が、貴社になりすますなどの事故を防止する為、貴社代表の方の意思により安全にお申し込みいただけるよう、「決済代行サービス」お申し込み時と同じ印鑑でのご捺印をお願いしております。あらかじめご了承ください。</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="3"><img src="../imgs/spc.gif" width="2" height="10"></td>
+	</tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+	<tr>
+		<td valign="top" class="jtd12" colspan="2">【郵送先住所】</td>
+	</tr>
+	<tr>
+		<td class="jtd12" width="1%"><img src="../imgs/spc.gif" width="10" height="10"></td>
+		<td width="99%" class="j12"><TMPL_VAR NAME=ESTOREADDR><td>
+	</tr>
+	<tr>
+		<td colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+	</tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+	<tr>
+		<td valign="top" class="jtd12" width="1%">■</td>
+		<td class="jtd12" width="99%">ご注意</td>
+	</tr>
+	<tr>
+		<td valign="top" class="jtd12"><img src="../imgs/spc.gif" width="10" height="10"></td>
+		<td>
+			<table width="100%" border="0" cellspacing="0" cellpadding="0">
+				<tr>
+					<td valign="top" class="jtd12">※</td>
+					<td class="jtd12">口座変更は、弊社への振込先口座変更届の到着をもって、受付とさせていただきます。</td>
+				</tr>
+				<tr>
+					<td valign="top" class="jtd12">※</td>
+					<td class="jtd12">振込先口座変更届の印字内容に変更がある場合は、下記までご連絡ください。</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top" colspan="2"><img src="../imgs/spc.gif" width="2" height="10"></td>
+	</tr>
+</table>
+<table border="0" cellspacing="0" cellpadding="2" width="600" align="center">
+	<tr>
+		<td class="jtd12" width="99%">本内容について、ご不明な点・ご質問等ございましたら、下記までご連絡ください。</td>
+	</tr>
+	<tr>
+		<td align="center">
+			<table width="80%" border="0" cellspacing="0" cellpadding="1" bgcolor="#666666">
+				<tr>
+					<td>
+						<table width="100%" border="0" cellspacing="0" cellpadding="5">
+							<tr>
+								<td bgcolor="#FFFFFF" rowspan="4"><img src="../imgs/spc.gif" width="5" height="5"></td>
+								<td bgcolor="#FFFFFF" colspan="2" class="jtd12">株式会社Ｅストアー<br>
+									Ｅストアーショップサーブカスタマーヘルプデスク <a href="mailto:sp@Estore.co.jp">sp@Estore.co.jp</a></td>
+								<td bgcolor="#FFFFFF" rowspan="4"><img src="../imgs/spc.gif" width="5" height="5"> </td>
+							</tr>
+							<tr>
+								<td bgcolor="#FFFFFF" align="right" valign="top" class="jtd12">TEL</td>
+								<td bgcolor="#FFFFFF" class="jtd12">0570-05-1210（ナビダイヤル:全国共通3分8.5円）<br>
+　　　　　　　　　　※携帯の場合20秒10.5円<br>
+									03-3595-1251（上記ナビダイヤルがご利用できない方）</td>
+							</tr>
+							<tr>
+								<td align="right" bgcolor="#FFFFFF" class="jtd12">電話営業時間</td>
+								<td bgcolor="#FFFFFF" class="jtd12">10:00〜18:00（土・日・祝祭日を除く）</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+			</table>
+		</td>
+	</tr>
+	<tr>
+		<td valign="top"><img src="../imgs/spc.gif" width="2" height="10"></td>
+	</tr>
+</table>
+<hr width="600" size="1" noshade align="center">
+<br>
+</body>
+</html>

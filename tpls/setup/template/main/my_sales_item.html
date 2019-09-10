@@ -1,0 +1,311 @@
+<script language="javascript">
+<!--
+var subno   = [
+  [ "" ],
+  <TMPL_LOOP NAME=SUBNOS>
+  [ <TMPL_VAR NAME=LIST> ],
+  </TMPL_LOOP>
+];
+var subname = [
+  [ "-----" ],
+  <TMPL_LOOP NAME=SUBNAMES>
+  [ <TMPL_VAR NAME=LIST> ],
+  </TMPL_LOOP>
+];
+
+function changeListnum() {
+        var num = document.ITEMLIST.ListNum.value;
+        document.ITEMLIST.reset();
+        document.ITEMLIST.ListNum.value = num;
+        document.ITEMLIST.PAGE.value='1';
+        document.ITEMLIST.CMD.value = 'SEEK';
+        document.ITEMLIST.submit();
+}
+function chgTemplate() {
+        document.ITEMLIST.reset();
+        document.ITEMLIST.ListNum.value = 10;
+        document.ITEMLIST.PAGE.value='1';
+        document.ITEMLIST.CMD.value = 'SEEK';
+        document.ITEMLIST.submit();
+}
+
+function changeSiten(sid) {
+        document.ITEMLIST.SITEN_ID.value = sid;
+        document.ITEMLIST.CMD.value = 'SEEK';
+        document.ITEMLIST.submit();
+}
+
+function seek(){
+        document.ITEMLIST.CMD.value = 'SEEK';
+        document.ITEMLIST.submit();
+}
+
+function shupin(){
+        document.ITEMLIST.CMD.value = 'SHUPIN';
+        document.ITEMLIST.submit();
+}
+
+function delshupin(){
+        document.ITEMLIST.CMD.value = 'DELSHUPIN';
+        document.ITEMLIST.submit();
+}
+
+function shupin_chk(op, obj) {
+    var flag = new Boolean(document.ITEMLIST.SHUPIN[0]);
+    if (op == 1) {
+        if (flag == true) {
+           for(i=0; i<document.ITEMLIST.SHUPIN.length; i++){
+               document.ITEMLIST.SHUPIN[i].checked = true;
+           }
+         } else {
+           document.ITEMLIST.SHUPIN.checked = true;
+         }
+    } else if (op == 2) {
+         if (flag == true) {
+             for(i=0; i<document.ITEMLIST.SHUPIN.length; i++){
+                 document.ITEMLIST.SHUPIN[i].checked = false;
+             }
+         } else {
+             document.ITEMLIST.SHUPIN.checked = false;
+         }
+    }
+}
+
+function setStatus(val) {
+  var flag = new Boolean(document.ITEMLIST.status);
+  if (flag == false) return;
+
+  var flag = new Boolean(document.ITEMLIST.status[0]);
+  if (val == 'yes') {
+    if (flag == true) {
+      for(i=0; i<document.ITEMLIST.status.length; i++){
+        document.ITEMLIST.status[i].checked = true;
+      }
+    } else {
+      document.ITEMLIST.status.checked = true;
+    }
+    document.ITEMLIST.all.value = 1;
+  } else if (val == 'no') {
+    if (flag == true) {
+      for(i=0; i<document.ITEMLIST.status.length; i++){
+        document.ITEMLIST.status[i].checked = false;
+      }
+    } else {
+      document.ITEMLIST.status.checked = false;
+    }
+    document.ITEMLIST.all.value = '';
+  } else {
+    document.ITEMLIST.all.value = '';
+  }
+}
+
+function setRecommend(val) {
+  var flag = new Boolean(document.ITEMLIST.recommend);
+  if (flag == false) return;
+
+  var flag = new Boolean(document.ITEMLIST.recommend[0]);
+  if (val == 'yes') {
+    if (flag == true) {
+      for(i=0; i<document.ITEMLIST.recommend.length; i++){
+        document.ITEMLIST.recommend[i].checked = true;
+      }
+    } else {
+      document.ITEMLIST.recommend.checked = true;
+    }
+    document.ITEMLIST.all.value = 1;
+  } else if (val == 'no') {
+    if (flag == true) {
+      for(i=0; i<document.ITEMLIST.recommend.length; i++){
+        document.ITEMLIST.recommend[i].checked = false;
+      }
+    } else {
+      document.ITEMLIST.recommend.checked = false;
+    }
+    document.ITEMLIST.all.value = '';
+  } else {
+    document.ITEMLIST.all.value = '';
+  }
+}
+
+var ReR = '<TMPL_VAR NAME=recommend_num>';
+var Rec = '<TMPL_VAR NAME=recommend_num>';
+function clickRecommend(t) {
+    if (t.checked == false) {
+	Rec --;
+    } else {
+	Rec ++;
+    }
+
+    if (Rec > 10) {
+        Rec --;
+        t.checked = false;
+        alert("おすすめ商品数は10点までです。"); return;
+    }
+}
+
+function sortItemNo() {
+	document.ITEMLIST.sort.value='item_no';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+	document.ITEMLIST.submit();
+}
+function sortItemName() {
+	document.ITEMLIST.sort.value='item_name';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+	document.ITEMLIST.submit();
+}
+function sortItemPrice() {
+	document.ITEMLIST.sort.value='item_prc';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+	document.ITEMLIST.submit();
+}
+function sortRate() {
+	document.ITEMLIST.sort.value='rate';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+	document.ITEMLIST.submit();
+}
+function sortShupin() {
+	document.ITEMLIST.sort.value='ok';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+	} else { document.ITEMLIST.desc.value = 'desc'; }
+	document.ITEMLIST.submit();
+}
+function sortRecommend() {
+	document.ITEMLIST.sort.value='recommend';
+        if (document.ITEMLIST.desc.value == 'desc') { document.ITEMLIST.desc.value = 'asc';
+        } else if (document.ITEMLIST.desc.value == 'asc') { document.ITEMLIST.desc.value = 'desc';
+        } else { document.ITEMLIST.desc.value = 'desc'; }
+	document.ITEMLIST.submit();
+}
+// -->
+</script>
+
+<FORM NAME=ITEMLIST ACTION="my-sales-item.cgi" METHOD=POST>
+<INPUT TYPE=hidden NAME=PAGE value="<TMPL_VAR name=PAGE>">
+<INPUT TYPE=hidden NAME=CMD  value="SEEK">
+<INPUT TYPE=hidden NAME=SITEN_ID  value="<TMPL_VAR name=SITEN_ID>">
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                      <tr>
+                                        <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+
+                                            <tr>
+                                              <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+                                            </tr>
+                                        </table></td>
+<td align="left" class="midashi">アフィリエイトサービスに出品している商品の管理を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/my-sales-item.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                                      </tr>
+                                    </table>
+                                      <img src="../imgs/spc.gif" width="5" height="5">
+
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                          <td align="left" class="main-table">
+
+<div class="infoArea table_bg">
+商品ごとの報酬率、出品・非出品を設定します。<br>
+アフィリエイターに紹介して欲しい商品は「出品」にしてください。<br>
+<br>
+「おすすめ10」は出品中の商品のうち、特におすすめの商品を10個まで設定できます。<br>
+</div>
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                            <tr>
+					<TMPL_VAR NAME=err>
+                                              <td><table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                  <tr>
+                                                    <td align="right">表示件数
+                                                  <select name="ListNum" onChange="changeListnum();">
+                        <option value="10" <TMPL_IF LISTNUM10>selected</TMPL_IF>>10</option>
+                        <option value="20" <TMPL_IF LISTNUM20>selected</TMPL_IF>>20</option>
+                        <option value="30" <TMPL_IF LISTNUM30>selected</TMPL_IF>>30</option>
+                        <option value="40" <TMPL_IF LISTNUM40>selected</TMPL_IF>>40</option>
+                        <option value="50" <TMPL_IF LISTNUM50>selected</TMPL_IF>>50</option>
+                                                  </select>
+                                                        <br>
+<TMPL_IF NAME=TOTAL_NUM>
+<TMPL_VAR name=START_NUM>&nbsp;-&nbsp;<TMPL_VAR name=END_NUM>&nbsp;&nbsp;（&nbsp;全&nbsp;<TMPL_VAR name=TOTAL_NUM>件&nbsp;）
+&nbsp;
+<TMPL_LOOP name=PAGE_LIST>
+<TMPL_VAR name=LINK>
+</TMPL_LOOP>
+</TMPL_IF>
+
+                                                  </tr>
+                                                </table>
+                                                    <table width="100%" cellpadding="3" class="item-box">
+                                                      <tr align="center" bgcolor="#CCCCCC">
+                                                        <td class="odr-midashi">商品番号&nbsp;<a href="javascript:;sortItemNo();">▼</a></td>
+                                                        <td class="odr-midashi">商品名&nbsp;<a href="javascript:;sortItemName();">▼</a></td>
+                                                        <td class="odr-midashi">販売価格&nbsp;<a href="javascript:;sortItemPrice();">▼</a></td>
+
+                                                        <td class="odr-midashi">報酬率&nbsp;<a href="javascript:;sortRate();">▼</a></td>
+                                                        <td class="odr-midashi">出品&nbsp;<a href="javascript:;sortShupin();">▼</a><br>
+                                                            <select name="select_status" style="font-size:90%; margin-top:2px" onChange="setStatus(document.ITEMLIST.select_status.value);">
+                                                              <option value="">- - -</option>
+                                                              <option value="yes">全て</option>
+                                                              <option value="no">クリア</option>
+                                                          </select></td>
+                                                        <td class="odr-midashi">おすすめ10&nbsp;<a href="javascript:;sortRecommend();">▼</a><br>
+                                                          </td>
+                                                      </tr>
+
+						<TMPL_LOOP NAME=item_list>
+                                                      <tr bgcolor="#FFFFFF">
+                                                        <td height="30" align="center" class="odr-txt"><a href="<TMPL_VAR NAME=itemp>" target="_blank"><TMPL_VAR NAME=item_no></a></td>
+                                                        <td align="center" class="odr-txt"><TMPL_VAR NAME=item_name></td>
+                                                        <td align="right" class="odr-txt"><TMPL_VAR NAME=item_prc>円<TMPL_IF NAME=VAR_PRICE>&nbsp;&#xFF5E;&nbsp;&nbsp;</TMPL_IF>
+                                                        <td align="center" class="odr-txt"><input name="<TMPL_VAR NAME=master_id>_rate" type="text" style="width:30px;" value="<TMPL_VAR NAME=rate>" maxlength="2">
+                                                          ％</td>
+                                                        <td align="center" class="odr-txt"><span class="item">
+                                                          <input type="checkbox" name="status" value="<TMPL_VAR NAME=master_id>" <TMPL_IF NAME=status>checked</TMPL_IF>>
+                                                        </span></td>
+                                                        <td align="center" class="odr-txt"><span class="item">
+							<TMPL_IF NAME=status>
+                                                          <input type="checkbox" name="<TMPL_VAR NAME=master_id>_recommend" value="1" <TMPL_IF NAME=recommend>checked</TMPL_IF> onClick="clickRecommend(this);">
+							<TMPL_ELSE>
+							  ---
+							</TMPL_IF>
+                                                        </span></td>
+                                                      </tr>
+						</TMPL_LOOP>
+
+                                                    </table>
+                                                    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                                                      <tr>
+                                                        <td align="right">
+<TMPL_IF NAME=TOTAL_NUM>
+<TMPL_VAR name=START_NUM>&nbsp;-&nbsp;<TMPL_VAR name=END_NUM>&nbsp;&nbsp;（&nbsp;全&nbsp;<TMPL_VAR name=TOTAL_NUM>件&nbsp;）
+&nbsp;
+<TMPL_LOOP name=PAGE_LIST>
+<TMPL_VAR name=LINK>
+</TMPL_LOOP>
+</TMPL_IF>
+
+                                                      </tr>
+                                                    </table></td>
+                                            </tr>
+                                            <tr>
+                                              <td style="padding-top:10px; text-align: center;">
+<!--<input type="button" value="キャンセル" onClick="Rec=ReR;reset();">--><input type="button" value="設定を保存する" onClick="document.ITEMLIST.set.value=1;document.ITEMLIST.submit();">
+                      </td>
+                                            </tr>
+                                          </table></td>
+                                        </tr>
+                                      </table>
+<input type="hidden" name="all">
+<input type="hidden" name="set">
+<input type="hidden" name="base_rate" value="<TMPL_VAR NAME=base_rate>">
+<input type="hidden" name="sort" value="<TMPL_VAR NAME=sort>">
+<input type="hidden" name="desc" value="<TMPL_VAR NAME=desc>">
+<input type="hidden" name="items" value="<TMPL_VAR NAME=items>">
+</FORM>

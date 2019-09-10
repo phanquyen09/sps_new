@@ -1,0 +1,133 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                      <tr>
+                                        <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#677C87">
+                                            <tr>
+                                              <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+
+                                            </tr>
+                                        </table></td>
+<td align="left" class="midashi">お店ページのURL一覧です</td>
+<td align="right" class="midashi"><a href="<TMPL_VAR NAME=Manual>func06/urllist.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                                      </tr>
+                                    </table>
+                                      <img src="../imgs/spc.gif" width="5" height="5">
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+
+                                          <td align="left" class="main-table">
+<div class="infoArea table_bg">
+お店ページで使われている各コンテンツのURL一覧です。
+</div>
+                                            <table class="item-box">
+                                              <tr align="center">
+                                                <td colspan="2" class="item-name02">お店ページ</td>
+                                              </tr>
+                                              <tr align="center">
+						<td width="40%" align="left" class="item-name">トップページ</td>
+						<td width="60%" align="left" class="item"> http://<TMPL_VAR NAME=domain>/index.html</td>
+                                              </tr>
+                                              <tr align="center">
+                                                <td align="left" class="item-name">カートをみる</td>
+                                                <td align="left" class="item"> https://<TMPL_VAR NAME=cart_base>/<TMPL_VAR NAME=account>/cart.cgi</td>
+                                              </tr>
+                                              <tr align="center">
+                                                <td align="left" class="item-name">特定商取引法の表示</td>
+                                                <td align="left" class="item"> http://<TMPL_VAR NAME=domain><TMPL_VAR NAME=shop_path>/business.html</td>
+                                              </tr>
+                                              <tr align="center">
+                                                <td align="left" class="item-name">個人情報の取り扱いについて</td>
+                                                <td align="left" class="item"> http://<TMPL_VAR NAME=domain><TMPL_VAR NAME=shop_path>/policy.html</td>
+                                              </tr>
+                                              <tr align="center">
+                                                <td align="left" class="item-name">ご利用案内</td>
+                                                <td align="left" class="item"> http://<TMPL_VAR NAME=domain><TMPL_VAR NAME=shop_path>/shoppinguide.html</td>
+                                              </tr>
+                                              <tr align="center">
+                                                <td align="left" class="item-name">お店案内</td>
+                                                <td align="left" class="item"> http://<TMPL_VAR NAME=domain><TMPL_VAR NAME=shop_path>/shopguide.html</td>
+
+                                              </tr>
+                                              <tr align="center">
+                                                <td align="left" class="item-name">マイページへログイン</td>
+                                                <td align="left" class="item"> https://<TMPL_VAR NAME=cart_base>/<TMPL_VAR NAME=account>/login.cgi</td>
+                                              </tr>
+                                              <tr align="center">
+                                                <td align="left" class="item-name">サイトマップ</td>
+
+                                                <td align="left" class="item"> http://<TMPL_VAR NAME=domain><TMPL_VAR NAME=shop_path>/sitemap.html</td>
+                                              </tr>
+                                              <tr align="center">
+                                                <td align="left" class="item-name">お問い合せ</td>
+                                                <td align="left" class="item"> https://<TMPL_VAR NAME=cart_base>/<TMPL_VAR NAME=account>/FORM/contact.cgi</td>
+                                              </tr>
+                                              <tr align="center">
+                                                <td align="left" class="item-name">お客様の声</td>
+                                                <td align="left" class="item"> http://<TMPL_VAR NAME=domain>/SHOP/rating_list.html</td>
+                                              </tr>
+
+                                            </table>
+                                            <br>
+                                            <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                              <tr align="center">
+                                                <td colspan="2" class="item-name02">商品カテゴリ</td>
+                                              </tr>
+
+					<TMPL_LOOP NAME=category_list>
+                                              <tr align="left">
+						<TMPL_IF NAME=parents>
+                                                <td width="40%" class="item-name"><TMPL_VAR NAME=name></td>
+                                                <td width="60%" class="item"><nobr><TMPL_VAR NAME=url></nobr></td>
+						<TMPL_ELSE>
+						<td class="item"><TMPL_VAR NAME=name></td>
+						<td class="item"><nobr><TMPL_VAR NAME=url></nobr></td>
+						</TMPL_IF>
+                                              </tr>
+					</TMPL_LOOP>
+                                            </table>
+                                            <br>
+
+                                            <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                              <tr align="center">
+                                                <td colspan="2" class="item-name02">商品グループ</td>
+                                              </tr>
+
+                                        <TMPL_LOOP NAME=group_list>
+                                              <tr>
+                                                <td width="40%" align="left" class="item-name"><TMPL_VAR NAME=name></td>
+                                                <td width="60%" class="item"><TMPL_VAR NAME=url></td>
+                                              </tr>
+                                        </TMPL_LOOP>
+                                            </table>
+                                            <br>
+
+                                            <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                              <tr align="center">
+                                                <td colspan="2" class="item-name02">ブログカテゴリ</td>
+                                              </tr>
+
+					<TMPL_LOOP NAME=cateblog_list>
+                                              <tr>
+                                                <td width="40%" align="left" class="item-name"><TMPL_VAR NAME=name></td>
+                                                <td width="60%" class="item"><TMPL_VAR NAME=url></td>
+                                              </tr>
+					</TMPL_LOOP>
+                                            </table>
+                                            <br>
+
+                                            <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                              <tr align="center">
+                                                <td colspan="2" class="item-name02">アンケート</td>
+                                              </tr>
+
+                                        <TMPL_LOOP NAME=enquete_list>
+                                              <tr>
+                                                <td width="40%" align="left" class="item-name"><TMPL_VAR NAME=name></td>
+                                                <td width="60%" class="item"><TMPL_VAR NAME=url></td>
+                                              </tr>
+                                        </TMPL_LOOP>
+                                            </table>
+                                          <br></td>
+                                        </tr>
+                                      </table>
+                                  </td>
+                                </tr>

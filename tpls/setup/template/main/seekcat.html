@@ -1,0 +1,134 @@
+<SCRIPT language="javascript">
+<!--
+
+   function selcat() {
+
+       selid = 0;
+
+       var flag = new Boolean(document.FORM1.MASTER_ID[0]);
+       if (flag == true) {
+           for(i=0; i<document.FORM1.MASTER_ID.length; i++){
+               if( document.FORM1.MASTER_ID[i].checked){
+                   selid = document.FORM1.MASTER_ID[i].value;
+               }
+           }
+       } else {
+           selid = document.FORM1.MASTER_ID.value;
+       }
+       if( selid  == 0){
+           alert("カテゴリーを選択してください");
+           return;
+       }
+  
+       document.FORM1.SELID.value = selid;
+       document.FORM1.submit();
+   }
+
+   function set_cat() {
+        od = opener.document;
+
+        od.FORM1.<TMPL_VAR name=TRG1>.value = "<TMPL_VAR name=SELID>";
+        od.FORM1.<TMPL_VAR name=TRG2>.value = "<TMPL_VAR name=SELNAME>";
+        window.close();
+   }
+
+   <TMPL_VAR name=ONLOAD>
+
+//-->
+</SCRIPT>
+
+
+<body style="font-size:80%" >
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="1" height="15"></td>
+  </tr>
+  <tr>
+    <td><TMPL_VAR name=MSG></td>
+  </tr>
+</table>
+
+<FORM NAME=FORM1 ACTION="seekcat.cgi" METHOD=POST>
+<INPUT TYPE=hidden NAME=CMD value=DECIDE>
+<INPUT TYPE=hidden NAME=SELID value="">
+<INPUT TYPE=hidden NAME=SITEN_ID value="<TMPL_VAR name=SITEN_ID>">
+<INPUT TYPE=hidden NAME=TRG1 value="<TMPL_VAR name=TRG1>">
+<INPUT TYPE=hidden NAME=TRG2 value="<TMPL_VAR name=TRG2>">
+
+<TMPL_IF name=OYANAME>
+<TMPL_VAR name=OYANAME>
+</TMPL_IF>
+
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="1" height="10"></td>
+  </tr>
+</table>
+
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="1">
+<TMPL_LOOP name=CATLIST>
+<tr>
+ <td>
+    <TMPL_IF name=TOP>
+        <input type="radio" name="MASTER_ID" value="<TMPL_VAR name=MASTER_ID>">
+    <TMPL_ELSE>
+        <img src="../imgs/arrow05.gif" width="7" height="8">
+    </TMPL_IF>
+ </td>
+ <td align="left">
+    <TMPL_IF name=TOP>
+        <TMPL_VAR name=CATNAME>
+    <TMPL_ELSE>
+        <a href="seekcat.cgi?CMD=DOWN&MASTER_ID=<TMPL_VAR name=MASTER_ID>&SITEN_ID=<TMPL_VAR name=SITEN_ID>&TRG1=<TMPL_VAR name=TRG1>&TRG2=<TMPL_VAR name=TRG2>"><TMPL_VAR name=CATNAME></a>
+    </TMPL_IF>
+ </td>
+ <td>
+    <TMPL_IF name=DISP>
+        <TMPL_IF name=TOP2>
+            <input type="radio" name="MASTER_ID" value="<TMPL_VAR name=MASTER_ID2>">
+        <TMPL_ELSE>
+            <img src="../imgs/arrow05.gif" width="7" height="8">
+        </TMPL_IF>
+    <TMPL_ELSE>
+        &nbsp;
+    </TMPL_IF>
+ </td>
+ <td align="left">
+    <TMPL_IF name=DISP>
+        <TMPL_IF name=TOP2>
+             <TMPL_VAR name=CATNAME2>
+        <TMPL_ELSE>
+             <a href="seekcat.cgi?CMD=DOWN&MASTER_ID=<TMPL_VAR name=MASTER_ID2>&SITEN_ID=<TMPL_VAR name=SITEN_ID>&TRG1=<TMPL_VAR name=TRG1>&TRG2=<TMPL_VAR name=TRG2>"><TMPL_VAR name=CATNAME2></a>
+        </TMPL_IF>
+    <TMPL_ELSE>
+        &nbsp;
+    </TMPL_IF>
+ </td>
+</tr>
+</TMPL_LOOP>
+</table>
+
+<table width="90%" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr>
+    <td><img src="../imgs/spc.gif" width="1" height="10"></td>
+  </tr>
+  <tr>
+    <td bgcolor="#666666"><img src="../imgs/spc.gif" width="1" height="1"></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="../imgs/spc.gif" width="1" height="15"></td>
+  </tr>
+  <tr>
+    <td align="center">
+      <TMPL_IF name=DECIDE_BTN>
+          <input type="button" value="決定" onClick="selcat();">
+          <img src="../imgs/spc.gif" width="5" height="1">
+          <input name="set" type="button" id="set" value="戻る" onClick="history.back();">
+      <TMPL_ELSE>
+      <input name="set" type="button" id="set" value="閉じる" onClick="self.close();">
+      </TMPL_IF>
+    </td>
+  </tr>
+</table>
+</FORM>
+

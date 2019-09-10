@@ -1,0 +1,186 @@
+<script language="JavaScript">
+<!--
+function del(f) {
+  if ( confirm("リンク情報を削除します。よろしいですか？") ) {
+    f.submit();
+  } else {
+    document.form1.set.disabled=false;
+    document.form1.set2.disabled=false;
+
+    <TMPL_LOOP NAME=DIS_LIST>
+    document.form1.CBUTTON<TMPL_VAR NAME=COUNT>.disabled=false;
+    document.form1.UBUTTON<TMPL_VAR NAME=COUNT>.disabled=false;
+    document.form1.DBUTTON<TMPL_VAR NAME=COUNT>.disabled=false;
+    document.form1.DDBUTTON<TMPL_VAR NAME=COUNT>.disabled=false;
+    </TMPL_LOOP>
+    return;
+  }
+}
+function dis() {
+  document.form1.set.disabled='true';
+  document.form1.set2.disabled='true';
+<TMPL_LOOP NAME=DIS_LIST>
+  document.form1.CBUTTON<TMPL_VAR NAME=COUNT>.disabled='true';
+  document.form1.UBUTTON<TMPL_VAR NAME=COUNT>.disabled='true';
+  document.form1.DBUTTON<TMPL_VAR NAME=COUNT>.disabled='true';
+  document.form1.DDBUTTON<TMPL_VAR NAME=COUNT>.disabled='true';
+</TMPL_LOOP>
+}
+//-->
+</script>
+<form name="form1" method="post" action="linklist.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#F39700">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">リンク集の更新を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/linklist.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  文字(テキスト)リンク集を設定します。<br><br>
+                                  ＜設定手順＞<br>
+                                  1.「テキスト(リンク文字)」、リンク先の「URL」、「表示形式」を設定して、[リンクリストに追加]ボタンをクリック<br>
+                                  2.「リンクリスト」に表示されるので、表示順など確認<br>
+                                  3.管理画面左上の[お店ページの更新へ]ボタンをクリック<br><br>
+                                  <a href="../func04/topdesign_sps.cgi">⇒お店ページでの「リンク集」の表示位置、表示・非表示の設定</a><br>
+                                </div>
+                                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+				<TMPL_VAR NAME=err>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                      <tr>
+                                        <td class="item-name">見出し</td>
+                                        <td class="item"><input name="title" type="text" class="def-line" value="<TMPL_VAR name=title>">
+
+                                        </td>
+                                      </tr> <tr align="center">
+                                        <td colspan="2" class="item"><input type="button" name="set" value="設定を保存する"
+onClick="
+document.form1.mode.value='stitle';
+dis();
+document.form1.submit();"></td>
+                                      </tr>
+                                    </table>
+                                    <br>
+                                    <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                      <tr>
+                                        <td class="item-name">テキスト</td>
+                                        <td class="item"><input name="label" type="text" class="def-line" value="<TMPL_VAR NAME=label>">
+
+                                        </td>
+                                      </tr>
+                                      <tr>
+                                        <td class="item-name">URL</td>
+                                        <td class="item"><input name="href" type="text" class="def-line" value="<TMPL_VAR NAME=href>">
+                                        </td>
+                                      </tr>
+                                      <tr>
+
+                                        <td class="item-name">表示形式</td>
+                                        <td class="item">
+                                                <select name="nwin">
+                                                        <option selected value="0">同ウィンドウ</option>
+                                                        <option value="1">別ウィンドウ</option>
+                                                </select>
+                                        </td>
+                                      </tr>
+
+                                      <tr align="center">
+                                        <td colspan="2" class="item"><input type="button" name="set2"
+onClick="
+document.form1.mode.value='regist';
+dis();
+submit();" name="Submit" value="リンクリストに追加">
+                                        </td>
+                                      </tr>
+                                    </table>
+                                    <br>
+                                    <table width="100%" cellpadding="3" class="linklist-list item-box">
+                                      <tr align="center">
+                                        <td colspan="4" class="item-name02">リンクリスト</td>
+
+                                      </tr>
+                                      <tr bgcolor="#FFFFFF">
+                                        <td width="8%" align="center" bgcolor="#FFFFFF">表示順</td>
+                                        <td colspan="2" align="center" bgcolor="#FFFFFF">リンク情報</td>
+                                        <td width="22%" align="center" bgcolor="#FFFFFF">操作</td>
+                                      </tr>
+
+				<TMPL_LOOP name=label_list>
+
+                                      <tr bgcolor="#FFFFFF">
+
+                                        <td rowspan="3" align="center" bgcolor="#FFFFFF"><TMPL_VAR NAME=vord></td>
+                                        <td>テキスト</td>
+                                        <td><span class="item">
+                                          <input name="label<TMPL_VAR name=vord>"" type="text" class="sub-line" value="<TMPL_VAR name=label>">
+                                        </span> </td>
+                                        <td rowspan="3" bgcolor="#FFFFFF">
+                                                <input type="button" name="CBUTTON<TMPL_VAR NAME=count>"
+onClick="
+document.form1.mode.value='mod';
+dis();
+document.form1.vord.value='<TMPL_VAR name=vord>';
+submit();" value="変更">
+                                                <input type="button" name="UBUTTON<TMPL_VAR NAME=count>"
+onClick="
+document.form1.mode.value='up';
+dis();
+document.form1.vord.value='<TMPL_VAR name=vord>';
+submit();" value="上へ">
+                                                <input type="button" name="DBUTTON<TMPL_VAR NAME=count>"
+onClick="
+document.form1.mode.value='down';
+dis();
+document.form1.vord.value='<TMPL_VAR name=vord>';
+submit();" value="下へ">
+                                                <input type="button" name="DDBUTTON<TMPL_VAR NAME=count>"
+onClick="
+document.form1.mode.value='del';
+dis();
+document.form1.vord.value='<TMPL_VAR name=vord>';
+del(document.form1);" value="リストから削除" style="width:130px">
+                                        </td>
+                                      </tr>
+                                      <tr bgcolor="#FFFFFF">
+                                        <td>URL</td>
+                                        <td><span class="item">
+                                          <input name="href<TMPL_VAR name=vord>" type="text" class="sub-line" value="<TMPL_VAR name=href>">
+
+                                        </span></td>
+                                      </tr>
+                                      <tr bgcolor="#FFFFFF">
+                                        <td>表示形式</td>
+                                        <td><span class="item">
+                                                <select name="nwin<TMPL_VAR name=vord>">
+                                                        <TMPL_IF name=nwin>
+                                                                <option value="0">同ウィンドウ</option>
+                                                                <option selected value="1">別ウィンドウ</option>
+                                                        <TMPL_ELSE>
+                                                                <option selected value="0">同ウィンドウ</option>
+                                                                <option value="1">別ウィンドウ</option>
+                                                        </TMPL_IF>
+                                                </select>
+                                        </span></td>
+                                      </tr>
+                                </TMPL_LOOP>
+
+                                    </table>
+                                  </td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+<input type="hidden" name="mode" value="">
+<input type="hidden" name="vord" value="">
+</form>

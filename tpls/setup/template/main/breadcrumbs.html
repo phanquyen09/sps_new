@@ -1,0 +1,124 @@
+<script language="JavaScript">
+<!--
+function preview(id)
+{
+    document.form1.Preview.value = id;
+
+    var org_a = document.form1.action;
+    var org_t = document.form1.target;
+
+    window.open('', 'preview', 'toolbar=no,menubar=no,personalbar=no,width=240,height=240,scrollbars=yes,resizable=no');
+
+    document.form1.action = '../func100/select_char.cgi';
+    document.form1.target = 'preview';
+    document.form1.submit();
+
+    document.form1.action = org_a;
+    document.form1.target = org_t;
+}
+//-->
+</script>
+<form name="form1" method="post" action="breadcrumbs.cgi">
+<input type="hidden" name="CMD" value="EDT">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+ <tr>
+  <td width="12">
+   <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#856791">
+    <tr>
+     <td><img src="../imgs/spc.gif"></td>
+    </tr>
+   </table></td>
+
+  <td align="left" class="midashi">パーツの設定を行います</td>
+  <td align="right" class="midashi"><a href="https://help.shopserve.jp/help/breadcrumbs.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+ </tr>
+</table>
+
+<img src="../imgs/spc.gif" width="5" height="5">
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+ <tr>
+  <td align="left" class="main-table">
+   <div class="infoArea table_bg">
+      商品一覧ページなどの上部に表示されるナビゲーションを設定します。<br>
+設定後、[設定を保存する]ボタンをクリックし、管理画面左上の[お店ページの更新へ]ボタンをクリックします。<br><br>
+      「HOME」・・・ナビゲーションに表示されている文字「HOME」が変更できます<br>
+      「URL」・・・「HOME」をクリックした場合のリンク先URLが変更できます　入力例）http://estore.co.jp/<br>
+   </div>
+   <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+    <tr>
+            <TMPL_LOOP NAME=ERR_MSG>
+            <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+            </TMPL_LOOP>
+     <td>
+
+      <table width="100%" class="item-box">
+       <tr><td colspan="2" align="center" class="item-name02">パンくず</td></tr>
+       <tr>
+        <td class="item-name">HOME</td>
+        <td class="item">
+	<input name="HomeName" type="text" class="def-line" value="<TMPL_VAR name=HOMENAME>">
+        </td>
+       </tr>
+       <tr>
+        <td class="item-name">URL</td>
+        <td class="item">
+        <input name="HomeURL" type="text" class="def-line" value="<TMPL_VAR name=HOMEURL>">
+        </td>
+       </tr>
+      </table>
+
+<br>
+     </td>
+    </tr>
+   </table>
+   <div class="infoArea table_bg">
+    ひとつの商品が複数のカテゴリに紐づいている時の、パンくずの表示方法を設定します。
+   </div>
+   <table width="100%" class="item-box">
+     <tr><td colspan="2" align="center" class="item-name02">パンくずの表示設定</td></tr>
+       <tr>
+         <td class="item-name">表示設定</td>
+         <td class="item">
+         <input name="Pattern" type="radio"  value="0" id = "Pattern_0" <TMPL_IF NAME=Pattern_0>checked</TMPL_IF>>
+         <label for="Pattern_0">単一カテゴリ表示（カテゴリ1のみ表示）</label><br>
+         <input name="Pattern" type="radio"  value="1" id = "Pattern_1" <TMPL_IF NAME=Pattern_1>checked</TMPL_IF>>
+         <label for="Pattern_1">複数カテゴリ表示（登録カテゴリを全て表示）</label><br>
+         </td>
+       </tr>
+   </table>
+  <br>
+  <div class="infoArea table_bg">
+    お店ページ、カートでの画面スクロール時に表示されるパーツの設定を行います。<br>
+    設定後、[設定を保存する]ボタンをクリックし、管理画面左上の[お店ページの更新へ]ボタンをクリックします。
+  </div>
+  <table width="100%" class="item-box">
+    <tr><td colspan="2" align="center" class="item-name02">フロートボタン設定</td></tr>
+    <tr>
+      <td class="item-name">カートエリアに移動ボタン</td>
+      <td class="item">
+        <select name="buttonToCart">
+          <option value="Y" <TMPL_IF NAME=buttonToCart_Y>selected</TMPL_IF> >表示</option>
+          <option value="N" <TMPL_IF NAME=buttonToCart_N>selected</TMPL_IF> >非表示</option>
+        </select>
+        ※商品詳細ページにのみ表示されます
+      </td>
+    </tr>
+    <tr>
+      <td class="item-name">上へ戻るボタン</td>
+      <td class="item">
+        <select name="buttonToToppage">
+          <option value="Y" <TMPL_IF NAME=buttonToToppage_Y>selected</TMPL_IF> >表示</option>
+          <option value="N" <TMPL_IF NAME=buttonToToppage_N>selected</TMPL_IF> >非表示</option>
+        </select>
+      </td>
+    </tr>
+  </table>
+   <div style="text-align: center;margin-top: 40px;"><input name="set" type="submit" id="set" value="設定を保存する"></div>
+  </td>
+ </tr>
+</table>
+
+<input type="hidden" name="mode" value="regist">
+</form>
+

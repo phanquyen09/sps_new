@@ -1,0 +1,136 @@
+<form name="CLINFO" method="POST" action="<TMPL_VAR NAME=SCRIPT>">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="Target" value="3">
+<input type="hidden" name="PAGE" value="1">
+<a name="top"></a>
+<div style="font-size:100%">
+		<table width="680"  border="0" cellpadding="0" cellspacing="0">
+				<tr>
+					<td align="left">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">顧客詳細</td>
+    <td align="right" class="midashi">
+      <a href="<TMPL_VAR NAME=Manual>func01/usrlist.html#03" target="_blank"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table>
+        <br>
+        <table width="100%"  border="0" cellpadding="5" cellspacing="1" bgcolor="#666666">
+        	<tr bgcolor="#FFFFFF">
+        		<td>
+        			<input type="button" name="Submit" value="顧客情報" onClick='Javascript:document.CLINFO.Target.value="1";document.CLINFO.submit();'>
+&nbsp;
+<TMPL_IF MEMID>
+			<input type="button" name="Submit" value="購入履歴" onClick='Javascript:document.CLINFO.Target.value="2";document.CLINFO.submit();'>
+&nbsp;
+			<input type="button" name="Submit" value="お届け先リスト" disabled>
+&nbsp;
+			<input type="button" name="Submit" value="ポイント履歴" onClick='Javascript:document.CLINFO.Target.value="4";document.CLINFO.submit();'>
+</TMPL_IF>
+       			</td>
+       		</tr>
+     	</table>
+        <br>
+        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+        	<tr>
+        		<td align="right">
+<TMPL_IF DELVADDRS>
+<TMPL_VAR NAME=PAGE><font size="2">&nbsp; （ 全 <TMPL_VAR NAME=DTOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+</TMPL_IF>
+			</td>
+        	</tr>
+        	</table>
+<TMPL_LOOP DELVADDRS>
+								<table class="item-box">
+        	<tr align="center">
+        		<td colspan="2" class="item-name02">届け先<TMPL_VAR NAME=DNO></td>
+       		</tr>
+<TMPL_IF ORD_COMPANY_DISP>
+        	<tr>
+        		<td class="item-name">法人名・団体名</td>
+        		<td class="item"><TMPL_VAR NAME=COMPANY></td>
+       		</tr>
+</TMPL_IF>
+<TMPL_IF ORD_COMPKANA_DISP>
+        	<tr bgcolor="#666666">
+         	<td bgcolor="#FFFFFF" class="item-name">法人名・団体名（かな）</td>
+         	<td bgcolor="#FFFFFF" class="item"><TMPL_VAR NAME=COMPANYK></td>
+       		</tr>
+</TMPL_IF>
+<TMPL_IF ORD_DIVISION_DISP>
+        	<tr bgcolor="#666666">
+         	<td bgcolor="#FFFFFF" class="item-name">部署名</td>
+         	<td bgcolor="#FFFFFF" class="item"><TMPL_VAR NAME=DIVISION></td>
+       		</tr>
+</TMPL_IF>
+        	<tr bgcolor="#666666">
+         	<td bgcolor="#FFFFFF" class="item-name">お名前</td>
+         	<td bgcolor="#FFFFFF" class="item"><TMPL_VAR NAME=L_NAME>&nbsp;<TMPL_VAR NAME=F_NAME></td>
+       		</tr>
+<TMPL_IF ORD_NAMEKANA_DISP>
+        	<tr bgcolor="#666666">
+         	<td bgcolor="#FFFFFF" class="item-name">お名前（かな）</td>
+         	<td bgcolor="#FFFFFF" class="item"><TMPL_VAR NAME=L_NAME_K>&nbsp;<TMPL_VAR NAME=F_NAME_K></td>
+       		</tr>
+</TMPL_IF>
+        	<tr bgcolor="#666666">
+         	<td bgcolor="#FFFFFF" class="item-name">郵便番号</td>
+         	<td bgcolor="#FFFFFF" class="item"><TMPL_VAR NAME=ZIP01>&nbsp;-&nbsp;<TMPL_VAR NAME=ZIP02></td>
+       		</tr>
+        	<tr bgcolor="#666666">
+         	<td bgcolor="#FFFFFF" class="item-name">都道府県</td>
+         	<td bgcolor="#FFFFFF" class="item"><TMPL_VAR NAME=PREF></td>
+       		</tr>
+        	<tr bgcolor="#666666">
+         	<td bgcolor="#FFFFFF" class="item-name">市区郡</td>
+         	<td bgcolor="#FFFFFF" class="item"><TMPL_VAR NAME=ADDR01></td>
+       		</tr>
+        	<tr bgcolor="#666666">
+         	<td bgcolor="#FFFFFF" class="item-name">町村字番地</td>
+         	<td bgcolor="#FFFFFF" class="item"><TMPL_VAR NAME=ADDR02></td>
+       		</tr>
+        	<tr bgcolor="#666666">
+         	<td bgcolor="#FFFFFF" class="item-name">建物名</td>
+         	<td bgcolor="#FFFFFF" class="item"><TMPL_VAR NAME=ADDR03></td>
+       		</tr>
+        	<tr bgcolor="#666666">
+         	<td bgcolor="#FFFFFF" class="item-name">お電話番号</td>
+         	<td bgcolor="#FFFFFF" class="item"><TMPL_VAR NAME=TEL01>&nbsp;-&nbsp;<TMPL_VAR NAME=TEL02>&nbsp;-&nbsp;<TMPL_VAR NAME=TEL03></td>
+       		</tr>
+<TMPL_IF ORD_FAX_DISP>
+        	<tr bgcolor="#666666">
+         	<td bgcolor="#FFFFFF" class="item-name">FAX番号</td>
+         	<td bgcolor="#FFFFFF" class="item"><TMPL_VAR NAME=FAX01>&nbsp;-&nbsp;<TMPL_VAR NAME=FAX02>&nbsp;-&nbsp;<TMPL_VAR NAME=FAX03></td>
+       		</tr>
+</TMPL_IF>
+     	</table>
+</TMPL_LOOP>
+							<br>
+								<hr size="1">
+										<br>
+						<div align="center">
+<TMPL_IF FROMORDER>
+        <input type="button" name="Submit" value="受注一覧へ戻る" onClick="location.href='orderlist.php?LastCGI=1'">
+</TMPL_IF>
+
+<TMPL_IF FROMORDERS>
+        <input type="button" name="Submit" value="申込一覧へ戻る" onClick="location.href='rp_order_list.php?LastParam=1'">
+</TMPL_IF>
+
+<TMPL_IF BUTTON>
+       <input type="button" name="Submit" value="顧客一覧へ戻る" onClick="location.href='clientlist.php?LastParam=1'">
+</TMPL_IF>
+						</div><br>
+				  </td>
+				</tr>
+	</table>
+  <br>
+</div>
+</form>

@@ -1,0 +1,94 @@
+<script language="JavaScript">
+<!--
+function del(f) {
+  if ( confirm("画像のカテゴリを削除します。よろしいですか？") ) {
+    f.submit();
+  } else {
+    return;
+  }
+}
+//-->
+</script>
+<form name="form1" method="post" action="imagecategory.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td class="midashi" align="left">画像のカテゴリ管理を行います</td>
+<!-- 060329追加ここから -->
+<td class="midashi" align="right"><a href="https://help.shopserve.jp/manual/058/" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+<!-- 060329追加ここまで -->
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td>
+                                    <div class="infoArea table_bg">
+                                      画像を、商品画像用、お店ページのコンテンツ用などの用途に分けて管理するための「カテゴリ」を設定します。<br>
+                                    </div>
+            <TMPL_LOOP NAME=ERR_MSG>
+            <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+            </TMPL_LOOP>
+            <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                          <tr align="center">
+                                            <td colspan="2" class="item-name02">画像カテゴリ追加</td>
+                                          </tr>
+
+                                          <tr>
+                                            <td class="item-name">画像カテゴリ名</td>
+                                            <td class="item"><input name="Category" type="text" class="def-line">
+                                            </td>
+                                          </tr>
+                                          <tr align="center">
+                                            <td colspan="2" class="item02"><span class="item">
+                                              <input type="button" onClick="document.form1.CMD.value='ADD';document.form1.submit();" value="追加する">
+                                            </span></td>
+                                          </tr>
+                                        </table>
+                                        <br>
+                                        <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                          <tr align="center">
+                                                                <td class="item-name02" nowrap="nowrap">画像カテゴリ</td>
+                                                                <td class="item-name02" nowrap="nowrap">画像数</td>
+                                                                <td class="item-name02" nowrap="nowrap">操作</td>
+                                          </tr>
+
+                                          <TMPL_LOOP NAME=catelist>
+                                            <tr>
+                                              <td nowrap class="item02">
+					    <TMPL_IF NAME=noset>
+						<TMPL_VAR NAME=Name>
+						</td>
+						<td align="center" class="item02"><TMPL_VAR NAME=Count></td>
+						<td nowrap class="item02">
+						</td>
+					    <TMPL_ELSE>
+                                                <input name="Name_<TMPL_VAR NAME=id>" type="text" value="<TMPL_VAR NAME=Name>" size="80">
+                                                <input type="button" onClick="document.form1.CMD.value='EDT';document.form1.Catname.value=Name_<TMPL_VAR NAME=id>.value;document.form1.ID.value=<TMPL_VAR NAME=id>;document.form1.submit();" value="変更">
+                                                </td>
+                                                <td align="center" class="item02"><TMPL_VAR NAME=Count></td>
+                                                <td nowrap class="item02">
+                                                <input type="button" onClick="document.form1.CMD.value='DEL';document.form1.Catname.value=Name_<TMPL_VAR NAME=id>.value;document.form1.ID.value=<TMPL_VAR NAME=id>;del(document.form1);" value="削除">
+                                              </td>
+					    </TMPL_IF>
+                                            </tr>
+                                          </TMPL_LOOP>
+
+                                        </table>
+                                  </td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+<input type="hidden" name="CMD" value="">
+<input type="hidden" name="ID" value="">
+<input type="hidden" name="Catname" value="">
+</form>

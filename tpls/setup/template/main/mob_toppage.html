@@ -1,0 +1,505 @@
+<script type="text/javascript">
+  _editor_url = "js";
+  _editor_lang = "ja";
+</script>
+<script type=text/javascript src="../blog/js/submitonce.js"></script>
+<script type="text/javascript" src="../blog/js/htmlarea.js"></script>
+<script type="text/javascript" src="../blog/js/dialog.js"></script>
+<script language="JavaScript">
+<!--
+function preview()
+{
+    document.ITEMINFO.Preview.value = 'top';
+
+    var org_a = document.ITEMINFO.action;
+    var org_t = document.ITEMINFO.target;
+
+    if ( document.ITEMINFO.ImageURL.value == "" )
+       document.ITEMINFO.ImageURL.value = document.ITEMINFO.PICSRC.src;
+
+    window.open('', 'preview', 'toolbar=no,menubar=no,personalbar=no,width=240,height=240,scrollbars=yes,resizable=no');
+
+    document.ITEMINFO.action = '../func100/select_char.cgi';
+    document.ITEMINFO.target = 'preview';
+    document.ITEMINFO.submit();
+
+//    document.ITEMINFO.action = org_a;
+//    document.ITEMINFO.target = org_t;
+}
+function toDefault() {
+    document.ITEMINFO.newcolor1.value = '#FFFFFF';
+    document.ITEMINFO.img1.style.backgroundColor = '#FFFFFF';
+    document.ITEMINFO.color1.value = '#FFFFFF';
+
+    document.ITEMINFO.newcolor2.value = '';
+    document.ITEMINFO.img2.style.backgroundColor = '';
+    document.ITEMINFO.color2.value = '';
+
+    document.ITEMINFO.newcolor3.value = '#0000FF';
+    document.ITEMINFO.img3.style.backgroundColor = '#0000FF';
+    document.ITEMINFO.color3.value = '#0000FF';
+
+    document.ITEMINFO.newcolor4.value = '#FF0000';
+    document.ITEMINFO.img4.style.backgroundColor = '#FF0000';
+    document.ITEMINFO.color4.value = '#FF0000';
+
+    document.ITEMINFO.newcolor5.value = '#FF00FF';
+    document.ITEMINFO.img5.style.backgroundColor = '#FF00FF';
+    document.ITEMINFO.color5.value = '#FF00FF';
+
+    document.ITEMINFO.newcolor6.value = '#000000';
+    document.ITEMINFO.img6.style.backgroundColor = '#000000';
+    document.ITEMINFO.color6.value = '#000000';
+}
+function setcolor(colorflg, flg){
+    if(colorflg == 'bg'){
+       Dialog("../blog/js/popups/select_bgcolor.html", function(color) {
+        if (color) { // selection not canceled
+                if (flg == 1) {
+                    var old = document.ITEMINFO.img1.style.backgroundColor;
+                    document.ITEMINFO.newcolor1.value = '#' + color;
+                    document.ITEMINFO.img1.style.backgroundColor = '#' + color;
+                    document.ITEMINFO.color1.value = '#' + color;
+                } else if (flg == 2) {
+                    var old = document.ITEMINFO.img2.style.backgroundColor;
+                    document.ITEMINFO.newcolor2.value = '#' + color;
+                    document.ITEMINFO.img2.style.backgroundColor = '#' + color;
+                    document.ITEMINFO.color2.value = '#' + color;
+                } else if (flg == 3) {
+                    var old = document.ITEMINFO.img3.style.backgroundColor;
+                    document.ITEMINFO.newcolor3.value = '#' + color;
+                    document.ITEMINFO.img3.style.backgroundColor = '#' + color;
+                    document.ITEMINFO.color3.value = '#' + color;
+                } else if (flg == 4) {
+                    var old = document.ITEMINFO.img4.style.backgroundColor;
+                    document.ITEMINFO.newcolor4.value = '#' + color;
+                    document.ITEMINFO.img4.style.backgroundColor = '#' + color;
+                    document.ITEMINFO.color4.value = '#' + color;
+                } else if (flg == 5) {
+                    var old = document.ITEMINFO.img5.style.backgroundColor;
+                    document.ITEMINFO.newcolor5.value = '#' + color;
+                    document.ITEMINFO.img5.style.backgroundColor = '#' + color;
+                    document.ITEMINFO.color5.value = '#' + color;
+                } else if (flg == 6) {
+                    var old = document.ITEMINFO.img6.style.backgroundColor;
+                    document.ITEMINFO.newcolor6.value = '#' + color;
+                    document.ITEMINFO.img6.style.backgroundColor = '#' + color;
+                    document.ITEMINFO.color6.value = '#' + color;
+                }
+        }
+        },
+        "toolbar=no,menubar=no,personalbar=no,width=10,height=10,scrollbars=no,resizable=yes,modal"
+       );
+    } else if (colorflg == 'fg'){
+       Dialog("../blog/js/popups/select_color.html", function(color) {
+        if (color) { // selection not canceled
+                    document.ITEMINFO.foreground.value= '#' + color;
+        }
+        },
+        "toolbar=no,menubar=no,personalbar=no,width=10,height=10,scrollbars=no,resizable=yes,modal"
+       );
+    }
+}
+function chg_view(obj, po) {
+    var i;
+    var cnt = obj.length;
+    var tmp;
+    var tmp2;
+    var cnt2;
+    var cnt3;
+    var flag;
+
+    if (cnt <= 0) {
+        return;
+    }
+
+    tmp = document.ITEMINFO.center_view.value;
+    document.ITEMINFO.center_view.value = '';
+
+    for (i=0;i<cnt;i++) {
+        document.ITEMINFO.center_view.value += obj.options[i].value + ',';
+    }
+
+    tmp2 = document.ITEMINFO.center_view.value;
+
+    var aaa = tmp.split(",");
+    var bbb = tmp2.split(",");
+
+    for(cnt2=0;aaa[cnt2]!='';cnt2++){
+        flag = 0;
+        for(cnt3=0;bbb[cnt3]!='';cnt3++){
+            if (aaa[cnt2] == bbb[cnt3]) flag = 1;
+        }
+        if (flag == 1) continue;
+        document.ITEMINFO.center_view.value += aaa[cnt2] + ',';
+    }
+}
+function done() {
+    var cnt;
+    var left = 0;
+    var center = 0;
+    var right = 0;
+    var label = new Array(100);
+    <TMPL_LOOP NAME=toppage_list_js>
+    label['<TMPL_VAR NAME=mlabel>'] = '<TMPL_VAR NAME=mname>';
+    </TMPL_LOOP>
+
+    var str = new Array(
+        <TMPL_LOOP NAME=toppage_list_js>
+        document.ITEMINFO.center_<TMPL_VAR NAME=mlabel>,
+        </TMPL_LOOP>
+        'end');
+
+    var str_status = new Array(
+        <TMPL_LOOP NAME=toppage_list_js>
+        document.ITEMINFO.status_<TMPL_VAR NAME=mlabel>,
+        </TMPL_LOOP>
+        'end');
+
+    var str_label = new Array(
+        <TMPL_LOOP NAME=toppage_list_js>
+        'center_<TMPL_VAR NAME=mlabel>',
+        </TMPL_LOOP>
+        'end');
+
+    var str_check = new Array(100);
+    var non_check = new Array(100);
+
+    var i;
+    var moto_left = new Array;
+    var moto_right = new Array;
+    var moto_center = new Array;
+
+    var len;
+    len = document.ITEMINFO.center.length;
+    for(i=0;i<len;i++) {
+        moto_center[i] = document.ITEMINFO.center.options[i].value;
+    }
+
+    for(i=0;i<document.ITEMINFO.center.length;i++) document.ITEMINFO.center.options[i] = null;
+
+    document.ITEMINFO.center.length = 0;
+    document.ITEMINFO.center_view.value = '';
+    document.ITEMINFO.non_view.value = '';
+
+    var label_s;
+    var label_t;
+    var t = 0;
+    var k = 0;
+    var n = 0;
+
+    for(k=0;moto_center[k]!=null;k++) {
+        var bbb = "document.ITEMINFO.status_" + moto_center[k];
+        if ( eval( bbb ).value == 1) {
+            document.ITEMINFO.center.options[center] = new Option(label[moto_center[k]], moto_center[k], false, false);
+            center ++;
+
+            document.ITEMINFO.center_view.value += moto_center[k] + ',';
+            str_check[moto_center[k]] = 1;
+        }
+    }
+
+    var check = 0;
+    for(cnt=0;str_status[cnt]!='end';cnt++){
+        if (!str_status[cnt]) continue;
+
+        label_s = str_label[cnt].split("_");
+        label_t = label_s[1];
+
+        if (str_status[cnt][str_status[cnt].selectedIndex].value == 1) {
+
+            check = 0;
+            for(n=0;n<document.ITEMINFO.center.length;n++) {
+                if (label_t == document.ITEMINFO.center.options[n].value) {
+                    check = 1;
+                }
+            }
+            if ( check == 1 ) continue;
+
+            document.ITEMINFO.center.options[center] = new Option(label[label_t], label_t, false, false);
+            center ++;
+
+            document.ITEMINFO.center_view.value += label_t + ',';
+            str_check[label_t] = 1;
+        } else {
+            document.ITEMINFO.non_view.value += label_t + ',';
+            non_check[label_t] = 1;
+        }
+    }
+    for(cnt=0;str_status[cnt]!='end';cnt++){
+        if (!str_status[cnt]) continue;
+        label_s = str_label[cnt].split("_");
+        label_t = label_s[1];
+
+        if (str_check[label_t] == 1) continue;
+        if (non_check[label_t] == 1) continue;
+
+        non_check[label_t] = 1;
+        document.ITEMINFO.non_view.value += label_t + ',';
+    }
+}
+//-->
+</script>
+<SCRIPT src="../blog/js/select_list.js" type=text/javascript></SCRIPT>
+<script language="JavaScript">
+<!--
+function delImageID()
+{
+   document.ITEMINFO.PICSRC.src = '<TMPL_VAR NAME=spc_img>';
+   document.ITEMINFO.ImageID.value = '';
+   document.ITEMINFO.ImageURL.value = '';
+}
+function dodo()
+{
+   document.ITEMINFO.action='mob_toppage.cgi';
+   document.ITEMINFO.target='_self';
+
+   if ( document.ITEMINFO.ImageURL.value == "" )
+      document.ITEMINFO.ImageURL.value = document.ITEMINFO.PICSRC.src;
+   document.ITEMINFO.submit();
+}
+//-->
+</script>
+
+<!-- 060719用 サブメニューを追加ここから -->
+<!-- 追加スタイルは default05.css に追加 -->
+<style type=text/css>
+<!--
+.m_menu_off {
+	padding:2px;
+	margin:3px;
+}
+.m_menu_on {
+	background-color:#FFCC66;
+	padding:2px;
+	margin:3px;
+}
+-->
+</style>
+
+<table width="100%">
+  <tr>
+    <td>
+      <div style="padding:10px;background-color:#FFFFFF;text-align:left;line-height:160%">
+        <div>以下のメニューより、携帯カートの各種設定を行います。</div>
+        <div style="margin:10px 0">
+          <table width="100%" border="0" cellpadding="5" cellspacing="1" bgcolor="#999999">
+            <tr>
+              <td nowrap bgcolor="#FCC0B0"><span style="font-weight:bold">基本設定 [必須]</span></td>
+              <td bgcolor="#FFFFFF"><span class="m_menu_on"><a href="mob_toppage.cgi">全体の設定</a></span>|<span class="m_menu_off"><a href="mob_topdesign.cgi">トップページの設定</a></span>|<span class="m_menu_off"><a href="mob_shop_use.cgi">開店・閉店の切替</a></span></td>
+            </tr>
+            <tr>
+              <td nowrap bgcolor="#FCC0B0"><span style="font-weight:bold">カスタマイズ</span></td>
+              <td bgcolor="#FFFFFF"><span class="m_menu_off"><a href="mob_info.cgi">お知らせの更新</a></span>|<span class="m_menu_off"><a href="mob_freearea.cgi">フリーエリアの編集</a></span>|<span class="m_menu_off"><a href="mob_s_guidance.cgi">ご利用案内の編集</a></span>|<span class="m_menu_off"><a href="mob_policy.cgi">個人情報の取り扱いの編集</a></span><br>
+              <span class="m_menu_off"><a href="mob_cateblog.cgi">フリーページのカテゴリ管理</a></span>|<span class="m_menu_off"><a href="mob_entry.cgi">フリーページ作成</a></span>|<span class="m_menu_off"><a href="mob_entry_select.cgi">フリーページ管理</a></span>|<span class="m_menu_off"><a href="mob_conversion.php">コンバージョンタグ設定</a></span></td>
+            </tr>
+            <tr>
+              <td nowrap bgcolor="#FCC0B0"><span style="font-weight:bold">携帯用お店ページ</span></td>
+              <td bgcolor="#FFFFFF"><span class="m_menu_off">http://<TMPL_VAR NAME=DOMAIN>/m/</span></td>
+            </tr>
+          </table>
+        </div>
+        <div style="font-weight:bold">※商品情報に携帯カート用の入力項目が追加されています。「商品台帳」で商品番号をクリックし、確認、編集してください。 <a href="../func01/itemlist.cgi">[ 商品台帳を開く ]</a></div>
+      </div>
+    </td>
+  </tr>
+</table>
+<div style="border-bottom:1px solid #999;margin:10px 0 10px"></div>
+
+<!-- 060719用 サブメニューを追加ここまで -->
+
+<form name="ITEMINFO" method="post" action="mob_toppage.cgi">
+<input type="hidden" name="Preview">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+ <tr>
+  <td width="12">
+   <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+    <tr>
+     <td><img src="../imgs/spc.gif"></td>
+    </tr>
+   </table>
+  </td>
+  <td align="left" class="midashi">全体の設定</td>
+  <td align="right" class="midashi"><a href="<TMPL_VAR NAME=Manual>func05/mob_toppage.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+ </tr>
+</table>
+
+<img src="../imgs/spc.gif" width="5" height="5">
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+ <tr>
+  <td align="left" class="main-table">
+   <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+    <tr>
+     <TMPL_VAR NAME=err>
+     <td>
+
+      <table width="100%" class="item-box">
+       <tr><td colspan="2" align="center" class="item-name02">ヘッダの設定</td></tr>
+       <tr>
+        <td class="item-name">お店の名前</td>
+        <td class="item"><input name="shop_name" type="text" maxlength="100" class="def-line" value="<TMPL_VAR name=shop_name>"></td>
+       </tr>
+       <tr>
+        <td class="item-name">ロゴ</td>
+        <td class="item">
+         <input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selimg.cgi','img_inst_old','width=800,height=700,scrollbars=yes,resizable=yes')">
+         <input type="button" name="Submit" value="画像削除" onClick="delImageID();">
+<a href="<TMPL_VAR NAME=Manual>func01/image.html" target="_blank">画像挿入について</a>
+         <br><br>
+         <input type="hidden" name="ImageURL" value="<TMPL_VAR NAME=url>">
+         <input type="hidden" name="ImageID" value="<TMPL_VAR NAME=IMAGEID>">
+         <input type="hidden" name="mob_shop_logo" value="<TMPL_VAR NAME=mob_shop_logo>">
+         <input name="logo_sw" type="checkbox" value="Y" id="bank01" <TMPL_IF NAME=LOGO_SWY>checked</TMPL_IF>> <label for="bank01">ロゴを表示しない</label>
+   <br><br>
+         <a href="javascript:;"><img src="<TMPL_VAR NAME=durl>" name="PICSRC" id="PICSRC" border="0" onClick="window.open(document.ITEMINFO.ImageURL.value, '', '');"></a>
+        </td>
+       </tr>
+      </table>
+<!--
+※ロゴを設定しない場合は、『ヘッダとＳＥＯの設定』のロゴ画像を表示します。<BR>
+　 ロゴ画像自体を表示しない場合は、「ロゴを表示しない」にチェックを入れてください。<BR>
+-->
+      <br>
+      <table width="100%" class="item-box">
+       <tr><td colspan="2" align="center" class="item-name02">フッタの設定</td></tr>
+       <tr>
+        <td class="item-name">コピーライト</td>
+        <td class="item"><input name="copyright" maxlength="100" type="text" class="def-line" value="<TMPL_VAR name=copyright>"></td>
+       </tr>
+      </table>
+     </td>
+    </tr>
+   </table>
+                                                <br>
+※携帯カート内で入力エラー等が発生した場合、エラー内容を<font color="red">赤字</font>で表示するため、背景色等の設定により、見え辛くなることがあります。
+<br>
+    <table width="100%" class="item-box">
+      <tr align="center" bgcolor="#CCCCCC">
+        <td colspan="2" class="item-name02">色の設定</td>
+      </tr>
+      <tr bgcolor="#FFFFFF">
+        <td width="30%">背景</td>
+        <td>
+<table>
+  <tr>
+    <td><img id="img1" src="../imgs/spc.gif" style="background-color: <TMPL_VAR NAME=color1>;" width="30" height="20" border="0">
+    </td>
+    <td><input type="text" size="10" name="color1" value="<TMPL_VAR NAME=color1>" maxlength="7">
+    </td>
+    <td><input type="button" value="色の変更" onClick="setcolor('bg','1');">
+    </td>
+  </tr>
+</table>
+        </td>
+      </tr>
+      <tr bgcolor="#FFFFFF">
+        <td width="30%">テキスト</td>
+        <td>
+<table><tr><td>
+<img id="img2" src="../imgs/spc.gif" style="background-color: <TMPL_VAR NAME=color2>;" width="30" height="20" border="0">
+</td><td>
+<input type="text" size="10" name="color2" value="<TMPL_VAR NAME=color2>" maxlength="7">
+</td><td>
+<input type="button" value="色の変更" onClick="setcolor('bg','2');">
+</td></tr></table>
+        </td>
+      </tr>
+      <tr bgcolor="#FFFFFF">
+        <td width="30%">クリックする前のリンクの文字</td>
+        <td>
+
+<table><tr><td>
+<img id="img3" src="../imgs/spc.gif" style="background-color: <TMPL_VAR NAME=color3>;" width="30" height="20" border="0">
+</td><td>
+<input type="text" size="10" name="color3" value="<TMPL_VAR NAME=color3>" maxlength="7">
+</td><td>
+<input type="button" value="色の変更" onClick="setcolor('bg','3');">
+</td></tr></table>
+        </td>
+      </tr>
+      <tr bgcolor="#FFFFFF">
+        <td width="30%">選択したリンクの文字</td>
+        <td>
+
+<table><tr><td>
+<img id="img4" src="../imgs/spc.gif" style="background-color: <TMPL_VAR NAME=color4>;" width="30" height="20" border="0">
+</td><td>
+<input type="text" size="10" name="color4" value="<TMPL_VAR NAME=color4>" maxlength="7">
+</td><td>
+<input type="button" value="色の変更" onClick="setcolor('bg','4');">
+</td></tr></table>
+        </td>
+      </tr>
+      <tr bgcolor="#FFFFFF">
+        <td width="30%">クリック後のリンクの文字</td>
+        <td>
+
+<table><tr><td>
+<img id="img5" src="../imgs/spc.gif" style="background-color: <TMPL_VAR NAME=color5>;" width="30" height="20" border="0">
+</td><td>
+<input type="text" size="10" name="color5" value="<TMPL_VAR NAME=color5>" maxlength="7">
+</td><td>
+<input type="button" value="色の変更" onClick="setcolor('bg','5');">
+</td></tr></table>
+
+                                                    </td>
+                                                  </tr>
+                                                  <tr bgcolor="#FFFFFF">
+                                                    <td width="30%">罫線</td>
+                                                    <td>
+
+<table><tr><td>
+<img id="img6" src="../imgs/spc.gif" style="background-color: <TMPL_VAR NAME=color6>;" width="30" height="20" border="0">
+</td><td>
+<input type="text" size="10" name="color6" value="<TMPL_VAR NAME=color6>" maxlength="7">
+</td><td>
+<input type="button" value="色の変更" onClick="setcolor('bg','6');">
+</td></tr></table>
+
+                                                    </td>
+                                                  </tr>
+                                                <tr bgcolor="#FFFFFF">
+<td colspan="2" align="center"><input type="button" value="デフォルトに戻す" style="width: 180px" onClick="toDefault();">
+
+                                                  </td>
+                                                </tr>
+                                                </table>
+                                                <br>
+                                                <table width="100%" class="item-box">
+                                                  <tr align="center" bgcolor="#CCCCCC">
+                                                    <td colspan="2" class="item-name02">カタカナを半角カナへ自動変換</td>
+                                                  </tr>
+                                                  <tr bgcolor="#FFFFFF">
+                                                    <td width="30%">自動変換</td>
+                                                    <td>
+<select name="ZtoH">
+<option value="Z" <TMPL_IF NAME=Z>selected</TMPL_IF>>しない</option>
+<option value="H" <TMPL_IF NAME=H>selected</TMPL_IF>>する</option>
+</select>
+                                                    </td>
+                                                  </tr>
+                                                </table>
+                                                <br>
+
+                                                <div align="center">
+                                                  <input name="pre" type="button" value="プレビュー" onClick="preview()">
+                                                </div>
+  </td>
+ </tr>
+</table>
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+ <tr>
+  <td align="center" style="padding:10px 10px 10px 10px "><input name="set" type="button" id="set" value="設定を保存する" onClick="dodo();"></td>
+ </tr>
+</table>
+<input type="hidden" name="mode" value="regist">
+<input type="hidden" name="dimg" value="">
+<input type="hidden" name="newcolor1">
+<input type="hidden" name="newcolor2">
+<input type="hidden" name="newcolor3">
+<input type="hidden" name="newcolor4">
+<input type="hidden" name="newcolor5">
+<input type="hidden" name="newcolor6">
+</form>

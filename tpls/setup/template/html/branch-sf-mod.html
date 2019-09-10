@@ -1,0 +1,66 @@
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_SITENAME><font color="#FF0000">●</font></TMPL_IF>お店の名前</td>
+<td align="left" class="item">
+<TMPL_VAR name=SITENAME>
+<input type="HIDDEN" name="SITENAME" value="<TMPL_VAR name=SITENAME>">
+</td>
+</tr>
+
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_SITENAMEKANA><font color="#FF0000">●</font></TMPL_IF>お店の名前(かな)</td>
+<td align="left" class="item">
+<input name="SITENAMEKANA" type="text" class="def-line" value="<TMPL_VAR name=SITENAMEKANA>" maxlength
+=127>
+</td>
+</tr>
+
+<tr>
+<td width="30%" align="left" class="item-name"><TMPL_IF name=ERR_CATEGORY><font color="#FF0000">●</font></TMPL_IF>お取り扱いジャンル</td>
+  		<td align="left" class="item">
+  			<SELECT NAME="CAT1">
+          				<option value="">選択してください</option>
+<TMPL_LOOP name=SFCAT1>
+<option value="<TMPL_VAR name=CAT_VAL>" <TMPL_VAR name=CAT_SEL> ><TMPL_VAR name=CAT_NAME></option>
+</TMPL_LOOP>
+			</SELECT>
+                </td>
+</tr>
+<!--
+<tr>
+<td align="left" class="item-name">ポイント有無</td>
+<td align="left" class="item">
+<TMPL_IF name=POINT_Y>利用する
+<TMPL_ELSE>利用しない
+</TMPL_IF>
+//-->
+<input type="HIDDEN" name="POINT" value="<TMPL_VAR name=POINT>">
+<!--
+</td>
+</tr>
+//-->
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_SITEDESC><font color="#FF0000">●</font></TMPL_IF>店舗説明</td>
+<td align="left" class="item"> 
+<textarea name="SITEDESC" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR name=SITEDESC></textarea> 
+</td>
+</tr>
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_TANTO_MAIL><font color="#FF0000">●</font></TMPL_IF>担当者メールアドレス</td>
+<td align="left" class="item">
+<input name="TANTO_MAIL" type="text" class="def-line" value="<TMPL_VAR name=TANTO_MAIL>" maxlength=127>
+</td>
+</tr>
+<!--
+<tr>
+<td align="left" class="item-name"><TMPL_IF name=ERR_KHOMEPAGE><font color="#FF0000">●</font></TMPL_IF>携帯店舗URL</td>
+<td align="left" class="item">
+<TMPL_VAR name=KHOMEPAGE>
+</td>
+</tr>
+//-->
+<input type="HIDDEN" name="KHOMEPAGE" value="<TMPL_VAR name=KHOMEPAGE>">
+
+
+
+
+

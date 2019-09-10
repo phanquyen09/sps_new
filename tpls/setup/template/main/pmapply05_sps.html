@@ -1,0 +1,579 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Y!ウォレット申し込み</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Content-Script-Type" content="text/javascript">
+<link href="css/pmapply.css" rel="stylesheet" type="text/css">
+<link href="css/newsetup.css" rel="stylesheet" type="text/css">
+<link href="../css/custom_ui/popupmanager.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/custom_ui/popupmanager.js"></script>
+<script type="text/javascript" src="js/newsetup.js"></script>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+
+function seekpczip(type) {
+    var zip1;
+    var zip2;
+    if ( type == 'CVS' ){
+        if(document.PMAPPLY04.CvsZip1.className.match(/noModify/)){
+            document.PMAPPLY04.CvsZip1.value = "";
+        }
+        if(document.PMAPPLY04.CvsZip2.className.match(/noModify/)){
+            document.PMAPPLY04.CvsZip2.value = "";
+        }
+        zip1 = document.PMAPPLY04.CvsZip1.value;
+        zip2 = document.PMAPPLY04.CvsZip2.value;
+
+    }else if ( type == 'YW' ){
+        if(document.PMAPPLY04.YwZip1.className.match(/noModify/)){
+            document.PMAPPLY04.YwZip1.value = "";
+        }
+        if(document.PMAPPLY04.YwZip2.className.match(/noModify/)){
+            document.PMAPPLY04.YwZip2.value = "";
+        }
+        zip1 = document.PMAPPLY04.YwZip1.value;
+        zip2 = document.PMAPPLY04.YwZip2.value;
+    }else if ( type == 'YWD' ){
+        if(document.PMAPPLY04.YwDaihyoZip1.className.match(/noModify/)){
+            document.PMAPPLY04.YwDaihyoZip1.value = "";
+        }
+        if(document.PMAPPLY04.YwDaihyoZip2.className.match(/noModify/)){
+            document.PMAPPLY04.YwDaihyoZip2.value = "";
+        }
+        zip1 = document.PMAPPLY04.YwDaihyoZip1.value;
+        zip2 = document.PMAPPLY04.YwDaihyoZip2.value;
+    }
+    window.open("./seekzip-pmapply.cgi?TARGET=PMAPPLY04&TYPE="+type+"&ZIP1="
+                 +zip1+"&ZIP2="+zip2, "zip","resizable=yes,scrollbars=yes,menubar=yes,width=400,height=250");
+}
+
+function chkRadioButton() {
+    for(var i=0; i<document.PMAPPLY051.yahoo_w.length; i++){
+        if (document.PMAPPLY051.yahoo_w[i].checked) {
+            if (document.PMAPPLY051.yahoo_w[i].value == 'Y') {
+                ChgDisplayBlock("");
+                return false;
+                break;
+            }
+        }
+    }
+   // document.PMAPPLY051.disabled;
+    PMAPPLY051Click();
+   // document.PMAPPLY051.submit();
+}
+
+function ChgDisplayBlock(arg)
+{
+    if ( arg.length >= 0 ) {
+        $("#cont").css("display", "none");
+        $("#cont1").css("display","block");
+    } else {
+        $("#cont").css("display", "block");
+        $("#cont1").css("display","none");
+    }
+}
+
+function input_check() {
+    if ( !document.PMAPPLY04.Agree.checked ){
+        alert("利用規約・特約に同意してから\nお進みください");
+        return false;
+    }
+    //document.PMAPPLY04.disabled="true";
+    PMAPPLY04Click();
+}
+function btn_chg() {
+    if ( document.PMAPPLY04.Agree.checked ) {
+        //document.PMAPPLY04.REQ_START.disabled = false;
+        document.PMAPPLY04.REQ_START.src="images/pmapply/yw_next_on.png";
+    } else {
+        //document.PMAPPLY04.REQ_START.disabled = true;
+        document.PMAPPLY04.REQ_START.src="images/pmapply/yw_next_off.png";
+    }
+}
+//-->
+</script>
+</head>
+<body>
+ <div id="head">
+  <h1><img src="images/title_ywallet.png" alt="Y!ウォレット申し込み"></h1>
+ </div>
+ <div id="gNavi">
+   <div id="tab-area">
+     <ul>
+        <li><img src="images/pmapply/menu01.png" alt="申し込み条項確認" class="menu01"></li>
+        <li><img src="images/pmapply/menu02.png" alt="担当者・振込先入力" class="menu02"></li>
+        <li><img src="images/pmapply/menu03.png" alt="各決済情報入力" class="menu03"></li>
+        <li><img src="images/pmapply/menu_rakuten.png" alt="楽天ペイ申し込み" class="menurakuten"></li>
+        <li><img src="images/pmapply/menu04_o.png" alt="Y!ウォレット申し込み" class="menu04"></li>
+        <li><img src="images/pmapply/menu05.png" alt="入力内容確認" class="menu05"></li>
+        <li><img src="images/pmapply/menu06.png" alt="申込書印刷" class="menu06"></li>
+     </ul>
+    </div>
+  </div>
+
+<div id="cont" <TMPL_IF DESC_OPEN>style="display:none"</TMPL_IF> >
+<form name="PMAPPLY051" method="POST" action="pmapply05_sps.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="NEXT">
+
+   <div class="main05">
+   合わせてYahoo!ウォレット決済も申し込めます。<br>
+   なお、利用契約はＥストアーショップサーブ契約とは別に、ヤフー株式会社と結んでいただきます。
+   </div>
+   <div class="yw01"><label for="YW_Y"><input type="radio" id="YW_Y" name="yahoo_w" value="Y" checked>申し込む</label><br>
+        <label for="YW_N"><input type="radio" id="YW_N" name="yahoo_w" value="N">申し込まずに次へ進む</label>
+   </div>
+
+
+   <div class="btn02-1">
+     <div class="btn02-5"></div>
+     <div class="btn02-3"><img src="images/pmapply/back.png" onClick="PMAPPLY052Click();"></div>
+     <div class="btn02-4"><img name="REQ_START" src="images/pmapply/next_on.png" onClick="chkRadioButton();"></div>
+     <div style="clear:both;"></div>
+   </div>
+
+   <div class="main05">
+     <div class="yw02">
+       Yahoo!ウォレット決済とは？・・・
+     </div>
+     <div class="yw03">
+     Yahoo!ウォレット決済は、「Yahoo! JAPAN ID」を使った支払い方法です。<br>
+     お客さんはあらかじめYahoo!にカード情報を登録して利用します。<br>
+     カード番号を入力する必要がないので、お客さんは安心して利用できます。
+     </div>
+     <div style="clear:both;"></div>
+
+   </div>
+
+   <div class="page-top">
+      <a href="#head">▲このページのトップへ</a>
+   </div>
+ </div>
+
+<!--▲wrapper▲-->
+</form>
+
+<form name="PMAPPLY052" method="POST" action="<TMPL_IF DESC_OPEN><TMPL_IF RAKUTENSKIP><TMPL_IF YONLY>pmapply02_sps.cgi<TMPL_ELSE><TMPL_IF step4skip>pmapply03_sps.cgi<TMPL_ELSE>pmapply04_sps.cgi</TMPL_IF></TMPL_IF><TMPL_ELSE>pmapply_rakuten_sps.cgi</TMPL_IF><TMPL_ELSE><TMPL_IF RAKUTENSKIP><TMPL_IF step4skip>pmapply03_sps.cgi<TMPL_ELSE>pmapply04_sps.cgi</TMPL_IF><TMPL_ELSE>pmapply_rakuten_sps.cgi</TMPL_IF></TMPL_IF>">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+</form>
+
+<div id="cont1" style="display:<TMPL_IF DESC_OPEN>block<TMPL_ELSE>none</TMPL_IF>">
+  <form name="PMAPPLY04" method="POST" action="pmapply05_sps.cgi">
+  <input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+  <input type="hidden" name="CMD" value="NEXT">
+  <input type="hidden" name="YwName"     value="<TMPL_VAR NAME=YWNAME>">
+  <input type="hidden" name="YwNameKana" value="<TMPL_VAR NAME=YWNAMEKANA>">
+
+  <table width="95%" border="0" cellspacing="0" cellpadding="0" align="center">
+    <TMPL_IF ERR_MSG>
+    <TR>
+      <TD class=j12 align=left>
+      <TMPL_LOOP ERR_MSG>
+        <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+      </TMPL_LOOP>
+      </TD>
+    </TR>
+    </TMPL_IF>
+  </table>
+
+  <h2 class="midashi03"><img src="images/pmapply/arrow.png">Yahoo!ウォレット決済の加盟情報</h2>
+  <div style="clear:both;"></div>
+  <table class="input_table03">
+    <tr>
+      <td class="input_td03-01">契約名義</td>
+      <td class="input_td03-02">
+      <div class="boxbase">
+        <div class="boxtitle1">&nbsp;</div>
+        <div class="boxlong1"><TMPL_VAR NAME=YWNAME></div>
+      </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="input_td03-01">企業登記・住民票住所<img src="images/pmapply/newSetup_QuestionG.gif" onClick="popUp('pmapply_address',1);" style="cursor:pointer;">
+      </td>
+      <td class="input_td03-02">
+        <div id="pmapply_address" class="dialog_disp">
+          <div id="pmapply_address_f" class="dialog_main">
+            <a href="#close" class="close" onclick="return dlgClose()"></a>
+              <dl class="content">
+                  法人：会社の登記住所<BR/>
+                  個人：住民票の住所<BR/>
+                  個人事業主：代表者の住民票住所
+              </dl>
+          </div>
+        </div>
+        <div class="boxbase">
+        <div class="boxtitle1">郵便番号：</div>
+        <div class="boxlong1">
+          <input type="text" name="YwZip1" id="YwZip1" class="textExample form_text03" value="<TMPL_VAR NAME=YWZIP1>" title="例) 105" maxlength="3" size="7">
+          <div class="haifun01">-</div>
+          <input type="text" name="YwZip2" id="YwZip2" class="textExample form_text03" value="<TMPL_VAR NAME=YWZIP2>" title="例) 0003" maxlength="4" size="10">
+          &nbsp;&nbsp;<input type="button" value="郵便検索" onClick="seekpczip('YW');">
+        </div>
+      </div>
+      <div class="boxbase">
+        <div class="boxtitle1">都道府県：</div>
+        <div class="boxlong1">
+          <select name="YwPref" class="form_text02" <TMPL_IF KOJIN>readonly</TMPL_IF>>
+            <option value="">選択してください</option>
+            <TMPL_LOOP KIGYO_PREFLIST>
+            <option value="<TMPL_VAR NAME=PREF>"<TMPL_IF SEL>selected</TMPL_IF>><TMPL_VAR NAME=PREF></option>
+            </TMPL_LOOP>
+          </select>
+        </div>
+      </div>
+      <div class="boxbase">
+        <div class="boxtitle1">市区郡：</div>
+        <div class="boxlong1">
+          <input type="text" name="YwAddr1" id="YwAddr1" class="textCount textExample form_text01" value="<TMPL_VAR NAME=YWADDR1>" title="例）　港区" ><span id="YwAddr1" class="textCount"></span>
+        </div>
+      </div>
+      <div class="boxbase">
+        <div class="boxtitle1">町村字：</div>
+        <div class="boxlong1">
+          <input type="text" name="YwAddr2" id="YwAddr2" class="textCount textExample form_text01" value="<TMPL_VAR NAME=YWADDR2>" title="例）　西新橋" ><span id="YwAddr2" class="textCount"></span>
+        </div>
+      </div>
+      <div class="boxbase">
+        <div class="boxtitle1">丁番地：</div>
+        <div class="boxlong1">
+          <input type="text" name="YwAddr3" id="YwAddr3" class="textCount textExample form_text01" value="<TMPL_VAR NAME=YWADDR3>" title="例）　１−１０−２" ><span id="YwAddr3" class="textCount"></span>
+        </div>
+      </div>
+      <div class="boxbase">
+        <div class="boxtitle1">建物名：</div>
+        <div class="boxlong1">
+          <input type="text" name="YwAddr4" id="YwAddr4" class="textCount textExample form_text01" value="<TMPL_VAR NAME=YWADDR4>" title="例）　住友生命西新橋ビル" ><span id="YwAddr4" class="textCount"></span>
+        </div>
+      </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="input_td03-01">代表者の氏名</td>
+      <td class="input_td03-02">
+        <div class="boxbase"><div class="boxtitle1">&nbsp;</div>
+        <div class="boxlong1"><TMPL_VAR NAME=YWDAIHYONAME></div>
+      </div>
+      </td>
+    </tr>
+<TMPL_IF DISP_YYMMDD>
+    <tr>
+      <td class="input_td03-01">代表者の生年月日</td>
+      <td class="input_td03-02">
+      <div class="boxbase">
+        <div class="boxtitle1">&nbsp;</div>
+        <div class="boxlong1">
+          <input type="text" name="BirthYYYY" id="BirthYYYY" class="textExample form_text03" value="<TMPL_VAR NAME=YWDAIHYOBIRTHYYYY>" title="例) 1960" maxlength="4" size="8">
+          <div class="haifun01">年　</div>
+          <input type="text" name="BirthMM" id="BirthMM" class="textExample form_text03" value="<TMPL_VAR NAME=YWDAIHYOBIRTHMM>" title="例) 11" maxlength="2" size="6">
+          <div class="haifun01">月</div>
+          <input type="text" name="BirthDD" id="BirthDD" class="textExample form_text03" value="<TMPL_VAR NAME=YWDAIHYOBIRTHDD>" title="例) 9" maxlength="2" size="6">
+          <div class="haifun01">日</div>
+        </div>
+      </div>
+      </td>
+    </tr>
+</TMPL_IF>
+    <tr>
+      <td class="input_td03-01">代表者の自宅住所</td>
+      <td class="input_td03-02">
+        <div class="boxbase">
+        <div class="boxtitle1">郵便番号：</div>
+        <div class="boxlong1">
+          <input type="text" name="YwDaihyoZip1" id="YwDaihyoZip1" class="textExample form_text03" value="<TMPL_VAR NAME=YWDAIHYOZIP1>" title="例) 105" maxlength="3" size="7">
+          <div class="haifun01">&nbsp;-&nbsp;</div>
+          <input type="text" name="YwDaihyoZip2" id="YwDaihyoZip2" class="textExample form_text03" value="<TMPL_VAR NAME=YWDAIHYOZIP2>" title="例) 0003" maxlength="4" size="10">
+          &nbsp;&nbsp;<input type="button" value="郵便検索" onClick="seekpczip('YWD');">
+        </div>
+      </div>
+      <div class="boxbase">
+        <div class="boxtitle1">都道府県：</div>
+        <div class="boxlong1">
+          <select name="YwDaihyoPref" class="form_text02">
+            <option value="">選択してください</option>
+            <TMPL_LOOP DAIHYO_PREFLIST>
+            <option value="<TMPL_VAR NAME=PREF>"<TMPL_IF SEL>selected</TMPL_IF>><TMPL_VAR NAME=PREF></option>
+            </TMPL_LOOP>
+          </select>
+        </div>
+      </div>
+      <div class="boxbase">
+        <div class="boxtitle1">市区郡：</div>
+        <div class="boxlong1">
+          <input type="text" name="YwDaihyoAddr1" id="YwDaihyoAddr1" class="textCount textExample form_text01" value="<TMPL_VAR NAME=YWDAIHYOADDR1>" title="例）　港区" ><span id="YwDaihyoAddr1" class="textCount"></span>
+        </div>
+      </div>
+      <div class="boxbase">
+        <div class="boxtitle1">町村字：</div>
+        <div class="boxlong1">
+          <input type="text" name="YwDaihyoAddr2" id="YwDaihyoAddr2" class="textCount textExample form_text01" value="<TMPL_VAR NAME=YWDAIHYOADDR2>" title="例）　西新橋" ><span id="YwDaihyoAddr2" class="textCount"></span>
+        </div>
+      </div>
+      <div class="boxbase">
+        <div class="boxtitle1">丁番地：</div>
+        <div class="boxlong1">
+          <input type="text" name="YwDaihyoAddr3"  id="YwDaihyoAddr3" class="textCount textExample form_text01" value="<TMPL_VAR NAME=YWDAIHYOADDR3>" title="例）　１−１０−２" ><span id="YwDaihyoAddr3" class="textCount"></span>
+        </div>
+      </div>
+      <div class="boxbase">
+        <div class="boxtitle1">建物名：</div>
+        <div class="boxlong1">
+          <input type="text"  name="YwDaihyoAddr4"  id="YwDaihyoAddr4" class="textCount textExample form_text01" value="<TMPL_VAR NAME=YWDAIHYOADDR4>" title="例）　住友生命西新橋ビル" ><span id="YwDaihyoAddr4" class="textCount"></span>
+        </div>
+      </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="input_td03-01">代表者の自宅電話番号</td>
+      <td class="input_td03-02">
+      <div class="boxbase">
+        <div class="boxtitle1">&nbsp;</div>
+        <div class="boxlong1">
+          <input type="text" name="YwDaihyoTel1" id="YwDaihyoTel1" class="textExample form_text03" value="<TMPL_VAR NAME=YWDAIHYOTEL1>" title="例) 03" maxlength="5" size="7">
+          <div class="haifun01">&nbsp;-&nbsp;</div>
+          <input type="text" name="YwDaihyoTel2" id="YwDaihyoTel2" class="textExample form_text03" value="<TMPL_VAR NAME=YWDAIHYOTEL2>" title="例) 0000" maxlength="4" size="10">
+          <div class="haifun01">&nbsp;-&nbsp;</div>
+          <input type="text" name="YwDaihyoTel3" id="YwDaihyoTel3" class="textExample form_text03"  value="<TMPL_VAR NAME=YWDAIHYOTEL3>" title="例) 0000" maxlength="4" size="10">
+        </div>
+      </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="input_td03-01">利用明細書の表記名<img src="images/pmapply/newSetup_QuestionG.gif" onClick="popUp('pmapply_yw_markname',1);" style="cursor:pointer;"></td>
+      <td class="input_td03-02">
+      <div class="boxbase yw_shop_name">
+        <div class="boxtitle1">通常表記：</div>
+        <div class="boxlong1">
+          お店の名前を入力してください。略称でかまいません。
+          <input type="text" name="YwShopName" id="YwShopName" class="textCount textExample form_text01" value="<TMPL_VAR NAME=YWSHOPNAME>" title="例）　コリュウチャハンＳＴＯＲＥ" ><span id="YwShopName" class="textCount"></span>
+          <div class="yw_character_type">※全角カタカナ、全角数字、全角英大文字のみ（ヵ、ヶ、ヮ、ヰ、ヱ不可）</div>
+        </div>
+      </div>
+      <div class="boxbase yw_shop_name_kana">
+        <div class="boxtitle1">カタカナ：</div>
+        <div class="boxlong1">
+          <input type="text" name="YwShopNameKana" id="YwShopNameKana" class="textCount textExample form_text01" value="<TMPL_VAR NAME=YWSHOPNAMEKANA>" title="例）　コリユウチヤハンストアー" ><span id="YwShopNameKana" class="textCount"></span>
+          <div class="yw_character_type">※全角カタカナのみ（ヲ、英文字、数字、・（中黒点）、小文字（ex.ッ、ャ）不可）</div>
+        </div>
+      </div>
+        <div id="pmapply_yw_markname" class="dialog_disp">
+          <div id="pmapply_yw_markname_f" class="dialog_main">
+            <a href="#close" class="close" onclick="return dlgClose()"></a>
+              <dl class="content">
+                 これは購入者の利用明細書に使用店舗として表記される名前です。
+              </dl>
+          </div>
+        </div>
+        <div id="pmapply_hp_url" class="dialog_disp">
+          <div id="pmapply_hp_url_f" class="dialog_main">
+            <a href="#close" class="close" onclick="return dlgClose()"></a>
+              <dl class="content">
+                  会社案内や他のＥＣサイトなど、他に運営しているホームページが<BR/>
+                  ありましたら入力してください。<BR/>
+                  審査に必要な場合があります。
+              </dl>
+          </div>
+        </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="input_td03-01">他の運営ホームページの<br>ＵＲＬ（任意）<img src="images/pmapply/newSetup_QuestionG.gif" onClick="popUp('pmapply_hp_url',1);" style="cursor:pointer;"></td>
+      <td class="input_td03-02"><div class="boxbase"><div class="boxtitle1">http://</div>
+        <div class="boxlong1">
+        <input type="text" name="YwOtherSiteUrl" id="YwOtherSiteUrl" class="textCount textExample form_text01" value="<TMPL_VAR NAME=YWOTHERSITEURL>" title="例） estore.co.jp" >/<span id="YwOtherSiteUrl" class="textCount"></span>
+        </div>
+      </div>
+      </td>
+    </tr>
+    <tr>
+      <td class="input_td03-01">予約販売</td>
+      <td class="input_td03-02">
+      <div class="boxbase">
+        <div class="boxtitle1">&nbsp;</div>
+        <div class="boxlong1">
+          <input type="radio"  name="YwYoyaku"  id="YwYoyakuY" class="" <TMPL_IF YWYOYAKUY>checked</TMPL_IF> value="Y" ><span>有り</span>
+      <span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+      <input type="radio"  name="YwYoyaku"  id="YwYoyakuN" class="" <TMPL_IF YWYOYAKUN>checked</TMPL_IF> value="N" ><span>無し</span>
+        </div>
+      </div>
+      </td>
+    </tr>
+  </table>
+  <h2 class="midashi03"><img src="images/pmapply/arrow.png">Yahoo!ウォレット決済申し込みの注意事項</h2>
+  <div style="clear:both;"></div>
+  <ul class="list_yw01">
+    <li class="list_yw02">    ヤフー株式会社に対するYahoo!ウォレット決済のお申し込みは、下記のお申し込みボタンを押すと完了します。</li>
+    <li class="list_yw02">    株式会社Ｅストアーに対する届出として最終画面の申込書を印刷して郵送してください。    <br>    ヤフー株式会社へのお申し込みともども、利用いただくために必要です。    </li>
+    <li class="list_yw02">    <a href="http://i.yimg.jp/images/wallet/business/yj_wallet_terms_psp_2.pdf" target="_blank">「Yahoo!ウォレット決済サービスプログラム」利用規約・PSPサービス利用特約</a>    に同意のうえ、お申し込みください。</li>
+     <li class="list_yw02">    取扱商品によっては、ヤフー株式会社から別途書面の提出を求められる場合がございます。</li>
+  </ul>
+  <div class="btn05-1">
+    <div class="btn05-2">
+      <label><input name="Agree" id="Agree" value="Y" type="checkbox" OnClick="btn_chg();">Yahoo!ウォレット決済サービスの利用規約・利用特約に同意する</label>
+    </div>
+    <div class="btn02-5"></div>
+    <div class="btn02-3"><img src="images/pmapply/back.png" alt="もどる" onClick="<TMPL_IF YONLY>document.PMAPPLY052.submit();<TMPL_ELSE>ChgDisplayBlock(1);</TMPL_IF>"></div>
+    <div class="btn02-4"><img name="REQ_START" src="images/pmapply/yw_next_off.png" onClick="input_check();"></div>
+    <div style="clear:both;"></div>
+  </div>
+  </form>
+  <div class="page-top">
+    <a href="#head">
+      ▲このページのトップへ
+    </a>
+  </div>
+</div>
+
+
+<!--▼footer▼-->
+<div id="footer">
+  <script type="text/javascript">
+  <!--
+         var date = new Date();
+         var year = date.getYear();
+         if(year < 2000) { year += 1900; }
+         document.write('Copyright &copy; 1999-'+year+' Estore Corporation. All Rights Reserved.');
+  //-->
+  </script>
+</div>
+<!--▲footer▲-->
+<!-- 20130604 -->
+<style>
+input.noModify{ color: #888888; }
+span.textCount{
+    font-size: 80%;
+    color:#008000;
+    margin-left: -85px;
+}
+span.countError{ color:#ff0000;}
+input.textExample{ font-size:90%; }
+</style>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+    // イベント
+    $("input.textExample").focus(function(){
+        if( $(this).hasClass("noModify") ){ $(this).removeClass("noModify").val(""); }
+    }).blur(function(){
+        if($(this).val() == "" ){ $(this).addClass("noModify").val( $(this).attr("title") ); }
+    });
+    $("input.textCount").change(function(){
+        ret = chkValidate( $(this), $(this).val());
+        if(ret != 1 ){
+            textCount( $(this), $(this).val().length );
+        }
+    }).keyup(function(){
+        ret = chkValidate( $(this), $(this).val());
+        if(ret != 1 ){
+            textCount( $(this), $(this).val().length );
+        }
+    });
+    // 初期値
+    $("input.textExample").each( function(){
+        if( $(this).val() == "" || $(this).val() == $(this).attr("title") ){
+            $(this).addClass("noModify").val( $(this).attr("title") );
+        }
+    });
+    $("span.textCount").each( function(){
+        $("input.textCount").each(function(){
+            textCount( $(this), $(this).val().length );
+    });
+    });
+
+});
+
+var textCountTbl = {
+    "YwAddr1"            : "127",
+    "YwAddr2"            : "127",
+    "YwAddr3"            : "127",
+    "YwAddr4"            : "127",
+    "YwDaihyoAddr1"      : "127",
+    "YwDaihyoAddr2"      : "127",
+    "YwDaihyoAddr3"      : "127",
+    "YwDaihyoAddr4"      : "127",
+    "YwShopName"         : "20",
+    "YwShopNameKana"     : "30",
+    "YwOtherSiteUrl"     : "120"
+}
+
+function chkValidate( obj, v ){
+    var id,errStr, str;
+    id = obj.attr("id");
+    errStr = "入力不可！"
+    if( id == "YwShopName" && $(obj).val() != "" ){
+      str = v.match( /^[　ァ-ロワヲ-ヴＡ-Ｚ０-９ー]+$/);
+      if(str == null){
+          $("span#" + id).text(errStr).addClass("countError");
+          return 1;
+      }
+    }
+    if( id == "YwShopNameKana" && $(obj).val() != "" ){
+      str = v.match( /^[　アイウエオカ-ヂツ-モヤユヨラ-ロワンヴー]+$/);
+      if(str == null){
+          $("span#" + id).text(errStr).addClass("countError");
+          return 1;
+      }
+    }
+}
+
+function textCount( obj, len ){
+    var id, nokori, str, errStr;
+    id = obj.attr("id");
+    if( obj.hasClass("noModify") ){ len = 0; }
+    nokori = textCountTbl[id] - len;
+    str = " 残り : " + nokori + "文字";
+    errStr = "オーバー！";
+    if( nokori < 0 ){
+         $("span#" + id).text(errStr).addClass("countError");
+    }
+    else{
+          $("span#" + id).text(str).removeClass("countError");
+     }
+}
+
+function zipSeachCount( bid, char ){
+    var id, len,nokori, str, errStr;
+    id = bid;
+    len = char.length;
+
+    nokori = textCountTbl[id] - len;
+    str = " 残り : " + nokori + "文字";
+    errStr = "オーバー！";
+
+    if( nokori < 0 ){
+         $("span#" + id).text(errStr).addClass("countError");
+    }
+    else{
+          $("span#" + id).text(str).removeClass("countError");
+     }
+
+}
+
+function PMAPPLY052Click(){
+    $("input.textExample").each( function(){
+        if( $(this).hasClass("noModify") ){ $(this).val(""); }
+    });
+    document.PMAPPLY052.submit();
+}
+function PMAPPLY051Click(){
+    $("input.textExample").each( function(){
+        if( $(this).hasClass("noModify") ){ $(this).val(""); }
+    });
+    document.PMAPPLY051.submit();
+}
+function PMAPPLY04Click(){
+    $("input.textExample").each( function(){
+        if( $(this).hasClass("noModify") ){ $(this).val(""); }
+    });
+    document.PMAPPLY04.submit();
+}
+</script>
+
+</body>
+</html>
+
+

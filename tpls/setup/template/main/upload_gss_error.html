@@ -1,0 +1,67 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#D0210E">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+                            <td align="left" class="midashi">登録エラー</td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                      <td>
+                                      	<table width="100%" class="item-box">
+                                       	<tr>
+                                       		<td bgcolor="#FFFFFF" class="item">エラーが発生しました。
+<TMPL_IF ERRMSG>
+<table width="100%" border="0" cellspacing="0" cellpadding="0">
+<TMPL_LOOP ERRMSG>
+<tr>
+  <td bgcolor="#FFFFFF">・<font color="red"><TMPL_VAR NAME=MSG></font></td>
+</tr>
+</TMPL_LOOP>
+</table>
+</TMPL_IF>
+						</td> 
+                                      		</tr>
+                                       	</table>
+                                      	<BR>
+<TMPL_IF ERRLIST>
+<table width="100%" class="item-box">
+<tr>
+  <td bgcolor="#FFFFFF" width="20%" align="center">行数</td>
+  <td bgcolor="#FFFFFF" width="80%">&nbsp;エラー内容</td>
+</tr>
+<TMPL_LOOP ERRLIST>
+<tr>
+  <td bgcolor="#FFFFFF" align="center"><TMPL_VAR NAME=ROW></td>
+  <td bgcolor="#FFFFFF">&nbsp;<TMPL_VAR NAME=MSG></td>
+</tr>
+</TMPL_LOOP>
+</TMPL_IF>
+                                    	</td></tr>
+                                  </table></td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+                          <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                            <tr>
+                              <td>&nbsp;</td>
+                            </tr>
+                          </table>
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                            <tr>
+                              <td align="center" style="padding:10px 10px 10px 10px ">
+                                <div align="center">
+                                 <input type="button" name="Submit" value="広告用データフィードの作成に戻る" onClick="location.href='googleps_feed_conf.php'">
+                               </div>
+                              </td>
+                            </tr>
+                          </table>

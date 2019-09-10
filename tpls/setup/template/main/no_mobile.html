@@ -1,0 +1,66 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+ <tr>
+  <td width="12">
+   <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+    <tr>
+     <td><img src="../imgs/spc.gif"></td>
+    </tr>
+   </table></td>
+<!-- 0607用 -->
+   <TD class=midashi align=left>携帯カートの設定を行います</TD>
+   <TD class=midashi align=right>
+<!-- 0607用 -->
+<A href="<TMPL_VAR NAME=Manual>guide/mobile.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></A>
+   </TD>
+ </tr>
+</table>
+
+<img src="../imgs/spc.gif" width="5" height="5">
+
+<form action="mob_toppage.cgi" method="post">
+<input type="hidden" name="mstatus" value="I">
+
+<div style="border-bottom:1px solid #999;margin:10px 0 10px"></div>
+<!-- 061018用変更箇所ここから -->
+<!-- 利用開始クリック前の画面 -->
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+<tr>
+	<td align="left" class="main-table">
+	<table class="item-box" width="100%">
+	<tr>
+		<td class="item-name02" align="center">携帯カートの利用について</td>
+	</tr>
+	<tr>
+		<td class="item">
+		<div style="padding:5px">
+			パソコン用お店ページの内容を自動で引継ぎ、特別な設定なしで簡単に携帯用お店ページができあがります。<BR>
+			※携帯カートの利用料は一切かかりません。<BR><BR>
+			＜携帯用お店ページ公開手順＞<BR>
+			１．<B>[携帯カート利用開始]</B>　ボタンをクリック<BR>
+			２．携帯カート設定画面に切り替わった後　<B>「基本設定 [必須]」</B>　＞＞　<B>「開店・閉店設定」</B>　を開く<BR>
+			３．<B>モード設定</B>を　「一時閉店にする」　から　<B>「開店にする」</B>　に変更　　<A HREF="<TMPL_VAR NAME=Manual>func05/mob_shop_use.html" TARGET="_blank">オンラインマニュアルをみる</A><BR><BR>
+			※公開設定後、管理画面左上　<B>[お店ページの更新へ]</B>　をクリックしてお店ページを更新してください。
+
+                        <!-- 061019追加用 -->
+                        <div style="background-color:#dff2ff;margin:1.8em 0.5em 1.5em;padding:0.7em;">
+                          <div style="font-weight:bold;border-bottom:1px dotted #666666;padding:0 0 0.5em">【携帯用お店ページ作成のヒント】</div>
+                          <div style="padding:1em 0 0">携帯用お店ページを作成する際、古い機種を含め多くの携帯電話から閲覧できるように、1ページの容量が <span style="color:#ee0000;font-weight:bold">100KB（100000バイト）以内</span> に収まるように調整しましょう。</div>
+                          <div style="padding:1em 0 0">
+                            1ページの容量は、携帯用お店ページ作成後、パソコンから携帯用お店ページを開き調べることができます。<br>
+                            ページの容量（ページ上で右クリック＞プロパティのサイズ） ＋ ページ内の全画像の容量合計（各画像を右クリック＞プロパティでサイズを調べて合計する） ＝ 1ページの容量
+                          </div>
+                        </div>
+
+			<div style="margin:1.5em 0;text-align:center"><input type="submit" value="携帯カート利用開始"></div>
+		</div>
+		</td>
+	</tr>
+	</table>
+	<br>
+	</td>
+</tr>
+</table>
+
+<!-- 061018用変更箇所ここまで -->
+
+</form>

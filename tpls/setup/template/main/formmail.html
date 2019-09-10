@@ -1,0 +1,178 @@
+<link href="../css/custom_ui/popupmanager.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="../js/custom_ui/popupmanager.js"></script>
+<form name="FORMMAIL" method="post" action="formmail.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+
+  <input type="hidden" name="CMD" value="EDT">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#856791">
+        <tr>
+          <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">問い合せフォームのデザインを設定します</td>
+    <td align="right" class="midashi"><a href="https://help.shopserve.jp/help/formmail.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+   </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+      <div align="right" >
+        <a href="https://help.shopserve.jp/ctrlpnl_sup/func01/clientlist/privacy_use.html" target="manual">&lt;個人情報を適切に取り扱いましょう&gt;</a>
+      </div>
+      <div class="infoArea table_bg">
+        お店ページのヘッダ「お問い合せ」からリンクしているお問い合せフォームを設定します。<br>
+        フォームに入力された内容は「差出人メールアドレス」で設定したアドレス宛に届きます。<br><br>
+        「必須項目」以外にも必要な情報がある場合は、予め「お問い合せ内容」に入力しておいてください。<br><br>
+        設定後、[設定を保存する]ボタンをクリックし、管理画面左上の[お店ページの更新へ]ボタンをクリックします。<br>
+      </div>
+      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td>
+<TMPL_LOOP NAME=ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+
+</TMPL_LOOP>
+          <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+            <tr align="center">
+              <td colspan="2" class="item-name02">問い合せフォームの設定</td>
+            </tr>
+            <tr>
+              <td class="item-name">入力画面のheadタグ<img class="near-popup" src="./imgs/newSetup_QuestionOrange.gif" alt="?" onclick="popUp('popup_head_tag',1);" style="cursor:pointer;"></td>
+              <td class="item">
+                <textarea name="head_tag" style="width:98%;" rows="10" wrap="VIRTUAL" class="def-line"><TMPL_VAR escape=html NAME=headTag></textarea>
+                ※HTMLタグ利用可
+              </td>
+            </tr>
+            <tr>
+              <td class="item-name">ご案内</td>
+              <td class="item">
+  <textarea name="Guidance" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=GUIDANCE></textarea>
+  ※HTMLタグ利用可
+              </td>
+            </tr>
+            <tr>
+              <td class="item-name">必須項目</td>
+              <td class="item">
+  <input name="ContactForm01Hisu" type="checkbox" value="Y" <TMPL_IF CONTACTFORM01HISUY>checked</TMPL_IF>>
+  お名前<br>
+  <input name="ContactForm02Hisu" type="checkbox" value="Y" <TMPL_IF CONTACTFORM02HISUY>checked</TMPL_IF>>
+  電話番号<br>
+  <input name="checkbox" type="checkbox" value="checkbox" checked disabled>
+  メールアドレス </td>
+            </tr>
+            <tr>
+              <td class="item-name">差出人名</td>
+              <td class="item"><input name="ContactFromStr" type="text" class="def-line" value="<TMPL_VAR NAME=CONTACTFROMSTR>">
+              </td>
+            </tr>
+            <tr>
+              <td class="item-name">差出人メールアドレス</td>
+              <td class="item">
+                  <input name="ContactFromAddr" type="text" class="def-line"
+                  value="<TMPL_VAR NAME=CONTACTFROMADDR>"
+                  style="ime-mode:disabled">
+                  <br />
+                  ※メールアドレスを必ずご確認ください。
+              </td>
+            </tr>
+            <tr>
+              <td class="item-name">件名</td>
+              <td class="item"><input name="ContactSubject" type="text" class="def-line" value="<TMPL_VAR NAME=CONTACTSUBJECT>">
+              </td>
+            </tr>
+            <tr>
+              <td class="item-name">お問い合せ内容</td>
+              <td class="item"><textarea name="ContactNaiyo" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=CONTACTNAIYO></textarea>
+              </td>
+            </tr>
+          </table>
+          <br>
+          <br>
+          <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+            <tr align="center">
+              <td colspan="2" class="item-name02">確認画面/送信完了画面</td>
+            </tr>
+            <tr>
+              <td class="item-name">確認画面のheadタグ<img class="near-popup" src="./imgs/newSetup_QuestionOrange.gif" alt="?" onclick="popUp('popup_cfm_head_tag',1);" style="cursor:pointer;"></td>
+              <td class="item">
+                <textarea name="cfm_head_tag" style="width:98%;" rows="10" wrap="VIRTUAL" class="def-line"><TMPL_VAR escape=html NAME=cfmHeadTag></textarea>
+                ※HTMLタグ利用可
+              </td>
+            </tr>
+            <tr>
+              <td class="item-name">送信完了画面のheadタグ<img class="near-popup" src="./imgs/newSetup_QuestionOrange.gif" alt="?" onclick="popUp('popup_comp_head_tag',1);" style="cursor:pointer;"></td>
+              <td class="item">
+                <textarea name="comp_head_tag" style="width:98%;" rows="10" wrap="VIRTUAL" class="def-line"><TMPL_VAR escape=html NAME=compHeadTag></textarea>
+                ※HTMLタグ利用可
+              </td>
+            </tr>
+          </table>
+          <br>
+          <br>
+          <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+            <tr align="center">
+              <td colspan="2" class="item-name02">自動返信メールの設定</td>
+            </tr>
+            <tr>
+              <td class="item-name">自動返信</td>
+              <td class="item"><input name="Reply" type="radio" value="Y" id="form_l" <TMPL_IF NAME=REPLYY>checked</TMPL_IF>>
+                  <label for="form_l">自動返信メールを送信する<br>
+                  </label>
+                  <input name="Reply" type="radio" value="N" id="form_r" <TMPL_IF NAME=REPLYN>checked</TMPL_IF>>
+                  <label for="form_r">自動返信メールを送信しない</label>
+              </td>
+            </tr>
+            <tr>
+              <td class="item-name">件名</td>
+              <td class="item"><input name="ReplySubject" type="text" class="def-line" value="<TMPL_VAR NAME=REPLYSUBJECT>">
+              </td>
+            </tr>
+            <tr>
+              <td class="item-name">内容</td>
+              <td class="item"><textarea name="ReplyNaiyo" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=REPLYNAIYO></textarea>
+              </td>
+            </tr>
+          </table>
+          <div align="center"></div>
+        </td>
+      </tr>
+      <tr>
+        <td style="text-align: center; padding-top: 10px;"><input name="set" type="button" id="set" value="設定を保存する" onClick="document.FORMMAIL.submit();"></td>
+      </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+
+</form>
+<div id="popup_head_tag" class="dialog_disp">
+  <div id="popup_head_tag_f" class="dialog_main">
+    <a href="#close" class="close" onclick="return dlgClose()"></a>
+    <dl class="content">
+      問い合せフォーム入力画面のheadタグに出力したい内容を入力します。<br>
+      なお、未入力の場合は「<a href="/<TMPL_VAR NAME=storeName>/func05/remarketing_tag.php" target="_blank">リマーケティングタグ設定</a>」にて、その他ページの設定のheadタグに入力した内容が出力されます。
+    </dl>
+  </div>
+</div>
+<div id="popup_cfm_head_tag" class="dialog_disp">
+  <div id="popup_cfm_head_tag_f" class="dialog_main">
+    <a href="#close" class="close" onclick="return dlgClose()"></a>
+    <dl class="content">
+      問い合せフォーム確認画面のheadタグに出力したい内容を入力します。<br>
+      なお、未入力の場合は「<a href="/<TMPL_VAR NAME=storeName>/func05/remarketing_tag.php" target="_blank">リマーケティングタグ設定</a>」にて、その他ページの設定のheadタグに入力した内容が出力されます。
+    </dl>
+  </div>
+</div>
+<div id="popup_comp_head_tag" class="dialog_disp">
+  <div id="popup_comp_head_tag_f" class="dialog_main">
+    <a href="#close" class="close" onclick="return dlgClose()"></a>
+    <dl class="content">
+      問い合せフォーム送信完了画面のheadタグに出力したい内容を入力します。<br>
+      なお、未入力の場合は「<a href="/<TMPL_VAR NAME=storeName>/func05/remarketing_tag.php" target="_blank">リマーケティングタグ設定</a>」にて、その他ページの設定のheadタグに入力した内容が出力されます。
+    </dl>
+  </div>
+</div>

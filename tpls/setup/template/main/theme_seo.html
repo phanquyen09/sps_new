@@ -1,0 +1,280 @@
+<link href="theme.css" rel="stylesheet" type="text/css"><!-- 2010.08.06 -->
+<!-- Main Contents(START) -->
+<script type="text/javascript">
+<!--
+function change_tab(type) {
+    document.form1.theme_type.value = type;
+    // タブ移動の時はmodeを空にする
+    document.form1.mode.value = '';
+    document.form1.submit();
+}
+function do_download() {
+    document.form1.mode.value = 'download';
+    document.form1.submit();
+}
+
+//-->
+</script>
+
+    <form name="form1" method="post" action="theme_sps.cgi" id="themes">
+    <input type="hidden" name="mode" value="">
+    <input type="hidden" name="category_code" value="">
+    <input type="hidden" name="theme_code" value="">
+    <input type="hidden" name="layout" value="">
+    <input type="hidden" name="cur_layout" id="cur_layout" value="<TMPL_IF NAME=l>1<TMPL_ELSE>2</TMPL_IF>">
+    <input type="hidden" name="theme_type" value="seo">
+    <input type="hidden" name="using_html" id="using_html" value="<TMPL_VAR NAME=using_html>">
+
+    <table width="100%" cellpadding="0" cellspacing="0" style="background:#fff;border:1px solid #856791;">
+    <tr>
+      <td width="12">
+        <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#856791">
+        <tr>
+          <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+        </tr>
+        </table>
+      </td>
+      <td align="left" class="midashi">お店ページに適用するテーマを選択します</td>
+
+      <td align="right" class="midashi"><a href="https://help.shopserve.jp/help/theme_sps.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+    </tr>
+    </table>
+   <font color="red"><TMPL_VAR NAME=ERR></font>
+
+
+    <TMPL_IF NAME=cart_theme_no_use>
+    <div id="theme_status" class="theme_status04">
+      <table class="shop item-box">
+        <tr>
+          <td class="item-name">お店ページで利用中のテーマ</td>
+          <td class="item"><TMPL_VAR NAME=shop_theme_label></td>
+        </tr>
+      </table>
+      <TMPL_IF NAME=diff_theme>
+      <table class="kanri item-box">
+       <tr>
+         <td class="item-name">管理画面で編集中のテーマ</td>
+         <td class="item"><TMPL_IF NAME=user_category_type><TMPL_VAR NAME=user_category_type> &gt; </TMPL_IF><TMPL_IF NAME=user_category_name><TMPL_VAR NAME=user_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=theme_name></td>
+       </tr>
+      </table>
+      </TMPL_IF>
+   <TMPL_ELSE>
+   <div id="theme_status" class="theme_status04 cart_theme_status">
+        <table class="shop item-box">
+        <tbody><tr>
+            <td class="item-name" <TMPL_IF NAME=cart_theme_label>rowspan="2"</TMPL_IF>>お店ページで利用中の<br>テーマ</td>
+            <td class="item item-category">お店ページ</td>
+            <td class="item"><TMPL_VAR NAME=shop_theme_label></td>
+        </tr>
+        <TMPL_IF NAME=cart_theme_label>
+        <tr>
+            <td class="item item-category">カート</td>
+            <td class="item"><TMPL_VAR NAME=cart_theme_label></td>
+        </tr>
+        </TMPL_IF>
+        </tbody></table>
+    <TMPL_IF NAME=diff_show>
+        <table class="kanri item-box">
+        <tbody>
+        <tr>
+            <td class="item-name" rowspan="2">管理画面で編集中の<br>テーマ</td>
+        <TMPL_IF NAME=diff_theme>
+            <td class="item item-category">お店ページ</td>
+            <td class="item"><TMPL_IF NAME=user_category_type><TMPL_VAR NAME=user_category_type> &gt; </TMPL_IF><TMPL_IF NAME=user_category_name><TMPL_VAR NAME=user_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=theme_name></td>
+        </tr>
+        </TMPL_IF>
+        <TMPL_IF NAME=cart_diff_theme>
+        <tr>
+            <td class="item item-category">カート</td>
+            <td class="item"><TMPL_IF NAME=cart_category_type><TMPL_VAR NAME=cart_category_type> &gt; </TMPL_IF><TMPL_IF NAME=cart_category_name><TMPL_VAR NAME=cart_category_name> &gt; </TMPL_IF><TMPL_VAR NAME=cart_theme_name></td>
+        </tr>
+        </TMPL_IF>
+        </tbody></table>
+    </TMPL_IF>
+    </TMPL_IF>
+    </div>
+
+    <div class="tab_container2">
+        <ul class="clearfix">
+            <li class="sel"><a href="theme_sps.cgi" onClick="change_tab('seo');return false;">カスタムテンプレート</a></li>
+            <li><a href="theme_sps.cgi" onClick="change_tab('normal');return false;">ベーシックテンプレート</a></li>
+
+        </ul>
+    </div>
+
+    <div class="template_info">
+        <ul>
+            <li>HTML5とCSS3で構築されたデザイン性と拡張性の高いテンプレートです。<br>
+            HTMLとCSSの知識があり、独自にカスタマイズしたい方向けのテンプレートです。</li>
+
+            <li>＜ベーシックテンプレートから切り替える場合の注意＞<br>
+            ・HTMLやCSSの構造が異なるためレイアウトが崩れる可能性があります。<br>
+            ・一部、利用できない機能や廃止された機能があります。<br>
+            <a href="https://help.shopserve.jp/manual/198/" target="_blank">⇒ テンプレートの仕様と機能比較</a></li>
+
+            <li>必ず以下の手順をお読みいただいてから作業を行ってください。<br>
+            <a href="https://help.shopserve.jp/manual/192/" target="_blank">⇒ テンプレートの切り替え手順</a></li>
+
+            <li>
+              ＜レスポンシブデザイン対応テーマをご利用の場合＞<br>
+              スマートフォンサイトからアクセスされた際に、Eストアーモバイルによるモバイル専用ページではなく、PCからのアクセス時と同じページを表示させる場合は、テーマ選択時に「スマートフォンサイト設定」より別途設定が必要です。<br>
+              <a href='https://help.shopserve.jp/manual/192/#04' target='_blank'>⇒ 詳細・設定方法はこちら</a>
+            </li>
+        </ul>
+    </div>
+
+    <h3>テーマの変更方法</h3>
+    <ul class="step">
+        <li class="step1">下記のテーマ一覧から、お店に反映したいテーマをクリックしてください。</li>
+        <li class="arrow"></li>
+        <li class="step2">ウィンドウが開きますので、案内に従いテーマを選択してください。</li>
+        <li class="arrow"></li>
+        <li class="step3">「お店ページの更新へ」ボタンをクリックし、更新が完了するとお店ページに反映されます。</li>
+    </ul>
+
+    <div id="dialog" class='customize-theme'>
+      <div id="dialog_alpha" class='customize-theme'></div>
+      <div id="dialog_main" class='customize-theme'>
+        <a href="#close" class="close" onclick="return dlgClose()"></a>
+        <dl class="select">
+
+          <dt>選択したテーマ</dt>
+          <dd>
+            カスタムテンプレート <span id="theme_category" style="display:none;"></span>
+            &gt;
+            <span id="theme_name"></span>
+          </dd>
+        </dl>
+        <img src="../imgs/spc.gif" alt="">
+
+        <ol>
+          <li style="display:none;">
+              <h5>トップページのレイアウト設定</h5>
+              <input name="layout_code" value="lr" type="radio" id="c3" > <label for="c3">標準（3列）</label><br>
+              <input name="layout_code" value="l"  type="radio" id="c2" checked="checked"> <label for="c2">右サイドバーなし（2列）</label><br>
+             <p>「右サイドバーなし」にチェックを入れるとトップページが右サイドバーなしになります。</p>
+          </li>
+          <li class="num1">
+            <a href="#preview" id="previewBtn" class="preview" onclick="return previewTheme(this)">プレビューを見る</a>
+          </li>
+          <li class="num2">
+              <p>全体のレイアウト画面の設定内容をファイルでダウンロードできます。</p>
+              <p style="margin:0.5em 0 0.8em;">ベーシックテンプレートとカスタムテンプレートを切り替え後、元に戻したい場合に必要となりますので名前を付けて保存してください。</p>
+              <a class="download" onclick="return do_download(this)">ダウンロードする</a>
+          </li>
+          <li class="num3">
+            <TMPL_IF NAME=changeTheme><a href="#select" class="select" onclick="return setTheme(this)">このデザインを選択する</a>
+            <TMPL_ELSE><strong style="color:#c00;">お店ページで利用中のテーマを再選択することにより、このテーマが選択可能になります。</strong></TMPL_IF>
+          </li>
+          <li class="license">
+            テーマ内の画像・写真素材は<br>著作物につき、加工、転用、再配布不可
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <script src="./theme.js" ype="text/javascript"></script>
+
+    <!-- SEO -->
+    <div class="thumbnails" id="box1" style="border-top:2px solid #6d4a78;margin-top:2em;">
+        <ul class="thumbnails">
+            <li <TMPL_IF NAME=seo><TMPL_IF NAME=seo_e_white>class="current"</TMPL_IF></TMPL_IF>>
+              <a href="#select" category_id="seo" category_name="SEOテンプレ" type="top" html="seo" onclick="return selectTheme(this)">
+              E-ホワイト<br>
+              <img src="../imgs/sps_theme_thumb/201012/thumbnail_s_top/seo_e_white.gif" alt="E-ホワイト" height="140" width="150">
+                <TMPL_IF NAME=seo><TMPL_IF NAME=seo_e_white>
+                <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+                </TMPL_IF></TMPL_IF>
+              </a>
+            </li>
+
+            <li <TMPL_IF NAME=seo><TMPL_IF NAME=seo_p_red>class="current"</TMPL_IF></TMPL_IF>>
+              <a href="#select" category_id="seo" category_name="SEOテンプレ" type="top" html="seo" onclick="return selectTheme(this)">
+              P-レッド<br>
+              <img src="../imgs/sps_theme_thumb/201012/thumbnail_s_top/seo_p_red.gif" alt="P-レッド" height="140" width="150">
+                <TMPL_IF NAME=seo><TMPL_IF NAME=seo_p_red>
+                <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+                </TMPL_IF></TMPL_IF>
+              </a>
+
+            </li>
+            <li <TMPL_IF NAME=seo><TMPL_IF NAME=seo_p_beige>class="current"</TMPL_IF></TMPL_IF>>
+              <a href="#select" category_id="seo" category_name="SEOテンプレ" type="top" html="seo" onclick="return selectTheme(this)">
+              P-ベージュ<br>
+              <img src="../imgs/sps_theme_thumb/201012/thumbnail_s_top/seo_p_beige.gif" alt="P-ベージュ" height="140" width="150">
+                <TMPL_IF NAME=seo><TMPL_IF NAME=seo_p_beige>
+                <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+                </TMPL_IF></TMPL_IF>
+              </a>
+            </li>
+
+            <li <TMPL_IF NAME=seo><TMPL_IF NAME=seo_p_blue>class="current"</TMPL_IF></TMPL_IF>>
+              <a href="#select" category_id="seo" category_name="SEOテンプレ" type="top" html="seo" onclick="return selectTheme(this)">
+              P-ブルー<br>
+              <img src="../imgs/sps_theme_thumb/201012/thumbnail_s_top/seo_p_blue.gif" alt="P-ブルー" height="140" width="150">
+                <TMPL_IF NAME=seo><TMPL_IF NAME=seo_p_blue>
+                <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+                </TMPL_IF></TMPL_IF>
+              </a>
+            </li>
+            <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+            <li <TMPL_IF NAME=seo><TMPL_IF NAME=seo_s_white>class="current"</TMPL_IF></TMPL_IF>>
+              <a href="#select" category_id="seo" category_name="SEOテンプレ" type="top" html="seo" onclick="return selectTheme(this)">
+              S-ホワイト<br>
+              <img src="../imgs/sps_theme_thumb/201012/thumbnail_s_top/seo_s_white.gif" alt="S-ホワイト" height="140" width="150">
+                <TMPL_IF NAME=seo><TMPL_IF NAME=seo_s_white>
+                <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+                </TMPL_IF></TMPL_IF>
+              </a>
+            </li>
+
+            <li <TMPL_IF NAME=seo><TMPL_IF NAME=seo_n_red>class="current"</TMPL_IF></TMPL_IF>>
+              <a href="#select" category_id="seo" category_name="SEOテンプレ" type="top" html="seo" onclick="return selectTheme(this)">
+              N-レッド<br>
+              <img src="../imgs/sps_theme_thumb/201012/thumbnail_s_top/seo_n_red.gif" alt="N-レッド" height="140" width="150">
+                <TMPL_IF NAME=seo><TMPL_IF NAME=seo_n_red>
+                <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+                </TMPL_IF></TMPL_IF>
+              </a>
+            </li>
+
+            <li <TMPL_IF NAME=seo><TMPL_IF NAME=seo_n_orange>class="current"</TMPL_IF></TMPL_IF>>
+              <a href="#select" category_id="seo" category_name="SEOテンプレ" type="top" html="seo" onclick="return selectTheme(this)">
+              N-オレンジ<br>
+              <img src="../imgs/sps_theme_thumb/201012/thumbnail_s_top/seo_n_orange.gif" alt="N-オレンジ" height="140" width="150">
+                <TMPL_IF NAME=seo><TMPL_IF NAME=seo_n_orange>
+                <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+                </TMPL_IF></TMPL_IF>
+              </a>
+
+            </li>
+            <li <TMPL_IF NAME=seo><TMPL_IF NAME=seo_n_colorful>class="current"</TMPL_IF></TMPL_IF>>
+              <a href="#select" category_id="seo" category_name="SEOテンプレ" type="top" html="seo" onclick="return selectTheme(this)">
+              N-カラフル<br>
+              <img src="../imgs/sps_theme_thumb/201012/thumbnail_s_top/seo_n_colorful.gif" alt="N-カラフル" height="140" width="150">
+                <TMPL_IF NAME=seo><TMPL_IF NAME=seo_n_colorful>
+                <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+                </TMPL_IF></TMPL_IF>
+              </a>
+            </li>
+            <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+        </ul>
+      <h4>レスポンシブデザイン対応テーマ</h4>
+      <ul class="thumbnails">
+        <li <TMPL_IF NAME=responsive><TMPL_IF NAME=seo_responsive_white>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id="responsive" category_name="seo_responsive_white" type="top" html="seo" onclick="return selectTheme(this)">
+           レスポンシブ-ホワイト<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s_top/seo_responsive_white.gif" alt="レスポンシブ-ホワイト" height="140" width="150">
+            <TMPL_IF NAME=responsive><TMPL_IF NAME=seo_responsive_white>
+            <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+      </ul>
+    </div>
+    <!-- /SEO -->
+
+    </form>
+<!-- Main Contents(END) -->

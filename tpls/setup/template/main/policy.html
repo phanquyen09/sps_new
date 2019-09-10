@@ -1,0 +1,202 @@
+<script type="text/javascript">
+  _editor_url = "../blog/js";
+  _editor_lang = "ja";
+</script>
+<!--
+<style type="text/css">
+input,select { font-size: 14px; line-height: 1.3em; margin: 4px 4px;
+                 vertical-align:middle; }
+.htmlarea table, td, div { padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px;  }
+.htmlarea table { border-style: none; }
+.htmlarea .toolbar td { background-color: ButtonFace; border-width: 0px; }
+</style>
+-->
+<TMPL_IF NAME=displayHtmlEditor>
+<script type="text/javascript" src="../blog/js/htmlarea.js"></script>
+<script type="text/javascript" src="../blog/js/entry1.js"></script>
+<script type="text/javascript" src="../blog/js/initeditor1.js"></script>
+<script type="text/javascript">
+<!--
+function regist1() {
+    window.document.form1.mode.value="regist";
+    window.document.form1.target="_self";
+    if (HTMLAreaSupported1()) {
+        window.document.form1.ta1.form.onsubmit();
+    }
+    window.document.form1.submit();
+}
+function edinit() {
+    initEditor1();
+}
+var last = null;
+function preview() {
+    var now = new Date();
+    if ( last != null && (now-last) < 5000  ) {
+      return;
+    }
+    last = now;
+    if (HTMLAreaSupported1()) {
+        window.document.form1.ta1.form.onsubmit();
+    }
+    document.form1.mode.value="preview";
+    document.form1.target="template_preview";
+    document.form1.submit();
+}
+function newtpl_preview() {
+  tplPreview('seo');
+}
+function donate(ac) {
+    document.form1.mode.value="skip";
+    document.form1.target="_self";
+    if (HTMLAreaSupported1()) {
+        document.form1.ta1.form.onsubmit();
+    }
+    document.form1.action=ac;
+    document.form1.submit();
+}
+
+//-->
+</script>
+<TMPL_ELSE>
+<script type="text/javascript">
+function regist1() {
+    window.document.form1.mode.value="regist";
+    window.document.form1.target="_self";
+    window.document.form1.submit();
+}
+
+var last = null;
+
+function preview() {
+    var now = new Date();
+    if ( last != null && (now-last) < 5000  ) {
+      return;
+    }
+    last = now;
+    document.form1.mode.value="preview";
+    document.form1.target="template_preview";
+    document.form1.submit();
+}
+function newtpl_preview() {
+  tplPreview('seo');
+}
+</script>
+</TMPL_IF>
+
+<script type="text/javascript">
+function responsiveTplPreview()
+{
+  tplPreview('responsive');
+}
+
+function tplPreview(type)
+{
+  var now = new Date();
+  if ( last != null && (now-last) < 5000 ) {
+    return;
+  }
+  last = now;
+
+  // バックアップ
+  var tag = document.form1.target;
+  var act = document.form1.action;
+
+  if (type === 'responsive') {
+    var winOpenScreenHeight = window.innerHeight;
+    var winOpen = window.open("about:blank","template_preview","scrollbars=yes, resizable=yes, width=420, height=" + winOpenScreenHeight);
+  }
+
+  // 表示するテンプレート
+  var tpl = document.createElement('input');
+  tpl.name = 'tpl';
+  tpl.type = 'hidden';
+  tpl.value = 'policy.tpl';
+
+  // データ参照先
+  var mode = document.createElement('input');
+  mode.name = 'preview_mode';
+  mode.type = 'hidden';
+  mode.value = 'current';
+
+  document.form1.appendChild(tpl);
+  document.form1.appendChild(mode);
+
+  // プレビュー表示
+  document.form1.target = "template_preview";
+  document.form1.method = "post";
+  document.form1.action= "../func100/newtplPreview.php";
+  document.form1.submit();
+
+  // 後始末
+  document.form1.target = tag;
+  document.form1.action = act;
+  document.form1.removeChild(tpl);
+  document.form1.removeChild(mode);
+}
+</script>
+
+<!--
+<img src="../imgs/spc.gif" onload="edinit();">
+-->
+
+<form name="form1" method="post" action="policy.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0093C9">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">個人情報保護の取り扱いページの設定を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/policy.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  お店ページのフッタ「個人情報の取り扱いについて」からリンクするページを編集します。<br>
+                                  設定後、[設定を保存する]ボタンをクリックし、管理画面左上の[お店ページの更新へ]ボタンをクリックします。<br><br>
+								  JavaScriptを使用する場合は、HTMLエディタをOFFにしてご利用ください。<br>
+                                  <a href="../func02/htmleditor.php">⇒HTMLエディタ OFF/ON 切替</a><br>
+                                </div>
+                                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+<!--
+<div align="right"><a href="policy2.cgi">テキスト版</a></div>
+-->
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                    <tr>
+                                      <td align="center" class="item-name02">表示内容</td>
+                                    </tr>
+
+                                    <tr>
+                                      <td bgcolor="#FFFFFF">
+                                          <textarea name="policy" id="ta1" rows="20" wrap="VIRTUAL" style="width:660px"><TMPL_VAR escape=html NAME=policy></textarea>
+                                      </td>
+                                    </tr>
+                                  </table>
+                                    <br>
+
+                                    <div align="center">
+                                      <TMPL_IF NAME=isnewlogic>
+                                      <input name="pre" type="button" id="pre" value="プレビュー" onClick="<TMPL_IF NAME=isResponsiveTheme>responsiveTplPreview();<TMPL_ELSE>newtpl_preview();</TMPL_IF>">
+                                      <TMPL_ELSE>
+                                      <input name="pre" type="button" id="pre" value="プレビュー" onClick="preview();">
+                                      </TMPL_IF>
+                                      <input onClick="regist1();" name="set" type="button" id="set" value="設定を保存する">
+                                    </div>
+                                  </td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+                      </td>
+
+                    </tr></table>
+<input type="hidden" name="mode" value="regist">
+</form>
+<img src="../imgs/spc.gif" <TMPL_IF NAME=displayHtmlEditor>onload="edinit();"</TMPL_IF>>

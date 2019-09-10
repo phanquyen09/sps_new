@@ -1,0 +1,474 @@
+<!-- orderpnt.html -->
+<script language="JavaScript" type="text/JavaScript">
+<!--
+window.onload = function(){
+  var str = document.list.func.value;
+  var st =document.list.st.value;
+  <TMPL_IF funcpoint>
+    var isPoint = true;
+  <TMPL_ELSE>
+    var isPoint = false;
+  </TMPL_IF>
+  if (((str == 'point' && isPoint) || str == 'myaff') && st == 0) {
+    document.getElementById("buttonDisplay1").style.display = "block";
+    document.getElementById("buttonDisplay2").style.display = "block";
+  }
+};
+function AppSub(st) {
+    document.list.st.value=st;
+    document.list.action='orderpnt-save.cgi';
+    document.list.submit();
+}
+function ShowList(p) {
+    document.list.reset();
+    document.list.page.value=p;
+    document.list.action='orderpnt.cgi';
+    document.list.submit();
+}
+function changeListnum() {
+    var num = document.list.renge.value;
+    document.list.renge.value=num;
+    document.list.page.value=1;
+    document.list.action='orderpnt.cgi';
+    document.list.submit();
+}
+function changeST(st) {
+    document.list.st.value=st;
+    document.list.page.value=1;
+    document.list.action='orderpnt.cgi';
+    document.list.submit();
+}
+function changeFunc(use_trial_flag) {
+    var e = document.list.func;
+    var funcText = e.options[e.selectedIndex].text.trim();
+    var st_val = document.list.st.value;
+    if(use_trial_flag == 'trial'){
+      var str = document.list.func.value;
+      // トライアルコース店舗は「ポイント」機能だけ使える
+      if(str == 'point') {
+        document.list.func.value=str;
+        document.list.st.value=st_val;
+        document.list.page.value=1;
+        document.list.action='orderpnt.cgi';
+        document.list.submit();
+      }
+    } else {
+      var str = document.list.func.value;
+      document.list.func.value=str;
+      document.list.st.value=st_val;
+      document.list.page.value=1;
+      document.list.action='orderpnt.cgi';
+      document.list.submit();
+    }
+}
+function delCookie() {
+    window.open('<TMPL_VAR NAME=cartUrlDomain>/redirect_del.cgi?f=func01', 'cookie','width=400,height=250:');
+    return true;
+}
+function changePrintPD() {
+    var num = document.list.ppd.value;
+    document.list.ppd.value=num;
+    document.list.page.value=1;
+    document.list.action='orderpnt.cgi';
+    document.list.submit();
+}
+function checkSelCleAll(check) {
+  var cnt = document.getElementsByName("checkbox").length;
+  document.list.Submit_btn.value = check;
+  if (cnt == 0) return true;
+  if(check == '0'){
+    if (cnt > 1) {
+      for (i=0;i<cnt;i++){
+        document.list.checkbox[i].checked=true;
+      }
+    } else{
+      document.list.checkbox.checked=true;
+    }
+  } else{
+    if (cnt > 1) {
+      for (i=0;i<cnt;i++){
+        document.list.checkbox[i].checked=false;
+      }
+    } else{
+      document.list.checkbox.checked=false;
+    }
+  }
+}
+//-->
+</script>
+<form name="list" method="post" action="dummy.cgi">
+<input type="hidden" name="page" value="1">
+<input type="hidden" name="st" value="<TMPL_VAR NAME=st>">
+<input type="hidden" name="oprat_date" value="<TMPL_VAR NAME=oprat_date>">
+<input type="hidden" name="mode">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+    </table></td>
+    <td align="left" class="midashi">ポイントの確定やパーク出品サービス・各支店の履歴確認を行います</td>
+    <td align="right" class="midashi"><a href="https://help.shopserve.jp/help/orderpnt.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                <td>
+                  <div>受注最終確認&nbsp;：&nbsp;<TMPL_VAR NAME=oprat_date></div>
+                  <div class="infoArea table_bg">
+                    ポイントの発行作業、Ｅストアーフレンドリンクの承認作業、パーク出品サービスの履歴確認、支店経由の履歴確認をします。
+                  </div>
+                  <table class="item-box">
+                    <tr>
+                      <td width="20%" class="item-name">表示切替</td>
+                      <td width="80%" class="item">
+                        <TMPL_IF IsTrialCourseShop><select name="func" onChange="changeFunc('trial');">
+                          <option value="point" <TMPL_IF funcpoint> selected</TMPL_IF>>ポイント</option>
+                          <option value="#" style="background-color: #D5D5D5">Ｅストアーフレンドリンク</option>
+                          <option value="#" style="background-color: #D5D5D5">パーク出品サービス</option>
+                          <option value="#" style="background-color: #D5D5D5">支店売上</option>
+                        <TMPL_ELSE><select name="func" onChange="changeFunc('notrial');">
+                          <option value="point" <TMPL_IF funcpoint> selected</TMPL_IF>>ポイント</option>
+                          <option value="myaff" <TMPL_IF funcmyaff>  selected</TMPL_IF>>Ｅストアーフレンドリンク</option>
+                          <option value="feed" <TMPL_IF funcfeed> selected</TMPL_IF>>パーク出品サービス</option>
+                          <option value="siten" <TMPL_IF funcsiten> selected</TMPL_IF>>支店売上</option>
+                        </TMPL_IF>
+                        </select>
+                      </td>
+                    </tr>
+                  </table>
+                  <br>
+                  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+<!--
+                      <td align="left" valign="bottom" class="item-02"><input type="button" value="未完了リスト" onClick="changeST(0);" <TMPL_IF st0> disabled</TMPL_IF>>　<input type="button" value="完了リスト" onClick="changeST(1);" <TMPL_IF st1> disabled</TMPL_IF>></td>
+-->
+                      <td colspan="3" align="left" valign="bottom">
+<!-- 0605修正箇所ここから
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+                            <td width="120" height="23" align="center" valign="middle" background="../imgs/tab_<TMPL_IF st0>on<TMPL_ELSE>off</TMPL_IF>.gif" class="tab<TMPL_IF st0>_title</TMPL_IF>"><TMPL_UNLESS st0><a href="javascript:;changeST(0);"></TMPL_UNLESS>未完了リスト<TMPL_UNLESS st0></a></TMPL_UNLESS></td>
+                            <td width="120" height="23" align="center" valign="middle" background="../imgs/tab_<TMPL_IF st1>on<TMPL_ELSE>off</TMPL_IF>.gif" class="tab<TMPL_IF st1>_title</TMPL_IF>"><TMPL_UNLESS st1><a href="javascript:;changeST(1);"></TMPL_UNLESS>完了リスト<TMPL_UNLESS st1></a></TMPL_UNLESS></td>
+                            <td></td>
+                          </tr>
+                          <tr>
+                            <td colspan="3" bgcolor="#148936" height="5"><img src="../imgs/spc.gif" height="5"></td>
+                          </tr>
+                        </table>
+ここまで ↓以下の内容に差し替え-->
+<!-- 0605差し替え内容ここから -->
+                        <table width="100%" border="0" cellspacing="0" cellpadding="0">
+                          <tr>
+	                    <td background="../imgs/tab_<TMPL_IF st0>on<TMPL_ELSE>off</TMPL_IF>.gif" class="tab<TMPL_IF st0>_title</TMPL_IF>">
+		                <div style="width:120px;height:23px;text-align:center;vertical-align:middle">
+		                    <TMPL_UNLESS st0><a href="javascript:;changeST(0);"></TMPL_UNLESS>未完了リスト<TMPL_UNLESS st0></a></TMPL_UNLESS>
+		                </div>
+	                    </td>
+	                    <td background="../imgs/tab_<TMPL_IF st1>on<TMPL_ELSE>off</TMPL_IF>.gif" class="tab<TMPL_IF st1>_title</TMPL_IF>">
+		                <div style="width:120px;height:23px;text-align:center;vertical-align:middle">
+		                    <TMPL_UNLESS st1><a href="javascript:;changeST(1);"></TMPL_UNLESS>完了リスト<TMPL_UNLESS st1></a></TMPL_UNLESS>
+		                </div>
+	                    </td>
+                            <td width="100%"></td>
+                          </tr>
+                          <tr>
+                            <td colspan="3" bgcolor="#148936" height="5"><img src="../imgs/spc.gif" height="5"></td>
+                          </tr>
+                        </table>
+<!-- 0605修正内容ここまで -->
+                        <BR></td>
+                    </tr>
+                    <tr>
+                      <td colspan="3">
+                        
+<TMPL_IF st0>
+  <TMPL_IF funcpoint>
+                        <div class="infoArea table_bg">
+                          ポイント発行方法を「手動発行」にしている場合は、承認作業を行ってください。<br>
+                          承認する注文にチェックをつけ、「承認する」ボタンをクリックします。
+                        </div>
+  <TMPL_ELSE>
+    <TMPL_IF funcmyaff>
+                       <div class="infoArea table_bg">
+                          アフィリエイターへの報酬を確定するために、承認作業を行ってください。<br>
+                          承認する注文にチェックをつけ、「承認する」ボタンをクリックします。<br>
+                          キャンセル、返品や不正な注文を不承認にするには、「取消」ボタンをクリックします。<br>
+                          &nbsp;&nbsp;※受注後35日経過すると、自動で承認されます。
+                       </div>
+<!-- 20091015修正内容ここから -->
+  <TMPL_ELSE>
+    <TMPL_IF funcfeed>
+                          パーク出品サービスは終了しました。
+                          <input type="hidden" name="renge" value="<TMPL_VAR NAME=renge>" />
+<!-- 20091015修正内容ここまで -->
+  <TMPL_ELSE>
+                          支店出品サービスは終了しました。
+                          <input type="hidden" name="renge" value="<TMPL_VAR NAME=renge>" />
+<!-- 20091015修正内容ここから -->
+      </TMPL_IF>
+<!-- 20091015修正内容ここまで -->
+    </TMPL_IF>
+  </TMPL_IF>
+</TMPL_IF>
+                        
+                      </td>
+                    </tr>
+<TMPL_IF st0>
+  <TMPL_IF funcfeed><TMPL_ELSE>
+    <TMPL_IF funcsiten><TMPL_ELSE>
+                    <tr>
+                    <td style="padding-bottom: 2px;" valign="bottom">
+                      <div id="buttonDisplay1" style="display:none">
+                        <input type="button" name="Submit_btn" value="全選択" style="font-size:90%; padding-top:3px" onClick="checkSelCleAll(0);">
+                        <input type="button" name="Submit_btn" value="全解除" style="font-size:90%; padding-top:3px" onClick="checkSelCleAll(1);">
+                      </div>
+                    </td>
+                      <td align="left" valign="bottom" class="item-02">
+                      </td>
+                      <td align="right" class="item-02">表示件数
+                        <select name="renge" onChange="changeListnum();">
+                        <option value="10"<TMPL_IF renge10>selected</TMPL_IF>>10</option>
+                        <option value="20"<TMPL_IF renge20>selected</TMPL_IF>>20</option>
+                        <option value="30"<TMPL_IF renge30>selected</TMPL_IF>>30</option>
+                        <option value="40"<TMPL_IF renge40>selected</TMPL_IF>>40</option>
+                        <option value="50"<TMPL_IF renge50>selected</TMPL_IF>>50</option>
+                        <option value="100"<TMPL_IF renge100>selected</TMPL_IF>>100</option>
+                        <option value="200"<TMPL_IF renge200>selected</TMPL_IF>>200</option>
+                        <option value="300"<TMPL_IF renge300>selected</TMPL_IF>>300</option>
+                        </select>
+                        <br>
+                        <TMPL_IF total><TMPL_VAR NAME=start> - <TMPL_VAR NAME=end>&nbsp; （ 全 <TMPL_VAR NAME=total>件 ）&nbsp;<TMPL_VAR NAME=S1A>|&lt;<TMPL_VAR NAME=S1E>&nbsp; <TMPL_VAR NAME=S2A>&lt;&lt;<TMPL_VAR NAME=S2E>&nbsp; <TMPL_VAR NAME=PAGE1>&nbsp; <TMPL_VAR NAME=PAGE2>&nbsp; <TMPL_VAR NAME=PAGE3>&nbsp; <TMPL_VAR NAME=PAGE4>&nbsp; <TMPL_VAR NAME=PAGE5>&nbsp; <TMPL_VAR NAME=S3A>&gt;&gt;<TMPL_VAR NAME=S3E>&nbsp; <TMPL_VAR NAME=S4A>&gt;|<TMPL_VAR NAME=S4E></TMPL_IF></td>
+                    </tr>
+    </TMPL_IF>
+  </TMPL_IF>
+<TMPL_ELSE>
+                    <tr>
+                      <td style="padding-bottom: 2px;" valign="bottom">
+                        <div id="buttonDisplay1" style="display:none">
+                          <input type="button" name="Submit_btn" value="全選択" style="font-size:90%; padding-top:3px" onClick="checkSelCleAll(0);">
+                          <input type="button" name="Submit_btn" value="全解除" style="font-size:90%; padding-top:3px" onClick="checkSelCleAll(1);">
+                        </div>
+                      </td>
+                      <td align="left" valign="bottom" class="item-02">
+                        <TMPL_IF st1><TMPL_UNLESS funcpoint>
+                          表示期間
+                          <select name="ppd" onChange="changePrintPD();">
+                            <TMPL_LOOP NAME=PrintPD>
+                              <option value="<TMPL_VAR NAME=sched>"<TMPL_IF ivon> selected</TMPL_IF>><TMPL_VAR NAME=str>分</option>
+                            </TMPL_LOOP>
+                            <option value="1"<TMPL_IF ppd> selected</TMPL_IF>>全件表示</option>
+                          </select>
+                          <TMPL_ELSE>&nbsp;
+                        </TMPL_UNLESS></TMPL_IF>
+                      </td>
+                      <td align="right" class="item-02">表示件数
+                        <select name="renge" onChange="changeListnum();">
+                          <option value="10"<TMPL_IF renge10>selected</TMPL_IF>>10</option>
+                          <option value="20"<TMPL_IF renge20>selected</TMPL_IF>>20</option>
+                          <option value="30"<TMPL_IF renge30>selected</TMPL_IF>>30</option>
+                          <option value="40"<TMPL_IF renge40>selected</TMPL_IF>>40</option>
+                          <option value="50"<TMPL_IF renge50>selected</TMPL_IF>>50</option>
+                          <option value="100"<TMPL_IF renge100>selected</TMPL_IF>>100</option>
+                          <option value="200"<TMPL_IF renge200>selected</TMPL_IF>>200</option>
+                          <option value="300"<TMPL_IF renge300>selected</TMPL_IF>>300</option>
+                        </select>
+                        <br>
+                        <TMPL_IF total><TMPL_VAR NAME=start> - <TMPL_VAR NAME=end>&nbsp; （ 全 <TMPL_VAR NAME=total>件 ）&nbsp;<TMPL_VAR NAME=S1A>|&lt;<TMPL_VAR NAME=S1E>&nbsp; <TMPL_VAR NAME=S2A>&lt;&lt;<TMPL_VAR NAME=S2E>&nbsp; <TMPL_VAR NAME=PAGE1>&nbsp; <TMPL_VAR NAME=PAGE2>&nbsp; <TMPL_VAR NAME=PAGE3>&nbsp; <TMPL_VAR NAME=PAGE4>&nbsp; <TMPL_VAR NAME=PAGE5>&nbsp; <TMPL_VAR NAME=S3A>&gt;&gt;<TMPL_VAR NAME=S3E>&nbsp; <TMPL_VAR NAME=S4A>&gt;|<TMPL_VAR NAME=S4E></TMPL_IF></td>
+                    </tr>
+</TMPL_IF>
+                  </table>
+<TMPL_IF st0>
+  <TMPL_IF funcfeed><TMPL_ELSE>
+    <TMPL_IF funcsiten><TMPL_ELSE>
+  
+                  <table class="item-box">
+                    <tr align="center">
+<TMPL_IF  funcpoint>
+                      <td class="odr-midashi">ポイント&nbsp;</td>
+</TMPL_IF>
+<TMPL_IF  funcmyaff>
+                      <td class="odr-midashi">Ｅストアーフレンドリンク&nbsp;</td>
+</TMPL_IF>
+                      <td class="odr-midashi">注文日時&nbsp;</td>
+<TMPL_UNLESS funcpoint>
+                      <td class="odr-midashi">取消期限&nbsp;</td>
+</TMPL_UNLESS>
+                      <td class="odr-midashi">注文番号&nbsp;</td>
+                      <td class="odr-midashi">合計金額&nbsp;</td>
+                      <td class="odr-midashi">決済&nbsp;</td>
+                      <td class="odr-midashi">決済依頼&nbsp;</td>
+                      <td class="odr-midashi">入金&nbsp;</td>
+                    </tr>
+<TMPL_LOOP NAME=printlist>
+                    <tr>
+                      <td align="left" class="odr-txt02<TMPL_IF del>-del</TMPL_IF>">
+                        <TMPL_IF funcfeed> <TMPL_ELSE>
+                          <TMPL_IF funcsiten> <TMPL_ELSE>
+                            <TMPL_IF checkbox><input type="checkbox" name="checkbox" value="<TMPL_VAR NAME=order_id>"></TMPL_IF>
+                          </TMPL_IF>
+                        </TMPL_IF>
+<TMPL_IF funcpoint>     <TMPL_VAR NAME=point>P&nbsp;<TMPL_IF point22>取り消し</TMPL_IF></TMPL_IF>
+<TMPL_IF funcmyaff>     <TMPL_VAR NAME=affi_name>&nbsp;
+                        <TMPL_IF affi1>承認済</TMPL_IF><TMPL_IF affi2>取り消し</TMPL_IF>
+</TMPL_IF>
+                      </td>
+                      <td align="center" class="odr-txt02<TMPL_IF del>-del</TMPL_IF>"><TMPL_VAR NAME=order_date></td>
+<TMPL_UNLESS funcpoint>
+                      <td align="center" class="odr-txt02<TMPL_IF del>-del</TMPL_IF>"><TMPL_VAR NAME=cancel></td>
+</TMPL_UNLESS>
+                      <td align="center" class="odr-txt02<TMPL_IF del>-del</TMPL_IF>"><a href="pt_odrinfo.cgi?ORDERID=<TMPL_VAR NAME=order_id>"><TMPL_VAR NAME=pub_order_no></a></td>
+                      <td align="right" class="odr-txt02<TMPL_IF del>-del</TMPL_IF>"><TMPL_VAR NAME=total>円</td>
+                      <td align="center" class="odr-txt02<TMPL_IF del>-del</TMPL_IF>"><img src="../imgs/icon/ordr_ic_<TMPL_VAR NAME=paymethod>.gif" width="18" height="18" hspace="1"></td>
+                      <td align="center" class="odr-txt02<TMPL_IF del>-del</TMPL_IF>"><TMPL_VAR NAME=irai_date></td>
+                      <td align="center" class="odr-txt02<TMPL_IF del>-del</TMPL_IF>"><img src="../imgs/icon/rec_ic_<TMPL_VAR NAME=recv_st1>.gif" width="18" height="18" hspace="1"><img src="../imgs/icon/rec_ic_<TMPL_VAR NAME=recv_st2>.gif" width="18" height="18" hspace="1"></td>
+                    </tr>
+</TMPL_LOOP>
+                  </table>
+                  <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                      <td style="padding-bottom: 2px;" valign="bottom">
+                        <div id="buttonDisplay2" style="display:none">
+                          <input type="button" name="Submit_btn" value="全選択" style="font-size:90%; padding-top:3px" onClick="checkSelCleAll(0);">
+                          <input type="button" name="Submit_btn" value="全解除" style="font-size:90%; padding-top:3px" onClick="checkSelCleAll(1);">
+                        </div>
+                      </td>
+                      <td align="right" class="item-02">
+                        <TMPL_IF total><TMPL_VAR NAME=start> - <TMPL_VAR NAME=end>&nbsp; （ 全 <TMPL_VAR NAME=total>件 ）&nbsp;<TMPL_VAR NAME=S1A>|&lt;<TMPL_VAR NAME=S1E>&nbsp; <TMPL_VAR NAME=S2A>&lt;&lt;<TMPL_VAR NAME=S2E>&nbsp; <TMPL_VAR NAME=PAGE1>&nbsp; <TMPL_VAR NAME=PAGE2>&nbsp; <TMPL_VAR NAME=PAGE3>&nbsp; <TMPL_VAR NAME=PAGE4>&nbsp; <TMPL_VAR NAME=PAGE5>&nbsp; <TMPL_VAR NAME=S3A>&gt;&gt;<TMPL_VAR NAME=S3E>&nbsp; <TMPL_VAR NAME=S4A>&gt;|<TMPL_VAR NAME=S4E></TMPL_IF></td>
+                    </tr>
+                  </table>
+    </TMPL_IF>
+  </TMPL_IF>
+<TMPL_ELSE>
+          <table class="item-box">
+            <tr align="center">
+            <TMPL_IF st1><TMPL_UNLESS funcpoint>
+            <TMPL_IF  funcmyaff>
+              <td class="odr-midashi">承認日&nbsp;</td>
+            <TMPL_ELSE>
+                <td class="odr-midashi">確定日&nbsp;</td>
+            </TMPL_IF>
+            </TMPL_UNLESS></TMPL_IF>
+            <TMPL_IF  funcpoint>
+              <td class="odr-midashi">ポイント&nbsp;</td>
+            </TMPL_IF>
+            <TMPL_IF  funcmyaff>
+              <td class="odr-midashi">Ｅストアーフレンドリンク&nbsp;</td>
+            </TMPL_IF>
+            <TMPL_IF  funcsiten>
+              <td class="odr-midashi">支店売上&nbsp;</td>
+            </TMPL_IF>
+            <TMPL_IF  funcfeed>
+              <td class="odr-midashi">パーク出品サービス売上&nbsp;</td>
+            </TMPL_IF>
+            <td class="odr-midashi">注文日時&nbsp;</td>
+            <TMPL_UNLESS funcpoint>
+              <td class="odr-midashi">取消期限&nbsp;</td>
+            </TMPL_UNLESS>
+              <td class="odr-midashi">注文番号&nbsp;</td>
+              <td class="odr-midashi">合計金額&nbsp;</td>
+              <td class="odr-midashi">決済&nbsp;</td>
+              <td class="odr-midashi">決済依頼&nbsp;</td>
+              <td class="odr-midashi">入金&nbsp;</td>
+            </tr>
+            <TMPL_LOOP NAME=printlist>
+              <tr>
+                <TMPL_IF st1><TMPL_UNLESS funcpoint>
+                <td align="center" class="odr-txt02<TMPL_IF del>-del</TMPL_IF>">
+                  <TMPL_IF funcfeed><TMPL_VAR NAME=siten_date></TMPL_IF>
+                  <TMPL_IF funcsiten><TMPL_VAR NAME=siten_date></TMPL_IF>
+                  <TMPL_IF funcmyaff><TMPL_VAR NAME=affi_date></TMPL_IF>
+                </td>
+                </TMPL_UNLESS></TMPL_IF>
+                <td align="left" class="odr-txt02<TMPL_IF del>-del</TMPL_IF>">
+                  <TMPL_IF funcpoint>     <TMPL_VAR NAME=point>P&nbsp;<TMPL_IF point22>取り消し</TMPL_IF></TMPL_IF>
+                  <TMPL_IF funcmyaff>     <TMPL_VAR NAME=affi_name>&nbsp;
+                  <TMPL_IF affi1>承認済</TMPL_IF><TMPL_IF affi2>取り消し</TMPL_IF>
+                  </TMPL_IF>
+                  <TMPL_IF funcsiten>     <TMPL_VAR NAME=siten_name>&nbsp;
+                  <TMPL_IF siten1>承認済</TMPL_IF><TMPL_IF siten2>取り消し</TMPL_IF>
+                  </TMPL_IF>
+                </td>
+                <td align="center" class="odr-txt02<TMPL_IF del>-del</TMPL_IF>"><TMPL_VAR NAME=order_date></td>
+                <TMPL_UNLESS funcpoint>
+                <td align="center" class="odr-txt02<TMPL_IF del>-del</TMPL_IF>"><TMPL_VAR NAME=cancel></td>
+                </TMPL_UNLESS>
+                <td align="center" class="odr-txt02<TMPL_IF del>-del</TMPL_IF>"><a href="pt_odrinfo.cgi?ORDERID=<TMPL_VAR NAME=order_id>"><TMPL_VAR NAME=pub_order_no></a></td>
+                <td align="right" class="odr-txt02<TMPL_IF del>-del</TMPL_IF>"><TMPL_VAR NAME=total>円</td>
+                <td align="center" class="odr-txt02<TMPL_IF del>-del</TMPL_IF>"><img src="../imgs/icon/ordr_ic_<TMPL_VAR NAME=paymethod>.gif" width="18" height="18" hspace="1"></td>
+                <td align="center" class="odr-txt02<TMPL_IF del>-del</TMPL_IF>"><TMPL_VAR NAME=irai_date></td>
+                <td align="center" class="odr-txt02<TMPL_IF del>-del</TMPL_IF>"><img src="../imgs/icon/rec_ic_<TMPL_VAR NAME=recv_st1>.gif" width="18" height="18" hspace="1"><img src="../imgs/icon/rec_ic_<TMPL_VAR NAME=recv_st2>.gif" width="18" height="18" hspace="1"></td>
+              </tr>
+            </TMPL_LOOP>
+          </table>
+          <table width="100%" border="0" cellpadding="0" cellspacing="0">
+            <tr>
+              <td style="padding-bottom: 2px;" valign="bottom">
+                <div id="buttonDisplay2" style="display:none">
+                  <input type="button" name="Submit_btn" value="全選択" style="font-size:90%; padding-top:3px" onClick="checkSelCleAll(0);">
+                  <input type="button" name="Submit_btn" value="全解除" style="font-size:90%; padding-top:3px" onClick="checkSelCleAll(1);">
+                </div>
+              </td>
+              <td align="right" class="item-02">
+                <TMPL_IF total><TMPL_VAR NAME=start> - <TMPL_VAR NAME=end>&nbsp; （ 全 <TMPL_VAR NAME=total>件 ）&nbsp;<TMPL_VAR NAME=S1A>|&lt;<TMPL_VAR NAME=S1E>&nbsp; <TMPL_VAR NAME=S2A>&lt;&lt;<TMPL_VAR NAME=S2E>&nbsp; <TMPL_VAR NAME=PAGE1>&nbsp; <TMPL_VAR NAME=PAGE2>&nbsp; <TMPL_VAR NAME=PAGE3>&nbsp; <TMPL_VAR NAME=PAGE4>&nbsp; <TMPL_VAR NAME=PAGE5>&nbsp; <TMPL_VAR NAME=S3A>&gt;&gt;<TMPL_VAR NAME=S3E>&nbsp; <TMPL_VAR NAME=S4A>&gt;|<TMPL_VAR NAME=S4E></TMPL_IF></td>
+            </tr>
+          </table>
+</TMPL_IF>
+                  <br>
+<TMPL_IF funcfeed> <TMPL_ELSE>
+<TMPL_IF funcsiten> <TMPL_ELSE>
+<TMPL_IF st0>
+                  <table class="item-box">
+                    <tr>
+                      <td align="center" class="item-name02">選択処理</td>
+                    </tr>
+                    <tr align="center">
+                      <td align="center" class="item"><input type="button" name="Submit" value="承認する" onClick="AppSub(1);">
+                        &nbsp;
+                        <input type="button" name="Submit" value="取消" onClick="AppSub(2);">
+                      </td>
+                    </tr>
+                  </table>
+</TMPL_IF>
+                  <br>
+</TMPL_IF>
+</TMPL_IF>
+
+<TMPL_IF checkbox>
+   <TMPL_IF funcmyaff>
+                  <table class="item-box">
+                    <tr>
+                      <td align="center" class="item-name02">Cookieの削除</td>
+                    </tr>
+                    <tr>
+                      <td class="item"><STRONG>※Ｅストアーフレンドリンクご利用時の注意事項</STRONG><BR>
+                        出品した<STRONG>「商品ページ」</STRONG>を確認・閲覧した場合は、必ず以下の<STRONG>「Cookieを削除する」</STRONG>ボタンをクリックしてください。<br>
+                        <br>
+                        <div align="center">
+                        <input type="button" name="Submit" value="Cookieを削除する" onClick="delCookie();">
+                <TMPL_IF DELCOOKIE>
+                        <img src="<TMPL_VAR NAME=DELCOOKIE>" width="0" height="0">
+                </TMPL_IF>
+                        </div>
+                        <br>
+                        出品した<STRONG>「商品ページ」</STRONG>を閲覧した場合、「お客様ホームページ」経由の注文を区別するため「Cookie（クッキー：35日間有効）」が閲覧したパソコンに対して発行されます。<BR>
+                        これにより「商品ページ」を閲覧したパソコンで、FAXなどの注文をショッピングカートから入力した場合は、「お客様ホームページ」経由の注文として「受注台帳」に反映され、<FONT color=#ff0000><STRONG>システム利用料が発生してしまいます。</STRONG></FONT> 「Cookieを削除する」ボタンをクリックすることにより、これを回避することができます。</td>
+                    </tr>
+                  </table>
+  </TMPL_IF>
+</TMPL_IF>
+                  <br>
+                </td>
+              </tr>
+          </table></td>
+        </tr>
+    </table></td>
+  </tr>
+</table>
+</form>

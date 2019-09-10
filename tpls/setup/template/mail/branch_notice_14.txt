@@ -1,0 +1,11 @@
+ご担当者様
+
+ショップＩＤ：<TMPL_VAR name=SHOP_ID>
+
+上記お客様の<TMPL_VAR name=SITEN_NAME>出店情報が
+変更されました。
+
+ご対応宜しくお願いします。
+
+
+

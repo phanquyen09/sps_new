@@ -1,0 +1,2286 @@
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/prototype.js"></script>
+<script type="text/javascript" src="../js/effects.js"></script>
+<script type="text/javascript" src="../js/window.js"></script>
+<script type="text/javascript" src="../js/debug.js"></script>
+<script type="text/javascript" src="../js/ES_gyomu.js"></script>
+<script type="text/javascript" src="../js/custom_ui/popupmanager.js"></script>
+<link href="../css/themes/default.css" rel="stylesheet" type="text/css" > </link>
+<link href="../css/themes/theme1.css" rel="stylesheet" type="text/css" > </link>
+<link href="../css/themes/mac_os_x.css" rel="stylesheet" type="text/css" > </link>
+<link href="../css/themes/alphacube.css" rel="stylesheet" type="text/css" > </link>
+<link href="../css/themes/darkX.css" rel="stylesheet" type="text/css" > </link>
+<link href="../css/themes/spread.css" rel="stylesheet" type="text/css" > </link>
+<link href="../css/themes/alert.css" rel="stylesheet" type="text/css" > </link>
+<link href="../css/themes/alert_lite.css" rel="stylesheet" type="text/css" > </link>
+<link href="../css/custom_ui/popupmanager.css" rel="stylesheet" type="text/css">
+
+
+<script type="text/javascript" src="../js/jquery/jquery-1.10.2.min.js"></script>
+
+<script type="text/javascript" src="../js/jquery/jquery-ui-1.10.4.min.js"></script>
+<script type="text/javascript" src="../js/jquery/datepicker-ja.js"></script>
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1/themes/redmond/jquery-ui.css" >
+<script type="text/javascript" src="../js/kanri_datetimepicker.js"></script>
+<script>
+  var dateArea;
+  jQuery.noConflict();
+  jQuery(function() {
+    jQuery('.datepicker').datepicker({
+      showOn:'button',
+      buttonText:'',
+      buttonImageOnly:true,
+      buttonImage:'./imgs/calendar_ic.gif',
+      dateFormat: 'yy-mm-dd',
+      yearRange: '1901:9999',
+      inline: true,
+      beforeShow: function() {
+        dateArea = jQuery(this);
+        setDateDatepicker(dateArea,
+                          dateArea.parent().find('input[name$="day"]'),
+                          dateArea.parent().find('input[name$="month"]'),
+                          dateArea.parent().find('input[name$="year"]'));
+      },
+      onSelect: function(dateText, inst) {
+        selectDateDatepicker(dateArea,
+                             dateArea.parent().find('input[name$="day"]'),
+                             dateArea.parent().find('input[name$="month"]'),
+                             dateArea.parent().find('input[name$="year"]'));
+      }
+    });
+  })
+
+</script>
+
+<a name="top"></a>
+<script language="javascript" type="text/JavaScript">
+<!--
+// Add by SHIN(20131127)
+// textareaのheightをリサイジングする。
+// textareaの内容が長くなるとオートリサイジングできるように、
+// イベントリスナーを登録。
+window.onload = function(){
+    (function(){
+        // オートリサイズするtextarea全てを取得
+        var memos      = document.getElementsByTagName('textarea');
+        // エレメントのoffsetを取得
+        var get_offset = function(el, spot) {
+            if ( chk_web("MSIE 8") )
+                return parseInt(el.currentStyle[spot].match(/([0-9])/gi).join(""));
+            return parseInt(window.getComputedStyle(el, "")[spot].match(/([0-9])/gi).join(""));
+        };
+        // クロースブラウジングのために必要なブラウザチェック
+        var chk_web    = function(browser) {
+            if ( browser === "Safari" ) {
+                if ( navigator.userAgent.match("Chrome") != null )
+                    return null;
+            }
+            else if ( browser === "MSIE 8" ) {
+                if ( navigator.userAgent.match("MSIE 7") != null )
+                    return chk_web("MSIE 7");
+            }
+            return navigator.userAgent.match(browser);
+        };
+        // エレメントのheightを初期化
+        var resize     = function(el) {
+           var wrap, wrap_offset, wrap_t, wrap_t_top, wrap_h, wrap_other_h, td_offset, box_offset;
+           var name = el.getAttribute("name");
+           var scrollH = el.scrollHeight,
+               offsetH = el.offsetHeight;
+           // safariブラウザではpre-wrapでは日本語の改行がうまくできないため対応
+           if ( chk_web( 'Safari' ) )
+               el.style.whiteSpace = "pre";
+           // textareaのエレメントネームを取得してそれぞれの処理を行う。
+           switch ( name ) {
+               case "DTLMEMO" :
+                   box_offset = get_offset(el, 'paddingTop') + get_offset(el, 'paddingBottom');
+                   if ( scrollH > offsetH ) {
+                       if ( chk_web("MSIE") ) {
+                           el.style.minHeight = offsetH + "px";
+                       }
+                       el.style.height = ( chk_web("MSIE 10") ) ? scrollH + box_offset + "px" : scrollH + "px";
+                   } else {
+                       el.style.minHeight = offsetH + "px";
+                   }
+                   break;
+               default :
+                   wrap_t       = ( name === 'PMEMO' ) ? document.getElementById("PMEMO_T") : document.getElementById("DMEMO_T");
+                   wrap_t_top   = get_offset(wrap_t, 'marginTop');
+                   wrap         = wrap_t.parentNode;
+                   wrap_offset  = get_offset(wrap, 'paddingTop') + get_offset(wrap, 'paddingBottom');
+                   // リサイジングするtextareaの親テーブルの隣テーブルのheightを取得
+                   wrap_h       = wrap.offsetHeight - wrap_offset;
+                   // リサイジングするtextareaの親テーブルでtextareaを抜いたノードのheightの合計
+                   wrap_other_h = wrap.children[0].offsetHeight + wrap_t.getElementsByTagName('tr')[0].offsetHeight + wrap_t_top;
+                   // textareaの親TDのoffset
+                   td_offset    = get_offset(el.parentNode, 'paddingTop') + get_offset(el.parentNode, 'paddingBottom');
+                   // textareaのoffset
+                   box_offset   = get_offset(el, 'paddingTop') + get_offset(el, 'paddingBottom');
+
+                   el.style.minHeight = (wrap_h - wrap_other_h - td_offset - box_offset - (el.offsetTop * 2)) + "px";
+                   // もし、textarea中にすでにコンテンツが入力されていたときの処理
+                   if( scrollH > offsetH )
+                       el.style.height = ( chk_web("MSIE 10") ) ? scrollH + box_offset + "px" : scrollH + "px";
+                   break;
+           }
+        };
+
+        for (var i = 0; i < memos.length; i++) {
+            var text_area = memos[i];
+            // textareaをリサイジングする。
+            resize(text_area);
+            // それぞれのtextareaにイベントをつけるためcloserを使う
+            (function(el){
+                // イベントをつけるtextareaエレメント
+                var elem     = el,
+                    prev_val = el.value,
+                    resized  = el.offsetHeight,
+                    pad_top  = get_offset(el, 'paddingTop'),
+                    pad_bot  = get_offset(el, 'paddingBottom'),
+                    del_size,
+                    timer;
+                // 入力されるコンテンツによってheightをリサイジングする。
+                var adjust_size = function( el ) {
+                    if ( !chk_web("MSIE 8") )
+                        el.style.height = "auto";
+
+                    el.style.height = (chk_web("MSIE 10")) ? ( el.scrollHeight + pad_top + pad_bot ) + "px" : el.scrollHeight + "px";
+
+                    if ( del_size != undefined )
+                        el.style.height = ( chk_web("Firefox") ) ? el.scrollHeight + del_size + "px" : el.scrollHeight - (del_size * 2) + "px";
+
+                    if ( el.value === "" && el.scrollHeight < el.offsetHeight ) {
+                        if ( !chk_web("MSIE 8") )
+                            height = "";
+                    }
+                    prev_val = el.value;
+                };
+                // オートリサイジングIE9対応
+                // IE9ではinputイベントで削除判別が取れないためこのメソッドを使う
+                var change_text = function() {
+                    if ( elem.value.length < prev_val.length )
+                        adjust_size(elem);
+                };
+                var change_resize = function(el) {
+                    if ( resized < el.offsetHeight ) {
+                        resized = el.offsetHeight;
+                        el.style.minHeight = ( el.scrollHeight - pad_top - pad_bot ) + "px";
+                        del_size = pad_top + pad_bot;
+                    }
+                };
+                // イベントをリスナーにつける
+                // ここも、IE 8と他ブラウザで異なるため対応する。
+                if ( elem.addEventListener ) {
+                    if ( chk_web("MSIE 9") ) {
+                        elem.addEventListener('focus', function() {timer = setInterval(change_text,100);});
+                        elem.addEventListener('blur', function() {clearInterval(timer);});
+                    }
+                    elem.addEventListener('input', function() {
+                        adjust_size(elem);
+                    });
+                    elem.addEventListener('mouseup', function() {
+                        change_resize(elem);
+                    });
+                } else {     // IE 8 対応
+                    elem.attachEvent('onpropertychange', function() {
+                        adjust_size(elem);
+                    });
+                    elem.attachEvent('onmouseup', function() {
+                        change_resize(elem);
+                    });
+                }
+            }(text_area));
+        }
+    })();
+}
+<TMPL_UNLESS memoedit>
+function MemoSub(st) {
+    document.data.cmd.value=st;
+    document.data.target = '';
+    // document.data.action='odrinfo.cgi';
+    document.data.action='odrinfo.cgi?ORDERID=<TMPL_VAR NAME=order_id>';
+    document.data.submit();
+}
+</TMPL_UNLESS>  
+
+<TMPL_UNLESS notedit>
+function CondstSub(st) {
+    document.data.ST.value=st;
+    document.data.target = '';
+    document.data.action='odrinfo-condst-save.cgi';
+    document.data.submit();
+}
+function RecvstSub(st) {
+    document.data.ST.value=st;
+    document.data.target = '';
+    document.data.action='odrinfo-recvst-save.cgi';
+    document.data.submit();
+}
+function ShipstSub(st) {
+    document.data.ST.value=st;
+    document.data.target = '';
+    document.data.action='odrinfo-shipst-save.cgi';
+    var cnt = <TMPL_VAR NAME=dlv_total>;
+    var fg = 0;
+    if ( cnt > 1 ) { // 複数
+        for (i=0;i<cnt;i++){
+            if ( document.data.checkbox[i].checked ) {
+                fg = 1;
+            }
+        }
+        if ( document.data.checkbox.checked ) {
+            fg = 1;
+        }
+        if ( fg == 0 ) {
+            alert('変更したいお届け先を選択してください'); return;
+        }
+    }
+    document.data.submit();
+}
+
+// 後払い決済
+function AtobaraiReorder(order_id, cmd) {
+    if (cmd === 'CANCEL') {
+        myConf = confirm("与信をキャンセルします。\nよろしいですか？");
+        if (myConf === false){
+            return ;
+        }
+    }
+
+    <TMPL_IF NAME=is_atobarai>var is_atobarai = 1;<TMPL_ELSE>var is_atobarai = 0;</TMPL_IF>
+    <TMPL_IF NAME=is_netprotections_deferred_payment>var is_netprotections_deferred_payment = 1;<TMPL_ELSE>var is_netprotections_deferred_payment = 0;</TMPL_IF>
+
+    // submit
+    document.data.ORDERID.value = order_id;
+    document.data.cmd.value     = cmd;
+    if (is_atobarai) {
+        document.data.action = "atobarai_reorder.php";
+    } else if (is_netprotections_deferred_payment) {
+        document.data.action = "netprotections_deferred_payment_reorder.php";
+    } else {
+        return;
+    }
+    document.data.submit();
+}
+
+function TraderSet() {
+    document.data.cmd.value='dt';
+    document.data.target = '';
+    // document.data.action='odrinfo.cgi';
+    document.data.action='odrinfo.cgi?ORDERID=<TMPL_VAR NAME=order_id>';
+    document.data.submit();
+}
+function updateShipDueDate() {
+    document.data.cmd.value = 'sdd';
+    document.data.target = '';
+    document.data.action='odrinfo.cgi?ORDERID=<TMPL_VAR NAME=order_id>';
+    document.data.submit();
+}
+function updateBilledDate() {
+    document.data.cmd.value = 'updateBilledDate';
+    document.data.target = '';
+    document.data.action='odrinfo.cgi?ORDERID=<TMPL_VAR NAME=order_id>';
+    document.data.submit();
+}
+function setCurrentDate(name) {
+    var currentDate = new Date();
+    var day = ("0" + currentDate.getDate()).slice(-2);
+    var month = ("0" + (currentDate.getMonth() + 1)).slice(-2);
+    var year = currentDate.getFullYear();
+    document.getElementById(name+"_year").value = year;
+    document.getElementById(name+"_month").value = month;
+    document.getElementById(name+"_day").value = day;
+}
+function Edit01Sub() {
+    document.data.target = '';
+    document.data.action='odrinfo-edit01.php';
+    document.data.submit();
+}
+function Edit02Sub() {
+    document.data.target = '';
+    document.data.action='odrinfo-edit02.php';
+    document.data.submit();
+}
+function Edit03Sub() {
+    document.data.target = '';
+    document.data.action='odrinfo-edit03.cgi';
+    document.data.submit();
+}
+function MailSub(st,theURL,winName,features) {
+    document.data.mail.value=st;
+    document.data.target = 'OdrMail';
+    var fg = document.data.mail.value;
+    if ( fg == 0 ) {
+            alert('メールテンプレートを選択してください'); return;
+    }
+    window.open(theURL,winName,features);
+    document.data.action='odrinfo-mail.cgi';
+    document.data.submit();
+}
+function PrintSub(theURL,winName,features) {
+    var fg = 0;
+    var cnt = <TMPL_VAR NAME=dlv_total>;
+    var st = document.data.seq.value;
+    var ml = <TMPL_VAR NAME=MULTI>;
+    document.data.seq.value = st;
+    document.data.target = 'OdrPrint';
+
+    if ( st.match(/4|5|99/) && ml ) { // 注文詳細＆複数用 checkbox selectしてるか？
+        for (i=0;i<cnt;i++){
+            if ( document.data.num[i].checked ) {
+                fg = 1;
+            }
+        }
+        if ( document.data.numall.checked || document.data.numoya.checked ) {
+            fg = 1;
+        }
+        if ( fg == 0 ) {
+            alert('印刷したいものにチェックを入れてください'); return;
+        }
+    }
+    window.open(theURL,winName,features);
+    document.data.action='odrprint-print.cgi';
+    if ( st.match(/99/) ) {
+        document.data.action='odrprintinfo.cgi';
+    }
+    document.data.cmd.value='detail';
+    document.data.submit();
+}
+function EReceiptSub(n) {
+    if( n == 0 ){
+        window.open("","EReceipt") ;
+        window.document.data.action = "./make_e_receipt.php" ;
+        window.document.data.target = 'EReceipt';
+        window.document.data.method = "POST" ;
+        window.document.data.submit() ;
+    }else{
+        document.data.action = "odrinfo.cgi";
+        document.data.deleteF.value="1";
+        document.data.submit();
+   }
+}
+</TMPL_UNLESS>
+function ShowDeliv() {
+    document.data.target = '';
+    document.data.action='<TMPL_VAR NAME=back>odrinfo.cgi';
+    document.data.submit();
+}
+function ShowDeliv2(st) {
+    document.data.PAGE.value=st;
+    document.data.target = '';
+    document.data.action='<TMPL_VAR NAME=back>odrinfo.cgi';
+    document.data.submit();
+}
+<TMPL_UNLESS notedit>
+function SetCheck() { // 発送ステータスcheckbox checked
+    var cnt = <TMPL_VAR NAME=dlv_total>;
+    for (i=0;i<cnt;i++){
+        document.data.checkbox[i].checked=true;
+    }
+    if ( cnt == 1 ) {
+        document.data.checkbox.checked=true;
+    }
+}
+function UnSetCheck() { // 発送ステータスcheckbox 解除
+    var cnt = <TMPL_VAR NAME=dlv_total>;
+    for (i=0;i<cnt;i++){
+        document.data.checkbox[i].checked=false;
+    }
+    if ( cnt == 1 ) {
+        document.list.checkbox.checked=false;
+    }
+}
+function SetCheckPrint() { // 印刷 checkbox 全部と子番の制御
+    var cnt = <TMPL_VAR NAME=dlv_total>;
+    var st = document.data.seq.value;
+    if ( document.data.numall.checked ) { // 全部選択　子無効に
+        for (i=0;i<cnt;i++){
+            document.data.num[i].disabled=true;
+            document.data.num[i].checked=false;
+        }
+        if ( st.match(/99/) ) { // 注文詳細選択時
+            document.data.numoya.disabled=true;
+            document.data.numoya.checked=false;
+        }
+    } else { // 全部解除　子有効に
+        for (i=0;i<cnt;i++){
+            document.data.num[i].disabled=false;
+        }
+        if ( st.match(/99/) ) { // 注文詳細選択時
+            document.data.numoya.disabled=false;
+        }
+    }
+}
+function changePrint() { // 印刷select checkbox 制御
+    var cnt = <TMPL_VAR NAME=dlv_total>;
+    var st = document.data.seq.value;
+    if ( st.match(/4|5|99/) ) { // 注文詳細＆複数用 子番 disabled 解除
+        if ( document.data.numall.checked ) { // 全部フラグついてたら、子番 diabled
+            for (i=0;i<cnt;i++){
+                document.data.num[i].disabled=true;
+            }
+        } else {
+            for (i=0;i<cnt;i++){
+                document.data.num[i].disabled=false;
+            }
+        }
+        document.data.numall.disabled=false; // 全部も解除
+    } else { // その他　子番disabled
+        if ( cnt == 1 ) {
+            document.list.checkbox.checked=false;
+        }
+        for (i=0;i<cnt;i++){
+            document.data.num[i].disabled=true;
+            document.data.num[i].checked=false;
+        }
+        document.data.numall.disabled=true; // 全部もdisbaled
+        document.data.numall.checked=false;
+    }
+    if ( st.match(/99/) ) { // 注文詳細選択、親checkbox disabled 解除
+        document.data.numoya.disabled=false;
+    } else {                // それ以外、親checkbox disabled
+        document.data.numoya.disabled=true;
+        document.data.numoya.checked=false;
+    }
+}
+</TMPL_UNLESS>
+function Cancel(stat,p_mail) {
+    document.data.folderst.value=stat;
+    document.data.p_mail.value=p_mail;
+    document.data.action='odrinfo-folder-save.php';
+
+    <TMPL_IF NAME=is_bitcoin>
+        alert("お客様からビットコインが振り込まれていた場合、\n当社から店舗さんに現金を返金しますので、\nお客様へ返金処理を行ってください。");
+    </TMPL_IF>
+
+    document.data.submit();
+}
+function ReturnFol(obj) {
+    myConf = confirm("この注文を受注台帳に戻します。\nよろしいですか？<TMPL_IF NAME=disp_locker_announce>\nお届け先のロッカーの住所を注文者情報で更新します。</TMPL_IF>");
+
+    if (myConf == true){
+        document.data.target = '';
+        document.data.folderst.value=0;
+        document.data.action='odrinfo-folder-save.php';
+        obj.disabled = true;
+        document.data.submit();
+    }
+}
+<TMPL_IF notedit>
+function MailSub(st,theURL,winName,features) {
+    document.data.mail.value=st;
+    document.data.target = 'OdrMail';
+    var fg = document.data.mail.value;
+    if ( fg < 100 && fg != 5) {
+            alert('メールテンプレートを選択してください'); return;
+    }
+    window.open(theURL,winName,features);
+    document.data.action='odrinfo-mail.cgi';
+    document.data.submit();
+}
+</TMPL_IF >
+<TMPL_IF NAME=cancel_date><TMPL_UNLESS NAME=no_cancel>
+function CancelMailForm() {
+    document.data.cmd.value = 'Cancel';
+    document.data.target    = 'CancelMail';
+    window.open('','CancelMail','scrollbars=yes,resizable=yes,menubar=no,toolbar=no,location=no,status=no');
+    document.data.action    = 'odrinfo-cancel-mail.php';
+    document.data.submit();
+}
+</TMPL_UNLESS></TMPL_IF >
+<TMPL_IF NAME=isRakutenId><TMPL_UNLESS NAME=no_cancel>
+function CancelRakutenIdSub() {
+    if(window.confirm('この処理は元に戻せません。\nよろしいですか？')){
+        document.data.cmd.value = 'cancelRakutenid';
+        document.data.target = '';
+        document.data.action='odrinfo.cgi?ORDERID=<TMPL_VAR NAME=order_id>';
+        document.data.submit();
+    }
+}
+</TMPL_UNLESS></TMPL_IF >
+
+<TMPL_IF NAME=is_amazon_payments><TMPL_UNLESS NAME=no_cancel>
+function CancelAmazonPaymentsSub() {
+    if(window.confirm('この処理は元に戻せません。\nよろしいですか？')){
+        document.data.cmd.value = 'cancelAmazonPayments';
+        document.data.target = '';
+        document.data.action='odrinfo.cgi?ORDERID=<TMPL_VAR NAME=order_id>';
+        document.data.submit();
+    }
+}
+</TMPL_UNLESS></TMPL_IF >
+
+//Yahoo決済キャンセルの場合はこの関数呼び出す
+//デグレ対応　20100713
+function CancelYahooWalletForm(order_id) {
+    document.data.cmd.value = 'CancelYahoo';
+    document.data.ORDERID.value = order_id;
+    document.data.target    = 'CancelYahooWallet';
+    document.data.action = 'yahoo_wallet_cancel.php';
+    document.data.submit();
+}
+
+
+function CancelCardAuthForm(order_id) {
+    document.data.cmd.value = 'CancelCardAuth';
+    document.data.ORDERID.value = order_id;
+    document.data.target    = 'CancelCardAuth';
+    document.data.action = 'card_auth_cancel.php';
+    document.data.submit();
+}
+
+
+// メール履歴保存 080930
+function pop_mail_history(order_id) {
+
+    // ポップアップ表示
+    pop_mail = window.open("about:blank","pop_mail_history","scrollbars=yes,resizable=yes,width=600,height=550")
+
+    // submit
+    document.MAIL.target = "pop_mail_history";
+    document.MAIL.action = "order_mail_history.cgi?ORDERID=" + order_id;
+    document.MAIL.submit();
+
+    // forcus
+    pop_mail.window.focus();
+}
+//コンビニ番号端末式　再受注用関数
+function ReOrderCvsOnline(order_id) {
+    // ポップアップ表示
+    pop_cvs_online_order = window.open("about:blank","pop_cvs_online_order","scrollbars=yes,resizable=yes,width=760,height=550")
+
+    // submit
+    document.data.target = "pop_cvs_online_order";
+    document.data.ORDERID.value = order_id;
+    document.data.action = "cvs_online_reorder.php";
+    document.data.submit();
+
+    // forcus
+    pop_cvs_online_order.window.focus();
+}
+//コンビニ番号端末式　注文内容変更履歴
+function pop_cvs_online_history(order_id) {
+
+        // ポップアップ表示
+        pop_cvs_online = window.open("about:blank","pop_cvs_online_history","scrollbars=yes,resizable=yes,width=760,height=550")
+
+        // submit
+        document.MAIL.target = "pop_cvs_online_history";
+        document.MAIL.action = "cvs_online_history_list.php?ORDERID=" + order_id;
+        document.MAIL.submit();
+
+        // forcus
+        pop_cvs_online.window.focus();
+}
+
+//ウェルネット決済　番号確定用関数
+function wellnetDecision(order_id, cmd) {
+    // ポップアップ表示
+    pop_wellnet_order = window.open("about:blank","pop_wellnet_order","scrollbars=yes,resizable=yes,width=760,height=550")
+
+    // submit
+    document.data.target        = "pop_wellnet_order";
+    document.data.ORDERID.value = order_id;
+    document.data.cmd.value     = cmd;
+    document.data.action        = "wellnet_reorder.php";
+    document.data.submit();
+
+    // forcus
+    pop_wellnet_order.window.focus();
+}
+//ウェルネット決済　変更履歴
+function pop_wellnets_history(order_id) {
+
+        // ポップアップ表示
+        pop_wellnet = window.open("about:blank","pop_wellnets_history","scrollbars=yes,resizable=yes,width=760,height=550")
+
+        // submit
+        document.MAIL.target = "pop_wellnets_history";
+        document.MAIL.action = "wellnet_history_list.php?ORDERID=" + order_id;
+        document.MAIL.submit();
+
+        // forcus
+        pop_wellnet.window.focus();
+}
+
+function IraiSet() {
+    document.odrIraiSet.submit();
+}
+
+function error_box_on(error){
+    document.getElementById(error).style.display = "inline";
+}
+
+function error_box_off(error){
+    document.getElementById(error).style.display = "none";
+}
+<TMPL_IF NAME=netprotections_deferred_payment_credit_ng_reason>
+function pop_netprotections_deferred_payment_credit_ng_reason() {
+    var data = <TMPL_VAR NAME=netprotections_deferred_payment_credit_ng_reason>;
+    var outputMsg = '';
+    for(var i = 0; i< data.length; i++){
+        outputMsg = outputMsg + data[i].errorNo + "：" + data[i].errorContents + "\n";
+    }
+    window.alert(outputMsg);
+}
+</TMPL_IF>
+<TMPL_IF NAME=netprotections_deferred_payment_delivery_number_ng_reason>
+function pop_netprotections_deferred_payment_delivery_number_ng_reason() {
+    var data = <TMPL_VAR NAME=netprotections_deferred_payment_delivery_number_ng_reason>;
+    var outputMsg = '';
+    for(var i = 0; i< data.length; i++){
+        outputMsg = outputMsg + data[i].errorNo + "：" + data[i].errorContents + "\n";
+    }
+    window.alert(outputMsg);
+}
+</TMPL_IF>
+<TMPL_IF NAME=authori_reserve_reason>
+function pop_authori_reserve_reason() {
+    var data = <TMPL_VAR NAME=authori_reserve_reason>;
+    var outputMsg = '';
+    for (key in data) {
+        outputMsg = outputMsg + key + "：" + data[key] + "\n";
+    }
+    window.alert(outputMsg);
+}
+</TMPL_IF>
+//-->
+</script>
+<!-- info end -->
+<form name="odrIraiSet" method="post" action="orderlist-irai-save.cgi" target="" onSubmit="return false">
+    <TMPL_UNLESS notedit> <input type="hidden" name="checkbox" value="<TMPL_VAR NAME=order_id>"> </TMPL_UNLESS>
+    <input type="hidden" name="irai_orderid" value="<TMPL_VAR NAME=order_id>">
+</form>
+
+<form name="data" method="post" action="dummy.cgi" target="" onSubmit="return false">
+  <input type="hidden" name="ORDERID" id="ORDERID" value="<TMPL_VAR NAME=order_id>">
+  <input type="hidden" name="PubOrderNo" value="<TMPL_VAR NAME=pub_order_no>">
+  <input type="hidden" name="DLVID" value="<TMPL_VAR NAME=deliv_oid>">
+  <input type="hidden" name="DLVTO" value="<TMPL_VAR NAME=deliverto>">
+  <input type="hidden" name="MULTI" value="<TMPL_VAR NAME=multi>">
+  <input type="hidden" name="ST" value="">
+  <input type="hidden" name="mail" value="">
+  <input type="hidden" name="cmd" value="">
+  <input type="hidden" name="back" value="<TMPL_VAR NAME=back>">
+  <input type="hidden" name="ntag" value="<TMPL_IF multi>1<TMPL_ELSE>0</TMPL_IF>">
+  <input type="hidden" name="folderst" value="">
+  <input type="hidden" name="p_mail" value="">
+  <input type="hidden" name="deleteF" value="">
+<div style="font-size:100%">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">注文データの詳細を確認します。</td>
+    <td align="right" class="midashi"><a href="https://help.shopserve.jp/help/orderlist.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+  <tr bgcolor="#FFFFFF">
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <tr>
+          <td>
+<!-- 届け先複数 -->
+<TMPL_IF multi>
+            <div class="odrinfoChange">
+            <select name="PAGE">
+              <option value="0" selected="selected">注文情報</option>
+  <TMPL_LOOP sellist>
+              <option value="<TMPL_VAR NAME=num>" <TMPL_IF sel>selected="selected"</TMPL_IF>>お届け先<TMPL_VAR NAME=num></option>
+  </TMPL_LOOP>
+            </select>
+            <input type="button" value="表示" onClick="ShowDeliv();">
+            &nbsp;（&nbsp;お届け先&nbsp;：&nbsp;<TMPL_VAR dlv_total>箇所&nbsp;）
+            </div>
+</TMPL_IF>
+<TMPL_IF NAME=ERR_NOORDER>
+<TMPL_LOOP NAME=ERR_NOORDER>
+<p class="center f_red" style="margin:0;padding:0.5em 0;"><TMPL_VAR NAME=MSG></p>
+</TMPL_LOOP>
+<TMPL_ELSE>
+<TMPL_IF NAME=rebuild_schedule_err_msg>
+<p class="f_red" style="margin:0;">・<TMPL_VAR NAME=rebuild_schedule_err_msg></p>
+</TMPL_IF>
+<!-- 届け先複数 -->
+<TMPL_IF folder0>
+<div class="infoArea table_bg">
+    <table width="100%">
+        <tr>
+            <td><a target="_blank" href="https://help.shopserve.jp/manual/201/">決済依頼から代金回収までの流れ</a></td>
+            <td><a target="_blank" href="https://help.shopserve.jp/manual/039/">受注内容の変更方法</a></td>
+            <td align="right"><a target="_blank" href="https://help.shopserve.jp/manual/032/">受注キャンセルの方法</a></td>
+        </tr>
+        <tr>
+            <td colspan="3">※決済依頼を行わないと代金が回収されません</td>
+        </tr>
+    </table>
+</div>
+<TMPL_IF NAME=link_id>
+<div style="width: auto;float:left;">
+<TMPL_IF NAME=link_before_id>
+<a href="odrinfo.cgi?ORDERID=<TMPL_VAR NAME=link_before_id>" ><<前へ</a>
+<TMPL_ELSE>
+&nbsp;
+</TMPL_IF>&nbsp;<TMPL_VAR NAME=pos> / <TMPL_VAR NAME=oid_count>件&nbsp;<TMPL_IF NAME=link_after_id>
+<a href="odrinfo.cgi?ORDERID=<TMPL_VAR NAME=link_after_id>" >次へ>></a>
+<TMPL_ELSE>
+&nbsp;
+</TMPL_IF>
+<input type="button" style="margin-left:2em;" onclick="location.href='orderlist.php?LastCGI=1'" value="受注一覧へ戻る" name="Submit">
+</div>
+<TMPL_ELSE>
+<div style="width: auto;float:left;padding-bottom:3px">
+<input type="button" onclick="location.href='orderlist.php?LastCGI=1'" value="受注一覧へ戻る" name="Submit">
+</div>
+</TMPL_IF>
+<TMPL_UNLESS no_button>
+<div style="text-align: right;">
+  <TMPL_IF atobarai_modify_error><img alt="?" src="./imgs/newSetup_QuestionG.gif" onClick="popUp('odr_cancel_atobarai_n',1)" style="cursor:pointer;"></TMPL_IF>
+  <TMPL_IF NAME=isRakutenId><img alt="?" src="./imgs/newSetup_QuestionG.gif" onClick="popUp('odr_cancel_rakuten_id',1)" style="cursor:pointer;"></TMPL_IF>
+  <TMPL_IF NAME=is_amazon_payments><img alt="?" src="./imgs/newSetup_QuestionG.gif" onClick="popUp('odr_cancel_amazon_payments',1)" style="cursor:pointer;"></TMPL_IF>
+  <TMPL_IF netprotections_deferred_payment_modify_error><img alt="?" src="./imgs/newSetup_QuestionG.gif" onClick="popUp('odr_cancel_netprotections_deferred_payment_n',1)" style="cursor:pointer;"></TMPL_IF>
+  <input type="button" name="" value="この注文をキャンセル" onclick="Cancel('2','<TMPL_VAR NAME=p_mail_escape_quotes>');"<TMPL_IF atobarai_modify_error> disabled</TMPL_IF> <TMPL_IF disableBtnCancelOrder> disabled</TMPL_IF><TMPL_IF flgNotCancelBitcoin> disabled</TMPL_IF><TMPL_IF netprotections_deferred_payment_modify_error> disabled</TMPL_IF>/>
+</div>
+</TMPL_UNLESS>
+<TMPL_ELSE>
+<TMPL_UNLESS no_button>
+<div style="text-align: right;">
+  <input type="button" value="受注台帳に戻す" onClick="ReturnFol(this);">
+</div>
+</TMPL_UNLESS>
+</TMPL_IF>
+</TMPL_IF>
+</div>
+                  <table width="100%" border="0" cellpadding="0" cellspacing="2" bgcolor="#999999">
+                    <tr>
+                      <td colspan="2" class="item-name02">&nbsp;注文情報</td>
+                    </tr>
+                    <tr valign="top">
+                        <td width="50%" bgcolor="#FFFFFF" style="padding:5px">
+                            <table width="100%" border="0" cellpadding="0" cellspacing="1"
+                                bgcolor="#666666">
+                                <tr>
+                                    <td width="45%" class="item-name">
+                                        &nbsp;注文日時
+                                    </td>
+                                    <td width="55%" bgcolor="#FFFFFF" class="item">
+                                        &nbsp;<TMPL_VAR NAME=order_date>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="item-name">
+                                        &nbsp;注文番号
+                                    </td>
+                                    <td bgcolor="#FFFFFF" class="item">
+                                        &nbsp;<TMPL_VAR NAME=pub_order_no>
+                                        <TMPL_VAR NAME=edy_str><TMPL_VAR NAME=yahoo_wallet_str><TMPL_VAR NAME=wellnet_str><TMPL_VAR NAME=netprotections_deferred_payment_str>
+                                    </td>
+                                </tr><TMPL_IF NAME=pub_application_id>
+                                <tr>
+                                    <td class="item-name">
+                                        &nbsp;申込番号
+                                    </td>
+                                    <td bgcolor="#FFFFFF" class="item">
+                                        &nbsp;<a href="rp_order_detail.php?APPLICATIONID=<TMPL_VAR NAME=application_id>"><TMPL_VAR NAME=disp_pub_application_id></a>
+                                    </td>
+                                </tr></TMPL_IF>
+                                <tr>
+                                    <td class="item-name">
+                                        &nbsp;フォルダ
+                                    </td>
+                                    <td bgcolor="#FFFFFF" class="item">
+                                        &nbsp;<TMPL_VAR NAME=folder_str>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="item-name">
+                                        &nbsp;購入ページ
+                                    </td>
+                                    <td bgcolor="#FFFFFF" class="item">
+                                        &nbsp;<TMPL_VAR NAME=pur_way><TMPL_IF NAME=import_order_route_string>（<TMPL_VAR NAME=import_order_route_string>）</TMPL_IF>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="item-name">
+                                        &nbsp;注文経路
+                                    </td>
+                                    <td bgcolor="#FFFFFF" class="item">
+                                        &nbsp;<TMPL_VAR NAME=siten_name>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td class="item-name">
+                                        &nbsp;決済方法
+                                    </td>
+                                    <td bgcolor="#FFFFFF" class="item">
+                                        <TMPL_IF NAME=pm_escape>
+                                        &nbsp;<TMPL_VAR escape=HTML NAME=pm_str>
+                                        <TMPL_ELSE>
+                                        &nbsp;<TMPL_VAR NAME=pm_str></TMPL_IF>&nbsp;<TMPL_IF NAME=IS_GLOBAL_CARD>海外発行</TMPL_IF><TMPL_IF NAME=IS_DEBIT_CARD>デビット</TMPL_IF>
+                                    </td>
+                                </tr>
+                                <TMPL_IF NAME=isRakutenId>
+                                <tr>
+                                    <td class="item-name">
+                                        &nbsp;楽天スーパー<br>
+                                        &nbsp;ポイント利用<img alt="?" src="./imgs/newSetup_QuestionG.gif" onClick="popUp('odr_rakuten_used_point',1)" style="cursor:pointer;">
+                                    </td>
+                                    <td bgcolor="#FFFFFF" class="item">
+                                        &nbsp;<TMPL_VAR NAME=dispRakutenUsedPoint>
+                                    </td>
+                                </tr>
+                                </TMPL_IF>
+                                <TMPL_IF NAME=is_amazon_payments>
+                                <tr>
+                                    <td class="item-name">
+                                        &nbsp;リファレンスID
+                                    </td>
+                                    <td bgcolor="#FFFFFF" class="item">
+                                        &nbsp;<a href="<TMPL_VAR NAME=amazon_order_detail_url>" target="_blank"><TMPL_VAR NAME=reference_id></a>
+                                    </td>
+                                </tr>
+                                </TMPL_IF>
+                                <TMPL_IF NAME=is_bitcoin>
+                                  <tr>
+                                      <td class="item-name">
+                                          &nbsp;レート
+                                      </td>
+                                      <td bgcolor="#FFFFFF" class="item">
+                                          &nbsp;1BTC = <TMPL_VAR NAME=rate>円
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td class="item-name">
+                                          &nbsp;請求ビットコイン
+                                      </td>
+                                      <td bgcolor="#FFFFFF" class="item">
+                                          &nbsp;<TMPL_VAR NAME=btc_quantity>BTC
+                                      </td>
+                                  </tr>
+                                  <tr>
+                                      <td class="item-name">
+                                          &nbsp;振込有効期限
+                                      </td>
+                                      <td bgcolor="#FFFFFF" class="item">
+                                        &nbsp;<TMPL_VAR NAME=order_limit>
+                                        <TMPL_IF NAME=flgBitcoinExpired>
+                                          <br>&nbsp;<font color="red">期限内入金がありませんでした。</font>
+                                        </TMPL_IF>
+                                      </td>
+                                  </tr>
+                                </TMPL_IF>
+                                <tr>
+                                    <td class="item-name">
+                                        &nbsp;お届け方法
+                                    </td>
+                                    <td bgcolor="#FFFFFF" class="item">
+                                        &nbsp;<TMPL_VAR NAME=delivery_name ESCAPE=HTML>
+                                    </td>
+                                </tr>
+                                <TMPL_IF NAME=couponNameDispFlag>
+                                <tr>
+                                    <td class="item-name">
+                                        &nbsp;利用クーポン
+                                    </td>
+                                    <td bgcolor="#FFFFFF" class="item">
+                                        &nbsp;<TMPL_VAR NAME=coupon_name>
+                                    </td>
+                                </tr>
+                                </TMPL_IF>
+                            </table>
+                            <TMPL_IF NAME=flgBitcoinExitst>
+                              <br>
+                              <table width="100%" border="0" cellpadding="3" cellspacing="1" bgcolor="#666666">
+                                <tr>
+                                  <td bgcolor="#bae2b9" colspan="4" align="center">入金履歴</td>
+                                </tr>
+                                <tr>
+                                  <td bgcolor="#bae2b9" align="center">日時</td>
+                                  <td bgcolor="#bae2b9" align="center">入BTC</td>
+                                  <td bgcolor="#bae2b9" align="center">レート</td>
+                                  <td bgcolor="#bae2b9" align="center">日本円</td>
+                                </tr>
+                                <TMPL_LOOP NAME="bitcoinList">
+                                  <tr>
+                                    <td bgcolor="#FFFFFF"><TMPL_VAR NAME=created_date></td>
+                                    <td bgcolor="#FFFFFF"><TMPL_VAR NAME=btc_result>BTC</td>
+                                    <td bgcolor="#FFFFFF"><TMPL_VAR NAME=btc_rate></td>
+                                    <td bgcolor="#FFFFFF"><TMPL_VAR NAME=payment></td>
+                                  </tr>
+                                </TMPL_LOOP>
+                              </table>
+                            </TMPL_IF>
+                            <TMPL_IF NAME=cvs_online_history>
+                            <div style="text-align:right;"><a href="javascript:pop_cvs_online_history(<TMPL_VAR NAME=order_id>)">→決済番号の変更履歴を確認する</a></div>
+                            </TMPL_IF>
+                            <TMPL_IF NAME=wellnets_history>
+                            <div style="text-align:right;"><a href="javascript:pop_wellnets_history(<TMPL_VAR NAME=order_id>)">→支払番号の変更履歴を確認する</a></div>
+                            </TMPL_IF>
+                        </td>
+                      <div id="odrinfo_send_mail" class="dialog_disp">
+                          <div id="odrinfo_send_mail_f" class="dialog_main">
+                              <a href="#close" class="close" onclick="return dlgClose()"></a>
+                              <dl class="content">
+                                  <p><a href="odrmail.php" target="_blank">管理画面＞お店運営＞メールテンプレートにて設定したメールを送信できます。</a></p>
+                              </dl>
+                          </div>
+                      </div>
+                      <div id="odrinfo_print_doc" class="dialog_disp">
+                          <div id="odrinfo_print_doc_f" class="dialog_main">
+                              <a href="#close" class="close" onclick="return dlgClose()"></a>
+                              <dl class="content">
+                                  <p><a href="odrprint.cgi" target="_blank">管理画面＞お店運営＞印刷書類のテンプレートにて設定した書類を印刷できます。</a></p>
+                              </dl>
+                          </div>
+                      </div>
+                      <div id="receipt" class="dialog_disp">
+                          <div id="receipt_f" class="dialog_main">
+                              <a href="#close" class="close" onclick="return dlgClose()"></a>
+                              <dl class="content">
+                                  <p>領収書を要望された場合に、電子領収書の発行や管理を行います。</p>
+                                  <p style="line-height:230%;">
+                                      &#12288;&#12288;<a href="https://help.shopserve.jp/manual/113/" target="_blank">【マニュアル】 電子領収書について</a><br>
+                                      &#12288;&#12288;<a href="https://help.shopserve.jp/manual/020/#04" target="_blank">【マニュアル】 電子領収書発行の流れ</a>
+                                  </p>
+                                  <p style="line-height:170%;">
+                                      発行すると電子領収書を閲覧できるURLを生成します。URLをメールなどでお客さんに伝えましょう。<br>
+                                      電子領収書の内容は<a target="_blank" href="e_receipt_template.php">電子領収書のテンプレート</a>で設定できます。
+                                  </p>
+                                  <br>
+                                  <p style="line-height:150%;">
+                                      発行&nbsp;&nbsp;&nbsp;：テンプレートを元に電子領収書の発行を行います。<br>
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      発行時に内容を編集することができます。
+                                  </p>
+                                  <p style="line-height:150%;">
+                                      再発行：既に発行した内容を元に編集し再発行を行います。<br>
+                                      &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                      注文内容変更に伴う再発行時は、一度削除し新たに発行してください。
+                                  </p>
+                                  <p style="line-height:150%;">
+                                      削除&nbsp;&nbsp;&nbsp;：発行した電子領収書を削除します。同時に閲覧ができなくなります。
+                                  </p>
+                                  <br>
+                                  <p>店舗閲覧用：発行した電子領収書の期限にかかわらず、発行から最大13ケ月の間、発行内容を確認できます。</p>
+                              </dl>
+                          </div>
+                      </div>
+                      <div id="odr_modify_atobarai" class="dialog_disp">
+                          <div id="odr_modify_atobarai_f" class="dialog_main">
+                              <a href="#close" class="close" onclick="return dlgClose()"></a>
+                              <dl class="content">
+                                  <p>
+                                  後払い決済では、注文受付時のお客さま情報を元に与信審査を行っているため、<br>
+                                  一度与信ＯＫになった注文は、注文者情報・お届け先情報の変更ができません。<br><br>
+                                  変更する場合は、与信の取り直しが必要となります。<br>
+                                  下記の１〜３の手順で変更を行ってください。<br><br><br>
+                                  １）決済ステータス欄にある「与信キャンセル」ボタンをクリックします。<br><br>
+                                  ２）注文者情報、お届け先情報の変更をします。<br><br>
+                                  ３）決済ステータス欄にある「与信の再実行」ボタンをクリックします。<br><br><br>
+                                  以上の操作で、再度、与信審査が行われます。<br>
+                                  決済ステータスが「与信ＯＫ」になることを確認後、<br>
+                                  「決済依頼」を行ってください。<br><br>
+                                  ※決済ステータス欄に、「購入者入金確認済」の表示がある場合、<br>
+                                  　注文者情報・お届け先情報の変更はできません。
+                                  </p>
+                              </dl>
+                          </div>
+                      </div>
+                     <div id="odr_cancel_atobarai_n" class="dialog_disp">
+                          <div id="odr_cancel_atobarai_n_f" class="dialog_main">
+                              <a href="#close" class="close" onclick="return dlgClose()"></a>
+                              <dl class="content">
+                                  <p>
+                                  後払い決済では、注文受付時に与信審査を行っているため、<br>
+                                  注文キャンセルを行うには、先に与信のキャンセルが必要です。<br><br>
+                                  決済ステータス欄にある「与信キャンセル」ボタンをクリックして、<br>
+                                  与信のキャンセルを行ってください。<br><br>
+                                  ※決済ステータス欄に、「購入者入金確認済」の表示がある場合、<br>
+                                  　注文キャンセルはできません。
+                                  </p>
+                              </dl>
+                          </div>
+                      </div>
+                      <div id="odr_cancel_rakuten_id" class="dialog_disp">
+                          <div id="odr_cancel_rakuten_id_f" class="dialog_main">
+                              <a href="#close" class="close" onclick="return dlgClose()"></a>
+                              <dl class="content">
+                                  <p>
+                                  楽天ペイの注文をキャンセルするには、<br>
+                                  先に決済のキャンセルが必要です。<br><br>
+                                  決済ステータス欄にある「楽天ペイをキャンセル」ボタンを<br>
+                                  クリックして、楽天ペイのキャンセルを行ってください。<br><br>
+                                  ※決済ステータス欄の表示が「回収予定」に変更後、<br>
+                                  15日以上経過している場合、注文のキャンセルはできません。<br>
+                                  </p>
+                              </dl>
+                          </div>
+                      </div>
+                      <div id="odr_cancel_amazon_payments" class="dialog_disp">
+                          <div id="odr_cancel_amazon_payments_f" class="dialog_main">
+                              <a href="#close" class="close" onclick="return dlgClose()"></a>
+                              <dl class="content">
+                                  <p>
+                                  Amazon Payの注文をキャンセルするには、<br>
+                                  先に決済のキャンセルが必要です。<br><br>
+                                  決済ステータス欄にある「Amazon Payをキャンセル」ボタンを<br>
+                                  クリックして、Amazon Payのキャンセルを行ってください。<br>
+                                  </p>
+                              </dl>
+                          </div>
+                      </div>
+                      <div id="odr_modify_netprotections_deferred_payment" class="dialog_disp">
+                          <div id="odr_modify_netprotections_deferred_payment_f" class="dialog_main">
+                              <a href="#close" class="close" onclick="return dlgClose()"></a>
+                              <dl class="content">
+                                  <p>NP後払いでは、注文受付時のお客さま情報を元に与信審査を行っているため、<br>
+                                     一度与信ＯＫになった注文は、注文者情報・お届け先情報の変更ができません。</p>
+                                  <p>変更する場合は、与信の取り直しが必要となります。<br>
+                                     下記の１〜３の手順で変更を行ってください。</p>
+                                  <div style="margin:2em auto; line-height:1em;">
+                                    <p>１）決済ステータス欄にある「与信キャンセル」ボタンをクリックします。</p>
+                                    <p>２）注文者情報、お届け先情報の変更をします。</p>
+                                    <p>３）決済ステータス欄にある「与信の再実行」ボタンをクリックします。</p>
+                                  </div>
+                                  <p>以上の操作で、再度、与信審査が行われます。<br>
+                                     決済ステータスが「与信ＯＫ」になることを確認後、<br>
+                                     「決済依頼」を行ってください。</p>
+                              </dl>
+                          </div>
+                      </div>
+                      <div id="odr_cancel_netprotections_deferred_payment_n" class="dialog_disp">
+                          <div id="odr_cancel_netprotections_deferred_payment_n_f" class="dialog_main">
+                              <a href="#close" class="close" onclick="return dlgClose()"></a>
+                              <dl class="content">
+                                  <p>NP後払いでは、注文受付時に与信審査を行っているため、<br>
+                                     注文キャンセルを行うには、先に与信のキャンセルが必要です。</p>
+                                  <p>決済ステータス欄にある「与信キャンセル」ボタンをクリックして、<br>
+                                     与信のキャンセルを行ってください。</p>
+                              </dl>
+                          </div>
+                      </div>
+                      <TMPL_IF NAME=isRakutenId>
+                      <div id="odr_rakuten_used_point" class="dialog_disp">
+                          <div id="odr_rakuten_used_point_f" class="dialog_main">
+                              <a href="#close" class="close" onclick="return dlgClose()"></a>
+                              <dl class="content">
+                                  <p>
+                                  購入者が利用した楽天スーパーポイント数が表示されます。<br>
+                                  楽天スーパーポイントの利用が無い場合、「 --- 」と表示されます。<br>
+                                  </p>
+                              </dl>
+                          </div>
+                      </div>
+                      </TMPL_IF>
+                      <td width="50%" bgcolor="#FFFFFF" style="padding:5px">
+                      <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666">
+                          <tr>
+                            <td width="45%" class="item-name">&nbsp;各種メール送信<img alt="?" src="./imgs/newSetup_QuestionG.gif" onClick="popUp('odrinfo_send_mail',1)" style="cursor:pointer;"></td>
+                            <td width="55%" class="item">
+<TMPL_IF notedit>
+&nbsp;
+                                <TMPL_IF mail_con>
+                                        &nbsp;確認&nbsp;
+                                </TMPL_IF>
+                                <TMPL_IF mail_rec>
+                                        <TMPL_IF mail_con>／</TMPL_IF>
+                                        &nbsp;入金&nbsp;
+                                </TMPL_IF>
+                                <TMPL_IF mail_sen>
+                                        <TMPL_IF mail_con>／<TMPL_ELSE><TMPL_IF mail_rec>／</TMPL_IF></TMPL_IF>
+                                        &nbsp;発送&nbsp;
+                                </TMPL_IF>
+<TMPL_ELSE>
+                            <TMPL_IF regular_k>
+                              <input type="button" name="Submit" value="確認" onClick="MailSub(11,'','OdrMail','');" >
+                              <input type="button" name="Submit" value="入金" onClick="MailSub(12,'','OdrMail','');" >
+                              <input type="button" name="Submit" value="発送" onClick="MailSub(13,'','OdrMail','');" >
+                            <TMPL_ELSE>
+                              <input type="button" name="Submit" value="確認" onClick="MailSub(1,'','OdrMail','');" >
+                              <input type="button" name="Submit" value="入金" onClick="MailSub(2,'','OdrMail','');" >
+                              <input type="button" name="Submit" value="発送" onClick="MailSub(3,'','OdrMail','');" >
+                            </TMPL_IF>
+</TMPL_IF>
+                              <br>
+                            <!-- 送信履歴追加 080929 -->
+                                <TMPL_IF NAME=display_mail_history>
+                                <table border="0" cellspacing="0" cellpadding="0" style="width:100%">
+                                    <tr>
+                                        <td style="padding:3px 3px 0px 5px"><TMPL_VAR NAME=latest_mail></td>
+                                    </tr>
+                                    <tr>
+                                        <td style="padding:0px 3px 3px 5px;text-align:right;"><a href="javascript:pop_mail_history(<TMPL_VAR NAME=order_id>)">送信履歴はこちらから</a></td>
+                                    </tr>
+                                </table>
+                            <!-- end 080929 -->
+                                </TMPL_IF>
+                              <select name="MailSelect">
+                                <option value="0">メールテンプレートから選択</option>
+                                <option value="5">フォローメール</option>
+<TMPL_LOOP mailloop>
+                                <option value="<TMPL_VAR NAME=seq>"><TMPL_VAR NAME=title></option>
+</TMPL_LOOP>
+                              </select>
+                              <input type="button" value="選択" onClick="MailSub(document.data.MailSelect.value,'','OdrMail','');">
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="item-name" >&nbsp;各種書類印刷<img alt="?" src="./imgs/newSetup_QuestionG.gif" onClick="popUp('odrinfo_print_doc',1);" style="cursor:pointer;"></td>
+                            <td class="item">
+                              <select name="seq" <TMPL_IF multi>onChange="changePrint();"</TMPL_IF>>
+                                <option value="99" selected>注文詳細</option>
+                                <option value="2">請求書</option>
+                                <TMPL_UNLESS multi><option value="0">納品書（通常用）</option></TMPL_UNLESS>
+                                <TMPL_UNLESS multi><option value="1">納品書（贈答用）</option></TMPL_UNLESS>
+                                <TMPL_IF multi><option value="5">納品書（複数通常用）</option></TMPL_IF>
+                                <TMPL_IF multi><option value="4">納品書（複数贈答用）</option></TMPL_IF>
+                                <option value="3">領収書</option>
+                              </select>
+<TMPL_IF notedit>
+                              <input type="button" name="Submit" value="印刷" disabled>
+<TMPL_ELSE>
+                              <input type="button" name="Submit" value="印刷" onClick="PrintSub('','OdrPrint','');">
+</TMPL_IF>
+<TMPL_IF multi>
+<div><input type="checkbox" name="numall" value="1" onClick="SetCheckPrint();">全て</div>
+<div>印刷するお届け先を選択してください</div>
+<div><input type="checkbox" name="numoya" value="1">注文情報</div>
+<TMPL_LOOP NAME=chklist>
+  <div class="odrinfoPrint"><input type="checkbox" name="num" value="<TMPL_VAR NAME=chk>"><TMPL_VAR NAME=chk></div>
+</TMPL_LOOP>
+</TMPL_IF>
+                            </td>
+                          </tr>
+<!--電子領収書-->
+                         <tr>
+                            <td width="45%" class="item-name">&nbsp;電子領収書発行<img alt="?" src="./imgs/newSetup_QuestionG.gif" onClick="popUp('receipt',1)" style="cursor:pointer;"></td>
+                            <td width="55%" class="item">
+<TMPL_IF notedit>
+  <TMPL_IF receipt_flg>
+                              <input type="button" name="Submit" value="発行済" disabled >
+                              <input type="button" name="Submit" value="再発行" disabled >
+                              <input type="button" name="Submit" value="削除"   disabled >
+                                <table border="0" cellspacing="0" cellpadding="0" style="width:100%">
+                                  <tr>
+                                    <td style="padding:3px 3px 0px 5px"><span style="white-space:nowrap">発行日時&nbsp;：&nbsp;<TMPL_VAR NAME=req_date></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td style="padding:0px 3px 3px 5px"><span style="white-space:nowrap">閲覧期限&nbsp;：&nbsp;<TMPL_VAR NAME=expired_date></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td style="padding:0px 3px 3px 5px">
+                                      <a href="<TMPL_VAR NAME=receipt_url>" target="_blank"><TMPL_VAR NAME=receipt_url></a>
+                                    </td>
+                                  <tr>
+                                      <td style="padding:0px 3px 3px 5px;text-align:right;">
+                                        <a href="<TMPL_VAR NAME=kanri_url>"  target="_blank"> >>店舗閲覧用</a>
+                                      </td>
+                                  </tr>
+                                  </table>
+  <TMPL_ELSE>
+                              <input type="button" name="Submit" value="発行" disabled>
+  </TMPL_IF>
+<TMPL_ELSE>
+  <TMPL_IF receipt_flg>
+                              <input type="button" name="Submit" value="発行済" disabled >
+                              <input type="button" name="Submit" value="再発行" onClick="EReceiptSub(0);" >
+                              <input type="button" name="Submit" value="削除"   onClick="EReceiptSub(1);" >
+                                <table border="0" cellspacing="0" cellpadding="0" style="width:100%">
+                                  <tr>
+                                    <td style="padding:3px 3px 0px 5px"><span style="white-space:nowrap">発行日時&nbsp;：&nbsp;<TMPL_VAR NAME=req_date></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td style="padding:0px 3px 3px 5px"><span style="white-space:nowrap">閲覧期限&nbsp;：&nbsp;<TMPL_VAR NAME=expired_date></span></td>
+                                  </tr>
+                                  <tr>
+                                    <td style="padding:0px 3px 3px 5px">
+                                      <a href="<TMPL_VAR NAME=receipt_url>" target="_blank"><TMPL_VAR NAME=receipt_url></a>
+                                    </td>
+                                  <tr>
+                                      <td style="padding:0px 3px 3px 5px;text-align:right;">
+                                        <a href="<TMPL_VAR NAME=kanri_url>"  target="_blank"> >>店舗閲覧用</a>
+                                      </td>
+                                  </tr>
+                                 </table>
+  <TMPL_ELSE>
+<TMPL_VAR NAME=receipt_flg>
+                              <input type="button" name="Submit" value="発行" onClick="EReceiptSub(0);">
+  </TMPL_IF>
+</TMPL_IF>
+                           </td>
+                         </tr>
+<!--電子領収書-->
+                        </table>
+                        <div id="send_sched" class="dialog_disp">
+                          <div id="send_sched_f" class="dialog_main" style="width: 450px">
+                              <a href="#close" class="close" onclick="return dlgClose()"></a>
+                              <dl class="content">
+                                  <p>決済依頼のタイミングにより以下のスケジュールでハガキが発送されます。<br>
+                                     ・ハガキ発送スケジュール<br>
+                                     平日朝10：45まで⇒当日の夕方<br>
+                                     平日朝10：45以降⇒次の日の夕方<br>
+                                     金曜日の朝10：45以降⇒翌週月曜日の夕方<br>（祝日の場合は翌営業日）</p>
+                              </dl>
+                          </div>
+                        </div>
+                        <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666" style="margin-top:5px">
+                          <tr>
+                            <td width="45%" class="item-name">&nbsp;確認ステータス</td>
+                            <td width="55%" class="item">
+<TMPL_UNLESS notedit>
+                              <input type="button" name="Submit" value="未確認" onClick="CondstSub(0);"<TMPL_IF cond_sel0> disabled</TMPL_IF>>
+                              <input type="button" name="Submit" value="確認済" onClick="CondstSub(1);"<TMPL_IF cond_sel1> disabled</TMPL_IF>>
+</TMPL_UNLESS>
+                            <br>
+                            <TMPL_VAR NAME=cond_date>&nbsp;<TMPL_VAR NAME=cond_str>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="item-name">&nbsp;決済ステータス</td>
+                            <td class="item">
+                              <TMPL_IF NAME=irai_date>&nbsp;<TMPL_VAR NAME=irai_date><TMPL_IF send_sched><img alt="?" src="./imgs/newSetup_QuestionG.gif" onClick="popUp('send_sched',1)" style="cursor:pointer;"></TMPL_IF>
+                                <TMPL_IF NAME=settle_st><TMPL_UNLESS settle_st_var><br></TMPL_UNLESS></TMPL_IF></TMPL_IF>
+                                 <TMPL_IF NAME=nyukin_date>&nbsp;<TMPL_VAR NAME=nyukin_date><br></TMPL_IF>
+                              <TMPL_UNLESS NAME=settle_st_var>&nbsp;<span id="StatusMode"><TMPL_VAR NAME=settle_st></span></TMPL_UNLESS>
+                              <TMPL_IF show_irai_button>
+                                  <span id="KessBtn" style="display:inline">
+                                    <br>&nbsp;<input type="button" name="Submit_btn" value="決済依頼" <TMPL_IF is_disable_irai> disabled <TMPL_ELSE> onclick="IraiSet();"</TMPL_IF>>
+                                    <br><a target="_blank" href="https://help.shopserve.jp/manual/045/#03">不正注文にご注意ください。</a>
+                                  </span>
+                              </TMPL_IF>
+                              <TMPL_UNLESS notedit>
+                                <TMPL_IF NAME=is_atobarai>
+                                  <span id="KessBtn" style="display:inline">
+                                    <br>&nbsp;<input type="button" name="atobarai_cancel"<TMPL_UNLESS NAME=atobarai_cancle> disabled</TMPL_UNLESS> value="与信キャンセル" onClick="AtobaraiReorder(<TMPL_VAR NAME=order_id>, 'CANCEL')">
+                                  </span>
+                                  <span id="KessBtn" style="display:inline">
+                                    <br>&nbsp;<input type="button" name="atobarai_recredic" value="与信の再実行" <TMPL_UNLESS NAME=atobarai_decision>disabled</TMPL_UNLESS> onClick="AtobaraiReorder(<TMPL_VAR NAME=order_id>, 'RECREDIT')">
+                                  </span>
+                                </TMPL_IF>
+                                <TMPL_IF NAME=is_netprotections_deferred_payment>
+                                  <span id="KessBtn" style="display:inline">
+                                    <br>&nbsp;<input type="button" name="atobarai_cancel"<TMPL_UNLESS NAME=netprotections_deferred_payment_cancle> disabled</TMPL_UNLESS> value="与信キャンセル" onClick="AtobaraiReorder(<TMPL_VAR NAME=order_id>, 'CANCEL')">
+                                  </span>
+                                  <span id="KessBtn" style="display:inline">
+                                    <br>&nbsp;<input type="button" name="atobarai_recredic" value="与信の再実行" <TMPL_UNLESS NAME=netprotections_deferred_payment_decision>disabled</TMPL_UNLESS> onClick="AtobaraiReorder(<TMPL_VAR NAME=order_id>, 'RECREDIT')">
+                                  </span>
+                                </TMPL_IF>
+                              </TMPL_UNLESS>
+                              <TMPL_IF NAME=wellnet_decision>
+                              <span id="KessBtn" style="display:inline">
+                                <br>&nbsp;<input type="button" name="wn_decision" value="金額確定・支払番号取得" onClick="wellnetDecision(<TMPL_VAR NAME=order_id>, 'EDT')">
+                              </span>
+                              </TMPL_IF>
+
+                              <TMPL_IF NAME=wellnet_cancel>
+                              <span id="KessBtn" style="display:inline">
+                                <br>&nbsp;<input type="button" name="wn_cancel" value="キャンセル" onClick="wellnetDecision(<TMPL_VAR NAME=order_id>, 'DEL')">
+                              </span>
+                              </TMPL_IF>
+
+                              <TMPL_IF NAME=is_card_auth>
+                              <span id="KessBtn" style="display:inline">
+                                <br>&nbsp;<input type="button" name="kessai_cancel" value="オーソリ解除" onClick="<TMPL_VAR NAME=cancelfunc_name>" >
+                                <br>オーソリ解除を行うと、購入者様のクレジットカード与信枠が解除できます。
+                              </span>
+                              </TMPL_IF>
+
+                              <TMPL_IF NAME=is_yahoo>
+                              <span id="KessBtn" style="display:inline">
+                                <br>&nbsp;<input type="button" name="kessai_cancel" value="オーソリ解除" onClick="<TMPL_VAR NAME=cancelfunc_name>" >
+                                <br>オーソリ解除を行うと、Yahoo!ウォレットに登録されている購入者様のクレジットカード与信枠が解除できます。
+                              </span>
+                              <TMPL_ELSE>
+
+                              <TMPL_IF NAME=cvs_online_reorder>
+                              <span id="KessBtn" style="display:inline">
+                                <br>&nbsp;<input type="button" name="re_order" value="番号再発行" onClick="ReOrderCvsOnline(<TMPL_VAR NAME=order_id>)" <TMPL_IF NAME=no_cancel>disabled</TMPL_IF>>
+                                <br><a href="https://help.shopserve.jp/manual/039/" target="manual">→再発行後の流れについて</a>
+                              </span>
+                              <TMPL_ELSE>
+
+                              <TMPL_IF NAME=isRakutenId>
+                              <span id="rakutenIdBtn" style="display:inline">
+                                <br>&nbsp;<input type="button" name="rakuten_id_cancel" value="楽天ペイをキャンセル" <TMPL_UNLESS NAME=no_cancel>onClick="CancelRakutenIdSub();"</TMPL_UNLESS> <TMPL_IF NAME=no_cancel>disabled</TMPL_IF>>
+                                <TMPL_IF NAME=cancel_date><br>&nbsp;※<TMPL_VAR NAME=cancel_date>までキャンセル可能</TMPL_IF>
+                              </span>
+                              <TMPL_ELSE>
+
+                              <TMPL_IF NAME=is_amazon_payments>
+                              <span id="amazonPaymentsBtn" style="display:inline">
+                                <br>&nbsp;<input type="button" name="amazon_payments_cancel" value="Amazon Payをキャンセル" <TMPL_UNLESS NAME=no_cancel>onClick="CancelAmazonPaymentsSub();"</TMPL_UNLESS> <TMPL_IF NAME=no_cancel>disabled</TMPL_IF>>
+                              </span>
+                              <TMPL_ELSE>
+
+                              <TMPL_IF NAME=cancel_date>
+                              <span id="KessBtn" style="display:inline">
+                                <br>&nbsp;<input type="button" name="kessai_cancel" value="決済依頼キャンセル" onClick="<TMPL_VAR NAME=cancelfunc_name>" <TMPL_IF NAME=no_cancel>disabled</TMPL_IF>>
+                                <br>&nbsp;※<TMPL_VAR NAME=cancel_date>までキャンセル可能
+                              </span>
+
+                              </TMPL_IF><!-- is_yahooの閉じIF -->
+                              </TMPL_IF><!-- isRakutenId IF -->
+                              </TMPL_IF><!-- is_amazon_payments IF -->
+                              </TMPL_IF><!-- cvs_online_reorderの閉じIF -->
+                              </TMPL_IF><!-- cancel_dateの閉じIF -->
+
+                              <TMPL_IF NAME=CVS_SET><TMPL_IF NAME=settle_st>
+                                <br>
+                                &nbsp;<input type="button" name="" value="払込票再発行" <TMPL_IF NAME=CVS_FORM>enabled<TMPL_ELSE>disabled</TMPL_IF> onClick="window.open('./conv_mail_send.php?i=<TMPL_VAR NAME=STORE_NAME>&n=<TMPL_VAR NAME=form_name>&s=<TMPL_VAR NAME=order_id>&o=<TMPL_VAR NAME=pub_order_no>&m=<TMPL_VAR NAME=disp_total>','conv_mail','width=500,height=400,menubar=no, toolbar=no, scrollbars=yes, resizable=yes');"> <font color="red"></font>
+                              </TMPL_IF></TMPL_IF>
+                              <TMPL_IF NAME=cancel_link>
+                                <br><a href="javascript:;" onClick="window.open('https://help.shopserve.jp/manual/032/#01-2','manual','width=600,height=500,toolbar=0,location=0,directories=0,menubar=0,status=0,scrollbars=1,resizable=1');">&nbsp;⇒ 決済依頼後のキャンセルについて</a>
+                              </TMPL_IF>
+                              <TMPL_IF NAME=reSendInvoice>
+                                <br>
+                                &nbsp;<input type="button" name="" <TMPL_UNLESS NAME=reSendInvoiceEnable> disabled</TMPL_UNLESS> value="請求書再発行" onClick="window.open('./atobarai_mail_send.php?i=<TMPL_VAR NAME=STORE_NAME>&n=<TMPL_VAR NAME=form_name>&s=<TMPL_VAR NAME=order_id>&o=<TMPL_VAR NAME=pub_order_no>&m=<TMPL_VAR NAME=disp_total>','atobarai_mail','width=500,height=400,menubar=no, toolbar=no, scrollbars=yes, resizable=yes');">
+                                <TMPL_IF NAME=billReissueRequestedDate>
+                                  <br>
+                                  &nbsp;<TMPL_VAR NAME=billReissueRequestedDate>
+                                </TMPL_IF>
+                              </TMPL_IF>
+                              <TMPL_IF NAME=netprotections_deferred_payment_credit_ng_reason>
+                                <br>
+                                <a href="#!" onclick="pop_netprotections_deferred_payment_credit_ng_reason();">&nbsp;⇒ 与信NG理由</a>
+                              </TMPL_IF>
+                              <TMPL_IF NAME=netprotections_deferred_payment_delivery_number_ng_reason>
+                                <br>
+                                <a href="#!" onclick="pop_netprotections_deferred_payment_delivery_number_ng_reason();">&nbsp;⇒ 登録エラー理由</a>
+                              </TMPL_IF>
+                              <TMPL_IF NAME=authori_reserve_reason>
+                                <br>
+                                <a href="#!" onclick="pop_authori_reserve_reason();">&nbsp;⇒ 与信保留理由</a>
+                              </TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="item-name">&nbsp;入金ステータス</td>
+                            <td class="item">
+<TMPL_UNLESS notedit>
+                              <input type="button" name="Submit" value="未入金" onClick="RecvstSub(0);"<TMPL_IF recv_sel0> disabled</TMPL_IF>>
+                              <input type="button" name="Submit" value="入金済" onClick="RecvstSub(1);"<TMPL_IF recv_sel1> disabled</TMPL_IF>>
+</TMPL_UNLESS>
+                              <br>
+                              &nbsp;<TMPL_VAR NAME=recv_str></td>
+                          </tr>
+                      </table></td>
+                    </tr>
+
+<TMPL_IF tsn_conf_disp>
+                    <tr>
+                      <td colspan="2" bgcolor="#FFFFFF" style="padding:5px">
+                        <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666">
+                          <tr>
+                            <td class="item-name">
+                              &nbsp;<TMPL_VAR NAME=free_title>
+                              <TMPL_UNLESS notedit>
+                                <input type="button" name="Submit" value="編集" onClick="Edit03Sub();">
+                              </TMPL_UNLESS>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td bgcolor="#FFFFFF" class="item"><TMPL_VAR NAME=free_comment>&nbsp;</td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+</TMPL_IF>
+
+                  </table>
+                  <br>
+<TMPL_IF no_odr_dtl>
+                  <table width="100%" border="0" cellpadding="0" cellspacing="2" bgcolor="#999999">
+                    <tr bgcolor="#CCCCCC">
+                      <td colspan="2" class="item-name02"><strong>&nbsp;注文内容</strong>
+<TMPL_UNLESS notedit>
+                        <input type="button" name="Submit" value="編集" onClick="Edit01Sub();">
+</TMPL_UNLESS>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" valign="top" bgcolor="#FFFFFF" style="padding:5px">
+                        <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666">
+                          <tr align="center" bgcolor="#FFFFFF" class="item">
+                            <td>商品番号</td>
+                            <td><TMPL_VAR NAME=cart_itm_name></td>
+                            <td><TMPL_VAR NAME=cart_prc_name></td>
+                            <td><TMPL_VAR NAME=cart_cnt_name></td>
+                            <td><TMPL_VAR NAME=cart_subttl_name></td>
+                          </tr>
+  <TMPL_LOOP NAME=itemlist>
+                          <tr bgcolor="#FFFFFF" class="item">
+                            <td>&nbsp;<a href="./itemlist.cgi?CMD=SEEK&PIC=ON&ItemNoKan=<TMPL_VAR NAME=item_no>"><TMPL_VAR NAME=item_no><TMPL_IF existsBranchNo>（<TMPL_VAR NAME=branch_no>）</TMPL_IF></a></td>
+                            <td>&nbsp;<a href="./itemlist.cgi?CMD=SEEK&PIC=ON&ItemNoKan=<TMPL_VAR NAME=item_no>"><TMPL_VAR NAME=item_name></a>
+                              <TMPL_IF item_icon>
+                                <a target="_blank" href="<TMPL_VAR NAME=SHOP_DOMAIN><TMPL_VAR NAME=ITEM_NO>.html">
+                                  <img style="cursor:pointer;" alt="item_link" src="./imgs/icon14.png">
+                                </a>
+                              </TMPL_IF>
+                            </td>
+                            <td align="right"><TMPL_VAR NAME=item_prc>円</td>
+                            <td align="right"><TMPL_VAR NAME=item_cnt></td>
+                            <td align="right"><TMPL_VAR NAME=item_tal>円</td>
+                          </tr>
+  </TMPL_LOOP>
+                          <tr align="center" bgcolor="#FFFFFF" class="item">
+                            <td colspan="4" align="right"><TMPL_VAR NAME=cart_itmttl_name></td>
+                            <td align="right"><TMPL_VAR NAME=disp_subtotal></td>
+                          </tr>
+<TMPL_IF pointS>
+                          <tr align="center" bgcolor="#FFFFFF" class="item">
+                            <td colspan="4" align="right">ポイント利用</td>
+                            <td align="right">-<TMPL_VAR NAME=disp_used_point></td>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF schargeon>
+                          <tr align="center" bgcolor="#FFFFFF" class="item">
+                            <td colspan="4" align="right"><TMPL_VAR NAME=cart_scharge_name></td>
+                            <td align="right"><TMPL_VAR NAME=disp_scharge></td>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF wrapon>
+                          <tr align="center" bgcolor="#FFFFFF" class="item">
+                            <td colspan="4" align="right"><TMPL_VAR NAME=cart_wrap_name></td>
+                            <td align="right"><TMPL_VAR NAME=disp_wrap></td>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF feeon>
+                          <tr align="center" bgcolor="#FFFFFF" class="item">
+                            <td colspan="4" align="right"><TMPL_VAR NAME=cart_commission_name></td>
+                            <td align="right">
+                                <TMPL_IF display_string_fee>
+                                    <TMPL_VAR NAME=fee>
+                                <TMPL_ELSE>
+                                    <TMPL_VAR NAME=disp_fee>
+                                </TMPL_IF>
+                            </td>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF pointT>
+                          <tr align="center" bgcolor="#FFFFFF" class="item">
+                            <td colspan="4" align="right">ポイント利用</td>
+                            <td align="right">-<TMPL_VAR NAME=disp_used_point></td>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF adjuston>
+                          <tr align="center" bgcolor="#FFFFFF" class="item">
+                            <td colspan="4" align="right"><TMPL_VAR NAME=adjust_name></td>
+                            <td align="right"><TMPL_VAR NAME=disp_adjust>円</td>
+                          </tr>
+</TMPL_IF>
+                          <tr align="center" bgcolor="#FFFFFF" class="item">
+                            <td colspan="4" align="right"><TMPL_VAR NAME=cart_total_name></td>
+                            <td align="right"><TMPL_VAR NAME=disp_total>円</td>
+                          </tr>
+                      </table></td>
+                    </tr>
+                  </table>
+                  <br>
+<TMPL_ELSE>
+
+<TMPL_UNLESS memoedit>
+  <TMPL_LOOP NAME=ERR_MSGDTL>
+    <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+  </TMPL_LOOP>
+</TMPL_UNLESS>
+<TMPL_IF buyee_finish>
+Buyee出品サービスのシステム利用料は注文が確定した時点の商品合計金額の<TMPL_VAR NAME=buyee_rate>%になります。<br>
+</TMPL_IF>
+<TMPL_IF buyee_penning>
+<span style="line-height:150%;">Buyee出品サービスのシステム利用料は注文が確定した時点の商品合計金額の<TMPL_VAR NAME=buyee_rate>%になります。</br>
+Buyeeからの注文は「クレジットカード決済」のみご利用可能です。決済方法を変更しないようにご注意ください。</span></br>
+</TMPL_IF>
+<table class="cont_box">
+<tr>
+    <th class="item-name02 txt_l">注文内容</th>
+</tr>
+<tr>
+    <td colspan="2">
+
+        <TMPL_UNLESS notedit>
+          <div class="opt_nav">
+          <div class="error_box">
+            <div id="complete_payment" style="display:none;"><img src="./imgs/func01/btn_modify4.png"> </div>
+            <div id="status_irai"      style="display:none;"><img src="./imgs/func01/btn_modify5.png"> </div>
+            <div id="hist_over"        style="display:none;"><img src="./imgs/func01/btn_modify6.png"> </div>
+            <div id="affi_status_comp" style="display:none;"><img src="./imgs/func01/btn_modify7.png"> </div>
+            <div id="status_torikae"   style="display:none;"><img src="./imgs/func01/btn_modify8.png"> </div>
+            <div id="card_cancel"      style="display:none;"><img src="./imgs/func01/btn_modify9.png"> </div>
+            <div id="deposit_news"     style="display:none;"><img src="./imgs/func01/btn_modify10.png"> </div>
+            <div id="rakuten_edy"      style="display:none;"><img src="./imgs/func01/btn_modify11.png"> </div>
+            <div id="wellnet_number"   style="display:none;"><img src="./imgs/func01/btn_modify12.png"> </div>
+            <div id="atobarai_cancel"  style="display:none;"><img src="./imgs/func01/btn_modify13.png"> </div>
+            <div id="atobarai_yotei"   style="display:none;"><img src="./imgs/func01/btn_modify14.png"> </div>
+            <div id="atobarai_nyukin"  style="display:none;"><img src="./imgs/func01/btn_modify15.png"> </div>
+            <div id="rakuten_id"       style="display:none;"><img src="./imgs/func01/btn_modify16.png"> </div>
+            <div id="amazon_payments"   style="display:none;background:#ff9;width:400px; font-size:.9em; padding:.5em 2em">注文内容を変更するには、決済ステータス欄にある「Amazon Payをキャンセル」ボタンをクリックし、Amazon Payのキャンセルをする必要があります。</div>
+            <div id="bitcoin" style="display:none;background:#ff9;width:265px; font-size:.9em; padding:.5em 2em">ビットコイン決済は、注文内容の変更はできません。</div>
+            <div id="netprotections_deferred_payment_cancel" style="display:none;background:#ff9;width:400px; font-size:.9em; padding:.5em 2em">注文内容を変更するには、決済ステータス欄にある「与信キャンセル」ボタンをクリックし、与信のキャンセルをする必要があります。</div>
+            <div id="netprotections_deferred_payment_req_cancel" style="display:none;background:#ff9;width:400px; font-size:.9em; padding:.5em 2em">与信キャンセル処理中のため注文内容の変更はできません。処理が完了するまでお待ちください。</div>
+            <div id="netprotections_deferred_payment_nyukin" style="display:none;background:#ff9;width:400px; font-size:.9em; padding:.5em 2em">購入者が入金済みのため、与信キャンセルはできません。</div>
+          </div>
+            <TMPL_IF nav_btn_enbl>
+              <TMPL_IF nav_btn_enbl_cnv>
+                <input type="button" name="Submit" style="width:280px;" value="商品・送料・のし・ラッピング・お届け方法を変更" onClick="orderChangeItem(<TMPL_VAR NAME=order_id>,'<TMPL_VAR NAME=nav_btn_enbl_type>');">
+                <input type="button" name="Submit" style="width:190px;" value="決済方法・手数料を変更" onClick="orderChangePaymethod(<TMPL_VAR NAME=order_id>,'<TMPL_VAR NAME=nav_btn_enbl_type>');">
+                <input type="button" name="Submit" style="width:160px;" value="合計金額のみ変更" onClick="orderChangeTotal(<TMPL_VAR NAME=order_id>,'<TMPL_VAR NAME=nav_btn_enbl_type>');">
+              <TMPL_ELSE>
+                <input type="button" name="Submit" style="width:280px;" value="商品・送料・のし・ラッピング・お届け方法を変更" onClick="location.href='./order_adjust_item.php?ORDERID=<TMPL_VAR NAME=order_id>&CMD=INITITM';">
+                <input type="button" name="Submit" style="width:190px;" value="決済方法・手数料を変更" <TMPL_IF is_locker>disabled<TMPL_ELSE>onClick="location.href='./order_payment_fee.php?ORDERID=<TMPL_VAR NAME=order_id>';"</TMPL_IF>>
+                <input type="button" name="Submit" style="width:160px;" value="合計金額のみ変更" onClick="location.href='./order_adjust.php?ORDERID=<TMPL_VAR NAME=order_id>';">
+              </TMPL_IF>
+            <TMPL_ELSE>
+              <TMPL_IF raku_btn_enbl>
+                <input type="button" name="Submit" style="width:280px;height:24px;" value="商品・送料・のし・ラッピング・お届け方法を変更" onClick="location.href='./order_adjust_item.php?ORDERID=<TMPL_VAR NAME=order_id>&CMD=INITITM';">
+                <img style=" vertical-align: -7px;" src="./imgs/func01/btn_modify2.png" <TMPL_IF rakuten_id_modify_error>onmouseover="error_box_on('<TMPL_VAR NAME=rakuten_id_modify_error>');" onmouseout="error_box_off('<TMPL_VAR rakuten_id_modify_error>');"</TMPL_IF>>
+                <input type="button" name="Submit" style="width:160px;height:24px;" value="合計金額のみ変更" onClick="location.href='./order_adjust.php?ORDERID=<TMPL_VAR NAME=order_id>';">
+              <TMPL_ELSE>
+              <TMPL_IF raku_btn_disbl_all>
+                <img src="./imgs/func01/btn_modify1.png" <TMPL_IF rakuten_id_modify_error>onmouseover="error_box_on('<TMPL_VAR NAME=rakuten_id_modify_error>');" onmouseout="error_box_off('<TMPL_VAR rakuten_id_modify_error>');"</TMPL_IF>>
+                <img src="./imgs/func01/btn_modify2.png" <TMPL_IF rakuten_id_modify_error>onmouseover="error_box_on('<TMPL_VAR NAME=rakuten_id_modify_error>');" onmouseout="error_box_off('<TMPL_VAR rakuten_id_modify_error>');"</TMPL_IF>>
+                <img src="./imgs/func01/btn_modify3.png" <TMPL_IF rakuten_id_modify_error>onmouseover="error_box_on('<TMPL_VAR NAME=rakuten_id_modify_error>');" onmouseout="error_box_off('<TMPL_VAR rakuten_id_modify_error>');"</TMPL_IF>>
+              <TMPL_ELSE>
+                <TMPL_IF is_amazon_payments>
+                    <img src="./imgs/func01/btn_modify1.png" style=" vertical-align: -7px;">
+                    <TMPL_IF modify_error>
+                        <img src="./imgs/func01/btn_modify2.png" style=" vertical-align: -7px;" onmouseover="error_box_on('<TMPL_VAR NAME=modify_error>');" onmouseout="error_box_off('<TMPL_VAR modify_error>');">
+                    <TMPL_ELSE>
+                        <input type="button" name="Submit" style="width:190px;" value="決済方法・手数料を変更" onClick="location.href='./order_payment_fee.php?ORDERID=<TMPL_VAR NAME=order_id>';">
+                    </TMPL_IF>
+                    <img src="./imgs/func01/btn_modify3.png" style=" vertical-align: -7px;">
+                <TMPL_ELSE>
+                    <!-- 商品・送料・のし・ラッピング・お届け方法を変更 ボタン -->
+                    <img src="./imgs/func01/btn_modify1.png" <TMPL_IF modify_error>onmouseover="error_box_on('<TMPL_VAR NAME=modify_error>');" onmouseout="error_box_off('<TMPL_VAR modify_error>');"</TMPL_IF>>
+                    <!-- 決済方法・手数料を変更 ボタン -->
+                    <img src="./imgs/func01/btn_modify2.png" <TMPL_IF modify_error>onmouseover="error_box_on('<TMPL_VAR NAME=modify_error>');" onmouseout="error_box_off('<TMPL_VAR modify_error>');"</TMPL_IF>>
+                    <!-- 合計金額のみ変更 ボタン-->
+                    <img src="./imgs/func01/btn_modify3.png" <TMPL_IF modify_error>onmouseover="error_box_on('<TMPL_VAR NAME=modify_error>');" onmouseout="error_box_off('<TMPL_VAR modify_error>');"</TMPL_IF>>
+                </TMPL_IF>
+              </TMPL_IF>
+              </TMPL_IF>
+            </TMPL_IF>
+          </div>
+        </TMPL_UNLESS>
+
+        <table class="odr_info">
+        <tr>
+            <th class="txt_c">商品番号</th>
+            <th class="txt_c"><TMPL_VAR NAME=cart_itm_name></th>
+            <th width="10%" class="txt_c"><TMPL_VAR NAME=cart_prc_name></th>
+            <th class="txt_c"><TMPL_VAR NAME=cart_cnt_name></th>
+            <th class="txt_c"><TMPL_VAR NAME=cart_subttl_name></th>
+        </tr>
+  <TMPL_LOOP NAME=itemlist>
+      <TMPL_IF opt_list>
+      <tr bgcolor="#FFFFFF" class="item">
+          <td rowspan="<TMPL_VAR NAME=opt_rowspan>" class="txt_l">&nbsp;<a href="./itemlist.cgi?CMD=SEEK&PIC=ON&ItemNoKan=<TMPL_VAR NAME=item_no>"><TMPL_VAR NAME=item_no><TMPL_IF existsBranchNo>（<TMPL_VAR NAME=branch_no>）</TMPL_IF></a></td>
+          <td class="itm_nam border-none-bottom">&nbsp;<a href="./itemlist.cgi?CMD=SEEK&PIC=ON&ItemNoKan=<TMPL_VAR NAME=item_no>"><TMPL_VAR NAME=item_name></a>
+            <TMPL_IF item_icon>
+              <a target="_blank" href="<TMPL_VAR NAME=SHOP_DOMAIN><TMPL_VAR NAME=ITEM_NO>.html">
+                <img style="cursor:pointer;" alt="item_link" src="./imgs/icon14.png">
+              </a>
+            </TMPL_IF>
+          </td>
+          <td class="border-none-bottom"><TMPL_VAR NAME=item_prc>円</td>
+          <td rowspan="<TMPL_VAR NAME=opt_rowspan>"><TMPL_VAR NAME=item_cnt></td>
+          <td rowspan="<TMPL_VAR NAME=opt_rowspan>"><TMPL_VAR NAME=item_tal>円</td>
+      </tr>
+      <TMPL_LOOP NAME=opt_list><tr>
+          <td class="itm_nam border-none-v"><ul class="option_style"><li><TMPL_VAR NAME=option_display_name>:<TMPL_VAR NAME=option_choice_name></li></ul></td>
+          <td class="border-none-v" align="right"><TMPL_VAR NAME=option_prc></td>
+      </tr></TMPL_LOOP>
+      <TMPL_ELSE>
+            <tr bgcolor="#FFFFFF" class="item">
+              <td class="txt_l">&nbsp;<a href="./itemlist.cgi?CMD=SEEK&PIC=ON&ItemNoKan=<TMPL_VAR NAME=item_no>"><TMPL_VAR NAME=item_no><TMPL_IF existsBranchNo>（<TMPL_VAR NAME=branch_no>）</TMPL_IF></a></td>
+              <td class="itm_nam">&nbsp;<a href="./itemlist.cgi?CMD=SEEK&PIC=ON&ItemNoKan=<TMPL_VAR NAME=item_no>"><TMPL_VAR NAME=item_name></a>
+                <TMPL_IF item_icon>
+                  <a target="_blank" href="<TMPL_VAR NAME=SHOP_DOMAIN><TMPL_VAR NAME=ITEM_NO>.html">
+                    <img style="cursor:pointer;" alt="item_link" src="./imgs/icon14.png">
+                  </a>
+                </TMPL_IF>
+              </td>
+              <td><TMPL_VAR NAME=item_prc>円</td>
+              <td><TMPL_VAR NAME=item_cnt></td>
+              <td><TMPL_VAR NAME=item_tal>円</td>
+            </tr>
+      </TMPL_IF>
+  </TMPL_LOOP>
+
+<TMPL_IF disp_discount_price>
+                <tr>
+                        <td colspan="4" class="txt_r"><TMPL_VAR NAME=discount_name></td>
+                        <td class="txt_r"><TMPL_VAR NAME=disp_discount_price>円</td>
+                </tr>
+</TMPL_IF>
+<TMPL_IF disp_bundle_discount_price>
+                <tr>
+                        <td colspan="4" class="txt_r">まとめ割引</td>
+                        <td class="txt_r"><TMPL_VAR NAME=disp_bundle_discount_price>円</td>
+                </tr>
+</TMPL_IF>
+<TMPL_IF disp_rank_discount_price>
+                <tr>
+                        <td colspan="4" class="txt_r"><TMPL_VAR NAME=cart_members_discount_name></td>
+                        <td class="txt_r"><TMPL_VAR NAME=disp_rank_discount_price>円</td>
+                </tr>
+</TMPL_IF>
+<TMPL_IF disp_volume_discount_price>
+    <tr>
+        <td colspan="4" class="txt_r"><TMPL_VAR NAME=disp_volume_discount_name ESCAPE=HTML></td>
+        <td class="txt_r"><TMPL_VAR NAME=disp_volume_discount_price>円</td>
+    </tr>
+</TMPL_IF>
+<TMPL_IF disp_coupon_discount_price>
+        <tr>
+            <td colspan="4" class="txt_r">クーポン割引（<TMPL_VAR NAME=coupon_name>）</td>
+            <td class="txt_r"><TMPL_VAR NAME=disp_coupon_discount_price>円</td>
+       </tr>
+</TMPL_IF>
+        <tr>
+            <td colspan="4" class="txt_r"><TMPL_VAR NAME=cart_itmttl_name></td>
+            <td class="txt_r"><TMPL_VAR NAME=disp_subtotal></td>
+        </tr>
+<TMPL_IF pointS>
+        <tr>
+            <td colspan="4" class="txt_r">ポイント利用</td>
+            <td  class="txt_r">-<TMPL_VAR NAME=disp_used_point></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF schargeon>
+        <tr>
+            <td colspan="4" class="txt_r"><TMPL_VAR NAME=cart_scharge_name></td>
+            <td class="txt_r"><TMPL_VAR NAME=disp_scharge></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF wrapon>
+        <tr>
+            <td colspan="4" class="txt_r"><TMPL_VAR NAME=cart_wrap_name></td>
+            <td class="txt_r"><TMPL_VAR NAME=disp_wrap></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF feeon>
+        <tr>
+            <td colspan="4" class="txt_r"><TMPL_VAR NAME=cart_commission_name></td>
+            <td class="txt_r">
+                <TMPL_IF display_string_fee>
+                    <TMPL_VAR NAME=fee>
+                <TMPL_ELSE>
+                    <TMPL_VAR NAME=disp_fee>
+                </TMPL_IF>
+            </td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF pointT>
+        <tr>
+            <td colspan="4" class="txt_r">ポイント利用</td>
+            <td class="txt_r">-<TMPL_VAR NAME=disp_used_point></td>
+        </tr>
+</TMPL_IF>
+<TMPL_IF adjuston>
+        <tr>
+          <td colspan="4" class="txt_r"><TMPL_VAR NAME=adjust_name></td>
+          <td class="txt_r"><TMPL_VAR NAME=disp_adjust>円</td>
+        </tr>
+</TMPL_IF>
+
+        <tr>
+            <td colspan="4" class="txt_r"><TMPL_VAR NAME=cart_total_name></td>
+            <td class="txt_r"><TMPL_VAR NAME=disp_total>円</td>
+        </tr>
+        </table>
+
+        <table class="odr_info">
+        <tr>
+            <th class="memo_sel"><TMPL_VAR NAME=err_dtlcomm>
+                メモ
+<TMPL_UNLESS memoedit>
+                <input type="button" name="Submit" value="保存" onClick="MemoSub('dtlcomm');">
+              </TMPL_UNLESS>
+            </th>
+        </tr>
+        <tr>
+            <td class="txt_l">
+            <textarea name="DTLMEMO" rows="5" wrap="VIRTUAL" style="width:600px;overflow:hidden;" class="item"><TMPL_VAR NAME=history_comment></textarea>
+            </td>
+        </tr>
+
+        <TMPL_UNLESS no_ord_histoy>
+          <tr>
+            <td class="txt_l"><a href="order_history_list.php?ORDERID=<TMPL_VAR NAME=order_id>" onClick="window.open('order_history_list.php?ORDERID=<TMPL_VAR NAME=order_id>','pop_odr_history','scrollbars=yes,resizable=yes,status=yes,width=730,height=750');return false;">注文内容の変更履歴はこちらから</a></td>
+          </tr>
+        </TMPL_UNLESS>
+        </table>
+
+    </td>
+</tr>
+</table>
+</TMPL_IF>
+
+<TMPL_UNLESS memoedit>
+<TMPL_LOOP NAME=ERR_MSGP>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+</TMPL_UNLESS>
+
+<TMPL_IF continue_gift>
+<br>
+<table width="100%" cellpadding="0" bgcolor="#999999">
+    <tr>
+        <td class="item-name02">&nbsp;継続特典</td>
+    </tr>
+    <tr bgcolor="#FFFFFF">
+        <td style="padding:5px">
+            <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666">
+                <TMPL_IF continue_gift_price_title>
+                <tr>
+                    <td class="item-name">価格割引</td>
+                    <td class="item"><TMPL_VAR NAME=continue_gift_price_title></td>
+                </tr>
+                </TMPL_IF>
+                <TMPL_IF continue_gift_point_title>
+                <tr>
+                    <td class="item-name">ポイントプレゼント</td>
+                    <td class="item"><TMPL_VAR NAME=continue_gift_point_title><TMPL_VAR NAME=point_unit></td>
+                </tr>
+                </TMPL_IF>
+                <TMPL_IF continue_gift_combine_title>
+                <tr>
+                    <td class="item-name">同梱物</td>
+                    <td class="item"><TMPL_VAR NAME=continue_gift_combine_title></td>
+                </tr>
+                </TMPL_IF>
+            </table>
+        </td>
+    </tr>
+</table>
+</TMPL_IF>
+
+<br>
+                  <table width="100%" border="0" cellpadding="0" cellspacing="2" bgcolor="#999999">
+                    <tr>
+                      <td colspan="2" class="item-name02">&nbsp;注文者情報</td>
+                    </tr>
+                    <tr valign="top" bgcolor="#FFFFFF">
+                      <td width="50%" style="padding:5px"><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666">
+                          <tr>
+                            <td colspan="2" class="item-name"><strong>&nbsp;注文者&nbsp;
+<TMPL_UNLESS notedit>
+                              <input type="button" name="Submit" value="編集" onClick="Edit01Sub();"<TMPL_IF atobarai_modify_error> disabled</TMPL_IF><TMPL_IF netprotections_deferred_payment_modify_error> disabled</TMPL_IF>>
+                              <TMPL_IF atobarai_modify_error><img alt="?" src="./imgs/newSetup_QuestionG.gif" onClick="popUp('odr_modify_atobarai',1)" style="cursor:pointer;"></TMPL_IF>
+                              <TMPL_IF netprotections_deferred_payment_modify_error><img alt="?" src="./imgs/newSetup_QuestionG.gif" onClick="popUp('odr_modify_netprotections_deferred_payment',1)" style="cursor:pointer;"></TMPL_IF>
+</TMPL_UNLESS>
+                              </strong></td>
+                          </tr>
+<TMPL_IF p_ord_company_disp>
+                          <tr>
+                            <td width="45%" class="item-name">&nbsp;法人名・団体名</td>
+                            <td width="55%" class="item"> &nbsp;<TMPL_VAR NAME=p_company></td>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF p_ord_compkana_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;法人名・団体名（かな）</td>
+                            <td class="item"> &nbsp;<TMPL_VAR NAME=p_company_kana></td>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF p_ord_division_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;部署名</td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=p_division></td>
+                          </tr>
+</TMPL_IF>
+                          <tr>
+                            <td class="item-name">&nbsp;お名前</td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=p_lname><TMPL_VAR NAME=p_fname></td>
+                          </tr>
+<TMPL_IF p_ord_namekana_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;お名前（かな）</td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=p_lname_kana><TMPL_VAR NAME=p_fname_kana></td>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF p_ord_zip_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;郵便番号</td>
+                            <TMPL_IF p_regular_k>
+                              <td class="item">&nbsp;<TMPL_VAR NAME=p_zip1></td>
+                            <TMPL_ELSE>
+                              <td class="item">&nbsp;<TMPL_VAR NAME=p_zip1>-<TMPL_VAR NAME=p_zip2></td>
+                            </TMPL_IF>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF p_ord_addr_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;ご住所</td>
+                            <TMPL_IF p_regular_k>
+                              <td class="item">&nbsp;<TMPL_VAR NAME=p_addr2><TMPL_IF p_addr3>, <TMPL_VAR NAME=p_addr3></TMPL_IF>, <TMPL_VAR NAME=p_addr1></td>
+                            <TMPL_ELSE>
+                              <td class="item">&nbsp;<TMPL_VAR NAME=p_pref><TMPL_VAR NAME=p_addr1><TMPL_VAR NAME=p_addr2>　<TMPL_VAR NAME=p_addr3></td>
+                            </TMPL_IF>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF p_ord_tel_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;電話番号</td>
+                            <TMPL_IF p_regular_k>
+                              <td class="item">&nbsp;<TMPL_VAR NAME=p_tel1></td>
+                            <TMPL_ELSE>
+                              <td class="item">&nbsp;<TMPL_VAR NAME=p_tel1>-<TMPL_VAR NAME=p_tel2>-<TMPL_VAR NAME=p_tel3></td>
+                            </TMPL_IF>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF p_ord_fax_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;FAX番号</td>
+                            <TMPL_IF p_regular_k>
+                              <td class="item">&nbsp;<TMPL_VAR NAME=p_fax1></td>
+                            <TMPL_ELSE>
+                              <td class="item">&nbsp;<TMPL_VAR NAME=p_fax1>-<TMPL_VAR NAME=p_fax2>-<TMPL_VAR NAME=p_fax3></td>
+                            </TMPL_IF>
+                          </tr>
+</TMPL_IF>
+                          <tr>
+                            <td class="item-name">&nbsp;メールアドレス</td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=p_mail></td>
+                          </tr>
+ <TMPL_IF this_p_bikou>
+                        <tr>
+                          <td class="item-name">&nbsp;<TMPL_VAR NAME=p_free_title></td>
+                          <td class="item">&nbsp;<TMPL_VAR NAME=p_free_comment>&nbsp;</td>
+                        </tr>
+ </TMPL_IF>
+                          <tr>
+                            <td class="item-name">&nbsp;会員ID</td>
+                            <td class="item">&nbsp;<TMPL_VAR escape=HTML NAME=member_acc>
+<TMPL_IF NAME=clienton>
+                            <a href="ord_clientinfo.cgi?ID=<TMPL_VAR NAME=client_id>&Target=2"><div class="mem_ic_on">会員</div></a>
+</TMPL_IF>
+<TMPL_IF NAME=clientmemo>
+                            <a href="ord_clientinfo.cgi?ID=<TMPL_VAR NAME=client_id>&Target=1"><img width="18" hspace="1" height="18" border="0" title="<TMPL_VAR NAME=clientmemo>" alt="memo" src="../imgs/icon/memo_ic.gif"></a>
+</TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="item-name">&nbsp;ランク名</td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=disp_rank_name>&nbsp;</td>
+                          </tr>
+                          <tr>
+                            <td class="item-name">&nbsp;購入回数</td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=p_count>回</td>
+                          </tr>
+                      </table></td>
+                      <td width="50%" style="padding:5px"><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666">
+                          <tr>
+                            <td colspan="2" class="item-name"><strong>&nbsp;備考</strong></td>
+                          </tr>
+<TMPL_IF p_enq_on>
+<TMPL_LOOP NAME=p_enq>
+                          <tr>
+                            <td width="45%" class="item-name"><TMPL_VAR NAME=enq></td>
+                            <td width="55%" class="item">&nbsp;<TMPL_VAR NAME=ans></td>
+                          </tr>
+</TMPL_LOOP>
+</TMPL_IF>
+                        </table>
+                        <table id="PMEMO_T" width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666" style="margin-top:5px">
+                          <tr>
+                            <td class="item-name"><TMPL_VAR NAME=err_pcomm><strong>&nbsp;メモ</strong>&nbsp;
+<TMPL_UNLESS memoedit>
+                              <input type="button" name="Submit" value="保存" onClick="MemoSub('pcomm')">
+</TMPL_UNLESS>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="item"><textarea name="PMEMO" wrap="VIRTUAL" style="width:300px;overflow:hidden;" class="item"><TMPL_VAR NAME=p_comment></textarea></textarea>
+                              <strong> </strong></td>
+                          </tr>
+                      </table></td>
+                    </tr>
+                  </table>
+                  <br>
+                  <br>
+<!-- 複数だったら、全届け先の発送ステータスを -->
+<TMPL_IF multi>
+<a name="dlvst"></a>
+                  <table width="100%" border="0" cellpadding="0" cellspacing="2" bgcolor="#999999">
+
+                    <tr>
+                      <td colspan="2" class="item-name02">
+                       &nbsp;お届け先情報
+                      </td>
+                    </tr>
+                    <tr valign="top">
+                      <td align="left" bgcolor="#FFFFFF" style="padding:5px">
+
+                      <!--発送ステータス一覧 ここから-->
+                        <table bgcolor="#666666" border="0" cellpadding="0" cellspacing="1" width="100%">
+                          <tr><td>
+
+  <TMPL_LOOP NAME=shiplist>
+                          <div style="float: left; width: 50%;">
+                            <table bgcolor="#666666" border="0" cellpadding="0" cellspacing="1" width="100%">
+                              <tr>
+<td align="center" bgcolor="#ffffff" width="10%"><input type="checkbox" name="checkbox" value="<TMPL_VAR NAME=delv_no>"<TMPL_UNLESS shipon> disabled</TMPL_UNLESS>></td>
+<td class="item-name" width="45%">&nbsp;<TMPL_IF shipon>&nbsp;<a href="javascript:; onClick=ShowDeliv2(<TMPL_VAR NAME=delv_no>);">お届け先<TMPL_VAR NAME=delv_no></a><TMPL_ELSE></TMPL_IF></td>
+<td class="item" bgcolor="#ffffff" width="45%">&nbsp;<TMPL_IF shipon><img src="../imgs/icon/sen_ic_<TMPL_VAR NAME=ship1>.gif" width="18" height="18" hspace="1" border="0" alt="未発送"><img src="../imgs/icon/sen_ic_<TMPL_VAR NAME=ship2>.gif" width="18" height="18" hspace="1" border="0" alt="発送予約"><img src="../imgs/icon/sen_ic_<TMPL_VAR NAME=ship3>.gif" width="18" height="18" hspace="1" border="0" alt="発送済"><TMPL_ELSE><img src="../imgs/icon/sen_ic_big1.gif" width="18" height="18" hspace="1" border="0" alt="未発送"><img src="../imgs/icon/sen_ic_cen1.gif" width="18" height="18" hspace="1" border="0" alt="発送予約"><img src="../imgs/icon/sen_ic_end1.gif" width="18" height="18" hspace="1" border="0" alt="発送済"></TMPL_IF></td>
+                              </tr>
+                            </table>
+                          </div>
+  </TMPL_LOOP>
+
+                          <div style="clear: both;"></div>
+                          </td></tr>
+                        </table>
+                      <!--発送ステータス一覧 ここまで-->
+
+<TMPL_IF notedit>
+                        <input type="button" value="全選択" disabled><input type="button" value="全解除" disabled>
+<TMPL_ELSE>
+                        <input type="button" value="全選択" onClick="SetCheck()"><input type="button" value="全解除" onClick="UnSetCheck()">
+</TMPL_IF>
+                        <table bgcolor="#666666" border="0" cellpadding="0" cellspacing="1" width="100%" style="margin-top:1em;">
+                          <tr>
+                            <td align="center" class="item-name"><strong>選択処理</strong></td>
+                          </tr>
+                          <tr>
+                            <td class="item">
+<TMPL_IF notedit>
+                              <input value="未発送" type="button" disabled>
+                              <input value="発送予約" type="button" disabled>
+                              <input value="発送済" type="button" disabled>
+<TMPL_ELSE>
+                              <input value="未発送" onclick="ShipstSub(0);" type="button">
+                              <input value="発送予約" onclick="ShipstSub(1);" type="button">
+                              <input value="発送済" onclick="ShipstSub(2);" type="button">
+</TMPL_IF>
+                            </td>
+                          </tr>
+                        </table>
+                      </td>
+                    </tr>
+                  </table>
+</TMPL_IF>
+<!-- 複数でなかったら届け先も表示 -->
+<TMPL_UNLESS multi>
+<TMPL_LOOP NAME=ERR_MSGDT>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+                  <table width="100%" border="0" cellpadding="0" cellspacing="2" bgcolor="#999999">
+                    <tr bgcolor="#CCCCCC">
+                      <td colspan="2" class="item-name02">&nbsp;お届け情報</td>
+                    </tr>
+                    <tr>
+                      <td colspan="2" valign="top" bgcolor="#FFFFFF" style="padding:5px"><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666">
+<TMPL_IF recv_disp_disp>
+                          <tr>
+                            <td width="40%" class="item-name">お届け希望日</td>
+                            <td width="60%" class="item">&nbsp;<TMPL_IF recv_date_disp><TMPL_VAR NAME=recv_date_sw_disp><TMPL_VAR NAME=dlv_date>&nbsp;</TMPL_IF><TMPL_VAR NAME=recv_date_time>&nbsp;
+<TMPL_UNLESS notedit>
+                              <input type="button" name="Submit" value="変更" onClick="Edit02Sub();">
+</TMPL_UNLESS>
+                            </td>
+                          </tr>
+  <TMPL_IF recv_ngday_disp>
+                          <tr>
+                            <td class="item-name"><TMPL_VAR NAME=recv_other_name></td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=recv_ngday>&nbsp;
+<TMPL_UNLESS notedit>
+                              <input type="button" name="Submit" value="変更" onClick="Edit02Sub();">
+</TMPL_UNLESS>
+                            </td>
+                                      </tr>
+  </TMPL_IF>
+</TMPL_IF>
+                          <tr>
+                            <td width="40%" class="item-name"><TMPL_VAR NAME=err_ship_dd>発送予定日</td>
+                            <td width="60%" class="item">
+                              <input name ="ship_due_year" id="ship_due_year" type="text" maxlength="4" size="5" value="<TMPL_VAR NAME=ship_due_year>" style="ime-mode:disabled"/>
+                              <span class="right-spc">年</span>
+                              <input name="ship_due_month" id="ship_due_month" type="text"maxlength="2" size="3" value="<TMPL_VAR NAME=ship_due_month>" style="ime-mode:disabled"/>
+                              <span class="right-spc">月</span>
+                              <input name="ship_due_day" id="ship_due_day" type="text" maxlength="2" size="3" value="<TMPL_VAR NAME=ship_due_day>" style="ime-mode:disabled"/>
+                              <span class="right-spc">日</span>
+                              <TMPL_UNLESS notedit>
+                              <input type="hidden" class="datepicker">
+                              <input onclick="setCurrentDate('ship_due');" value="今日" type="button">
+                              <input onclick="updateShipDueDate();" value="保存" type="button">
+                              </TMPL_UNLESS>
+                            </td>
+                          </tr>
+<TMPL_IF nosi_dispon>
+                          <tr>
+                            <td class="item-name"><TMPL_VAR NAME=wrap_nosi_name></td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=wrap_nosi_val></td>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF wrap_dispon>
+                            <tr>
+                              <td class="item-name"><TMPL_VAR NAME=wrap_wrap_name></td>
+                              <td class="item">&nbsp;<TMPL_VAR NAME=wrap_wrap_val></td>
+                            </tr>
+</TMPL_IF>
+                          <tr>
+                            <td class="item-name">発送ステータス</td>
+                            <td class="item">
+<TMPL_UNLESS notedit>
+                            <input type="button" name="Submit" value="未発送" onClick="ShipstSub(0);"<TMPL_IF NAME=ship_sel0> disabled</TMPL_IF>>
+                            <input type="button" name="Submit" value="発送予約" onClick="ShipstSub(1);"<TMPL_IF NAME=ship_sel1> disabled</TMPL_IF>>
+                            <input type="button" name="Submit" value="発送済" onClick="ShipstSub(2);"<TMPL_IF NAME=ship_sel2> disabled</TMPL_IF>>
+</TMPL_UNLESS>
+                            <br>
+                            &nbsp;<TMPL_VAR NAME=ship_str></td>
+                          </tr>
+<TMPL_IF billed_date>
+                          <tr>
+                            <td width="40%" class="item-name"><TMPL_VAR NAME=err_billed_date>請求書発行日</td>
+                            <td width="60%" class="item">
+                              <input name ="billed_date_year" id="billed_date_year" type="text" maxlength="4" size="5" value="<TMPL_VAR NAME=billed_date_year>" style="ime-mode:disabled"<TMPL_IF trader_not_edit> disabled</TMPL_IF>/>
+                              <span class="right-spc">年</span>
+                              <input name="billed_date_month" id="billed_date_month" type="text"maxlength="2" size="3" value="<TMPL_VAR NAME=billed_date_month>" style="ime-mode:disabled"<TMPL_IF trader_not_edit> disabled</TMPL_IF>/>
+                              <span class="right-spc">月</span>
+                              <input name="billed_date_day" id="billed_date_day" type="text" maxlength="2" size="3" value="<TMPL_VAR NAME=billed_date_day>" style="ime-mode:disabled"<TMPL_IF trader_not_edit> disabled</TMPL_IF>/>
+                              <span class="right-spc">日</span>
+                              <TMPL_UNLESS notedit>
+                              <TMPL_UNLESS trader_not_edit><input type="hidden" class="datepicker"></TMPL_UNLESS>
+                              <input onclick="setCurrentDate('billed_date');" value="今日" type="button"<TMPL_IF trader_not_edit> disabled</TMPL_IF>>
+                              <input onclick="updateBilledDate();" value="保存" type="button"<TMPL_IF trader_not_edit> disabled</TMPL_IF>>
+                              </TMPL_UNLESS>
+                            </td>
+                          </tr>
+</TMPL_IF>
+                          <tr>
+                            <td class="item-name"><TMPL_VAR NAME=err_dt>お問い合わせ番号入力</td>
+                            <td class="item">
+<TMPL_IF NAME=is_atobarai>
+                            <div class="infoArea table_bg">※ご注意※<br>
+                            ＷＥＢ上で荷物の追跡・到着確認ができないメール便は、後払い決済の立替金保障対象外となります。荷物の発送前にご確認ください。</div>
+</TMPL_IF>
+<TMPL_IF NAME=is_netprotections_deferred_payment>
+                            <div class="infoArea table_bg">※ご注意※<br>
+                            ＷＥＢ上で荷物の追跡・到着確認ができないメール便は、NP後払いの立替金保障対象外となります。荷物の発送前にご確認ください。</div>
+</TMPL_IF>
+                            <select name="deliv_trader_id"<TMPL_IF trader_not_edit> disabled</TMPL_IF>>
+                              <option value="0">配送業者を選択</option>
+                            <TMPL_LOOP NAME=traders>
+                              <option value="<TMPL_VAR NAME=id>" <TMPL_IF NAME=selid>selected</TMPL_IF>><TMPL_VAR NAME=name></option>
+                            </TMPL_LOOP>
+                            </select>
+                            <input type="text" name="deliv_number" value="<TMPL_VAR NAME=deliv_number>"<TMPL_IF trader_not_edit> disabled</TMPL_IF>>
+<TMPL_UNLESS notedit>
+                            <input type="button" name="Submit" value="保存" onClick="TraderSet();"<TMPL_IF trader_not_edit> disabled</TMPL_IF>>
+</TMPL_UNLESS>
+                          </tr>
+<TMPL_IF NAME=is_delivery_cvs_order>
+                          <tr>
+                            <td class="item-name">コンビニ受取用認証番号</td>
+                            <td class="item">
+                              &nbsp;<TMPL_IF disp_certification_number><TMPL_VAR NAME=certification_number><TMPL_ELSE>準備中</TMPL_IF>
+                            </td>
+                          </tr>
+</TMPL_IF>
+                      </table></td>
+                    </tr>
+                  </table>
+                  <br>
+<TMPL_UNLESS memoedit>
+<TMPL_LOOP NAME=ERR_MSGD>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+</TMPL_UNLESS>
+                  <table width="100%" border="0" cellpadding="0" cellspacing="2" bgcolor="#999999">
+                    <tr>
+                      <td colspan="2" class="item-name02"><strong>&nbsp;お届け先情報</strong></td>
+                    </tr>
+                    <tr valign="top">
+                      <td width="50%" bgcolor="#FFFFFF" style="padding:5px">
+                        <div style="line-height:200%"><TMPL_VAR NAME=self_flg></div><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666">
+                          <tr>
+                            <td width="100%" colspan="2" class="item-name">&nbsp;<strong>お届け先</strong>&nbsp;
+<TMPL_UNLESS notedit>
+                              <input type="button" name="Submit" value="編集" style="font-size:8" onClick="Edit02Sub();" <TMPL_IF atobarai_modify_error>disabled</TMPL_IF><TMPL_IF netprotections_deferred_payment_modify_error>disabled</TMPL_IF>>
+<TMPL_IF atobarai_modify_error>
+                              <img alt="?" src="./imgs/newSetup_QuestionG.gif" onClick="popUp('odr_modify_atobarai',1)" style="cursor:pointer;"></TMPL_IF>
+<TMPL_IF netprotections_deferred_payment_modify_error>
+                              <img alt="?" src="./imgs/newSetup_QuestionG.gif" onClick="popUp('odr_modify_netprotections_deferred_payment',1)" style="cursor:pointer;"></TMPL_IF>
+</TMPL_UNLESS>
+                            </td>
+                          </tr>
+<TMPL_IF d_ord_company_disp>
+                          <tr>
+                            <td width="45%" class="item-name">&nbsp;法人名・団体名</td>
+                            <td width="55%" class="item">&nbsp;<TMPL_VAR NAME=d_company></td>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_compkana_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;法人名・団体名（かな）</td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=d_company_kana></td>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_division_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;部署名</td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=d_division></td>
+                          </tr>
+</TMPL_IF>
+                          <tr>
+                            <td class="item-name">&nbsp;お名前</td>
+                            <td class="item">&nbsp;<TMPL_UNLESS NAME=is_delivery_cvs_order><TMPL_VAR NAME=d_lname><TMPL_VAR NAME=d_fname></TMPL_UNLESS></td>
+                          </tr>
+<TMPL_IF d_ord_namekana_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;お名前（かな）</td>
+                            <td class="item">&nbsp;<TMPL_VAR NAME=d_lname_kana><TMPL_VAR NAME=d_fname_kana></td>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_zip_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;郵便番号</td>
+                            <TMPL_IF d_regular_k>
+                              <td class="item">&nbsp;<TMPL_VAR NAME=d_zip1></td>
+                            <TMPL_ELSE>
+                              <td class="item">&nbsp;<TMPL_VAR NAME=d_zip1>-<TMPL_VAR NAME=d_zip2></td>
+                            </TMPL_IF>
+                          </tr>
+</TMPL_IF>
+                          <tr>
+                            <td class="item-name">&nbsp;ご住所</td>
+                            <TMPL_IF d_regular_k>
+                              <td class="item">&nbsp;<TMPL_VAR NAME=d_addr2><TMPL_IF d_addr3>, <TMPL_VAR NAME=d_addr3></TMPL_IF>, <TMPL_VAR NAME=d_addr1></td>
+                            <TMPL_ELSE>
+                              <td class="item">&nbsp;<TMPL_VAR NAME=d_pref><TMPL_VAR NAME=d_addr1><TMPL_VAR NAME=d_addr2>　<TMPL_VAR NAME=d_addr3><TMPL_IF NAME=is_delivery_cvs_order><TMPL_VAR NAME=cvs_store_name></TMPL_IF>
+                              </td>
+                            </TMPL_IF>
+                          </tr>
+<TMPL_IF d_ord_tel_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;電話番号</td>
+                            <TMPL_IF d_regular_k>
+                              <td class="item">&nbsp;<TMPL_VAR NAME=d_tel1></td>
+                            <TMPL_ELSE>
+                              <td class="item">&nbsp;<TMPL_VAR NAME=d_tel1>-<TMPL_VAR NAME=d_tel2>-<TMPL_VAR NAME=d_tel3></td>
+                            </TMPL_IF>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF d_ord_fax_disp>
+                          <tr>
+                            <td class="item-name">&nbsp;FAX番号</td>
+                            <TMPL_IF d_regular_k>
+                              <td class="item">&nbsp;<TMPL_VAR NAME=d_fax1></td>
+                            <TMPL_ELSE>
+                              <td class="item">&nbsp;<TMPL_VAR NAME=d_fax1>-<TMPL_VAR NAME=d_fax2>-<TMPL_VAR NAME=d_fax3></td>
+                            </TMPL_IF>
+                          </tr>
+</TMPL_IF>
+<TMPL_IF this_d_bikou>
+                        <tr>
+                          <td class="item-name">&nbsp;<TMPL_VAR NAME=d_free_title></td>
+                          <td class="item">&nbsp;<TMPL_VAR NAME=d_free_comment>&nbsp;</td>
+                        </tr>
+</TMPL_IF>
+                      </table></td>
+                      <td width="50%" bgcolor="#FFFFFF" style="padding:5px"><table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666">
+                          <tr>
+                            <td colspan="2" class="item-name"><strong>&nbsp;備考</strong></td>
+                          </tr>
+<TMPL_LOOP NAME=d_enq>
+                          <tr>
+                            <td width="45%" class="item-name">&nbsp;<TMPL_VAR NAME=enq></td>
+                            <td width="55%" class="item">&nbsp;<TMPL_VAR NAME=ans></td>
+                          </tr>
+</TMPL_LOOP>
+                        </table>
+                        <table id="DMEMO_T" width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#666666" style="margin-top:5px">
+                          <tr>
+                            <td class="item-name"><TMPL_VAR NAME=err_dcomm><strong>&nbsp;メモ</strong>&nbsp;
+<TMPL_UNLESS memoedit>
+                            <input type="button" name="Submit" value="保存" onClick="MemoSub('dcomm');">
+</TMPL_UNLESS>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="item"><textarea name="DMEMO" wrap="VIRTUAL" class="item" style="width:300px;overflow:hidden;"><TMPL_VAR NAME=d_comment></textarea>
+                            </td>
+                          </tr>
+                      </table>                                                </td>
+                    </tr>
+                  </table>
+</TMPL_UNLESS>
+<!-- ここまで -->
+          </td>
+        </tr>
+      </table>
+      <TMPL_IF folder0>
+      <TMPL_IF NAME=link_id>
+      <div style="width: auto;float:left;">
+      <TMPL_IF NAME=link_before_id>
+      <a href="odrinfo.cgi?ORDERID=<TMPL_VAR NAME=link_before_id>" ><<前へ</a>
+      <TMPL_ELSE>
+      &nbsp;
+      </TMPL_IF>&nbsp;<TMPL_VAR NAME=pos> / <TMPL_VAR NAME=oid_count>件&nbsp;<TMPL_IF NAME=link_after_id>
+      <a href="odrinfo.cgi?ORDERID=<TMPL_VAR NAME=link_after_id>" >次へ>></a>
+      <TMPL_ELSE>
+      &nbsp;
+      </TMPL_IF>
+      </div>
+      </TMPL_IF>
+      </TMPL_IF>
+      <br>
+      <hr size="1">
+      <br>
+      <div align="center">
+<TMPL_IF button_f>
+      <input type="button" name="Submit" value="<TMPL_VAR NAME=back_msg>戻る" onClick="history.back()">
+<TMPL_ELSE>
+      <TMPL_IF FROMORDER>
+            <input type="button" name="Submit" value="注文確定リスト履歴へ戻る" onClick="location.href='rp_order_detail.php?APPLICATIONID=<TMPL_VAR NAME=application_id>'">
+      <TMPL_ELSE>
+            <input type="button" name="Submit" value="受注一覧へ戻る" onClick="location.href='orderlist.php?LastCGI=1'">
+      </TMPL_IF>
+</TMPL_IF>
+    </td>
+  </tr>
+</table>
+<br>
+</div>
+</form>
+
+<!-- メール履歴保存用FORM 080930 -->
+<form name="MAIL" method="post" action="" target="">
+  <input type="hidden" name="ORDERID" id="ORDERID" value="<TMPL_VAR NAME=order_id>">
+</form>
+
+<input type="hidden" name="deliverto" value="<TMPL_VAR deliverto>">
+<TMPL_IF NAME=ERR_MSGDT>
+<TMPL_IF NAME=MSG>
+<img src="../imgs/spc.gif" onLoad="document.data.deliv_trader_id.focus();">
+<TMPL_ELSE>
+  <TMPL_IF NAME=ERR_SHIP_DD>
+  <img src="../imgs/spc.gif" onLoad="document.data.ship_due_year.focus();">
+  <TMPL_ELSE>
+    <TMPL_IF NAME=ERR_BILLED_DATE>
+    <img src="../imgs/spc.gif" onLoad="document.data.billed_date_year.focus();">
+    <TMPL_ELSE>
+    <img src="../imgs/spc.gif" onLoad="document.data.deliv_number.focus();">
+    </TMPL_IF>
+  </TMPL_IF>
+</TMPL_IF>
+</TMPL_IF>
+<TMPL_IF NAME=ERR_MSGP>
+<img src="../imgs/spc.gif" onLoad="document.data.PMEMO.focus();">
+</TMPL_IF>
+<TMPL_IF NAME=ERR_MSGD>
+<img src="../imgs/spc.gif" onLoad="document.data.DMEMO.focus();">
+</TMPL_IF>
+<TMPL_IF NAME=ERR_MSGDTL>
+<img src="../imgs/spc.gif" onLoad="document.data.DTLMEMO.focus();">
+</TMPL_IF>

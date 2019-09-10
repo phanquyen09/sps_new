@@ -1,0 +1,675 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+    <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0F4071">
+      <tr>
+        <td><img src="../imgs/spc.gif"></td>
+      </tr>
+    </table></td>
+    <td align="left" class="midashi">メニューの一覧です</td>
+  </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+    <td align="left" class="main-table">
+    <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+      <tr>
+        <td width="33%" valign="top" class="sitemap_box">
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td bgcolor="#009B44" class="sitemap_title">お店運営</td>
+          </tr>
+          <tr>
+            <td bgcolor="#009B44">
+            <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+              <tr>
+                <td>
+                <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sitemap_table" bgcolor="#FFFFFF">
+                  <tr>
+                    <td class="sitemap01">受注処理</td>
+                  </tr>
+                  <tr>
+                    <td style="padding-bottom:5px ">
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif">　<a href="../func01/orderlist.php">受注台帳</a></div>
+                      <div class="sitemap_txt_02"><img src="../imgs/arrow01_02.gif" width="7" height="8">　<a href="../func01/orderlist.php">受注台帳をみる</a></div>
+                      <div class="sitemap_txt_02"><img src="../imgs/arrow01_02.gif" width="7" height="8">　<a href="../func01/orderlist.php?check=0">未確認をみる</a></div>
+                      <div class="sitemap_txt_02"><img src="../imgs/arrow01_02.gif" width="7" height="8">　<a href="../func01/orderlist.php?recvst=0">未入金をみる</a></div>
+                      <div class="sitemap_txt_02"><img src="../imgs/arrow01_02.gif" width="7" height="8">　<a href="../func01/orderlist.php?ship0st=1">未発送をみる</a></div>
+                      <div class="sitemap_txt_02"><img src="../imgs/arrow01_02.gif" width="7" height="8">　<a href="../func01/orderlist.php?ship1st=1">発送予約をみる</a></div>
+                      <div class="sitemap_txt_02"><img src="../imgs/arrow01_02.gif" width="7" height="8">　<a href="../func01/orderlist.php?recvst=1">入金済をみる</a></div>
+                      <div class="sitemap_txt_02"><img src="../imgs/arrow01_02.gif" width="7" height="8">　<a href="../func01/orderlist.php?ship2st=1">発送済をみる</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif">　代理注文</div>
+                      <div class="sitemap_txt_02"><img src="../imgs/arrow01_02.gif" width="7" height="8">　<a href="../func01/import_order_screen.php" target="_blank">注文個別登録</a></div>
+                      <div class="sitemap_txt_02"><img src="../imgs/arrow01_02.gif" width="7" height="8">　<a href="../func01/import_order_csv.php">注文一括登録</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif">　<a href="../func01/orderlist.php?folder=1">保存フォルダ</a></div>
+                      <div class="sitemap_txt_02"><img src="../imgs/arrow01_02.gif" width="7" height="8">　<a href="../func01/orderlist.php?folder=1">取引完了</a></div>
+                      <div class="sitemap_txt_02"><img src="../imgs/arrow01_02.gif" width="7" height="8">　<a href="../func01/orderlist.php?folder=2">受注キャンセル</a></div>
+                      <div class="sitemap_txt_02"><img src="../imgs/arrow01_02.gif" width="7" height="8">　<a href="../func01/orderlist.php?folder=3">ごみ箱</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/orderpnt.cgi">承認台帳</a></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="sitemap01">申込処理</td>
+                  </tr>
+                  <tr>
+                    <td style="padding-bottom:5px ">
+                      <TMPL_IF IsTrialCourseShop>
+                          <div class="sitemap_txt"><img src="../imgs/arrow01.gif">　<TMPL_VAR NAME=TrialCourseTag>申込台帳をみる</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow01.gif">　<TMPL_VAR NAME=TrialCourseTag>保存フォルダ</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow01.gif">　<TMPL_VAR NAME=TrialCourseTag>ごみ箱</a></div>
+                      <TMPL_ELSE>
+                          <div class="sitemap_txt"><img src="../imgs/arrow01.gif">　<a href="../func01/rp_order_list.php">申込台帳をみる</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow01.gif">　<a href="../func01/rp_order_list.php?folder=1">保存フォルダ</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow01.gif">　<a href="../func01/rp_order_list.php?folder=3">ごみ箱</a></div>
+                      </TMPL_IF>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="sitemap01">受注台帳の設定</td>
+                  </tr>
+                  <tr>
+
+                    <td>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/orderset.cgi">受注台帳設定</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/blacklist.php">ブラックリスト設定</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/odrmail.php">メールのテンプレート</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/odrprint.cgi">印刷書類のテンプレート</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/odrdata.cgi">受注データのダウンロード設定</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/e_receipt_template.php">電子領収書のテンプレート</a></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="sitemap01">顧客管理</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/clientlist.php">顧客台帳</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/reviewlist.cgi">評価コメント台帳</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/clidata.php">顧客データのダウンロード</a></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="sitemap01">商品管理</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/itemlist.cgi">商品台帳</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/stocklist.cgi">在庫管理</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/iteminfo.cgi">商品の新規登録</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/category.php">商品カテゴリの管理</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/itemgroup.php">商品グループの管理</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/secret_sale_group.php">シークレットグループの管理</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/itemoption.php">オプションの管理</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/recom_list.cgi">関連商品設定</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/bundle_list.php">まとめ割引設定</a></div>
+                      <TMPL_IF CanRegular>
+                          <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/regular_combine.php">同梱物の設定</a></div>
+                      </TMPL_IF>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/upcross-sell_list.php">アップセル・クロスセル設定</a></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="sitemap01">画像管理</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/imagelist.cgi">画像台帳</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/imageupload.cgi">画像一括登録</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/imagecategory.cgi">画像カテゴリの管理</a></div>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="sitemap01">一括処理</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif" width="7" height="8">　<a href="../func01/gross_processing.php">各種一括処理</a></div>
+                    </td>
+                  <tr>
+                    <td class="sitemap01">レポート</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif">　<a href="../func01/acc_report.cgi">アクセスレポート</a></div>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif">　<a href="../func01/sales_report.cgi">売上レポート</a></div>
+                      <TMPL_IF IsTrialCourseShop>
+                          <div class="sitemap_txt"><img src="../imgs/arrow01.gif">　<TMPL_VAR NAME=TrialCourseTag>代金回収レポート</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow01.gif">　<TMPL_VAR NAME=TrialCourseTag>ご利用料金レポート</a></div>
+                      <TMPL_ELSE>
+                          <div class="sitemap_txt"><img src="../imgs/arrow01.gif">　<a href="../func01/bil_report_sps.cgi">代金回収レポート</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow01.gif">　<a href="../func01/charge_report.cgi">ご利用料金レポート</a></div>
+                      </TMPL_IF>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="sitemap01">ご利用料金の請求明細</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <TMPL_IF IsTrialCourseShop>
+                          <div class="sitemap_txt"><img src="../imgs/arrow01.gif">　<TMPL_VAR NAME=TrialCourseTag>請求金額と支払状況の確認</a></div>
+                      <TMPL_ELSE>
+                          <div class="sitemap_txt"><img src="../imgs/arrow01.gif">　<a href="../func01/acf_report.cgi" onClick="MM_openBrWindow('../func01/acf_report.cgi','acf','scrollbars=yes,resizable=yes,width=800,height=480'); return false;">請求金額と支払状況の確認</a></div>
+
+                      </TMPL_IF>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td class="sitemap01">メール管理</td>
+                  </tr>
+                  <tr>
+                    <td>
+                      <div class="sitemap_txt"><img src="../imgs/arrow01.gif">　<a href="../func01/shopmail.cgi">メールをみる</a></div>
+                    </td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+        <td background="imgs/sm_line_l.gif" style="background-repeat:repeat-y " width="5"><img src="../imgs/spc.gif" width="1" height="1"></td>
+        <td valign="top" class="sitemap_box" width="33%">
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td bgcolor="#F39700" class="sitemap_title">ページ編集</td>
+          </tr>
+          <tr>
+            <td bgcolor="#F39700">
+            <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+              <tr>
+                <td>
+                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td>
+                    <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sitemap_table" bgcolor="#FFFFFF">
+                      <tr>
+                        <td class="sitemap02">トップページの編集</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/newitem.php">新着商品の入替</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/pickupitem.php">おすすめ商品の入替</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/popitem.php">人気ランキングの変更</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/infolist.cgi">お知らせの更新</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/topimg.cgi">トップイメージの入替</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/keyword_link.php">キーワードリンクの設定</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/masterinfo.cgi">店長紹介の更新</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/calendar.cgi">定休日カレンダーの更新</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/linklist.cgi">リンク集の更新</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/freelink.cgi">リンクの設定</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/freetop.cgi">センター用フリーエリア</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/freeside.cgi">サイドバー用フリーエリア</a></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="sitemap02">その他ページの編集</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/itemlist_order.php">商品一覧ページの並び順</a></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="sitemap02">コンテンツの編集</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/htmleditor.php">HTMLエディタの設定</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/diary.cgi">店長日記を書く</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/entry.cgi">フリーページ作成</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/entry_select.cgi">フリーページ管理</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/cateblog.cgi">フリーページのカテゴリ管理</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/comment.cgi">コメント・トラックバック管理</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/prohibition.cgi">禁止IP管理</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/enqu_select.cgi">アンケートフォームの設定</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/rating.cgi">評価ページの設定</a></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="sitemap02">オプションサービス</td>
+                      </tr>
+                      <tr>
+                        <td>
+                            <TMPL_IF IsTrialCourseShop>
+                            <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<TMPL_VAR NAME=TrialCourseTag>WordPressの設定</a></div>
+                            <TMPL_ELSE>
+                            <div class="sitemap_txt"><img src="../imgs/arrow02.gif">　<a href="../func02/wordpress_conf.php">WordPressの設定</a></div>
+                            </TMPL_IF>
+                        </td>
+                      </tr>
+                    </table></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+        <td background="imgs/sm_line_l.gif" style="background-repeat:repeat-y " width="5"><img src="../imgs/spc.gif" width="1" height="1"></td>
+        <td width="33%" valign="top" class="sitemap_box">
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td bgcolor="#0093C9" class="sitemap_title">お店設定</td>
+          </tr>
+          <tr>
+            <td bgcolor="#0093C9">
+            <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+              <tr>
+                <td>
+                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td>
+                    <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                      <tr>
+                        <td>
+                        <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sitemap_table" bgcolor="#FFFFFF">
+                          <tr>
+                            <td class="sitemap03">お店運用</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/payment.cgi">決済方法の設定</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/scharge.php">送料の設定</a></div>
+                              <TMPL_IF IsTrialCourseShop>
+                                  <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>URLの設定</a></div>
+                              <TMPL_ELSE>
+                                  <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/domsw.cgi">URLの設定</a></div>
+                              </TMPL_IF>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/config_tax.php">消費税の設定</a></div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="sitemap03">お店情報</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/m_guidance.cgi">お店案内の編集</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/s_guidance.cgi">ご利用案内の編集</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/mailregist.php">差出人と署名の一括編集</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/business.cgi">特定商取引法の表示編集</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/policy.cgi">個人情報保護の取り扱いの編集</a></div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="sitemap03">ショッピングカート</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/kago-param.php">基本設定</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/shop-message.php">メッセージの編集</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/deliv_desc.php">お届け先設定</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/shop_param.php">入力項目設定</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/ordmail-conf.php">注文確認メールの設定</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/volume_discount.php">高額購入割引の設定</a></div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="sitemap03">会員機能</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/memsystem.php">会員機能の設定</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/pointsystem.php">ポイント運用設定</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/mypage.php">マイページの設定</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/membermail.cgi">会員への自動送信メール設定</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/rank-info-set.php">会員ランクの設定</a></div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="sitemap03">Ｅストアーリピート</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <TMPL_IF IsTrialCourseShop>
+                                  <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>定期購入・頒布会の設定</a></div>
+                              <TMPL_ELSE>
+                                  <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/regular_setting.php">定期購入・頒布会の設定</a></div>
+                              </TMPL_IF>
+                              <TMPL_IF IsTrialCourseShop>
+                                  <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>お届けサイクルの設定</a></div>
+                              <TMPL_ELSE>
+                                  <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/regular_cycle.php">お届けサイクルの設定</a></div>
+                              </TMPL_IF>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="sitemap03">海外販売</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/overseas_sale.php">海外販売の設定</a></div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="sitemap03">コメント設定</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/bcontrol.cgi">初期設定</a></div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="sitemap03">開店・閉店</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/shop-status.cgi">開店・閉店の切替</a></div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td class="sitemap03">ＥストアーＬＰカート</td>
+                          </tr>
+                          <tr>
+                            <td>
+                              <div class="sitemap_txt"><img src="../imgs/arrow03.gif" width="7" height="8">　<a href="../func03/lp_top.php">ＥストアーＬＰカートの設定</a></div>
+                            </td>
+                          </tr>
+                        </table></td>
+                      </tr>
+                    </table></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td colspan="5" background="imgs/sm_line_s.gif" style="background-repeat:repeat-x "><img src="../imgs/spc.gif" height="5" width="6"></td>
+      </tr>
+      <tr>
+        <td rowspan="2" valign="top" class="sitemap_box">
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td bgcolor="#856791" class="sitemap_title">デザイン設定</td>
+          </tr>
+          <tr>
+            <td bgcolor="#856791">
+            <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+              <tr>
+                <td>
+                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td>
+                    <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sitemap_table" bgcolor="#FFFFFF">
+                      <tr>
+                        <td class="sitemap04">テーマ</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="sitemap_txt"><img src="../imgs/arrow04.gif" width="7" height="8">　<a href="../func04/theme_sps.cgi">テーマの選択</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow04.gif" width="7" height="8">　<a href="../func04/theme_button_sps.cgi">ボタンのカスタマイズ</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow04.gif" width="7" height="8">　<a href="../func04/theme_custom_sps.cgi">CSSのカスタマイズ</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow04.gif" width="7" height="8">　<a href="../func04/theme_import_sps.cgi">CSSのインポート</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow04.gif" width="7" height="8">　<a href="../func04/newtheme_htmlcustomize.php">HTMLのカスタマイズ</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow04.gif" width="7" height="8">　<a href="../func04/cart_custom_sps.cgi">カート専用CSS</a></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="sitemap04">トップページ</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="sitemap_txt"><img src="../imgs/arrow04.gif" width="7" height="8">　<a href="../func04/topdesign_sps.cgi">全体のレイアウト</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow04.gif" width="7" height="8">　<a href="../func04/headfooter.php">ヘッダとＳＥＯの設定</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow04.gif" width="7" height="8">　<a href="../func04/newitem_design.cgi">新着商品のレイアウト</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow04.gif" width="7" height="8">　<a href="../func04/recitem_design.cgi">おすすめ商品のレイアウト</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow04.gif" width="7" height="8">　<a href="../func04/popitem_design.cgi">人気ランキングのレイアウト</a></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="sitemap04">商品一覧・詳細ページ</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="sitemap_txt"><img src="../imgs/arrow04.gif" width="7" height="8">　<a href="../func04/stock_conf.php">在庫表示設定</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow04.gif" width="7" height="8">　<a href="../func04/itemform_list.cgi">商品一覧ページ</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow04.gif" width="7" height="8">　<a href="../func04/itemform.cgi">商品詳細ページ</a></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="sitemap04">その他</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="sitemap_txt"><img src="../imgs/arrow04.gif" width="7" height="8">　<a href="../func04/breadcrumbs.cgi">パーツ設定</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow04.gif" width="7" height="8">　<a href="../func04/formmail.cgi">問い合せフォームの設定</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow04.gif" width="7" height="8">　<a href="../func04/mailmagpage.cgi">メルマガ紹介ページ</a></div>
+                        </td>
+                      </tr>
+                    </table></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+        <td width="5" rowspan="2" background="imgs/sm_line_l.gif" style="background-repeat:repeat-y "><img src="../imgs/spc.gif" width="1" height="1"></td>
+        <td rowspan="2" valign="top" class="sitemap_box">
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td bgcolor="#CD3E1C" class="sitemap_title">集客・運用</td>
+          </tr>
+          <tr>
+            <td bgcolor="#CD3E1C">
+            <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+              <tr>
+                <td>
+                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td>
+                    <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sitemap_table" bgcolor="#FFFFFF">
+                      <tr>
+                        <td class="sitemap05">メールマガジン</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="sitemap_txt"><img src="../imgs/arrow05.gif" width="7" height="8">　<a href="../func05/mailmag.cgi">メルマガ発行</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow05.gif" width="7" height="8">　<a href="../func05/mmreader.cgi">読者管理</a></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="sitemap05">販売促進</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="sitemap_txt"><img src="../imgs/arrow05.gif">　<a href="../func05/couponsystem.php">クーポン発行</a></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="sitemap05">Ｅストアーフレンドリンク</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <TMPL_IF IsTrialCourseShop>
+                              <div class="sitemap_txt"><img src="../imgs/arrow05.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>売上レポート</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow05.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>出品管理</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow05.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>アフィリエイター管理</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow05.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>アフィリエイターへのメール</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow05.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>初期設定</a></div>
+                          <TMPL_ELSE>
+                              <div class="sitemap_txt"><img src="../imgs/arrow05.gif" width="7" height="8">　<a href="../func05/my-sales-report.cgi">売上レポート</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow05.gif" width="7" height="8">　<a href="../func05/my-sales-item.cgi">出品管理</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow05.gif" width="7" height="8">　<a href="../func05/my-sales-users.cgi">アフィリエイター管理</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow05.gif" width="7" height="8">　<a href="../func05/my-sales-mail.cgi">アフィリエイターへのメール</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow05.gif" width="7" height="8">　<a href="../func05/my-sales-basic.cgi">初期設定</a></div>
+                          </TMPL_IF>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="sitemap05">外部アクセス解析ツール</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="sitemap_txt"><img src="../imgs/arrow05.gif">　<a href="../func05/analysis.cgi">アクセス集計タグ設定</a></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="sitemap05">PPC・アフィリエイト広告</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="sitemap_txt"><img src="../imgs/arrow05.gif">　<a href="../func05/conversion.cgi">コンバージョンタグ設定</a></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="sitemap_txt"><img src="../imgs/arrow05.gif">　<a href="../func05/googleps_feed_conf.php">広告用データフィードの作成</a></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="sitemap_txt"><img src="../imgs/arrow05.gif">　<a href="../func05/remarketing_tag.php">リマーケティングタグ設定</a></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="sitemap05">TradeSafeトラストマーク</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="sitemap_txt"><img src="../imgs/arrow05.gif">　<a href="../func05/tradesafe.cgi">TradeSafeトラストマーク設定</a></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="sitemap05">SNS連携</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="sitemap_txt"><img src="../imgs/arrow05.gif">　<a href="../func05/googleps_feed_conf.php#instagram">Instagram連携設定</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow05.gif">　<a href="../func05/twitter_conf.php">Twitter利用設定</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow05.gif">　<a href="../func05/facebook_conf.php">Facebook利用設定</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow05.gif">　<a href="../func05/line_conf.php">LINE利用設定</a></div>
+                          <TMPL_IF IsTrialCourseShop>
+                                <div class="sitemap_txt"><img src="../imgs/arrow05.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>Ｅストアーコネクト設定</a></div>
+                          <TMPL_ELSE>
+                                <div class="sitemap_txt"><img src="../imgs/arrow05.gif">　<a href="../func07/connect_statusview.php">Ｅストアーコネクト設定</a></div>
+                          </TMPL_IF>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="sitemap05">XMLサイトマップ</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="sitemap_txt"><img src="../imgs/arrow05.gif">　<a href="../func05/sitemap.php">XMLサイトマップ設定</a></div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td class="sitemap05">有料サービス</td>
+                      </tr>
+                      <tr>
+                        <td class="sitemap05_option">
+                          <div class="midashi">集客</div>
+                          <div class="text"><a href="http://tips.estore.jp/20063#03" target="_blank">SEO対策&nbsp;Google設定パック</a></div>
+                          <div class="text"><a href="http://tips.estore.jp/20033#03" target="_blank">リスティング広告代行</a></div>
+                          <div class="text">
+                            <form name="singlehand" method="post" target="_blank" action="https://sps.singlehand.jp/">
+                              <input type="hidden" name="shopID" value="">
+                            </form>
+                            <a href="#" onClick="document.singlehand.shopID.value=store_id;document.singlehand.submit();">シングルハンド</a>
+                          </div>
+                        </td>
+                      </tr>
+                    </table></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+        <td width="5" rowspan="2" background="imgs/sm_line_l.gif" style="background-repeat:repeat-y "><img src="../imgs/spc.gif" width="1" height="1"></td>
+        <td valign="top" class="sitemap_box">
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td bgcolor="#677D88" class="sitemap_title">サーバー</td>
+          </tr>
+          <tr>
+            <td bgcolor="#677D88">
+            <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+              <tr>
+                <td>
+                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td>
+                    <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sitemap_table" bgcolor="#FFFFFF">
+                      <tr>
+                        <td class="sitemap06">サーバー</td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div class="sitemap_txt"><img src="../imgs/arrow06.gif" width="7" height="8">　<a href="../func06/ftp_account.php">FTPアカウント</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow06.gif" width="7" height="8">　<a href="../func06/webacc.cgi">ユーザー認証</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow06.gif" width="7" height="8">　<a href="../func06/urllist.php">URL一覧</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow06.gif" width="7" height="8">　<a href="../func06/acc_logs.cgi">アクセスログ設定</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow06.gif" width="7" height="8">　<a href="../func06/api_use_request.php">ショップサーブＡＰＩ</a></div>
+                          <div class="sitemap_txt"><img src="../imgs/arrow06.gif" width="7" height="8">　<a href="../func00/applyssl.php?CMD=menu">常時SSL設定</a></div>
+                        </td>
+                      </tr>
+                    </table></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr>
+        <td valign="top" class="sitemap_box">
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td bgcolor="#CACACA" class="sitemap_title07">契約情報・各種手続き</td>
+          </tr>
+          <tr>
+            <td bgcolor="#CACACA">
+            <table width="100%"  border="0" cellspacing="1" cellpadding="0">
+              <tr>
+                <td>
+                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                  <tr>
+                    <td>
+                    <table width="100%"  border="0" cellspacing="0" cellpadding="0" class="sitemap_table" bgcolor="#FFFFFF">
+                      <tr>
+                        <td>
+                          <TMPL_IF IsTrialCourseShop>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>ご住所・ご連絡先の変更</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>ログイン権限設定</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>お支払方法の変更</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>ドメイン取得</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>常時SSLのお申し込み</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>決済代行サービス申込</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>Amazon Pay申込</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>キャッシュレス・消費者還元事業</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>契約内容変更</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>顧客数上限アップ申込</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>メルマガ送信数上限アップ申込</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>Ｅストアーショップサーブの解約</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<TMPL_VAR NAME=TrialCourseTag>サービス規約</a></div>
+                          <TMPL_ELSE>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<a href="../func00/customer.cgi">ご住所・ご連絡先の変更</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<a href="../func00/account_list.php">ログイン権限設定</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<a href="../func00/customer.cgi#change_pay">お支払方法の変更</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<a href="../func00/customer.cgi#dom_get">ドメイン取得</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<a href="../func00/applyssl.php?CMD=menu">常時SSLのお申し込み</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<a href="../func00/customer.cgi#entry_card">決済代行サービス申込</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<a href="../func00/customer.cgi#amazon">Amazon Pay申込</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<a href="../func00/customer.cgi#cashless">キャッシュレス・消費者還元事業</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<a href="#" onClick="MM_openBrWindow('../func00/pop-cust-course.cgi','info','scrollbars=yes,resizable=yes,width=650,height=700')">契約内容変更</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<a href="../func00/customer.cgi#custadd">顧客数上限アップ申込</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<a href="../func00/customer.cgi#custadd">メルマガ送信数上限アップ申込</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<a href="../func00/customer.cgi#break_sp">Ｅストアーショップサーブの解約</a></div>
+                              <div class="sitemap_txt"><img src="../imgs/arrow00.gif" width="7" height="8">　<a href="http://estore.co.jp/kiyaku/shopserve_agreement.pdf" target="_blank">サービス規約</a></div>
+                          </TMPL_IF>
+                        </td>
+                      </tr>
+                    </table></td>
+                  </tr>
+                </table></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table>
+      </tr>
+    </table></td>
+  </tr>
+</table>

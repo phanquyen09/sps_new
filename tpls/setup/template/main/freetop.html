@@ -1,0 +1,280 @@
+<script type="text/javascript">
+  _editor_url = "../blog/js";
+  _editor_lang = "ja";
+</script>
+<!--
+<style type="text/css">
+input,select { font-size: 14px; line-height: 1.3em; margin: 4px 4px;
+                 vertical-align:middle; }
+.htmlarea table, td, div { padding: 0px 0px 0px 0px; margin: 0px 0px 0px 0px;  }
+.htmlarea table { border-style: none; }
+.htmlarea .toolbar td { background-color: ButtonFace; border-width: 0px; }
+</style>
+-->
+<TMPL_IF NAME=displayHtmlEditor>
+<script type="text/javascript" src="../blog/js/htmlarea.js"></script>
+<script type="text/javascript" src="../blog/js/entry1.js"></script>
+<script type="text/javascript" src="../blog/js/entry2.js"></script>
+<script type="text/javascript" src="../blog/js/entry3.js"></script>
+<script type="text/javascript" src="../blog/js/entry4free.js"></script>
+<script type="text/javascript" src="../blog/js/entry5free.js"></script>
+<script type="text/javascript" src="../blog/js/initeditor1.js"></script>
+<script type="text/javascript" src="../blog/js/initeditor2.js"></script>
+<script type="text/javascript" src="../blog/js/initeditor3.js"></script>
+<script type="text/javascript" src="../blog/js/initeditor4free.js"></script>
+<script type="text/javascript" src="../blog/js/initeditor5free.js"></script>
+<script type="text/javascript">
+<!--
+function regist1() {
+    window.document.form1.mode.value="regist";
+    if (HTMLAreaSupported1()) {
+        window.document.form1.ta1.form.onsubmit();
+    }
+    document.form1.v.value=1;
+    window.document.form1.submit();
+}
+
+function regist2() {
+    window.document.form1.mode.value="regist";
+    if (HTMLAreaSupported2()) {
+        window.document.form1.ta2.form.onsubmit();
+    }
+    document.form1.v.value=2;
+    window.document.form1.submit();
+}
+
+function regist3() {
+    window.document.form1.mode.value="regist";
+    if (HTMLAreaSupported3()) {
+        window.document.form1.ta3.form.onsubmit();
+    }
+    document.form1.v.value=3;
+    window.document.form1.submit();
+}
+
+function regist4() {
+    window.document.form1.mode.value="regist";
+    if (HTMLAreaSupported4()) {
+        window.document.form1.ta4.form.onsubmit();
+    }
+    document.form1.v.value=4;
+    window.document.form1.submit();
+}
+
+function regist5() {
+    window.document.form1.mode.value="regist";
+    if (HTMLAreaSupported5()) {
+        window.document.form1.ta5.form.onsubmit();
+    }
+    document.form1.v.value=5;
+    window.document.form1.submit();
+}
+
+
+function edinit() {
+    initEditor2();
+    initEditor3();
+    initEditor4();
+    initEditor5();
+    initEditor1();
+}
+//-->
+</script>
+<!--
+<img src="../imgs/spc.gif" onload="edinit();">
+-->
+<TMPL_ELSE>
+<script type="text/javascript">
+<!--
+function regist1() {
+    window.document.form1.mode.value="regist";
+    document.form1.v.value=1;
+    window.document.form1.submit();
+}
+
+function regist2() {
+    window.document.form1.mode.value="regist";
+    document.form1.v.value=2;
+    window.document.form1.submit();
+}
+
+function regist3() {
+    window.document.form1.mode.value="regist";
+    document.form1.v.value=3;
+    window.document.form1.submit();
+}
+
+function regist4() {
+    window.document.form1.mode.value="regist";
+    document.form1.v.value=4;
+    window.document.form1.submit();
+}
+
+function regist5() {
+    window.document.form1.mode.value="regist";
+    document.form1.v.value=5;
+    window.document.form1.submit();
+}
+//-->
+</script>
+</TMPL_IF>
+
+<form name="form1" method="post" action="freetop.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#F39700">
+
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">センター用フリーエリアの更新を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/freetop.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  お店のトップページのセンターエリアに、バナーを設置したり、キャンペーン案内などのコンテンツが設定できます。<br>
+                                  設定後、[設定を保存する]ボタンをクリックし、管理画面左上の[お店ページの更新へ]ボタンをクリックします。<br><br>
+                                  <a href="../func04/topdesign_sps.cgi">⇒センター用フリーエリアで作成したコンテンツの表示位置、表示・非表示の設定</a><br><br>
+								  JavaScriptを使用する場合は、HTMLエディタをOFFにしてご利用ください。<br>
+                                  <a href="../func02/htmleditor.php">⇒HTMLエディタ OFF/ON 切替</a><br>
+                                </div>
+                                <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+<!--
+<div align="right"><a href="freetop2.cgi">テキスト版</a></div>
+-->
+                <TMPL_VAR NAME=err>
+                <TMPL_VAR NAME=body_err>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                        <tr>
+                                          <td colspan="2" align="center" class="item-name02">センター用フリーエリア1</td>
+                                        </tr>
+
+                                        <tr>
+                                          <td class="item-name">見出し</td>
+                                          <td class="item"><input name="title1" type="text" class="def-line" value="<TMPL_VAR NAME=title1>">
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">内容 </td>
+                                          <td class="item">
+                                              <textarea name="body1" id="ta1" rows="10" style="width:455px" wrap="VIRTUAL" class="def-line"><TMPL_VAR escape=html NAME=body1></textarea>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td colspan="2" align="center" class="item02"><input onClick="regist1();" name="set" type="button" id="set" value="設定を保存する">
+                                          </td>
+                                        </tr>
+                                      </table>
+
+                                      <br>
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                        <tr>
+                                          <td colspan="2" align="center" class="item-name02">センター用フリーエリア2</td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">見出し</td>
+                                          <td class="item"><input name="title2" type="text" class="def-line" value="<TMPL_VAR NAME=title2>">
+
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">内容 </td>
+                                          <td class="item">
+                                              <textarea name="body2" id="ta2" rows="10" style="width:455px" wrap="VIRTUAL" class="def-line"><TMPL_VAR escape=html NAME=body2></textarea>
+                                          </td>
+                                        </tr>
+
+                                        <tr>
+                                          <td colspan="2" align="center" class="item02"><input onClick="regist2();" name="set" type="button" id="set" value="設定を保存する">
+                                          </td>
+                                        </tr>
+                                      </table>
+                                      <br>
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                        <tr>
+                                          <td colspan="2" align="center" class="item-name02">センター用フリーエリア3</td>
+
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">見出し</td>
+                                          <td class="item"><input name="title3" type="text" class="def-line" value="<TMPL_VAR NAME=title3>">
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">内容 </td>
+
+                                          <td class="item">
+                                              <textarea name="body3" id="ta3" rows="10" style="width:455px" wrap="VIRTUAL" class="def-line"><TMPL_VAR escape=html NAME=body3></textarea>
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td colspan="2" align="center" class="item02"><input onClick="regist3();" name="set" type="button" id="set" value="設定を保存する">
+                                          </td>
+                                        </tr>
+
+                                      </table>
+                                      <br>
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                        <tr>
+                                          <td colspan="2" align="center" class="item-name02">センター用フリーエリア4</td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">見出し</td>
+                                          <td class="item"><input name="title4" type="text" class="def-line" value="<TMPL_VAR NAME=title4>">
+
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">内容 </td>
+                                          <td class="item">
+                                              <textarea name="body4" id="ta4" rows="10" style="width:455px" wrap="VIRTUAL" class="def-line"><TMPL_VAR escape=html NAME=body4></textarea>
+                                          </td>
+                                        </tr>
+
+                                        <tr>
+                                          <td colspan="2" align="center" class="item02"><input onClick="regist4();" name="set" type="button" id="set" value="設定を保存する">
+                                          </td>
+                                        </tr>
+                                      </table>
+                                      <br>
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                        <tr>
+                                          <td colspan="2" align="center" class="item-name02">センター用フリーエリア5</td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">見出し</td>
+                                          <td class="item"><input name="title5" type="text" class="def-line" value="<TMPL_VAR NAME=title5>">
+
+                                          </td>
+                                        </tr>
+                                        <tr>
+                                          <td class="item-name">内容 </td>
+                                          <td class="item">
+                                              <textarea name="body5" id="ta5" rows="10" style="width:455px" wrap="VIRTUAL" class="def-line"><TMPL_VAR escape=html NAME=body5></textarea>
+                                          </td>
+                                        </tr>
+
+                                        <tr>
+                                          <td colspan="2" align="center" class="item02"><input onClick="regist5();" name="set" type="button" id="set" value="設定を保存する">
+                                          </td>
+                                        </tr>
+                                      </table>
+                                      <br></td></tr>
+                              </table></td>
+                            </tr>
+                        </table>
+                        <img src="../imgs/spc.gif" <TMPL_IF NAME=displayHtmlEditor>onload="edinit();"</TMPL_IF>>
+                      </td>
+                    </tr>
+<input name="dimg" type="hidden" value="">
+<input name="mode" type="hidden" value="regist">
+<input name="v" type="hidden" value="">
+<input name="eid" type="hidden" value="">
+</form>

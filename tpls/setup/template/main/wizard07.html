@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<title>ショップ開店ウィザード -完了-</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="../css/wizard.css" rel="stylesheet" type="text/css">
+<script src="../js/base.js" type="text/javascript"></script>
+<TMPL_VAR NAME=GANALY>
+</head>
+<body id="end">
+<a href="#" name="01"></a>
+<div id="container">
+
+  <!-- ヘッダ -->
+  <div id="top-header">
+    <div class="logo-header-wrap">
+      <div class="logo-area">
+        <img src="../imgs/top_img0.gif" alt="Ｅストアーショップサーブ">
+      </div>
+    </div>
+  </div>
+
+  <table class="steps-table">
+    <tr>
+      <td><img src="../imgs/wi_top_off_001.gif"></td>
+      <td><img src="../imgs/wi_top_off_002.gif"></td>
+      <td><img src="../imgs/wi_top_off_003.gif"></td>
+      <td><img src="../imgs/wi_top_off_004.gif"></td>
+      <td><img src="../imgs/wi_top_off_005.gif"></td>
+      <td><img src="../imgs/wi_top_off_006.gif"></td>
+      <td><img src="../imgs/wi_top_on_007.gif"></td>
+    </tr>
+  </table>
+
+<!-- コンテンツ -->
+<div id="contents">
+	<!-- 見出し -->
+	<h1>開店に必要なページが完成しました。<br>
+	さっそく、開店しましょう！</h1>
+
+	<!-- メイン -->
+	<div id="main_box" class="clearfix">
+		<!-- ウィザード完了後のイメージ -->
+		<div id="section1">
+			<div class="shop_img">
+				<a href="../imgs/wi_end_img.gif" target="_blank"><img src="../imgs/wi_end_simg.gif"><br>
+				≪開店ウィザード完了後のイメージ≫</a>
+			</div>
+		</div>
+
+		<!-- ウィザード開始の案内 -->
+		<div id="section2">
+			<div class="next_info">
+                <TMPL_IF IsTrialCourseShop>
+                <TMPL_ELSE>
+				  <div class="navi_img">
+					  ▼
+					  関連ガイドブック<br>
+					  <img src="../imgs/we007_navi_img.gif">
+				  </div>
+                </TMPL_IF>
+
+				<p>「開店する」ボタンを押すと、管理画面に移動します。</p>
+
+				<p>売れるお店に必要な作り込み・各種設定をしましょう。</p>
+
+                <TMPL_IF IsTrialCourseShop>
+                <TMPL_ELSE>
+				  <p>お手元のガイドブック「集客・店づくり 基本編」にそって、手続きを進めてください。</p>
+                </TMPL_IF>
+				<script type="text/javascript">
+					function doOpen(form){
+						logging('CMPL_WIZ', function(){
+							form.submit();
+						});
+						return false;
+					}
+				</script>
+				<form name="form1" method="post" action="wizard08.cgi">
+					<input type="submit" value="開店する" name="no_wizard" onclick="return doOpen(document.form1);">
+				</form>
+			</div>
+		</div>
+	</div>
+<TMPL_IF NAME=isResponsiveTheme>
+  <div id="sub_box">
+    <!-- ウィザードスキップの案内 -->
+    <div class="skip_info">
+      <p>▼レスポンシブデザイン対応テーマをご利用の場合</p>
+      <p>レスポンシブデザイン対応テーマを使用したお店をスマートフォンのアプリ内ブラウザから閲覧している場合、カート画面において一部正常に動作しないことがあるため、スマートフォン向けのカート画面にはEストアーモバイルのご利用を推奨しています。<br>
+         まだ設定されていない場合は、「<a href="../func07/smp_open_close.php?mode=smp" target="_blank">スマートフォンサイト設定＞各種設定＞開店・閉店設定</a>」にて、以下の設定を行ったうえで、当ページでの操作を続けてください。<br/>
+         ・「開店・閉店切替」を「開店する」に設定<br/>
+         ・「転送設定」を「カートのみスマートフォンサイトを表示する」に設定
+      </p>
+    </div>
+  </div>
+  <br>
+</TMPL_IF>
+	<!-- サブ -->
+	<div id="sub_box">
+		<!-- ウィザードスキップの案内 -->
+		<div class="skip_info">
+			<p>▼まだ、開店しない場合</p>
+			<p>開店後、管理画面の以下のメニューから「開店準備モード」に切り替えられます。<br>
+			<span class="red">管理画面
+			＞
+			お店設定
+			＞
+			開店・閉店の切替</span></p>
+		</div>
+	</div>
+</div>
+
+</div>
+</body>
+</html>
+

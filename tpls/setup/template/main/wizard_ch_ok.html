@@ -1,0 +1,102 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title><TMPL_VAR NAME=ServName>管理画面</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="../default00.css" rel="stylesheet" type="text/css">
+<link href="../default.css" rel="stylesheet" type="text/css">
+<TMPL_VAR NAME=GANALY>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function openClose(id,pt,i) {
+		prop = document.getElementById(id).style.display;
+
+//		alert(id+" "+pt+" "+i);
+
+		if(i==0) prop = "none";
+
+		if(prop=="none"){
+				if(pt=="div") document.getElementById(id).style.display="block";
+//						alert("div "+document.getElementById(id).style.display);
+				if(pt=="tr") {
+						if(document.all)	document.getElementById(id).style.display="block";
+						else
+						document.getElementById(id).style.display="table-row";
+//						alert("tr "+document.getElementById(id).style.display);
+				}
+		} else {
+				document.getElementById(id).style.display="none";
+		}
+//		alert(document.getElementById(id).style.display);
+}
+
+function location_top(){
+	location.href = "../login.html";
+}
+
+-->
+</script>
+<style type="text/css">
+<!--
+body {font-size:80%; margin:10px;}
+-->
+</style>
+</head>
+<body bgcolor="#FAFAFA">
+<a name="top"></a>
+<table width="600"  border="0" cellpadding="0" cellspacing="0">
+  <tr>
+
+    <td bgcolor="#EBF0FC" style="padding:10px 10px 30px 10px  "><table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+        <tr>
+          <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0F4071">
+              <tr>
+                <td><img src="../imgs/spc.gif"></td>
+              </tr>
+          </table></td>
+          <td align="left" class="midashi">管理画面のパスワードを変更します</td>
+
+        </tr>
+      </table>
+        <img src="../imgs/spc.gif" width="5" height="5">
+
+        <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+          <tr>
+
+            <td align="left" class="main-table"><table width="100%" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                  <td>
+
+                     パスワードを変更しました。<br>
+                     新しいパスワードでログインし直してください。<br>
+                     
+                  </td>
+                </tr>
+              </table>
+            </td>
+          </tr>
+
+        </table>
+        <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td>&nbsp;</td>
+          </tr>
+        </table>
+        <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+          <tr>
+            <td align="center" style="padding:10px 10px 10px 10px "><input name="set" type="button" id="set" value="ログイン画面に移動する" onClick="location.href='https://kanri.shopserve.jp/';">　
+            </td>
+
+          </tr>
+      </table></td>
+  </tr>
+</table>
+</body>
+</html>

@@ -1,0 +1,2635 @@
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function openClose(id) {
+  var prop = document.getElementById(id).style.display;
+
+  if (prop === "none") {
+    document.getElementById(id).style.display = "block";
+  } else {
+    document.getElementById(id).style.display = "none";
+  }
+}
+function SaveSub(f,num) {
+    f.PmImg.value = document.getElementsByName('PmImg' + num)[0].value;
+    f.submit();
+}
+function delImage(f,num)
+{
+   document.getElementById('PICSRC' + num).src = '../imgs/spc.gif';
+   document.getElementsByName('PmImg'  + num)[0].value = ''; 
+}
+//-->
+</script>
+
+<style>
+.text_payment {
+    width: 250px;
+}
+
+.text_payment_ime_dis {
+    ime-mode:disabled;
+    width: 250px;
+}
+
+.amazon-button-box {
+    width: 312px;
+    height: 64px;
+    vertical-align: middle;
+    text-align:center;
+    display:table-cell;
+}
+
+.amazon-button-box img {
+    cursor: default!important;
+}
+
+</style>
+
+<!-- >>>Jun 2013 modify -->
+<table bgcolor="#FFFFFF" border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody><tr>
+        <td width="12">
+            <table bgcolor="#0093C9" border="0" cellpadding="0" cellspacing="0" align="right" height="20" width="50%">
+                <tbody><tr>
+                    <td><img src="../imgs/spc.gif"></td>
+                </tr>
+            </tbody></table>
+        </td>
+<td class="midashi" align="left">決済方法の設定を行います</td>
+<td class="midashi" align="right"><a href="https://help.shopserve.jp/help/payment.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" border="0" align="middle" height="22" width="153"></a></td>
+    </tr>
+</tbody></table>
+<img src="../imgs/spc.gif" height="5" width="5">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+    <tbody><tr>
+        <td class="main-table" align="left">
+          <div class="infoArea table_bg">
+            決済の案内を設定します。<br>
+    「ショッピングカート」「注文確認メール」「各種メールテンプレート」に表示します。
+          </div>
+            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                <tbody><tr>
+                    <td>
+<!-- ErrMessage Start -->
+<TMPL_LOOP NAME=ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+<!-- ErrMessage End -->
+
+<TMPL_IF NOUSE>
+
+「未契約」と表示されている決済は決済代行サービスのお申込みが必要です。
+<br>
+<TMPL_IF IsTrialCourseShop>
+  <input name="Submit" value="決済代行サービスを申し込む" onClick="return trial_shop_err_alert('dialog_open');"  type="button">
+<TMPL_ELSE>
+  <input name="Submit" value="決済代行サービスを申し込む" onclick="window.open('../func00/pmapply_sps.cgi','info','scrollbars=yes,resizable=yes')" type="button">
+</TMPL_IF>
+※決済代行サービスは<a href="https://help.shopserve.jp/manual/189/#03" target="_blank">売上に応じた手数料</a>がかかります。<br>
+
+<TMPL_UNLESS USE_AMAZON_PAYMENTS>
+<input type="button" name="Submit" value="Amazon Payを利用する" onClick="window.open('../func00/customer.cgi#amazon')"/><br>
+</TMPL_UNLESS>
+
+<div style="text-align:right;padding:15px 0 0 0"><a href="https://help.shopserve.jp/manual/193/#payment" target="_blank">>> 決済ロゴのダウンロード</a></div>
+
+<TMPL_ELSE>
+<TMPL_UNLESS USE_AMAZON_PAYMENTS>
+<input type="button" name="Submit" value="Amazon Payを利用する" onClick="window.open('../func00/customer.cgi#amazon')"/><br>
+</TMPL_UNLESS>
+
+<div style="text-align:right;padding:15px 0 0 0"><a href="https://help.shopserve.jp/manual/193/#payment" target="_blank">>> 決済ロゴのダウンロード</a></div>
+</TMPL_IF>
+<!-- <<<Jun 2013 modify -->
+
+
+<table border="0" class="item-box table-padding-textarea-default">
+<TMPL_LOOP PAYMENTS>
+<TMPL_UNLESS NO_APPLY>
+<!-- このループは　<TR><TD>表示／非表示</TD><TD>上下　詳細設定</TD></TR> のループ -->
+
+<script language="JavaScript">
+<!--
+function change_settle<TMPL_VAR NAME=PAYMETHOD>(cmd) {
+var obj = document.forms["PM<TMPL_VAR NAME=PAYMETHOD>_DESC"];
+obj.CMD.value = cmd;
+    if(obj.CMD.value == 'EDTDESC'){
+    obj.PmImg.value = document.getElementsByName('PmImg' + <TMPL_VAR NAME=PAYMETHOD>)[0].value;
+    }
+obj.submit();
+}
+//-->
+</script>
+    <tr>
+<!-- 左画の水色部分　ここから -->
+<TMPL_IF FR>
+    <FORM name="PM<TMPL_VAR NAME=PAYMETHOD>_DESC" method="POST" action="payment.cgi">
+    <!-- 自由決済　ここから -->
+    <td width="32%" valign="top" class="item-name">
+    <input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+    <input type="hidden" name="CMD" value="">
+    <a id="anchor_<TMPL_VAR NAME=PAYMETHOD>"></a><div style="float:left;width:6.2em;font-size:90%;"><TMPL_VAR NAME=PMNAMETAB></div>
+    <div style="float:right;">
+        <TMPL_IF USE>
+        <select name="PmDisp">
+        <option value="Y" <TMPL_IF PMDISPY>selected</TMPL_IF>>表示</option>
+        <option value="N" <TMPL_IF PMDISPN>selected</TMPL_IF>>非表示</option>
+        </select>
+       <input type="button" name="Submit" value="変更" onClick='res =change_settle<TMPL_VAR NAME=PAYMETHOD>("EDTDISP"); if(!res){return false}'>
+       <TMPL_ELSE>
+        未契約&nbsp;&nbsp;&nbsp;
+        </TMPL_IF>
+    </div><TMPL_VAR NAME=NO_APPLY>
+    </td>
+    <!-- 自由決済　ここまで -->
+<TMPL_ELSE>
+
+
+        <td width="32%" valign="top" class="item-name">
+<form name="PM<TMPL_VAR NAME=PAYMETHOD>_DISP" method="POST" action="payment.cgi">
+<input type="hidden" name="CMD" value="EDTDISP">
+<input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+            <!-- <div style="width:80px;position:absolute;font-size:90%;"><TMPL_VAR NAME=PMNAMETAB></div> -->
+            <a id="anchor_<TMPL_VAR NAME=PAYMETHOD>"></a><div style="float:left;width:6.2em;font-size:90%;"><TMPL_VAR NAME=PMNAMETAB></div>
+            <!-- <div align="right" style="position:static"> -->
+            <div style="float:right;">
+<TMPL_IF USE>
+<select name="PmDisp">
+<option value="Y" <TMPL_IF PMDISPY>selected</TMPL_IF>>表示</option>
+<option value="N" <TMPL_IF PMDISPN>selected</TMPL_IF>>非表示</option>
+</select>
+<input type="button" name="Submit" value="変更" onClick='<TMPL_VAR NAME=ONCLICK_JS>'>
+<TMPL_ELSE>
+未契約&nbsp;&nbsp;&nbsp;
+</TMPL_IF>
+            </div>
+<TMPL_VAR NAME=NO_APPLY>
+        </td>
+</form>
+</TMPL_IF>
+<!-- 左画の水色部分　ここまで -->
+
+        <td width="68%" class="item-sub">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                    <td width="68%" class="item-sub">
+
+<!--上下設定　ここから-->
+<TMPL_IF FR>
+    <!--自由決済　ここから-->
+    <table width="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr><td class="sub-item">
+    <input type="button" name="Submit" value="上へ" onClick='res =change_settle<TMPL_VAR NAME=PAYMETHOD>("UP");if(!res){return false}'>
+    <input type="button" name="Submit" value="下へ" onClick='res =change_settle<TMPL_VAR NAME=PAYMETHOD>("DOWN");if(!res){return false}'>
+    <input type="button" name="Submit" value="詳細設定..." onClick="openClose('pm<TMPL_VAR NAME=PAYMETHOD>_info')">
+    </td></tr>
+    </table>
+    <!--自由決済　ここまで-->
+<TMPL_ELSE>
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0">
+<form name="PM<TMPL_VAR NAME=PAYMETHOD>_SORT" method="POST" action="payment.cgi">
+<input type="hidden" name="CMD" value="EDTSORT">
+<input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+    <tr><td class="sub-item">
+                                    <input type="button" name="Submit" value="上へ" onClick='document.PM<TMPL_VAR NAME=PAYMETHOD>_SORT.CMD.value="UP";document.PM<TMPL_VAR NAME=PAYMETHOD>_SORT.submit();'>
+                                    <input type="button" name="Submit" value="下へ" onClick='document.PM<TMPL_VAR NAME=PAYMETHOD>_SORT.CMD.value="DOWN";document.PM<TMPL_VAR NAME=PAYMETHOD>_SORT.submit();'>
+                                    <TMPL_IF netprotections_deferred_payment>
+                                      <input type="button" name="Submit"  id="npDetailSettings" value="詳細設定..." <TMPL_IF isRegisteredSpCode>class="registeredSpCode"</TMPL_IF>>
+                                    <TMPL_ELSE>
+                                      <input type="button" name="Submit" value="詳細設定..." onClick="openClose('pm<TMPL_VAR NAME=PAYMETHOD>_info')">
+                                    </TMPL_IF>
+    </td></tr>
+</form>
+                        </table>
+</TMPL_IF>
+<!--上下設定　ここまで-->
+
+                        <div id="pm<TMPL_VAR NAME=PAYMETHOD>_info" style="display:<TMPL_VAR NAME=DISPLAYDESC>">
+<TMPL_IF COD>
+                        <table width="100%">
+<form name="PM<TMPL_VAR NAME=PAYMETHOD>_DESC" method="POST" action="payment.cgi">
+<input type="hidden" name="CMD" value="EDTDESC">
+<input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+                            <tr>
+                                <td width="20%" class="sub-item-name">表示条件</td>
+                                <td class="sub-item">
+                                    <input name="PmMinFlag" type="checkbox" value="Y" id="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMINFLGY>checked</TMPL_IF>>
+                                     <label for="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMin" type="text" size="10" value="<TMPL_VAR NAME=PMMIN>" id="PmMin<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled">  <label for="PmMin<TMPL_VAR NAME=PAYMETHOD>">円未満の場合は表示しない</label>
+                                    <br>
+                                    <input name="PmMaxFlag" type="checkbox" value="Y" id="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMAXFLGY>checked</TMPL_IF>>
+                                     <label for="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMax" type="text" size="10" value="<TMPL_VAR NAME=PMMAX>" id="PmMax<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmMax<TMPL_VAR NAME=PAYMETHOD>">円以上の場合は表示しない</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">決済画像</td>
+                                <td class="sub-item">
+                                    <input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selimg_form.cgi?OFORM=PM<TMPL_VAR NAME=PAYMETHOD>_DESC&FORMNUM=<TMPL_VAR NAME=PAYMETHOD>','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">   
+                                    <input type="button" name="Submit" value="画像削除" onClick="delImage(this.form,<TMPL_VAR NAME=PAYMETHOD>);">
+                                    <a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a><br>
+                                    <br>
+                                    <TMPL_IF PMIMG>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="<TMPL_VAR NAME=PMIMG_T>" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    <TMPL_ELSE>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="../imgs/spc.gif" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    </TMPL_IF>
+                                    <input type="hidden" name="PmImg<TMPL_VAR NAME=PAYMETHOD>" value="<TMPL_VAR NAME=PMIMG>">
+                                    <input type="hidden" name="PmImg" value="">
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（カート用）</td>
+                                <td class="sub-item"><textarea name="PmMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSG></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（メール用）</td>
+                                <td class="sub-item"><textarea name="PmMsgMail" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSGMAIL></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">手数料欄</td>
+                                <td class="sub-item">
+                                    <table border="0" cellpadding="2" cellspacing="0" >
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="A" id="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEA>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>">一律</label>&nbsp;<input name="PmUniform" type="text" size="10" value="<TMPL_VAR NAME=PMUNIFORM>" style="ime-mode:disabled"><label for="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>">円で自動計算する</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="C" id="PmFeeC_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEC>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeC_<TMPL_VAR NAME=PAYMETHOD>">条件指定</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="8" valign="top">&nbsp;</td>
+                                            <td><select name="PmFeeTarget">
+                                                <option value="I" <TMPL_IF PMFEETARGETI>selected</TMPL_IF>>商品合計</option>
+                                                <option value="S" <TMPL_IF PMFEETARGETS>selected</TMPL_IF>>商品合計＋送料</option>
+                                                <option value="T" <TMPL_IF PMFEETARGETT>selected</TMPL_IF>>商品合計＋送料＋手数料</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <TMPL_LOOP FEELIST>
+                                        <tr>
+                                            <td><input name="PmFeePrc<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PMPRC>" id="PmFeePrc<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"><label for="PmFeePrc<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>">円未満は</label> <input name="PmFeeFee<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PMFEE>" id="PmFeeFee<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmFeeFee<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>">円</label></td>
+                                        </tr>
+                                        </TMPL_LOOP>
+                                        <tr>
+                                            <td><label for="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>">これ以上は</label> <input name="PmMaxFee" type="text" size="10" value="<TMPL_VAR NAME=PMMAXFEE>" id="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>">円</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="L" id="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEL>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>">手数料欄を表示しない</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="N" id="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEN>checked</TMPL_IF>></td>
+                                            <td><input name="PmStr" type="text" value="<TMPL_VAR NAME=PMSTR>" size="10"> <label for="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>">と表示する</label></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" colspan="2" class="item"><input style="height: 30px" type="button" value="保存する" onClick='SaveSub(this.form,<TMPL_VAR NAME=PAYMETHOD>);'></td>
+                            </tr>
+</form>
+                        </table>
+</TMPL_IF>
+
+
+<TMPL_IF BANK>
+                        <table width="100%">
+<form name="PM<TMPL_VAR NAME=PAYMETHOD>_DESC" method="POST" action="payment.cgi">
+<input type="hidden" name="CMD" value="EDTDESC">
+<input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+                            <tr>
+                                <td width="20%" class="sub-item-name">表示条件</td>
+                                <td class="sub-item">
+                                    <input name="PmMinFlag" type="checkbox" value="Y" id="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMINFLGY>checked</TMPL_IF>>
+                                     <label for="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMin" type="text" size="10" value="<TMPL_VAR NAME=PMMIN>" id="PmMin<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled">  <label for="PmMin<TMPL_VAR NAME=PAYMETHOD>">円未満の場合は表示しない</label>
+                                    <br>
+                                    <input name="PmMaxFlag" type="checkbox" value="Y" id="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMAXFLGY>checked</TMPL_IF>>
+                                     <label for="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMax" type="text" size="10" value="<TMPL_VAR NAME=PMMAX>" id="PmMax<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmMax<TMPL_VAR NAME=PAYMETHOD>">円以上の場合は表示しない</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">口座情報</td>
+                                <td class="sub-item">
+                                    <TABLE cellSpacing="0" cellPadding="2" border="0">
+                                        <TR>
+                                            <TD>銀行名</TD>
+                                            <TD><INPUT size="45" name="BankName" value="<TMPL_VAR NAME=BANKNAME>" class="text_payment"></TD>
+                                        </TR>
+                                        <TR>
+                                            <TD>支店名</TD>
+                                            <TD><INPUT size="45" name="BranchName" value="<TMPL_VAR NAME=BRANCHNAME>" class="text_payment"></TD>
+                                        </TR>
+                                        <TR>
+                                            <TD noWrap>科目</TD>
+                                            <TD><input name="BankType" type="radio" id="BankType1_<TMPL_VAR NAME=PAYMETHOD>" value="1" <TMPL_IF BANKTYPE1>checked</TMPL_IF>>
+                                                <label for="BankType1_<TMPL_VAR NAME=PAYMETHOD>">普通</label>
+                                                <input name="BankType" type="radio" id="BankType2_<TMPL_VAR NAME=PAYMETHOD>" value="2" <TMPL_IF BANKTYPE2>checked</TMPL_IF>>
+                                                <label for="BankType2_<TMPL_VAR NAME=PAYMETHOD>">当座<label>
+                                            </TD>
+                                        </TR>
+                                        <TR>
+                                            <TD noWrap>口座番号</TD>
+                                            <TD><INPUT size="45" name="AccountNo" value="<TMPL_VAR NAME=ACCOUNTNO>" class="text_payment_ime_dis"></TD>
+                                        </TR>
+                                        <TR align=left>
+                                            <TD align="left">口座名義</TD>
+                                            <TD><INPUT size="45" name="AccountName" value="<TMPL_VAR NAME=ACCOUNTNAME>" class="text_payment"></TD>
+                                        </TR>
+                                    </TABLE>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">決済画像</td>
+                                <td class="sub-item">
+                                    <input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selimg_form.cgi?OFORM=PM<TMPL_VAR NAME=PAYMETHOD>_DESC&FORMNUM=<TMPL_VAR NAME=PAYMETHOD>','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">   
+                                    <input type="button" name="Submit" value="画像削除" onClick="delImage(this.form,<TMPL_VAR NAME=PAYMETHOD>);">
+                                    <a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a><br>
+                                    <br>
+                                    <TMPL_IF PMIMG>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="<TMPL_VAR NAME=PMIMG_T>" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    <TMPL_ELSE>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="../imgs/spc.gif" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    </TMPL_IF>
+                                    <input type="hidden" name="PmImg<TMPL_VAR NAME=PAYMETHOD>" value="<TMPL_VAR NAME=PMIMG>">
+                                    <input type="hidden" name="PmImg" value="">
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（カート用）</td>
+                                <td class="sub-item"><textarea name="PmMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSG></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（メール用）</td>
+                                <td class="sub-item"><textarea name="PmMsgMail" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSGMAIL></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">手数料欄</td>
+                                <td class="sub-item">
+                                    <input name="PmFee" type="radio" value="N" id="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEN>checked</TMPL_IF>>
+                                    <input name="PmStr" type="text" value="<TMPL_VAR NAME=PMSTR>" size="10"> <label for="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>">と表示する</label>
+                                    <br>
+                                    <input name="PmFee" type="radio" value="S" id="PmFeeS_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEES>checked</TMPL_IF>>
+                                    <label for="PmFeeS_<TMPL_VAR NAME=PAYMETHOD>">0円と表示する</label>
+                                    <br>
+                                    <input name="PmFee" type="radio" value="L" id="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEL>checked</TMPL_IF>>
+                                    <label for="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>">欄を表示しない</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" colspan="2" class="item"><input style="height: 30px" type="button" value="保存する" onClick='SaveSub(this.form,<TMPL_VAR NAME=PAYMETHOD>);'></td>
+                            </tr>
+</form>
+                        </table>
+</TMPL_IF>
+
+<TMPL_IF POST>
+                        <table width="100%">
+<form name="PM<TMPL_VAR NAME=PAYMETHOD>_DESC" method="POST" action="payment.cgi">
+<input type="hidden" name="CMD" value="EDTDESC">
+<input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+                            <tr>
+                                <td width="20%" class="sub-item-name">表示条件</td>
+                                <td class="sub-item">
+                                    <input name="PmMinFlag" type="checkbox" value="Y" id="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMINFLGY>checked</TMPL_IF>>
+                                     <label for="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMin" type="text" size="10" value="<TMPL_VAR NAME=PMMIN>" id="PmMin<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled">  <label for="PmMin<TMPL_VAR NAME=PAYMETHOD>">円未満の場合は表示しない</label>
+                                    <br>
+                                    <input name="PmMaxFlag" type="checkbox" value="Y" id="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMAXFLGY>checked</TMPL_IF>>
+                                     <label for="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMax" type="text" size="10" value="<TMPL_VAR NAME=PMMAX>" id="PmMax<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmMax<TMPL_VAR NAME=PAYMETHOD>">円以上の場合は表示しない</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">口座情報</td>
+                                <td class="sub-item">
+                                    <TABLE cellSpacing="0" cellPadding="2" border="0">
+                                        <TR>
+                                            <TD noWrap>口座番号</TD>
+                                            <TD><INPUT size="45" name="AccountNo" value="<TMPL_VAR NAME=ACCOUNTNO>" class="text_payment_ime_dis"></TD>
+                                        </TR>
+                                        <TR align=left>
+                                            <TD align="left">口座名義</TD>
+                                            <TD><INPUT size="45" name="AccountName" value="<TMPL_VAR NAME=ACCOUNTNAME>" class="text_payment"></TD>
+                                        </TR>
+                                    </TABLE>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">決済画像</td>
+                                <td class="sub-item">
+                                    <input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selimg_form.cgi?OFORM=PM<TMPL_VAR NAME=PAYMETHOD>_DESC&FORMNUM=<TMPL_VAR NAME=PAYMETHOD>','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">   
+                                    <input type="button" name="Submit" value="画像削除" onClick="delImage(this.form,<TMPL_VAR NAME=PAYMETHOD>);">
+                                    <a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a><br>
+                                    <br>
+                                    <TMPL_IF PMIMG>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="<TMPL_VAR NAME=PMIMG_T>" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    <TMPL_ELSE>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="../imgs/spc.gif" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    </TMPL_IF>
+                                    <input type="hidden" name="PmImg<TMPL_VAR NAME=PAYMETHOD>" value="<TMPL_VAR NAME=PMIMG>">
+                                    <input type="hidden" name="PmImg" value="">
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（カート用）</td>
+                                <td class="sub-item"><textarea name="PmMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSG></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（メール用）</td>
+                                <td class="sub-item"><textarea name="PmMsgMail" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSGMAIL></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">手数料欄</td>
+                                <td class="sub-item">
+                                    <input name="PmFee" type="radio" value="N" id="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEN>checked</TMPL_IF>>
+                                    <input name="PmStr" type="text" value="<TMPL_VAR NAME=PMSTR>" size="10"> <label for="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>">と表示する</label>
+                                    <br>
+                                    <input name="PmFee" type="radio" value="S" id="PmFeeS_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEES>checked</TMPL_IF>>
+                                    <label for="PmFeeS_<TMPL_VAR NAME=PAYMETHOD>">0円と表示する</label>
+                                    <br>
+                                    <input name="PmFee" type="radio" value="L" id="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEL>checked</TMPL_IF>>
+                                    <label for="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>">欄を表示しない</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" colspan="2" class="item"><input style="height: 30px" type="button" value="保存する" onClick='SaveSub(this.form,<TMPL_VAR NAME=PAYMETHOD>);'></td>
+                            </tr>
+</form>
+                        </table>
+</TMPL_IF>
+
+<TMPL_IF FR>
+<!--自由決済　ここから-->
+                        <table width="100%">
+                            <tr>
+                                <td width="20%" class="sub-item-name">表示名</td>
+                                <td class="sub-item"><input name="PmName" type="text" value="<TMPL_VAR NAME=PMNAME>">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="20%" class="sub-item-name">表示条件</td>
+                                <td class="sub-item">
+                                    <input name="PmMinFlag" type="checkbox" value="Y" id="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMINFLGY>checked</TMPL_IF>>
+                                     <label for="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMin" type="text" size="10" value="<TMPL_VAR NAME=PMMIN>" id="PmMin<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled">  <label for="PmMin<TMPL_VAR NAME=PAYMETHOD>">円未満の場合は表示しない</label>
+                                    <br>
+                                    <input name="PmMaxFlag" type="checkbox" value="Y" id="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMAXFLGY>checked</TMPL_IF>>
+                                     <label for="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMax" type="text" size="10" value="<TMPL_VAR NAME=PMMAX>" id="PmMax<TMPL_VAR NAME=PAYMETHOD>"  style="ime-mode:disabled"> <label for="PmMax<TMPL_VAR NAME=PAYMETHOD>">円以上の場合は表示しない</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">決済画像</td>
+                                <td class="sub-item">
+                                    <input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selimg_form.cgi?OFORM=PM<TMPL_VAR NAME=PAYMETHOD>_DESC&FORMNUM=<TMPL_VAR NAME=PAYMETHOD>','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">   
+                                    <input type="button" name="Submit" value="画像削除" onClick="delImage(this.form,<TMPL_VAR NAME=PAYMETHOD>);">
+                                    <a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a><br>
+                                    <br>
+                                    <TMPL_IF PMIMG>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="<TMPL_VAR NAME=PMIMG_T>" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    <TMPL_ELSE>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="../imgs/spc.gif" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    </TMPL_IF>
+                                    <input type="hidden" name="PmImg<TMPL_VAR NAME=PAYMETHOD>" value="<TMPL_VAR NAME=PMIMG>">
+                                    <input type="hidden" name="PmImg" value="">
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（カート用）</td>
+                                <td class="sub-item"><textarea name="PmMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSG></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（メール用）</td>
+                                <td class="sub-item"><textarea name="PmMsgMail" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSGMAIL></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">手数料欄</td>
+                                <td class="sub-item">
+                                    <table border="0" cellpadding="2" cellspacing="0" >
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="A" id="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEA>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>">一律</label>&nbsp;<input name="PmUniform" type="text" size="10" value="<TMPL_VAR NAME=PMUNIFORM>" style="ime-mode:disabled"><label for="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>">円で自動計算する</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="C" id="PmFeeC_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEC>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeC_<TMPL_VAR NAME=PAYMETHOD>">条件指定</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="8" valign="top">&nbsp;</td>
+                                            <td><select name="PmFeeTarget">
+                                                <option value="I" <TMPL_IF PMFEETARGETI>selected</TMPL_IF>>商品合計</option>
+                                                <option value="S" <TMPL_IF PMFEETARGETS>selected</TMPL_IF>>商品合計＋送料</option>
+                                                <option value="T" <TMPL_IF PMFEETARGETT>selected</TMPL_IF>>商品合計＋送料＋手数料</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <TMPL_LOOP FEELIST>
+                                        <tr>
+                                            <td><input name="PmFeePrc<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PMPRC>" id="PmFeePrc<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"><label for="PmFeePrc<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>">円未満は</label> <input name="PmFeeFee<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PMFEE>" id="PmFeeFee<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmFeeFee<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>">円</label></td>
+                                        </tr>
+                                        </TMPL_LOOP>
+                                        <tr>
+                                            <td><label for="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>">これ以上は</label> <input name="PmMaxFee" type="text" size="10" value="<TMPL_VAR NAME=PMMAXFEE>" id="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>">円</label></td>
+                                        </tr>
+                                        <tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="L" id="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEL>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>">手数料欄を表示しない</label></td>
+                                        </tr>
+                                                    <td valign="top"><input name="PmFee" type="radio" value="N" id="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEN>checked</TMPL_IF>></td>
+                                            <td><input name="PmStr" type="text" value="<TMPL_VAR NAME=PMSTR>" size="10"> <label for="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>">と表示する</label></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" colspan="2" class="item"><input style="height: 30px" type="button" value="保存する" onClick='res =change_settle<TMPL_VAR NAME=PAYMETHOD>("EDTDESC");if(!res){return false}'></td>
+                            </tr>
+
+                        </table>
+</TMPL_IF>
+
+<TMPL_IF CARD>
+        <TMPL_IF USE>
+<form name="PM<TMPL_VAR NAME=PAYMETHOD>_DESC" method="POST" action="payment.cgi">
+<input type="hidden" name="CMD" value="EDTDESC">
+<input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+        <TMPL_IF AGREEVISAMASTER>
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" class="item-name"><div style="width:350px; position:absolute">VISA&nbsp;/&nbsp;MASTERカード</div>
+                                    <div align="right" style="position:static">
+                                        <select name="UseVisaMaster">
+                                        <option value="Y" <TMPL_IF USEVISAMASTERY>selected</TMPL_IF>>表示</option>
+                                        <option value="N" <TMPL_IF USEVISAMASTERN>selected</TMPL_IF>>非表示</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="20%" class="sub-item-name">決済手数料</td>
+                                <td width="80%" class="sub-item">3.675％／1売上ごと</td>
+                            </tr>
+                <TMPL_IF AGREEVISAMASTER2>
+                            <tr>
+                                <td class="sub-item-name">対応支払回数</td>
+                                <td class="sub-item">1回<br>
+                                2回/3回/5回/6回/10回/12回/15回/18回/20回/24回<br>
+                                リボ払
+                                </td>
+                            </tr>
+                </TMPL_IF>
+                        </table>
+        <TMPL_ELSE>
+                        <input type="hidden" name="UseVisaMaster" value="N">
+        </TMPL_IF>
+        <TMPL_IF AGREEJCB>
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" class="item-name"><div style="width:250px; position:absolute">JCB&nbsp;/&nbsp;AMEXカード</div>
+                                    <div align="right" style="position:static">
+                                        <select name="UseJcb">
+                                        <option value="Y" <TMPL_IF USEJCBY>selected</TMPL_IF>>表示</option>
+                                        <option value="N" <TMPL_IF USEJCBN>selected</TMPL_IF>>非表示</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="20%" class="sub-item-name">決済手数料</td>
+                                <td width="80%" class="sub-item">4.725％／1売上ごと</td>
+                            </tr>
+                <TMPL_IF AGREEJCB2>
+                                              <tr>
+                                                <td rowspan="2" class="sub-item-name">対応支払回数</td>
+                                                <td class="sub-item">【JCBカード】<br>
+              1回<br>
+              3回/4回/5回/6回/10回/12回/15回/18回/20回/24回<br>
+              リボ払</td>
+                                              </tr>
+                                              <tr>
+                                                <td class="sub-item">【AMEXカード】<br>
+              1回<br>
+              3回/5回/6回/10回/12回/15回/18回/20回/24回</td>
+                                              </tr>
+                </TMPL_IF>
+                        </table>
+        <TMPL_ELSE>
+                        <input type="hidden" name="UseJcb" value="N">
+        </TMPL_IF>
+        <TMPL_IF AGREEDINERS>
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" class="item-name"><div style="width:250px; position:absolute">Dinersカード</div>
+                                    <div align="right" style="position:static">
+                                        <select name="UseDiners">
+                                        <option value="Y" <TMPL_IF USEDINERSY>selected</TMPL_IF>>表示</option>
+                                        <option value="N" <TMPL_IF USEDINERSN>selected</TMPL_IF>>非表示</option>
+                                        </select>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td width="20%" class="sub-item-name">決済手数料</td>
+                                <td width="80%" class="sub-item">4.725％／1売上ごと</td>
+                            </tr>
+                <TMPL_IF AGREEDINERS2>
+                            <tr>
+                                <td class="sub-item-name">対応支払回数</td>
+                                <td class="sub-item">1回<br>
+                                リボ払
+                                </td>
+                            </tr>
+                </TMPL_IF>
+                        </table>
+        <TMPL_ELSE>
+                        <input type="hidden" name="UseDiners" value="N">
+        </TMPL_IF>
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" class="item-name">カード表示設定</td>
+                            </tr>
+                            <tr>
+                                <td width="20%" class="sub-item-name">表示条件</td>
+                                <td class="sub-item">
+                                    <input name="PmMinFlag" type="checkbox" value="Y" id="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMINFLGY>checked</TMPL_IF>>
+                                     <label for="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMin" type="text" size="10" value="<TMPL_VAR NAME=PMMIN>" id="PmMin<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled">  <label for="PmMin<TMPL_VAR NAME=PAYMETHOD>">円未満の場合は表示しない</label>
+                                    <br>
+                                    <input name="PmMaxFlag" type="checkbox" value="Y" id="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMAXFLGY>checked</TMPL_IF>>
+                                     <label for="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMax" type="text" size="10" value="<TMPL_VAR NAME=PMMAX>" id="PmMax<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmMax<TMPL_VAR NAME=PAYMETHOD>">円以上の場合は表示しない</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">決済画像</td>
+                                <td class="sub-item">
+                                    <input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selimg_form.cgi?OFORM=PM<TMPL_VAR NAME=PAYMETHOD>_DESC&FORMNUM=<TMPL_VAR NAME=PAYMETHOD>','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">   
+                                    <input type="button" name="Submit" value="画像削除" onClick="delImage(this.form,<TMPL_VAR NAME=PAYMETHOD>);">
+                                    <a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a><br>
+                                    <br>
+                                    <TMPL_IF PMIMG>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="<TMPL_VAR NAME=PMIMG_T>" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    <TMPL_ELSE>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="../imgs/spc.gif" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    </TMPL_IF>
+                                    <input type="hidden" name="PmImg<TMPL_VAR NAME=PAYMETHOD>" value="<TMPL_VAR NAME=PMIMG>">
+                                    <input type="hidden" name="PmImg" value="">
+                                    <br>
+                                </td>
+                            </tr>
+
+                            <TMPL_IF CARDSECCODEVIEW>
+                            <tr> 
+                                <td class="sub-item-name">セキュリティコード</td> 
+                                <td class="sub-item"> 
+                                    <table border="0" cellpadding="2" cellspacing="0" > 
+                                        <tr> 
+                                            <td valign="top"><input name="UseSecCode" type="radio" value="1" id="UseSecCode1" <TMPL_IF CARDSECCODEON>checked</TMPL_IF>></td> 
+                                            <td><label for="UseSecCode1">利用する</label>
+                                        </tr> 
+                                        <tr> 
+                                            <td valign="top"><input name="UseSecCode" type="radio" value="0" id="UseSecCode0" <TMPL_IF CARDSECCODEOFF>checked</TMPL_IF>></td> 
+                                            <td><label for="UseSecCode0">利用しない</label></td>
+                                        </tr> 
+                                    </table> 
+                                </td> 
+                            </tr>
+                            </TMPL_IF>
+
+                            <!-- カード情報登録 -->
+                            <tr>
+                                <td class="sub-item-name">カード情報登録</td>
+                                <td class="sub-item">
+                                    <select name="AddCardDisp">
+                                        <option value="Y"<TMPL_IF ADDCARDDISPY> SELECTED</TMPL_IF>>表示</option>
+                                        <option value="N"<TMPL_IF ADDCARDDISPN> SELECTED</TMPL_IF>>非表示</option>
+                                    </select><br />
+                                    <textarea name="AddCardMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=ADDCARDMSG></textarea>
+                                </td>
+                            </tr>
+                            <!-- /カード情報登録 -->
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（カート用）</td>
+                                <td class="sub-item"><textarea name="PmMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSG></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（メール用）</td>
+                                <td class="sub-item"><textarea name="PmMsgMail" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSGMAIL></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" colspan="2" class="item"><input style="height: 30px" type="button" value="保存する" onClick='SaveSub(this.form,<TMPL_VAR NAME=PAYMETHOD>);'></td>
+                            </tr>
+                        </table>
+</form>
+        <TMPL_ELSE>
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" class="item-name">カード決済ご利用案内</td>
+                            </tr>
+                            <tr>
+                                <td width="20%" class="sub-item-name">決済手数料</td>
+                                <td width="80%" class="sub-item">3.675％〜／1売上ごと<br>
+                                    ※VISA,MASTERなど5社対応</td>
+                                </td>
+                            </tr>
+                        </table>
+        </TMPL_IF>
+</TMPL_IF>
+
+<!-- CvsOnline20100916 s -->
+<TMPL_IF CVS_ONLINE>
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" class="item-name">コンビニ決済（番号端末式）ご利用案内</td>
+                            </tr>
+                            <tr>
+                                <td width="20%" class="sub-item-name">決済手数料</td>
+                                <td width="80%" class="sub-item">
+                                1〜9,999円<span style="padding-left:2em;"><TMPL_VAR NAME=CvsOnlineTransComNotax>円<span style="font-size:85%;">(税込<TMPL_VAR NAME=CvsOnlineTransCom>円)</span>／1売上ごと</span><br>
+                                10,000円以上<span style="padding-left:1em;"><TMPL_VAR NAME=CvsOnlineCommission>%／1売上ごと</span>
+                            </tr>
+        <TMPL_IF USE_CVS_ONLINE>
+                            <tr>
+                                <td class="sub-item-name">利用可能<br>コンビニ</td>
+                                <td class="sub-item"><TMPL_VAR DISP_CVS_NAME></td>
+                            </tr>
+        </TMPL_IF>
+                            <tr>
+                                <td class="sub-item-name">利用手続き</td>
+                                <td class="sub-item"><input type="button" name="Submit" value="コンビニ決済（番号端末式）の利用設定" style="width:18em" onClick="window.open('cvs_online_config.php','','')">
+                            </tr>
+                        </table>
+        <TMPL_IF USE_CVS_ONLINE>
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" class="item-name">コンビニ決済（番号端末式）表示設定</td>
+                            </tr>
+<form name="PM<TMPL_VAR NAME=PAYMETHOD>_DESC" method="POST" action="payment.cgi">
+<input type="hidden" name="CMD" value="EDTDESC">
+<input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+                            <tr>
+                                <td width="20%" class="sub-item-name">表示条件</td>
+                                <td class="sub-item">
+                                    <input name="PmMinFlag" type="checkbox" value="Y" id="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMINFLGY>checked</TMPL_IF>>
+                                     <label for="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMin" type="text" size="10" value="<TMPL_VAR NAME=PMMIN>" id="PmMin<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled">  <label for="PmMin<TMPL_VAR NAME=PAYMETHOD>">円未満の場合は表示しない</label>
+                                    <br>
+                                    <input name="PmMaxFlag" type="checkbox" value="Y" id="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMAXFLGY>checked</TMPL_IF>>
+                                     <label for="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMax" type="text" size="10" value="<TMPL_VAR NAME=PMMAX>" id="PmMax<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmMax<TMPL_VAR NAME=PAYMETHOD>">円以上の場合は表示しない</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">決済画像</td>
+                                <td class="sub-item">
+                                    <input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selimg_form.cgi?OFORM=PM<TMPL_VAR NAME=PAYMETHOD>_DESC&FORMNUM=<TMPL_VAR NAME=PAYMETHOD>','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">   
+                                    <input type="button" name="Submit" value="画像削除" onClick="delImage(this.form,<TMPL_VAR NAME=PAYMETHOD>);">
+                                    <a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a><br>
+                                    <br>
+                                    <TMPL_IF PMIMG>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="<TMPL_VAR NAME=PMIMG_T>" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    <TMPL_ELSE>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="../imgs/spc.gif" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    </TMPL_IF>
+                                    <input type="hidden" name="PmImg<TMPL_VAR NAME=PAYMETHOD>" value="<TMPL_VAR NAME=PMIMG>">
+                                    <input type="hidden" name="PmImg" value="">
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（カート用）</td>
+                                <td class="sub-item"><textarea name="PmMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSG></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（メール用）</td>
+                                <td class="sub-item"><textarea name="PmMsgMail" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSGMAIL></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">手数料欄</td>
+                                <td class="sub-item">
+                                    <table border="0" cellpadding="2" cellspacing="0" >
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="A" id="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEA>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>">一律</label>&nbsp;<input name="PmUniform" type="text" size="10" value="<TMPL_VAR NAME=PMUNIFORM>" style="ime-mode:disabled"><label for="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>">円で自動計算する</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="C" id="PmFeeC_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEC>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeC_<TMPL_VAR NAME=PAYMETHOD>">条件指定</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="8" valign="top">&nbsp;</td>
+                                            <td><select name="PmFeeTarget">
+                                                <option value="I" <TMPL_IF PMFEETARGETI>selected</TMPL_IF>>商品合計</option>
+                                                <option value="S" <TMPL_IF PMFEETARGETS>selected</TMPL_IF>>商品合計＋送料</option>
+                                                <option value="T" <TMPL_IF PMFEETARGETT>selected</TMPL_IF>>商品合計＋送料＋手数料</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <TMPL_LOOP FEELIST>
+                                        <tr>
+                                            <td><input name="PmFeePrc<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PMPRC>" id="PmFeePrc<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"><label for="PmFeePrc<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>">円未満は</label> <input name="PmFeeFee<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PMFEE>" id="PmFeeFee<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmFeeFee<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>">円</label></td>
+                                        </tr>
+                                        </TMPL_LOOP>
+                                        <tr>
+                                            <td><label for="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>">これ以上は</label> <input name="PmMaxFee" type="text" size="10" value="<TMPL_VAR NAME=PMMAXFEE>" id="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>">円</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="L" id="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEL>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>">手数料欄を表示しない</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="N" id="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEN>checked</TMPL_IF>></td>
+                                            <td><input name="PmStr" type="text" value="<TMPL_VAR NAME=PMSTR>" size="10"> <label for="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>">と表示する</label></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" colspan="2" class="item"><input style="height: 30px" type="button" value="保存する" onClick='SaveSub(this.form,<TMPL_VAR NAME=PAYMETHOD>);'></td>
+                            </tr>
+                        </table>
+</form>
+        </TMPL_IF>
+</TMPL_IF>
+<!-- CvsOnline e -->
+
+<TMPL_IF CVS>
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" class="item-name">コンビニ（払込票）ご利用案内</td>
+                            </tr>
+                            <tr>
+                                <td width="20%" class="sub-item-name">決済手数料</td>
+                                <td width="80%" class="sub-item"><TMPL_VAR NAME=CvsPostTransComNotax>円<span style="font-size:85%;">(税込<TMPL_VAR NAME=CvsPostTransCom>円)</span>／1売上ごと<br>
+                                    ※セブン-イレブン、ローソン、ファミリーマートなど主要10社</td>
+                            </tr>
+        <TMPL_IF USE>
+                            <tr>
+                                <td class="sub-item-name">払込票編集</td>
+                                <td class="sub-item"><input type="button" name="Submit" value="コンビニ払込票の編集" onClick="window.open('cv_paymentcard.cgi','','')">
+                            </tr>
+        </TMPL_IF>
+                        </table>
+        <TMPL_IF USE>
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" class="item-name">コンビニ（払込票）表示設定</td>
+                            </tr>
+<form name="PM<TMPL_VAR NAME=PAYMETHOD>_DESC" method="POST" action="payment.cgi">
+<input type="hidden" name="CMD" value="EDTDESC">
+<input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+                            <tr>
+                                <td width="20%" class="sub-item-name">表示条件</td>
+                                <td class="sub-item">
+                                    <input name="PmMinFlag" type="checkbox" value="Y" id="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMINFLGY>checked</TMPL_IF>>
+                                     <label for="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMin" type="text" size="10" value="<TMPL_VAR NAME=PMMIN>" id="PmMin<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled">  <label for="PmMin<TMPL_VAR NAME=PAYMETHOD>">円未満の場合は表示しない</label>
+                                    <br>
+                                    <input name="PmMaxFlag" type="checkbox" value="Y" id="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMAXFLGY>checked</TMPL_IF>>
+                                     <label for="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMax" type="text" size="10" value="<TMPL_VAR NAME=PMMAX>" id="PmMax<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmMax<TMPL_VAR NAME=PAYMETHOD>">円以上の場合は表示しない</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">決済画像</td>
+                                <td class="sub-item">
+                                    <input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selimg_form.cgi?OFORM=PM<TMPL_VAR NAME=PAYMETHOD>_DESC&FORMNUM=<TMPL_VAR NAME=PAYMETHOD>','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">   
+                                    <input type="button" name="Submit" value="画像削除" onClick="delImage(this.form,<TMPL_VAR NAME=PAYMETHOD>);">
+                                    <a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a><br>
+                                    <br>
+                                    <TMPL_IF PMIMG>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="<TMPL_VAR NAME=PMIMG_T>" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    <TMPL_ELSE>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="../imgs/spc.gif" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    </TMPL_IF>
+                                    <input type="hidden" name="PmImg<TMPL_VAR NAME=PAYMETHOD>" value="<TMPL_VAR NAME=PMIMG>">
+                                    <input type="hidden" name="PmImg" value="">
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（カート用）</td>
+                                <td class="sub-item"><textarea name="PmMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSG></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（メール用）</td>
+                                <td class="sub-item"><textarea name="PmMsgMail" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSGMAIL></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">手数料欄</td>
+                                <td class="sub-item">
+                                    <table border="0" cellpadding="2" cellspacing="0" >
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="A" id="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEA>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>">一律</label>&nbsp;<input name="PmUniform" type="text" size="10" value="<TMPL_VAR NAME=PMUNIFORM>" style="ime-mode:disabled"><label for="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>">円で自動計算する</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="C" id="PmFeeC_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEC>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeC_<TMPL_VAR NAME=PAYMETHOD>">条件指定</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="8" valign="top">&nbsp;</td>
+                                            <td><select name="PmFeeTarget">
+                                                <option value="I" <TMPL_IF PMFEETARGETI>selected</TMPL_IF>>商品合計</option>
+                                                <option value="S" <TMPL_IF PMFEETARGETS>selected</TMPL_IF>>商品合計＋送料</option>
+                                                <option value="T" <TMPL_IF PMFEETARGETT>selected</TMPL_IF>>商品合計＋送料＋手数料</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <TMPL_LOOP FEELIST>
+                                        <tr>
+                                            <td><input name="PmFeePrc<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PMPRC>" id="PmFeePrc<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"><label for="PmFeePrc<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>">円未満は</label> <input name="PmFeeFee<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PMFEE>" id="PmFeeFee<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmFeeFee<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>">円</label></td>
+                                        </tr>
+                                        </TMPL_LOOP>
+                                        <tr>
+                                            <td><label for="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>">これ以上は</label> <input name="PmMaxFee" type="text" size="10" value="<TMPL_VAR NAME=PMMAXFEE>" id="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>">円</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="L" id="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEL>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>">手数料欄を表示しない</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="N" id="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEN>checked</TMPL_IF>></td>
+                                            <td><input name="PmStr" type="text" value="<TMPL_VAR NAME=PMSTR>" size="10"> <label for="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>">と表示する</label></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" colspan="2" class="item"><input style="height: 30px" type="button" value="保存する" onClick='SaveSub(this.form,<TMPL_VAR NAME=PAYMETHOD>);'></td>
+                            </tr>
+</form>
+                        </table>
+        </TMPL_IF>
+</TMPL_IF>
+
+<TMPL_IF WM>
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" class="item-name">ウェブマネーご利用案内</td>
+                            </tr>
+                            <tr>
+                                <td width="20%" class="sub-item-name">決済手数料</td>
+                                <td width="80%" class="sub-item"><TMPL_VAR NAME=WmCommission>％／1売上ごと</td>
+                            </tr>
+                        </table>
+        <TMPL_IF USE>
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" class="item-name">ウェブマネー表示設定</td>
+                            </tr>
+<form name="PM<TMPL_VAR NAME=PAYMETHOD>_DESC" method="POST" action="payment.cgi">
+<input type="hidden" name="CMD" value="EDTDESC">
+<input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+                            <tr>
+                                <td width="20%" class="sub-item-name">表示条件</td>
+                                <td class="sub-item">
+                                    <input name="PmMinFlag" type="checkbox" value="Y" id="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMINFLGY>checked</TMPL_IF>>
+                                     <label for="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMin" type="text" size="10" value="<TMPL_VAR NAME=PMMIN>" id="PmMin<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled">  <label for="PmMin<TMPL_VAR NAME=PAYMETHOD>">円未満の場合は表示しない</label>
+                                    <br>
+                                    <input name="PmMaxFlag" type="checkbox" value="Y" id="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMAXFLGY>checked</TMPL_IF>>
+                                     <label for="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMax" type="text" size="10" value="<TMPL_VAR NAME=PMMAX>" id="PmMax<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmMax<TMPL_VAR NAME=PAYMETHOD>">円以上の場合は表示しない</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">決済画像</td>
+                                <td class="sub-item">
+                                    <input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selimg_form.cgi?OFORM=PM<TMPL_VAR NAME=PAYMETHOD>_DESC&FORMNUM=<TMPL_VAR NAME=PAYMETHOD>','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">   
+                                    <input type="button" name="Submit" value="画像削除" onClick="delImage(this.form,<TMPL_VAR NAME=PAYMETHOD>);">
+                                    <a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a><br>
+                                    <br>
+                                    <TMPL_IF PMIMG>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="<TMPL_VAR NAME=PMIMG_T>" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    <TMPL_ELSE>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="../imgs/spc.gif" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    </TMPL_IF>
+                                    <input type="hidden" name="PmImg<TMPL_VAR NAME=PAYMETHOD>" value="<TMPL_VAR NAME=PMIMG>">
+                                    <input type="hidden" name="PmImg" value="">
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（カート用）</td>
+                                <td class="sub-item"><textarea name="PmMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSG></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（メール用）</td>
+                                <td class="sub-item"><textarea name="PmMsgMail" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSGMAIL></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">手数料欄</td>
+                                <td class="sub-item">
+                                    <table border="0" cellpadding="2" cellspacing="0" >
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="A" id="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEA>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>">一律</label>&nbsp;<input name="PmUniform" type="text" size="10" value="<TMPL_VAR NAME=PMUNIFORM>" style="ime-mode:disabled"><label for="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>">円で自動計算する</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="C" id="PmFeeC_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEC>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeC_<TMPL_VAR NAME=PAYMETHOD>">条件指定</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="8" valign="top">&nbsp;</td>
+                                            <td><select name="PmFeeTarget">
+                                                <option value="I" <TMPL_IF PMFEETARGETI>selected</TMPL_IF>>商品合計</option>
+                                                <option value="S" <TMPL_IF PMFEETARGETS>selected</TMPL_IF>>商品合計＋送料</option>
+                                                <option value="T" <TMPL_IF PMFEETARGETT>selected</TMPL_IF>>商品合計＋送料＋手数料</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <TMPL_LOOP FEELIST>
+                                        <tr>
+                                            <td><input name="PmFeePrc<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PMPRC>" id="PmFeePrc<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"><label for="PmFeePrc<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>">円未満は</label> <input name="PmFeeFee<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PMFEE>" id="PmFeeFee<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmFeeFee<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>">円</label></td>
+                                        </tr>
+                                        </TMPL_LOOP>
+                                        <tr>
+                                            <td><label for="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>">これ以上は</label> <input name="PmMaxFee" type="text" size="10" value="<TMPL_VAR NAME=PMMAXFEE>" id="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>">円</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="L" id="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEL>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>">手数料欄を表示しない</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="N" id="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEN>checked</TMPL_IF>></td>
+                                            <td><input name="PmStr" type="text" value="<TMPL_VAR NAME=PMSTR>" size="10"> <label for="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>">と表示する</label></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" colspan="2" class="item"><input style="height: 30px" type="button" value="保存する" onClick='SaveSub(this.form,<TMPL_VAR NAME=PAYMETHOD>);'></td>
+                            </tr>
+</form>
+                        </table>
+        </TMPL_IF>
+</TMPL_IF>
+
+<TMPL_IF EBANK>
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" class="item-name">楽天銀行ご利用案内</td>
+                            </tr>
+                            <tr>
+                                <td width="20%" class="sub-item-name">決済手数料</td>
+                                <td width="80%" class="sub-item"><TMPL_VAR NAME=RktnBankCommission>％／1売上ごと<br>
+                                    ※<a href="http://www.rakuten-bank.co.jp/business/receive/kantan-settlement-plus.html" target="_blank">楽天銀行かんたん決済プラス</a>がご利用いただけます</td>
+                            </tr>
+                        </table>
+        <TMPL_IF USE>
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" class="item-name">楽天銀行表示設定</td>
+                            </tr>
+<form name="PM<TMPL_VAR NAME=PAYMETHOD>_DESC" method="POST" action="payment.cgi">
+<input type="hidden" name="CMD" value="EDTDESC">
+<input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+                            <tr>
+                                <td width="20%" class="sub-item-name">表示条件</td>
+                                <td class="sub-item">
+                                    <input name="PmMinFlag" type="checkbox" value="Y" id="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMINFLGY>checked</TMPL_IF>>
+                                     <label for="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMin" type="text" size="10" value="<TMPL_VAR NAME=PMMIN>" id="PmMin<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled">  <label for="PmMin<TMPL_VAR NAME=PAYMETHOD>">円未満の場合は表示しない</label>
+                                    <br>
+                                    <input name="PmMaxFlag" type="checkbox" value="Y" id="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMAXFLGY>checked</TMPL_IF>>
+                                     <label for="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMax" type="text" size="10" value="<TMPL_VAR NAME=PMMAX>" id="PmMax<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmMax<TMPL_VAR NAME=PAYMETHOD>">円以上の場合は表示しない</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">決済画像</td>
+                                <td class="sub-item">
+                                    <input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selimg_form.cgi?OFORM=PM<TMPL_VAR NAME=PAYMETHOD>_DESC&FORMNUM=<TMPL_VAR NAME=PAYMETHOD>','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">   
+                                    <input type="button" name="Submit" value="画像削除" onClick="delImage(this.form,<TMPL_VAR NAME=PAYMETHOD>);">
+                                    <a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a><br>
+                                    <br>
+                                    <TMPL_IF PMIMG>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="<TMPL_VAR NAME=PMIMG_T>" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    <TMPL_ELSE>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="../imgs/spc.gif" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    </TMPL_IF>
+                                    <input type="hidden" name="PmImg<TMPL_VAR NAME=PAYMETHOD>" value="<TMPL_VAR NAME=PMIMG>">
+                                    <input type="hidden" name="PmImg" value="">
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（カート用）</td>
+                                <td class="sub-item"><textarea name="PmMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSG></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（メール用）</td>
+                                <td class="sub-item"><textarea name="PmMsgMail" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSGMAIL></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">手数料欄</td>
+                                <td class="sub-item">
+                                    <table border="0" cellpadding="2" cellspacing="0" >
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="A" id="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEA>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>">一律</label>&nbsp;<input name="PmUniform" type="text" size="10" value="<TMPL_VAR NAME=PMUNIFORM>" style="ime-mode:disabled"><label for="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>">円で自動計算する</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="C" id="PmFeeC_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEC>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeC_<TMPL_VAR NAME=PAYMETHOD>">条件指定</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="8" valign="top">&nbsp;</td>
+                                            <td><select name="PmFeeTarget">
+                                                <option value="I" <TMPL_IF PMFEETARGETI>selected</TMPL_IF>>商品合計</option>
+                                                <option value="S" <TMPL_IF PMFEETARGETS>selected</TMPL_IF>>商品合計＋送料</option>
+                                                <option value="T" <TMPL_IF PMFEETARGETT>selected</TMPL_IF>>商品合計＋送料＋手数料</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <TMPL_LOOP FEELIST>
+                                        <tr>
+                                            <td><input name="PmFeePrc<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PMPRC>" id="PmFeePrc<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"><label for="PmFeePrc<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>">円未満は</label> <input name="PmFeeFee<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PMFEE>" id="PmFeeFee<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmFeeFee<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>">円</label></td>
+                                        </tr>
+                                        </TMPL_LOOP>
+                                        <tr>
+                                            <td><label for="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>">これ以上は</label> <input name="PmMaxFee" type="text" size="10" value="<TMPL_VAR NAME=PMMAXFEE>" id="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>">円</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="L" id="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEL>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>">手数料欄を表示しない</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="N" id="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEN>checked</TMPL_IF>></td>
+                                            <td><input name="PmStr" type="text" value="<TMPL_VAR NAME=PMSTR>" size="10"> <label for="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>">と表示する</label></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" colspan="2" class="item"><input style="height: 30px" type="button" value="保存する" onClick='SaveSub(this.form,<TMPL_VAR NAME=PAYMETHOD>);'></td>
+                            </tr>
+</form>
+                        </table>
+        </TMPL_IF>
+</TMPL_IF>
+
+
+<TMPL_IF EDY>
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" class="item-name">楽天Edyご利用案内</td>
+                            </tr>
+                            <tr>
+                                <td width="20%" class="sub-item-name">決済手数料</td>
+                                <td width="80%" class="sub-item"><TMPL_VAR NAME=EdyCommission>％/1売上ごと</td>
+                            </tr>
+        <TMPL_IF USE>
+                            <tr>
+                                <td class="sub-item-name">利用手続き</td>
+                                <td class="sub-item"><input type="button" name="Submit" value="楽天Edyの利用設定" style="width:180px" onClick="window.open('edy_config.cgi','edy_config','')">
+<br><font color="red">[楽天Edyの利用設定]で、請求メールの設定をしてください。</font>
+                            </tr>
+        </TMPL_IF>
+                        </table>
+        <TMPL_IF USE>
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" class="item-name">楽天Edy表示設定</td>
+                            </tr>
+<form name="PM<TMPL_VAR NAME=PAYMETHOD>_DESC" method="POST" action="payment.cgi">
+<input type="hidden" name="CMD" value="EDTDESC">
+<input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+                            <tr>
+                                <td width="20%" class="sub-item-name">表示条件</td>
+                                <td class="sub-item">
+                                    <input name="PmMinFlag" type="checkbox" value="Y" id="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMINFLGY>checked</TMPL_IF>>
+                                     <label for="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMin" type="text" size="10" value="<TMPL_VAR NAME=PMMIN>" id="PmMin<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled">  <label for="PmMin<TMPL_VAR NAME=PAYMETHOD>">円未満の場合は表示しない</label>
+                                    <br>
+                                    <input name="PmMaxFlag" type="checkbox" value="Y" id="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMAXFLGY>checked</TMPL_IF>>
+                                     <label for="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMax" type="text" size="10" value="<TMPL_VAR NAME=PMMAX>" id="PmMax<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmMax<TMPL_VAR NAME=PAYMETHOD>">円以上の場合は表示しない</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">決済画像</td>
+                                <td class="sub-item">
+                                    <input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selimg_form.cgi?OFORM=PM<TMPL_VAR NAME=PAYMETHOD>_DESC&FORMNUM=<TMPL_VAR NAME=PAYMETHOD>','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">   
+                                    <input type="button" name="Submit" value="画像削除" onClick="delImage(this.form,<TMPL_VAR NAME=PAYMETHOD>);">
+                                    <a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a><br>
+                                    <br>
+                                    <TMPL_IF PMIMG>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="<TMPL_VAR NAME=PMIMG_T>" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC<TMPL_VAR NAME=PAYMETHOD>.PmImg.value, '', '');"></a>
+                                    <TMPL_ELSE>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="../imgs/spc.gif" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    </TMPL_IF>
+                                    <input type="hidden" name="PmImg<TMPL_VAR NAME=PAYMETHOD>" value="<TMPL_VAR NAME=PMIMG>">
+                                    <input type="hidden" name="PmImg" value="">
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（カート用）</td>
+                                <td class="sub-item"><textarea name="PmMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSG></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（メール用）</td>
+                                <td class="sub-item"><textarea name="PmMsgMail" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSGMAIL></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" colspan="2" class="item"><input style="height: 30px" type="button" value="保存する" onClick='SaveSub(this.form,<TMPL_VAR NAME=PAYMETHOD>);'></td>
+                            </tr>
+</form>
+                        </table>
+        </TMPL_IF>
+</TMPL_IF>
+
+<TMPL_IF YAHOO_WALLET>
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" class="item-name">Yahoo!ウォレットご利用案内</td>
+                            </tr>
+                            <tr>
+                                <td width="20%" class="sub-item-name">決済手数料</td>
+                                <td width="80%" class="sub-item">4.7％/1売上ごと</td>
+                            </tr>
+        <TMPL_IF USE>
+                            <tr>
+                                <td class="sub-item-name">利用手続き</td>
+                                <td class="sub-item"><input type="button" name="Submit" value="Yahoo!ウォレットの利用設定" style="width:180px" onClick="window.open('yahoo_wallet_config.php','yahoo_wallet_config','')">
+                            </tr>
+        </TMPL_IF>
+                        </table>
+        <TMPL_IF USE_YAHOOWALLET>
+                        <table width="100%">
+                            <tr>
+                                <td colspan="2" class="item-name">Yahoo!ウォレット表示設定</td>
+                            </tr>
+<form name="PM<TMPL_VAR NAME=PAYMETHOD>_DESC" method="POST" action="payment.cgi">
+<input type="hidden" name="CMD" value="EDTDESC">
+<input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+                            <tr>
+                                <td width="20%" class="sub-item-name">表示条件</td>
+                                <td class="sub-item">
+                                    <input name="PmMinFlag" type="checkbox" value="Y" id="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMINFLGY>checked</TMPL_IF>>
+                                     <label for="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMin" type="text" size="10" value="<TMPL_VAR NAME=PMMIN>" id="PmMin<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled">  <label for="PmMin<TMPL_VAR NAME=PAYMETHOD>">円未満の場合は表示しない</label>
+                                    <br>
+                                    <input name="PmMaxFlag" type="checkbox" value="Y" id="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMAXFLGY>checked</TMPL_IF>>
+                                     <label for="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMax" type="text" size="10" value="<TMPL_VAR NAME=PMMAX>" id="PmMax<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmMax<TMPL_VAR NAME=PAYMETHOD>">円以上の場合は表示しない</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">決済画像</td>
+                                <td class="sub-item">
+                                    <img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="https://s.yimg.jp/images/wallet/biz/seller/acpt_n6r1c6.gif" border="0">
+                                    <input type="hidden" name="PmImg<TMPL_VAR NAME=PAYMETHOD>" value="https://s.yimg.jp/images/wallet/biz/seller/acpt_n6r1c6.gif">
+                                    <input type="hidden" name="PmImg" value="">
+                                    <br>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（カート用）</td>
+                                <td class="sub-item"><textarea name="PmMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSG></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（メール用）</td>
+                                <td class="sub-item"><textarea name="PmMsgMail" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSGMAIL></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" colspan="2" class="item"><input style="height: 30px" type="button" value="保存する" onClick='SaveSub(this.form,<TMPL_VAR NAME=PAYMETHOD>);'></td>
+                            </tr>
+</form>
+                        </table>
+         </TMPL_IF>
+</TMPL_IF>
+<!-- Wellnet20110628 s -->
+<TMPL_IF WELLNET>
+                        <table width="100%">
+                            <tbody>
+                            <tr>
+                                <td colspan="2" class="item-name">コンビニ(番号端末式)・銀行ATM・ネットバンキングご利用料金</td>
+                            </tr>
+                            <tr>
+                                <td width="20%" class="sub-item-name">決済手数料</td>
+                                <td width="80%" class="sub-item">
+                                1〜8,999円<span style="padding-left:1em;"><TMPL_VAR NAME=WellnetTransComNotax>円<span style="font-size:85%;">(税込<TMPL_VAR NAME=WellnetTransCom>円)</span>／1売上ごと</span><br>
+                                9,000円以上<span style="padding-left:1em;"><TMPL_VAR NAME=WellnetCommission>％／1売上ごと</span><br>
+                            </tr>
+                            </tbody>
+                        </table>
+        <TMPL_IF USE>
+                        <table width="100%">
+                            <tbody>
+                            <tr>
+                                <td colspan="2" class="item-name" style="width: 100%;height:1.6em;padding-left:0.5em;">カート画面表示設定</td>
+                            </tr>
+<form name="PM<TMPL_VAR NAME=PAYMETHOD>_DESC" method="POST" action="payment.cgi">
+<input type="hidden" name="CMD" value="EDTDESC">
+<input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+                            <tr>
+                                <td class="sub-item-name">表示条件</td>
+                                <td class="sub-item">
+                                    <input name="PmMinFlag" type="checkbox" value="Y" id="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMINFLGY>checked</TMPL_IF>>
+                                     <label for="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMin" type="text" size="10" value="<TMPL_VAR NAME=PMMIN>" id="PmMin<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled">  <label for="PmMin<TMPL_VAR NAME=PAYMETHOD>">円未満の場合は表示しない</label>
+                                    <br>
+                                    <input name="PmMaxFlag" type="checkbox" value="Y" id="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMMAXFLGY>checked</TMPL_IF>>
+                                     <label for="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input name="PmMax" type="text" size="10" value="<TMPL_VAR NAME=PMMAX>" id="PmMax<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmMax<TMPL_VAR NAME=PAYMETHOD>">円以上の場合は表示しない</label>
+                                </td>
+                            </tr
+                            <tr>
+                                <td class="sub-item-name">手数料欄</td>
+                                <td class="sub-item">
+                                    <table border="0" cellpadding="2" cellspacing="0" >
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="A" id="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEA>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>">一律</label>&nbsp;<input name="PmUniform" size="10" value="<TMPL_VAR NAME=PMUNIFORM>" style="ime-mode: disabled;" type="text"><label for="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>">円と表示し、自動計算する</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="C" id="PmFeeC_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEC>checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeC_<TMPL_VAR NAME=PAYMETHOD>">手数料の表示設定を指定する</label></td>
+                                        </tr>
+                                        <tr style="padding-left: 1em;">
+                                            <td rowspan="8" valign="top">&nbsp;</td>
+                                            <td style="padding-left: 1em;">
+                                                <select name="PmFeeTarget">
+                                                <option value="I" <TMPL_IF PMFEETARGETI>selected</TMPL_IF>>商品合計</option>
+                                                <option value="S" <TMPL_IF PMFEETARGETS>selected</TMPL_IF>>商品合計＋送料</option>
+                                                <option value="T" <TMPL_IF PMFEETARGETT>selected</TMPL_IF>>商品合計＋送料＋手数料</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <TMPL_LOOP FEELIST>
+                                        <tr>
+                                            <td style="padding-left: 1em;"><input name="PmFeePrc<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PMPRC>" id="PmFeePrc<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"><label for="PmFeePrc<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>">円未満は</label> <input name="PmFeeFee<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PMFEE>" id="PmFeeFee<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmFeeFee<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>">円</lable></td>
+                                        </tr>
+                                        </TMPL_LOOP>
+                                        <tr>
+                                            <td style="padding-left: 1em;"><label for="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>">上記金額以上は</label>&nbsp;<input name="PmMaxFee" size="10" value="<TMPL_VAR NAME=PMMAXFEE>" id="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode: disabled;" type="text"> <label for="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>">円と表示し、自動計算する</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="N" id="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEN>checked</TMPL_IF>></td>
+                                            <td style="padding-left: 1em;"><input name="PmStr" type="text" value="<TMPL_VAR NAME=PMSTR>" size="10"> <label for="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>">と表示する</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input name="PmFee" type="radio" value="L" id="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>" <TMPL_IF PMFEEL>checked</TMPL_IF>></td>
+                                            <td style="padding-left: 1em;"><label for="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>">手数料欄を表示しない</label></td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table width="100%">
+                            <tbody>
+                            <tr>
+                                <td colspan="2" class="item-name" style="width: 100%;height:1.6em;padding-left:0.5em;">カート画面のご案内設定<div style="float: right;margin-right:1em;"><a href="../imgs/con-img.png" target="_blank">カート画面のご案内イメージ</a></div></td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">決済画像</td>
+                                <td class="sub-item">
+                                    <div style="background: #E0EFF6;padding:3px 5px 1px;">カスタム画像</div>
+                                    <input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selimg_form.cgi?OFORM=PM<TMPL_VAR NAME=PAYMETHOD>_DESC&FORMNUM=<TMPL_VAR NAME=PAYMETHOD>','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">   
+                                    <input type="button" name="Submit" value="画像削除" onClick="delImage(this.form,<TMPL_VAR NAME=PAYMETHOD>);">
+                                    <a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a><br>
+                                    <br>
+                                    <TMPL_IF PMIMG>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="<TMPL_VAR NAME=PMIMG_T>" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    <TMPL_ELSE>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="../imgs/spc.gif" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    </TMPL_IF>
+                                    <input type="hidden" name="PmImg<TMPL_VAR NAME=PAYMETHOD>" value="<TMPL_VAR NAME=PMIMG>">
+                                    <input type="hidden" name="PmImg" value="">
+                                    <br>
+                                    <span style="color: #555;font-size:12px; ">※本決済の利用促進バナー画像や説明画像などにご利用ください。</span>
+
+                                    <div style="background: #E0EFF6;padding:3px 5px 1px;margin-top:2.5em;">標準画像</div>
+                                    <label for="wn_img_use"><input name="WnImgDisp" id="wn_img_use" value="1" <TMPL_IF WN_IMGDISP>checked="checked"</TMPL_IF> type="radio">表示する</label>　<label for="wn_img_nouse"><input name="WnImgDisp" id="wn_img_nouse" value="0" <TMPL_UNLESS WN_IMGDISP>checked="checked" </TMPL_UNLESS>type="radio" >表示しない</label><br>
+                                    <div style="margin-left: 30px;margin-top:0.5em;">
+                                    <!-- <span style="margin-top: 0.5em;font-size:12px;color:#666;">表示サンプル画像</span><br> -->
+                                    <img src="../imgs/shiharaiichiran_kanri.png" alt="支払方法の一覧" border="0" height="133" width="300" align="middle" style="border: solid 1px #888;">
+                                    </div>
+                                    
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">案内文</td>
+                                <td class="sub-item"><textarea name="PmMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSG></textarea></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table width="100%">
+                            <tbody>
+                            <tr>
+                                <td colspan="2" class="item-name" style="width: 100%;height:1.6em;padding-left:0.5em;">注文完了後のご案内設定</td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">支払番号の<br>通知方法</td>
+                                <td class="sub-item">
+                                    <label for="disp_on" ><input name="WnUrlDisp" id="disp_on"  value="1" type="radio" <TMPL_IF WN_URLDISP>checked="checked"</TMPL_IF>>注文完了画面と注文確認メール、個別確認メールで通知する</label><br>
+                                    <label for="disp_off"><input name="WnUrlDisp" id="disp_off" value="0" type="radio" <TMPL_UNLESS WN_URLDISP>checked="checked"</TMPL_UNLESS>>個別確認メールのみ手動送信する</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">支払期限の<br>ご案内メール</td>
+                                <td class="sub-item" style="padding-top: 5px;">
+                                    <label for="remind_use"><input type="radio" name="WnRemindMail" id="remind_use"   value="1" <TMPL_IF WN_REMINDMAIL>checked="checked"</TMPL_IF> />自動送信する</label><br>
+                                    <label for="remind_nouse"><input type="radio" name="WnRemindMail" id="remind_nouse" value="0" <TMPL_UNLESS WN_REMINDMAIL>checked="checked"</TMPL_UNLESS> />自動送信しない</label>
+                                    <br>
+                                    <div style="background: #E0EFF6;padding:3px 5px 1px;margin-top:10px;">支払期限の前日にお知らせするメール</div>
+                                    <textarea name="WnRemindMailMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR WN_REMINDMAILMSG></textarea>
+                                    <div style="background: #E0EFF6;padding:3px 5px 1px;margin-top:10px;">支払期限切れをお知らせするメール</div>
+                                    <textarea name="WnExpiredMailMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR WN_EXPIREDMAILMSG></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">メールに記載する案内文</td>
+                                <td class="sub-item"><textarea name="PmMsgMail" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSGMAIL></textarea>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <table width="100%">
+                            <tbody>
+                            <tr>
+                                <td colspan="2" class="item-name" style="width: 100%;height:1.6em;padding-left:0.5em;">購入者のご利用明細票設定<div style="float: right;margin-right:1em;"><a href="../imgs/con-img2.gif" target="_blank">ご利用明細票とは</a></div></td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">支払期限<br><span style="color: red;">（必須）</span></td>
+                                <td class="sub-item">ご注文日を含む
+                                <input name="WnExpireDay" size="3" value="<TMPL_VAR NAME=WN_EXPIREDAY>" type="text">
+                                日以内<br>
+                                <span style="color: #555;font-size:12px; ">※3〜60日まで指定可能</span>
+                                <br/><span style="color: #555;font-size:12px; ">※支払番号取得ボタン押下時は、その日を含む日付に更新されます</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">お店の名前<br><span style="color: red;">（必須）</td>
+                                <td class="sub-item">
+                                <input type="text" style="width: 20em;" size="45" name="WnStoreName" value="<TMPL_VAR NAME=WN_STORENAME>">
+                                <span style="color: #555;font-size:12px; ">※20文字以内</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">問い合わせ<br>電話番号<br><span style="color: red;">（必須）</td>
+                                <td class="sub-item">
+                                <input type="text" name="WnTel1" value="<TMPL_VAR NAME=WN_TEL1>" style="width: 4em;">
+                                -
+                                <input type="text" name="WnTel2" value="<TMPL_VAR NAME=WN_TEL2>" style="width: 4em;">
+                                -
+                                <input type="text" name="WnTel3" value="<TMPL_VAR NAME=WN_TEL3>" style="width: 4em;">
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">問い合わせ<br>受付時間<br><span style="color: red;">（必須）</td>
+                                <td class="sub-item">
+                                
+                                <select name="WnStartTimeH">
+                                    <option value="">-</option>
+                                  <TMPL_LOOP WN_HOUR>
+                                    <option value="<TMPL_VAR NAME=hour>" <TMPL_IF NAME=S_HOUR_FLG>selected </TMPL_IF>><TMPL_VAR NAME=hour></option>
+                                  </TMPL_LOOP>
+                                </select>
+                                :
+                                <select name="WnStartTimeM">
+                                    <option value="">-</option>
+                                  <TMPL_LOOP WN_MIN>
+                                    <option value="<TMPL_VAR NAME=min>" <TMPL_IF NAME=S_MIN_FLG>selected </TMPL_IF>><TMPL_VAR NAME=min></option>
+                                  </TMPL_LOOP>
+                                </select>
+                                〜
+                                <select name="WnEndTimeH">
+                                    <option value="">-</option>
+                                  <TMPL_LOOP WN_HOUR>
+                                    <option value="<TMPL_VAR NAME=hour>" <TMPL_IF NAME=E_HOUR_FLG>selected </TMPL_IF>><TMPL_VAR NAME=hour></option>
+                                  </TMPL_LOOP>
+                                </select>
+                                :
+                                <select name="WnEndTimeM">
+                                    <option value="">-</option>
+                                  <TMPL_LOOP WN_MIN>
+                                    <option value="<TMPL_VAR NAME=min>" <TMPL_IF NAME=E_MIN_FLG>selected </TMPL_IF>><TMPL_VAR NAME=min></option>
+                                  </TMPL_LOOP>
+                                </select>
+                                
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">コンビニ用<br>ご利用明細票<br>ご挨拶文<br><span style="color: red;">（1行目必須）</span></td>
+                                <td class="sub-item">
+                                <div style="float: left;width:4em;padding-top:3px;">1行目<br><span style="color: red;">（必須）</span></div>
+                                <div style="margin-left: 4em;margin-right:1em;margin-bottom:12px;">
+                                <input type="text" name="WnComment1" value="<TMPL_VAR WN_COMMENT1>" style="width: 100%;">
+                                <span style="color: #555;font-size:12px; ">例）&nbsp;ご利用いただきまして、ありがとうございます</span>
+                                </div>
+                                
+                                <div style="float: left;width:4em;padding-top:3px;">2行目</div>
+                                <div style="margin-left: 4em;margin-right:1em;margin-bottom:5px;">
+                                <input type="text" name="WnComment2" value="<TMPL_VAR WN_COMMENT2>" style="width: 100%;">
+                                </div>
+                                
+                                <div style="float: left;width:4em;padding-top:3px;">3行目</div>
+                                <div style="margin-left: 4em;margin-right:1em;margin-bottom:5px;">
+                                <input type="text" name="WnComment3" value="<TMPL_VAR WN_COMMENT3>" style="width: 100%;">
+                                </div>
+                                
+                                <div style="float: left;width:4em;padding-top:3px;">4行目</div>
+                                <div style="margin-left: 4em;margin-right:1em;margin-bottom:5px;">
+                                <input type="text" name="WnComment4" value="<TMPL_VAR WN_COMMENT4>" style="width: 100%;">
+                                </div>
+                                
+                                <div style="float: left;width:4em;padding-top:3px;">5行目</div>
+                                <div style="margin-left: 4em;margin-right:1em;margin-bottom:5px;">
+                                <input type="text" name="WnComment5" value="<TMPL_VAR WN_COMMENT5>" style="width: 100%;">
+                                </div>
+                                
+                                <div style="float: left;width:4em;padding-top:3px;">6行目</div>
+                                <div style="margin-left: 4em;margin-right:1em;margin-bottom:5px;">
+                                <input type="text" name="WnComment6" value="<TMPL_VAR WN_COMMENT6>" style="width: 100%;">
+                                </div>
+                                
+                                <div style="float: left;width:4em;padding-top:3px;">7行目</div>
+                                <div style="margin-left: 4em;margin-right:1em;margin-bottom:5px;">
+                                <input type="text" name="WnComment7" value="<TMPL_VAR WN_COMMENT7>" style="width: 100%;">
+                                </div>
+                                
+                                <div style="float: left;width:4em;padding-top:3px;">8行目</div>
+                                <div style="margin-left: 4em;margin-right:1em;margin-bottom:5px;">
+                                <input type="text" name="WnComment8" value="<TMPL_VAR WN_COMMENT8>" style="width: 100%;">
+                                </div>
+                                
+                                <div style="float: left;width:4em;padding-top:3px;">9行目</div>
+                                <div style="margin-left: 4em;margin-right:1em;margin-bottom:5px;">
+                                <input type="text" name="WnComment9" value="<TMPL_VAR WN_COMMENT9>" style="width: 100%;">
+                                </div>
+                                
+                                <div style="float: left;width:4em;padding-top:3px;">10行目</div>
+                                <div style="margin-left: 4em;margin-right:1em;margin-bottom:5px;">
+                                <input type="text" name="WnComment10" value="<TMPL_VAR WN_COMMENT10>" style="width: 100%;">
+                                </div>
+                                <span style="color: #555;font-size:12px; ">※各行28文字以内</span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td align="center" colspan="2" class="item">
+                                <div style="padding: 1em;text-align:center;">
+                                <input style="height: 30px" value="保存する" onclick='SaveSub(this.form,<TMPL_VAR NAME=PAYMETHOD>);' type="button" style="padding: 0.5em 1em;">
+                                </div>
+                                </td>
+                            </tr>
+                            </tbody>
+</form>
+                        </table>
+        </TMPL_IF>
+</TMPL_IF>
+<!-- Wellnet20110628 e -->
+<!-- Atobarai 20140917 s -->
+<TMPL_IF ATOBARAI>
+<table width="100%">
+                            <tbody><tr>
+                                <td class="item-name" colspan="2">後払い決済(代金回収保証型のリスクなし決済）ご利用案内</td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name" width="20%">手数料</td>
+                                <td class="sub-item" width="80%">決済手数料+請求手数料がかかります。<br><br>  (決済手数料）<br>
+プランＡ：　月額0円　　　　　　　　　　　　　 　4.8％/1売上ごと<br>
+プランＢ：　月額4,500円(税込4,860円)　 　　4.2％/1売上ごと<br>
+プランＣ：　月額18,000円(税込19,440円)　　3.5％/1売上ごと<br>
+プランＤ：　月額45,000円(税込48,600円)　　2.8％/1売上ごと<br>
+  <br>
+
+  (請求手数料）・・・全プラン共通<br>
+  一律169円(税込182円)/１売上ごと<br>  ※請求手数料は店舗で自由に設定できます。購入者様にご負担いただく場合、店舗でのコストは実質かかりません。<br>
+  <a href="http://help.shopserve.jp/support/build/after_payment/" target="_blank">⇒『後払い（コンビニ、郵便局、銀行）決済』サービスの詳細はこちら</a><br>
+        <TMPL_IF USE>
+ <br>
+ <input name="Submit" value="プランの確認・変更をする" onclick="MM_openBrWindow('atobarai_plan_change.php','plan_change','scrollbars=yes,resizable=yes,width=650,height=700')" type="button"><br><br></td>
+
+                            </tr>
+<tr>
+<td class="sub-item-name" width="20%">払込票編集</td>
+<td class="sub-item" width="80%"><input type="button" name="Submit" value="払込票(請求はがき)の編集" onclick="window.open('atobarai_sitemod.php','','')"></td>
+</tr>
+                        </tbody></table>
+
+<form name="PM<TMPL_VAR NAME=PAYMETHOD>_DESC" method="POST" action="payment.cgi">
+<input type="hidden" name="CMD" value="EDTDESC">
+<input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+
+<table width="100%">
+                            <tbody><tr><td colspan="2" class="item-name">後払い決済表示設定</td></tr>
+                            <tr>
+                                <td class="sub-item-name" width="20%">表示条件</td>
+                                <td class="sub-item">
+                                    <input id="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>" value="Y" name="PmMinFlag" type="checkbox" <TMPL_IF PMMINFLGY>checked</TMPL_IF>>
+                                     <label for="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input id="PmMin<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode: disabled;" value="<TMPL_VAR NAME=PMMIN>" size="10" name="PmMin" type="text">  <label for="PmMin<TMPL_VAR NAME=PAYMETHOD>">円未満の場合は表示しない</label>
+                                    <br>
+                                    <input id="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>" value="Y" name="PmMaxFlag" type="checkbox" <TMPL_IF PMMAXFLGY>checked</TMPL_IF>>
+                                     <label for="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+                                    <input id="PmMax<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode: disabled;" value="<TMPL_VAR NAME=PMMAX>" size="10" name="PmMax" type="text"> <label for="PmMax<TMPL_VAR NAME=PAYMETHOD>">円以上の場合は表示しない</label>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">決済画像</td>
+                                <td class="sub-item">
+                                    <div style="background: #E0EFF6;padding:3px 5px 1px;">カスタム画像</div>
+                                    <input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selimg_form.cgi?OFORM=PM<TMPL_VAR NAME=PAYMETHOD>_DESC&FORMNUM=<TMPL_VAR NAME=PAYMETHOD>','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">
+                                    <input type="button" name="Submit" value="画像削除" onClick="delImage(this.form,<TMPL_VAR NAME=PAYMETHOD>);">
+                                    <a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a><br>
+                                    <br>
+                                    <TMPL_IF PMIMG>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="<TMPL_VAR NAME=PMIMG_T>" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    <TMPL_ELSE>
+                                    <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="../imgs/spc.gif" border="0"
+                                        onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+                                    </TMPL_IF>
+                                    <input type="hidden" name="PmImg<TMPL_VAR NAME=PAYMETHOD>" value="<TMPL_VAR NAME=PMIMG>">
+                                    <input type="hidden" name="PmImg" value="">
+                                    <br>
+                                    <span style="color: #555;font-size:12px; ">※本決済の利用促進バナー画像や説明画像などにご利用ください。</span>
+
+                                    <div style="background: #E0EFF6;padding:3px 5px 1px;margin-top:2.5em;">標準画像</div>
+                                    <label for="atobarai_img_use"><input name="AtobaraiImgDisp" id="atobarai_img_use" value="1" <TMPL_IF ATOBARAI_IMGDISP>checked="checked"</TMPL_IF> type="radio">表示する</label>　<label for="atobarai_img_nouse"><input name="AtobaraiImgDisp" id="atobarai_img_nouse" value="0" <TMPL_UNLESS ATOBARAI_IMGDISP>checked="checked" </TMPL_UNLESS>type="radio" >表示しない</label><br>
+                                    <div style="margin-left: 30px;margin-top:0.5em;">
+                                    <!-- <span style="margin-top: 0.5em;font-size:12px;color:#666;">表示サンプル画像</span><br> -->
+                                    <img src="../imgs/after_payment_l.png" alt="支払方法の一覧" border="0" height="117" width="302" align="middle" style="border: solid 1px #888;">
+                                    </div>
+
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（カート用）</td>
+                                <td class="sub-item"><textarea name="PmMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSG></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">ご案内<br>（メール用）</td>
+                                <td class="sub-item"><textarea name="PmMsgMail" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSGMAIL></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="sub-item-name">手数料欄</td>
+                                <td class="sub-item">
+                                    <table cellpadding="2" cellspacing="0" border="0">
+                                        <tbody><tr>
+                                            <td valign="top"><input id="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>" value="A" name="PmFee" type="radio"<TMPL_IF PMFEEA> checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>">一律</label>&nbsp;<input style="ime-mode: disabled;" value="<TMPL_VAR NAME=PMUNIFORM>" size="10" name="PmUniform" type="text"><label for="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>">円で自動計算する</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td valign="top"><input id="PmFeeC_<TMPL_VAR NAME=PAYMETHOD>" value="C" name="PmFee" type="radio"<TMPL_IF PMFEEC> checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeC_<TMPL_VAR NAME=PAYMETHOD>">条件指定</label></td>
+                                        </tr>
+                                        <tr>
+                                            <td rowspan="8" valign="top">&nbsp;</td>
+                                            <td><select name="PmFeeTarget">
+                                                <option value="I"<TMPL_IF PMFEETARGETI> selected</TMPL_IF>>商品合計</option>
+                                                <option value="S"<TMPL_IF PMFEETARGETS> selected</TMPL_IF>>商品合計＋送料</option>
+                                                <option value="T"<TMPL_IF PMFEETARGETT> selected</TMPL_IF>>商品合計＋送料＋手数料</option>
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <TMPL_LOOP FEELIST>
+                                        <tr>
+                                            <td><input name="PmFeePrc<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PMPRC>" id="PmFeePrc<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"><label for="PmFeePrc<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>">円未満は</label> <input name="PmFeeFee<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PMFEE>" id="PmFeeFee<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmFeeFee<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>">円</label></td>
+                                        </tr>
+                                        </TMPL_LOOP> 
+                                        <tr>
+                                            <td><label for="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>">これ以上は</label> <input id="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>"style="ime-mode: disabled;" value="<TMPL_VAR NAME=PMMAXFEE>" size="10" name="PmMaxFee" type="text"> <label for="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>">円</label></td>
+                                        </tr>
+                                        <tr>
+                                        </tr><tr>
+                                            <td valign="top"><input id="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>" value="L" name="PmFee" type="radio"<TMPL_IF PMFEEL> checked</TMPL_IF>></td>
+                                            <td><label for="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>">手数料欄を表示しない</label></td>
+                                        </tr>
+                                                    <tr><td valign="top"><input id="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>" value="N" name="PmFee" type="radio"<TMPL_IF PMFEEN> checked</TMPL_IF>></td>
+                                            <td><input size="10" value="<TMPL_VAR NAME=PMSTR>" name="PmStr" type="text"> <label for="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>">と表示する</label></td>
+                                        </tr>
+                                    </tbody></table>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td class="item" colspan="2" align="center"><input onclick="SaveSub(this.form,13);" value="保存する" style="height: 30px;" type="button"></td>
+        </TMPL_IF>
+                            </tr>
+                        </tbody></table>
+</form>
+</TMPL_IF>
+<!-- Atobarai 20140917 e -->
+
+<!-- START NP atobarai-->
+<TMPL_IF NETPROTECTIONS_DEFERRED_PAYMENT>
+  <form name="PM<TMPL_VAR NAME=PAYMETHOD>_DESC" method="POST" action="payment.cgi">
+    <input type="hidden" name="CMD" value="EDTDESC">
+    <input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+
+    <table width="100%">
+      <tbody>
+        <tr>
+          <td width="20%" class="sub-item-name">利用設定</td>
+          <td class="sub-item">
+            SPコード <input name="spCode" type="text" value="<TMPL_VAR NAME=SP_CODE>" maxlength="10"><br>
+            <input name="useWiz" id="useWiz" value="Y" type="checkbox" <TMPL_IF USE_WIZ>checked</TMPL_IF>>
+            <label for="useWiz">NP後払いwiz利用中</label>
+          </td>
+        </tr>
+        <tr>
+          <td width="20%" class="sub-item-name">表示名</td>
+          <td class="sub-item"><input name="PmName" type="text" value="<TMPL_VAR NAME=PMNAME>" size="30">
+          </td>
+        </tr>
+        <tr>
+          <td class="sub-item-name" width="20%">表示条件</td>
+          <td class="sub-item">
+            <input id="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>" value="Y" name="PmMinFlag" type="checkbox" <TMPL_IF PMMINFLGY>checked</TMPL_IF>>
+            <label for="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+            <input id="PmMin<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode: disabled;" value="<TMPL_VAR NAME=PMMIN>" size="10" name="PmMin" type="text">  <label for="PmMin<TMPL_VAR NAME=PAYMETHOD>">円未満の場合は表示しない</label>
+            <br>
+            <input id="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>" value="Y" name="PmMaxFlag" type="checkbox" <TMPL_IF PMMAXFLGY>checked</TMPL_IF>>
+            <label for="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+            <input id="PmMax<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode: disabled;" value="<TMPL_VAR NAME=PMMAX>" size="10" name="PmMax" type="text"> <label for="PmMax<TMPL_VAR NAME=PAYMETHOD>">円以上の場合は表示しない</label>
+          </td>
+        </tr>
+        <tr>
+          <td class="sub-item-name">決済画像</td>
+          <td class="sub-item">
+            <input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selimg_form.cgi?OFORM=PM<TMPL_VAR NAME=PAYMETHOD>_DESC&FORMNUM=<TMPL_VAR NAME=PAYMETHOD>','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">
+            <input type="button" name="Submit" value="画像削除" onClick="delImage(this.form,<TMPL_VAR NAME=PAYMETHOD>);">
+            <a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a><br>
+            <br>
+            <TMPL_IF PMIMG>
+              <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="<TMPL_VAR NAME=PMIMG_T>" border="0"
+                                          onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+              <TMPL_ELSE>
+                <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="../imgs/spc.gif" border="0"
+                                            onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+            </TMPL_IF>
+            <input type="hidden" name="PmImg<TMPL_VAR NAME=PAYMETHOD>" value="<TMPL_VAR NAME=PMIMG>">
+            <input type="hidden" name="PmImg" value="">
+            <br>
+          </td>
+        </tr>
+        <tr>
+          <td class="sub-item-name">ご案内<br>（カート用）</td>
+          <td class="sub-item"><textarea name="PmMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSG></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="sub-item-name">ご案内<br>（メール用）</td>
+          <td class="sub-item"><textarea name="PmMsgMail" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSGMAIL></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="sub-item-name">手数料欄</td>
+          <td class="sub-item">
+            <table cellpadding="2" cellspacing="0" border="0">
+              <tbody><tr>
+                <td valign="top"><input id="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>" value="A" name="PmFee" type="radio"<TMPL_IF PMFEEA> checked</TMPL_IF>></td>
+                <td><label for="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>">一律</label>&nbsp;<input style="ime-mode: disabled;" value="<TMPL_VAR NAME=PMUNIFORM>" size="10" name="PmUniform" type="text"><label for="PmFeeA_<TMPL_VAR NAME=PAYMETHOD>">円で自動計算する</label></td>
+              </tr>
+              <tr>
+                <td valign="top"><input id="PmFeeC_<TMPL_VAR NAME=PAYMETHOD>" value="C" name="PmFee" type="radio"<TMPL_IF PMFEEC> checked</TMPL_IF>></td>
+                <td><label for="PmFeeC_<TMPL_VAR NAME=PAYMETHOD>">条件指定</label></td>
+              </tr>
+              <tr>
+                <td rowspan="8" valign="top">&nbsp;</td>
+                <td><select name="PmFeeTarget">
+                  <option value="I"<TMPL_IF PMFEETARGETI> selected</TMPL_IF>>商品合計</option>
+                  <option value="S"<TMPL_IF PMFEETARGETS> selected</TMPL_IF>>商品合計＋送料</option>
+                  <option value="T"<TMPL_IF PMFEETARGETT> selected</TMPL_IF>>商品合計＋送料＋手数料</option>
+                </select>
+                </td>
+              </tr>
+              <TMPL_LOOP FEELIST>
+                <tr>
+                  <td><input name="PmFeePrc<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PMPRC>" id="PmFeePrc<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"><label for="PmFeePrc<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>">円未満は</label> <input name="PmFeeFee<TMPL_VAR NAME=NO>" type="text" size="10" value="<TMPL_VAR NAME=PMFEE>" id="PmFeeFee<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode:disabled"> <label for="PmFeeFee<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=PAYMETHOD>">円</label></td>
+                </tr>
+              </TMPL_LOOP>
+              <tr>
+                <td><label for="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>">これ以上は</label> <input id="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>"style="ime-mode: disabled;" value="<TMPL_VAR NAME=PMMAXFEE>" size="10" name="PmMaxFee" type="text"> <label for="PmMaxFee_<TMPL_VAR NAME=PAYMETHOD>">円</label></td>
+              </tr>
+              <tr>
+              </tr><tr>
+                <td valign="top"><input id="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>" value="L" name="PmFee" type="radio"<TMPL_IF PMFEEL> checked</TMPL_IF>></td>
+                <td><label for="PmFeeL_<TMPL_VAR NAME=PAYMETHOD>">手数料欄を表示しない</label></td>
+              </tr>
+              <tr><td valign="top"><input id="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>" value="N" name="PmFee" type="radio"<TMPL_IF PMFEEN> checked</TMPL_IF>></td>
+                <td><input size="10" value="<TMPL_VAR NAME=PMSTR>" name="PmStr" type="text"> <label for="PmFeeN_<TMPL_VAR NAME=PAYMETHOD>">と表示する</label></td>
+              </tr>
+              </tbody></table>
+          </td>
+        </tr>
+        <tr>
+          <td class="item" colspan="2" align="center"><input onclick="SaveSub(this.form,17);" value="保存する" style="height: 30px;" type="button"></td>
+        </tr>
+      </tbody>
+    </table>
+  </form>
+</TMPL_IF>
+<!-- END NP atobarai-->
+
+<!-- Start RakutenId -->
+<TMPL_IF RAKUTEN_ID>
+  <table width="100%">
+    <tbody>
+      <tr>
+        <td class="item-name" colspan="2">楽天ペイご利用案内</td>
+      </tr>
+      <tr>
+        <td class="sub-item-name" width="20%">決済手数料</td>
+        <td class="sub-item" width="80%">5.4％/1売上ごと</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <TMPL_IF USE>
+  <form name="PM<TMPL_VAR NAME=PAYMETHOD>_DESC" method="POST" action="payment.cgi">
+  <input type="hidden" name="CMD" value="EDTDESC">
+  <input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+
+  <table width="100%">
+    <tbody><tr><td colspan="2" class="item-name">楽天ペイ表示設定</td></tr>
+      <tr>
+        <td class="sub-item-name" width="20%">表示条件</td>
+        <td class="sub-item">
+          <input id="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>" value="Y" name="PmMinFlag" type="checkbox" <TMPL_IF PMMINFLGY>checked</TMPL_IF>>
+          <label for="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+          <input id="PmMin<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode: disabled;" maxlength="8" value="<TMPL_VAR NAME=PMMIN>" size="10" name="PmMin" type="text">  <label for="PmMin<TMPL_VAR NAME=PAYMETHOD>">円未満の場合は表示しない</label>
+          <br>
+          <input id="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>" value="Y" name="PmMaxFlag" type="checkbox" <TMPL_IF PMMAXFLGY>checked</TMPL_IF>>
+          <label for="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+          <input id="PmMax<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode: disabled;" maxlength="8" value="<TMPL_VAR NAME=PMMAX>" size="10" name="PmMax" type="text"> <label for="PmMax<TMPL_VAR NAME=PAYMETHOD>">円以上の場合は表示しない</label>
+        </td>
+      </tr>
+      
+      <tr>
+        <td class="sub-item-name">決済画像</td>
+        <td class="sub-item">
+          <div style="background: #E0EFF6;padding:3px 5px 1px;">カスタム画像</div>
+          <input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selimg_form.cgi?OFORM=PM<TMPL_VAR NAME=PAYMETHOD>_DESC&FORMNUM=<TMPL_VAR NAME=PAYMETHOD>','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">
+          <input type="button" name="Submit" value="画像削除" onClick="delImage(this.form,<TMPL_VAR NAME=PAYMETHOD>);">
+          <a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a><br>
+          <br>
+          <TMPL_IF PMIMG>
+          <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="<TMPL_VAR NAME=PMIMG_T>" border="0"
+              onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+          <TMPL_ELSE>
+          <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="../imgs/spc.gif" border="0"
+              onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+          </TMPL_IF>
+          <input type="hidden" name="PmImg<TMPL_VAR NAME=PAYMETHOD>" value="<TMPL_VAR NAME=PMIMG>">
+          <input type="hidden" name="PmImg" value="">
+          <br>
+          <span style="color: #555;font-size:12px; ">※本決済の利用促進バナー画像や説明画像などにご利用ください。</span>
+
+          <div style="background: #E0EFF6;padding:3px 5px 1px;margin-top:2.5em;">標準画像</div>
+          <div style="margin-left: 30px;margin-top:0.5em;">
+          <img src="<TMPL_VAR NAME=rakutenAcceptanceMark>" alt="" border="0" align="middle" style="border: solid 1px #888;">
+          </div>
+          <div style="margin-top:0.5em; margin-bottom:0.5emm">
+          <span style="color: #555;font-size:12px; ">
+            ※画像を他のエリアに表示する場合、下記をコピーしてお使いください。</br>
+            <TMPL_VAR NAME=rakutenAcceptanceMark>
+          </span>
+          </div>
+
+        </td>
+      </tr>
+
+      <tr>
+        <td class="sub-item-name">ご案内<br>（カート用）</td>
+        <td class="sub-item"><textarea name="PmMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSG></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td class="sub-item-name">ご案内<br>（メール用）</td>
+        <td class="sub-item"><textarea name="PmMsgMail" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSGMAIL></textarea>
+        </td>
+      </tr>
+
+      <tr>
+        <td class="item" colspan="2" align="center"><input onclick="SaveSub(this.form,<TMPL_VAR NAME=PAYMETHOD>);" value="保存する" style="height: 30px;" type="button"></td>
+      </tr>
+
+    </tbody>
+  </table>
+  </form>
+  </TMPL_IF>
+</TMPL_IF>
+<!--End RakutenId -->
+
+
+<!-- Start Amazon Payments -->
+<TMPL_IF AMAZON_PAYMENTS>
+  <TMPL_UNLESS USE>
+  <!-- amazon契約していない -->
+  <table width="100%">
+    <tbody>
+      <tr>
+        <td class="item-name" colspan="2">Amazon Payご利用案内</td>
+      </tr>
+      <tr>
+        <td class="sub-item-name" width="20%">月額利用料</td>
+        <td class="sub-item" width="80%">3,000円(税込3,240円)</td>
+      <tr>
+        <td class="sub-item" width="100%" colspan="2"><input type="button" name="Submit" value="Amazon Payを利用する" onClick="window.open('../func00/customer.cgi#amazon')"></td>
+      </tr>
+    </tbody>
+  </table>
+  <!-- amazon契約中 -->
+  <TMPL_ELSE>
+  <table width="100%">
+    <tbody>
+      <tr>
+        <td class="item-name" colspan="2">Amazon Pay利用設定</td>
+      </tr>
+      <tr>
+        <td class="sub-item-name" width="20%">利用設定</td>
+        <td class="sub-item" width="80%"><input type="button" name="Submit" value="Amazon Pay利用設定" onClick="window.open('../func03/amazon_payments_conf.php')"></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <!-- amazon登録設定済 -->
+  <TMPL_IF IS_REGISTERED>
+  <form name="PM<TMPL_VAR NAME=PAYMETHOD>_DESC" method="POST" action="payment.cgi">
+  <input type="hidden" name="CMD" value="EDTDESC">
+  <input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+
+  <table width="100%">
+    <tbody>
+        <tr>
+            <td colspan="2" class="item-name">Amazon Pay表示設定</td>
+        </tr>
+      <tr>
+        <td class="sub-item-name" width="20%">表示条件</td>
+        <td class="sub-item">
+          <input id="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>" value="Y" name="PmMinFlag" type="checkbox" <TMPL_IF PMMINFLGY>checked</TMPL_IF>>
+          <label for="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+          <input id="PmMin<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode: disabled;" maxlength="8" value="<TMPL_VAR NAME=PMMIN>" size="10" name="PmMin" type="text">  <label for="PmMin<TMPL_VAR NAME=PAYMETHOD>">円未満の場合は表示しない</label>
+          <br>
+          <input id="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>" value="Y" name="PmMaxFlag" type="checkbox" <TMPL_IF PMMAXFLGY>checked</TMPL_IF>>
+          <label for="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+          <input id="PmMax<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode: disabled;" maxlength="8" value="<TMPL_VAR NAME=PMMAX>" size="10" name="PmMax" type="text"> <label for="PmMax<TMPL_VAR NAME=PAYMETHOD>">円以上の場合は表示しない</label>
+        </td>
+      </tr>
+      <tr>
+        <td class="sub-item-name" width="20%">ボタン表示</td>
+        <td class="sub-item">
+            <TMPL_LOOP NAME=CART_DISP>
+                <label><input type="radio" name="cart_disp" class="cart_disp" value="<TMPL_VAR NAME=KEY>"<TMPL_IF CHECKED> checked="checked"</TMPL_IF>/> <TMPL_VAR NAME=VALUE></label><br>
+            </TMPL_LOOP>
+        </td>
+      </tr>
+      <tr>
+        <td class="sub-item-name">ご案内<br>（レジ用）</td>
+        <td class="sub-item"><textarea name="PmMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSG></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td class="sub-item-name">ご案内<br>（メール用）</td>
+        <td class="sub-item"><textarea name="PmMsgMail" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSGMAIL></textarea>
+        </td>
+      </tr>
+      <tr>
+        <td class="sub-item-name">決済画像</td>
+        <td class="sub-item">
+          <input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selimg_form.cgi?OFORM=PM<TMPL_VAR NAME=PAYMETHOD>_DESC&FORMNUM=<TMPL_VAR NAME=PAYMETHOD>','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">
+          <input type="button" name="Submit" value="画像削除" onClick="delImage(this.form,<TMPL_VAR NAME=PAYMETHOD>);">
+          <a href="https://help.shopserve.jp/manual/058/" target="_blank">画像挿入について</a><br>
+          <br>
+          <TMPL_IF PMIMG>
+          <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="<TMPL_VAR NAME=PMIMG_T>" border="0"
+              onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+          <TMPL_ELSE>
+          <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="../imgs/spc.gif" border="0"
+              onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+          </TMPL_IF>
+          <p>※ロゴマークは <a href="https://payments.amazon.co.jp/merchant/tools#marks" target="_blank">Amazon Payマーク一覧ページ</a> からダウンロードできます。ご利用に際してはAmazonのトレードマークと利用ガイドラインに従ってください。</p>
+
+          
+          <input type="hidden" name="PmImg<TMPL_VAR NAME=PAYMETHOD>" value="<TMPL_VAR NAME=PMIMG>">
+          <input type="hidden" name="PmImg" value="">
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td class="sub-item-name">ボタン<br>（PC用）</td>
+        <td class="sub-item">
+            ボタン色：
+            <TMPL_LOOP NAME=PC_PAYMENT_BUTTON_COLORS>
+               <label><input type="radio" name="pc_payment_button_color" class="pc_payment_button_color" value="<TMPL_VAR NAME=KEY>"<TMPL_IF CHECKED> checked="checked"</TMPL_IF>/> <TMPL_VAR NAME=VALUE></label>
+            </TMPL_LOOP>
+            <br/>
+            サイズ：
+            <TMPL_LOOP NAME=PC_PAYMENT_BUTTON_SIZES>
+               <label><input type="radio" name="pc_payment_button_size" class="pc_payment_button_size" value="<TMPL_VAR NAME=KEY>"<TMPL_IF CHECKED> checked="checked"</TMPL_IF>/> <TMPL_VAR NAME=VALUE></label>
+            </TMPL_LOOP>
+            <div id="amazonPcPayButton" class="amazon-button-box"></div>
+        </td>
+      </tr>
+      <tr>
+        <td class="sub-item-name">ボタン<br>（スマホ用）<span class="for_estoremb">Ｅストアー<br>モバイル専用</span></td>
+        <td class="sub-item">
+            ボタン色：
+            <TMPL_LOOP NAME=SP_PAYMENT_BUTTON_COLORS>
+               <label><input type="radio" name="sp_payment_button_color" class="sp_payment_button_color" value="<TMPL_VAR NAME=KEY>"<TMPL_IF CHECKED> checked="checked"</TMPL_IF>/> <TMPL_VAR NAME=VALUE></label>
+            </TMPL_LOOP>
+            <br/>
+            サイズ：
+            <TMPL_LOOP NAME=SP_PAYMENT_BUTTON_SIZES>
+               <label><input type="radio" name="sp_payment_button_size" class="sp_payment_button_size" value="<TMPL_VAR NAME=KEY>"<TMPL_IF CHECKED> checked="checked"</TMPL_IF>/> <TMPL_VAR NAME=VALUE></label>
+            </TMPL_LOOP>
+            <div id="amazonSpPayButton" class="amazon-button-box"></div>
+        </td>
+      </tr>
+
+      <tr>
+          <td colspan="2" class="item-name">Amazonログイン表示設定</td>
+      </tr>
+        <tr>
+          <td class="sub-item-name">ご案内<br>（レジ画面用）</td>
+          <td class="sub-item"><textarea name="regi_message" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=REGI_MESSAGE></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="sub-item-name">ご案内<br>（新規会員登録画面用）</td>
+          <td class="sub-item"><textarea name="member_message" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=MEMBER_MESSAGE></textarea>
+          </td>
+        </tr>
+        <tr>
+          <td class="sub-item-name">ボタン<br>（PC用）</td>
+          <td class="sub-item">
+              ボタン色：
+              <TMPL_LOOP NAME=PC_LOGIN_BUTTON_COLORS>
+                 <label><input type="radio" name="pc_login_button_color" class="pc_login_button_color" value="<TMPL_VAR NAME=KEY>"<TMPL_IF CHECKED> checked="checked"</TMPL_IF>/> <TMPL_VAR NAME=VALUE></label>
+              </TMPL_LOOP>
+              <br/>
+              サイズ：
+              <TMPL_LOOP NAME=PC_LOGIN_BUTTON_SIZES>
+                 <label><input type="radio" name="pc_login_button_size" class="pc_login_button_size" value="<TMPL_VAR NAME=KEY>"<TMPL_IF CHECKED> checked="checked"</TMPL_IF>/> <TMPL_VAR NAME=VALUE></label>
+              </TMPL_LOOP>
+              <div id="amazonPcLoginButton" class="amazon-button-box"></div>
+          </td>
+        </tr>
+        <tr>
+          <td class="sub-item-name">ボタン<br>（スマホ用）<span class="for_estoremb">Ｅストアー<br>モバイル専用</span></td>
+          <td class="sub-item">
+              ボタン色：
+              <TMPL_LOOP NAME=SP_LOGIN_BUTTON_COLORS>
+                 <label><input type="radio" name="sp_login_button_color" class="sp_login_button_color" value="<TMPL_VAR NAME=KEY>"<TMPL_IF CHECKED> checked="checked"</TMPL_IF>/> <TMPL_VAR NAME=VALUE></label>
+              </TMPL_LOOP>
+              <br/>
+              サイズ：
+              <TMPL_LOOP NAME=SP_LOGIN_BUTTON_SIZES>
+                 <label><input type="radio" name="sp_login_button_size" class="sp_login_button_size" value="<TMPL_VAR NAME=KEY>"<TMPL_IF CHECKED> checked="checked"</TMPL_IF>/> <TMPL_VAR NAME=VALUE></label>
+              </TMPL_LOOP>
+              <div id="amazonSpLoginButton" class="amazon-button-box"></div>
+          </td>
+        </tr>
+
+      <tr>
+        <td class="item" colspan="2" align="center"><input onclick="SaveSub(this.form,<TMPL_VAR NAME=PAYMETHOD>);" value="保存する" style="height: 30px;" type="button"></td>
+      </tr>
+
+    </tbody>
+  </table>
+  </form>
+  <TMPL_ELSE>
+  <!-- amazon利用登録していない -->
+  <p>※ Amazon Pay表示設定は、「Amazon Pay利用設定」を登録後に設定できます</p>
+
+  </TMPL_IF>
+  </TMPL_UNLESS>
+</TMPL_IF>
+<!--End Amazon Payments -->
+
+<!--Start Bitcoin -->
+<TMPL_IF BITCOIN>
+  <!-- 契約していない -->
+  <TMPL_UNLESS USE>
+    <table width="100%">
+      <tbody>
+        <tr>
+          <td class="item-name" colspan="2">ビットコイン決済ご利用案内</td>
+        </tr>
+        <tr>
+          <td>ビットコイン決済は<a href="../func00/customer.cgi">決済代行サービスの申込手続き</a>が必要です。</td>
+        <tr>
+      </tbody>
+    </table>
+  <!-- 契約中 -->
+  <TMPL_ELSE>
+    <form name="PM<TMPL_VAR NAME=PAYMETHOD>_DESC" method="POST" action="payment.cgi">
+    <input type="hidden" name="CMD" value="EDTDESC">
+    <input type="hidden" name="PayMethod" value="<TMPL_VAR NAME=PAYMETHOD>">
+    <table width="100%">
+      <tbody>
+        <tr>
+          <td class="sub-item-name" width="20%">表示条件</td>
+          <td class="sub-item">
+            <input id="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>" value="Y" name="PmMinFlag" type="checkbox" <TMPL_IF PMMINFLGY>checked</TMPL_IF>>
+            <label for="PmMinFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+            <input id="PmMin<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode: disabled;" maxlength="8" value="<TMPL_VAR NAME=PMMIN>" size="10" name="PmMin" type="text">  <label for="PmMin<TMPL_VAR NAME=PAYMETHOD>">円未満の場合は表示しない</label>
+            <br>
+            <input id="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>" value="Y" name="PmMaxFlag" type="checkbox" <TMPL_IF PMMAXFLGY>checked</TMPL_IF>>
+            <label for="PmMaxFlag<TMPL_VAR NAME=PAYMETHOD>">商品合計が</label>
+            <input id="PmMax<TMPL_VAR NAME=PAYMETHOD>" style="ime-mode: disabled;" maxlength="8" value="<TMPL_VAR NAME=PMMAX>" size="10" name="PmMax" type="text"> <label for="PmMax<TMPL_VAR NAME=PAYMETHOD>">円以上の場合は表示しない</label>
+          </td>
+        </tr>
+        <tr>
+          <td class="sub-item-name">決済画像</td>
+          <td class="sub-item">
+            <input type="button" name="Submit" value="画像挿入..." onClick="window.open('../func100/selimg_form.cgi?OFORM=PM<TMPL_VAR NAME=PAYMETHOD>_DESC&FORMNUM=<TMPL_VAR NAME=PAYMETHOD>','img_inst','width=800,height=700,scrollbars=yes,resizable=yes')">
+            <input type="button" name="Submit" value="画像削除" onClick="delImage(this.form,<TMPL_VAR NAME=PAYMETHOD>);">
+            <a href="http://manual.estore.co.jp/shopserve/func01/image.html" target="_blank">画像挿入について</a><br>
+            <br>
+            <TMPL_IF PMIMG>
+            <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="<TMPL_VAR NAME=PMIMG_T>" border="0"
+            onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+            <TMPL_ELSE>
+            <a href="javascript:;"><img id="PICSRC<TMPL_VAR NAME=PAYMETHOD>" src="../imgs/spc.gif" border="0"
+            onClick="window.open(document.PM<TMPL_VAR NAME=PAYMETHOD>_DESC.PmImg<TMPL_VAR NAME=PAYMETHOD>.value, '', '');"></a>
+            </TMPL_IF>
+            <input type="hidden" name="PmImg<TMPL_VAR NAME=PAYMETHOD>" value="<TMPL_VAR NAME=PMIMG>">
+            <input type="hidden" name="PmImg" value="">
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="sub-item-name">ご案内<br>（カート用）</td>
+          <td class="sub-item"><textarea name="PmMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSG></textarea></td>
+        </tr>
+        <tr>
+          <td class="sub-item-name">ご案内<br>（メール用）</td>
+          <td class="sub-item"><textarea name="PmMsgMail" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=PMMSGMAIL></textarea></td>
+        </tr>
+        <tr>
+          <td class="item" colspan="2" align="center"><input onclick="SaveSub(this.form,<TMPL_VAR NAME=PAYMETHOD>);" value="保存する" style="height: 30px;" type="button"></td>
+        </tr>
+      </tbody>
+    </table>
+  </TMPL_UNLESS>
+</TMPL_IF>
+<!--End Bitcoin -->
+
+                        </div>
+                    </td>
+
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </td>
+        </form>
+    </tr>
+</TMPL_UNLESS>
+</TMPL_LOOP>
+</table>
+<br>
+<div id="sps-space" style="margin-top:20px;">&nbsp;</div>
+<form name="PMACCORDION" method="POST" action="payment.cgi">
+  <input type="hidden" name="CMD" value="EDTPMACCORDION">
+  <table id="paymentAccordion" class="item-box">
+    <tr>
+      <th class="item-name02" colspan="22">レイアウト</th>
+    </tr>
+    <tr>
+      <td width="32%" valign="top" class="item-name" style="vertical-align: middle;">開閉表示</td>
+      <td width="68%" class="item-sub">
+        <input type="radio" value="0" name="usePaymentAccordion" id="PMA0" <TMPL_IF USE_PAYMENT_ACCORDION_0>checked</TMPL_IF>  >
+        <label for="PMA0">すべて開いておく</label><br>
+        <input type="radio" value="1" name="usePaymentAccordion" id="PMA1" <TMPL_IF USE_PAYMENT_ACCORDION_1>checked</TMPL_IF>  >
+        <label for="PMA1">すべて閉じておく</label>
+      </td>
+    </tr>
+  </table>
+  <div class="center" style="margin-top:30px;"><input type="submit" value="設定を保存する"></div>
+</form>
+<br>
+<div class="infoArea table_bg" style="line-height:1.6;padding:5px 10px;">
+商品ごとに利用できる決済方法を制限したい場合に設定します。<br>
+詳細はこちらをご覧ください。
+<a href="https://help.shopserve.jp/manual/112/" target="manual">⇒ 商品別に決済方法を設定する</a>
+</div>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="../js/custom_ui/jquery/plugin/jquery-ui-1.11.1.min.js"></script>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css" />
+<script type="text/JavaScript">
+function checkGaiji(strTarget)
+{
+  var consChar =  /[??????????????????????????????????????????????????????????????????????≒≡∫??√⊥∠??∵∩∪｡｢｣､･ｦｧｨｩｪｫｬｭｮｯｰｱｲｳｴｵｶｷｸｹｺｻｼｽｾｿﾀﾁﾂﾃﾄﾅﾆﾇﾈﾉﾊﾋﾌﾍﾎﾏﾐﾑﾒﾓﾔﾕﾖﾗﾘﾙﾚﾛﾜﾝﾞﾟ]/;
+  if( strTarget.match(consChar) ){
+    return false;
+  }else{
+    return true;
+  }
+}
+function check_form() {
+    var haveOneCheck = true;
+    var isErrCheck = 0;
+
+    var isErrTextEmty = 0;
+    var isErrTextMax = 0;
+    var isErrTextSpec = 0;
+    var isErrTextExsit = 0;
+    var isErrCheckNoName = 0;
+    var isErrTextDeny = 0;
+
+    var isErrTextMaxStr = '';
+    var isErrTextSpecStr = '';
+    var isErrTextExsitStr = '';
+    var isErrNoSelectStr = '';
+    var nameString = '';
+    var nameStringChecked = '';
+    var inputStringChecked = '';
+    var specailStringChecked = '';
+    var maxStringChecked = '';
+    var fullErrString = '';
+
+    $('#paymentGroup tr.pmg_row').each(function()
+    {
+        
+        var text_input = $(this).find('input:text');
+        text_input.val($.trim(text_input.val()));
+        if($.trim(text_input.val()) == '' && !isErrTextEmty) {
+            fullErrString += '決済グループ名称を入力してください。\n';
+            isErrTextEmty = 1;
+        }
+
+        if($.trim(text_input.val()) == '全て利用可能' && !isErrTextDeny) {
+            fullErrString += '「全て利用可能」は決済グループ名称に使用できません。\n';
+            isErrTextDeny = 1;
+        }
+
+        if($.trim(text_input.val()).length > 32) {
+            isErrTextMax = 1;
+            if(maxStringChecked.indexOf('#' + text_input.val() + '#') < 0) {
+                fullErrString += '決済グループ名称が長すぎます。32文字以内で入力してください。 [' + text_input.val() + ']' + "\n";
+                maxStringChecked += '#' + text_input.val() + '#';
+            }
+        }
+        
+        if(!checkGaiji(text_input.val())) {
+            isErrTextSpec = 1;
+            if(specailStringChecked.indexOf('#' + text_input.val() + '#') < 0) {
+                fullErrString += '決済グループ名称に機種依存文字が利用されています。 [' + text_input.val() + ']' + "\n";
+                specailStringChecked += '#' + text_input.val() + '#';
+            }
+        }
+        
+        if (nameString.indexOf('#' + text_input.val() + '#') >= 0){
+            if($.trim(text_input.val()) != '' && $.trim(text_input.val()) != '全て利用可能') {
+                isErrTextExsit = 1;
+                if(nameStringChecked.indexOf('#' + text_input.val() + '#') < 0) {
+                    fullErrString += '同じ名前のグループ名称がすでに利用されています。 [' + text_input.val() + ']' + "\n";
+                    nameStringChecked += '#' + text_input.val() + '#';
+                }
+            }
+        }
+        nameString += '#' + text_input.val() + '#';
+
+        haveOneCheck = true;
+        var check_input = $(this).find('input:checked');
+        if (check_input.length <= 0) {
+            haveOneCheck = false;
+            
+            if($.trim(text_input.val()) != '') {
+                if(inputStringChecked.indexOf('#' + text_input.val() + '#') < 0) {
+                    fullErrString += '決済方法を1つ以上選択してください。 [' + text_input.val() + ']' + "\n";
+                    inputStringChecked += '#' + text_input.val() + '#';
+                }
+            } else {
+                if(!isErrCheckNoName) {
+                    fullErrString += '決済方法を1つ以上選択してください。\n';
+                    isErrCheckNoName = 1;
+                }
+            }
+            isErrCheck = 1;
+        }
+    });
+    if(isErrCheck || isErrTextEmty || isErrTextMax || isErrTextSpec || isErrTextExsit || isErrTextDeny)
+    {
+        alert(fullErrString);
+    } else {
+        document.PMGROUP.setPMGroup.disabled = true;
+        document.PMGROUP.submit();
+    }
+}
+function disp_confirm(pmid, input)
+{
+    var pmgNameInput = $(input).parent().parent().find('input[type="text"]');
+    var r = confirm('「'+ pmgNameInput.val() +'」を削除します。\nよろしいですか？')
+    if (r == true) {
+        document.PMGROUP.CMD.value = 'DLTPMGROUP';
+        document.PMGROUP.PMGID.value = pmid;
+        document.PMGROUP.submit();
+    }
+    return false;
+}
+
+function addNewPMGroup () {
+
+    $('tr.empty-row').remove();
+    $('input.addNewPMGroup').attr('disabled','disabled');
+    document.PMGROUP.setPMGroup.disabled = false;
+    <TMPL_LOOP PAYMETHODS>
+        if(<TMPL_VAR NAME=use> == 1)
+            var pmt_<TMPL_VAR NAME=paymethod> = '<input name="pmg_new_check[]" <TMPL_IF check>checked="checked"</TMPL_IF> value="<TMPL_VAR NAME=paymethod>" type="checkbox">';
+        else
+            var pmt_<TMPL_VAR NAME=paymethod> = '-';
+    </TMPL_LOOP>
+    var newrow = '<tr class="pmg_row">' 
+            + '<td class="item text"><input name="pmg_new_name" type="text" value="<TMPL_VAR ESCAPE=HTML NAME=PMGNAME>" maxlength="32"></td>'
+            + '<td class="item">' + pmt_4 + '</td>'
+            + '<td class="item">' + pmt_12 + '</td>'
+            + '<td class="item">' + pmt_5 + '</td>'
+            + '<td class="item">' + pmt_13 + '</td>'
+            + '<td class="item">' + pmt_17 + '</td>'
+            + '<td class="item">' + pmt_15 + '</td>'
+            + '<td class="item">' + pmt_10 + '</td>'
+            + '<td class="item">' + pmt_8 + '</td>'
+            + '<td class="item">' + pmt_14 + '</td>'
+            + '<td class="item">' + pmt_1 + '</td>'
+            + '<td class="item">' + pmt_2 + '</td>'
+            + '<td class="item">' + pmt_3 + '</td>'
+            + '<td class="item">' + pmt_16 + '</td>'
+            + '<td class="item">' + pmt_91 + '</td>'
+            + '<td class="item">' + pmt_92 + '</td>'
+            + '<td class="item">' + pmt_93 + '</td>'
+            + '<td class="item">' + pmt_94 + '</td>'
+            + '<td class="item">' + pmt_95 + '</td>'
+            <TMPL_IF dispCVS>
+            + '<td class="item">' + pmt_11 + '</td>'
+            </TMPL_IF>
+            + '<td class="item delete"><input type="button" value="削除" disabled></td>'
+            + '</tr>';
+    $('#paymentGroup tbody .update').before(newrow);
+}
+
+function displaySpCodeCautionDialog()
+{
+  var dialogObj = $("#dialogCautionSpCpde").dialog({
+    closeOnEscape: false,
+    open: function(event, ui) {
+      $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+      $(".ui-dialog-titlebar").hide();
+    },
+    autoOpen  : false,
+    draggable : false,
+    resizable : false,
+    modal     : true,
+    show      : 'fade',
+    hide      : 'fade',
+    height    : "auto",
+    width     : 400
+  }).css({"font-family": "ＭＳ Ｐゴシック, Osaka, ヒラギノ角ゴ Pro W3", "font-size": "14px"});
+
+  $('#npDetailSettings').on("click", function(){
+    if ($(this).hasClass('registeredSpCode') === false && $('#pm17_info').css('display') == 'none') {
+      var message = 'NP後払いの利用には、ショップサーブ連携用の「NPコネクトプロ」の契約が必要です。<br><br>';
+      message = message + '契約後に発行されるSPコードをご準備の上、詳細設定にお進みください。<br>';
+      $("#messageCautionSpCode").html(message);
+      dialogObj.dialog('open');
+    } else {
+      openClose('pm17_info');
+    }
+  });
+
+  $('#btnConfirm').on("click", function(){
+    dialogObj.dialog('close');
+    openClose('pm17_info');
+  });
+
+  $('#btnClose').on("click", function(){
+    dialogObj.dialog('close');
+  });
+}
+
+function displayAmazonpayCautionDialog()
+{
+    var radiovalDisplayAmazonpay = $('input[name="cart_disp"]').val();
+
+    var amazondialogObj = $("#dialogCautionAmazonPay").dialog({
+        closeOnEscape: false,
+        open: function(event, ui) {
+            $(".ui-dialog-titlebar-close", ui.dialog | ui).hide();
+            $(".ui-dialog-titlebar").hide();
+        },
+        autoOpen  : false,
+        draggable : false,
+        resizable : false,
+        modal     : true,
+        show      : 'fade',
+        hide      : 'fade',
+        height    : "auto",
+        width     : 400
+    }).css({"font-family": "ＭＳ Ｐゴシック, Osaka, ヒラギノ角ゴ Pro W3", "font-size": "14px"});
+
+    $('input[name="cart_disp"]:radio').change(function(){
+        radiovalDisplayAmazonpay = $(this).val();
+        var msgAmazonPay = '「Amazon Pay利用設定」の情報を、Amazonセラーセントラルにすべて登録しているか確認し、設定を切り替えてください。';
+        $("#messageCautionAmazonPay").empty();
+        $("#messageCautionAmazonPay").append(msgAmazonPay);
+        $(this).blur();
+        amazondialogObj.dialog('open');
+    });
+
+    $('#btnConfirmAmazonPay').on("click", function(){
+        if(radiovalDisplayAmazonpay === 'Y'){
+            $('.cart_disp:eq(0)').prop('checked', true);
+        } else {
+            $('.cart_disp:eq(1)').prop('checked', true);
+        }
+        amazondialogObj.dialog('close');
+    });
+
+    $('#btnCloseAmazonPay').on("click", function(){
+        if(radiovalDisplayAmazonpay === 'Y'){
+            $('.cart_disp:eq(1)').prop('checked', true);
+        } else {
+            $('.cart_disp:eq(0)').prop('checked', true);
+        }
+        amazondialogObj.dialog('close');
+    });
+}
+
+$(function(){
+<TMPL_IF ISADDNEWERR>
+  addNewPMGroup();
+</TMPL_IF>
+
+  displaySpCodeCautionDialog();
+  displayAmazonpayCautionDialog();
+});
+</script>
+<form name="PMGROUP" method="POST" action="payment.cgi">
+    <input type="hidden" name="CMD" value="EDTPMGROUP">
+    <input type="hidden" name="PMGID" value="">
+    <table id="paymentGroup" class="item-box">
+    <tr>
+        <th class="item-name02" colspan="22">決済グループ設定</th>
+    </tr>
+
+    <tr>
+        <th class="item-name" style="width:100%;white-space:nowrap;line-height:2;">
+            決済グループ名<br>
+            <input type="button" class="addNewPMGroup" <TMPL_IF pmgListMax>disabled="disabled"<TMPL_ELSE>onclick="addNewPMGroup()</TMPL_IF>" value="決済グループを作成">
+        </th>
+
+      <th class="item-name">ク<br>レ<br>ジ<br>ッ<br>ト<br>カ<br>ー<br>ド<br>決<br>済</th>
+      <th class="item-name">コ<br>ン<br>ビ<br>ニ<br>番<br>号<br>端<br>末<br>式<br>・<br>銀<br>行</th>
+      <th class="item-name">コ<br>ン<br>ビ<br>ニ<br>払<br>込<br>票</th>
+      <th class="item-name">後<br>払<br>い<br>決<br>済</th>
+      <th class="item-name">N<br>P<br>後<br>払<br>い</th>
+      <th class="item-name">A<br>m<br>a<br>z<br>o<br>n<br>&nbsp;<br>P<br>a<br>y</th>
+      <th class="item-name">Y<br>a<br>h<br>o<br>o<br>!<br>ウ<br>ォ<br>レ<br>ッ<br>ト</th>
+      <th class="item-name">楽<br>天<br>銀<br>行</th>
+      <th class="item-name">楽<br>天<br>ペ<br>イ</th>
+      <th class="item-name">代<br>金<br>引<br>換</th>
+      <th class="item-name">銀<br>行<br>振<br>込</th>
+      <th class="item-name">郵<br>便<br>振<br>替</th>
+      <th class="item-name">ビ<br>ッ<br>ト<br>コ<br>イ<br>ン<br>決<br>済</th>
+      <th class="item-name">自<br>由<br>決<br>済<br>1</th>
+      <th class="item-name">自<br>由<br>決<br>済<br>2</th>
+      <th class="item-name">自<br>由<br>決<br>済<br>3</th>
+      <th class="item-name">自<br>由<br>決<br>済<br>4</th>
+      <th class="item-name">自<br>由<br>決<br>済<br>5</th>
+      <TMPL_IF dispCVS>
+        <th class="item-name">コ<br>ン<br>ビ<br>ニ<br>番<br>号<br>端<br>末<br>式</th>
+      </TMPL_IF>
+        <th class="item-name" style="white-space:nowrap;">
+            操作
+        </th>
+    </tr>
+    <TMPL_LOOP PMGLIST>
+    <tr class="pmg_row">
+        <td class="item text"><input name="pmg[update][<TMPL_VAR NAME=id>][name]" type="text" value="<TMPL_VAR ESCAPE=HTML NAME=pmg_name>" maxlength="32"></td>
+        
+        <TMPL_LOOP pmg_flg>
+            <TMPL_IF use_display>
+                <td class="item">
+                    <TMPL_IF use_config>
+                        <input 
+                            name="pmg[update][<TMPL_VAR NAME=pmid>][check][]" 
+                            value ="<TMPL_VAR NAME=pmgid>" 
+                            type="checkbox"
+                            <TMPL_IF use_flg>checked="checked"</TMPL_IF>
+                        >
+                    <TMPL_ELSE>
+                        -
+                    </TMPL_IF>
+                </td>
+            </TMPL_IF>
+        </TMPL_LOOP>
+        
+        <td class="item delete"><input type="button" onclick="disp_confirm('<TMPL_VAR NAME=id>',this)" value="削除"></td>
+    </tr>
+    </TMPL_LOOP>
+    <TMPL_UNLESS pmgListExist>
+    <tr class="empty-row">
+        <td class="item" colspan="22">商品ごとに決済方法を設定したい場合は、ここで決済グループを作成して商品に登録してください。</td>
+    </tr>
+    </TMPL_UNLESS>
+
+    <tr class="update">
+        <td class="item" colspan="22"><input type="button" onclick="check_form();return false;" value="設定を保存する" name="setPMGroup" <TMPL_UNLESS pmgListExist>disabled="disabled"</TMPL_UNLESS> ></td>
+    </tr>
+    </table>
+</form>
+                    </td>
+                </tr>
+            </table>
+        <td>
+    </tr>
+</table>
+<div id="dialogCautionSpCpde" hidden="hidden">
+  <p style="text-align:left; line-height: 140%;" id="messageCautionSpCode"></p>
+  <br>
+  <input id="btnConfirm" value="設定する" type="button" style="height: 26px;">
+  <input id="btnClose" value="キャンセル" type="button" style="height: 26px;">
+</div>
+<div id="dialogCautionAmazonPay" hidden="hidden">
+  <p style="text-align:left; line-height: 140%;" id="messageCautionAmazonPay"></p>
+  <br>
+  <input id="btnConfirmAmazonPay" value="切り替える" type="button" style="height: 26px;">
+  <input id="btnCloseAmazonPay" value="キャンセル" type="button" style="height: 26px;">
+</div>
+<TMPL_IF USE_AMAZON_PAYMENTS>
+<script type="text/javascript" src="https://static-fe.payments-amazon.com/OffAmazonPayments/jp/lpa/js/Widgets.js"></script>
+<script type="text/javascript" src="/js/change_amazon_button.js"></script>
+<script type="text/javascript">
+  changeAmazonButton().init('amazonPcPayButton', 'pc_payment_button_color', 'pc_payment_button_size').draw('pay');
+  changeAmazonButton().init('amazonSpPayButton', 'sp_payment_button_color', 'sp_payment_button_size').draw('pay');
+  changeAmazonButton().init('amazonPcLoginButton', 'pc_login_button_color', 'pc_login_button_size').draw('login');
+  changeAmazonButton().init('amazonSpLoginButton', 'sp_login_button_color', 'sp_login_button_size').draw('login');
+</script>
+</TMPL_IF>

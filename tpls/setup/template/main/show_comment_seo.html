@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta http-equiv="Content-Script-Type" content="text/javascript">
+    <title>Ｅストアーショップサーブ管理画面</title>
+    <link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+    <link rel="stylesheet"type="text/css" media="all" href="<TMPL_VAR NAME=CSSLINK>">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <!--[if lt IE 9]>
+    <script src="https://ie7-js.googlecode.com/svn/trunk/lib/IE9.js"></script>
+    <![endif]-->
+    <script type="text/javascript">
+    $(function($) {
+        var topBtn = $('#page-top');
+        topBtn.hide();
+        //スクロールが100に達したらボタン表示
+        $(window).scroll(function () {
+            if ($(this).scrollTop() > 100) {
+                topBtn.fadeIn();
+            } else {
+                topBtn.fadeOut();
+            }
+        });
+        //スクロールしてトップ
+        topBtn.click(function () {
+            $('body,html').animate({
+                scrollTop: 0
+            }, 500);
+            return false;
+        });
+    });
+    </script>
+</head>
+<body>
+    <script language="JavaScript" type="text/JavaScript">
+    <!--
+      function Shop_openWindow(item_no) {
+        window.open("<TMPL_VAR NAME=ShopUrl>" + item_no + ".html", "shop", "");
+      }
+    -->
+    </script>
+<div id="contents" style="width:95%!important;margin: 6px 15px!important;background: #fff none repeat scroll 0 0;">
+<article>
+    <div id="main-column" style="width:98%!important;margin-right:15px;">
+      <h1 style="width:98.5%!important;" > <TMPL_VAR NAME=RATINGTITLE> </h1>
+        <div class="pageNav_top" style="width:98%!important;">
+            <div class="pageL"><TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP></div>
+        </div>
+    <TMPL_LOOP NAME=MESSAGES>
+        <section class="rating" style="width:98%!important;" >
+            <div class="reviewBox" id="<TMPL_VAR NAME=MESS_ID>" style="width:98%!important;">
+                <div class="reviewTxt" style="width:98%!important;">
+                    <div class="ttlArea"><a href="javascript:Shop_openWindow('<TMPL_VAR NAME=ITEM_NO>')"><TMPL_VAR NAME=ITEM_NAME></a></div>
+                <ul>
+                    <TMPL_VAR NAME=POINT_SEO>
+                    <li class="space"><TMPL_VAR NAME=NICK_NAME> 様</li>
+                    <li class="space">投稿日：<TMPL_VAR NAME=WRITE_DATE></li>
+                </ul>
+                <p><TMPL_VAR NAME=MESSAGE></p>
+                </div>
+            </div>
+            <TMPL_IF NAME=COMMENT_USE>
+            <TMPL_LOOP NAME=COMMENT_LIST>
+                <div class="comment">
+                <h3><TMPL_VAR NAME=C_TITLE></h3>
+                <p><TMPL_VAR NAME=COMMENT></p>
+                </div>
+            </TMPL_LOOP>
+            </TMPL_IF>
+        </section>
+    </TMPL_LOOP>
+    <div class="pageNav" style="height:40px">
+        <div class="pageL">
+            <TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+        </div>
+    </div>
+    </div>
+</article>
+</div>
+<p id="page-top" style="display: block;"><a title="ページトップへ" href="#wrapper"><img alt="ページトップへ" src="/<TMPL_VAR NAME=HREF>/docs/hpgen/HPB/theme/img/pagetop.gif"></a></p>
+</body>
+</html>

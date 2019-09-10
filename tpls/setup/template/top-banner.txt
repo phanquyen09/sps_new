@@ -1,0 +1,12 @@
+#bnr_yahoo.gif,179,60,Yahoo!,http://www.estore.co.jp/campaign/yahoo/yahoo.html
+#bnr_shopplus.gif,180,60,ショッププラス,http://shopplus.jp/index.html
+#bnr_fukumen_s.gif,180,60,覆面調査隊
+#bnr_infostore.gif,180,60,infostore,http://infostore.jp
+#bnr_ebank.gif,180,60,イーバンクキャンペーン,http://www.ebank.co.jp/
+#shopping_180.gif,180,60,Yahoo!Shopping,http://estore.co.jp/service/rentalserver/marketing/yahooshopping.html
+tencho_logo2.gif,179,59,店長ウェブ,http://tencho-web.jp/index.html
+keyword.gif,180,60,キーワード広告,http://shopplus.jp/ppc/index.html
+auction_180.gif,180,60,Yahoo!Auctions,http://estore.co.jp/service/rentalserver/marketing/yahooauctions.html
+saio_0913.jpg,180,60,ネットショップde快速販売『速販』,http://www.scio.co.jp/sokuhan/index.html?rc=ESTR0001
+#kakaku_180.gif,180,60,カカクコム,http://estore.co.jp/service/rentalserver/marketing/kakakucom.html
+bnr_ebank.gif,180,60,イーバンクキャンペーン,http://www.ebank.co.jp/branch/estore/

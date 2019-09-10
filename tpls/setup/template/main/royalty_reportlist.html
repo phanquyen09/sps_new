@@ -1,0 +1,178 @@
+<script language="JavaScript" type="text/JavaScript">
+<!--
+
+  var win_print;
+  function openPrint(service) {
+
+    if (win_print && !win_print.closed) {
+      alert("既に別の印刷画面が開かれています。\n閉じてから再度実行して下さい。");
+      return;
+    }
+
+    var tag = document.REP.target;
+    win_print = window.open("about:blank","rep_print","");
+
+    document.REP.target = "rep_print";
+    document.REP.Cmd.value = "1";
+    document.REP.method = "post";
+    ac = document.REP.action;
+    if (service != null && service != '' )  {
+      document.REP.Service.value = service;
+      document.REP.action='charge_report.cgi';
+    } else {
+      document.REP.action='royalty_reportlist.cgi';
+    }
+    document.REP.submit();
+
+    document.REP.target = tag;
+    document.REP.Cmd.value = "0";
+    document.REP.action = ac;
+
+  }
+
+//-->
+</script>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr>
+    <td width="12">
+      <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+        <tr>
+          <td><img src="../imgs/spc.gif"></td>
+        </tr>
+      </table>
+    </td>
+    <td align="left" class="midashi">月額利用料(従量)明細</td>
+    <td align="right" class="midashi">
+    <a href="https://help.shopserve.jp/help/charge_report.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+  </tr>
+</table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                    <tr>
+                                      <td><strong><TMPL_VAR NAME=TitleMonth>&nbsp;（&nbsp;<TMPL_VAR NAME=Start>&nbsp;〜&nbsp;<TMPL_VAR NAME=End>&nbsp;）確定分</strong><br>
+                                      <br>
+                                        <!-- 請求額ここから -->
+                                      <!--印刷ボタン-->
+                                      <div style="float: right; text-align:right;">
+                                        <input type="button" name="" value="明細を印刷" onClick="openPrint();" <TMPL_UNLESS RoyaltyPrint>disabled</TMPL_UNLESS>><br>
+                                        ※明細は、翌月1日から印刷できるようになります。
+                                      </div>
+                                      <div style="clear: both;"></div>
+                                      <!--印刷ボタン-->
+                                        <table class="item-box">
+                                          <tr align="center">
+                                            <td colspan="4" class="item-name02">ご請求内容</td>
+                                         	</tr>
+                                          <tr>
+                                            <td align="center" class="item-name" style="width: 20%">ご請求月</td>
+                                            <td colspan="3" align="center" class="item"><TMPL_VAR NAME=BillMonth></td>
+                                          </tr>
+                                          <tr>
+                                            <td align="center" class="item-name" style="width: 20%">確定受注件数</td>
+                                            <td align="center" class="item" style="width: 30%"><TMPL_VAR NAME=TotalCnt>件</td>
+                                            <td align="center" class="item-name" style="width: 20%">商品合計総額</td>
+                                            <td align="center" class="item" style="width: 30%"><TMPL_VAR NAME=SumSubTotal>円</td>
+                                         </tr>
+                                          <tr>
+                                            <td align="center" class="item-name" style="width: 20%">料率</td>
+                                            <td align="center" class="item" style="width: 30%"><TMPL_VAR NAME=RoyaltyRate>%</t
+d>
+                                            <td align="center" class="item-name" style="width: 20%">利用料</td>
+                                            <td align="center" class="item" style="width: 30%"><TMPL_VAR NAME=Royalty>円</td>
+                                         </tr>
+                                        </table>
+                                      <!-- 金額の注意書き -->
+                                      <div align="left" class="info-txt">
+                                        ※利用料は、商品合計総額に料率を掛けた金額、小数点以下切捨てとなります。<br>
+                                      </div>
+
+                                    <!-- 請求額ここから -->
+
+                                      <!-- ページングここから -->
+                                     <form name="REP" method="POST" action="royalty_reportlist.cgi">
+                                        <input type="hidden" name="TargetMonth" value="<TMPL_VAR NAME=TargetMonth>">
+                                        <input type="hidden" name="Start" value="<TMPL_VAR NAME=Start>">
+                                        <input type="hidden" name="End"   value="<TMPL_VAR NAME=End>">
+                                        <input type="hidden" name="Cmd" value="0">
+                                        <input type="hidden" name="Service" value="<TMPL_VAR NAME=Service>">
+                                        <input type="hidden" name="BillMonth" value="<TMPL_VAR NAME=BillMonth>">
+                                        <input type="hidden" name="MonthList" value="<TMPL_VAR NAME=MonthList>">
+                                        <input type="hidden" name="RoyaltyRate" value="<TMPL_VAR NAME=RoyaltyRate>">
+                                        <input type="hidden" name="Page" value="">
+                                     <div align="right">
+                                     表示件数
+                                     <select name="Range" style="font-size:90%; margin-top:2px" onChange="javascript:document.REP.submit();">
+                                       <option value="10" <TMPL_IF Range10> selected</TMPL_IF>>10</option>
+                                       <option value="20" <TMPL_IF Range20> selected</TMPL_IF>>20</option>
+                                       <option value="30" <TMPL_IF Range30> selected</TMPL_IF>>30</option>
+                                       <option value="40" <TMPL_IF Range40> selected</TMPL_IF>>40</option>
+                                       <option value="50" <TMPL_IF Range50> selected</TMPL_IF>>50</option>
+                                       <option value="100" <TMPL_IF Range100> selected</TMPL_IF>>100</option>
+                                     </select>
+                                     <br>
+<TMPL_IF TotalCnt>
+<TMPL_VAR NAME=DispStart> - <TMPL_VAR NAME=DispEnd>&nbsp; （ 全 <TMPL_VAR NAME=DispTotalCnt>件 ）&nbsp;<TMPL_LOOP NAME=PageList><TMPL_VAR NAME=Link></TMPL_LOOP>
+</TMPL_IF>
+                                      </div>
+                                      <!-- ページングここまで -->
+
+                                      <!-- 課金対象一覧ここから -->
+                                        <table class="item-box">
+                                          <tr>
+                                            <td width="24%" class="odr-midashi center">確定日</td>
+                                            <td width="24%" class="odr-midashi center">注文日</td>
+                                            <td width="24%" class="odr-midashi center">注文番号</td>
+                                            <td width="28%" class="odr-midashi center">商品合計</td>
+                                          </tr>
+
+<TMPL_IF RoyaltyList>
+<TMPL_LOOP RoyaltyList>
+                                        <!--課金対象一覧ループここから-->
+                                          <tr class="item02">
+                                            <td width="24%" class="odr-txt02 center"><TMPL_VAR NAME=CommitDate></td>
+                                            <td width="24%" class="odr-txt02 center"><TMPL_VAR NAME=OrderDate></td>
+                                            <td width="24%" class="odr-txt02 center"><a href="ro_odrinfo.cgi?ORDERID=<TMPL_VAR NAME=OrderID>"><TMPL_VAR NAME=PubOrderNo></a></td>
+                                            <td width="28%" class="odr-txt02 right"><TMPL_VAR NAME=SubTotal>円</td>
+                                          </tr>
+                                        <!--課金対象一覧ループここまで-->
+</TMPL_LOOP>
+</TMPL_IF>
+                                        </table>
+
+                                      <!-- ページングここから -->
+                                      <div align="right">
+<TMPL_IF TotalCnt>
+<TMPL_VAR NAME=DispStart> - <TMPL_VAR NAME=DispEnd>&nbsp; （ 全 <TMPL_VAR NAME=DispTotalCnt>件 ）&nbsp;<TMPL_LOOP NAME=PageList><TMPL_VAR NAME=Link></TMPL_LOOP>
+</TMPL_IF>
+                                      </div>
+                                      </form>
+                                      <!-- ページングここまで -->
+
+
+                                        <br>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                  </td>
+                                </tr>
+                              </table>
+
+                            <hr size="1">
+                            <br>
+
+                            <div align="center">
+                              <form name="back" method="POST" action="charge_report.cgi">
+                                  <input type="hidden" name="MonthList" value="<TMPL_VAR NAME=MonthList>">
+                                  <input type="button" name="Submit" value="一覧にもどる" onClick="document.back.submit();">
+                              </form>
+                            </div>
+
+                              </td>
+                            </tr>
+                        </table>
+                          </td>
+

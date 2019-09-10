@@ -1,0 +1,500 @@
+<script type="text/javascript" src="../js/base.js"></script>
+<script type="text/javascript" src="../js/prototype.js"></script>
+<script type="text/javascript" src="../js/effects.js"></script>
+<script type="text/javascript" src="../js/window.js"></script>
+<script type="text/javascript" src="../js/debug.js"></script>
+<script type="text/javascript" src="../js/ES_gyomu.js"></script>
+<script src="../js/custom_ui/jquery/jquery-1.7.1.min.js"></script>
+<link href="../css/themes/default.css" rel="stylesheet" type="text/css" > </link>
+<link href="../css/themes/theme1.css" rel="stylesheet" type="text/css" > </link>
+<link href="../css/themes/mac_os_x.css" rel="stylesheet" type="text/css" > </link>
+<link href="../css/themes/alphacube.css" rel="stylesheet" type="text/css" > </link>
+<link href="../css/themes/darkX.css" rel="stylesheet" type="text/css" > </link>
+<link href="../css/themes/spread.css" rel="stylesheet" type="text/css" > </link>
+<link href="../css/themes/alert.css" rel="stylesheet" type="text/css" > </link>
+<link href="../css/themes/alert_lite.css" rel="stylesheet" type="text/css" > </link>
+<script language="JavaScript">
+var $j = jQuery.noConflict();
+<!--
+<TMPL_VAR NAME=HOVER_ALERT>
+//-->
+</script>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<form name="STATUS" method="POST" action="shop-status.cgi">
+<input type="hidden" name="CMD" value="EDT">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0093C9">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">¤ªÅ¹¤Î³«Å¹¡¦ÊÄÅ¹¤ÎÀßÄê¤ò¹Ô¤¤¤Þ¤¹</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/shop-status.php" target="manual"><img src="../imgs/help_link.gif" alt="¤³¤Îµ¡Ç½¤Î¥Ø¥ë¥×¤ò¤ß¤ë" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0" class="table-padding-textarea-default">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  ¤ªÅ¹¤Î³«Å¹¡¢ÊÄÅ¹¤Ë´Ø¤¹¤ëÀßÄê¤ò¤·¤Þ¤¹¡£
+                                </div>
+                                <div style="border:2px violet solid;padding:8px;line-height:normal;">
+                                ¤Ï¤¸¤á¤Æ³«Å¹¤¹¤ë¾ì¹ç¤Ï¡¢¹ØÆþ¼Ô¤Î»ëÅÀ¤Ç¤ªÅ¹¥Ú¡¼¥¸¤ò¥Á¥§¥Ã¥¯¤·¤Ê¤¬¤é¡¢¥Æ¥¹¥ÈÃíÊ¸(*)¤ò¹Ô¤¤¡¢¼õÃí¤¬Æþ¤Ã¤¿¤¢¤È¤Î¼è°ú¤ÎÎ®¤ì¤ò³ÎÇ§¤·¤Æ¤ª¤­¤Þ¤·¤ç¤¦¡£
+                                <br><br>
+                                <span style="font-size:90%">
+                                  <table>
+                                    <tr>
+                                      <td>(*)</td>
+                                      <td>¥Æ¥¹¥ÈÃíÊ¸¤Ï¡¢É¬¤º¡¢°Ê²¼¤Î¼ê½ç¤Ç¹Ô¤Ã¤Æ¤¯¤À¤µ¤¤¡£»ØÄê¤ÎÊýË¡°Ê³°¤Ç¹Ô¤¦¤È¡¢<font color=red><b>ÃíÊ¸½èÍý¼ê¿ôÎÁ<TMPL_VAR NAME=OneOrderPrice>±ß</b>(ÀÇ¹þ<TMPL_VAR NAME=OneOrderPriceTaxIn>±ß)<b>/1·ï<b/></font>¤¬È¯À¸¤·¤Þ¤¹¡£</td>
+                                    </tr>
+                                    <tr>
+                                      <td>&nbsp;</td>
+                                      <td><a href="https://help.shopserve.jp/manual/013/" target="_blank">¢Í¥Æ¥¹¥ÈÃíÊ¸¤ò¹Ô¤¦¼ê½ç</a></td>
+                                    </tr>
+                                  </table>
+                                </span>
+                                </div>
+                                <br>
+<TMPL_LOOP NAME=ERR_MSG>
+<font color="red">&nbsp;¡¦<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                    <tr align="center">
+                                      <td colspan="2" class="item-name02">¤ªÅ¹¤Î³«Å¹¡¦ÊÄÅ¹ÀßÄê</td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">¥â¡¼¥ÉÀßÄê</td>
+                                      <td class="item"><table border="0" cellspacing="0" cellpadding="0">
+                                          <tr>
+                                            <td><input name="Status" type="radio" value="O" id="open01" onclick="changeDisp('O');" <TMPL_IF STATUSO>checked</TMPL_IF> <TMPL_IF HOVER_ALERT>disabled</TMPL_IF>>
+                                            </td>
+                                            <td><label for="open01">³«Å¹¤Ë¤¹¤ë</label></td>
+                                          </tr>
+                                          <tr>
+                                            <td><input name="Status" type="radio" value="L" id="open04" onclick="changeDisp('L');" <TMPL_IF STATUSL>checked</TMPL_IF> <TMPL_IF HOVER_ALERT>disabled</TMPL_IF>>
+                                            </td>
+                                            <td><label for="open04">³«Å¹¤Ë¤¹¤ë&nbsp;(¥í¥°¥¤¥óÀ©¸ÂÉÕ¤­)</label></td>
+                                          </tr>
+                                          <tr id="userBlock" style="display:none;">
+                                            <td>
+                                              &nbsp;
+                                            </td>
+                                            <td style="padding-bottom:6px;">
+                                              <table border="0" cellpadding="0" cellspacing="0">
+                                                <tr>
+                                                  <td align="right">¥æ¡¼¥¶¡¼Ì¾¡§</td>
+                                                  <td>È¾³Ñ±Ñ¿ô»ú3¡Á8Ê¸»ú¡¢¡Ö-¡×¡Ö_&nbsp;¡×»ÈÍÑ²Ä</td>
+                                                </tr>
+                                                <tr>
+                                                  <td align="right">¥Ñ¥¹¥ï¡¼¥É¡§</td>
+                                                  <td>È¾³Ñ±Ñ¿ô»úµ­¹æ3¡Á32Ê¸»ú</td>
+                                                </tr>
+                                              </table>
+                                              <div id="saveConfirmMsg" style="display:none;"><font color="red">ÄÉ²Ã¡¦ÊÑ¹¹¡¦ºï½ü¤òÊÝÂ¸¤¹¤ë¾ì¹ç¤Ï¡¢¡ÎÀßÄê¤òÊÝÂ¸¤¹¤ë¡Ï¤ò¥¯¥ê¥Ã¥¯¤·¤Æ¤¯¤À¤µ¤¤¡£</font></div>
+                                              <table id="userTable" border="0" cellpadding="5" cellspacing="2" class="item-box">
+                                                <tr align="center" class="item-name">
+                                                  <td width="105px">¥æ¡¼¥¶¡¼Ì¾</td>
+                                                  <td width="205px">¥Ñ¥¹¥ï¡¼¥É</td>
+                                                  <td width="70px">Áàºî</td>
+                                                </tr>
+                                                <tr id="addUserRow" align="center" class="item" style="display:none;">
+                                                  <td><input type="text" name="username" size="12" maxlength="8" style="ime-mode:disabled"></td>
+                                                  <td><input type="text" name="pwd" size="28" maxlength="32" style="ime-mode:disabled"></td>
+                                                  <td><input name="adduser" type="button" id="adduser" value="ÄÉ²Ã¤¹¤ë" onClick="addUser(document.STATUS);"></td>
+                                                </tr>
+                                                <TMPL_LOOP NAME=Userslist>
+                                                  <tr align="center" class="item">
+                                                    <td><TMPL_VAR NAME=UserName><input type="hidden" name="editUsernameList" value="<TMPL_VAR NAME=UserName>"></td>
+                                                    <td><input type="text" name="editPwdList" size="28" maxlength="32" style="ime-mode:disabled;" onBlur="changePwdAlert(this);" onKeyup="changePwd(this);" value="<TMPL_VAR NAME=Pwd>"></td>
+                                                    <td><input name="deluser" type="button" id="deluser" value="ºï½ü¤¹¤ë" onClick="delUser(this);"></td>
+                                                  </tr>
+                                                </TMPL_LOOP>
+                                              </table>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td><input name="Status" type="radio" value="P" id="open02" onclick="changeDisp('P');" <TMPL_IF STATUSP>checked</TMPL_IF>>
+                                            </td>
+                                            <td><label for="open02">³«Å¹½àÈ÷¤Ë¤¹¤ë</label></td>
+                                          </tr>
+                                          <tr>
+                                            <td><input name="Status" type="radio" value="C" id="open03" onclick="changeDisp('C');" <TMPL_IF STATUSC>checked</TMPL_IF>>
+                                            </td>
+                                            <td><label for="open03">°ì»þÊÄÅ¹¤Ë¤¹¤ë</label></td>
+                                          </tr>
+                                          <tr>
+                                            <td>
+                                              <TMPL_IF UPDATED>
+                                                <TMPL_IF STATUSO><img src="../func00/click_logger.php?type=OPEN_STR" alt="" /></TMPL_IF>
+                                                <TMPL_IF STATUSL><img src="../func00/click_logger.php?type=LOGIN_STR" alt="" /></TMPL_IF>
+                                                <TMPL_IF STATUSP><img src="../func00/click_logger.php?type=PREP_STR" alt="" /></TMPL_IF>
+                                                <TMPL_IF STATUSC><img src="../func00/click_logger.php?type=CLOS_STR" alt="" /></TMPL_IF>
+                                              </TMPL_IF>
+                                                &nbsp;
+                                            </td>
+                                            <td>
+                                                <div><textarea name="CloseMsg" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=CLOSEMSG></textarea></div>
+                                                ¢¨HTML¥¿¥°ÍøÍÑ²Ä
+                                            </td>
+                                          </tr>
+                                      </table></td>
+                                    </tr>
+                                  </table><br></td>
+                                </tr>
+                                <tr>
+                                    <td style="text-align:center;"><input name="set" type="button" id="set" value="ÀßÄê¤òÊÝÂ¸¤¹¤ë" onClick="saveStatus();"></td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+                      </td>
+                    </tr>
+</form>
+<script type="text/javascript">
+  // ½é´üÉ½¼¨
+  (function initDisp () {
+    // ¥æ¡¼¥¶¡¼¥ê¥¹¥È¤Î·ï¿ô¼èÆÀ
+    maxUsersList = <TMPL_VAR NAME=MaxUserslist>;
+    // 20·ïÌ¤Ëþ¤Ê¤é¥æ¡¼¥¶¡¼¤òÄÉ²Ã¤¹¤ë¤¿¤á¤ÎÆþÎÏÁë¤òÉ½¼¨
+    if(maxUsersList < 20){
+      document.getElementById('addUserRow').style.display = "";
+    }
+
+    for(var i=0 ; i<document.STATUS.Status.length ; i ++){
+      // ÀßÄê¤¬¡Ö³«Å¹¤Ë¤¹¤ë (¥í¥°¥¤¥óÀ©¸ÂÉÕ¤­)¡×¤Î»þ
+      if(document.STATUS.Status[i].checked && document.STATUS.Status[i].value == 'L'){
+        // ¥æ¡¼¥¶¡¼Ì¾¤È¥Ñ¥¹¥ï¡¼¥É¤Î¥Æ¡¼¥Ö¥ë¤òÉ½¼¨
+        document.getElementById('userBlock').style.display = "";
+      }
+    }
+  }());
+
+  // ¥é¥¸¥ª¥Ü¥¿¥óÁªÂò»þ¤ÎÉ½¼¨ÀÚ¤êÂØ¤¨
+  function changeDisp (STATUS){
+    switch(STATUS){
+      // ³«Å¹¤Ë¤¹¤ë (¥í¥°¥¤¥óÀ©¸ÂÉÕ¤­)
+      case 'L':
+        // ¥æ¡¼¥¶¡¼Ì¾¤È¥Ñ¥¹¥ï¡¼¥É¤Î¥Æ¡¼¥Ö¥ë¤òÉ½¼¨
+        document.getElementById('userBlock').style.display = "";
+        break;
+      default:
+        // ¥æ¡¼¥¶¡¼Ì¾¤È¥Ñ¥¹¥ï¡¼¥É¤Î¥Æ¡¼¥Ö¥ë¤òÈóÉ½¼¨
+        document.getElementById('userBlock').style.display = "none";
+        break;
+    }
+  }
+
+  // ¡ÖÀßÄê¤òÊÝÂ¸¤¹¤ë¡×²¡²¼»þ
+  function saveStatus (){
+    for (var i=0 ; i<document.STATUS.Status.length ; i ++) {
+      // ÀßÄê¤¬¡Ö³«Å¹¤Ë¤¹¤ë (¥í¥°¥¤¥óÀ©¸ÂÉÕ¤­)¡×¤Î»þ
+      if (document.STATUS.Status[i].checked && document.STATUS.Status[i].value == 'L') {
+        // ¥Æ¡¼¥Ö¥ë¤Î¥æ¡¼¥¶¡¼Ì¾¤È¥Ñ¥¹¥ï¡¼¥É¤ò¼èÆÀ
+        var editUsernameList = document.getElementsByName("editUsernameList");
+        var editPwdList = document.getElementsByName("editPwdList");
+        // ¥æ¡¼¥¶¡¼¤¬0·ï¤Î¾ì¹ç¥¨¥é¡¼
+        if (editUsernameList.length == 0) {
+          alert('¥æ¡¼¥¶¡¼¤òÄÉ²Ã¤·¤Æ¤¯¤À¤µ¤¤¡£');
+          return;
+        }
+
+        // ¥æ¡¼¥¶¡¼Ì¾¤ÏÄÉ²Ã¸åÊÔ½¸ÉÔ²Ä¡¢¥Ñ¥¹¥ï¡¼¥É¤ÏÊÔ½¸¤¬¤Ç¤­¤ë¤Î¤ÇÆþÎÏÃÍ¤Î¥Á¥§¥Ã¥¯
+        var errMessage = '';
+        var errMessageArr = new Array();
+        var errRow = new Array();
+        for (var j=0 ; j<editPwdList.length ; j++){
+          errMessageArr = checkPwd(editPwdList[j], errMessageArr);
+          if (errMessageArr.length > errRow.length) {
+            // °ìÈÖºÇ½é¤Ë¥¨¥é¡¼¤À¤Ã¤¿¥Æ¥­¥¹¥È¥Ü¥Ã¥¯¥¹¤Ëfocus
+            if (errRow.length === 0){
+              editPwdList[j].focus();
+            }
+            errRow.unshift((j+1) + '¹ÔÌÜ¡§'); // ¥¨¥é¡¼¤¬¤¢¤Ã¤¿¹Ô¤òÇÛÎó¤Ë³ÊÇ¼
+          }
+        }
+        // ¥¨¥é¡¼¥á¥Ã¥»¡¼¥¸¤ò¥¢¥é¡¼¥È¤Ç²èÌÌ¤ËÉ½¼¨
+        if (errMessageArr.length > 0) {
+          for (var j=errMessageArr.length ; j>=0 ; j--) {
+            if (errMessageArr[j] != undefined) {
+              errMessage += errRow[j] + errMessageArr[j] + "\n";
+            }
+          }
+          alert(errMessage);
+          return;
+        }
+
+        // ¡ÖÀßÄê¤òÊÝÂ¸¤¹¤ë¡×¥Ü¥¿¥ó¤ò²¿ÅÙ¤â²¡¤µ¤ì¤¿»þ¤ËÁ÷¿®ÍÑ¤Î¥Õ¥©¡¼¥àÉôÉÊÀ¸À®¤¬²¿ÅÙ¤âÁö¤é¤Ê¤¤¤è¤¦¤Ë
+        // É¬Í×¤ÊÁ÷¿®ÍÑ¤Î¥Õ¥©¡¼¥àÉôÉÊ¤¬Ìµ¤¤»þ¤À¤±½èÍý¤¬Æ°¤¯¤è¤¦¤ËÈ½Äê
+        if (document.getElementsByName("usernameList[]")[0] == null) {
+          for (var j=0 ; j<editUsernameList.length ; j++){
+            makeSendData('usernameList[]', editUsernameList[j].value);
+          }
+          for (var j=0 ; j<editPwdList.length ; j++){
+            makeSendData('pwdList[]', editPwdList[j].value);
+          }
+        }
+      }
+    }
+    document.STATUS.submit();
+  }
+
+  // Á÷¿®ÍÑ¤Î¥Õ¥©¡¼¥àÉôÉÊ¤òÀ¸À®
+  function makeSendData( name, value ){
+    var sendData = document.createElement('input');
+    sendData.type = 'hidden';
+    sendData.name = name;
+    sendData.value = value;
+    document.STATUS.appendChild(sendData); 
+  }
+
+  // ¥æ¡¼¥¶¡¼ÄÉ²Ã
+  function addUser (frm) {
+    var errMessage = '';
+    var errMessageArr = new Array();
+    var errCnt = 0;
+
+    // ¥æ¡¼¥¶¡¼Ì¾¤È¥Ñ¥¹¥ï¡¼¥É¤ÎÆþÎÏÃÍ¥Á¥§¥Ã¥¯
+    frm.pwd.value = frm.pwd.value.replace(/\s/g, ""); // ¶õÇò¤òºï½ü
+    errMessageArr = checkPwd(frm.pwd, errMessageArr);
+    if (errMessageArr.length > errCnt) frm.pwd.focus();
+    errCnt = errMessageArr.length;
+    errMessageArr = checkUsername(frm.username, errMessageArr, 1);
+    if (errMessageArr.length > errCnt) frm.username.focus();
+    // ¥¨¥é¡¼¥á¥Ã¥»¡¼¥¸¤ò¥¢¥é¡¼¥È¤Ç²èÌÌ¤ËÉ½¼¨
+    if (errMessageArr.length > 0) {
+      for (var i=0 ; i<=errMessageArr.length ; i++) {
+        if (errMessageArr[i] != undefined) {
+          errMessage += errMessageArr[i] + "\n";
+        }
+      }
+      alert(errMessage);
+      return;
+    }
+
+    // ÆþÎÏÃÍ¥Á¥§¥Ã¥¯¤ÇÌäÂê¤¬¤Ê¤±¤ì¤ÐÆþÎÏ¤·¤¿¥æ¡¼¥¶¡¼Ì¾¤È¥Ñ¥¹¥ï¡¼¥É¤ò¥Æ¡¼¥Ö¥ë¤ËÄÉ²Ã
+    // ¥Æ¡¼¥Ö¥ë¼èÆÀ
+    var table = document.getElementById('userTable');
+    // ¹Ô¤òÄÉ²Ã
+    var row = table.insertRow(2);
+    // ¥¯¥é¥¹¤È¥¹¥¿¥¤¥ë¤ÎÅ¬ÍÑ
+    row.className = 'item';
+    row.style.textAlign = 'center';
+    // ¥»¥ë¤ÎÁÞÆþ
+    var cell1 = row.insertCell(-1);
+    var cell2 = row.insertCell(-1);
+    var cell3 = row.insertCell(-1);
+ 
+    // ¥»¥ë¤ÎÆâÍÆÆþÎÏ
+    cell1.innerHTML = frm.username.value + '<input type="hidden" name="editUsernameList" value="' + frm.username.value + '">';
+    cell2.innerHTML = '<input type="text" name="editPwdList" size="28" maxlength="32" style="ime-mode:disabled" onKeyup="changePwd(this);" onBlur="changePwdAlert(this);" value="' + htmlEscape(frm.pwd.value) + '">';
+    cell3.innerHTML = '<input type="button" name="deluser" id="deluser" value="ºï½ü¤¹¤ë" onClick="delUser(this)">';
+
+    // ÆþÎÏÍó¤ò¶õ¤Ë
+    frm.username.value = '';
+    frm.pwd.value = '';
+    // Ï¢Â³¤Ç¥æ¡¼¥¶¡¼¤òÄÉ²Ã¤¹¤ë»þÊØÍø¤Ê¤è¤¦¤Ë¥æ¡¼¥¶¡¼Ì¾¤ÎÆþÎÏÍó¤Ë¥Õ¥©¡¼¥«¥¹
+    frm.username.focus();
+
+    // ¥æ¡¼¥¶¡¼¥ê¥¹¥È¼èÆÀ
+    var editUsernameList = document.getElementsByName("editUsernameList");
+    // ¥æ¡¼¥¶¡¼¥ê¥¹¥È¤¬20·ï¤Ê¤é¥æ¡¼¥¶¡¼¤òÄÉ²Ã¤¹¤ë¤¿¤á¤ÎÆþÎÏÁë¤òÈóÉ½¼¨
+    if(editUsernameList.length == 20){
+      document.getElementById('addUserRow').style.display = "none";
+    }
+    saveConfirm();
+  }
+
+  // ¥æ¡¼¥¶¡¼ºï½ü
+  function delUser (obj) {
+    // [ºï½ü¤¹¤ë]¥Ü¥¿¥ó¤ò²¡²¼¤µ¤ì¤¿¹Ô¤ò¼èÆÀ
+    var tr = obj.parentNode.parentNode;
+    // tr¤Î¥¤¥ó¥Ç¥Ã¥¯¥¹¤ò¼èÆÀ¤·¤Æ¹Ô¤òºï½ü¤¹¤ë
+    tr.parentNode.deleteRow(tr.sectionRowIndex);
+
+    // ¥æ¡¼¥¶¡¼¥ê¥¹¥È¼èÆÀ
+    var editUsernameList = document.getElementsByName("editUsernameList");
+    // ¥æ¡¼¥¶¡¼¥ê¥¹¥È¤¬20·ïÌ¤Ëþ¤Ê¤é¥æ¡¼¥¶¡¼¤òÄÉ²Ã¤¹¤ë¤¿¤á¤ÎÆþÎÏÁë¤òÉ½¼¨
+    if(editUsernameList.length < 20){
+      document.getElementById('addUserRow').style.display = "";
+    }
+    saveConfirm();
+  }
+
+  // ¥Ñ¥¹¥ï¡¼¥É¤ÎÆþÎÏÃÍ¥Á¥§¥Ã¥¯¤ò¥ê¥¢¥ë¥¿¥¤¥à¤Ë¹Ô¤¤¤½¤Î·ë²Ì¤Ç¹Ô¤Î¿§¤òÊÑ¤¨¤ë
+  function changePwd (obj){
+    var td = obj.parentNode.parentNode;       // onkeyup¥¤¥Ù¥ó¥È¤Î¤¢¤Ã¤¿¥Æ¥­¥¹¥È¥Ü¥Ã¥¯¥¹¤Î¹Ô¤ò¼èÆÀ
+    // ¶õÇò¤¬¤¢¤ì¤Ðºï½ü
+    if ( obj.value.match( /\s/ ) ) {
+      obj.value = obj.value.replace(/\s/g, "");
+    }
+    // ½é´üÃÍ¤ÈÆþÎÏÃÍ¤¬ÉÔ°ìÃ×¤Î¾ì¹ç(ÊÑ¹¹¤¬¤¢¤Ã¤¿¾ì¹ç)
+    if (obj.defaultValue != obj.value) {
+      var errMessageArr = new Array();
+      // ÆþÎÏÃÍ¥Á¥§¥Ã¥¯
+      errMessageArr = checkPwd(obj, errMessageArr);
+      // ¥¨¥é¡¼
+      if (errMessageArr.length > 0) {
+        td.style.backgroundColor = "#FFEEEE"; 
+      } else {
+        td.style.backgroundColor = "#FFFFFF";
+      }
+      saveConfirm();
+    }
+    // ½é´üÃÍ¤ÈÆþÎÏÃÍ¤¬°ìÃ×(ÊÑ¹¹¤¬¤Ê¤¤)¾ì¹ç
+    else {
+      td.style.backgroundColor = "#FFFFFF";
+    }
+  }
+
+  // ÊÑ¹¹¤µ¤ì¤¿¥Ñ¥¹¥ï¡¼¥É¤ÎÆþÎÏÃÍ¥Á¥§¥Ã¥¯¤ò¹Ô¤¤¥¨¥é¡¼¤Î¾ì¹ç¥¢¥é¡¼¥È¤òÉ½¼¨
+  function changePwdAlert (obj){
+    // ¶õÇò¤¬¤¢¤ì¤Ðºï½ü
+    if ( obj.value.match( /\s/ ) ) {
+      obj.value = obj.value.replace(/\s/g, "");
+    }
+    // onBlur»þ¤ËÊÔ½¸Á°¤ÈÊÔ½¸¸å¤ÎÃÍ¤Çº¹¤¬¤¢¤ë¤È¤­¤À¤±ÆþÎÏÃÍ¥Á¥§¥Ã¥¯¤ò¹Ô¤¦½èÍý
+    // ¥Ñ¥¹¥ï¡¼¥É¤ÎÊÑ¹¹Íó¤Î¥Õ¥©¡¼¥«¥¹¤¬³°¤ì¤¿»þ(onBlur)
+    // ¤½¤Î»þÆþÎÏ¤µ¤ì¤Æ¤¤¤¿ÃÍ¤òdataset-chk¤Ë³ÊÇ¼¤·¤Æ¥Ñ¥¹¥ï¡¼¥É¤ÎÊÑ¹¹Íó¤Îinput¥¿¥°¤ËËä¤á¹þ¤à
+    // ¼¡¤Ë¤Þ¤¿Æ±¤¸¥Ñ¥¹¥ï¡¼¥É¤ÎÊÑ¹¹Íó¤Î¥Õ¥©¡¼¥«¥¹¤¬³°¤ì¤¿»þ
+    // ÊÔ½¸Á°(dataset-chk)¤ÈÊÔ½¸¸å¤Î¸½ºß¤ÎÃÍ(obj.value)¤òÈæ³Ó¤·
+    // ÃÍ¤¬°Û¤Ê¤ë»þ¤À¤±ÆþÎÏÃÍ¥Á¥§¥Ã¥¯¤ò¹Ô¤¤¥¨¥é¡¼»þ¤Ë¤Ï¥¢¥é¡¼¥È¤òÉ½¼¨¤¹¤ë
+    if (undefined == obj.dataset.chk || obj.dataset.chk !== obj.value) {
+      var errMessage = '';
+      var errMessageArr = new Array();
+      // ÆþÎÏÃÍ¥Á¥§¥Ã¥¯
+      errMessageArr = checkPwd(obj, errMessageArr);
+      // ¥¨¥é¡¼¥á¥Ã¥»¡¼¥¸¤ò¥¢¥é¡¼¥È¤Ç²èÌÌ¤ËÉ½¼¨
+      if (errMessageArr.length > 0) {
+        for (var i=0 ; i<=errMessageArr.length ; i++) {
+          if (errMessageArr[i] != undefined) {
+            errMessage += errMessageArr[i] + "\n";
+          }
+        }
+        alert(errMessage);
+        // ¥¨¥é¡¼²Õ½ê¤Ëfocus¤¬°Ü¤ë¤è¤¦¤ËÂÐ±þ
+        setTimeout(function(){
+            obj.focus();
+            // Firefox¤Î¤ß¥¢¥é¡¼¥È¸å¥Æ¥­¥¹¥ÈÁªÂò¾õÂÖ¤Ë¤Ê¤Ã¤Æ¤·¤Þ¤¦¤Î¤Ç¡¢ÁªÂò¤ò²ò½ü
+            if ( chk_web("Firefox") ) {
+              window.getSelection().removeAllRanges();
+            }
+        }, 1);
+      }
+    }
+    obj.dataset.chk = obj.value;
+  }
+
+  // ¥æ¡¼¥¶¡¼Ì¾¤ÎÆþÎÏÃÍ¥Á¥§¥Ã¥¯
+  function checkUsername (username, errMessageArr, add){
+    // NULL¥Á¥§¥Ã¥¯
+    if (username.value == '') {
+      errMessageArr.unshift('¥æ¡¼¥¶¡¼Ì¾¤¬ÆþÎÏ¤µ¤ì¤Æ¤¤¤Þ¤»¤ó¡£¥æ¡¼¥¶¡¼Ì¾¤Ï3¡Á8Ê¸»ú°ÊÆâ¤ÇÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£');
+    }
+    // ÉÔÀµÊ¸»ú¥Á¥§¥Ã¥¯
+    else if (!checkValidUsername(username.value)){
+      errMessageArr.unshift('¥æ¡¼¥¶¡¼Ì¾¤ËÍøÍÑ¤Ç¤­¤Ê¤¤Ê¸»ú¤¬´Þ¤Þ¤ì¤Æ¤¤¤Þ¤¹¡£¥æ¡¼¥¶¡¼Ì¾¤ÏÈ¾³Ñ±Ñ¿ô»ú¡¢¤Þ¤¿¤Ï¡Ö-¡×¡Ö_ ¡×¤ÇÀßÄê¤·¤Æ¤¯¤À¤µ¤¤¡£');
+    }
+    // Ê¸»ú¿ô¥Á¥§¥Ã¥¯
+    else if (username.value.length < 3 || username.value.length > 8) {
+      errMessageArr.unshift('¥æ¡¼¥¶¡¼Ì¾¤Ï3¡Á8Ê¸»ú°ÊÆâ¤ÇÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£');
+    }
+    // ¥æ¡¼¥¶¡¼Ì¾½ÅÊ£¥Á¥§¥Ã¥¯
+    else if (add === 1 && !checkUniqueUserName(username.value)){
+      errMessageArr.unshift("¥æ¡¼¥¶¡¼Ì¾¡Ö" + username.value + '¡×¤Ï¤¹¤Ç¤ËÅÐÏ¿¤µ¤ì¤Æ¤¤¤Þ¤¹¡£°ã¤¦¥æ¡¼¥¶¡¼Ì¾¤ò»ØÄê¤·¤Æ¤¯¤À¤µ¤¤¡£');
+    }
+
+    return errMessageArr;
+  }
+
+  // ¥Ñ¥¹¥ï¡¼¥É¤ÎÆþÎÏÃÍ¥Á¥§¥Ã¥¯
+  function checkPwd (pwd, errMessageArr){
+    // NULL¥Á¥§¥Ã¥¯
+    if (pwd.value == '') {
+      errMessageArr.unshift('¥Ñ¥¹¥ï¡¼¥É¤¬ÆþÎÏ¤µ¤ì¤Æ¤¤¤Þ¤»¤ó¡£¥Ñ¥¹¥ï¡¼¥É¤Ï3¡Á32Ê¸»ú°ÊÆâ¤ÇÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£');
+    }
+    // ÉÔÀµÊ¸»ú¥Á¥§¥Ã¥¯
+    else if (!checkGaiji(pwd.value) || !checkZenkaku(pwd.value)){
+      errMessageArr.unshift('¥Ñ¥¹¥ï¡¼¥É¤ËÍøÍÑ¤Ç¤­¤Ê¤¤Ê¸»ú¤¬´Þ¤Þ¤ì¤Æ¤¤¤Þ¤¹¡£¥Ñ¥¹¥ï¡¼¥É¤ÏÈ¾³Ñ±Ñ¿ôŽ¥µ­¹æ¤ÇÀßÄê¤·¤Æ¤¯¤À¤µ¤¤¡£');
+    }
+    // Ê¸»ú¿ô¥Á¥§¥Ã¥¯
+    else if (pwd.value.length < 3 || pwd.value.length > 32) {
+      errMessageArr.unshift('¥Ñ¥¹¥ï¡¼¥É¤Ï3¡Á32Ê¸»ú°ÊÆâ¤ÇÆþÎÏ¤·¤Æ¤¯¤À¤µ¤¤¡£');
+    }
+
+    return errMessageArr;
+  }
+
+  // ¥æ¡¼¥¶¡¼Ì¾¤ËÈ¾³Ñ±Ñ¿ô»ú¤È¡Ö-¡×¡Ö_ ¡×°Ê³°¤ÎÊ¸»ú¤¬¤¢¤ì¤Ð¥¨¥é¡¼
+  function checkValidUsername (username){
+    var pattern = /^[a-zA-Z0-9_\-]+$/;
+
+    if (username.match(pattern)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // ÄÉ²Ã¤¹¤ëusername¤¬½ÅÊ£¤·¤Æ¤¤¤Ê¤¤¤«¥Á¥§¥Ã¥¯
+  function checkUniqueUserName (str){
+    var tableUsersList = document.getElementsByName("editUsernameList");
+    for (var i=0 ; i<tableUsersList.length ; i++) {
+      if (tableUsersList[i].value === str) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // ¥Ñ¥¹¥ï¡¼¥É¤Ëµ¡¼ï°ÍÂ¸Ê¸»ú¡¢Á´³ÑÊ¸»ú¤¬¤¢¤ì¤Ð¥¨¥é¡¼
+  function checkGaiji (strTarget){
+    var consChar = /[­¡­¢­£­¤­¥­¦­§­¨­©­ª­«­¬­­­®­¯­°­±­²­³­´­µ­¶­·­¸­¹­º­»­¼­½­¾­À­Á­Â­Ã­Ä­Å­Æ­Ç­È­É­Ê­Ë­Ì­Í­Î­Ï­Ð­Ñ­Ò­Ó­Ô­Õ­Ö­ß­à­á­â­ã­ä­å­æ­ç­è­é­ê­ë­ì­í­î­ï¢â¢á¢é­ó­ô¢å¢Ý¢Ü­ø­ù¢è¢Á¢ÀŽ¡Ž¢Ž£Ž¤Ž¥Ž¦Ž§Ž¨Ž©ŽªŽ«Ž¬Ž­Ž®Ž¯Ž°Ž±Ž²Ž³Ž´ŽµŽ¶Ž·Ž¸Ž¹ŽºŽ»Ž¼Ž½Ž¾Ž¿ŽÀŽÁŽÂŽÃŽÄŽÅŽÆŽÇŽÈŽÉŽÊŽËŽÌŽÍŽÎŽÏŽÐŽÑŽÒŽÓŽÔŽÕŽÖŽ×ŽØŽÙŽÚŽÛŽÜŽÝŽÞŽß]/;
+    if ( strTarget.match( consChar ) ) {
+       return false;
+    } else {
+       return true;
+    }
+  } 
+  function checkZenkaku (strTarget){
+    var len;
+    for(var i=0; i<strTarget.length; i++){
+      /* 1Ê¸»ú¤º¤ÄÊ¸»ú¥³¡¼¥É¤ò¥¨¥¹¥±¡¼¥×¤·¡¢¤½¤ÎÄ¹¤µ¤¬4Ê¸»ú°Ê¾å¤Ê¤éÁ´³Ñ */
+      len = escape(strTarget.charAt(i)).length;
+      if(len>=4){
+        return false;
+      }
+    }
+    return true;
+  }
+
+  // HTMLÆÃ¼ìÊ¸»ú¤Î¥¨¥¹¥±¡¼¥×
+  function htmlEscape (strTarget){
+    strTarget = strTarget.replace(/&/ig,"&amp;");
+    strTarget = strTarget.replace(/</ig,"&lt;");
+    strTarget = strTarget.replace(/>/ig,"&gt;");
+    strTarget = strTarget.replace(/"/ig,"&quot;");
+    return strTarget;
+  }
+
+  // ¥¯¥í¡¼¥¹¥Ö¥é¥¦¥¸¥ó¥°¤Î¤¿¤á¤ËÉ¬Í×¤Ê¥Ö¥é¥¦¥¶¥Á¥§¥Ã¥¯
+  function chk_web (browser) {
+    if ( browser === "MSIE 8" ) {
+      if ( navigator.userAgent.match("MSIE 7") != null )
+          return chk_web("MSIE 7");
+    }
+
+    return navigator.userAgent.match(browser);
+  }
+
+  // ¥æ¡¼¥¶¡¼¥ê¥¹¥È¤ËÄÉ²Ã¡¦ÊÑ¹¹¡¦ºï½ü¤¬¤¢¤Ã¤¿»þ¤Ë
+  // [ÀßÄê¤òÊÝÂ¸¤¹¤ë]¥Ü¥¿¥ó¤ò¥¯¥ê¥Ã¥¯¤·¤Ê¤¤¤ÈÊÝÂ¸¤µ¤ì¤Ê¤¤»Ý¤òÃí°ÕÊ¸¸À¤ÇÉ½¼¨
+  function saveConfirm () {
+    if ($j("#saveConfirmMsg").is(":hidden")) {
+      $j("#saveConfirmMsg").slideDown("normal");
+    }
+  }
+
+</script>

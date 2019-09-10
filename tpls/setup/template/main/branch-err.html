@@ -1,0 +1,54 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<tr>
+<td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#CD3E1C">
+<tr>
+<td><img src="../imgs/spc.gif" width="8" height="8"></td>
+</tr>
+</table></td>
+<td align="left" class="midashi"><TMPL_VAR name=SITEN_NAME>への操作でエラーが発生しました。</td>
+</tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+<tr>
+<td>
+<table class="item-box">
+<tr>
+<td align="center" class="item-name02" style="padding:5px ">下記エラーのため処理は実行されませんでした</td>
+</tr>
+<tr>
+<td class="item" style="padding:5px ">
+<TMPL_IF name=OPEN>
+<TMPL_VAR name=SITEN_NAME>への出店申し込みは既に承っています。
+</TMPL_IF>
+
+<TMPL_IF name=CLOSE0>
+<TMPL_VAR name=SITEN_NAME>への出店申し込みが完了していないため、情報変更はできません。
+</TMPL_IF>
+
+<TMPL_IF name=CLOSE1>
+現在、<TMPL_VAR name=SITEN_NAME>への出店審査中のため、情報変更はできません。
+</TMPL_IF>
+
+</td>
+</tr>
+                                               	</table>
+                                              </td>
+                                            </tr>
+                                          </table></td>
+                                        </tr>
+                                      </table>
+                                      <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                        <tr>
+                                          <td>&nbsp;</td>
+                                        </tr>
+                                      </table>
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                        <tr>
+                                          <td align="center" style="padding:10px 10px 10px 10px ">
+                                          	<input type="button" value="支店管理へ戻る" onClick="location.href='branch.cgi'">
+                                          </td>
+                                        </tr>
+                                      </table>

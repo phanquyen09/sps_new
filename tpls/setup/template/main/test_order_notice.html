@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+	<title>テスト注文に関する注意事項</title>
+  <link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+	<style type="text/css">
+		<!--
+		.notice_body {
+			background-color:#FAFAFA;
+			font-family: "ＭＳ Ｐゴシック", Osaka, "ヒラギノ角ゴ Pro W3"
+		}
+		.notice_outer_body {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 720px;
+			height: auto;
+			margin-left: -350px;
+			margin-top: -175px;
+			border:#666666 2px solid;
+			background-color:#FFFFFF;
+		}
+		.notice_inner_body {
+			margin:20px 20px 20px 20px;
+		}
+		.notice_title {
+			font-size: x-large;
+			font-weight: bold;
+			color:#FF0000;
+			border:2px solid #FF0000;
+			display:inline-block;
+			margin-bottom: 10px;
+		}
+		.notice_highlight {
+			font-weight: bold;
+			color:#FF0000;
+		}
+		.notice_link {
+			font-weight: bold;
+		}
+		.notice_outer_caution {
+			padding-left: 2em;
+		}
+		.notice_inner_caution {
+			font-size: small;
+			padding-left: 2em;
+		}
+		.notice_foot {
+			text-align:center;
+		}
+		.notice_button {
+			width:80px;
+		}
+		-->
+	</style>
+</head>
+<body class="notice_body">
+	<div class="notice_outer_body">
+		<div class="notice_inner_body">
+			<div class="notice_title">
+				テスト注文に関する注意事項
+			</div>
+			<br>
+			<div class="notice_outer_caution">
+				テスト注文を行う際は、必ず、注文者氏名を<br>
+				『<span class="notice_highlight">全角のカタカナ</span>』で、「姓：<span class="notice_highlight">テスト</span>」「名：<span class="notice_highlight">テスト</span>」、一枠の場合は「<span class="notice_highlight">テストテスト</span>」と入力してください。<br><br>
+				<div class="notice_inner_caution">
+					※&nbsp;&nbsp;通常の注文は1件につき、<TMPL_VAR NAME=OneOrderFee>円<span style="font-size:85%;">(税込<TMPL_VAR NAME=OneOrderFeeTaxIn>円)</span>の注文処理手数料がかかりますが、注文者氏名を<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;「姓：テスト」「名：テスト」または「テストテスト」と入力された注文は、手数料がかかりません。<br>
+					※&nbsp;&nbsp;この方法以外で行われた注文は、注文のキャンセルを行われても注文処理手数料が発生します。<br>
+					※&nbsp;&nbsp;テスト注文では、決済代行サービス（クレジットカード決済やコンビニ決済等）のご利用は<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;お控えください。テスト注文であっても、決済依頼を行われた場合、決済代行手数料が、<br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;発生いたします。<br><br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://help.shopserve.jp/manual/013/" target="manual"><span class="notice_link">テスト注文に関するマニュアル</span></a>
+				</div>
+			</div>
+			<br>
+			<div class="notice_foot">
+				<form method="post" action="myhomepage.cgi">
+					<input type="hidden" name="CMD" value="1">
+					<input class="notice_button" type="submit" value="OK"><br><br>
+					<input id="checkboxID" type="checkbox" name="CHECK" value="1">
+					<label for="checkboxID">今後、このメッセージを表示しない</label>
+				</form>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

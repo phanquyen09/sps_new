@@ -1,0 +1,182 @@
+<form name="form1" method="post" action="mailmagpage.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                                      <tr>
+                                        <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#856791">
+                                            <tr>
+                                              <td><img src="../imgs/spc.gif" width="8" height="8"></td>
+                                            </tr>
+                                        </table></td>
+<td align="left" class="midashi">メルマガ紹介ページのデザインを設定します</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/mailmagpage.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                                      </tr>
+                                    </table>
+                                      <img src="../imgs/spc.gif" width="5" height="5">
+                                      <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                        <tr>
+                                          <td align="left" class="main-table">
+                                            <div class="infoArea table_bg">
+                                              ○トップページ設定 <br>
+                                              お店ページに表示される「メルマガ紹介」の設定を行います。設定を保存し、左上の「お店ページの更新へ」から更新することによりお店ページに反映されます。<br>
+                                              <a href="./topdesign_sps.cgi">⇒ お店ページでの「メルマガ紹介」の表示・非表示、表示位置の設定はこちら</a><br><br>
+                                             ○メルマガページ設定／自動送信メールの設定 <br>
+                                             お店ページの「メルマガ紹介」の「変更・解除・お知らせはこちら」をクリックすると表示されるメールマガジン登録・解除ページと、自動送信メールの設定を行います。設定を保存することによりお店ページに反映されます。<br>
+                                            </div>
+                                            <table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                            <tr>
+        <TMPL_IF NAME=err_msg>
+                        <TMPL_LOOP NAME=err_msg>
+                        <font color="#ff0000">・<TMPL_VAR NAME=MSG></font><br>
+                        </TMPL_LOOP>
+			<br>
+        </TMPL_IF>
+                                              <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                                <tr align="center">
+                                                  <td colspan="2" class="item-name02">トップページ設定</td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">見出し
+                                                      <div class="customTemplateInfo2">
+                                                          <a href="http://help.shopserve.jp/ctrlpnl_sup/func04/mailmagpage/custom.html" target="_blank">
+                                                              <img src="../imgs/func04_custTempInfo2.png" alt="カスタムテンプレートのご利用について">
+                                                          </a>
+                                                      </div>
+                                                  </td>
+                                                  <td class="item"><input name="t_title" type="text" class="def-line" value="<TMPL_VAR NAME=t_title>">
+                                                  </td>
+                                                </tr>
+                                                <tr>
+                                                  <td class="item-name">トップページのご案内</td>
+                                                  <td class="item"><textarea name="t_guidance" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=t_guidance></textarea>
+                                                  </td>
+                                                </tr>
+                                              </table>
+                                                <br>
+                                                <br>
+                                                <a id="mail-setting-form" class="anchor-fix"></a>
+                                                <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                                  <tr align="center">
+                                                    <td colspan="2" class="item-name02">メルマガページ設定</td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">見出し</td>
+                                                    <td class="item">
+                                                        <input name="c_title" type="text" class="def-line" value="<TMPL_VAR NAME=c_title>">
+                                                    </td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">メルマガページのご案内</td>
+                                                    <td class="item">
+                                                        <textarea name="c_guidance" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=c_guidance></textarea>
+                                                        <br>※HTMLタグ利用可
+                                                    </td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">項目の設定</td>
+                                                    <td class="item">
+                                                      <table>
+                                                        <tr>
+                                                          <td><input name="c_disp_type" id="c_disp_type_A" type="radio" value="A" <TMPL_IF NAME=c_disp_type_A>checked</TMPL_IF>></td>
+                                                          <td><label for="c_disp_type_A">新規登録・アドレス変更・配信解除を受け付ける</label></td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td><input name="c_disp_type" id="c_disp_type_B" type="radio" value="B" <TMPL_IF NAME=c_disp_type_B>checked</TMPL_IF>></td>
+                                                          <td><label for="c_disp_type_B">配信解除のみ受け付ける</label></td>
+                                                        </tr>
+                                                      </table>
+                                                    </td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">メルマガサンプル</td>
+                                                    <td class="item-sub"><table width="100%">
+                                                        <tr>
+                                                          <td class="sub-item-name">表示切替</td>
+                                                          <td class="sub-item">
+							    <select name="c_status">
+							      <TMPL_IF NAME=c_status>
+                                                              <option value="1" selected>表示</option>
+                                                              <option value="0">非表示</option>
+							      <TMPL_ELSE>
+							      <option value="1">表示</option>
+							      <option value="0" selected>非表示</option>
+							      </TMPL_IF>
+
+                                                            </select>
+                                                          </td>
+                                                        </tr>
+                                                        <tr>
+                                                          <td class="sub-item-name">サンプル</td>
+                                                          <td class="sub-item">
+                                                            <textarea name="c_sample" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=c_sample></textarea>
+                                                          </td>
+                                                        </tr>
+                                                    </table></td>
+                                                  </tr>
+                                                  <tr>
+                                                    <td class="item-name">ページの設定</td>
+                                                    <td class="item">
+                                                        <input type="checkbox" name="c_page_disp" id="c_page_disp" value="N" <TMPL_IF name="c_page_disp">checked</TMPL_IF>>
+                                                        <label for="c_page_disp">メルマガページを表示しない</label>
+                                                    </td>
+                                                  </tr>
+                                                </table>
+                                                <br>
+                                                <br>
+                                                <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                                <tr align="center">
+                                                    <td colspan="2" class="item-name02">自動送信メールの設定（新規登録時）</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="item-name">差出人名</td>
+                                                    <td class="item"><input name="EntryFromName" type="text" class="def-line" value="<TMPL_VAR NAME=ENTRYFROMNAME>"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="item-name">メールアドレス</td>
+                                                    <td class="item"><input name="EntryFromAddr" type="text" class="def-line" value="<TMPL_VAR NAME=ENTRYFROMADDR>" style="ime-mode:disabled"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="item-name">件名</td>
+                                                    <td class="item"><input name="EntrySubject" type="text" class="def-line" value="<TMPL_VAR NAME=ENTRYSUBJECT>"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="item-name">本文</td>
+                                                    <td class="item">
+                                                    <textarea name="EntryBody" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=ENTRYBODY></textarea>
+                                                    </td>
+                                                </tr>
+                                                </table>
+                                                <br>
+                                                <br>
+                                                <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                                <tr align="center">
+                                                    <td colspan="2" class="item-name02">自動送信メールの設定（登録解除時）</td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="item-name">差出人名</td>
+                                                    <td class="item"><input name="CancelFromName" type="text" class="def-line" value="<TMPL_VAR NAME=CANCELFROMNAME>"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="item-name">メールアドレス</td>
+                                                    <td class="item"><input name="CancelFromAddr" type="text" class="def-line" value="<TMPL_VAR NAME=CANCELFROMADDR>" style="ime-mode:disabled"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="item-name">件名</td>
+                                                    <td class="item"><input name="CancelSubject" type="text" class="def-line" value="<TMPL_VAR NAME=CANCELSUBJECT>"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td class="item-name">本文</td>
+                                                    <td class="item">
+                                                    <textarea name="CancelBody" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR NAME=CANCELBODY></textarea>
+                                                    </td>
+                                                </tr>
+                                                </table>
+                                                <div align="center"></div>
+                                              </td>
+                                            </tr>
+                                            <tr>
+                                              <td style="padding-top: 10px; text-align: center;"><input name="set" type="submit" id="set" value="設定を保存する"></td>
+                                            </tr>
+                                          </table></td>
+                                        </tr>
+                                      </table>
+<input type="hidden" name="mode" value="regist">
+</form>

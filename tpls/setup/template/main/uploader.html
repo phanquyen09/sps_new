@@ -1,0 +1,38 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<title>
+Ｅストアーショップサーブ管理画面
+</title>
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function do_upload() {
+  if( document.UPLD.UPFILE.value == 0){
+      alert("ファイルを指定してください。" );
+    
+  }else{
+      document.UPLD.Submit.disabled = true;
+      document.UPLD.submit();
+  }
+}
+//-->
+</script>
+</head>
+<body>
+Ｅストアーショップサーブ・ファイルアップローダ<br>
+アップロードできるファイルサイズは 10Mbyte までです。<br>
+excelファイルか、csvファイルでのアップロードをお願いします。<br>
+<br>
+<form  name="UPLD" method="POST" action="./uploader.cgi" enctype="multipart/form-data">
+<STRONG>アップロードファイル名：</STRONG><input name="UPFILE" type="file" style="font-size100%;padding:2px 0px 5px 2px" value="master" size="40"> <input name="Submit" type="button" onClick="do_upload();" value="アップロード">
+<p>
+<STRONG>ご使用のOS：</STRONG>
+<SELECT NAME="ostype">
+<OPTION VALUE="MSWin32" SELECTED>Windows
+<OPTION VALUE="MacOS">MacOS
+<OPTION VALUE="">UNIX
+</SELECT>
+</form>
+
+</body>
+</html>

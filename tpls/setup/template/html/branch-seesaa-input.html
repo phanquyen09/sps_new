@@ -1,0 +1,83 @@
+                                        	<tr>
+                                             		<td align="left" class="item-name"><TMPL_IF name=ERR_INFO_KOUKAN><font color="#FF0000">●</font></TMPL_IF>交換について</td>
+                                               		<td align="left" class="item"> 
+                                               			<textarea name="INFO_KOUKAN" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR name=INFO_KOUKAN></textarea> 
+                                              			</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name"><TMPL_IF name=ERR_INFO_KAKAKU><font color="#FF0000">●</font></TMPL_IF>販売価格</td>
+                                               		<td align="left" class="item">
+                                               			<input name="INFO_KAKAKU" type="text" class="def-line" value="<TMPL_VAR name=INFO_KAKAKU>">
+                                               			</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name"><TMPL_IF name=ERR_INFO_RECV><font color="#FF0000">●</font></TMPL_IF>お届け方法</td>
+                                               		<td align="left" class="item"> 
+                                               			<textarea name="INFO_RECV" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR name=INFO_RECV></textarea>
+                                               		</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name"><TMPL_IF name=ERR_INFO_RECVTIME><font color="#FF0000">●</font></TMPL_IF>お届け時間帯の指定</td>
+                                               		<td align="left" class="item">
+                                               			<input name="INFO_RECVTIME" type="radio" id="time01" value="N" <TMPL_VAR name=INFO_RECVTIME_N>>
+                                               			<label for="time01">時間帯の指定を受け付けない</label>
+                                               			<br>
+                                               			<input name="INFO_RECVTIME" type="radio" value="Y" id="time02" <TMPL_VAR name=INFO_RECVTIME_Y>>
+                                               			<label for="time02">時間帯の指定を受け付ける
+                                               			<select name="INFO_TIME">
+                                                              <TMPL_LOOP name=INFO_TIME_LIST>
+                                               				<option value="<TMPL_VAR name=TIME_VAL>" <TMPL_VAR name=TIME_SEL>><TMPL_VAR name=TIME_VAL></option>
+                                                              </TMPL_LOOP>
+                                               				</select>
+                                               			</label>
+                                               			</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name"><TMPL_IF name=ERR_INFO_CANCEL><font color="#FF0000">●</font></TMPL_IF>発送以前のキャンセル</td>
+                                               		<td align="left" class="item">
+                                               			<input name="INFO_CANCEL" type="text" class="def-line" value="<TMPL_VAR name=INFO_CANCEL>">
+                                               			</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name"><TMPL_IF name=ERR_INFO_PRIVACY><font color="#FF0000">●</font></TMPL_IF>プライバシーポリシー</td>
+                                               		<td align="left" class="item">
+                                               			<textarea name="INFO_PRIVACY" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR name=INFO_PRIVACY></textarea>
+                                               			<br>
+                                              			<a href="seesaa01a.html" target="_blank">記入例はこちらをクリック</a> </td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name"><TMPL_IF name=ERR_HOSTNAME><font color="#FF0000">●</font></TMPL_IF>ホスト名：アカウント名</td>
+                                               		<td align="left" class="item"> http://
+                                                			<input name="HOSTNAME" type="text" value="<TMPL_VAR name=HOSTNAME>">
+			.seesaa.net </td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name"><TMPL_IF name=ERR_ACCMAIL><font color="#FF0000">●</font></TMPL_IF>ID：メールアドレス</td>
+                                               		<td align="left" class="item">
+                                               			<input name="ACCMAIL" type="text" class="def-line" value="<TMPL_VAR name=ACCMAIL>">
+                                               			</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name"><TMPL_IF name=ERR_PASSWORD><font color="#FF0000">●</font></TMPL_IF>パスワード</td>
+                                               		<td align="left" class="item">
+                                               			<input name="PASSWORD" type="text" class="def-line" value="<TMPL_VAR name=PASSWORD>">
+                                               			</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name"><TMPL_IF name=ERR_SITENAME><font color="#FF0000">●</font></TMPL_IF>ショップ名</td>
+                                               		<td align="left" class="item">
+                                               			<input name="SITENAME" type="text" class="def-line" value="<TMPL_VAR name=SITENAME>">
+                                               			</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name"><TMPL_IF name=ERR_SITENAMEKANA><font color="#FF0000">●</font></TMPL_IF>ショップ名（ヨミガナ）</td>
+                                               		<td align="left" class="item">
+                                               			<input name="SITENAMEKANA" type="text" class="def-line" value="<TMPL_VAR name=SITENAMEKANA>">
+                                               			</td>
+                                              		</tr>
+                                               	<tr>
+                                               		<td align="left" class="item-name"><TMPL_IF name=ERR_SITEDESC><font color="#FF0000">●</font></TMPL_IF>ショップ説明</td>
+                                               		<td align="left" class="item"> 
+                                               			<textarea name="SITEDESC" rows="5" wrap="VIRTUAL" class="def-line"><TMPL_VAR name=SITEDESC></textarea> 
+                                              			</td>
+                                              		</tr>

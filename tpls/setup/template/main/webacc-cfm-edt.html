@@ -1,0 +1,33 @@
+<div>
+  <form name="WEB" method="POST" action="webacc-ed.cgi">
+  <input type="hidden" name="AID" value="<TMPL_VAR NAME=AID>">
+  <input type="hidden" name="ACC" value="<TMPL_VAR NAME=ACC>">
+  <input type="hidden" name="PWD" value="<TMPL_VAR NAME=PWD>">
+  <input type="hidden" name="CMD" value="EDT">
+  <input type="hidden" name="DIR" value="<TMPL_VAR NAME=DIR>">
+  <input type="hidden" name="NEWDIR" value="<TMPL_VAR NAME=NEWDIR>">
+
+  <table border=1>
+    <tr>
+      <td>&nbsp;アカウント</td><td>&nbsp;<TMPL_VAR NAME=ACC></td>
+    </tr>
+    <tr>
+      <td>&nbsp;パスワード</td><td>&nbsp;<TMPL_VAR NAME=PWD></td>
+    </tr>
+    <tr>
+      <td>&nbsp;ディレクトリ</td><td>&nbsp;<TMPL_VAR NAME=DDIR></td>
+    </tr>
+  </table>
+<hr>
+  <input type="submit" name="SAVE" value="設定">
+  </form>
+  <form name="WEB" method="POST" action="webacc-ed.cgi">
+  <input type="hidden" name="AID" value="<TMPL_VAR NAME=AID>">
+  <input type="hidden" name="ACC" value="<TMPL_VAR NAME=ACC>">
+  <input type="hidden" name="PWD" value="<TMPL_VAR NAME=PWD>">
+  <input type="hidden" name="CMD" value="EDT">
+  <input type="hidden" name="DIR" value="<TMPL_VAR NAME=DIR>">
+  <input type="hidden" name="NEWDIR" value="<TMPL_VAR NAME=NEWDIR>">
+  <input type="submit" name="BACK" value="戻る">
+  </form>
+</div>

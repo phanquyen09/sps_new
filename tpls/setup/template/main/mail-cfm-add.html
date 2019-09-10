@@ -1,0 +1,29 @@
+<div>
+<TMPL_LOOP NAME=ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+  <form name="MAILN" method="POST" action="mail-ed.cgi">
+  <input type="hidden" name="MID" value="<TMPL_VAR NAME=MID>">
+  <input type="hidden" name="ACC" value="<TMPL_VAR NAME=ACC>">
+  <input type="hidden" name="PWD" value="<TMPL_VAR NAME=PWD>">
+  <input type="hidden" name="CMD" value="ADD">
+
+  <table border=1>
+    <tr>
+      <td>&nbsp;メールアドレス</td><td>&nbsp;<TMPL_VAR NAME=ACC>@<TMPL_VAR NAME=DOM></td>
+    </tr>
+    <tr>
+      <td>&nbsp;パスワード</td><td>&nbsp;<TMPL_VAR NAME=PWD></td>
+    </tr>
+  </table>
+<hr>
+  <input type="submit" name="SAVE" value="設定">
+  </form>
+  <form name="MAILB" method="POST" action="mail-ed.cgi">
+  <input type="hidden" name="MID" value="<TMPL_VAR NAME=MID>">
+  <input type="hidden" name="ACC" value="<TMPL_VAR NAME=ACC>">
+  <input type="hidden" name="PWD" value="<TMPL_VAR NAME=PWD>">
+  <input type="hidden" name="CMD" value="ADD">
+  <input type="submit" name="BACK" value="戻る">
+  </form>
+</div>

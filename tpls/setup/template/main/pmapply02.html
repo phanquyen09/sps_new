@@ -1,0 +1,332 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<title>Ｅストアーショップサーブ　決済代行申し込み</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<link href="default00.css" rel="stylesheet" type="text/css">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function openScat(id) {
+		ele = document.getElementById(id+"1");
+		ele.style.display = "block";
+}
+
+function openClose(id,pt,i) {
+		prop = document.getElementById(id).style.display;
+
+//		alert(id+" "+pt+" "+i);
+
+		if(i==0) prop = "none";
+
+		if(prop=="none"){
+				if(pt=="div") document.getElementById(id).style.display="block";
+//						alert("div "+document.getElementById(id).style.display);
+				if(pt=="tr") {
+						if(document.all)	document.getElementById(id).style.display="block";
+						else
+						document.getElementById(id).style.display="table-row";
+//						alert("tr "+document.getElementById(id).style.display);
+				}
+		} else {
+				document.getElementById(id).style.display="none";
+		}
+//		alert(document.getElementById(id).style.display);
+}
+
+function MM_goToURL() { //v3.0
+  var i, args=MM_goToURL.arguments; document.MM_returnValue = false;
+  for (i=0; i<(args.length-1); i+=2) eval(args[i]+".location='"+args[i+1]+"'");
+}
+//-->
+</script>
+</head>
+<body>
+<link href="default00.css" rel="stylesheet" type="text/css">
+<a name="top"></a>
+<div style="font-size:80%" align="center">
+<form name="PMAPPLY02" method="POST" action="pmapply02.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+<input type="hidden" name="CMD" value="NEXT">
+  <table width="600"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="center"><img src="imgs/payment_navi02.gif" width="590" height="52"></td>
+    </tr>
+    <tr>
+      <td align="left" height="15"><img src="../imgs/spc.gif" width="5" height="5"></td>
+    </tr>
+  </table>
+  <table width="600"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+      <td align="left" class="outbox"><div class="midashi">お申込条項</div><br>
+        <table width="95%" border="0" cellspacing="1" cellpadding="1" align="center">
+<TMPL_IF ERR_MSG>
+<TR>
+<TD class=j12 align=left>
+<TMPL_LOOP ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+</TD>
+</TR>
+</TMPL_IF>
+                <tr align="left">
+                  <td class="comment_box">お申込条項およびＥストアーショップサーブサービス規約に同意の上、お申し込みください。<br>
+最終画面で、申込書の印刷が必要です。A4の用紙で印刷できる環境をご用意のうえ、手続きを行ってください。&nbsp;</td>
+                </tr>
+        </table>
+        <br>
+
+
+      <table width="100%" border="0" cellspacing="0" cellpadding="2" bgcolor="#FFFFFF" style="border:1px solid #000;">
+        <tr>
+          <td colspan="2" class="jtd12"><b>お申込条項</b></td>
+        </tr>
+
+        <tr>
+          <td valign="top" class="small" align="right">1)</td>
+          <td class="small10">次の商品の販売は行うことはできません。
+            <table width="100%" border="0" cellspacing="0" cellpadding="3">
+              <tr>
+                <td valign="top" class="small10">1.</td>
+                <td class="small10">わいせつ等、公序良俗に反するもの、および青少年に有害と思われるもの、性的表現に関するもの、ならびにポル
+ノ、虐待に相当する画像・映像・音声・文字などのデータまたは記録媒体</td>
+              </tr>
+
+              <tr>
+                <td valign="top" class="small10">2.</td>
+                <td class="small10">第三者の著作権、肖像権、商標権等の知的財産権を侵害するもの</td>
+              </tr>
+              <tr>
+                <td valign="top" class="small10">3.</td>
+                <td class="small10">特定商取引に関する法律、銃刀法、麻薬、ワシントン条約、その他関連条約、法令に違反するもの</td>
+
+              </tr>
+              <tr>
+                <td valign="top" class="small10">4.</td>
+                <td class="small10">商品券、プリペイドカード、印紙、切手、回数券、その他の有価証券等の金券類</td>
+              </tr>
+              <tr>
+                <td valign="top" class="small10">5.</td>
+                <td class="small10">動物・昆虫・魚類等の生体販売</td>
+              </tr>
+            </table>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" valign="top"><img src="../imgs/spc.gif" width="5" height="10"></td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">2)</td>
+          <td class="small10">以下の資料をご用意ください。<br>
+          弊社提携の信販会社にて審査を行う際に必要となります。
+          <table border="0" cellspacing="0" cellpadding="1">
+            <tr>
+              <td colspan="2" class="small10">●商品内容を確認できる資料</td>
+            </tr>
+            <tr>
+              <td valign="top" class="small10" style="padding-left:1em;">・</td>
+              <td class="small10">ホームページの場合<br>
+                販売する商品の画像、価格、内容を掲載してください。</td>
+            </tr>
+            <tr>
+              <td valign="top" class="small10" style="padding-left:1em;">・</td>
+              <td class="small10">資料の場合<br>
+                商品内容を確認できる資料（商品の画像、価格、内容が記載されているパンフレットなど）を申込書とあわせてご郵送ください。</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="small10">●「特定商取引に関する法律に基づく表示」</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="small10"  style="padding-left:1em;">インターネット上で販売する画面では「特定商取引に関する法律に基づく表示」またはこれに準ずるものをホームページ上で必ず表示してください。</td>
+            </tr>
+            <tr>
+              <td valign="top" class="small10" style="padding-left:1em;">・</td>
+              <td class="small10"> 販売業者・所在地は、本サービスご契約者様と同一である必要があります。<br>（ハンドルネームなどは使用でき~
+ません）</td>
+            </tr>
+            <tr>
+              <td valign="top" class="small10" style="padding-left:1em;">・</td>
+              <td class="small10">クレジットカード決済の手数料は購入者負担にできないため、店舗にてご負担ください。</td>
+            </tr>
+          </table>
+          </td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">3)</td>
+          <td class="small10">無限連鎖講（ネズミ講）の運営に関わることには使用できません。</td>
+
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">4)</td>
+          <td class="small10">Ｅストアーショップサーブ契約者と同一会社または同一人にて申し込むこととします。</td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">5)</td>
+
+          <td class="small10">Ｅストアーショップサーブサービス規約、マニュアル等の記載事項を守り、その他提供者からの指導に従うこととします。</td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">6)</td>
+          <td class="small10">商品購入時に取引する際に利用できる1件あたりの取引金額は以下とします。</td>
+        </tr>
+
+        <tr>
+         <td valign="top">&nbsp;</td>
+          <td colspan="4">
+          <table border="0" cellspacing="0" cellpadding="1">
+            <tr>
+              <td colspan="2" class="small10">クレジットカード決済代行サービス</td><td>100円以上300万円以下（税込）</td>
+            </tr>
+            <tr>
+              <td colspan="2" class="small10">コンビニ決済代行サービス</td>
+              <td class="small10">315円以上30万円以下（税込）</td>
+            </tr>
+            <tr>
+              <td colspan="3" class="small10">電子決済代行サービス</td>
+            <tr>
+              <td valign="top" class="small10" style="padding-left:1em;">・</td>
+              <td class="small10"> 楽天銀行決済 </td><td>32円以上300万円以下（税込）</td>
+            </tr>
+            <tr>
+              <td valign="top" class="small10" style="padding-left:1em;">・</td>
+              <td class="small10">ウェブマネー決済</td><td>20万円以下（税込）</td>
+            </tr>
+          </table>
+         </td>
+        </tr>
+        <tr>
+          <td valign="top" class="small10" align="right">7)</td>
+          <td class="small10">審査結果により、申し込まれたサービスがご利用できない場合もあります。</td>
+        </tr>
+        <tr>
+          <td colspan="2" valign="top"><img src="../imgs/spc.gif" width="5" height="10"></td>
+        </tr>
+        <tr>
+          <td valign="top" class="jtd12" align="left" colspan="2"><b>提供者の免責事項</b><br>
+          決済代行サービスの利用にあたり、次の事項は契約者が自己の責任で対処し、提供者が免責されることについて承諾のうえ、お申し込みください。
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" valign="top"><img src="../imgs/spc.gif" width="5" height="10"></td>
+        </tr>
+        <tr>
+          <td valign="top" class="small" align="right">1)</td>
+          <td class="small10">契約者の自己責任により解決する事項
+            <table width="100%" border="0" cellspacing="0" cellpadding="3">
+              <tr>
+                <td valign="top" class="small10">1.</td>
+                <td class="small10">決済代行サービスを利用した購入代金が、未払いとなった債権の回収について</td>
+              </tr>
+                  <tr>
+                    <td valign="top" class="small10">2.</td>
+                    <td class="small10">契約者が提供するインターネットショップにおいて、決済代行サービスを原因としない一切の損害について</td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="small10">3.</td>
+                    <td class="small10">インターネットショップの運営にあたり、契約者と利用者（購入者）または第三者との間に発生する紛争に関する一切の責任について</td>
+                  </tr>
+                </table>
+              </td>
+              </tr>
+              <tr>
+              <td valign="top" class="small" align="right">2)</td>
+              <td class="small10">提供者の免責事項
+                <table width="100%" border="0" cellspacing="0" cellpadding="3">
+                  <tr>
+                    <td valign="top" class="small10">1.</td>
+                    <td class="small10">利用者の逸失利益および損害について<br>
+                                        [1]メインテナンスまたは不慮の事故等により、サービスを停止、廃止によるもの<br>
+                                        [2]サービス内容の変更によるもの </td>
+                  </tr>
+
+                  <tr>
+                    <td valign="top" class="small10">2.</td>
+                    <td class="small10">提供者からのサービス解約により発生した一切の損害について </td>
+                  </tr>
+                  <tr>
+                    <td valign="top" class="small10">3.</td>
+                    <td class="small10">その他、提供者に起因事由のない一切の責任について </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
+        </tr>
+      </table>
+                        <br>
+        <table width="600" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td align="left">ご契約者情報</td>
+          </tr>
+        </table>
+        <table width="600" border="0" cellspacing="0" cellpadding="0" align="center">
+          <tr>
+            <td bgcolor="#333333"><table width="100%" border="0" cellspacing="1" cellpadding="1" align="center">
+              <tr align="left">
+                <td width="20%" class="box_title_side">ホームページ</td>
+                <td class="box_txt"><TMPL_VAR NAME=CUSTURL></td>
+              </tr>
+              <tr align="left">
+                <td class="box_title_side">申込者</td>
+                <td class="box_txt"><TMPL_VAR NAME=CUSTNAME></td>
+              </tr>
+              <tr align="left">
+                <td class="box_title_side">代表者</td>
+                <td class="box_txt"><TMPL_VAR NAME=CUSTDAIHYO></td>
+              </tr>
+              <tr align="left">
+                <td class="box_title_side">役職名</td>
+                <td class="box_txt"><TMPL_VAR NAME=CUSTPOST></td>
+              </tr>
+              <tr align="left">
+                <td class="box_title_side">住所</td>
+                <td class="box_txt"><TMPL_VAR NAME=CUSTADDR></td>
+              </tr>
+              <tr align="left">
+                <td class="box_title_side">ＴＥＬ</td>
+                <td class="box_txt"><TMPL_VAR NAME=CUSTTEL></td>
+              </tr>
+              <tr align="left">
+                <td class="box_title_side">ＦＡＸ</td>
+                <td class="box_txt"><TMPL_VAR NAME=CUSTFAX></td>
+              </tr>
+            </table></td>
+          </tr>
+        </table>
+		<br>
+        <table width="500" border="0" cellspacing="1" cellpadding="1" align="center">
+          <tr align="left">
+            <td class="box_txt" style="padding:10px ">決済代行サービスのご登録は、ご契約者と同一名義になります。<br>
+        上記お申込情報をご覧いただき、ご契約の内容に間違いがないことを確認してください。&nbsp;</td>
+          </tr>
+        </table>
+        <br><div align="center"><a href="http://www.estore.co.jp/kiyaku/shopserve_agrement.html" target="_blank">Ｅストアーショップサーブ利用規約</a></div><br>
+
+        <div align="center">
+        <input type="checkbox" name="Agree" value="Y" <TMPL_IF AGREEY>checked</TMPL_IF>>
+上記に同意する</div><br>
+        <div align="center">
+          <input type="button" value="戻る" onClick="document.PMAPPLY01.submit();">　
+          <input type="button" onClick="document.PMAPPLY02.submit();" value="次へ">
+        </div>
+        <br>
+				
+          <hr size="1" noshade>
+          <br>
+      </td>
+    </tr>
+  </table>
+</form>
+<form name="PMAPPLY01" method="POST" action="pmapply.cgi">
+<input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+</form>
+</div>
+</body>
+</html>

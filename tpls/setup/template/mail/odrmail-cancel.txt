@@ -1,0 +1,99 @@
+<TMPL_VAR NAME=greeting>
+<TMPL_IF traderdisp_y><TMPL_IF NAME=traders><TMPL_LOOP NAME=traders><TMPL_IF NAME=loop><TMPL_IF NAME=name>◆お届け先<TMPL_VAR NAME=id> <<TMPL_VAR NAME=d_name>>様</TMPL_IF></TMPL_IF><TMPL_VAR NAME=EN_N><TMPL_IF NAME=name><TMPL_IF NAME=number>   [配送業者]           <TMPL_VAR NAME=name><TMPL_VAR NAME=EN_N>   [お問い合わせ番号]   <TMPL_VAR NAME=number><TMPL_VAR NAME=EN_N>   [確認用URL]          <TMPL_VAR NAME=url><TMPL_VAR NAME=EN_N></TMPL_IF></TMPL_IF><TMPL_VAR NAME=EN_N></TMPL_LOOP></TMPL_IF></TMPL_IF><TMPL_IF orderdisp_y>
+
+■ご注文内容 -------------------------------------------------------
+
+<TMPL_IF NAME=regular_pub_no>   ◆ お申込番号 <TMPL_VAR NAME=regular_pub_no>
+</TMPL_IF>   ◆ ご注文番号 <TMPL_VAR NAME=pub_order_no>
+   ◆ ご注文日時 <TMPL_VAR NAME=order_date>
+<TMPL_IF delivery_name_disp>   ◆ お届け方法 <TMPL_VAR NAME=delivery_name>
+</TMPL_IF>   ◆ お支払方法 <TMPL_VAR NAME=pm_str>
+   ◆ お支払金額 <TMPL_VAR NAME=disp_total>円（税込）
+                                                   （全て税込価格）
+   ================================================================
+   <TMPL_VAR NAME=item_head>
+   ================================================================
+<TMPL_LOOP NAME=item_line>   <TMPL_VAR NAME=item_name>
+   <TMPL_VAR NAME=item_pric>
+</TMPL_LOOP>   ================================================================
+<TMPL_IF NAME=member_rank_discount_line>   <TMPL_VAR NAME=member_rank_discount_line>
+</TMPL_IF><TMPL_IF NAME=coupon_discount_line>   <TMPL_VAR NAME=coupon_discount_line>
+   （<TMPL_VAR NAME=coupon_name>）
+</TMPL_IF><TMPL_IF NAME=regular_line>   <TMPL_VAR NAME=regular_line>
+</TMPL_IF>   <TMPL_VAR NAME=subtotal_line>
+   ================================================================
+<TMPL_IF pointS>   <TMPL_VAR NAME=point_line>
+</TMPL_IF><TMPL_IF schargeon>   <TMPL_VAR NAME=scharge_line>
+</TMPL_IF><TMPL_IF wrapon>   <TMPL_VAR NAME=wrap_line>
+</TMPL_IF><TMPL_IF feeon>   <TMPL_VAR NAME=fee_line>
+</TMPL_IF><TMPL_IF pointT>   <TMPL_VAR NAME=point_line>
+</TMPL_IF><TMPL_IF adjuston>   <TMPL_VAR NAME=adjust_line>
+</TMPL_IF>   ================================================================
+   <TMPL_VAR NAME=total_line>
+   ================================================================
+</TMPL_IF><TMPL_IF purdisp_y>
+
+■ご注文者 ---------------------------------------------------------
+
+<TMPL_IF p_ord_company_disp>   [法人名・団体名]         <TMPL_VAR NAME=p_company>
+</TMPL_IF><TMPL_IF p_ord_compkana_disp>   [法人名・団体名（かな）] <TMPL_VAR NAME=p_company_kana>
+</TMPL_IF><TMPL_IF p_ord_division_disp>   [部署名]                 <TMPL_VAR NAME=p_division>
+</TMPL_IF>   [お名前]                 <TMPL_VAR NAME=p_lname> <TMPL_VAR NAME=p_fname> 様
+<TMPL_IF p_ord_namekana_disp>   [お名前（かな）]         <TMPL_VAR NAME=p_lname_kana> <TMPL_VAR NAME=p_fname_kana> 様
+</TMPL_IF><TMPL_IF p_ord_zip_disp>   [郵便番号]               <TMPL_VAR NAME=p_zip1>-<TMPL_VAR NAME=p_zip2>
+</TMPL_IF><TMPL_IF p_ord_addr_disp>   [ご住所]                 <TMPL_VAR NAME=p_addr>
+</TMPL_IF><TMPL_IF p_ord_tel_disp>   [お電話番号]             <TMPL_VAR NAME=p_tel1>-<TMPL_VAR NAME=p_tel2>-<TMPL_VAR NAME=p_tel3>
+</TMPL_IF><TMPL_IF p_ord_fax_disp>   [FAX番号]                <TMPL_VAR NAME=p_fax1>-<TMPL_VAR NAME=p_fax2>-<TMPL_VAR NAME=p_fax3>
+</TMPL_IF>   [メールアドレス]         <TMPL_VAR NAME=p_mail><TMPL_IF p_ord_bikou_disp>
+   [<TMPL_VAR NAME=p_free_title>]
+   <TMPL_VAR NAME=p_free_comment></TMPL_IF><TMPL_IF tsn_conf_disp>
+
+   [<TMPL_VAR NAME=free_title>]
+   <TMPL_VAR NAME=free_comment></TMPL_IF></TMPL_IF>
+<TMPL_IF purbkdisp_y>
+<TMPL_VAR NAME=ord_que></TMPL_IF><TMPL_IF delivzentai_y>
+■お届け先 ---------------------------------------------------------
+<TMPL_LOOP dlvloop><TMPL_IF multi>   ◆お届け先<TMPL_VAR dlvnum></TMPL_IF>
+<TMPL_IF delivdisp_y><TMPL_IF d_ord_company_disp>   [法人名・団体名]         <TMPL_VAR NAME=d_company>
+</TMPL_IF><TMPL_IF d_ord_compkana_disp>   [法人名・団体名（かな）] <TMPL_VAR NAME=d_company_kana>
+</TMPL_IF><TMPL_IF d_ord_division_disp>   [部署名]                 <TMPL_VAR NAME=d_division>
+</TMPL_IF>   [お名前]                 <TMPL_VAR NAME=d_lname> <TMPL_VAR NAME=d_fname> 様
+<TMPL_IF d_ord_namekana_disp>   [お名前（かな）]         <TMPL_VAR NAME=d_lname_kana> <TMPL_VAR NAME=d_fname_kana> 様
+</TMPL_IF><TMPL_IF d_ord_zip_disp>   [郵便番号]               <TMPL_VAR NAME=d_zip1>-<TMPL_VAR NAME=d_zip2>
+</TMPL_IF>   [ご住所]                 <TMPL_VAR NAME=d_addr>
+<TMPL_IF d_ord_tel_disp>   [お電話番号]             <TMPL_VAR NAME=d_tel1>-<TMPL_VAR NAME=d_tel2>-<TMPL_VAR NAME=d_tel3>
+</TMPL_IF><TMPL_IF d_ord_fax_disp>   [FAX番号]                <TMPL_VAR NAME=d_fax1>-<TMPL_VAR NAME=d_fax2>-<TMPL_VAR NAME=d_fax3>
+</TMPL_IF><TMPL_IF d_ord_bikou_disp>   [<TMPL_VAR NAME=d_free_title>]
+   <TMPL_VAR NAME=d_free_comment>
+</TMPL_IF><TMPL_IF multi>   [お届け商品]
+                                                   （全て税込価格）
+   ================================================================
+   <TMPL_VAR NAME=d_item_head>
+   ================================================================
+<TMPL_LOOP d_item_line>   <TMPL_VAR NAME=d_item_name>
+   <TMPL_VAR NAME=d_item_pric>
+</TMPL_LOOP>   ================================================================
+   <TMPL_VAR NAME=d_subtotal_line>
+   ================================================================
+<TMPL_IF d_schargeon>   <TMPL_VAR NAME=d_scharge_line>
+</TMPL_IF><TMPL_IF d_wrapon>   <TMPL_VAR NAME=d_wrap_line>
+</TMPL_IF>   ================================================================
+   <TMPL_VAR NAME=d_total_line>
+   ================================================================</TMPL_IF></TMPL_IF>
+<TMPL_IF bikoudisp_y>
+<TMPL_IF recv_date_disp>   [お届け希望日]           <TMPL_VAR NAME=recv_date_sw_disp><TMPL_VAR NAME=dlv_date>
+</TMPL_IF><TMPL_IF recv_time_disp>   [お届け希望時間]         <TMPL_VAR NAME=recv_date_time>
+</TMPL_IF><TMPL_IF recv_ngday_disp>   <TMPL_IF recv_other_name>[<TMPL_VAR NAME=recv_other_name>]<TMPL_ELSE>[都合の悪い日]</TMPL_IF>           <TMPL_VAR NAME=recv_ngday>
+
+</TMPL_IF><TMPL_IF other_request_disp>   <TMPL_VAR NAME=other_request_line>
+</TMPL_IF><TMPL_IF nosi_dispon>   <TMPL_VAR NAME=d_wrap_nosi>
+</TMPL_IF><TMPL_IF wrap_dispon>   <TMPL_VAR NAME=d_wrap_wrap>
+</TMPL_IF>
+<TMPL_VAR NAME=rec_que></TMPL_IF></TMPL_LOOP></TMPL_IF><TMPL_IF paydisp_y>
+■お支払い方法 -----------------------------------------------------
+<TMPL_LOOP NAME=pay_list>
+   <TMPL_VAR NAME=pay_line></TMPL_LOOP>
+</TMPL_IF><TMPL_IF pinfodisp_y><TMPL_LOOP NAME=pinfo_list>   <TMPL_VAR NAME=pay_info></TMPL_LOOP>
+</TMPL_IF>
+<TMPL_VAR NAME=contact>
+

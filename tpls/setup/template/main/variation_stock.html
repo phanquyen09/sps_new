@@ -1,0 +1,227 @@
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function boxChecked(check){
+
+    var idlist = new Array(<TMPL_VAR name=NUMLIST>);
+    if ( idlist.length >= 1 ) {
+        for (i=0; i<idlist.length; i++){
+            var id = 'chkboxMail' + idlist[i];
+            if(id != "chkboxMaildummy") {
+                if (check.checked) {
+                    document.getElementById(id).checked=true;
+                } else {
+                    document.getElementById(id).checked=false;
+                }
+            }
+        }
+    }
+
+
+}
+function deleteSubmit() {
+//  alert("delete");
+  document.STOCK.CMD.value = "DELETE";
+  document.STOCK.submit();
+}
+function stockRegisterSubmit() {
+//  alert("stockRegister");
+  document.STOCK.CMD.value = "SET";
+  document.STOCK.submit();
+}
+function csvDownload(send_date, send_cnt) {
+//  alert("Csv[" + send_date + "][" + send_cnt + "]");
+  document.STOCK.SENDCNT.value = send_cnt;
+  document.STOCK.SENDDATE.value = send_date;
+  document.STOCK.CMD.value = "CSV";
+  document.STOCK.submit();
+}
+
+//-->
+</script>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<tr>
+  <td width="12">
+    <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+    <tr>
+      <td><img src="../imgs/spc.gif"></td>
+    </tr>
+    </table>
+  </td>
+  <td align="left" class="midashi">
+<TMPL_IF NAME=MODE>
+入荷連絡待ちメールアドレス一覧です
+<TMPL_ELSE>
+バリエーションの在庫設定を行います
+</TMPL_IF>
+</td>
+</tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+<tr>
+  <td align="left" class="main-table">
+
+  <table width="100%" class="item-box">
+    <tr>
+      <td class="item-name">商品番号</td>
+      <td class="item"><TMPL_VAR NAME=ITEMNO></td>
+    </tr>
+
+    <tr>
+      <td class="item-name">商品名</td>
+      <td class="item"><TMPL_VAR NAME=ITEMNAME></td>
+    </tr>
+  </table>
+
+    <div style="text-align:center; padding-top:15px">
+      <form name="BACK" method="POST" action="var_stockinfo.cgi">
+      <input type="hidden" name="ID" value="<TMPL_VAR NAME=MASTERID>">
+                        <TMPL_IF NEWITEM><input type="hidden" name="NEWITEM" value="1">
+                        <input name="CP" type="hidden" value="<TMPL_VAR NAME=CP>">
+                        <input type="hidden" name="IDITEMOLD" value="<TMPL_VAR NAME=IDITEMOLD>">
+                        </TMPL_IF>
+                        <TMPL_IF NAME=MODE>
+        <input type="button" name="Submit" value="在庫一覧へ戻る" onClick="location.href='stocklist.cgi?LastCGI=1'"> 
+                        <TMPL_ELSE>
+                          <input type="button" name="Submit" value="在庫を登録しないで戻る" onClick="document.BACK.submit();">
+                        </TMPL_IF>
+      </form>
+    </div>
+
+<TMPL_IF NAME=MODE>
+                <br>
+<TMPL_ELSE>
+    <h3 style="margin-top:1em;">在庫設定</h3>
+    <div class="infoArea table_bg">
+      在庫数、在庫わずか機能を入力してください。<br>
+      在庫わずか機能に入力した数値以下になると、店長メール宛に「在庫わずかのお知らせメール」を自動送信いたします。<br>
+      「<b>z</b>（半角小文字のゼット）」を入力すると在庫が無制限となり、在庫切れになりません。
+    </div>
+</TMPL_IF>
+    <form name="STOCK" method="post" action="set_varstock.cgi">
+    <input type="hidden" name="MasterID" value="<TMPL_VAR NAME=MASTERID>">
+    <input type="hidden" name="Var1ID" value="<TMPL_VAR NAME=VAR1ID>">
+    <input type="hidden" name="Var2ID" value="<TMPL_VAR NAME=VAR2ID>">
+    <input type="hidden" name="Var3ID" value="<TMPL_VAR NAME=VAR3ID>">
+    <input type="hidden" name="TYPE" value="VARIATION">
+    <input type="hidden" name="CMD" value="<TMPL_VAR NAME=CMD>">
+                <input type="hidden" name="SENDDATE">
+                <input type="hidden" name="SENDCNT">
+                <input type="hidden" name="mode" value="<TMPL_VAR NAME=MODE>">
+                <TMPL_IF NEWITEM><input type="hidden" name="NEWITEM" value="1">
+                <input name="CP" type="hidden" value="<TMPL_VAR NAME=CP>">
+                <input type="hidden" name="IDITEMOLD" value="<TMPL_VAR NAME=IDITEMOLD>">
+                </TMPL_IF>
+                <TMPL_LOOP NAME=ERR_MSG>
+                  <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+                </TMPL_LOOP>
+    <table width="100%" class="item-box">
+<TMPL_IF NAME=MODE>
+<TMPL_ELSE>
+    <tr>
+      <td class="item-name">在庫数</td>
+      <td class="item">
+        <input name="TotalStock" type="text" size="5" value="<TMPL_VAR NAME=TOTALSTOCK>" maxlength="5" style="ime-mode:disabled">
+        個
+        <span style="margin:0 0 0 10px">※zもしくは0〜9999まで（定期購入・頒布会商品はｚのみ設定可）</span>
+      </td>
+    </tr>
+    <tr>
+      <td class="item-name">在庫わずか機能</td>
+      <td class="item">
+        <input name="WarnStock" type="text" size="5" value="<TMPL_VAR NAME=WARNSTOCK>" maxlength="5" style="ime-mode:disabled">
+        個
+        <span style="margin:0 0 0 10px">※0〜9999まで</span>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2" class="item" style="padding:5px;text-align:center;">
+        <input type="button" name="Submit" value="在庫を登録する" onClick="stockRegisterSubmit();" style="margin:0 5px;">
+<!-- 
+        <input type="button" name="Submit" value="在庫を登録してメールを送信する" onClick="document.STOCK.submit();" style="margin:0 5px;">
+ -->
+      </td>
+    </tr>
+</TMPL_IF>
+    </table>
+
+<h3 style="margin-top:2em;">入荷連絡待ちメールアドレス一覧</h3>
+<div class="infoArea table_bg">
+在庫数が0個の場合、在庫を補充すると以下の入荷連絡待ちメールアドレスに入荷連絡メールを自動送信いたします。<br>
+送信が完了すると、入荷連絡待ちメールアドレスは0件となり、送信日や件数と共に送信履歴にCSVファイルで保存されます。
+保存期間は3か月となりますので、必要に応じてダウンロードしてください。
+</div>
+
+
+<div id="restockMail">
+  <div style="float:left;width:58%;">
+    <table class="item-box">
+    <thead>
+      <tr class="item-name">
+        <th><input type="checkbox" name="checkboxMailAll" onclick="boxChecked(this);"></th>
+        <th>入荷連絡待ちメールアドレス（<TMPL_VAR NAME=MAILCOUNT>件）</th>
+      </tr>
+    </thead>
+                <TMPL_IF NAME=MAILCOUNT>
+    <tfoot>
+      <tr>
+        <th colspan="2"><input type="button" value="削除する" onclick="deleteSubmit();"></th>
+      </tr>
+    </tfoot>
+                </TMPL_IF>
+    <tbody>
+                    <TMPL_LOOP NAME=MAIL_LIST>
+      <tr>
+        <th><input type="checkbox" id="chkboxMail<TMPL_VAR NAME=ID>" name="chkboxMail<TMPL_VAR NAME=ID>"></th>
+        <td><TMPL_VAR NAME=MAIL_ADDRESS> （<TMPL_VAR NAME=UPDATE_DATE>）</td>
+      </tr>
+                    </TMPL_LOOP>
+    </tbody>
+    </table>
+  </div>
+
+  <div style="float:right;width:40%;">
+    <table class="item-box">
+    <thead>
+      <tr>
+        <th class="item-name">送信履歴（保存期間3か月）</th>
+      </tr>
+    </thead>
+                <TMPL_IF NAME=RIREKI_LIST>
+    <tbody>
+      <tr>
+        <td>
+                                <!-- 1行目のみclass="first"を付ける  -->
+                                <TMPL_LOOP NAME=RIREKI_LIST>
+                                    <TMPL_IF NAME=LOOPNUM> 
+          <p><a href="javascript:csvDownload('<TMPL_VAR NAME=SEND_DATE>', '<TMPL_VAR NAME=KENSU>');"><TMPL_VAR NAME=SEND_DATE> (<TMPL_VAR NAME=KENSU>件)</a></p>
+                                    <TMPL_ELSE>
+                                        <p class="first"><a href="javascript:csvDownload('<TMPL_VAR NAME=SEND_DATE>', '<TMPL_VAR NAME=KENSU>');"><TMPL_VAR NAME=SEND_DATE> (<TMPL_VAR NAME=KENSU>件)</a></p>
+
+                                    </TMPL_IF>
+                                    
+                                </TMPL_LOOP>
+        </td>
+      </tr>
+    </tbody>
+                </TMPL_IF>
+    </table>
+  </div>
+</div>
+</form>
+
+
+<!-- 
+          </td>
+        </tr>
+        </table>
+      </td>
+    </tr>
+    </table>
+ -->
+
+  </td>
+</tr>
+</table>
+<!-- Main Contents(END) -->

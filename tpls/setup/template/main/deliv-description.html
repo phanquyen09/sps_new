@@ -1,0 +1,522 @@
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<script language="JavaScript" type="text/JavaScript">
+<!--
+function MM_preloadImages() { //v3.0
+  var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
+    var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
+    if (a[i].indexOf("#")!=0){ d.MM_p[j]=new Image; d.MM_p[j++].src=a[i];}}
+}
+
+function MM_findObj(n, d) { //v4.01
+  var p,i,x;  if(!d) d=document; if((p=n.indexOf("?"))>0&&parent.frames.length) {
+    d=parent.frames[n.substring(p+1)].document; n=n.substring(0,p);}
+  if(!(x=d[n])&&d.all) x=d.all[n]; for (i=0;!x&&i<d.forms.length;i++) x=d.forms[i][n];
+  for(i=0;!x&&d.layers&&i<d.layers.length;i++) x=MM_findObj(n,d.layers[i].document);
+  if(!x && d.getElementById) x=d.getElementById(n); return x;
+}
+
+function unmulti(){
+   document.DELIVINFO.RecvSwMulti.checked = false;
+}
+
+function unself(){
+   document.DELIVINFO.RecvSw[1].checked = true;
+}
+
+
+function openClose(id,pt,i) {
+        prop = document.getElementById(id).style.display;
+
+        if(i==0) prop = "none";
+
+        if(prop=="none"){
+                if(pt=="div") document.getElementById(id).style.display="block";
+                if(pt=="tr") {
+                        if(document.all)        document.getElementById(id).style.display="block";
+                        else
+                        document.getElementById(id).style.display="table-row";
+                }
+        } else {
+                document.getElementById(id).style.display="none";
+        }
+}
+
+function RecvTimeDefset() {
+    var rtdef = new Array(16);
+    rtdef[0] = '';
+    <TMPL_LOOP RECVDATES>rtdef[<TMPL_VAR NAME=NO>] = "<TMPL_VAR NAME=DATE>";
+    </TMPL_LOOP>
+        var j = 15;
+        for(i=1; i<=j; i++) {
+                var id = 'RecvTime' + i;
+                document.getElementById(id).value = rtdef[i];
+        }
+	document.DELIVINFO.DelivSW.value = 'N';
+}
+function openCloseRecvDate(id,pt,i,deliv_sw_sa) {
+        prop = document.getElementById(id).style.display;
+
+	if(id=="def") {
+		document.getElementById("yu").style.display="none";
+		document.getElementById("ya").style.display="none";
+		document.getElementById("sa").style.display="none";
+                document.getElementById("sa2").style.display="none";
+		document.DELIVINFO.clear.disabled=true;
+		document.DELIVINFO.yupack.disabled=false;
+		document.DELIVINFO.yamato.disabled=false;
+		document.DELIVINFO.sagawa.disabled=false;
+		RecvTimeDefset();
+	}
+	if(id=="yu") {
+		document.DELIVINFO.clear.disabled=false;
+		document.getElementById("def").style.display="none";
+		document.getElementById("ya").style.display="none";
+		document.getElementById("sa").style.display="none";
+                document.getElementById("sa2").style.display="none";
+		document.DELIVINFO.clear.disabled=false;
+		document.DELIVINFO.yupack.disabled=true;
+		document.DELIVINFO.yamato.disabled=false;
+		document.DELIVINFO.sagawa.disabled=false;
+		yupackSet4();
+	}
+	if(id=="ya") {
+		document.DELIVINFO.clear.disabled=false;
+		document.getElementById("def").style.display="none";
+		document.getElementById("yu").style.display="none";
+		document.getElementById("sa").style.display="none";
+                document.getElementById("sa2").style.display="none";
+		document.DELIVINFO.clear.disabled=false;
+		document.DELIVINFO.yupack.disabled=false;
+		document.DELIVINFO.yamato.disabled=true;
+		document.DELIVINFO.sagawa.disabled=false;
+		yamatoSet()
+	}
+	if(id=="sa") {
+		document.DELIVINFO.clear.disabled=false;
+		document.getElementById("def").style.display="none";
+		document.getElementById("yu").style.display="none";
+		document.getElementById("ya").style.display="none";
+		document.DELIVINFO.clear.disabled=false;
+		document.DELIVINFO.yupack.disabled=false;
+		document.DELIVINFO.yamato.disabled=false;
+		document.DELIVINFO.sagawa.disabled=true;
+
+                if(deliv_sw_sa == 'SA2'){
+                    sagawa2Set()
+                } else {
+                    sagawaSet()
+                }
+	}
+        if(i==0) prop = "none";
+
+        if(prop=="none"){
+                if(pt=="div" && deliv_sw_sa != 'SA2') document.getElementById(id).style.display="";
+                if(pt=="tr") {
+                        if(document.all)        document.getElementById(id).style.display="block";
+                        else
+                        document.getElementById(id).style.display="table-row";
+                }
+        } else {
+                document.getElementById(id).style.display="none";
+        }
+}
+function RecvTimeClear() {
+        var j = 15;
+        for(i=1; i<=j; i++) {
+                var id = 'RecvTime' + i;
+                document.getElementById(id).value = '';
+        }
+}
+function yupackSet() {
+        RecvTimeClear();
+
+        var vvv = new Array("dummy","指定なし","午前(9時〜12時)","午後１(12時〜14時)","午後２(14時〜17時)","夕方(17時〜19時)","夜間(19時〜21時)");
+
+        var j = 6;
+        for(i=1; i<=j; i++) {
+                var id = 'RecvTime' + i;
+                document.getElementById(id).value = vvv[i];
+        }
+	document.DELIVINFO.DelivSW.value = 'YU';
+}
+function yupackSet4() {
+        RecvTimeClear();
+
+        var vvv = new Array("dummy","指定なし","午前中","12時〜14時","14時〜16時","16時〜18時","18時〜20時","20時〜21時");
+
+        var j = 7;
+        for(i=1; i<=j; i++) {
+                var id = 'RecvTime' + i;
+                document.getElementById(id).value = vvv[i];
+        }
+	document.DELIVINFO.DelivSW.value = 'YU';
+}
+function yamatoSet() {
+        RecvTimeClear();
+
+        var vvv = new Array("dummy","指定なし","午前中","12時〜14時","14時〜16時","16時〜18時","18時〜20時","20時〜21時");
+
+        var j = 7;
+        for(i=1; i<=j; i++) {
+                var id = 'RecvTime' + i;
+                document.getElementById(id).value = vvv[i];
+        }
+	document.DELIVINFO.DelivSW.value = 'YA';
+}
+function sagawaSet() {
+        document.getElementById("sa2").style.display="none";
+        document.getElementById("sa").style.display="";
+        document.getElementById("sa_chk1").checked=true;
+        document.getElementById("sa_chk3").checked=true;
+
+        RecvTimeClear();
+
+        var vvv = new Array("dummy","指定なし","午前中","12時〜14時","14時〜16時","16時〜18時","18時〜21時");
+
+        var j = 6;
+        for(i=1; i<=j; i++) {
+                var id = 'RecvTime' + i;
+                document.getElementById(id).value = vvv[i];
+        }
+	document.DELIVINFO.DelivSW.value = 'SA';
+}
+// 6つの時間帯
+function sagawa2Set() {
+        document.getElementById("sa").style.display="none";
+        document.getElementById("sa2").style.display="";
+        document.getElementById("sa_chk2").checked=true;
+        document.getElementById("sa_chk4").checked=true;
+
+        RecvTimeClear();
+
+        var vvv = new Array("dummy","指定なし","午前中","12時〜14時","14時〜16時","16時〜18時","18時〜20時","19時〜21時");
+
+        var j = 7;
+        for(i=1; i<=j; i++) {
+                var id = 'RecvTime' + i;
+                document.getElementById(id).value = vvv[i];
+        }
+	document.DELIVINFO.DelivSW.value = 'SA2';
+}
+function defaultOnOff(obj, id, no)
+{
+        var index = obj.options.selectedIndex;
+        var type  = obj.options[index].value;
+        var onOffName  = id + '_' + no;
+
+        if ( type == '0' ) {
+            document.getElementById(onOffName).style.display = "block";
+        } else {
+            document.getElementById(onOffName).style.display = "none";
+        }
+}
+//-->
+</script>
+<form name="DELIVINFO" method="POST" action="deliv-desc.cgi">
+<input type="hidden" name="CMD" value="EDT">
+<input type="hidden" name="DelivSW" value="<TMPL_VAR NAME=DelivSW>">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0093C9">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">お届け先の設定を行います</td>
+<td align="right" class="midashi"><a href="<TMPL_VAR NAME=Manual>func03/cartdli.html" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  ショッピングカートで表示する「配送希望日時」など、届け先についてのアンケートを設定します。<br>
+                                </div>
+<TMPL_LOOP NAME=ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+				<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                    <tr align="center">
+                                      <td colspan="2" class="item-name02">お届け先設定</td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">お届け先の制限</td>
+                                      <td class="item"><table border="0" cellspacing="2" cellpadding="0">
+                                          <tr>
+                                            <td><input name="RecvSw" type="radio" value="S" id="deli01" <TMPL_IF RECVSWS>checked</TMPL_IF> onClick="unmulti();">
+                                            </td>
+                                            <td><label for="deli01">購入者の住所のみ指定可</label>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td><input name="RecvSw" type="radio" value="O" id="deli02" <TMPL_IF RECVSWO>checked</TMPL_IF>>
+                                            </td>
+                                            <td><label for="deli02">購入者の住所以外も指定可</label>
+                                            </td>
+                                          </tr>
+      				<tr>
+     					<td>&nbsp;</td>
+     					<td>
+     						<input type="checkbox" name="RecvSwMulti" value="1" id="deli02-01" onClick="unself();" <TMPL_IF RECVSWMULTI>checked</TMPL_IF>>
+     						<label for="deli02-01">複数送付先の利用可</label>
+    						</td>
+    					</tr>
+                                      </table></td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">お届け希望日</td>
+                                      <td class="item-sub"><table width="100%">
+                                          <tr align="left">
+                                            <td class="sub-item-name">希望日時指定</td>
+                                            <td class="sub-item">
+						<select name="RecvDisp">
+                                                <option value="Y" <TMPL_IF RECVDISPY>selected</TMPL_IF>>表示</option>
+                                                <option value="N" <TMPL_IF RECVDISPN>selected</TMPL_IF>>非表示</option>
+                                              	</select>
+                                                <input name="set" type="button" id="set" value="詳細設定" onClick="openClose('RECVDATE', 'div');">
+                                            </td>
+                                          </tr>
+                                        </table>
+				        <table id="RECVDATE" style="display:none" width=100%> 
+					  <tr align="left">
+					    <td class="sub-item-name">説明</td>
+					    <td class="sub-item">
+						    <textarea name="RecvDateMsg" rows="5" wrap="VIRTUAL" class="sub-line"><TMPL_VAR NAME=RECVDATEMSG></textarea>
+                            <br>※HTMLタグ利用可
+					    </td>
+					  </tr>
+					  <tr align="left">
+					    <td class="sub-item-name">日付</td>
+					    <td class="sub-item">
+						<input type="checkbox" name="RecvDateDisp" value="Y" id="deli-dsp01" <TMPL_IF RECVDATEDISPY>checked</TMPL_IF>>
+						<label for="deli-dsp01">表示する</label>
+					    </td>
+					  </tr>
+<!--200712 プルダウン化 --> 
+                                          <tr align="left">
+                                            <td class="sub-item-name">選択可能期間</td>
+                                            <td class="sub-item">
+                                              <input name="RecvAfterDay" type="text" maxlength="3" size="5" class="ime-mode:disabled" value="<TMPL_VAR NAME=RECVAFTERDAY>">&nbsp;日後から
+                                              <input name="RecvDayCount" type="text" maxlength="3" size="5" class="ime-mode:disabled" value="<TMPL_VAR NAME=RECVDAYCOUNT>">&nbsp;日間を選択可能
+                                            </td>
+                                          </tr>
+<!--200712 ここまで -->
+					  <tr align="left">
+					    <td class="sub-item-name">固定データ</td>
+					    <td class="sub-item">
+                                              <input type="button" name="yupack" value="ゆうパック用" onClick="openCloseRecvDate('yu', 'div');"<TMPL_IF DelivSW_YU> disabled</TMPL_IF>>
+                                              <input type="button" name="yamato" value="ヤマト運輸用" onClick="openCloseRecvDate('ya', 'div');"<TMPL_IF DelivSW_YA> disabled</TMPL_IF>>
+                                              <input type="button" name="sagawa" value="佐川急便用" onClick="openCloseRecvDate('sa', 'div', '' , '<TMPL_VAR DelivSW>');"<TMPL_IF DelivSW_SA> disabled</TMPL_IF>>
+                                              <input type="button" name="clear" value="自由設定" onClick="openCloseRecvDate('def', 'div');"<TMPL_IF DelivSW_N> disabled</TMPL_IF>>
+                                            </td>
+                                          </tr>
+					  <tr align="left">
+					    <td class="sub-item-name">希望時間帯</td>
+					    <td class="sub-item" id="def"<TMPL_UNLESS DelivSW_N> style="display:none"</TMPL_UNLESS>>
+						<TMPL_LOOP RECVDATES>
+						<input name="RecvTime<TMPL_VAR NAME=NO>" id="RecvTime<TMPL_VAR NAME=NO>" type="text" class="sub-line" value="<TMPL_VAR NAME=DATE>"><br>
+						</TMPL_LOOP>
+					    </td>
+<td class="sub-item" id="yu"<TMPL_UNLESS DelivSW_YU> style="display:none"</TMPL_UNLESS>>
+	指定なし<br>
+	午前中<br>
+	12時〜14時<br>
+	14時〜16時<br>
+	16時〜18時<br>
+	18時〜20時<br>
+	20時〜21時<br>
+</td>
+<td class="sub-item" id="ya"<TMPL_UNLESS DelivSW_YA> style="display:none"</TMPL_UNLESS>>
+	指定なし<br>
+	午前中<br>
+	12時〜14時<br>
+	14時〜16時<br>
+	16時〜18時<br>
+	18時〜20時<br>
+	20時〜21時<br>
+</td>
+<td class="sub-item" id="sa"<TMPL_UNLESS DelivSW_SA> style="display:none"<TMPL_ELSE><TMPL_IF DelivSW_SA2> style="display:none"</TMPL_IF></TMPL_UNLESS>>
+        <input name="sagawa_sw1" type="radio" value="0" id="sa_chk1" style="vertical-align:middle" <TMPL_UNLESS DelivSW_SA2>checked</TMPL_UNLESS> onClick="sagawaSet();"><label for="sa_chk1"> 配達時間(5つの時間帯)</label><br>
+        <input name="sagawa_sw1" type="radio" value="0" id="sa_chk2" style="vertical-align:middle" <TMPL_IF DelivSW_SA2>checked</TMPL_IF> onClick="sagawa2Set();"><label for="sa_chk2"> 配達時間(6つの時間帯)</label><br>
+	指定なし<br>
+	午前中<br>
+	12時〜14時<br>
+	14時〜16時<br>
+	16時〜18時<br>
+	18時〜21時<br>
+</td>
+<td class="sub-item" id="sa2"<TMPL_UNLESS DelivSW_SA2> style="display:none"</TMPL_UNLESS>>
+        <input name="sagawa_sw2" type="radio" value="0" id="sa_chk3" style="vertical-align:middle" <TMPL_UNLESS DelivSW_SA2>checked</TMPL_UNLESS> onClick="sagawaSet();"><label for="sa_chk3"> 配達時間(5つの時間帯)</label><br>
+        <input name="sagawa_sw2" type="radio" value="0" id="sa_chk4" style="vertical-align:middle" <TMPL_IF DelivSW_SA2>checked</TMPL_IF> onClick="sagawa2Set();"><label for="sa_chk4"> 配達時間(6つの時間帯)</label><br>
+        <div style="font-size:80%;color:red;margin-left:25px">※「e飛伝」「e飛伝II」をご利用の場合は、佐川急便とのオプション契約が必要となります</div>
+	指定なし<br>
+	午前中<br>
+	12時〜14時<br>
+	14時〜16時<br>
+	16時〜18時<br>
+	18時〜20時<br>
+	19時〜21時<br>
+</td>
+					  </tr>
+					  <tr align="left">
+					    <td class="sub-item-name">フリー項目名</td>
+					    <td class="sub-item">
+						<input name="RecvOtherName" type="text" class="sub-line" value="<TMPL_VAR NAME=RECVOTHERNAME>">
+					    </td>
+					  </tr>
+                                        </table>
+				      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">のし設定</td>
+                                      <td class="item-sub"><table width="100%">
+                                          <tr align="left">
+                                            <td class="sub-item-name">のし選択</td>
+                                            <td class="sub-item">
+						<select name="WrapNosiDisp">
+                                                <option value="Y" <TMPL_IF WRAPNOSIDISPY>selected</TMPL_IF>>表示</option>
+                                                <option value="N" <TMPL_IF WRAPNOSIDISPN>selected</TMPL_IF>>非表示</option>
+                                              	</select>
+                                                <input name="set" type="button" id="set" value="詳細設定" onClick="openClose('WRAPNOSI', 'div');">
+                                            </td>
+                                          </tr>
+                                        </table>
+					<table id="WRAPNOSI" style="display:none" width=100%>
+					  <tr align="left">
+					    <td class="sub-item-name">項目名</td>
+					    <td class="sub-item">
+						<input name="WrapNosiName" type="text" value="<TMPL_VAR NAME=WRAPNOSINAME>">
+					    </td>
+					  </tr>
+					  <TMPL_LOOP NOSILIST>
+					  <tr align="left">
+					    <td class="sub-item-name">選択肢<TMPL_VAR NAME=NO></td>
+					    <td class="sub-item">
+						名称 <input name="NosiName<TMPL_VAR NAME=NO>" type="text" value="<TMPL_VAR NAME=NAME>">
+						&nbsp;金額 <input name="NosiPrc<TMPL_VAR NAME=NO>" type="text" value="<TMPL_VAR NAME=PRC>" style="ime-mode:disabled" maxlength="8">円
+					    </td>
+					  </tr>
+					  </TMPL_LOOP>
+					</table>
+				      </td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">ラッピング設定</td>
+                                      <td class="item-sub"><table width="100%">
+                                          <tr align="left">
+                                            <td class="sub-item-name">ラッピング選択</td>
+                                            <td class="sub-item">
+						<select name="WrapWrapDisp">
+                                                <option value="Y" <TMPL_IF WRAPWRAPDISPY>selected</TMPL_IF>>表示</option>
+                                                <option value="N" <TMPL_IF WRAPWRAPDISPN>selected</TMPL_IF>>非表示</option>
+                                              	</select>
+                                                <input name="set" type="button" id="set" value="詳細設定" onClick="openClose('WRAPWRAP', 'div');">
+                                            </td>
+                                          </tr>
+                                      	</table>
+					<table id="WRAPWRAP" style="display:none" width=100%>
+					  <tr>
+					    <td class="sub-item-name">項目名</td>
+					    <td class="sub-item">
+						<input name="WrapWrapName" type="text" value="<TMPL_VAR NAME=WRAPWRAPNAME>">
+					    </td>
+					  </tr>
+					  <TMPL_LOOP WRAPLIST>
+					  <tr align="left">
+					    <td class="sub-item-name">選択肢<TMPL_VAR NAME=NO></td>
+					    <td class="sub-item">
+						名称 <input name="WrapName<TMPL_VAR NAME=NO>" type="text" value="<TMPL_VAR NAME=NAME>">
+						&nbsp;金額 <input name="WrapPrc<TMPL_VAR NAME=NO>" type="text" value="<TMPL_VAR NAME=PRC>" maxlength="8" style="ime-mode:disabled">円
+					    </td>
+					  </tr> 
+					  </TMPL_LOOP>
+					</table>
+				      </td>
+                                    </tr>
+                                  </table>
+                                    <br>
+                                    <table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                      <tr align="center">
+                                        <td colspan="2" class="item-name02">お届け先アンケート</td>
+                                      </tr>
+<TMPL_LOOP DBIKOU>
+                                      <tr>
+                                        <td align="left" class="item-name">アンケート<TMPL_VAR NAME=NO></td>
+                                        <td class="item-sub"><table width="100%">
+                                            <tr align="left">
+                                              <td class="sub-item-name">質問項目</td>
+                                              <td class="sub-item"><input name="Bikou<TMPL_VAR NAME=NO>_Quest" type="text" value="<TMPL_VAR NAME=BIKOUQUEST>">
+                                                  <input name="set" type="button" id="set" value="詳細設定" onClick="openClose('Bikou_<TMPL_VAR NAME=NO>_info', 'div');">
+                                              </td>
+                                            </tr>
+                                      	  </table>
+                                          <div id="Bikou_<TMPL_VAR NAME=NO>_info" style="display:none">
+					    <table>
+					      <tr align="left">
+					        <td class="sub-item-name">表示</td>
+					        <td class="sub-item">
+                                                  <input type="checkbox" name="Bikou<TMPL_VAR NAME=NO>_Disp" value="Y" id="item-chk<TMPL_VAR NAME=NO>" <TMPL_IF DISP>checked</TMPL_IF>>
+                                                  <label for="item-chk<TMPL_VAR NAME=NO>">表示する</label>
+					        </td>
+					      </tr>
+                                              <tr align="left">
+                                                <td class="sub-item-name">必須</td>
+						<td class="sub-item">
+                                                  <input type="checkbox" name="Bikou<TMPL_VAR NAME=NO>_Hisu" value="Y" id="item-chk-hisu<TMPL_VAR NAME=NO>" <TMPL_IF HISU>checked</TMPL_IF>>
+                                                  <label for="item-chk-hisu<TMPL_VAR NAME=NO>">回答必須にする</label>
+                                                </td>
+                                              </tr>
+					      <tr align="left">
+					        <td class="sub-item-name">回答タイプ</td>
+					        <td class="sub-item">
+                                                  <select name="Bikou<TMPL_VAR NAME=NO>_Kind" onChange="defaultOnOff(this, 'onlyPull', <TMPL_VAR NAME=NO>)">
+                                                    <TMPL_LOOP BIKOUTYPE>
+                                                      <option value="<TMPL_VAR NAME=CODE>" <TMPL_IF SEL>selected</TMPL_IF>><TMPL_VAR NAME=TYPENAME></option>
+                                                    </TMPL_LOOP>
+                                                  </select>
+                                                </td>
+					      </tr>
+                                            </table>
+                                            <div id="onlyPull_<TMPL_VAR NAME=NO>">
+                                              <table>
+                                                <tr align="left">
+                                                  <td class="sub-item-name">初期値</td>
+                                                  <td class="sub-item">選択してください</td>
+                                                </tr>
+                                              </table>
+                                            </div>
+                                            <table>
+					    <TMPL_LOOP ANSLIST>
+					      <tr align="left">
+					        <td class="sub-item-name">回答<TMPL_VAR NAME=ANSNO></td>
+					        <td class="sub-item">
+					  	  <input name="ANSER<TMPL_VAR NAME=NO>_<TMPL_VAR NAME=ANSNO>" type="text" class="sub-line" value="<TMPL_VAR NAME=ANSER>">
+					        </td>
+					      </tr>	
+					    </TMPL_LOOP>
+					    </table>
+                                          </div>
+					</td>
+                                      </tr>
+</TMPL_LOOP>
+                                    </table>
+                                    <br>
+                                    
+                                    <div align="center"><input name="set" type="button" id="set" value="設定を保存する" onClick="document.DELIVINFO.submit();"></div>
+                                    
+                                    </td>
+                                </tr>
+                              </table></td>
+                            </tr>
+                        </table>
+</form>                          
+<script language="JavaScript" type="text/JavaScript">
+<!--
+    for ( i=1; i<=5; i++) {
+        
+        eval( 'defaultOnOff(document.DELIVINFO.Bikou' + i + '_Kind, \'onlyPull\', ' + i + ')' );
+    }
+//-->
+</script>

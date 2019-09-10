@@ -1,0 +1,287 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=euc-jp">
+<title>ショップ開店ウィザード -STEP6 ページのデザインを選択しよう-</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link rel="stylesheet" href="../css/wizard.css" type="text/css" />
+</head>
+<body>
+  <a name="01"></a>
+
+  <div id="top-header">
+    <div class="logo-header-wrap">
+      <div class="logo-area">
+        <img src="../imgs/top_img0.gif" alt="Ｅストアーショップサーブ">
+      </div>
+    </div>
+  </div>
+
+  <table class="steps-table-1" border="0" align="center" cellpadding="0" cellspacing="0">
+    <tr>
+      <td><img src="../imgs/wi_top_off_001_already.gif"></td>
+      <td><img src="../imgs/wi_top_off_002_already.gif"></td>
+      <td><img src="../imgs/wi_top_off_003_already.gif"></td>
+      <td><img src="../imgs/wi_top_off_004_already.gif"></td>
+      <td><img src="../imgs/wi_top_off_005_already.gif"></td>
+      <td><img src="../imgs/wi_top_on_006.gif"></td>
+      <td><img src="../imgs/wi_top_off_007.gif"></td>
+    </tr>
+  </table>
+
+  <br>
+
+  <table width="800"  border="0" cellpadding="0" cellspacing="0" align="center">
+    <tr valign="top">
+      <td colspan="3">
+        <img src="../imgs/we006_top_sps.gif" width="801" height="47">
+      </td>
+    </tr>
+    <tr>
+      <td bgcolor="#903A8B"><img src="../imgs/spc.gif" width="3"></td>
+      <td>
+
+        <table width="791" border="0" cellpadding="0" cellspacing="10" bgcolor="#FFFFFF">
+          <tr>
+            <td>
+              <img src="../imgs/we006_01.gif" width="766" height="34" style="margin-bottom:20px; ">
+
+
+
+<link href="../func04/theme.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+<!--
+#themes .tab_container {margin:30px 0 0;}
+#themes .thumbnails h4 {font-size:1.3em;}
+#themes .thumbnails li {line-height:1.8;}
+#dialog_main dl.select dt,
+#dialog_main dl.select dd {line-height:1.8em;}
+//-->
+</style>
+
+<script type="text/javascript">
+<!--
+function change_tab(type) {
+    document.form1.theme_type.value = type;
+    document.form1.category.value = '';
+    document.form1.submit();
+}
+//-->
+</script>
+
+    <form name="form1" method="post" action="wizard07.cgi" id="themes" style="width:684px;border:none;padding:0;margin:0 auto;">
+    <input type="hidden" name="mode" value="regist">
+    <input type="hidden" name="category" value="nature">
+    <input type="hidden" name="theme" value="basic_green">
+    <input type="hidden" name="layout" value="lr">
+    <input type="hidden" name="theme_type" value="seo">
+
+    <div class="tab_container2">
+        <ul class="clearfix">
+            <li class="sel" style="margin-bottom:0px;"><a href="wizard07.cgi" onClick="change_tab('seo');return false;">カスタムテンプレート</a></li>
+            <li style="margin-bottom:0px;"><a href="wizard07.cgi" onClick="change_tab('normal');return false;">ベーシックテンプレート</a></li>
+        </ul>
+    </div>
+
+    <div class="template_info">
+        <ul>
+            <li>HTML5とCSS3で構築されたデザイン性と拡張性の高いテンプレートです。<br>
+            HTMLとCSSの知識があり、独自にカスタマイズしたい方向けのテンプレートです。</li>
+
+            <li>＜ベーシックテンプレートから切り替える場合の注意＞<br>
+            ・HTMLやCSSの構造が異なるためレイアウトが崩れる可能性があります。<br>
+            ・一部、利用できない機能や廃止された機能があります。<br>
+            <a href="https://help.shopserve.jp/manual/198/" target="_blank">⇒ テンプレートの仕様と機能比較</a></li>
+
+            <li>
+              ＜レスポンシブデザイン対応テーマをご利用の場合＞<br>
+              スマートフォンサイトからアクセスされた際に、Eストアーモバイルによるモバイル専用ページではなく、PCからのアクセス時と同じページを表示させる場合は、テーマ選択時に「スマートフォンサイト設定」より別途設定が必要です。<br>
+              <a href='https://help.shopserve.jp/manual/192/#04' target='_blank'>⇒ 詳細・設定方法はこちら</a>
+            </li>
+        </ul>
+    </div>
+
+    <h3>デザインの設定のしかた</h3>
+    <ul class="step">
+      <li class="step1">使いたいデザインを下記のテーマから選んで、クリックしてください。</li>
+      <li class="arrow"></li>
+      <li class="step2">ダイアログ画面が開きますので、次の手順で設定してください。</li>
+    </ul>
+
+    <ol class="step">
+      <li class="step1">「プレビューを見る」で確認</li>
+      <li class="step2">「このデザインを選択する」をクリック</li>
+    </ol>
+
+    <div id="dialog" class='customize-theme'>
+      <div id="dialog_alpha" class='customize-theme'></div>
+      <div id="dialog_main" class='customize-theme'>
+        <a href="#close" class="close" onclick="return dlgClose()"></a>
+        <dl class="select">
+          <dt>選択したテーマ</dt>
+          <dd>
+            カスタムテンプレート <span id="theme_category" style="display:none;"></span>
+            &gt;
+            <span id="theme_name"></span>
+          </dd>
+        </dl>
+        <img src="../imgs/spc.gif" width="300" height="280" alt="">
+
+        <ol>
+          <li style="display:none;">
+              <h5>トップページのレイアウト設定</h5>
+              <input name="layout_code" value="lr" type="radio" id="c3" > <label for="c3">標準（3列）</label><br>
+              <input name="layout_code" value="l"  type="radio" id="c2" checked="checked"> <label for="c2">右サイドバーなし（2列）</label><br>
+             <p>「右サイドバーなし」にチェックを入れるとトップページが右サイドバーなしになります。</p>
+          </li>
+          <li class="num1">
+            <a href="#preview" id="previewBtn" class="preview" onclick="return previewTheme(this)">プレビューを見る</a>
+          </li>
+          <li class="num2">
+            <a href="#select" class="select" onclick="return setTheme(this)">このデザインを選択する</a>
+          </li>
+          <li class="license">
+            テーマ内の画像・写真素材は<br>著作物につき、加工、転用、再配布不可
+          </li>
+        </ol>
+      </div>
+    </div>
+
+<script src="../func04/theme.js" type="text/javascript"></script>
+
+    <div class="thumbnails" id="box1" style="border-top:2px solid #6d4a78;margin-top:2em;">
+        <ul class="thumbnails">
+            <li <TMPL_IF NAME=seo><TMPL_IF NAME=seo_e_white>class="current"</TMPL_IF></TMPL_IF>>
+              <a href="#select" category_id="seo" category_name="SEOテンプレ" type="top" html="seo" onclick="return selectTheme(this)">
+              E-ホワイト<br>
+              <img src="../imgs/sps_theme_thumb/201012/thumbnail_s_top/seo_e_white.gif" alt="E-ホワイト" height="140" width="150">
+                <TMPL_IF NAME=seo><TMPL_IF NAME=seo_e_white>
+                <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+                </TMPL_IF></TMPL_IF>
+              </a>
+            </li>
+
+            <li <TMPL_IF NAME=seo><TMPL_IF NAME=seo_p_red>class="current"</TMPL_IF></TMPL_IF>>
+              <a href="#select" category_id="seo" category_name="SEOテンプレ" type="top" html="seo" onclick="return selectTheme(this)">
+              P-レッド<br>
+              <img src="../imgs/sps_theme_thumb/201012/thumbnail_s_top/seo_p_red.gif" alt="P-レッド" height="140" width="150">
+                <TMPL_IF NAME=seo><TMPL_IF NAME=seo_p_red>
+                <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+                </TMPL_IF></TMPL_IF>
+              </a>
+
+            </li>
+            <li <TMPL_IF NAME=seo><TMPL_IF NAME=seo_p_beige>class="current"</TMPL_IF></TMPL_IF>>
+              <a href="#select" category_id="seo" category_name="SEOテンプレ" type="top" html="seo" onclick="return selectTheme(this)">
+              P-ベージュ<br>
+              <img src="../imgs/sps_theme_thumb/201012/thumbnail_s_top/seo_p_beige.gif" alt="P-ベージュ" height="140" width="150">
+                <TMPL_IF NAME=seo><TMPL_IF NAME=seo_p_beige>
+                <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+                </TMPL_IF></TMPL_IF>
+              </a>
+            </li>
+
+            <li <TMPL_IF NAME=seo><TMPL_IF NAME=seo_p_blue>class="current"</TMPL_IF></TMPL_IF>>
+              <a href="#select" category_id="seo" category_name="SEOテンプレ" type="top" html="seo" onclick="return selectTheme(this)">
+              P-ブルー<br>
+              <img src="../imgs/sps_theme_thumb/201012/thumbnail_s_top/seo_p_blue.gif" alt="P-ブルー" height="140" width="150">
+                <TMPL_IF NAME=seo><TMPL_IF NAME=seo_p_blue>
+                <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+                </TMPL_IF></TMPL_IF>
+              </a>
+            </li>
+            <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+
+            <li <TMPL_IF NAME=seo><TMPL_IF NAME=seo_s_white>class="current"</TMPL_IF></TMPL_IF>>
+              <a href="#select" category_id="seo" category_name="SEOテンプレ" type="top" html="seo" onclick="return selectTheme(this)">
+              S-ホワイト<br>
+              <img src="../imgs/sps_theme_thumb/201012/thumbnail_s_top/seo_s_white.gif" alt="S-ホワイト" height="140" width="150">
+                <TMPL_IF NAME=seo><TMPL_IF NAME=seo_s_white>
+                <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+                </TMPL_IF></TMPL_IF>
+              </a>
+            </li>
+
+            <li <TMPL_IF NAME=seo><TMPL_IF NAME=seo_n_red>class="current"</TMPL_IF></TMPL_IF>>
+              <a href="#select" category_id="seo" category_name="SEOテンプレ" type="top" html="seo" onclick="return selectTheme(this)">
+              N-レッド<br>
+              <img src="../imgs/sps_theme_thumb/201012/thumbnail_s_top/seo_n_red.gif" alt="N-レッド" height="140" width="150">
+                <TMPL_IF NAME=seo><TMPL_IF NAME=seo_n_red>
+                <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+                </TMPL_IF></TMPL_IF>
+              </a>
+            </li>
+
+            <li <TMPL_IF NAME=seo><TMPL_IF NAME=seo_n_orange>class="current"</TMPL_IF></TMPL_IF>>
+              <a href="#select" category_id="seo" category_name="SEOテンプレ" type="top" html="seo" onclick="return selectTheme(this)">
+              N-オレンジ<br>
+              <img src="../imgs/sps_theme_thumb/201012/thumbnail_s_top/seo_n_orange.gif" alt="N-オレンジ" height="140" width="150">
+                <TMPL_IF NAME=seo><TMPL_IF NAME=seo_n_orange>
+                <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+                </TMPL_IF></TMPL_IF>
+              </a>
+
+            </li>
+            <li <TMPL_IF NAME=seo><TMPL_IF NAME=seo_n_colorful>class="current"</TMPL_IF></TMPL_IF>>
+              <a href="#select" category_id="seo" category_name="SEOテンプレ" type="top" html="seo" onclick="return selectTheme(this)">
+              N-カラフル<br>
+              <img src="../imgs/sps_theme_thumb/201012/thumbnail_s_top/seo_n_colorful.gif" alt="N-カラフル" height="140" width="150">
+                <TMPL_IF NAME=seo><TMPL_IF NAME=seo_n_colorful>
+                <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+                </TMPL_IF></TMPL_IF>
+              </a>
+            </li>
+            <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+          </ul>
+      <h4>レスポンシブデザイン対応テーマ</h4>
+      <ul class="thumbnails">
+        <li <TMPL_IF NAME=responsive><TMPL_IF NAME=seo_responsive_white>class="current"</TMPL_IF></TMPL_IF>>
+          <a href="#select" category_id="responsive" category_name="seo_responsive_white" type="top" html="seo" onclick="return selectTheme(this)">
+           レスポンシブ-ホワイト<br>
+          <img src="../imgs/sps_theme_thumb/201012/thumbnail_s_top/seo_responsive_white.gif" alt="レスポンシブ-ホワイト" height="140" width="150">
+            <TMPL_IF NAME=responsive><TMPL_IF NAME=seo_responsive_white>
+            <img src="../imgs/sps_theme_thumb/current_theme.gif" width="150" height="21" alt="現在使用中のテーマ" class="current">
+            </TMPL_IF></TMPL_IF>
+          </a>
+        </li>
+        <li class="page_top"><a href="#top">PageTopへ戻る</a></li>
+      </ul>
+    </div>
+
+    </form>
+
+
+
+            </td>
+          </tr>
+        </table>
+      </td>
+      <td  bgcolor="#903A8B"><img src="../imgs/spc.gif" width="3"></td>
+    </tr>
+
+    <tr>
+      <td colspan="3" width="801" height="79" background="../imgs/we006_bottom.gif">
+        <table width="100%"  border="0">
+          <tr>
+            <td width="20"><img src="../imgs/spc.gif" width="20" height="25"></td>
+            <td valign="bottom"><a href="#01"><img src="../imgs/we006_to_top.gif" width="129" border="0"></a></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  </table>
+
+<div id="copyright">
+<script type="text/javascript">
+<!--
+var date = new Date();
+var year = date.getYear();
+if(year < 2000) { year += 1900; }
+document.write('Copyright &copy; '+year+' Estore Corporation. All Rights Reserved.');
+//-->
+</script>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,64 @@
+
+
+
+<table width="100%"  border="0" cellspacing="0" cellpadding="0" bgcolor="#FFFFFF">
+    <tr>
+	<td width="12">
+	    <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="<TMPL_VAR NAME=bgcl>">
+		<tr>
+		    <td><img src="../imgs/spc.gif" width="<TMPL_VAR NAME=t_gif_width>" height="8"></td>
+		</tr>
+	    </table>
+	</td>
+	<td align="left" class="midashi">お店ページを更新します</td>
+	<td align="right" class="midashi"><img src="../imgs/spc.gif" alt="" align="center" height="22" width="153" border="0"></td>
+    </tr>
+</table>
+<img src="../imgs/spc.gif" width="5" height="5">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+    <tr>
+	<td align="left" class="main-table">
+
+<div class="infoArea table_bg">
+お店ページを更新する場合は、【更新を開始する】ボタンをクリックしてください。<BR/>
+新しい設定内容に、上書きされます。<BR/>
+<BR/>
+<form method="post" action="rebuild.cgi">
+    <input style="color:#cc3333;font-weight: bolder" type="submit" name="aaado_build" value="更新を開始する"> </form><br/>&nbsp;最終更新日時： <TMPL_VAR NAME=update_date> <br/><br/>
+以下の設定を除き、【更新を開始する】ボタンをクリックする必要はありません。<BR/>
+<BR/>
+◎トップページ掲載の商品情報<BR/>
+◎デザイン設定（全般）、ページ編集（トップページに関わる編集）<BR/>
+◎カテゴリーの名称または並び順<BR/>
+◎ページのヘッダー、フッター（アクセス集計タグを含む）<BR/>
+◎その他、商品情報を除くページ文言の変更<BR/>
+<BR/>
+※上記以外は即時反映となります。
+</div>
+	</td>
+    </tr>
+</table>
+
+<script type="text/javascript">
+// お店のページを更新するボタンのOFF
+function r_RebuildButtonOff() {
+  var oLink = document.getElementsByTagName("a");
+  //alert(oLink.length);
+  for(i=0;i<oLink.length;i++) {
+    if ((oLink.item(i).id) && (oLink.item(i).id == 'r_pause')) {
+      oLink.item(i).href='javascript:void(0);';
+      break;
+    }
+  }
+}
+
+// Jump トップへ戻る
+function r_TopJump() {
+  var a=location.pathname.toString();
+  var b=a.replace('rebuild_pause.cgi','');
+  location.href=b;
+}
+
+r_RebuildButtonOff();
+</script>
+

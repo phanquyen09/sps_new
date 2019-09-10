@@ -1,0 +1,69 @@
+<!-- <link rel="stylesheet" href="default01.css" type="text/css"> -->
+<div style="font-size:14px">
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<tr>
+    <td width="12">
+        <table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+            <tr>
+                <td><img src="../imgs/spc.gif"></td>
+            </tr>
+        </table>
+    </td>
+    <td align="left" class="midashi">送信履歴</td>
+</tr>
+<tr bgcolor="#FFFFFF"></tr>
+</table>
+
+<div style="margin-top: 20px"></div>
+
+<span style="color:red;font-weight:bold">
+<TMPL_LOOP NAME=err>
+<TMPL_VAR NAME=msg><br />
+</TMPL_LOOP>
+</span>
+
+<table width="100%"  border="0" cellpadding="0" cellspacing="0">
+<tr>
+    <td align="left" class="main-table"> 
+        <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+        <tr>
+            <td>
+                <div class="infoArea table_bg" style="padding-left:5px;font-size:12px">
+                    メールの送信履歴を表示します
+                </div>
+                <div style="margin-top: 20px"></div>
+                <table width="100%" border="0" cellpadding="0" cellspacing="1" bgcolor="#999999">
+                <tr>
+                    <td class="item-name" style="padding:10px;background-color:#bae2b9">
+                        送信日時
+                    </td>
+                    <td class="item-name" style="padding:10px;background-color:#bae2b9">
+                        メールタイトル
+                    </td>
+                </tr>
+                <TMPL_LOOP NAME=order_mail_historylist>
+                <tr valign="top">
+                    <td width="50%" bgcolor="#FFFFFF" style="padding:5px;font-size:12px">
+                        <TMPL_VAR NAME=send_date>
+                    </td>
+                    <td width="50%" bgcolor="#FFFFFF" style="padding:5px;font-size:12px">
+                        <TMPL_VAR NAME=mail_type>
+                    </td>
+                </tr>
+                </TMPL_LOOP>
+                </table>
+            </td>
+        </tr>
+        </table>
+    </td>
+</tr>
+</table>
+</div>
+
+<script language="JavaScript" type="text/JavaScript">
+<!--
+//-->
+</script>
+</body>
+</html>

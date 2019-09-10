@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <meta http-equiv="Content-Script-Type" content="text/javascript">
+  <meta name="robots" content="noindex">
+  <title>Ｅストアーショップサーブ　ログイン</title>
+  <link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+  <link href="/login.css?20190821" rel="stylesheet" type="text/css">
+  <script language="JavaScript" type="text/JavaScript">
+    <!--
+    function loginSetup() {
+      var user_name = document.ENTER.USERNAME.value;
+      user_name = user_name.replace(/(^\s+)|(\s+$)/g, "");
+
+      if (!user_name.match(/^[a-z0-9][a-z0-9\-]{2,8}[a-z0-9]\.[a-z]+\-*[a-z0-9]*$/)) {
+        document.getElementById("ERRMSG").style.display = "block";
+        return false;
+      }
+      document.ENTER.action = 'https://kanri.shopserve.jp' + '/' + user_name + '/login.cgi';
+      document.ENTER.submit();
+      document.querySelector("button[name=login]").setAttribute("disabled", "disabled");
+
+      return false;
+    }
+
+    //-->
+  </script>
+</head>
+<body>
+<div id="main">
+
+  <div class="login-logo">
+    <img src="/dmy/imgs/logo_ss_login.png"
+         alt="Ｅストアーショップサーブ">
+  </div>
+
+  <div id="loginForm">
+    <div class="header text-blue">ログイン</div>
+
+    <noscript>
+      <div class="mb-20">
+        <span class="text-error">JavaScriptを有効にしてください。</span>
+      </div>
+    </noscript>
+
+    <div id="ERRMSG" class="mb-20 <TMPL_IF ERRMSG>block<TMPL_ELSE>hidden</TMPL_IF>">
+      <span class="text-small text-error">ショップID、またはパスワードが違います。</span>
+    </div>
+
+    <TMPL_IF AUTH_IP_ERR>
+      <div class="mb-20">
+        <span class="text-error">ご入力いただいたIDではログインすることができません。</span>
+      </div>
+    </TMPL_IF>
+
+    <form name="ENTER" method="POST" action="https://kanri.shopserve.jp/login.cgi">
+      <input type="hidden" name="LOGIN" value="GO">
+      <div>
+        <label for="user-name" class="login-label">
+          <input type="text"
+                 name="USERNAME"
+                 value="<TMPL_VAR NAME=SHOPID>"
+                 placeholder="ショップID"
+                 id="user-name"
+                 class="login-input-text mb-20">
+        </label>
+      </div>
+      <div>
+        <label for="password" class="login-label">
+          <input type="password"
+                 name="PASSWD"
+                 value=""
+                 placeholder="パスワード"
+                 id="password"
+                 class="login-input-text">
+        </label>
+      </div>
+      <div class="login-memory-area">
+        <input type="checkbox"
+               name="IDMEMORY"
+               value="Y"
+               id="memory"
+               class="login-checkbox"
+        <TMPL_IF NAME="IDMEMORY">checked</TMPL_IF>
+        >
+        <label for="memory" class="text-small text-blue">ショップIDを記憶する</label>
+      </div>
+      <div>
+        <button name="login"
+                type="submit"
+                class="login-button"
+                onClick="loginSetup();return false;">
+          ログイン
+        </button>
+      </div>
+    </form>
+  </div>
+
+  <div id="news">
+    <TMPL_VAR NAME="NEWS_TOP_DATA">
+  </div>
+
+  <div id="copy">
+    <img src="/dmy/imgs/estore_corp.gif"
+         width="233"
+         height="7"
+         alt="Copyright 2009 Estore Corporation All Right Reserved">
+  </div>
+
+</div>
+<!-- リマーケティング タグの Google コード -->
+<!--------------------------------------------------
+リマーケティング タグは、個人を特定できる情報と関連付けることも、デリケートなカテゴリに属するページに設置することも許可されません。タグの設定方法については、こちらのページをご覧ください。
+http://google.com/ads/remarketingsetup
+--------------------------------------------------->
+<script type="text/javascript">
+  /* <![CDATA[ */
+  var google_conversion_id = 873805567;
+  var google_custom_params = window.google_tag_params;
+  var google_remarketing_only = true;
+  /* ]]> */
+</script>
+<script type="text/javascript" src="//www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+  <div style="display:inline;">
+    <img height="1"
+         width="1"
+         style="border-style:none;"
+         alt=""
+         src="//googleads.g.doubleclick.net/pagead/viewthroughconversion/873805567/?guid=ON&amp;script=0"/>
+  </div>
+</noscript>
+<!-- Yahoo Code for your Target List -->
+<script type="text/javascript" language="javascript">
+  /* <![CDATA[ */
+  var yahoo_retargeting_id = '5030Z5EKUN';
+  var yahoo_retargeting_label = '';
+  var yahoo_retargeting_page_type = '';
+  var yahoo_retargeting_items = [{item_id: '', category_id: '', price: '', quantity: ''}];
+  /* ]]> */
+</script>
+<script type="text/javascript" language="javascript" src="//b92.yahoo.co.jp/js/s_retargeting.js"></script>
+<!-- Facebook Conversion Code for 全体トラッキングタグ-->
+<script>(function () {
+  var _fbq = window._fbq || (window._fbq = []);
+  if (!_fbq.loaded) {
+    var fbds = document.createElement('script');
+    fbds.async = true;
+    fbds.src = '//connect.facebook.net/en_US/fbds.js';
+    var s = document.getElementsByTagName('script')[0];
+    s.parentNode.insertBefore(fbds, s);
+    _fbq.loaded = true;
+  }
+})();
+window._fbq = window._fbq || [];
+window._fbq.push(['track', '6027898747526', {'value': '0.00', 'currency': 'JPY'}]);
+</script>
+<noscript>
+<img height="1"
+     width="1"
+     alt=""
+     style="display:none"
+     src="https://www.facebook.com/tr?ev=6027898747526&amp;cd[value]=0.00&amp;cd[currency]=JPY&amp;noscript=1"/>
+</noscript>
+<script type="text/javascript">
+  (function () {
+    var tagjs = document.createElement("script");
+    var s = document.getElementsByTagName("script")[0];
+    tagjs.async = true;
+    tagjs.src = "//s.yjtag.jp/tag.js#site=iUP6T4r";
+    s.parentNode.insertBefore(tagjs, s);
+  }());
+</script>
+<noscript>
+  <iframe src="//b.yjtag.jp/iframe?c=iUP6T4r" width="1" height="1" frameborder="0" scrolling="no" marginheight="0"
+          marginwidth="0"></iframe>
+</noscript>
+</body>
+</html>

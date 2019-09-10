@@ -1,0 +1,209 @@
+<script language="JavaScript" type="text/JavaScript">
+<!--
+
+  function dispList(service) {
+    document.REP.Service.value=service;
+    document.REP.Cmd.value = '0';
+    if (service == 'feed' || service == 'siten' )  {
+      document.REP.action='use_reportlist.cgi';
+    } else if (service == 'charge' ) {
+      document.REP.action='charge_reportlist.cgi';
+    } else {
+      document.REP.action='royalty_reportlist.cgi';
+    }
+    document.REP.submit();
+  }
+
+  var win_print;
+  function openPrint(service) {
+
+    if (win_print && !win_print.closed) {
+      alert("既に別の印刷画面が開かれています。\n閉じてから再度実行して下さい。");
+      return;
+    }
+
+    var tag = document.REP.target;
+    win_print = window.open("about:blank","rep_print","");
+
+    document.REP.target = "rep_print";
+    document.REP.Cmd.value = "1";
+    document.REP.method = "post";
+    if (service == 'feed' || service == 'siten')  {
+      document.REP.Service.value = service;
+      document.REP.action='use_reportlist.cgi';
+    } else if (service == 'charge') {
+      document.REP.action='charge_reportlist.cgi';
+    } else {
+      document.REP.action='royalty_reportlist.cgi';
+    }
+    document.REP.submit();
+
+    document.REP.target = tag;
+    document.REP.Cmd.value = "0";
+    document.REP.action = "charge_report.cgi";
+
+  }
+
+//-->
+</script>
+
+<form name="REP" method="post" action="charge_report.cgi">
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#009B44">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">各種従量課金サービスご利用料内訳を確認します。</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/charge_report.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                             <td align="left" class="main-table"><table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td>
+
+<div class="infoArea table_bg">
+サービスのご利用状況により請求金額と異なる場合があります。<br>
+正確な請求金額は左メニューの「請求金額と支払状況の確認」からご確認ください。
+</div>
+
+
+                                    <table class="item-box">
+                                      <tr>
+                                        <td class="item-name">表示する月度</td>
+                                        <td class="item02">
+                                          <select name="MonthList" onChange="document.REP.submit();">
+				          <TMPL_LOOP NAME=MONTHLIST>
+                                            <option value="<TMPL_VAR NAME=VAL>" <TMPL_VAR NAME=SEL>><TMPL_VAR NAME=NAME></option>
+                                          </TMPL_LOOP>
+                                          </select>
+                                        </td>
+                                      </tr>
+                                    </table>
+                                    <br>
+
+                                  </td>
+                                </tr>
+                              </table>
+
+                              <table class="list_box" width="100%">
+                                <tr>
+                                  <th class="" colspan="6"><TMPL_VAR NAME=DispMonth></td>
+                                </tr>
+
+<TMPL_IF NAME=RoyaltyDisp>
+                                <tr>
+                                  <td class="capt" width="23%">月額利用料(従量)</td>
+                                  <td class="center" colspan="3" widht="40%">
+                                    <TMPL_IF NAME=Royalty><a href="javascript:dispList('royalty')"></TMPL_IF>
+                                    商品合計総額&nbsp;<TMPL_VAR NAME=SumSubTotal>円
+                                    <TMPL_IF NAME=Royalty></a></TMPL_IF>
+                                    ×<TMPL_VAR NAME=RoyaltyRate>%</td>
+                                  <td class="center" widht="13%"><TMPL_VAR NAME=Royalty>円</td>
+                                  <td class="center" widht="5%">
+                                    <input type="button" name="" id="" value="印刷" onClick="openPrint('royalty');" <TMPL_UNLESS RoyaltyPrint>disabled</TMPL_UNLESS>>
+                                  </td>
+                                </tr>
+
+
+</TMPL_IF>
+
+                                <tr>
+                                  <td class="capt" width="23%">注文処理手数料</td>
+                                  <td class="center" widht="19%">確定注文数&nbsp;<!--確定注文数表示部分--><TMPL_VAR NAME=OrderCount>件</td>
+                                  <td class="center" colspan="2" widht="40%">
+                                    <TMPL_IF NAME=ChargeOrderCnt><a href="javascript:dispList('charge')"></TMPL_IF>
+                                    課金対象件数&nbsp;<TMPL_VAR NAME=ChargeOrderCnt>件
+                                    <TMPL_IF NAME=ChargeOrderCnt></a></TMPL_IF><br>
+                                    ×<TMPL_VAR NAME=OneOrderPriceNotax>円<span style="font-size:95%;">(税込<TMPL_VAR NAME=OneOrderPrice>円)</span></td>
+                                  <td class="center" widht="13%"><!--請求額表示部分--><TMPL_VAR NAME=ChargeOderPriceNotax>円<br><span style="font-size:95%;">(税込<TMPL_VAR NAME=ChargeOderPrice>円)</span></td>
+                                  <td class="center" widht="5%">
+                                    <input type="button" name="" id="" value="印刷" onClick="openPrint('charge');" <TMPL_UNLESS OrderPrint>disabled</TMPL_UNLESS>>
+                                  </td>
+                                </tr>
+
+                                <tr>
+                                  <td class="capt" width="23%">アクセス超過料</td>
+                                  <td class="center" widht="19%">総アクセス量&nbsp;<!--確定注文数表示部分--><TMPL_VAR NAME=TrafficSize>GB</td>
+                                  <td class="center" colspan="2" widht="40%">超過分&nbsp;<!--超過分表示部分--><TMPL_VAR NAME=OverTraffic>GB</td>
+                                  <td class="center" widht="13%"><!--請求額表示部分--><TMPL_VAR NAME=ChargeTrafficPriceNotax>円<br><span style="font-size:95%;">(税込<TMPL_VAR NAME=ChargeTrafficPrice>円)</span></td>
+                                  <td class="center" widht="5%">-</td>
+                                  </td>
+                                </tr>
+
+                                <tr>
+                                  <td class="capt" width="23%">パーク出品サービス手数料</td>
+                                  <td class="center" colspan="2" widht="36%">
+                                    <TMPL_IF NAME=FeedCount><a href="javascript:dispList('feed')"></TMPL_IF>
+                                    対象受注数&nbsp;<TMPL_VAR NAME=FeedCount>件
+                                    <TMPL_IF NAME=FeedCount></a></TMPL_IF>
+                                  </td>
+                                  <td class="center" colspan="2" widht="36%"><!--請求額表示部分--><TMPL_VAR NAME=FeedCom>円</td>
+                                  <td class="center" widht="5%">
+                                    <input type="button" name="" id="" value="印刷" onClick="openPrint('feed');" <TMPL_UNLESS FeedPrint>disabled</TMPL_UNLESS>>
+                                  </td>
+                                </tr>
+
+                                <tr>
+                                  <td class="capt" width="23%">支店利用料</td>
+                                  <td class="center" colspan="2" widht="36%">
+                                    <TMPL_IF NAME=SitenCount><a href="javascript:dispList('siten')"></TMPL_IF>
+                                    対象受注数&nbsp;<TMPL_VAR NAME=SitenCount>件
+                                    <TMPL_IF NAME=SitenCount></a></TMPL_IF>
+                                  </td>
+                                  <td class="center" colspan="2" widht="36%"><!--請求額表示部分--><TMPL_VAR NAME=SitenCom>円</td>
+                                  <td class="center" widht="5%">
+                                    <input type="button" name="" id="" value="印刷" onClick="openPrint('siten');" <TMPL_UNLESS SitenPrint>disabled</TMPL_UNLESS>>
+                                  </td>
+                                </tr>
+
+                              </table>
+
+
+                              <div class="midashi_box">【対象期間】</div>
+                              <table class="list_box" width="100%">
+<TMPL_IF NAME=RoyaltyDisp>
+                                <tr>
+                                  <td class="capt" widht="23%">月額利用料(従量)</td>
+                                  <td widht="76%"><TMPL_VAR NAME=Start>〜<TMPL_VAR NAME=End>の確定受注</td>
+                                </tr>
+</TMPL_IF>
+                                <tr>
+                                  <td class="capt" widht="23%">注文処理手数料</td>
+                                  <td widht="76%"><TMPL_VAR NAME=Start>〜<TMPL_VAR NAME=End>の確定受注</td>
+                                </tr>
+                                <tr>
+                                  <td class="capt" widht="23%">アクセス超過料金</td>
+                                  <td widht="76%"><TMPL_VAR NAME=Start>〜<TMPL_VAR NAME=End>のアクセス量</td>
+                                </tr>
+                                <tr>
+                                  <td class="capt" widht="23%">パーク出品サービス手数料</td>
+                                  <td widht="76%"><TMPL_VAR NAME=Start>〜<TMPL_VAR NAME=End>の確定受注</td>
+                                </tr>
+                                <tr>
+                                  <td class="capt" widht="23%">支店利用料</td>
+                                  <td widht="76%"><TMPL_VAR NAME=Start>〜<TMPL_VAR NAME=End>の確定受注</td>
+                                </tr>
+                              </table>
+                                      <TMPL_IF TestOrderFlg>※注文処理手数料は受注<TMPL_VAR NAME=NotrCountOrder>件まで無料とさせていただきます。
+                                      <br></TMPL_IF>
+                                      ※アクセス量は月間<TMPL_VAR NAME=TrafficLimitMega>GBを超えた場合、<TMPL_VAR NAME=OverTrafficUnit>GBごとに<TMPL_VAR NAME=OverTrafficPriceNotax>円+税<br>
+                                      　月間<TMPL_VAR NAME=TrafficLimitMega2>GBを超過する場合、<TMPL_VAR NAME=OverTrafficUnit>GBごとに<TMPL_VAR NAME=OverTrafficPriceNotax2>円+税 をご請求いたします。
+                                      <br>
+                              </td>
+                            </tr>
+                        </table>
+                                <br>
+                                <input type="hidden" name="TargetMonth" value="<TMPL_VAR NAME=TargetMonth>">
+                                <input type="hidden" name="Start" value="<TMPL_VAR NAME=Start>">
+                                <input type="hidden" name="End"   value="<TMPL_VAR NAME=End>">
+                                <input type="hidden" name="Cmd" value="0">
+                                <input type="hidden" name="Service" value="">
+                                <input type="hidden" name="BillMonth" value="<TMPL_VAR NAME=BillMonth>">
+                                <input type="hidden" name="RoyaltyRate" value="<TMPL_VAR NAME=RoyaltyRate>">
+                              </form>
+

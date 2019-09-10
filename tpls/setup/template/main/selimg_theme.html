@@ -1,0 +1,353 @@
+<style type="text/css">
+<!--
+body {
+        font-size:0.8em;
+        width:680px;
+        margin:1em auto;
+        text-align:left;
+}
+-->
+</style>
+<script language="JavaScript">
+<!--
+urllist = [
+  <TMPL_LOOP NAME=URLLIST>[ <TMPL_VAR NAME=URLINFO> ],
+  </TMPL_LOOP>
+];
+function preview(f,n)
+{
+  var info = urllist[n][f.SIZE.selectedIndex];
+  var SPinfo = info.split(",");
+  var width  = eval(SPinfo[1]) + 6;
+  var height = eval(SPinfo[2]) + 50;
+
+  var w = window.open('', 'popup', 'toolbar=no,location=no,resizable=yes,directories=no,status=no,menubar=no,width=' + width +  ',height='
++ height);
+  w.document.open();
+  w.document.writeln('<html><head>',
+  '<title>画像</title>',
+  '<meta http-equiv="Content-Type" content="text/html; charset=euc-jp">',
+  '</head><body bgcolor="#eeeeee" style="margin: 3px;">',
+  '<div align="center">',
+  '<img name="img" hspace="0" vspace="0" border="0" ',
+  'src="'+SPinfo[0]+'" width="'+SPinfo[1]+'" height="'+SPinfo[2]+'">',
+  '</div>',
+  '<div align="center" style="margin-top: 10px;">',
+  '<button style="line-height: 1.3em;" onclick="javascript:window.close()">閉じる</button>',
+  '</div></body></html>'
+ );
+ w.document.close();
+ w.window.focus();
+}
+function instImg(f)
+{
+  var of = window.opener.document.forms[0];
+  var flg = new Boolean(of.dimg);
+
+  if (flg == true) {
+<TMPL_LOOP NAME=IMGES>
+    if (of.dimg.value == <TMPL_VAR NAME=ID>) {
+      if (of.name == 'SHOPMSG') {
+        window.opener.document.getElementById('PICSRC_<TMPL_VAR NAME=ID>').src         = f.PICSRC.value;
+        window.opener.document.getElementById('PICSRC_<TMPL_VAR NAME=ID>').width       = 80;
+        window.opener.document.getElementById('PICSRC_<TMPL_VAR NAME=ID>').removeAttribute('height');
+        window.opener.document.getElementById('noteIMG' + of.dimg.value).style.display = 'none';
+        window.opener.focus();
+      } else {
+        of.PICSRC_<TMPL_VAR NAME=ID>.src = f.PICSRC.value;
+        of.PICSRC_<TMPL_VAR NAME=ID>.width = 80;
+      }
+      
+      of.ImageURL_<TMPL_VAR NAME=ID>.value = f.SIZE[f.SIZE.selectedIndex].value;
+      of.ImageID_<TMPL_VAR NAME=ID>.value = f.ID.value;
+    }
+</TMPL_LOOP>
+    window.self.close();
+    return;
+  }
+
+  of.PICSRC.src = f.PICSRC.value;
+  of.PICSRC.width = 80;
+  of.ImageURL.value = f.SIZE[f.SIZE.selectedIndex].value;
+  of.ImageID.value = f.ID.value;
+
+  // alert(f.SIZE[f.SIZE.selectedIndex].value);
+  window.self.close();
+}
+function seek(f) {
+  checkValueSeek();
+  document.IMAGELIST.FILENAME.value = f.FILENAME.value;
+  document.IMAGELIST.ALTNAME.value = f.ALTNAME.value;
+  document.IMAGELIST.PAGE.value = 1;
+  var tmp = f.CATEGORY.options[f.CATEGORY.selectedIndex].value;
+  document.IMAGELIST.Category_Id.value = tmp;
+  document.IMAGELIST.CMD.value = 'SEEK';
+  document.IMAGELIST.submit();
+}
+function imageadd(f) {
+  var tmp = f.READY_CATEGORY.options[f.READY_CATEGORY.selectedIndex].value;
+  if (tmp != '') f.Category_Id.value = tmp;
+  f.submit();
+}
+
+<TMPL_IF ADDIMG>
+function instAddImg()
+{
+  var of = window.opener.document.forms[0];
+
+  var flg = new Boolean(of.dimg);
+  if (flg == true) {
+<TMPL_LOOP NAME=IMGES>
+    if (of.dimg.value == <TMPL_VAR NAME=ID>) {
+      if (of.name == 'SHOPMSG') {
+        window.opener.document.getElementById('PICSRC_<TMPL_VAR NAME=ID>').src         = '<TMPL_VAR NAME=ADDPICSRC_USER>' + '?' + new Date().getTime();
+        window.opener.document.getElementById('PICSRC_<TMPL_VAR NAME=ID>').width       = 80;
+        window.opener.document.getElementById('PICSRC_<TMPL_VAR NAME=ID>').removeAttribute('height');
+        window.opener.document.getElementById('noteIMG' + of.dimg.value).style.display = 'none';
+        window.opener.focus();
+      } else {
+        of.PICSRC_<TMPL_VAR NAME=ID>.src = '<TMPL_VAR NAME=ADDPICSRC_USER>' + '?' + new Date().getTime();
+      }
+      of.ImageURL_<TMPL_VAR NAME=ID>.value = '<TMPL_VAR NAME=ADDPICSRC>';
+      of.ImageID_<TMPL_VAR NAME=ID>.value = '<TMPL_VAR NAME=ADDID>';
+      window.self.close();
+    }
+</TMPL_LOOP>
+    return;
+  }
+
+  of.PICSRC.src = '<TMPL_VAR NAME=ADDPICSRC_USER>';
+  of.PICSRC.width = 80;
+  of.ImageURL.value = '<TMPL_VAR NAME=ADDPICSRC>';
+  of.ImageID.value = '<TMPL_VAR NAME=ADDID>';
+  window.self.close();
+
+  // alert('<TMPL_VAR NAME=ADDPICSRC>');
+}
+</TMPL_IF>
+window.resizeTo(800, 700);
+//-->
+function clearPlaceHolder (e) {
+    if ( e.value == 'ファイル名を入力' ) {
+        e.value       = "";
+        e.style.color = '#000';
+    }
+}
+function setPlaceHolder (e) {
+    if ( !e.value ) {
+        e.value       = 'ファイル名を入力' ;
+        e.style.color = '#999';
+    }
+}
+function disable_all() {
+  document.getElementById("SRCH_BT").disabled = true;
+  document.getElementById("UPLOAD_BT").disabled = true;
+}
+function clearPlaceHolderAltName (e) {
+    if ( e.value == '代替テキストを入力' ) {
+        e.value       = "";
+        e.style.color = '#000';
+    }
+}
+function setPlaceHolderAltName (e) {
+    if ( !e.value ) {
+        e.value       = '代替テキストを入力' ;
+        e.style.color = '#999';
+    }
+}
+function checkValueSeek(){
+  if ( document.SEEK.FILENAME.value == 'ファイル名を入力' ) {
+     document.SEEK.FILENAME.value = '';
+     document.SEEK.FILENAME.style.color = '#000';
+  }
+  if ( document.SEEK.ALTNAME.value == '代替テキストを入力' ){
+     document.SEEK.ALTNAME.value = '';
+     document.SEEK.ALTNAME.style.color = '#000';
+  }
+}
+function checkSeek() {
+      if ( document.SEEK.FILENAME.value == '' ) {
+          document.SEEK.FILENAME.value = 'ファイル名を入力';
+      } else {
+          document.SEEK.FILENAME.style.color = '#000';
+      }
+      if ( document.SEEK.ALTNAME.value == '' ){
+          document.SEEK.ALTNAME.value = '代替テキストを入力' ;
+      } else {
+          document.SEEK.ALTNAME.style.color = '#000';
+      }
+}
+window.onload=checkSeek;
+</script>
+<TMPL_IF ADDIMG>
+<img src="../imgs/spc.gif" onLoad="instAddImg();">
+</TMPL_IF>
+
+<link href="../func00/default00.css" rel="stylesheet" type="text/css">
+<link href="../css/imagelist.css" rel="stylesheet" type="text/css">
+
+<form name="IMAGELIST" method="POST" action="seltheme.cgi">
+<input type="hidden" name="CMD" value="SEEK">
+<input type="hidden" name="PAGE" value="1">
+<input type="hidden" name="FILENAME" value="<TMPL_VAR NAME=FILENAME>">
+<input type="hidden" name="ALTNAME" value="<TMPL_VAR NAME=ALTNAME>">
+<input type="hidden" name="CATEGORY">
+<INPUT type="hidden" name="Category_Id" value="<TMPL_VAR NAME=CATEGORY_ID>">
+</form>
+<div id="imgList">
+  <div class="title">|| 画像挿入</div>
+  <div class="infoArea lBlue" style="margin:0 0 1.5em">
+    ファイル名や代替テキストの入力方法、エラー対策など、画像の追加方法につきましては「画像挿入について」をご覧ください。
+    <a href="https://help.shopserve.jp/manual/058/" target="_blank">⇒ 画像挿入について</a>
+  </div>
+  <TMPL_LOOP NAME=ERR_MSG>
+  <font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+  </TMPL_LOOP>
+  <table class="imgBox" style="margin:0 0 2em">
+  <form name="IMAGEADD" method="POST" action="seltheme.cgi" enctype="multipart/form-data">
+  <input type="hidden" name="Category_Id">
+  <input type="hidden" name="CMD" value="ADD">
+  <input type="hidden" name="SELTHEME" value="1">
+  <tr>
+    <th colspan="2" class="dBlue">新規画像を挿入</th>
+  </tr>
+  <tr>
+    <td width="20%" class="mBlue">画像ファイル</td>
+    <td width="80%">
+      <input name="UPFILE" type="file" size="90" class="file"><br>
+      登録可能なファイル（<span class="fRed">2MB以内</span>） ： jpeg / jpg / gif / png
+    </td>
+  </tr>
+  <tr>
+    <td class="mBlue">ファイル名</td>
+    <td>
+      <input name="ImageName" type="text" value="<TMPL_VAR NAME=IMAGENAME>" style="ime-mode:disabled"><br>
+      ※画像ファイル名が日本語の場合は、拡張子も含め<span class="fRed">半角英数</span>で入力してください。<br>
+      例）ショップタイトル.gif ⇒ <span class="fRed">shop_title.gif</span>
+    </td>
+  </tr>
+  <tr>
+    <td class="mBlue">代替テキスト</td>
+    <td>
+      <input name="ImageAlt" type="text" class="alt" value="<TMPL_VAR NAME=IMAGEALT>">
+    </td>
+  </tr>
+  <tr>
+    <td class="mBlue">サイズ指定</td>
+    <td>
+      <input type="radio" name="Size" value="O" <TMPL_IF SIZEO>checked</TMPL_IF>>オリジナル
+      <input type="radio" name="Size" value="LL" <TMPL_IF SIZELL>checked</TMPL_IF>>特大(640px)
+      <input type="radio" name="Size" value="L" <TMPL_IF SIZEL>checked</TMPL_IF>>大(250px)
+      <input type="radio" name="Size" value="M" <TMPL_IF SIZEM>checked</TMPL_IF>>中(180px)
+      <input type="radio" name="Size" value="S" <TMPL_IF SIZES>checked</TMPL_IF>>小(120px)
+    </td>
+  </tr>
+  <tr>
+    <td class="mBlue">画像カテゴリ</td>
+    <td>
+      <select name="READY_CATEGORY">
+      <option value="">既存カテゴリから選択</option>
+      <TMPL_LOOP NAME=CateList>
+      <option value="<TMPL_VAR NAME=ID>" <TMPL_IF NAME=ADD_SELECT>selected</TMPL_IF>><TMPL_VAR NAME=CATEGORY></option>
+      </TMPL_LOOP>
+      </select><br>
+      新規作成
+      <input name="Category" type="text" value="<TMPL_VAR NAME=CATEGORY>" <TMPL_IF NAME=CATMAX>disabled</TMPL_IF>>
+      <TMPL_IF NAME=CATMAX>
+      <br><font color="#FF0000">※画像カテゴリが最大数（<TMPL_VAR NAME=MAXCATEGORY>個）まで登録されています。</font>
+      </TMPL_IF>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="2" class="center">
+      <input type="button" id="UPLOAD_BT" name="ADD" value="挿入する" onClick='imageadd(document.IMAGEADD);'>
+    </td>
+  </tr>
+  </form>
+  </table>
+
+  <div class="infoArea lBlue" style="margin:0 0 1em">
+    以下の画像台帳から挿入する場合は、任意のサイズを選択して［挿入する］ボタンをクリックしてください。<br>
+   ［プレビュー］ボタンをクリックすることにより、全サイズの画像が確認できます。
+  </div>
+    <style type="text/css">
+    <!--
+    /********** 以下を default01.css の「共通」の上に追加 **********/
+    /************************************************/
+    /*画像台帳*/
+    /************************************************/
+    /* 画像検索用 */
+    #imgSearchBox {margin:2em 0 1em;padding:5px;border:1px solid #999;background:#eee;}
+    #imgSearchBox span {padding:0 5px;}
+    #imgSearchBox input[type=text] {color:#999;width:10em;}
+    //-->
+    </style>
+    <form name="SEEK" method="POST" action="seltheme.cgi" >
+    <div id="imgSearchBox">
+        <span>画像検索</span>
+        <input name="FILENAME" id="FILENAME" style="width:160px;" type="text"  value="<TMPL_VAR NAME=FILENAME>" style="ime-mode:disabled" onfocus="clearPlaceHolder(this);" onblur="setPlaceHolder(this);">
+        <input name="ALTNAME"  id="ALTNAME" style="width:160px;" type="text"  value="<TMPL_VAR NAME=ALTNAME>" onfocus="clearPlaceHolderAltName(this);" onblur="setPlaceHolderAltName(this);">
+          <select name="CATEGORY">
+          <option value="">既存カテゴリから選択</option>
+          <TMPL_LOOP NAME=CateList>
+          <option value="<TMPL_VAR NAME=ID>" <TMPL_IF NAME=SRCH_SELECT>selected</TMPL_IF>><TMPL_VAR NAME=CATEGORY></option>
+          </TMPL_LOOP>
+          </select>
+          <input type="button" id="SRCH_BT" name="Submit" value="検索する" onClick="document.IMAGELIST.CMD.value='SEEK';document.IMAGELIST.action='seltheme.cgi';disable_all();seek(document.SEEK)">
+        
+    </div>
+    <input type="hidden" name="CMD" value="SEEK">
+    <input type="hidden" name="PAGE" value="<TMPL_VAR NAME=PAGE>">
+    <br/>
+  <div class="page">
+  <TMPL_IF TOTAL>
+  <TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+  </TMPL_IF>
+  </div>
+  </form>
+  <table class="imgBox">
+  <tr>
+    <th colspan="3" class="dBlue">画像台帳から挿入</th>
+  </tr>
+  <tr>
+    <td class="center mBlue" style="width:15%">画像</td>
+    <td class="center mBlue" style="width:45%">ファイル名 [登録日]/挿入する</td>
+    <td class="center mBlue" style="width:40%">代替テキスト/画像カテゴリ</td>
+  </tr>
+  <TMPL_LOOP NAME=ORIGINALS>
+  <form name="IMG<TMPL_VAR NAME=ID>">
+  <tr>
+    <td class="center">
+      <input type="hidden" name="ID" value="<TMPL_VAR NAME=ID>">
+      <input type="hidden" name="PICSRC" value="<TMPL_VAR NAME=USERWEB>/docs/pic-labo/timg/<TMPL_VAR NAME=FILENAME>">
+      <a href="../func01/img_preview.cgi?ID=<TMPL_VAR NAME=ID>" target="popup">
+        <image id="PIC" src="<TMPL_VAR NAME=USERWEB>/docs/pic-labo/timg/<TMPL_VAR NAME=FILENAME>" alt="<TMPL_VAR NAME=ALT>" width="<TMPL_VAR NAME=TWIDTH>" height="<TMPL_VAR NAME=THEIGHT>" border="0" />
+      </a>
+      <input class="prev" onClick="window.open('../func01/img_preview.cgi?ID=<TMPL_VAR NAME=ID>','popup','')" type="button" value="プレビュー" name="PREV">
+    </td>
+    <td>
+      <TMPL_VAR NAME=FILENAME><span class="date">[<TMPL_VAR NAME=SETDATE>]</span><br>
+      <select name="SIZE">
+      <TMPL_LOOP SZLIST>
+      <option value="<TMPL_VAR NAME=URL>"><TMPL_VAR NAME=SZNAME>(<TMPL_VAR NAME=WIDTH>×<TMPL_VAR NAME=HEIGHT>)</option>
+      </TMPL_LOOP>
+      </select>
+      <input type="button" name="INST" value="挿入" onClick='instImg(document.IMG<TMPL_VAR NAME=ID>);'>
+    </td>
+    <td>
+      <div class="txtCat" style="margin-bottom:0.2em"><TMPL_VAR NAME=ALT>&nbsp;</div>
+      <div class="txtCat"><TMPL_VAR NAME=CATEGORY>&nbsp;</div>
+    </td>
+  </tr>
+  </form>
+  </TMPL_LOOP>
+  </table>
+  <div class="page" style="margin:0 0 2em">
+    <TMPL_IF TOTAL>
+    <TMPL_VAR NAME=LISTSTART> - <TMPL_VAR NAME=LISTEND>&nbsp; （ 全 <TMPL_VAR NAME=TOTAL>件 ）&nbsp;<TMPL_LOOP NAME=PAGE_LIST><TMPL_VAR NAME=LINK></TMPL_LOOP>
+    </TMPL_IF>
+  </div>
+  <div class="center" style="border-top:1px solid #999;margin:3em 0 0;padding:2em 0 2em">
+    <input type="button" name="Submit" value="閉じる" onClick="window.close()">
+  </div>
+</div>

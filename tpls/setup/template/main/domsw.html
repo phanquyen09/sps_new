@@ -1,0 +1,95 @@
+<script language="JavaScript">
+<!--
+function changeF(f) {
+    if ( f.DomainSW.checked == true ) { 
+	f.WwwSW1.checked  = true;
+	f.WwwSW1.disabled = false;
+	f.WwwSW2.disabled = false;
+    } else {
+	f.WwwSW1.checked  = false;
+	f.WwwSW2.checked  = false;
+	f.WwwSW1.disabled = true;
+	f.WwwSW2.disabled = true;
+    }
+}
+//-->
+</script>
+<table width="100%"  border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<form name="STATUS" method="POST" action="domsw.cgi">
+<input type="hidden" name="CMD" value="EDT">
+                          <tr>
+                            <td width="12"><table width="50%" align="right"  border="0" cellspacing="0" cellpadding="0" height="20" bgcolor="#0093C9">
+                                <tr>
+                                  <td><img src="../imgs/spc.gif"></td>
+                                </tr>
+                            </table></td>
+<td align="left" class="midashi">URLの設定を行います</td>
+<td align="right" class="midashi"><a href="https://help.shopserve.jp/help/domsw.php" target="manual"><img src="../imgs/help_link.gif" alt="この機能のヘルプをみる" align="center" height="22" width="153" border="0"></a></td>
+                          </tr>
+                        </table>
+                          <img src="../imgs/spc.gif" width="5" height="5">
+                          <table width="100%"  border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                              <td align="left" class="main-table">
+                                <div class="infoArea table_bg">
+                                  独自ドメインを取得した後、「http://ショップID.shopserve.jp/」のアドレスにアクセスされた場合に、<br>独自ドメインのURLへ転送するための設定をします。<br>
+                                </div>
+<TMPL_LOOP NAME=ERR_MSG>
+<font color="red">&nbsp;・<TMPL_VAR NAME=MSG></font><br>
+</TMPL_LOOP>
+<table width="100%"  border="0" cellspacing="0" cellpadding="0">
+                                <tr>
+                                  <td><table width="100%"  border="0" cellpadding="0" cellspacing="2" class="item-box">
+                                    <tr align="center">
+                                      <td colspan="2" class="item-name02">独自ドメイン利用時のURL設定</td>
+                                    </tr>
+                                    <tr>
+                                      <td class="item-name">URLの設定</td>
+                                      <td class="item"><table border="0" cellspacing="0" cellpadding="0">
+                                          <tr>
+                                            <td>
+<input type="checkbox" name="DomainSW" id="DomainSW" value="Y" <TMPL_IF NAME=DOMAINSWY>checked</TMPL_IF> onClick="changeF(document.STATUS);"><label for="DomainSW">ショップIDでアクセスされた場合に、独自ドメインに転送する</label><br>
+<TMPL_IF NAME=DOMAINSWY>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="WwwSW" id="WwwSW1" value="Y" <TMPL_IF NAME=WWWSWY>checked</TMPL_IF>><label for="WwwSW1">wwwあり</label><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="WwwSW" id="WwwSW2" value="N" <TMPL_IF NAME=WWWSWN>checked</TMPL_IF>><label for="WwwSW2">wwwなし</label>
+<TMPL_ELSE>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="WwwSW" id="WwwSW1" value="Y" disabled><label for="WwwSW1">wwwあり</label><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio" name="WwwSW" id="WwwSW2" value="N" disabled><label for="WwwSW2">wwwなし</label>
+</TMPL_IF>
+					    </td>
+                                          </tr>
+					</td>
+					</table></td>
+                                    </tr>
+                                  </table><br></td>
+                                </tr>
+<!--
+                            <tr>
+                              <td align="center" style="padding:10px 10px 10px 10px "><input name="set" type="button" id="set" value="設定を保存する" onClick="document.STATUS.submit();">
+                              </td>
+                            </tr>
+<tr><td>
+例）　「独自ドメインに転送する」を選択しない場合<br>
+<br>
+以下のようにURL欄に入力されたとおりに表示されます。<br>
+http://ショップID.shopserve.jp/<br>
+http://www.ショップID.shopserve.jp/<br>
+http://独自ドメイン/<br>
+http://www.独自ドメイン/<br>
+<br>
+例）　「独自ドメインに転送する」を選択した場合<br>
+<br>
+・wwwあり<br>
+上記のどのURLでアクセスされた場合でも、http://www.独自ドメイン/に転送します。<br>
+・wwwなし<br>
+上記のどのURLでアクセスされた場合でも、http://独自ドメイン/に転送します。<br>
+</td></tr>
+-->
+                              </table>
+                              <div style="text-align:center"><input name="set" type="button" id="set" value="設定を保存する" onClick="document.STATUS.submit();"></div>
+                              </td>
+                            </tr>
+                        </table>
+</td>
+                    </tr>
+</form>

@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+"http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=EUC-JP">
+<title>クレジットカード決済依頼キャンセルフォーム</title>
+<link rel="icon" type="image/png" href="../imgs/icon/sps_fav_32.png"/>
+<link href="odrinfo_cancel.css" rel="stylesheet" type="text/css">
+<script type="text/javascript">
+<!--//
+if(opener.closed==false && window.opener.document.getElementById('StatusMode')!=null
+   && window.opener.document.getElementById('ORDERID').value=="<TMPL_VAR NAME=order_id>"){
+  // ボタンを非表示にする
+  window.opener.document.getElementById("KessBtn").style.display = 'none';
+  // ステータスの変更
+  window.opener.document.getElementById("StatusMode").innerHTML = '<TMPL_VAR NAME=mail_day> キャンセル依頼中';
+}
+//-->
+</script>
+</head>
+<body>
+<div id="container">
+<h1>クレジットカード決済依頼キャンセルフォーム</h1>
+<p><b class="red">クレジットカード決済依頼のキャンセル依頼を承りました。</b></p>
+<p>ご入力いただきました「依頼者のメールアドレス」宛に受付完了メールを送信いたしましたのでご確認ください。</p>
+
+<div id="btn">
+  <form action="" method="post">
+    <input type="button" value="閉じる" onClick="window.close();">
+  </form>
+</div>
+
+</div>
+</body>
+</html>
+
